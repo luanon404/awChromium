@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black_alpha_54">#8a000000</color>
+    <color name="black_alpha_87">#de000000</color>
+    <color name="google_blue_500">#ff4285f4</color>
+    <color name="insecure_context_payment_disabled_message_text">#ff646464</color>
+
+    <!-- TODO(crbug.com/775198): update colors once UX spec available. -->
+    <color name="color_picker_border_color">@color/hairline_stroke_color</color>
+    <color name="color_picker_background_color">@color/default_bg_color</color>
+</resources>
