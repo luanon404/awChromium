@@ -15,9 +15,7 @@ package org.chromium.base.annotations
  * exceptions in C++, prefer using [CalledByNative].
  */
 @Target(
-    AnnotationTarget.FUNCTION,
-    AnnotationTarget.PROPERTY_GETTER,
-    AnnotationTarget.PROPERTY_SETTER
+    AnnotationTarget.FUNCTION, AnnotationTarget.PROPERTY_GETTER, AnnotationTarget.PROPERTY_SETTER
 )
 @Retention(
     AnnotationRetention.BINARY

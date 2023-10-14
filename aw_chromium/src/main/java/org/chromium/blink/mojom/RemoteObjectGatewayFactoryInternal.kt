@@ -27,7 +27,7 @@ import org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConst
 import org.chromium.mojo.system.Core
 import java.nio.ByteBuffer
 
-internal object RemoteObjectGatewayFactory_Internal {
+internal object RemoteObjectGatewayFactoryInternal {
     val MANAGER: Manager<RemoteObjectGatewayFactory?, RemoteObjectGatewayFactory.Proxy?> =
         object : Manager<RemoteObjectGatewayFactory?, RemoteObjectGatewayFactory.Proxy?>() {
             override fun getName(): String {

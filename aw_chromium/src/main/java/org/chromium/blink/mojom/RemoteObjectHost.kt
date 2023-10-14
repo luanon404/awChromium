@@ -28,6 +28,6 @@ interface RemoteObjectHost : Interface {
     )
 
     companion object {
-        val MANAGER = RemoteObjectHost_Internal.MANAGER
+        val MANAGER = RemoteObjectHostInternal.MANAGER
     }
 }

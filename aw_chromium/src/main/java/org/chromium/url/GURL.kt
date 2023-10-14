@@ -30,7 +30,7 @@ import java.util.Random
  */
 @JNINamespace("url")
 @MainDex
-open class GURL {
+class GURL {
     fun interface ReportDebugThrowableCallback {
         fun run(throwable: Throwable?)
     }
@@ -72,7 +72,7 @@ open class GURL {
     }
 
     @CalledByNative
-    protected constructor()
+    private constructor()
 
     @CalledByNative
     private fun init(spec: String?, isValid: Boolean, parsed: Parsed) {
@@ -80,12 +80,6 @@ open class GURL {
         assert(possiblyInvalidSpec!!.matches("\\A\\p{ASCII}*\\z".toRegex()))
         this.isValid = isValid
         mParsed = parsed
-    }
-
-    @CalledByNative
-    private fun toNativeGURL(): Long {
-        return GURLJni.get()!!
-            .createNative(possiblyInvalidSpec, isValid, mParsed!!.toNativeParsed())
     }
 
     val spec: String?
@@ -97,11 +91,6 @@ open class GURL {
             assert(false) { "Trying to get the spec of an invalid URL!" }
             return ""
         }
-    val validSpecOrEmpty: String?
-        /**
-         * @return Either a valid Spec (see [.getSpec]), or an empty string.
-         */
-        get() = if (isValid) possiblyInvalidSpec else ""
 
     private fun getComponent(begin: Int, length: Int): String {
         return if (length <= 0) "" else possiblyInvalidSpec!!.substring(begin, begin + length)
@@ -154,7 +143,7 @@ open class GURL {
          * @return Whether the GURL is the empty String.
          */
         get() = possiblyInvalidSpec!!.isEmpty()
-    open val origin: GURL
+    val origin: GURL
         /**
          * See native GURL::GetOrigin().
          */
@@ -164,17 +153,8 @@ open class GURL {
             return target
         }
 
-    protected fun getOriginInternal(target: GURL?) {
-        GURLJni.get()!!
-            .getOrigin(possiblyInvalidSpec, isValid, mParsed!!.toNativeParsed(), target)
-    }
-
-    /**
-     * See native GURL::DomainIs().
-     */
-    fun domainIs(domain: String?): Boolean {
-        return GURLJni.get()!!
-            .domainIs(possiblyInvalidSpec, isValid, mParsed!!.toNativeParsed(), domain)
+    private fun getOriginInternal(target: GURL?) {
+        GURLJni.get()!!.getOrigin(possiblyInvalidSpec, isValid, mParsed!!.toNativeParsed(), target)
     }
 
     override fun hashCode(): Int {
@@ -195,10 +175,8 @@ open class GURL {
      * @return A serialzed GURL.
      */
     fun serialize(): String {
-        val serialization = SERIALIZER_VERSION.toString() + SERIALIZER_DELIMITER +
-                isValid + SERIALIZER_DELIMITER +
-                mParsed!!.serialize() + SERIALIZER_DELIMITER +
-                possiblyInvalidSpec
+        val serialization =
+            SERIALIZER_VERSION.toString() + SERIALIZER_DELIMITER + isValid + SERIALIZER_DELIMITER + mParsed!!.serialize() + SERIALIZER_DELIMITER + possiblyInvalidSpec
         return serialization.length.toString() + SERIALIZER_DELIMITER + serialization
     }
 
@@ -237,17 +215,11 @@ open class GURL {
         // Right now this is only collecting reports on Canary which has a relatively small population.
         private const val DEBUG_REPORT_PERCENTAGE = 10
         private var sReportCallback: ReportDebugThrowableCallback? = null
+
         @JvmStatic
         @CalledByNative
         fun emptyGURL(): GURL {
             return Holder.sEmptyGURL
-        }
-
-        /**
-         * Enables debug stack trace gathering for GURL.
-         */
-        fun setReportDebugThrowableCallback(callback: ReportDebugThrowableCallback?) {
-            sReportCallback = callback
         }
 
         /**
@@ -298,8 +270,7 @@ open class GURL {
             return try {
                 if (TextUtils.isEmpty(gurl)) return emptyGURL()
                 val tokens = gurl!!.split(SERIALIZER_DELIMITER.toString().toRegex())
-                    .dropLastWhile { it.isEmpty() }
-                    .toTypedArray()
+                    .dropLastWhile { it.isEmpty() }.toTypedArray()
 
                 // First token MUST always be the length of the serialized data.
                 val length = tokens[0]

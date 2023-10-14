@@ -39,7 +39,7 @@ import org.chromium.network.mojom.UrlLoader
 import org.chromium.network.mojom.UrlLoaderClient
 import java.nio.ByteBuffer
 
-internal object Blob_Internal {
+internal object BlobInternal {
     val MANAGER: Manager<Blob?, Blob.Proxy?> = object : Manager<Blob?, Blob.Proxy?>() {
         override fun getName(): String {
             return "blink.mojom.Blob"
@@ -50,8 +50,7 @@ internal object Blob_Internal {
         }
 
         public override fun buildProxy(
-            core: Core,
-            messageReceiver: MessageReceiverWithResponder
+            core: Core, messageReceiver: MessageReceiverWithResponder
         ): Proxy {
             return Proxy(core, messageReceiver)
         }
@@ -74,8 +73,7 @@ internal object Blob_Internal {
     private const val GET_INTERNAL_UUID_ORDINAL = 7
 
     internal class Proxy(
-        core: Core?,
-        messageReceiver: MessageReceiverWithResponder?
+        core: Core?, messageReceiver: MessageReceiverWithResponder?
     ) : AbstractProxy(core, messageReceiver), Blob.Proxy {
         override fun clone(
             blob: InterfaceRequest<Blob>?
@@ -84,8 +82,7 @@ internal object Blob_Internal {
             _message.blob = blob
             proxyHandler.messageReceiver.accept(
                 _message.serializeWithHeader(
-                    proxyHandler.core,
-                    MessageHeader(CLONE_ORDINAL)
+                    proxyHandler.core, MessageHeader(CLONE_ORDINAL)
                 )
             )
         }
@@ -97,8 +94,7 @@ internal object Blob_Internal {
             _message.dataPipeGetter = dataPipeGetter
             proxyHandler.messageReceiver.accept(
                 _message.serializeWithHeader(
-                    proxyHandler.core,
-                    MessageHeader(AS_DATA_PIPE_GETTER_ORDINAL)
+                    proxyHandler.core, MessageHeader(AS_DATA_PIPE_GETTER_ORDINAL)
                 )
             )
         }
@@ -111,8 +107,7 @@ internal object Blob_Internal {
             _message.client = client
             proxyHandler.messageReceiver.accept(
                 _message.serializeWithHeader(
-                    proxyHandler.core,
-                    MessageHeader(READ_ALL_ORDINAL)
+                    proxyHandler.core, MessageHeader(READ_ALL_ORDINAL)
                 )
             )
         }
@@ -127,8 +122,7 @@ internal object Blob_Internal {
             _message.client = client
             proxyHandler.messageReceiver.accept(
                 _message.serializeWithHeader(
-                    proxyHandler.core,
-                    MessageHeader(READ_RANGE_ORDINAL)
+                    proxyHandler.core, MessageHeader(READ_RANGE_ORDINAL)
                 )
             )
         }
@@ -146,8 +140,7 @@ internal object Blob_Internal {
             _message.client = client
             proxyHandler.messageReceiver.accept(
                 _message.serializeWithHeader(
-                    proxyHandler.core,
-                    MessageHeader(LOAD_ORDINAL)
+                    proxyHandler.core, MessageHeader(LOAD_ORDINAL)
                 )
             )
         }
@@ -158,14 +151,10 @@ internal object Blob_Internal {
             val _message = BlobReadSideDataParams()
             proxyHandler.messageReceiver.acceptWithResponder(
                 _message.serializeWithHeader(
-                    proxyHandler.core,
-                    MessageHeader(
-                        READ_SIDE_DATA_ORDINAL,
-                        MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
-                        0
+                    proxyHandler.core, MessageHeader(
+                        READ_SIDE_DATA_ORDINAL, MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0
                     )
-                ),
-                BlobReadSideDataResponseParamsForwardToCallback(callback)
+                ), BlobReadSideDataResponseParamsForwardToCallback(callback)
             )
         }
 
@@ -175,14 +164,10 @@ internal object Blob_Internal {
             val _message = BlobCaptureSnapshotParams()
             proxyHandler.messageReceiver.acceptWithResponder(
                 _message.serializeWithHeader(
-                    proxyHandler.core,
-                    MessageHeader(
-                        CAPTURE_SNAPSHOT_ORDINAL,
-                        MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
-                        0
+                    proxyHandler.core, MessageHeader(
+                        CAPTURE_SNAPSHOT_ORDINAL, MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0
                     )
-                ),
-                BlobCaptureSnapshotResponseParamsForwardToCallback(callback)
+                ), BlobCaptureSnapshotResponseParamsForwardToCallback(callback)
             )
         }
 
@@ -192,14 +177,10 @@ internal object Blob_Internal {
             val _message = BlobGetInternalUuidParams()
             proxyHandler.messageReceiver.acceptWithResponder(
                 _message.serializeWithHeader(
-                    proxyHandler.core,
-                    MessageHeader(
-                        GET_INTERNAL_UUID_ORDINAL,
-                        MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
-                        0
+                    proxyHandler.core, MessageHeader(
+                        GET_INTERNAL_UUID_ORDINAL, MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0
                     )
-                ),
-                BlobGetInternalUuidResponseParamsForwardToCallback(callback)
+                ), BlobGetInternalUuidResponseParamsForwardToCallback(callback)
             )
         }
     }
@@ -279,9 +260,7 @@ internal object Blob_Internal {
                         BlobReadSideDataParams.deserialize(messageWithHeader.payload)
                         impl!!.readSideData(
                             BlobReadSideDataResponseParamsProxyToResponder(
-                                core,
-                                receiver,
-                                header.requestId
+                                core, receiver, header.requestId
                             )
                         )
                         true
@@ -291,9 +270,7 @@ internal object Blob_Internal {
                         BlobCaptureSnapshotParams.deserialize(messageWithHeader.payload)
                         impl!!.captureSnapshot(
                             BlobCaptureSnapshotResponseParamsProxyToResponder(
-                                core,
-                                receiver,
-                                header.requestId
+                                core, receiver, header.requestId
                             )
                         )
                         true
@@ -303,9 +280,7 @@ internal object Blob_Internal {
                         BlobGetInternalUuidParams.deserialize(messageWithHeader.payload)
                         impl!!.getInternalUuid(
                             BlobGetInternalUuidResponseParamsProxyToResponder(
-                                core,
-                                receiver,
-                                header.requestId
+                                core, receiver, header.requestId
                             )
                         )
                         true
@@ -425,19 +400,15 @@ internal object Blob_Internal {
 
     internal class BlobReadAllParams private constructor(version: Int) :
         Struct(STRUCT_SIZE, version) {
-        var pipe: ProducerHandle
+        var pipe: ProducerHandle = InvalidHandle.INSTANCE
         var client: BlobReaderClient? = null
-
-        init {
-            pipe = InvalidHandle.INSTANCE
-        }
 
         constructor() : this(0)
 
         override fun encode(encoder: Encoder) {
             val encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO)
             encoder0.encode(pipe, 8, false)
-            encoder0.encode<BlobReaderClient?>(client, 12, true, BlobReaderClient.Companion.MANAGER)
+            encoder0.encode<BlobReaderClient?>(client, 12, true, BlobReaderClient.MANAGER)
         }
 
         companion object {
@@ -474,9 +445,7 @@ internal object Blob_Internal {
                     run { result.pipe = decoder0.readProducerHandle(8, false) }
                     run {
                         result.client = decoder0.readServiceInterface<BlobReaderClient.Proxy?>(
-                            12,
-                            true,
-                            BlobReaderClient.Companion.MANAGER
+                            12, true, BlobReaderClient.MANAGER
                         )
                     }
                 } finally {
@@ -491,12 +460,8 @@ internal object Blob_Internal {
         Struct(STRUCT_SIZE, version) {
         var offset: Long = 0
         var length: Long = 0
-        var pipe: ProducerHandle
+        var pipe: ProducerHandle = InvalidHandle.INSTANCE
         var client: BlobReaderClient? = null
-
-        init {
-            pipe = InvalidHandle.INSTANCE
-        }
 
         constructor() : this(0)
 
@@ -505,7 +470,7 @@ internal object Blob_Internal {
             encoder0.encode(offset, 8)
             encoder0.encode(length, 16)
             encoder0.encode(pipe, 24, false)
-            encoder0.encode<BlobReaderClient?>(client, 28, true, BlobReaderClient.Companion.MANAGER)
+            encoder0.encode<BlobReaderClient?>(client, 28, true, BlobReaderClient.MANAGER)
         }
 
         companion object {
@@ -544,9 +509,7 @@ internal object Blob_Internal {
                     run { result.pipe = decoder0.readProducerHandle(24, false) }
                     run {
                         result.client = decoder0.readServiceInterface<BlobReaderClient.Proxy?>(
-                            28,
-                            true,
-                            BlobReaderClient.Companion.MANAGER
+                            28, true, BlobReaderClient.MANAGER
                         )
                     }
                 } finally {
@@ -657,10 +620,8 @@ internal object Blob_Internal {
                     return null
                 }
                 decoder0.increaseStackDepth()
-                val result: BlobReadSideDataParams
-                result = try {
-                    val mainDataHeader =
-                        decoder0.readAndValidateDataHeader(VERSION_ARRAY)
+                val result: BlobReadSideDataParams = try {
+                    val mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY)
                     val elementsOrVersion = mainDataHeader.elementsOrVersion
                     BlobReadSideDataParams(elementsOrVersion)
                 } finally {
@@ -730,8 +691,7 @@ internal object Blob_Internal {
                 val messageWithHeader = message.asServiceMessage()
                 val header = messageWithHeader.header
                 if (!header.validateHeader(
-                        READ_SIDE_DATA_ORDINAL,
-                        MessageHeader.MESSAGE_IS_RESPONSE_FLAG
+                        READ_SIDE_DATA_ORDINAL, MessageHeader.MESSAGE_IS_RESPONSE_FLAG
                     )
                 ) {
                     return false
@@ -754,11 +714,8 @@ internal object Blob_Internal {
             val _response = BlobReadSideDataResponseParams()
             _response.data = data
             val _message = _response.serializeWithHeader(
-                mCore,
-                MessageHeader(
-                    READ_SIDE_DATA_ORDINAL,
-                    MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
-                    mRequestId
+                mCore, MessageHeader(
+                    READ_SIDE_DATA_ORDINAL, MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId
                 )
             )
             mMessageReceiver.accept(_message)
@@ -800,10 +757,8 @@ internal object Blob_Internal {
                     return null
                 }
                 decoder0.increaseStackDepth()
-                val result: BlobCaptureSnapshotParams
-                result = try {
-                    val mainDataHeader =
-                        decoder0.readAndValidateDataHeader(VERSION_ARRAY)
+                val result: BlobCaptureSnapshotParams = try {
+                    val mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY)
                     val elementsOrVersion = mainDataHeader.elementsOrVersion
                     BlobCaptureSnapshotParams(elementsOrVersion)
                 } finally {
@@ -905,8 +860,7 @@ internal object Blob_Internal {
             _response.length = length!!
             _response.modificationTime = modificationTime
             val _message = _response.serializeWithHeader(
-                mCore,
-                MessageHeader(
+                mCore, MessageHeader(
                     CAPTURE_SNAPSHOT_ORDINAL,
                     MessageHeader.MESSAGE_IS_RESPONSE_FLAG or MessageHeader.MESSAGE_IS_SYNC_FLAG,
                     mRequestId
@@ -951,10 +905,8 @@ internal object Blob_Internal {
                     return null
                 }
                 decoder0.increaseStackDepth()
-                val result: BlobGetInternalUuidParams
-                result = try {
-                    val mainDataHeader =
-                        decoder0.readAndValidateDataHeader(VERSION_ARRAY)
+                val result: BlobGetInternalUuidParams = try {
+                    val mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY)
                     val elementsOrVersion = mainDataHeader.elementsOrVersion
                     BlobGetInternalUuidParams(elementsOrVersion)
                 } finally {
@@ -1024,8 +976,7 @@ internal object Blob_Internal {
                 val messageWithHeader = message.asServiceMessage()
                 val header = messageWithHeader.header
                 if (!header.validateHeader(
-                        GET_INTERNAL_UUID_ORDINAL,
-                        MessageHeader.MESSAGE_IS_RESPONSE_FLAG
+                        GET_INTERNAL_UUID_ORDINAL, MessageHeader.MESSAGE_IS_RESPONSE_FLAG
                     )
                 ) {
                     return false
@@ -1049,11 +1000,8 @@ internal object Blob_Internal {
             val _response = BlobGetInternalUuidResponseParams()
             _response.uuid = uuid
             val _message = _response.serializeWithHeader(
-                mCore,
-                MessageHeader(
-                    GET_INTERNAL_UUID_ORDINAL,
-                    MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
-                    mRequestId
+                mCore, MessageHeader(
+                    GET_INTERNAL_UUID_ORDINAL, MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId
                 )
             )
             mMessageReceiver.accept(_message)

@@ -31,7 +31,7 @@ import org.chromium.mojo.system.Core
 import org.chromium.mojo_base.mojom.ReadOnlyFile
 import java.nio.ByteBuffer
 
-internal object AndroidFontLookup_Internal {
+internal object AndroidFontLookupInternal {
     val MANAGER: Manager<AndroidFontLookup?, AndroidFontLookup.Proxy?> =
         object : Manager<AndroidFontLookup?, AndroidFontLookup.Proxy?>() {
             override fun getName(): String {
@@ -43,15 +43,13 @@ internal object AndroidFontLookup_Internal {
             }
 
             public override fun buildProxy(
-                core: Core,
-                messageReceiver: MessageReceiverWithResponder
+                core: Core, messageReceiver: MessageReceiverWithResponder
             ): Proxy {
                 return Proxy(core, messageReceiver)
             }
 
             override fun buildStub(
-                core: Core?,
-                impl: AndroidFontLookup?
+                core: Core?, impl: AndroidFontLookup?
             ): Interface.Stub<AndroidFontLookup?> {
                 return Stub(core, impl)
             }
@@ -64,8 +62,7 @@ internal object AndroidFontLookup_Internal {
     private const val MATCH_LOCAL_FONT_BY_UNIQUE_NAME_ORDINAL = 1
 
     internal class Proxy(
-        core: Core?,
-        messageReceiver: MessageReceiverWithResponder?
+        core: Core?, messageReceiver: MessageReceiverWithResponder?
     ) : AbstractProxy(core, messageReceiver), AndroidFontLookup.Proxy {
         override fun getUniqueNameLookupTable(
             callback: GetUniqueNameLookupTableResponse
@@ -73,8 +70,7 @@ internal object AndroidFontLookup_Internal {
             val _message = AndroidFontLookupGetUniqueNameLookupTableParams()
             proxyHandler.messageReceiver.acceptWithResponder(
                 _message.serializeWithHeader(
-                    proxyHandler.core,
-                    MessageHeader(
+                    proxyHandler.core, MessageHeader(
                         GET_UNIQUE_NAME_LOOKUP_TABLE_ORDINAL,
                         MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
                         0
@@ -85,15 +81,13 @@ internal object AndroidFontLookup_Internal {
         }
 
         override fun matchLocalFontByUniqueName(
-            fontUniqueName: String?,
-            callback: MatchLocalFontByUniqueNameResponse
+            fontUniqueName: String?, callback: MatchLocalFontByUniqueNameResponse
         ) {
             val _message = AndroidFontLookupMatchLocalFontByUniqueNameParams()
             _message.fontUniqueName = fontUniqueName
             proxyHandler.messageReceiver.acceptWithResponder(
                 _message.serializeWithHeader(
-                    proxyHandler.core,
-                    MessageHeader(
+                    proxyHandler.core, MessageHeader(
                         MATCH_LOCAL_FONT_BY_UNIQUE_NAME_ORDINAL,
                         MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
                         0
@@ -214,8 +208,7 @@ internal object AndroidFontLookup_Internal {
                     return null
                 }
                 decoder0.increaseStackDepth()
-                val result: AndroidFontLookupGetUniqueNameLookupTableParams
-                result = try {
+                val result: AndroidFontLookupGetUniqueNameLookupTableParams = try {
                     val mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY)
                     val elementsOrVersion = mainDataHeader.elementsOrVersion
                     AndroidFontLookupGetUniqueNameLookupTableParams(elementsOrVersion)
@@ -238,21 +231,15 @@ internal object AndroidFontLookup_Internal {
 
         override fun encode(encoder: Encoder) {
             val encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO)
-            if (uniqueFontNames == null) {
-                encoder0.encodeNullPointer(8, false)
-            } else {
-                val encoder1 = encoder0.encodePointerArray(
-                    uniqueFontNames.size,
-                    8,
-                    BindingsHelper.UNSPECIFIED_ARRAY_LENGTH
+            val encoder1 = encoder0.encodePointerArray(
+                uniqueFontNames.size, 8, BindingsHelper.UNSPECIFIED_ARRAY_LENGTH
+            )
+            for (i0 in uniqueFontNames.indices) {
+                encoder1.encode(
+                    uniqueFontNames[i0],
+                    DataHeader.HEADER_SIZE + BindingsHelper.POINTER_SIZE * i0,
+                    false
                 )
-                for (i0 in uniqueFontNames.indices) {
-                    encoder1.encode(
-                        uniqueFontNames[i0],
-                        DataHeader.HEADER_SIZE + BindingsHelper.POINTER_SIZE * i0,
-                        false
-                    )
-                }
             }
         }
 
@@ -296,8 +283,7 @@ internal object AndroidFontLookup_Internal {
                             result.uniqueFontNames = arrayOfNulls(si1.elementsOrVersion)
                             for (i1 in 0 until si1.elementsOrVersion) {
                                 result.uniqueFontNames[i1] = decoder1.readString(
-                                    DataHeader.HEADER_SIZE + BindingsHelper.POINTER_SIZE * i1,
-                                    false
+                                    DataHeader.HEADER_SIZE + BindingsHelper.POINTER_SIZE * i1, false
                                 )
                             }
                         }
@@ -343,8 +329,7 @@ internal object AndroidFontLookup_Internal {
             val _response = AndroidFontLookupGetUniqueNameLookupTableResponseParams()
             _response.uniqueFontNames = uniqueFontNames!!
             val _message = _response.serializeWithHeader(
-                mCore,
-                MessageHeader(
+                mCore, MessageHeader(
                     GET_UNIQUE_NAME_LOOKUP_TABLE_ORDINAL,
                     MessageHeader.MESSAGE_IS_RESPONSE_FLAG or MessageHeader.MESSAGE_IS_SYNC_FLAG,
                     mRequestId
@@ -500,8 +485,7 @@ internal object AndroidFontLookup_Internal {
             val _response = AndroidFontLookupMatchLocalFontByUniqueNameResponseParams()
             _response.fontFileHandle = fontFileHandle
             val _message = _response.serializeWithHeader(
-                mCore,
-                MessageHeader(
+                mCore, MessageHeader(
                     MATCH_LOCAL_FONT_BY_UNIQUE_NAME_ORDINAL,
                     MessageHeader.MESSAGE_IS_RESPONSE_FLAG or MessageHeader.MESSAGE_IS_SYNC_FLAG,
                     mRequestId

@@ -11,7 +11,7 @@ import org.chromium.base.annotations.JNINamespace;
  * Helper class to tell native code whether manual JNI registration is required.
  */
 @JNINamespace("weblayer")
-public final class WebViewCompatibilityHelperImpl {
+public class WebViewCompatibilityHelperImpl {
     private static boolean sRequiresManualJniRegistration;
 
     @CalledByNative

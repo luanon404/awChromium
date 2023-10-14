@@ -24,7 +24,7 @@ object FocusType {
     const val MIN_VALUE = 0
     const val MAX_VALUE = 6
     fun isKnownValue(value: Int): Boolean {
-        return value >= 0 && value <= 6
+        return value in 0..6
     }
 
     fun validate(value: Int) {

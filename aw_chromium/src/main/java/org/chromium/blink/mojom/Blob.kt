@@ -65,6 +65,6 @@ interface Blob : Interface {
 
     interface GetInternalUuidResponse : Callback1<String?>
     companion object {
-        val MANAGER = Blob_Internal.MANAGER
+        val MANAGER = BlobInternal.MANAGER
     }
 }

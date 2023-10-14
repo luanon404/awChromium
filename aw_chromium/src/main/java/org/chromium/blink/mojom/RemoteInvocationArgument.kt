@@ -16,7 +16,6 @@ import org.chromium.mojo.bindings.Encoder
 import org.chromium.mojo.bindings.Message
 import org.chromium.mojo.bindings.Union
 import org.chromium.mojo_base.mojom.String16
-import org.chromium.url.internal.mojom.Origin.Companion.decode
 
 class RemoteInvocationArgument : Union() {
     object Tag {
@@ -130,8 +129,9 @@ class RemoteInvocationArgument : Union() {
                     var i0 = 0
                     while (i0 < mArrayValue!!.size) {
                         encoder1.encode(
-                            mArrayValue!![i0], DataHeader.HEADER_SIZE +
-                                    BindingsHelper.UNION_SIZE * i0, false
+                            mArrayValue!![i0],
+                            DataHeader.HEADER_SIZE + BindingsHelper.UNION_SIZE * i0,
+                            false
                         )
                         ++i0
                     }
@@ -195,8 +195,7 @@ class RemoteInvocationArgument : Union() {
                         var i1 = 0
                         while (i1 < si1.elementsOrVersion) {
                             result.mArrayValue!![i1] = decode(
-                                decoder1, DataHeader.HEADER_SIZE +
-                                        BindingsHelper.UNION_SIZE * i1
+                                decoder1, DataHeader.HEADER_SIZE + BindingsHelper.UNION_SIZE * i1
                             )
                             ++i1
                         }
@@ -206,7 +205,7 @@ class RemoteInvocationArgument : Union() {
 
                 Tag.TypedArrayValue -> {
                     val decoder1 = decoder0.readPointer(offset + DataHeader.HEADER_SIZE, false)
-                    result.mTypedArrayValue = RemoteTypedArray.Companion.decode(decoder1)
+                    result.mTypedArrayValue = RemoteTypedArray.decode(decoder1)
                     result.mTag = Tag.TypedArrayValue
                 }
 

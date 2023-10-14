@@ -17,7 +17,7 @@ object ChromiumPlayServicesAvailability {
      * To see how this number originated, see
      * https://bugs.chromium.org/p/chromium/issues/detail?id=1145211#c3.
      */
-    const val GMS_VERSION_NUMBER = 20415000
+    private const val GMS_VERSION_NUMBER = 20415000
 
     /**
      * Checks if Play Services is available in this context.
@@ -32,27 +32,7 @@ object ChromiumPlayServicesAvailability {
     fun isGooglePlayServicesAvailable(context: Context?): Boolean {
         return (GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(
             context!!, GMS_VERSION_NUMBER
-        )
-                == ConnectionResult.SUCCESS)
+        ) == ConnectionResult.SUCCESS)
     }
 
-    /**
-     * Gets Play Services connection result, to be used to see if Play Services are available.
-     *
-     * This is intended to replace anyone manually calling
-     * [GoogleApiAvailability.isGooglePlayServicesAvailable],
-     * as it causes bugs without an appropriate version number (crbug.com/1145211). Use
-     * isGooglePlayServicesAvailable if you don't explicitly need the connection result.
-     *
-     * If at all possible, do not use this. From a GMSCore team member: "we would not recommend
-     * checking availability upfront. You should be able to just call the API directly, and it
-     * should handle the availability for you. If the API is not available, it should either prompt
-     * the user to update GMS Core or fail with exception." If in doubt, please consult with your
-     * PM/UX.
-     */
-    fun getGooglePlayServicesConnectionResult(context: Context?): Int {
-        return GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(
-            context!!, GMS_VERSION_NUMBER
-        )
-    }
 }

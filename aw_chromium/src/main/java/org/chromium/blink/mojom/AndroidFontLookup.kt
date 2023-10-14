@@ -23,13 +23,12 @@ interface AndroidFontLookup : Interface {
     interface GetUniqueNameLookupTableResponse : Callback1<Array<String?>?>
 
     fun matchLocalFontByUniqueName(
-        fontUniqueName: String?,
-        callback: MatchLocalFontByUniqueNameResponse
+        fontUniqueName: String?, callback: MatchLocalFontByUniqueNameResponse
     )
 
     interface MatchLocalFontByUniqueNameResponse : Callback1<ReadOnlyFile?>
     companion object {
         @JvmField
-        val MANAGER = AndroidFontLookup_Internal.MANAGER
+        val MANAGER = AndroidFontLookupInternal.MANAGER
     }
 }

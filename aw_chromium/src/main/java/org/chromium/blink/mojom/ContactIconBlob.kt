@@ -21,16 +21,11 @@ class ContactIconBlob private constructor(version: Int) : Struct(STRUCT_SIZE, ve
     var mimeType: String? = null
     lateinit var data: ByteArray
 
-    constructor() : this(0)
-
     override fun encode(encoder: Encoder) {
         val encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO)
         encoder0.encode(mimeType, 8, false)
         encoder0.encode(
-            data,
-            16,
-            BindingsHelper.NOTHING_NULLABLE,
-            BindingsHelper.UNSPECIFIED_ARRAY_LENGTH
+            data, 16, BindingsHelper.NOTHING_NULLABLE, BindingsHelper.UNSPECIFIED_ARRAY_LENGTH
         )
     }
 
@@ -68,9 +63,7 @@ class ContactIconBlob private constructor(version: Int) : Struct(STRUCT_SIZE, ve
                 run { result.mimeType = decoder0.readString(8, false) }
                 run {
                     result.data = decoder0.readBytes(
-                        16,
-                        BindingsHelper.NOTHING_NULLABLE,
-                        BindingsHelper.UNSPECIFIED_ARRAY_LENGTH
+                        16, BindingsHelper.NOTHING_NULLABLE, BindingsHelper.UNSPECIFIED_ARRAY_LENGTH
                     )
                 }
             } finally {

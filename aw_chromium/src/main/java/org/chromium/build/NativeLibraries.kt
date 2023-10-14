@@ -4,7 +4,6 @@
 package org.chromium.build
 
 object NativeLibraries {
-    const val CPU_FAMILY_UNKNOWN = 0
     const val CPU_FAMILY_ARM = 1
     const val CPU_FAMILY_MIPS = 2
     const val CPU_FAMILY_X86 = 3

@@ -25,7 +25,7 @@ object RemoteArrayType {
     const val MIN_VALUE = 1
     const val MAX_VALUE = 8
     fun isKnownValue(value: Int): Boolean {
-        return value >= 1 && value <= 8
+        return value in 1..8
     }
 
     fun validate(value: Int) {

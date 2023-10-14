@@ -37,6 +37,7 @@ class Origin private constructor(version: Int) : Struct(STRUCT_SIZE, version) {
         private const val STRUCT_SIZE = 40
         private val VERSION_ARRAY = arrayOf(DataHeader(40, 0))
         private val DEFAULT_STRUCT_INFO = VERSION_ARRAY[0]
+
         fun deserialize(message: Message?): Origin? {
             return decode(Decoder(message))
         }

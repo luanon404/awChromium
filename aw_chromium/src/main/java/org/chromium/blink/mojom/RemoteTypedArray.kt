@@ -20,10 +20,9 @@ import java.nio.ByteBuffer
 class RemoteTypedArray private constructor(version: Int) : Struct(STRUCT_SIZE, version) {
     @JvmField
     var type = 0
+
     @JvmField
     var buffer: BigBuffer? = null
-
-    constructor() : this(0)
 
     override fun encode(encoder: Encoder) {
         val encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO)

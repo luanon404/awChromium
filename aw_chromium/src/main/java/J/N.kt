@@ -170,11 +170,7 @@ object N {
     // Original name: org_chromium_android_1webview_AwContents_requestNewHitTestDataAt
     @JvmStatic
     external fun MbVTYFDu(
-        nativeAwContents: Long,
-        caller: Any?,
-        x: Float,
-        y: Float,
-        touchMajor: Float
+        nativeAwContents: Long, caller: Any?, x: Float, y: Float, touchMajor: Float
     )
 
     // Original name: org_chromium_android_1webview_AwContents_updateLastHitTestData
@@ -196,11 +192,7 @@ object N {
     // Original name: org_chromium_android_1webview_AwContents_smoothScroll
     @JvmStatic
     external fun MgUWjwjs(
-        nativeAwContents: Long,
-        caller: Any?,
-        targetX: Int,
-        targetY: Int,
-        durationMs: Long
+        nativeAwContents: Long, caller: Any?, targetX: Int, targetY: Int, durationMs: Long
     )
 
     // Original name: org_chromium_android_1webview_AwContents_setViewVisibility
@@ -286,19 +278,13 @@ object N {
     // Original name: org_chromium_android_1webview_AwContents_setExtraHeadersForUrl
     @JvmStatic
     external fun `Me4$sHFE`(
-        nativeAwContents: Long,
-        caller: Any?,
-        url: String?,
-        extraHeaders: String?
+        nativeAwContents: Long, caller: Any?, url: String?, extraHeaders: String?
     )
 
     // Original name: org_chromium_android_1webview_AwContents_invokeGeolocationCallback
     @JvmStatic
     external fun M0cKB_Do(
-        nativeAwContents: Long,
-        caller: Any?,
-        value: Boolean,
-        requestingFrame: String?
+        nativeAwContents: Long, caller: Any?, value: Boolean, requestingFrame: String?
     )
 
     // Original name: org_chromium_android_1webview_AwContents_getEffectivePriority
@@ -336,10 +322,7 @@ object N {
     // Original name: org_chromium_android_1webview_AwContents_addDocumentStartJavaScript
     @JvmStatic
     external fun MrxnMTWN(
-        nativeAwContents: Long,
-        caller: Any?,
-        script: String?,
-        allowedOriginRules: Array<String?>?
+        nativeAwContents: Long, caller: Any?, script: String?, allowedOriginRules: Array<String?>?
     ): Int
 
     // Original name: org_chromium_android_1webview_AwContents_removeDocumentStartJavaScript
@@ -377,10 +360,7 @@ object N {
     // Original name: org_chromium_android_1webview_AwContentsClientBridge_proceedSslError
     @JvmStatic
     external fun MgWlsTs7(
-        nativeAwContentsClientBridge: Long,
-        caller: Any?,
-        proceed: Boolean,
-        id: Int
+        nativeAwContentsClientBridge: Long, caller: Any?, proceed: Boolean, id: Int
     )
 
     // Original name: org_chromium_android_1webview_AwContentsClientBridge_provideClientCertificateResponse
@@ -396,10 +376,7 @@ object N {
     // Original name: org_chromium_android_1webview_AwContentsClientBridge_confirmJsResult
     @JvmStatic
     external fun MNISBPG1(
-        nativeAwContentsClientBridge: Long,
-        caller: Any?,
-        id: Int,
-        prompt: String?
+        nativeAwContentsClientBridge: Long, caller: Any?, id: Int, prompt: String?
     )
 
     // Original name: org_chromium_android_1webview_AwContentsClientBridge_cancelJsResult
@@ -461,11 +438,7 @@ object N {
     // Original name: org_chromium_android_1webview_AwCookieManager_setCookie
     @JvmStatic
     external fun MqWxZVFj(
-        nativeCookieManager: Long,
-        caller: Any?,
-        url: String?,
-        value: String?,
-        callback: Any?
+        nativeCookieManager: Long, caller: Any?, url: String?, value: String?, callback: Any?
     )
 
     // Original name: org_chromium_android_1webview_AwCookieManager_setCookieSync
@@ -555,10 +528,7 @@ object N {
     // Original name: org_chromium_android_1webview_AwHttpAuthHandler_proceed
     @JvmStatic
     external fun MWR2vWXA(
-        nativeAwHttpAuthHandler: Long,
-        caller: Any?,
-        username: String?,
-        password: String?
+        nativeAwHttpAuthHandler: Long, caller: Any?, username: String?, password: String?
     )
 
     // Original name: org_chromium_android_1webview_AwHttpAuthHandler_cancel
@@ -588,19 +558,13 @@ object N {
     // Original name: org_chromium_android_1webview_AwPacProcessor_setNetworkAndLinkAddresses
     @JvmStatic
     external fun `MN$L7RbV`(
-        nativeAwPacProcessor: Long,
-        networkHandle: Long,
-        adresses: Array<String?>?
+        nativeAwPacProcessor: Long, networkHandle: Long, adresses: Array<String?>?
     )
 
     // Original name: org_chromium_android_1webview_AwPdfExporter_exportToPdf
     @JvmStatic
     external fun Mp2j15Oh(
-        nativeAwPdfExporter: Long,
-        caller: Any?,
-        fd: Int,
-        pages: IntArray?,
-        cancellationSignal: Any?
+        nativeAwPdfExporter: Long, caller: Any?, fd: Int, pages: IntArray?, cancellationSignal: Any?
     )
 
     // Original name: org_chromium_android_1webview_AwProxyController_setProxyOverride
@@ -724,10 +688,7 @@ object N {
     // Original name: org_chromium_android_1webview_AwTracingController_start
     @JvmStatic
     external fun MDhATp5G(
-        nativeAwTracingController: Long,
-        caller: Any?,
-        categories: String?,
-        traceMode: Int
+        nativeAwTracingController: Long, caller: Any?, categories: String?, traceMode: Int
     ): Boolean
 
     // Original name: org_chromium_android_1webview_AwTracingController_stopAndFlush
@@ -823,9 +784,7 @@ object N {
     // Original name: org_chromium_android_1webview_gfx_RootBeginFrameSourceWebView_onUpdateRefreshRate
     @JvmStatic
     external fun `MsBIPWH$`(
-        nativeRootBeginFrameSourceWebView: Long,
-        caller: Any?,
-        refreshRate: Float
+        nativeRootBeginFrameSourceWebView: Long, caller: Any?, refreshRate: Float
     )
 
     // Original name: org_chromium_android_1webview_metrics_AwMetricsServiceClient_setHaveMetricsConsent
@@ -1127,23 +1086,13 @@ object N {
     // Original name: org_chromium_base_metrics_NativeUmaRecorder_recordExponentialHistogram
     @JvmStatic
     external fun MILRV9Ch(
-        name: String?,
-        nativeHint: Long,
-        sample: Int,
-        min: Int,
-        max: Int,
-        numBuckets: Int
+        name: String?, nativeHint: Long, sample: Int, min: Int, max: Int, numBuckets: Int
     ): Long
 
     // Original name: org_chromium_base_metrics_NativeUmaRecorder_recordLinearHistogram
     @JvmStatic
     external fun `M$oMD214`(
-        name: String?,
-        nativeHint: Long,
-        sample: Int,
-        min: Int,
-        max: Int,
-        numBuckets: Int
+        name: String?, nativeHint: Long, sample: Int, min: Int, max: Int, numBuckets: Int
     ): Long
 
     // Original name: org_chromium_base_metrics_NativeUmaRecorder_recordSparseHistogram
@@ -1177,11 +1126,7 @@ object N {
     // Original name: org_chromium_base_process_1launcher_ChildProcessService_registerFileDescriptors
     @JvmStatic
     external fun Ma6rsNQO(
-        keys: Array<String?>?,
-        id: IntArray?,
-        fd: IntArray?,
-        offset: LongArray?,
-        size: LongArray?
+        keys: Array<String?>?, id: IntArray?, fd: IntArray?, offset: LongArray?, size: LongArray?
     )
 
     // Original name: org_chromium_base_process_1launcher_ChildProcessService_exitChildProcess
@@ -1223,10 +1168,7 @@ object N {
     // Original name: org_chromium_base_task_TaskRunnerImpl_postDelayedTask
     @JvmStatic
     external fun `MGnQU$47`(
-        nativeTaskRunnerAndroid: Long,
-        task: Any?,
-        delay: Long,
-        runnableClassName: String?
+        nativeTaskRunnerAndroid: Long, task: Any?, delay: Long, runnableClassName: String?
     )
 
     // Original name: org_chromium_base_task_TaskRunnerImpl_belongsToCurrentThread
@@ -1292,17 +1234,13 @@ object N {
     // Original name: org_chromium_components_autofill_AutofillProviderTestHelper_simulateMainFrameAutofillServerResponseForTesting
     @JvmStatic
     external fun M_aHVqEu(
-        webContents: Any?,
-        fieldIds: Array<String?>?,
-        fieldTypes: IntArray?
+        webContents: Any?, fieldIds: Array<String?>?, fieldTypes: IntArray?
     ): Boolean
 
     // Original name: org_chromium_components_autofill_AutofillProviderTestHelper_simulateMainFramePredictionsAutofillServerResponseForTesting
     @JvmStatic
     external fun MdA0W9re(
-        webContents: Any?,
-        fieldIds: Array<String?>?,
-        fieldTypes: Array<IntArray?>?
+        webContents: Any?, fieldIds: Array<String?>?, fieldTypes: Array<IntArray?>?
     ): Boolean
 
     // Original name: org_chromium_components_autofill_AutofillProviderTestHelper_simulateMainFrameAutofillQueryFailedForTesting
@@ -1396,19 +1334,13 @@ object N {
     // Original name: org_chromium_components_browser_1ui_site_1settings_WebsitePreferenceBridge_getOriginsForPermission
     @JvmStatic
     external fun MexN59P3(
-        browserContextHandle: Any?,
-        contentSettingsType: Int,
-        list: Any?,
-        managedOnly: Boolean
+        browserContextHandle: Any?, contentSettingsType: Int, list: Any?, managedOnly: Boolean
     )
 
     // Original name: org_chromium_components_browser_1ui_site_1settings_WebsitePreferenceBridge_getSettingForOrigin
     @JvmStatic
     external fun MUU7dsx0(
-        browserContextHandle: Any?,
-        contentSettingsType: Int,
-        origin: String?,
-        embedder: String?
+        browserContextHandle: Any?, contentSettingsType: Int, origin: String?, embedder: String?
     ): Int
 
     // Original name: org_chromium_components_browser_1ui_site_1settings_WebsitePreferenceBridge_setSettingForOrigin
@@ -1424,9 +1356,7 @@ object N {
     // Original name: org_chromium_components_browser_1ui_site_1settings_WebsitePreferenceBridge_isPermissionControlledByDSE
     @JvmStatic
     external fun Mno5HIHV(
-        browserContextHandle: Any?,
-        contentSettingsType: Int,
-        origin: String?
+        browserContextHandle: Any?, contentSettingsType: Int, origin: String?
     ): Boolean
 
     // Original name: org_chromium_components_browser_1ui_site_1settings_WebsitePreferenceBridge_getAdBlockingActivated
@@ -1486,9 +1416,7 @@ object N {
     // Original name: org_chromium_components_component_1updater_ComponentLoaderPolicyBridge_componentLoaded
     @JvmStatic
     external fun MnTEuPiP(
-        nativeAndroidComponentLoaderPolicy: Long,
-        fileNames: Array<String?>?,
-        fds: IntArray?
+        nativeAndroidComponentLoaderPolicy: Long, fileNames: Array<String?>?, fds: IntArray?
     )
 
     // Original name: org_chromium_components_component_1updater_ComponentLoaderPolicyBridge_componentLoadFailed
@@ -1578,17 +1506,13 @@ object N {
     // Original name: org_chromium_components_dom_1distiller_core_DistilledPagePrefs_addObserver
     @JvmStatic
     external fun MznRD745(
-        nativeDistilledPagePrefsAndroid: Long,
-        caller: Any?,
-        nativeObserverPtr: Long
+        nativeDistilledPagePrefsAndroid: Long, caller: Any?, nativeObserverPtr: Long
     )
 
     // Original name: org_chromium_components_dom_1distiller_core_DistilledPagePrefs_removeObserver
     @JvmStatic
     external fun M_HmEv0F(
-        nativeDistilledPagePrefsAndroid: Long,
-        caller: Any?,
-        nativeObserverPtr: Long
+        nativeDistilledPagePrefsAndroid: Long, caller: Any?, nativeObserverPtr: Long
     )
 
     // Original name: org_chromium_components_dom_1distiller_core_DistilledPagePrefs_initObserverAndroid
@@ -1626,9 +1550,7 @@ object N {
     // Original name: org_chromium_components_download_NetworkStatusListenerAndroid_notifyNetworkChange
     @JvmStatic
     external fun M9CWqWuv(
-        nativeNetworkStatusListenerAndroid: Long,
-        caller: Any?,
-        connectionType: Int
+        nativeNetworkStatusListenerAndroid: Long, caller: Any?, connectionType: Int
     )
 
     // Original name: org_chromium_components_embedder_1support_delegate_ColorChooserAndroid_onColorChosen
@@ -1638,9 +1560,7 @@ object N {
     // Original name: org_chromium_components_embedder_1support_util_UrlUtilities_sameDomainOrHost
     @JvmStatic
     external fun MM5WUf_F(
-        primaryUrl: String?,
-        secondaryUrl: String?,
-        includePrivateRegistries: Boolean
+        primaryUrl: String?, secondaryUrl: String?, includePrivateRegistries: Boolean
     ): Boolean
 
     // Original name: org_chromium_components_embedder_1support_util_UrlUtilities_getDomainAndRegistry
@@ -1774,10 +1694,7 @@ object N {
     // Original name: org_chromium_components_javascript_1dialogs_JavascriptAppModalDialog_didAcceptAppModalDialog
     @JvmStatic
     external fun Mo6rag0q(
-        nativeAppModalDialogViewAndroid: Long,
-        caller: Any?,
-        prompt: String?,
-        suppress: Boolean
+        nativeAppModalDialogViewAndroid: Long, caller: Any?, prompt: String?, suppress: Boolean
     )
 
     // Original name: org_chromium_components_javascript_1dialogs_JavascriptAppModalDialog_didCancelAppModalDialog
@@ -1795,9 +1712,7 @@ object N {
     // Original name: org_chromium_components_javascript_1dialogs_JavascriptTabModalDialog_cancel
     @JvmStatic
     external fun M0YaeICP(
-        nativeTabModalDialogViewAndroid: Long,
-        caller: Any?,
-        buttonClicked: Boolean
+        nativeTabModalDialogViewAndroid: Long, caller: Any?, buttonClicked: Boolean
     )
 
     // Original name: org_chromium_components_location_LocationSettings_onLocationSettingsDialogOutcome
@@ -1807,10 +1722,7 @@ object N {
     // Original name: org_chromium_components_media_1router_BrowserMediaRouter_onSinksReceived
     @JvmStatic
     external fun M2xU9exV(
-        nativeMediaRouterAndroidBridge: Long,
-        caller: Any?,
-        sourceUrn: String?,
-        count: Int
+        nativeMediaRouterAndroidBridge: Long, caller: Any?, sourceUrn: String?, count: Int
     )
 
     // Original name: org_chromium_components_media_1router_BrowserMediaRouter_onRouteCreated
@@ -1827,19 +1739,13 @@ object N {
     // Original name: org_chromium_components_media_1router_BrowserMediaRouter_onCreateRouteRequestError
     @JvmStatic
     external fun MpDGY7p4(
-        nativeMediaRouterAndroidBridge: Long,
-        caller: Any?,
-        errorText: String?,
-        requestId: Int
+        nativeMediaRouterAndroidBridge: Long, caller: Any?, errorText: String?, requestId: Int
     )
 
     // Original name: org_chromium_components_media_1router_BrowserMediaRouter_onJoinRouteRequestError
     @JvmStatic
     external fun M9VY0XZb(
-        nativeMediaRouterAndroidBridge: Long,
-        caller: Any?,
-        errorText: String?,
-        requestId: Int
+        nativeMediaRouterAndroidBridge: Long, caller: Any?, errorText: String?, requestId: Int
     )
 
     // Original name: org_chromium_components_media_1router_BrowserMediaRouter_onRouteTerminated
@@ -1849,19 +1755,13 @@ object N {
     // Original name: org_chromium_components_media_1router_BrowserMediaRouter_onRouteClosed
     @JvmStatic
     external fun MRz6aWnp(
-        nativeMediaRouterAndroidBridge: Long,
-        caller: Any?,
-        mediaRouteId: String?,
-        message: String?
+        nativeMediaRouterAndroidBridge: Long, caller: Any?, mediaRouteId: String?, message: String?
     )
 
     // Original name: org_chromium_components_media_1router_BrowserMediaRouter_onMessage
     @JvmStatic
     external fun MM5f2cm0(
-        nativeMediaRouterAndroidBridge: Long,
-        caller: Any?,
-        mediaRouteId: String?,
-        message: String?
+        nativeMediaRouterAndroidBridge: Long, caller: Any?, mediaRouteId: String?, message: String?
     )
 
     // Original name: org_chromium_components_media_1router_BrowserMediaRouterDialogController_onDialogCancelled
@@ -1880,9 +1780,7 @@ object N {
     // Original name: org_chromium_components_media_1router_BrowserMediaRouterDialogController_onRouteClosed
     @JvmStatic
     external fun MSLqZyD4(
-        nativeMediaRouterDialogControllerAndroid: Long,
-        caller: Any?,
-        routeId: String?
+        nativeMediaRouterDialogControllerAndroid: Long, caller: Any?, routeId: String?
     )
 
     // Original name: org_chromium_components_media_1router_BrowserMediaRouterDialogController_onMediaSourceNotSupported
@@ -2012,10 +1910,7 @@ object N {
     // Original name: org_chromium_components_payments_CanMakePaymentQuery_canQuery
     @JvmStatic
     external fun MNXjZ6_e(
-        webContents: Any?,
-        topLevelOrigin: String?,
-        frameOrigin: String?,
-        query: Any?
+        webContents: Any?, topLevelOrigin: String?, frameOrigin: String?, query: Any?
     ): Boolean
 
     // Original name: org_chromium_components_payments_CurrencyFormatter_initCurrencyFormatterAndroid
@@ -2029,9 +1924,7 @@ object N {
     // Original name: org_chromium_components_payments_CurrencyFormatter_format
     @JvmStatic
     external fun MgDia2D2(
-        nativeCurrencyFormatterAndroid: Long,
-        caller: Any?,
-        amountValue: String?
+        nativeCurrencyFormatterAndroid: Long, caller: Any?, amountValue: String?
     ): String?
 
     // Original name: org_chromium_components_payments_CurrencyFormatter_setMaxFractionalDigits
@@ -2183,17 +2076,13 @@ object N {
     // Original name: org_chromium_components_payments_JourneyLogger_setSelectedMethod
     @JvmStatic
     external fun M9Jdo06k(
-        nativeJourneyLoggerAndroid: Long,
-        caller: Any?,
-        paymentMethodCategory: Int
+        nativeJourneyLoggerAndroid: Long, caller: Any?, paymentMethodCategory: Int
     )
 
     // Original name: org_chromium_components_payments_JourneyLogger_setAvailableMethod
     @JvmStatic
     external fun MH8h6Eyr(
-        nativeJourneyLoggerAndroid: Long,
-        caller: Any?,
-        paymentMethodCategory: Int
+        nativeJourneyLoggerAndroid: Long, caller: Any?, paymentMethodCategory: Int
     )
 
     // Original name: org_chromium_components_payments_JourneyLogger_setRequestedInformation
@@ -2333,9 +2222,7 @@ object N {
     // Original name: org_chromium_components_payments_PaymentManifestParser_parseWebAppManifest
     @JvmStatic
     external fun MhPu7GL6(
-        nativePaymentManifestParserAndroid: Long,
-        content: String?,
-        callback: Any?
+        nativePaymentManifestParserAndroid: Long, content: String?, callback: Any?
     )
 
     // Original name: org_chromium_components_payments_PaymentManifestWebDataService_init
@@ -2376,9 +2263,7 @@ object N {
     // Original name: org_chromium_components_payments_PaymentManifestWebDataService_addPaymentWebAppManifest
     @JvmStatic
     external fun MsHxLyvJ(
-        nativePaymentManifestWebDataServiceAndroid: Long,
-        caller: Any?,
-        manifest: Array<Any?>?
+        nativePaymentManifestWebDataServiceAndroid: Long, caller: Any?, manifest: Array<Any?>?
     )
 
     // Original name: org_chromium_components_payments_PaymentRequestSpec_create
@@ -2489,37 +2374,25 @@ object N {
     // Original name: org_chromium_components_policy_PolicyConverter_setPolicyBoolean
     @JvmStatic
     external fun MNcVehwq(
-        nativePolicyConverter: Long,
-        caller: Any?,
-        policyKey: String?,
-        value: Boolean
+        nativePolicyConverter: Long, caller: Any?, policyKey: String?, value: Boolean
     )
 
     // Original name: org_chromium_components_policy_PolicyConverter_setPolicyInteger
     @JvmStatic
     external fun `MX$FOTbg`(
-        nativePolicyConverter: Long,
-        caller: Any?,
-        policyKey: String?,
-        value: Int
+        nativePolicyConverter: Long, caller: Any?, policyKey: String?, value: Int
     )
 
     // Original name: org_chromium_components_policy_PolicyConverter_setPolicyString
     @JvmStatic
     external fun Mu_Zn154(
-        nativePolicyConverter: Long,
-        caller: Any?,
-        policyKey: String?,
-        value: String?
+        nativePolicyConverter: Long, caller: Any?, policyKey: String?, value: String?
     )
 
     // Original name: org_chromium_components_policy_PolicyConverter_setPolicyStringArray
     @JvmStatic
     external fun MLFU3fY7(
-        nativePolicyConverter: Long,
-        caller: Any?,
-        policyKey: String?,
-        value: Array<String?>?
+        nativePolicyConverter: Long, caller: Any?, policyKey: String?, value: Array<String?>?
     )
 
     // Original name: org_chromium_components_policy_PolicyMap_hasValue
@@ -2549,9 +2422,7 @@ object N {
     // Original name: org_chromium_components_policy_PolicyMap_equals
     @JvmStatic
     external fun `MiO$KcSn`(
-        nativePolicyMap: Long,
-        caller: Any?,
-        nativeOtherPolicyMap: Long
+        nativePolicyMap: Long, caller: Any?, nativeOtherPolicyMap: Long
     ): Boolean
 
     // Original name: org_chromium_components_policy_PolicyService_addObserver
@@ -2888,9 +2759,7 @@ object N {
     // Original name: org_chromium_content_browser_ContactsDialogHost_endContactsList
     @JvmStatic
     external fun MwwTaBAE(
-        nativeContactsProviderAndroid: Long,
-        percentageShared: Int,
-        propertiesRequested: Int
+        nativeContactsProviderAndroid: Long, percentageShared: Int, propertiesRequested: Int
     )
 
     // Original name: org_chromium_content_browser_ContactsDialogHost_endWithPermissionDenied
@@ -2939,11 +2808,7 @@ object N {
     // Original name: org_chromium_content_browser_ContentUiEventHandler_sendScrollEvent
     @JvmStatic
     external fun M_1sgTVt(
-        nativeContentUiEventHandler: Long,
-        caller: Any?,
-        timeMs: Long,
-        deltaX: Float,
-        deltaY: Float
+        nativeContentUiEventHandler: Long, caller: Any?, timeMs: Long, deltaX: Float, deltaY: Float
     )
 
     // Original name: org_chromium_content_browser_ContentUiEventHandler_cancelFling
@@ -3133,9 +2998,7 @@ object N {
     // Original name: org_chromium_content_browser_TracingControllerAndroidImpl_getKnownCategoriesAsync
     @JvmStatic
     external fun MdRNuqnW(
-        nativeTracingControllerAndroid: Long,
-        caller: Any?,
-        callback: Any?
+        nativeTracingControllerAndroid: Long, caller: Any?, callback: Any?
     ): Boolean
 
     // Original name: org_chromium_content_browser_TracingControllerAndroidImpl_getDefaultCategories
@@ -3145,9 +3008,7 @@ object N {
     // Original name: org_chromium_content_browser_TracingControllerAndroidImpl_getTraceBufferUsageAsync
     @JvmStatic
     external fun MkLMghix(
-        nativeTracingControllerAndroid: Long,
-        caller: Any?,
-        callback: Any?
+        nativeTracingControllerAndroid: Long, caller: Any?, callback: Any?
     ): Boolean
 
     // Original name: org_chromium_content_browser_TtsPlatformImpl_voicesChanged
@@ -3201,33 +3062,25 @@ object N {
     // Original name: org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_isNodeValid
     @JvmStatic
     external fun MTBNGzHX(
-        nativeWebContentsAccessibilityAndroid: Long,
-        caller: Any?,
-        id: Int
+        nativeWebContentsAccessibilityAndroid: Long, caller: Any?, id: Int
     ): Boolean
 
     // Original name: org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_isAutofillPopupNode
     @JvmStatic
     external fun M5uHFthk(
-        nativeWebContentsAccessibilityAndroid: Long,
-        caller: Any?,
-        id: Int
+        nativeWebContentsAccessibilityAndroid: Long, caller: Any?, id: Int
     ): Boolean
 
     // Original name: org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_isEditableText
     @JvmStatic
     external fun MCMbXu4W(
-        nativeWebContentsAccessibilityAndroid: Long,
-        caller: Any?,
-        id: Int
+        nativeWebContentsAccessibilityAndroid: Long, caller: Any?, id: Int
     ): Boolean
 
     // Original name: org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_isFocused
     @JvmStatic
     external fun M8UuMlLD(
-        nativeWebContentsAccessibilityAndroid: Long,
-        caller: Any?,
-        id: Int
+        nativeWebContentsAccessibilityAndroid: Long, caller: Any?, id: Int
     ): Boolean
 
     // Original name: org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_getEditableTextSelectionStart
@@ -3241,27 +3094,19 @@ object N {
     // Original name: org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_getAbsolutePositionForNode
     @JvmStatic
     external fun MihzIy2h(
-        nativeWebContentsAccessibilityAndroid: Long,
-        caller: Any?,
-        id: Int
+        nativeWebContentsAccessibilityAndroid: Long, caller: Any?, id: Int
     ): IntArray?
 
     // Original name: org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_updateCachedAccessibilityNodeInfo
     @JvmStatic
     external fun MZ7sDynr(
-        nativeWebContentsAccessibilityAndroid: Long,
-        caller: Any?,
-        info: Any?,
-        id: Int
+        nativeWebContentsAccessibilityAndroid: Long, caller: Any?, info: Any?, id: Int
     ): Boolean
 
     // Original name: org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_populateAccessibilityNodeInfo
     @JvmStatic
     external fun MJGtghd9(
-        nativeWebContentsAccessibilityAndroid: Long,
-        caller: Any?,
-        info: Any?,
-        id: Int
+        nativeWebContentsAccessibilityAndroid: Long, caller: Any?, info: Any?, id: Int
     ): Boolean
 
     // Original name: org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_populateAccessibilityEvent
@@ -3304,20 +3149,13 @@ object N {
     // Original name: org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_setTextFieldValue
     @JvmStatic
     external fun MEJD7Boi(
-        nativeWebContentsAccessibilityAndroid: Long,
-        caller: Any?,
-        id: Int,
-        newValue: String?
+        nativeWebContentsAccessibilityAndroid: Long, caller: Any?, id: Int, newValue: String?
     )
 
     // Original name: org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_setSelection
     @JvmStatic
     external fun MVuu0R4P(
-        nativeWebContentsAccessibilityAndroid: Long,
-        caller: Any?,
-        id: Int,
-        start: Int,
-        end: Int
+        nativeWebContentsAccessibilityAndroid: Long, caller: Any?, id: Int, start: Int, end: Int
     )
 
     // Original name: org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_nextAtGranularity
@@ -3345,27 +3183,19 @@ object N {
     // Original name: org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_adjustSlider
     @JvmStatic
     external fun MLjXc4lw(
-        nativeWebContentsAccessibilityAndroid: Long,
-        caller: Any?,
-        id: Int,
-        increment: Boolean
+        nativeWebContentsAccessibilityAndroid: Long, caller: Any?, id: Int, increment: Boolean
     ): Boolean
 
     // Original name: org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_moveAccessibilityFocus
     @JvmStatic
     external fun MPQKLw45(
-        nativeWebContentsAccessibilityAndroid: Long,
-        caller: Any?,
-        oldId: Int,
-        newId: Int
+        nativeWebContentsAccessibilityAndroid: Long, caller: Any?, oldId: Int, newId: Int
     )
 
     // Original name: org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_isSlider
     @JvmStatic
     external fun MkaakTGI(
-        nativeWebContentsAccessibilityAndroid: Long,
-        caller: Any?,
-        id: Int
+        nativeWebContentsAccessibilityAndroid: Long, caller: Any?, id: Int
     ): Boolean
 
     // Original name: org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_scroll
@@ -3381,10 +3211,7 @@ object N {
     // Original name: org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_setRangeValue
     @JvmStatic
     external fun MfTAAcu8(
-        nativeWebContentsAccessibilityAndroid: Long,
-        caller: Any?,
-        id: Int,
-        value: Float
+        nativeWebContentsAccessibilityAndroid: Long, caller: Any?, id: Int, value: Float
     ): Boolean
 
     // Original name: org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_getSupportedHtmlElementTypes
@@ -3402,25 +3229,19 @@ object N {
     // Original name: org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_enable
     @JvmStatic
     external fun `Mg$cuhZc`(
-        nativeWebContentsAccessibilityAndroid: Long,
-        caller: Any?,
-        screenReaderMode: Boolean
+        nativeWebContentsAccessibilityAndroid: Long, caller: Any?, screenReaderMode: Boolean
     )
 
     // Original name: org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_setAXMode
     @JvmStatic
     external fun ME1Wl4ca(
-        nativeWebContentsAccessibilityAndroid: Long,
-        caller: Any?,
-        screenReaderMode: Boolean
+        nativeWebContentsAccessibilityAndroid: Long, caller: Any?, screenReaderMode: Boolean
     )
 
     // Original name: org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_areInlineTextBoxesLoaded
     @JvmStatic
     external fun MZcfOSQW(
-        nativeWebContentsAccessibilityAndroid: Long,
-        caller: Any?,
-        id: Int
+        nativeWebContentsAccessibilityAndroid: Long, caller: Any?, id: Int
     ): Boolean
 
     // Original name: org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_loadInlineTextBoxes
@@ -3430,11 +3251,7 @@ object N {
     // Original name: org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_getCharacterBoundingBoxes
     @JvmStatic
     external fun MVBiMGvZ(
-        nativeWebContentsAccessibilityAndroid: Long,
-        caller: Any?,
-        id: Int,
-        start: Int,
-        len: Int
+        nativeWebContentsAccessibilityAndroid: Long, caller: Any?, id: Int, start: Int, len: Int
     ): IntArray?
 
     // Original name: org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_getTextLength
@@ -3466,18 +3283,13 @@ object N {
     // Original name: org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_setIsRunningAsWebView
     @JvmStatic
     external fun MdwxDenk(
-        nativeWebContentsAccessibilityAndroid: Long,
-        caller: Any?,
-        isWebView: Boolean
+        nativeWebContentsAccessibilityAndroid: Long, caller: Any?, isWebView: Boolean
     )
 
     // Original name: org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_onHoverEventNoRenderer
     @JvmStatic
     external fun Mx2ry6ai(
-        nativeWebContentsAccessibilityAndroid: Long,
-        caller: Any?,
-        x: Float,
-        y: Float
+        nativeWebContentsAccessibilityAndroid: Long, caller: Any?, x: Float, y: Float
     ): Boolean
 
     // Original name: org_chromium_content_browser_accessibility_captioning_CaptioningController_init
@@ -3558,9 +3370,7 @@ object N {
     // Original name: org_chromium_content_browser_framehost_NavigationControllerImpl_canGoToOffset
     @JvmStatic
     external fun M4jjW0jG(
-        nativeNavigationControllerAndroid: Long,
-        caller: Any?,
-        offset: Int
+        nativeNavigationControllerAndroid: Long, caller: Any?, offset: Int
     ): Boolean
 
     // Original name: org_chromium_content_browser_framehost_NavigationControllerImpl_goBack
@@ -3590,17 +3400,13 @@ object N {
     // Original name: org_chromium_content_browser_framehost_NavigationControllerImpl_reload
     @JvmStatic
     external fun `M81h$w2r`(
-        nativeNavigationControllerAndroid: Long,
-        caller: Any?,
-        checkForRepost: Boolean
+        nativeNavigationControllerAndroid: Long, caller: Any?, checkForRepost: Boolean
     )
 
     // Original name: org_chromium_content_browser_framehost_NavigationControllerImpl_reloadBypassingCache
     @JvmStatic
     external fun My0bMgld(
-        nativeNavigationControllerAndroid: Long,
-        caller: Any?,
-        checkForRepost: Boolean
+        nativeNavigationControllerAndroid: Long, caller: Any?, checkForRepost: Boolean
     )
 
     // Original name: org_chromium_content_browser_framehost_NavigationControllerImpl_loadUrl
@@ -3682,9 +3488,7 @@ object N {
     // Original name: org_chromium_content_browser_framehost_NavigationControllerImpl_removeEntryAtIndex
     @JvmStatic
     external fun MVbDeBRx(
-        nativeNavigationControllerAndroid: Long,
-        caller: Any?,
-        index: Int
+        nativeNavigationControllerAndroid: Long, caller: Any?, index: Int
     ): Boolean
 
     // Original name: org_chromium_content_browser_framehost_NavigationControllerImpl_pruneForwardEntries
@@ -3694,10 +3498,7 @@ object N {
     // Original name: org_chromium_content_browser_framehost_NavigationControllerImpl_getEntryExtraData
     @JvmStatic
     external fun McQE1GI8(
-        nativeNavigationControllerAndroid: Long,
-        caller: Any?,
-        index: Int,
-        key: String?
+        nativeNavigationControllerAndroid: Long, caller: Any?, index: Int, key: String?
     ): String?
 
     // Original name: org_chromium_content_browser_framehost_NavigationControllerImpl_setEntryExtraData
@@ -3713,9 +3514,7 @@ object N {
     // Original name: org_chromium_content_browser_framehost_NavigationControllerImpl_isEntryMarkedToBeSkipped
     @JvmStatic
     external fun MVjP87pN(
-        nativeNavigationControllerAndroid: Long,
-        caller: Any?,
-        index: Int
+        nativeNavigationControllerAndroid: Long, caller: Any?, index: Int
     ): Boolean
 
     // Original name: org_chromium_content_browser_framehost_RenderFrameHostImpl_getLastCommittedURL
@@ -3906,10 +3705,7 @@ object N {
     // Original name: org_chromium_content_browser_input_TextSuggestionHost_applyTextSuggestion
     @JvmStatic
     external fun MIADbBhq(
-        nativeTextSuggestionHostAndroid: Long,
-        caller: Any?,
-        markerTag: Int,
-        suggestionIndex: Int
+        nativeTextSuggestionHostAndroid: Long, caller: Any?, markerTag: Int, suggestionIndex: Int
     )
 
     // Original name: org_chromium_content_browser_input_TextSuggestionHost_deleteActiveSuggestionRange
@@ -3939,10 +3735,7 @@ object N {
     // Original name: org_chromium_content_browser_selection_SmartSelectionClient_requestSurroundingText
     @JvmStatic
     external fun M2GZ6ZNR(
-        nativeSmartSelectionClient: Long,
-        caller: Any?,
-        numExtraCharacters: Int,
-        callbackData: Int
+        nativeSmartSelectionClient: Long, caller: Any?, numExtraCharacters: Int, callbackData: Int
     )
 
     // Original name: org_chromium_content_browser_selection_SmartSelectionClient_cancelAllRequests
@@ -3996,9 +3789,7 @@ object N {
     // Original name: org_chromium_content_browser_webcontents_WebContentsImpl_getRenderFrameHostFromId
     @JvmStatic
     external fun MZAK3_Tx(
-        nativeWebContentsAndroid: Long,
-        renderProcessId: Int,
-        renderFrameId: Int
+        nativeWebContentsAndroid: Long, renderProcessId: Int, renderFrameId: Int
     ): Any?
 
     // Original name: org_chromium_content_browser_webcontents_WebContentsImpl_getAllRenderFrameHosts
@@ -4138,28 +3929,19 @@ object N {
     // Original name: org_chromium_content_browser_webcontents_WebContentsImpl_evaluateJavaScript
     @JvmStatic
     external fun M0uS2SDH(
-        nativeWebContentsAndroid: Long,
-        caller: Any?,
-        script: String?,
-        callback: Any?
+        nativeWebContentsAndroid: Long, caller: Any?, script: String?, callback: Any?
     )
 
     // Original name: org_chromium_content_browser_webcontents_WebContentsImpl_evaluateJavaScriptForTests
     @JvmStatic
     external fun MPoHZQTR(
-        nativeWebContentsAndroid: Long,
-        caller: Any?,
-        script: String?,
-        callback: Any?
+        nativeWebContentsAndroid: Long, caller: Any?, script: String?, callback: Any?
     )
 
     // Original name: org_chromium_content_browser_webcontents_WebContentsImpl_addMessageToDevToolsConsole
     @JvmStatic
     external fun MseJ7A4a(
-        nativeWebContentsAndroid: Long,
-        caller: Any?,
-        level: Int,
-        message: String?
+        nativeWebContentsAndroid: Long, caller: Any?, level: Int, message: String?
     )
 
     // Original name: org_chromium_content_browser_webcontents_WebContentsImpl_postMessageToMainFrame
@@ -4204,9 +3986,7 @@ object N {
     // Original name: org_chromium_content_browser_webcontents_WebContentsImpl_setOverscrollRefreshHandler
     @JvmStatic
     external fun MTTB8znA(
-        nativeWebContentsAndroid: Long,
-        caller: Any?,
-        nativeOverscrollRefreshHandler: Any?
+        nativeWebContentsAndroid: Long, caller: Any?, nativeOverscrollRefreshHandler: Any?
     )
 
     // Original name: org_chromium_content_browser_webcontents_WebContentsImpl_setSpatialNavigationDisabled
@@ -4276,12 +4056,7 @@ object N {
     // Original name: org_chromium_content_browser_webcontents_WebContentsImpl_setDisplayCutoutSafeArea
     @JvmStatic
     external fun MtjP03pj(
-        nativeWebContentsAndroid: Long,
-        caller: Any?,
-        top: Int,
-        left: Int,
-        bottom: Int,
-        right: Int
+        nativeWebContentsAndroid: Long, caller: Any?, top: Int, left: Int, bottom: Int, right: Int
     )
 
     // Original name: org_chromium_content_browser_webcontents_WebContentsImpl_notifyRendererPreferenceUpdate
@@ -4311,9 +4086,7 @@ object N {
     // Original name: org_chromium_content_1public_browser_NavigationHandle_setRequestHeader
     @JvmStatic
     external fun MACALLtV(
-        nativeNavigationHandleProxy: Long,
-        headerName: String?,
-        headerValue: String?
+        nativeNavigationHandleProxy: Long, headerName: String?, headerValue: String?
     )
 
     // Original name: org_chromium_content_1public_browser_NavigationHandle_removeRequestHeader
@@ -4361,19 +4134,13 @@ object N {
     // Original name: org_chromium_device_bluetooth_ChromeBluetoothDevice_onConnectionStateChange
     @JvmStatic
     external fun MmnW7gQC(
-        nativeBluetoothDeviceAndroid: Long,
-        caller: Any?,
-        status: Int,
-        connected: Boolean
+        nativeBluetoothDeviceAndroid: Long, caller: Any?, status: Int, connected: Boolean
     )
 
     // Original name: org_chromium_device_bluetooth_ChromeBluetoothDevice_createGattRemoteService
     @JvmStatic
     external fun MAoRk69U(
-        nativeBluetoothDeviceAndroid: Long,
-        caller: Any?,
-        instanceId: String?,
-        serviceWrapper: Any?
+        nativeBluetoothDeviceAndroid: Long, caller: Any?, instanceId: String?, serviceWrapper: Any?
     )
 
     // Original name: org_chromium_device_bluetooth_ChromeBluetoothDevice_onGattServicesDiscovered
@@ -4383,9 +4150,7 @@ object N {
     // Original name: org_chromium_device_bluetooth_ChromeBluetoothRemoteGattCharacteristic_onChanged
     @JvmStatic
     external fun MZCKcdTH(
-        nativeBluetoothRemoteGattCharacteristicAndroid: Long,
-        caller: Any?,
-        value: ByteArray?
+        nativeBluetoothRemoteGattCharacteristicAndroid: Long, caller: Any?, value: ByteArray?
     )
 
     // Original name: org_chromium_device_bluetooth_ChromeBluetoothRemoteGattCharacteristic_onRead
@@ -4400,9 +4165,7 @@ object N {
     // Original name: org_chromium_device_bluetooth_ChromeBluetoothRemoteGattCharacteristic_onWrite
     @JvmStatic
     external fun M3TCxDs5(
-        nativeBluetoothRemoteGattCharacteristicAndroid: Long,
-        caller: Any?,
-        status: Int
+        nativeBluetoothRemoteGattCharacteristicAndroid: Long, caller: Any?, status: Int
     )
 
     // Original name: org_chromium_device_bluetooth_ChromeBluetoothRemoteGattCharacteristic_createGattRemoteDescriptor
@@ -4427,9 +4190,7 @@ object N {
     // Original name: org_chromium_device_bluetooth_ChromeBluetoothRemoteGattDescriptor_onWrite
     @JvmStatic
     external fun M4SmPJiR(
-        nativeBluetoothRemoteGattDescriptorAndroid: Long,
-        caller: Any?,
-        status: Int
+        nativeBluetoothRemoteGattDescriptorAndroid: Long, caller: Any?, status: Int
     )
 
     // Original name: org_chromium_device_bluetooth_ChromeBluetoothRemoteGattService_createGattRemoteCharacteristic
@@ -4510,10 +4271,7 @@ object N {
     // Original name: org_chromium_device_usb_ChromeUsbService_devicePermissionRequestComplete
     @JvmStatic
     external fun MDvFAfgT(
-        nativeUsbServiceAndroid: Long,
-        caller: Any?,
-        deviceId: Int,
-        granted: Boolean
+        nativeUsbServiceAndroid: Long, caller: Any?, deviceId: Int, granted: Boolean
     )
 
     // Original name: org_chromium_media_AudioManagerAndroid_setMute
@@ -4523,10 +4281,7 @@ object N {
     // Original name: org_chromium_media_AudioTrackOutputStream_onMoreData
     @JvmStatic
     external fun MEPH2V3G(
-        nativeAudioTrackOutputStream: Long,
-        caller: Any?,
-        audioData: Any?,
-        delayInFrames: Long
+        nativeAudioTrackOutputStream: Long, caller: Any?, audioData: Any?, delayInFrames: Long
     ): Any?
 
     // Original name: org_chromium_media_AudioTrackOutputStream_onError
@@ -4608,10 +4363,7 @@ object N {
     // Original name: org_chromium_media_MediaDrmBridge_onProvisionRequest
     @JvmStatic
     external fun MmhSkOYV(
-        nativeMediaDrmBridge: Long,
-        caller: Any?,
-        defaultUrl: String?,
-        requestData: ByteArray?
+        nativeMediaDrmBridge: Long, caller: Any?, defaultUrl: String?, requestData: ByteArray?
     )
 
     // Original name: org_chromium_media_MediaDrmBridge_onProvisioningComplete
@@ -4625,19 +4377,13 @@ object N {
     // Original name: org_chromium_media_MediaDrmBridge_onPromiseResolvedWithSession
     @JvmStatic
     external fun MtWWjNjU(
-        nativeMediaDrmBridge: Long,
-        caller: Any?,
-        promiseId: Long,
-        emeSessionId: ByteArray?
+        nativeMediaDrmBridge: Long, caller: Any?, promiseId: Long, emeSessionId: ByteArray?
     )
 
     // Original name: org_chromium_media_MediaDrmBridge_onPromiseRejected
     @JvmStatic
     external fun M2P7BQ98(
-        nativeMediaDrmBridge: Long,
-        caller: Any?,
-        promiseId: Long,
-        errorMessage: String?
+        nativeMediaDrmBridge: Long, caller: Any?, promiseId: Long, errorMessage: String?
     )
 
     // Original name: org_chromium_media_MediaDrmBridge_onSessionMessage
@@ -4668,10 +4414,7 @@ object N {
     // Original name: org_chromium_media_MediaDrmBridge_onSessionExpirationUpdate
     @JvmStatic
     external fun MFLUFEZc(
-        nativeMediaDrmBridge: Long,
-        caller: Any?,
-        emeSessionId: ByteArray?,
-        expirationTime: Long
+        nativeMediaDrmBridge: Long, caller: Any?, emeSessionId: ByteArray?, expirationTime: Long
     )
 
     // Original name: org_chromium_media_MediaDrmStorageBridge_onProvisioned
@@ -4681,10 +4424,7 @@ object N {
     // Original name: org_chromium_media_MediaDrmStorageBridge_onLoadInfo
     @JvmStatic
     external fun Mmi_qOX8(
-        nativeMediaDrmStorageBridge: Long,
-        caller: Any?,
-        sessionId: ByteArray?,
-        cb: Any?
+        nativeMediaDrmStorageBridge: Long, caller: Any?, sessionId: ByteArray?, cb: Any?
     )
 
     // Original name: org_chromium_media_MediaDrmStorageBridge_onSaveInfo
@@ -4694,10 +4434,7 @@ object N {
     // Original name: org_chromium_media_MediaDrmStorageBridge_onClearInfo
     @JvmStatic
     external fun MYa_y6Dg(
-        nativeMediaDrmStorageBridge: Long,
-        caller: Any?,
-        sessionId: ByteArray?,
-        cb: Any?
+        nativeMediaDrmStorageBridge: Long, caller: Any?, sessionId: ByteArray?, cb: Any?
     )
 
     // Original name: org_chromium_media_MediaPlayerBridge_onDidSetDataUriDataSource
@@ -4723,9 +4460,7 @@ object N {
     // Original name: org_chromium_media_MediaServerCrashListener_onMediaServerCrashDetected
     @JvmStatic
     external fun `Mm$QSrAo`(
-        nativeMediaServerCrashListener: Long,
-        caller: Any?,
-        watchdogNeedsRelease: Boolean
+        nativeMediaServerCrashListener: Long, caller: Any?, watchdogNeedsRelease: Boolean
     )
 
     // Original name: org_chromium_media_ScreenCapture_onRGBAFrameAvailable
@@ -4807,27 +4542,19 @@ object N {
     // Original name: org_chromium_media_VideoCapture_onFrameDropped
     @JvmStatic
     external fun M651cEC1(
-        nativeVideoCaptureDeviceAndroid: Long,
-        caller: Any?,
-        androidVideoCaptureFrameDropReason: Int
+        nativeVideoCaptureDeviceAndroid: Long, caller: Any?, androidVideoCaptureFrameDropReason: Int
     )
 
     // Original name: org_chromium_media_VideoCapture_onGetPhotoCapabilitiesReply
     @JvmStatic
     external fun MumkJZ3e(
-        nativeVideoCaptureDeviceAndroid: Long,
-        caller: Any?,
-        callbackId: Long,
-        result: Any?
+        nativeVideoCaptureDeviceAndroid: Long, caller: Any?, callbackId: Long, result: Any?
     )
 
     // Original name: org_chromium_media_VideoCapture_onPhotoTaken
     @JvmStatic
     external fun `MdZBZ$ST`(
-        nativeVideoCaptureDeviceAndroid: Long,
-        caller: Any?,
-        callbackId: Long,
-        data: ByteArray?
+        nativeVideoCaptureDeviceAndroid: Long, caller: Any?, callbackId: Long, data: ByteArray?
     )
 
     // Original name: org_chromium_media_VideoCapture_onStarted
@@ -4841,11 +4568,7 @@ object N {
     // Original name: org_chromium_midi_MidiInputPortAndroid_onData
     @JvmStatic
     external fun MzDIdqgH(
-        nativeMidiInputPortAndroid: Long,
-        bs: ByteArray?,
-        offset: Int,
-        count: Int,
-        timestamp: Long
+        nativeMidiInputPortAndroid: Long, bs: ByteArray?, offset: Int, count: Int, timestamp: Long
     )
 
     // Original name: org_chromium_midi_MidiManagerAndroid_onInitialized
@@ -4931,12 +4654,7 @@ object N {
     // Original name: org_chromium_mojo_system_impl_CoreImpl_writeMessage
     @JvmStatic
     external fun Mkun8eIV(
-        caller: Any?,
-        mojoHandle: Int,
-        bytes: Any?,
-        numBytes: Int,
-        handlesBuffer: Any?,
-        flags: Int
+        caller: Any?, mojoHandle: Int, bytes: Any?, numBytes: Int, handlesBuffer: Any?, flags: Int
     ): Int
 
     // Original name: org_chromium_mojo_system_impl_CoreImpl_readMessage
@@ -4946,11 +4664,7 @@ object N {
     // Original name: org_chromium_mojo_system_impl_CoreImpl_readData
     @JvmStatic
     external fun MBDORBtR(
-        caller: Any?,
-        mojoHandle: Int,
-        elements: Any?,
-        elementsSize: Int,
-        flags: Int
+        caller: Any?, mojoHandle: Int, elements: Any?, elementsSize: Int, flags: Int
     ): Any?
 
     // Original name: org_chromium_mojo_system_impl_CoreImpl_beginReadData
@@ -4964,11 +4678,7 @@ object N {
     // Original name: org_chromium_mojo_system_impl_CoreImpl_writeData
     @JvmStatic
     external fun Mra2dnT9(
-        caller: Any?,
-        mojoHandle: Int,
-        elements: Any?,
-        limit: Int,
-        flags: Int
+        caller: Any?, mojoHandle: Int, elements: Any?, limit: Int, flags: Int
     ): Any?
 
     // Original name: org_chromium_mojo_system_impl_CoreImpl_beginWriteData
@@ -4986,11 +4696,7 @@ object N {
     // Original name: org_chromium_mojo_system_impl_CoreImpl_map
     @JvmStatic
     external fun Mm6zKFIo(
-        caller: Any?,
-        mojoHandle: Int,
-        offset: Long,
-        numBytes: Long,
-        flags: Int
+        caller: Any?, mojoHandle: Int, offset: Long, numBytes: Long, flags: Int
     ): Any?
 
     // Original name: org_chromium_mojo_system_impl_CoreImpl_unmap
@@ -5028,10 +4734,7 @@ object N {
     // Original name: org_chromium_net_HttpNegotiateAuthenticator_setResult
     @JvmStatic
     external fun M0s8NeYn(
-        nativeJavaNegotiateResultWrapper: Long,
-        caller: Any?,
-        status: Int,
-        authToken: String?
+        nativeJavaNegotiateResultWrapper: Long, caller: Any?, status: Int, authToken: String?
     )
 
     // Original name: org_chromium_net_HttpUtil_isAllowedHeader
@@ -5180,29 +4883,19 @@ object N {
     // Original name: org_chromium_ui_base_EventForwarder_onGestureEvent
     @JvmStatic
     external fun MtyC4Bd2(
-        nativeEventForwarder: Long,
-        caller: Any?,
-        type: Int,
-        timeMs: Long,
-        delta: Float
+        nativeEventForwarder: Long, caller: Any?, type: Int, timeMs: Long, delta: Float
     ): Boolean
 
     // Original name: org_chromium_ui_base_EventForwarder_onGenericMotionEvent
     @JvmStatic
     external fun MvdB06Zi(
-        nativeEventForwarder: Long,
-        caller: Any?,
-        event: Any?,
-        timeMs: Long
+        nativeEventForwarder: Long, caller: Any?, event: Any?, timeMs: Long
     ): Boolean
 
     // Original name: org_chromium_ui_base_EventForwarder_onKeyUp
     @JvmStatic
     external fun MRbfSEI1(
-        nativeEventForwarder: Long,
-        caller: Any?,
-        event: Any?,
-        keyCode: Int
+        nativeEventForwarder: Long, caller: Any?, event: Any?, keyCode: Int
     ): Boolean
 
     // Original name: org_chromium_ui_base_EventForwarder_dispatchKeyEvent
@@ -5236,10 +4929,7 @@ object N {
     // Original name: org_chromium_ui_base_EventForwarder_cancelFling
     @JvmStatic
     external fun MSvJWvYj(
-        nativeEventForwarder: Long,
-        caller: Any?,
-        timeMs: Long,
-        preventBoosting: Boolean
+        nativeEventForwarder: Long, caller: Any?, timeMs: Long, preventBoosting: Boolean
     )
 
     // Original name: org_chromium_ui_base_LocalizationUtils_getFirstStrongCharacterDirection
@@ -5253,10 +4943,7 @@ object N {
     // Original name: org_chromium_ui_base_SelectFileDialog_onFileSelected
     @JvmStatic
     external fun MBeWYy2V(
-        nativeSelectFileDialogImpl: Long,
-        caller: Any?,
-        filePath: String?,
-        displayName: String?
+        nativeSelectFileDialogImpl: Long, caller: Any?, filePath: String?, displayName: String?
     )
 
     // Original name: org_chromium_ui_base_SelectFileDialog_onMultipleFilesSelected
@@ -5279,10 +4966,7 @@ object N {
     // Original name: org_chromium_ui_base_WindowAndroid_init
     @JvmStatic
     external fun MFjTMMS_(
-        caller: Any?,
-        displayId: Int,
-        scrollFactor: Float,
-        windowIsWideColorGamut: Boolean
+        caller: Any?, displayId: Int, scrollFactor: Float, windowIsWideColorGamut: Boolean
     ): Long
 
     // Original name: org_chromium_ui_base_WindowAndroid_onVisibilityChanged
@@ -5312,9 +4996,7 @@ object N {
     // Original name: org_chromium_ui_base_WindowAndroid_onSupportedRefreshRatesUpdated
     @JvmStatic
     external fun `MTDQeb$o`(
-        nativeWindowAndroid: Long,
-        caller: Any?,
-        supportedRefreshRates: FloatArray?
+        nativeWindowAndroid: Long, caller: Any?, supportedRefreshRates: FloatArray?
     )
 
     // Original name: org_chromium_ui_display_DisplayAndroidManager_updateDisplay
@@ -5412,10 +5094,7 @@ object N {
     // Original name: org_chromium_url_GURL_domainIs
     @JvmStatic
     external fun MstQ1QcZ(
-        spec: String?,
-        isValid: Boolean,
-        nativeParsed: Long,
-        domain: String?
+        spec: String?, isValid: Boolean, nativeParsed: Long, domain: String?
     ): Boolean
 
     // Original name: org_chromium_url_GURL_createNative
@@ -5630,10 +5309,7 @@ object N {
     // Original name: org_chromium_weblayer_1private_CookieManagerImpl_setCookie
     @JvmStatic
     external fun MHaZNm_6(
-        nativeCookieManagerImpl: Long,
-        url: String?,
-        value: String?,
-        callback: Any?
+        nativeCookieManagerImpl: Long, url: String?, value: String?, callback: Any?
     ): Boolean
 
     // Original name: org_chromium_weblayer_1private_CookieManagerImpl_getCookie
@@ -5643,10 +5319,7 @@ object N {
     // Original name: org_chromium_weblayer_1private_CookieManagerImpl_addCookieChangedCallback
     @JvmStatic
     external fun M9VhfsIF(
-        nativeCookieManagerImpl: Long,
-        url: String?,
-        name: String?,
-        callback: Any?
+        nativeCookieManagerImpl: Long, url: String?, name: String?, callback: Any?
     ): Int
 
     // Original name: org_chromium_weblayer_1private_CookieManagerImpl_removeCookieChangedCallback
@@ -6099,10 +5772,7 @@ object N {
     // Original name: org_chromium_weblayer_1private_TabImpl_executeScript
     @JvmStatic
     external fun M9gymlSj(
-        nativeTabImpl: Long,
-        script: String?,
-        useSeparateIsolate: Boolean,
-        callback: Any?
+        nativeTabImpl: Long, script: String?, useSeparateIsolate: Boolean, callback: Any?
     )
 
     // Original name: org_chromium_weblayer_1private_TabImpl_updateBrowserControlsConstraint
@@ -6132,10 +5802,7 @@ object N {
     // Original name: org_chromium_weblayer_1private_TabImpl_registerWebMessageCallback
     @JvmStatic
     external fun MPKxPeqc(
-        nativeTabImpl: Long,
-        jsObjectName: String?,
-        allowedOrigins: Array<String?>?,
-        client: Any?
+        nativeTabImpl: Long, jsObjectName: String?, allowedOrigins: Array<String?>?, client: Any?
     ): String?
 
     // Original name: org_chromium_weblayer_1private_TabImpl_unregisterWebMessageCallback
@@ -6173,27 +5840,19 @@ object N {
     // Original name: org_chromium_weblayer_1private_TranslateCompactInfoBar_applyStringTranslateOption
     @JvmStatic
     external fun MMWKyuFU(
-        nativeTranslateCompactInfoBar: Long,
-        caller: Any?,
-        option: Int,
-        value: String?
+        nativeTranslateCompactInfoBar: Long, caller: Any?, option: Int, value: String?
     )
 
     // Original name: org_chromium_weblayer_1private_TranslateCompactInfoBar_applyBoolTranslateOption
     @JvmStatic
     external fun Mc1zGvz5(
-        nativeTranslateCompactInfoBar: Long,
-        caller: Any?,
-        option: Int,
-        value: Boolean
+        nativeTranslateCompactInfoBar: Long, caller: Any?, option: Int, value: Boolean
     )
 
     // Original name: org_chromium_weblayer_1private_TranslateCompactInfoBar_shouldAutoNeverTranslate
     @JvmStatic
     external fun MG9EGT5b(
-        nativeTranslateCompactInfoBar: Long,
-        caller: Any?,
-        menuExpanded: Boolean
+        nativeTranslateCompactInfoBar: Long, caller: Any?, menuExpanded: Boolean
     ): Boolean
 
     // Original name: org_chromium_weblayer_1private_TranslateCompactInfoBar_isIncognito

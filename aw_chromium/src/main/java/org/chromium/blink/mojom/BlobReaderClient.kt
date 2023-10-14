@@ -23,6 +23,6 @@ interface BlobReaderClient : Interface {
     )
 
     companion object {
-        val MANAGER = BlobReaderClient_Internal.MANAGER
+        val MANAGER = BlobReaderClientInternal.MANAGER
     }
 }

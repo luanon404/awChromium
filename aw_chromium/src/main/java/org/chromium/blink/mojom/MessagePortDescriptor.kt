@@ -21,15 +21,13 @@ import java.nio.ByteBuffer
 
 class MessagePortDescriptor private constructor(version: Int) : Struct(STRUCT_SIZE, version) {
     @JvmField
-    var pipeHandle: MessagePipeHandle
+    var pipeHandle: MessagePipeHandle = InvalidHandle.INSTANCE
+
     @JvmField
     var id: UnguessableToken? = null
+
     @JvmField
     var sequenceNumber: Long = 0
-
-    init {
-        pipeHandle = InvalidHandle.INSTANCE
-    }
 
     constructor() : this(0)
 

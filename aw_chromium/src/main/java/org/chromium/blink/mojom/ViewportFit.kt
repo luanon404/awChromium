@@ -21,7 +21,7 @@ object ViewportFit {
     const val MIN_VALUE = 0
     const val MAX_VALUE = 3
     fun isKnownValue(value: Int): Boolean {
-        return value >= 0 && value <= 3
+        return value in 0..3
     }
 
     fun validate(value: Int) {

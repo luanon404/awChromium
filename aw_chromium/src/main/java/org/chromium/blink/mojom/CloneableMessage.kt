@@ -18,12 +18,12 @@ import org.chromium.mojo.bindings.Struct
 import org.chromium.mojo_base.mojom.BigBuffer
 import org.chromium.mojo_base.mojom.UnguessableToken
 import org.chromium.url.internal.mojom.Origin
-import org.chromium.url.internal.mojom.Origin.Companion.decode
 import java.nio.ByteBuffer
 
 class CloneableMessage private constructor(version: Int) : Struct(STRUCT_SIZE, version) {
     @JvmField
     var encodedMessage: BigBuffer? = null
+
     @JvmField
     var blobs: Array<SerializedBlob?>? = null
 
@@ -45,15 +45,11 @@ class CloneableMessage private constructor(version: Int) : Struct(STRUCT_SIZE, v
             encoder0.encodeNullPointer(24, false)
         } else {
             val encoder1 = encoder0.encodePointerArray(
-                blobs!!.size,
-                24,
-                BindingsHelper.UNSPECIFIED_ARRAY_LENGTH
+                blobs!!.size, 24, BindingsHelper.UNSPECIFIED_ARRAY_LENGTH
             )
             for (i0 in blobs!!.indices) {
                 encoder1.encode(
-                    blobs!![i0],
-                    DataHeader.HEADER_SIZE + BindingsHelper.POINTER_SIZE * i0,
-                    false
+                    blobs!![i0], DataHeader.HEADER_SIZE + BindingsHelper.POINTER_SIZE * i0, false
                 )
             }
         }
@@ -68,7 +64,7 @@ class CloneableMessage private constructor(version: Int) : Struct(STRUCT_SIZE, v
             80,
             BindingsHelper.NOTHING_NULLABLE,
             BindingsHelper.UNSPECIFIED_ARRAY_LENGTH,
-            FileSystemAccessTransferToken.Companion.MANAGER
+            FileSystemAccessTransferToken.MANAGER
         )
     }
 
@@ -112,10 +108,9 @@ class CloneableMessage private constructor(version: Int) : Struct(STRUCT_SIZE, v
                         result.blobs = arrayOfNulls(si1.elementsOrVersion)
                         for (i1 in 0 until si1.elementsOrVersion) {
                             val decoder2 = decoder1.readPointer(
-                                DataHeader.HEADER_SIZE + BindingsHelper.POINTER_SIZE * i1,
-                                false
+                                DataHeader.HEADER_SIZE + BindingsHelper.POINTER_SIZE * i1, false
                             )
-                            result.blobs!![i1] = SerializedBlob.Companion.decode(decoder2)
+                            result.blobs!![i1] = SerializedBlob.decode(decoder2)
                         }
                     }
                 }
@@ -137,7 +132,7 @@ class CloneableMessage private constructor(version: Int) : Struct(STRUCT_SIZE, v
                             80,
                             BindingsHelper.NOTHING_NULLABLE,
                             BindingsHelper.UNSPECIFIED_ARRAY_LENGTH,
-                            FileSystemAccessTransferToken.Companion.MANAGER
+                            FileSystemAccessTransferToken.MANAGER
                         )
                 }
             } finally {

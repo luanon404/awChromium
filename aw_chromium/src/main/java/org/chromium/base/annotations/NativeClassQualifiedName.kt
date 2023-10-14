@@ -8,9 +8,7 @@ package org.chromium.base.annotations
  * bindings to call into the specified native class name.
  */
 @Target(
-    AnnotationTarget.FUNCTION,
-    AnnotationTarget.PROPERTY_GETTER,
-    AnnotationTarget.PROPERTY_SETTER
+    AnnotationTarget.FUNCTION, AnnotationTarget.PROPERTY_GETTER, AnnotationTarget.PROPERTY_SETTER
 )
 @Retention(
     AnnotationRetention.RUNTIME

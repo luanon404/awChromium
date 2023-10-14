@@ -16,8 +16,7 @@ interface RemoteObject : Interface {
     interface Proxy : RemoteObject, Interface.Proxy
 
     fun hasMethod(
-        name: String?,
-        callback: HasMethodResponse
+        name: String?, callback: HasMethodResponse
     )
 
     interface HasMethodResponse : Callback1<Boolean?>
@@ -29,8 +28,7 @@ interface RemoteObject : Interface {
     interface GetMethodsResponse : Callback1<Array<String?>?>
 
     fun invokeMethod(
-        name: String?, arguments: Array<RemoteInvocationArgument?>?,
-        callback: InvokeMethodResponse
+        name: String?, arguments: Array<RemoteInvocationArgument?>?, callback: InvokeMethodResponse
     )
 
     interface InvokeMethodResponse : Callback1<RemoteInvocationResult?>
@@ -39,6 +37,6 @@ interface RemoteObject : Interface {
 
     companion object {
         @JvmField
-        val MANAGER = RemoteObject_Internal.MANAGER
+        val MANAGER = RemoteObjectInternal.MANAGER
     }
 }

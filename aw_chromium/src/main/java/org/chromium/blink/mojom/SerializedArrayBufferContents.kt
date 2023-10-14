@@ -21,8 +21,6 @@ class SerializedArrayBufferContents private constructor(version: Int) :
     Struct(STRUCT_SIZE, version) {
     var contents: BigBuffer? = null
 
-    constructor() : this(0)
-
     override fun encode(encoder: Encoder) {
         val encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO)
         encoder0.encode(contents, 8, false)

@@ -9,6 +9,7 @@
 //
 package org.chromium.blink.mojom
 
+import android.annotation.SuppressLint
 import androidx.annotation.IntDef
 import org.chromium.mojo.bindings.DeserializationException
 
@@ -83,6 +84,7 @@ object EventType {
         return value
     }
 
+    @SuppressLint("UniqueConstants")
     @IntDef(
         UNDEFINED,
         TYPE_FIRST,

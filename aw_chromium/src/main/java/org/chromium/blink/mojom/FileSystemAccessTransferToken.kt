@@ -28,6 +28,6 @@ interface FileSystemAccessTransferToken : Interface {
     )
 
     companion object {
-        val MANAGER = FileSystemAccessTransferToken_Internal.MANAGER
+        val MANAGER = FileSystemAccessTransferTokenInternal.MANAGER
     }
 }

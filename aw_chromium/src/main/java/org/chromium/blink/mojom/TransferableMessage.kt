@@ -16,12 +16,12 @@ import org.chromium.mojo.bindings.Encoder
 import org.chromium.mojo.bindings.Message
 import org.chromium.mojo.bindings.Struct
 import org.chromium.skia.mojom.BitmapN32
-import org.chromium.url.internal.mojom.Origin.Companion.decode
 import java.nio.ByteBuffer
 
 class TransferableMessage private constructor(version: Int) : Struct(STRUCT_SIZE, version) {
     @JvmField
     var message: CloneableMessage? = null
+
     @JvmField
     var ports: Array<MessagePortDescriptor?>? = null
 
@@ -45,15 +45,11 @@ class TransferableMessage private constructor(version: Int) : Struct(STRUCT_SIZE
             encoder0.encodeNullPointer(16, false)
         } else {
             val encoder1 = encoder0.encodePointerArray(
-                ports!!.size,
-                16,
-                BindingsHelper.UNSPECIFIED_ARRAY_LENGTH
+                ports!!.size, 16, BindingsHelper.UNSPECIFIED_ARRAY_LENGTH
             )
             for (i0 in ports!!.indices) {
                 encoder1.encode(
-                    ports!![i0],
-                    DataHeader.HEADER_SIZE + BindingsHelper.POINTER_SIZE * i0,
-                    false
+                    ports!![i0], DataHeader.HEADER_SIZE + BindingsHelper.POINTER_SIZE * i0, false
                 )
             }
         }
@@ -61,9 +57,7 @@ class TransferableMessage private constructor(version: Int) : Struct(STRUCT_SIZE
             encoder0.encodeNullPointer(24, false)
         } else {
             val encoder1 = encoder0.encodePointerArray(
-                streamChannels!!.size,
-                24,
-                BindingsHelper.UNSPECIFIED_ARRAY_LENGTH
+                streamChannels!!.size, 24, BindingsHelper.UNSPECIFIED_ARRAY_LENGTH
             )
             for (i0 in streamChannels!!.indices) {
                 encoder1.encode(
@@ -77,9 +71,7 @@ class TransferableMessage private constructor(version: Int) : Struct(STRUCT_SIZE
             encoder0.encodeNullPointer(32, false)
         } else {
             val encoder1 = encoder0.encodePointerArray(
-                arrayBufferContentsArray!!.size,
-                32,
-                BindingsHelper.UNSPECIFIED_ARRAY_LENGTH
+                arrayBufferContentsArray!!.size, 32, BindingsHelper.UNSPECIFIED_ARRAY_LENGTH
             )
             for (i0 in arrayBufferContentsArray!!.indices) {
                 encoder1.encode(
@@ -93,9 +85,7 @@ class TransferableMessage private constructor(version: Int) : Struct(STRUCT_SIZE
             encoder0.encodeNullPointer(40, false)
         } else {
             val encoder1 = encoder0.encodePointerArray(
-                imageBitmapContentsArray!!.size,
-                40,
-                BindingsHelper.UNSPECIFIED_ARRAY_LENGTH
+                imageBitmapContentsArray!!.size, 40, BindingsHelper.UNSPECIFIED_ARRAY_LENGTH
             )
             for (i0 in imageBitmapContentsArray!!.indices) {
                 encoder1.encode(
@@ -113,6 +103,7 @@ class TransferableMessage private constructor(version: Int) : Struct(STRUCT_SIZE
         private const val STRUCT_SIZE = 64
         private val VERSION_ARRAY = arrayOf(DataHeader(64, 0))
         private val DEFAULT_STRUCT_INFO = VERSION_ARRAY[0]
+
         @JvmStatic
         fun deserialize(message: Message?): TransferableMessage? {
             return decode(Decoder(message))
@@ -143,7 +134,7 @@ class TransferableMessage private constructor(version: Int) : Struct(STRUCT_SIZE
                 result = TransferableMessage(elementsOrVersion)
                 run {
                     val decoder1 = decoder0.readPointer(8, false)
-                    result.message = CloneableMessage.Companion.decode(decoder1)
+                    result.message = CloneableMessage.decode(decoder1)
                 }
                 run {
                     val decoder1 = decoder0.readPointer(16, false)
@@ -153,10 +144,9 @@ class TransferableMessage private constructor(version: Int) : Struct(STRUCT_SIZE
                         result.ports = arrayOfNulls(si1.elementsOrVersion)
                         for (i1 in 0 until si1.elementsOrVersion) {
                             val decoder2 = decoder1.readPointer(
-                                DataHeader.HEADER_SIZE + BindingsHelper.POINTER_SIZE * i1,
-                                false
+                                DataHeader.HEADER_SIZE + BindingsHelper.POINTER_SIZE * i1, false
                             )
-                            result.ports!![i1] = MessagePortDescriptor.Companion.decode(decoder2)
+                            result.ports!![i1] = MessagePortDescriptor.decode(decoder2)
                         }
                     }
                 }
@@ -168,11 +158,10 @@ class TransferableMessage private constructor(version: Int) : Struct(STRUCT_SIZE
                         result.streamChannels = arrayOfNulls(si1.elementsOrVersion)
                         for (i1 in 0 until si1.elementsOrVersion) {
                             val decoder2 = decoder1.readPointer(
-                                DataHeader.HEADER_SIZE + BindingsHelper.POINTER_SIZE * i1,
-                                false
+                                DataHeader.HEADER_SIZE + BindingsHelper.POINTER_SIZE * i1, false
                             )
                             result.streamChannels!![i1] =
-                                MessagePortDescriptor.Companion.decode(decoder2)
+                                MessagePortDescriptor.decode(decoder2)
                         }
                     }
                 }
@@ -184,11 +173,10 @@ class TransferableMessage private constructor(version: Int) : Struct(STRUCT_SIZE
                         result.arrayBufferContentsArray = arrayOfNulls(si1.elementsOrVersion)
                         for (i1 in 0 until si1.elementsOrVersion) {
                             val decoder2 = decoder1.readPointer(
-                                DataHeader.HEADER_SIZE + BindingsHelper.POINTER_SIZE * i1,
-                                false
+                                DataHeader.HEADER_SIZE + BindingsHelper.POINTER_SIZE * i1, false
                             )
                             result.arrayBufferContentsArray!![i1] =
-                                SerializedArrayBufferContents.Companion.decode(decoder2)
+                                SerializedArrayBufferContents.decode(decoder2)
                         }
                     }
                 }
@@ -200,8 +188,7 @@ class TransferableMessage private constructor(version: Int) : Struct(STRUCT_SIZE
                         result.imageBitmapContentsArray = arrayOfNulls(si1.elementsOrVersion)
                         for (i1 in 0 until si1.elementsOrVersion) {
                             val decoder2 = decoder1.readPointer(
-                                DataHeader.HEADER_SIZE + BindingsHelper.POINTER_SIZE * i1,
-                                false
+                                DataHeader.HEADER_SIZE + BindingsHelper.POINTER_SIZE * i1, false
                             )
                             result.imageBitmapContentsArray!![i1] = BitmapN32.decode(decoder2)
                         }
@@ -209,7 +196,7 @@ class TransferableMessage private constructor(version: Int) : Struct(STRUCT_SIZE
                 }
                 run {
                     val decoder1 = decoder0.readPointer(48, true)
-                    result.userActivation = UserActivationSnapshot.Companion.decode(decoder1)
+                    result.userActivation = UserActivationSnapshot.decode(decoder1)
                 }
                 run { result.delegatePaymentRequest = decoder0.readBoolean(56, 0) }
             } finally {

@@ -22,9 +22,10 @@ object DisplayMode {
     const val WINDOW_CONTROLS_OVERLAY = 5
     const val MIN_VALUE = 0
     const val MAX_VALUE = 5
+
     @JvmStatic
     fun isKnownValue(value: Int): Boolean {
-        return value >= 0 && value <= 5
+        return value in 0..5
     }
 
     fun validate(value: Int) {

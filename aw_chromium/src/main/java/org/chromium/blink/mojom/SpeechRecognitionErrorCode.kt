@@ -27,7 +27,7 @@ object SpeechRecognitionErrorCode {
     const val MIN_VALUE = 0
     const val MAX_VALUE = 9
     fun isKnownValue(value: Int): Boolean {
-        return value >= 0 && value <= 9
+        return value in 0..9
     }
 
     fun validate(value: Int) {

@@ -26,7 +26,7 @@ import org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConst
 import org.chromium.mojo.system.Core
 import java.nio.ByteBuffer
 
-internal object BlobReaderClient_Internal {
+internal object BlobReaderClientInternal {
     val MANAGER: Manager<BlobReaderClient?, BlobReaderClient.Proxy?> =
         object : Manager<BlobReaderClient?, BlobReaderClient.Proxy?>() {
             override fun getName(): String {
@@ -38,15 +38,13 @@ internal object BlobReaderClient_Internal {
             }
 
             public override fun buildProxy(
-                core: Core,
-                messageReceiver: MessageReceiverWithResponder
+                core: Core, messageReceiver: MessageReceiverWithResponder
             ): Proxy {
                 return Proxy(core, messageReceiver)
             }
 
             override fun buildStub(
-                core: Core?,
-                impl: BlobReaderClient?
+                core: Core?, impl: BlobReaderClient?
             ): Interface.Stub<BlobReaderClient?> {
                 return Stub(core, impl)
             }
@@ -59,8 +57,7 @@ internal object BlobReaderClient_Internal {
     private const val ON_COMPLETE_ORDINAL = 1
 
     internal class Proxy(
-        core: Core?,
-        messageReceiver: MessageReceiverWithResponder?
+        core: Core?, messageReceiver: MessageReceiverWithResponder?
     ) : AbstractProxy(core, messageReceiver), BlobReaderClient.Proxy {
         override fun onCalculatedSize(
             totalSize: Long, expectedContentSize: Long
@@ -70,8 +67,7 @@ internal object BlobReaderClient_Internal {
             _message.expectedContentSize = expectedContentSize
             proxyHandler.messageReceiver.accept(
                 _message.serializeWithHeader(
-                    proxyHandler.core,
-                    MessageHeader(ON_CALCULATED_SIZE_ORDINAL)
+                    proxyHandler.core, MessageHeader(ON_CALCULATED_SIZE_ORDINAL)
                 )
             )
         }
@@ -84,8 +80,7 @@ internal object BlobReaderClient_Internal {
             _message.dataLength = dataLength
             proxyHandler.messageReceiver.accept(
                 _message.serializeWithHeader(
-                    proxyHandler.core,
-                    MessageHeader(ON_COMPLETE_ORDINAL)
+                    proxyHandler.core, MessageHeader(ON_COMPLETE_ORDINAL)
                 )
             )
         }

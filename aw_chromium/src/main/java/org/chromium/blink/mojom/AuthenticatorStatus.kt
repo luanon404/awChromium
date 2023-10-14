@@ -39,7 +39,7 @@ object AuthenticatorStatus {
     const val MIN_VALUE = 0
     const val MAX_VALUE = 21
     fun isKnownValue(value: Int): Boolean {
-        return value >= 0 && value <= 21
+        return value in 0..21
     }
 
     fun validate(value: Int) {

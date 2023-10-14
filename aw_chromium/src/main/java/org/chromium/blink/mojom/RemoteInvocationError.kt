@@ -22,7 +22,7 @@ object RemoteInvocationError {
     const val MIN_VALUE = 0
     const val MAX_VALUE = 4
     fun isKnownValue(value: Int): Boolean {
-        return value >= 0 && value <= 4
+        return value in 0..4
     }
 
     fun validate(value: Int) {

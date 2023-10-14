@@ -29,10 +29,9 @@ import org.chromium.mojo.bindings.SideEffectFreeCloseable
 import org.chromium.mojo.bindings.Struct
 import org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants
 import org.chromium.mojo.system.Core
-import org.chromium.url.internal.mojom.Origin.Companion.decode
 import java.nio.ByteBuffer
 
-internal object RemoteObject_Internal {
+internal object RemoteObjectInternal {
     val MANAGER: Manager<RemoteObject?, RemoteObject.Proxy?> =
         object : Manager<RemoteObject?, RemoteObject.Proxy?>() {
             override fun getName(): String {
@@ -44,15 +43,13 @@ internal object RemoteObject_Internal {
             }
 
             public override fun buildProxy(
-                core: Core,
-                messageReceiver: MessageReceiverWithResponder
+                core: Core, messageReceiver: MessageReceiverWithResponder
             ): Proxy {
                 return Proxy(core, messageReceiver)
             }
 
             override fun buildStub(
-                core: Core?,
-                impl: RemoteObject?
+                core: Core?, impl: RemoteObject?
             ): Interface.Stub<RemoteObject?> {
                 return Stub(core, impl)
             }
@@ -67,25 +64,19 @@ internal object RemoteObject_Internal {
     private const val NOTIFY_RELEASED_OBJECT_ORDINAL = 3
 
     internal class Proxy(
-        core: Core?,
-        messageReceiver: MessageReceiverWithResponder?
+        core: Core?, messageReceiver: MessageReceiverWithResponder?
     ) : AbstractProxy(core, messageReceiver), RemoteObject.Proxy {
         override fun hasMethod(
-            name: String?,
-            callback: HasMethodResponse
+            name: String?, callback: HasMethodResponse
         ) {
             val _message = RemoteObjectHasMethodParams()
             _message.name = name
             proxyHandler.messageReceiver.acceptWithResponder(
                 _message.serializeWithHeader(
-                    proxyHandler.core,
-                    MessageHeader(
-                        HAS_METHOD_ORDINAL,
-                        MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
-                        0
+                    proxyHandler.core, MessageHeader(
+                        HAS_METHOD_ORDINAL, MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0
                     )
-                ),
-                RemoteObjectHasMethodResponseParamsForwardToCallback(callback)
+                ), RemoteObjectHasMethodResponseParamsForwardToCallback(callback)
             )
         }
 
@@ -95,19 +86,16 @@ internal object RemoteObject_Internal {
             val _message = RemoteObjectGetMethodsParams()
             proxyHandler.messageReceiver.acceptWithResponder(
                 _message.serializeWithHeader(
-                    proxyHandler.core,
-                    MessageHeader(
-                        GET_METHODS_ORDINAL,
-                        MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
-                        0
+                    proxyHandler.core, MessageHeader(
+                        GET_METHODS_ORDINAL, MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0
                     )
-                ),
-                RemoteObjectGetMethodsResponseParamsForwardToCallback(callback)
+                ), RemoteObjectGetMethodsResponseParamsForwardToCallback(callback)
             )
         }
 
         override fun invokeMethod(
-            name: String?, arguments: Array<RemoteInvocationArgument?>?,
+            name: String?,
+            arguments: Array<RemoteInvocationArgument?>?,
             callback: InvokeMethodResponse
         ) {
             val _message = RemoteObjectInvokeMethodParams()
@@ -115,14 +103,10 @@ internal object RemoteObject_Internal {
             _message.arguments = arguments
             proxyHandler.messageReceiver.acceptWithResponder(
                 _message.serializeWithHeader(
-                    proxyHandler.core,
-                    MessageHeader(
-                        INVOKE_METHOD_ORDINAL,
-                        MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
-                        0
+                    proxyHandler.core, MessageHeader(
+                        INVOKE_METHOD_ORDINAL, MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0
                     )
-                ),
-                RemoteObjectInvokeMethodResponseParamsForwardToCallback(callback)
+                ), RemoteObjectInvokeMethodResponseParamsForwardToCallback(callback)
             )
         }
 
@@ -130,8 +114,7 @@ internal object RemoteObject_Internal {
             val _message = RemoteObjectNotifyReleasedObjectParams()
             proxyHandler.messageReceiver.accept(
                 _message.serializeWithHeader(
-                    proxyHandler.core,
-                    MessageHeader(NOTIFY_RELEASED_OBJECT_ORDINAL)
+                    proxyHandler.core, MessageHeader(NOTIFY_RELEASED_OBJECT_ORDINAL)
                 )
             )
         }
@@ -200,9 +183,7 @@ internal object RemoteObject_Internal {
                         RemoteObjectGetMethodsParams.deserialize(messageWithHeader.payload)
                         impl!!.getMethods(
                             RemoteObjectGetMethodsResponseParamsProxyToResponder(
-                                core,
-                                receiver,
-                                header.requestId
+                                core, receiver, header.requestId
                             )
                         )
                         true
@@ -366,8 +347,7 @@ internal object RemoteObject_Internal {
             val _response = RemoteObjectHasMethodResponseParams()
             _response.methodExists = methodExists!!
             val _message = _response.serializeWithHeader(
-                mCore,
-                MessageHeader(
+                mCore, MessageHeader(
                     HAS_METHOD_ORDINAL,
                     MessageHeader.MESSAGE_IS_RESPONSE_FLAG or MessageHeader.MESSAGE_IS_SYNC_FLAG,
                     mRequestId
@@ -412,10 +392,8 @@ internal object RemoteObject_Internal {
                     return null
                 }
                 decoder0.increaseStackDepth()
-                val result: RemoteObjectGetMethodsParams
-                result = try {
-                    val mainDataHeader =
-                        decoder0.readAndValidateDataHeader(VERSION_ARRAY)
+                val result: RemoteObjectGetMethodsParams = try {
+                    val mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY)
                     val elementsOrVersion = mainDataHeader.elementsOrVersion
                     RemoteObjectGetMethodsParams(elementsOrVersion)
                 } finally {
@@ -435,21 +413,15 @@ internal object RemoteObject_Internal {
 
         override fun encode(encoder: Encoder) {
             val encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO)
-            if (methodNames == null) {
-                encoder0.encodeNullPointer(8, false)
-            } else {
-                val encoder1 = encoder0.encodePointerArray(
-                    methodNames.size,
-                    8,
-                    BindingsHelper.UNSPECIFIED_ARRAY_LENGTH
+            val encoder1 = encoder0.encodePointerArray(
+                methodNames.size, 8, BindingsHelper.UNSPECIFIED_ARRAY_LENGTH
+            )
+            for (i0 in methodNames.indices) {
+                encoder1.encode(
+                    methodNames[i0],
+                    DataHeader.HEADER_SIZE + BindingsHelper.POINTER_SIZE * i0,
+                    false
                 )
-                for (i0 in methodNames.indices) {
-                    encoder1.encode(
-                        methodNames[i0],
-                        DataHeader.HEADER_SIZE + BindingsHelper.POINTER_SIZE * i0,
-                        false
-                    )
-                }
             }
         }
 
@@ -492,8 +464,7 @@ internal object RemoteObject_Internal {
                             result.methodNames = arrayOfNulls(si1.elementsOrVersion)
                             for (i1 in 0 until si1.elementsOrVersion) {
                                 result.methodNames[i1] = decoder1.readString(
-                                    DataHeader.HEADER_SIZE + BindingsHelper.POINTER_SIZE * i1,
-                                    false
+                                    DataHeader.HEADER_SIZE + BindingsHelper.POINTER_SIZE * i1, false
                                 )
                             }
                         }
@@ -538,8 +509,7 @@ internal object RemoteObject_Internal {
             val _response = RemoteObjectGetMethodsResponseParams()
             _response.methodNames = methodNames!!
             val _message = _response.serializeWithHeader(
-                mCore,
-                MessageHeader(
+                mCore, MessageHeader(
                     GET_METHODS_ORDINAL,
                     MessageHeader.MESSAGE_IS_RESPONSE_FLAG or MessageHeader.MESSAGE_IS_SYNC_FLAG,
                     mRequestId
@@ -564,14 +534,13 @@ internal object RemoteObject_Internal {
                 encoder0.encodeNullPointer(16, false)
             } else {
                 val encoder1 = encoder0.encodeUnionArray(
-                    arguments!!.size,
-                    16,
-                    BindingsHelper.UNSPECIFIED_ARRAY_LENGTH
+                    arguments!!.size, 16, BindingsHelper.UNSPECIFIED_ARRAY_LENGTH
                 )
                 for (i0 in arguments!!.indices) {
                     encoder1.encode(
-                        arguments!![i0], DataHeader.HEADER_SIZE +
-                                BindingsHelper.UNION_SIZE * i0, false
+                        arguments!![i0],
+                        DataHeader.HEADER_SIZE + BindingsHelper.UNION_SIZE * i0,
+                        false
                     )
                 }
             }
@@ -616,9 +585,9 @@ internal object RemoteObject_Internal {
                                 decoder1.readDataHeaderForPointerArray(BindingsHelper.UNSPECIFIED_ARRAY_LENGTH)
                             result.arguments = arrayOfNulls(si1.elementsOrVersion)
                             for (i1 in 0 until si1.elementsOrVersion) {
-                                result.arguments!![i1] = RemoteInvocationArgument.Companion.decode(
-                                    decoder1, DataHeader.HEADER_SIZE +
-                                            BindingsHelper.UNION_SIZE * i1
+                                result.arguments!![i1] = RemoteInvocationArgument.decode(
+                                    decoder1,
+                                    DataHeader.HEADER_SIZE + BindingsHelper.UNION_SIZE * i1
                                 )
                             }
                         }
@@ -677,7 +646,7 @@ internal object RemoteObject_Internal {
                     result = RemoteObjectInvokeMethodResponseParams(elementsOrVersion)
                     run {
                         val decoder1 = decoder0.readPointer(8, false)
-                        result.result = RemoteInvocationResult.Companion.decode(decoder1)
+                        result.result = RemoteInvocationResult.decode(decoder1)
                     }
                 } finally {
                     decoder0.decreaseStackDepth()
@@ -719,8 +688,7 @@ internal object RemoteObject_Internal {
             val _response = RemoteObjectInvokeMethodResponseParams()
             _response.result = result
             val _message = _response.serializeWithHeader(
-                mCore,
-                MessageHeader(
+                mCore, MessageHeader(
                     INVOKE_METHOD_ORDINAL,
                     MessageHeader.MESSAGE_IS_RESPONSE_FLAG or MessageHeader.MESSAGE_IS_SYNC_FLAG,
                     mRequestId
@@ -766,10 +734,8 @@ internal object RemoteObject_Internal {
                     return null
                 }
                 decoder0.increaseStackDepth()
-                val result: RemoteObjectNotifyReleasedObjectParams
-                result = try {
-                    val mainDataHeader =
-                        decoder0.readAndValidateDataHeader(VERSION_ARRAY)
+                val result: RemoteObjectNotifyReleasedObjectParams = try {
+                    val mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY)
                     val elementsOrVersion = mainDataHeader.elementsOrVersion
                     RemoteObjectNotifyReleasedObjectParams(elementsOrVersion)
                 } finally {

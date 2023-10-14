@@ -22,14 +22,12 @@ class SerializedBlob private constructor(version: Int) : Struct(STRUCT_SIZE, ver
     var size: Long = 0
     var blob: Blob? = null
 
-    constructor() : this(0)
-
     override fun encode(encoder: Encoder) {
         val encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO)
         encoder0.encode(uuid, 8, false)
         encoder0.encode(contentType, 16, false)
         encoder0.encode(size, 24)
-        encoder0.encode<Blob?>(blob, 32, false, Blob.Companion.MANAGER)
+        encoder0.encode<Blob?>(blob, 32, false, Blob.MANAGER)
     }
 
     companion object {
@@ -70,7 +68,7 @@ class SerializedBlob private constructor(version: Int) : Struct(STRUCT_SIZE, ver
                     result.blob = decoder0.readServiceInterface<Blob.Proxy?>(
                         32,
                         false,
-                        Blob.Companion.MANAGER
+                        Blob.MANAGER
                     )
                 }
             } finally {

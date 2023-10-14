@@ -17,20 +17,17 @@ internal class Parsed @CalledByNative private constructor(/* package */
                                                           val mSchemeBegin: Int, /* package */
                                                           val mSchemeLength: Int, /* package */
                                                           val mUsernameBegin: Int, /* package */
-                                                          val mUsernameLength: Int,
-                                                          /* package */
+                                                          val mUsernameLength: Int,/* package */
                                                           val mPasswordBegin: Int, /* package */
                                                           val mPasswordLength: Int, /* package */
                                                           val mHostBegin: Int, /* package */
                                                           val mHostLength: Int, /* package */
-                                                          val mPortBegin: Int,
-                                                          /* package */
+                                                          val mPortBegin: Int,/* package */
                                                           val mPortLength: Int, /* package */
                                                           val mPathBegin: Int, /* package */
                                                           val mPathLength: Int, /* package */
                                                           val mQueryBegin: Int, /* package */
-                                                          val mQueryLength: Int,
-                                                          /* package */
+                                                          val mQueryLength: Int,/* package */
                                                           val mRefBegin: Int, /* package */
                                                           val mRefLength: Int,
                                                           private val mPotentiallyDanglingMarkup: Boolean,
@@ -42,37 +39,51 @@ internal class Parsed @CalledByNative private constructor(/* package */
         if (mInnerUrl != null) {
             inner = mInnerUrl.toNativeParsed()
         }
-        return ParsedJni.Companion.get()!!.createNative(
-            mSchemeBegin, mSchemeLength, mUsernameBegin,
-            mUsernameLength, mPasswordBegin, mPasswordLength, mHostBegin, mHostLength,
-            mPortBegin, mPortLength, mPathBegin, mPathLength, mQueryBegin, mQueryLength,
-            mRefBegin, mRefLength, mPotentiallyDanglingMarkup, inner
+        return ParsedJni.get()!!.createNative(
+            mSchemeBegin,
+            mSchemeLength,
+            mUsernameBegin,
+            mUsernameLength,
+            mPasswordBegin,
+            mPasswordLength,
+            mHostBegin,
+            mHostLength,
+            mPortBegin,
+            mPortLength,
+            mPathBegin,
+            mPathLength,
+            mQueryBegin,
+            mQueryLength,
+            mRefBegin,
+            mRefLength,
+            mPotentiallyDanglingMarkup,
+            inner
         )
     }
 
     /* package */
     fun serialize(): String {
         val builder = StringBuilder()
-        builder.append(mSchemeBegin).append(GURL.Companion.SERIALIZER_DELIMITER)
-        builder.append(mSchemeLength).append(GURL.Companion.SERIALIZER_DELIMITER)
-        builder.append(mUsernameBegin).append(GURL.Companion.SERIALIZER_DELIMITER)
-        builder.append(mUsernameLength).append(GURL.Companion.SERIALIZER_DELIMITER)
-        builder.append(mPasswordBegin).append(GURL.Companion.SERIALIZER_DELIMITER)
-        builder.append(mPasswordLength).append(GURL.Companion.SERIALIZER_DELIMITER)
-        builder.append(mHostBegin).append(GURL.Companion.SERIALIZER_DELIMITER)
-        builder.append(mHostLength).append(GURL.Companion.SERIALIZER_DELIMITER)
-        builder.append(mPortBegin).append(GURL.Companion.SERIALIZER_DELIMITER)
-        builder.append(mPortLength).append(GURL.Companion.SERIALIZER_DELIMITER)
-        builder.append(mPathBegin).append(GURL.Companion.SERIALIZER_DELIMITER)
-        builder.append(mPathLength).append(GURL.Companion.SERIALIZER_DELIMITER)
-        builder.append(mQueryBegin).append(GURL.Companion.SERIALIZER_DELIMITER)
-        builder.append(mQueryLength).append(GURL.Companion.SERIALIZER_DELIMITER)
-        builder.append(mRefBegin).append(GURL.Companion.SERIALIZER_DELIMITER)
-        builder.append(mRefLength).append(GURL.Companion.SERIALIZER_DELIMITER)
-        builder.append(mPotentiallyDanglingMarkup).append(GURL.Companion.SERIALIZER_DELIMITER)
+        builder.append(mSchemeBegin).append(GURL.SERIALIZER_DELIMITER)
+        builder.append(mSchemeLength).append(GURL.SERIALIZER_DELIMITER)
+        builder.append(mUsernameBegin).append(GURL.SERIALIZER_DELIMITER)
+        builder.append(mUsernameLength).append(GURL.SERIALIZER_DELIMITER)
+        builder.append(mPasswordBegin).append(GURL.SERIALIZER_DELIMITER)
+        builder.append(mPasswordLength).append(GURL.SERIALIZER_DELIMITER)
+        builder.append(mHostBegin).append(GURL.SERIALIZER_DELIMITER)
+        builder.append(mHostLength).append(GURL.SERIALIZER_DELIMITER)
+        builder.append(mPortBegin).append(GURL.SERIALIZER_DELIMITER)
+        builder.append(mPortLength).append(GURL.SERIALIZER_DELIMITER)
+        builder.append(mPathBegin).append(GURL.SERIALIZER_DELIMITER)
+        builder.append(mPathLength).append(GURL.SERIALIZER_DELIMITER)
+        builder.append(mQueryBegin).append(GURL.SERIALIZER_DELIMITER)
+        builder.append(mQueryLength).append(GURL.SERIALIZER_DELIMITER)
+        builder.append(mRefBegin).append(GURL.SERIALIZER_DELIMITER)
+        builder.append(mRefLength).append(GURL.SERIALIZER_DELIMITER)
+        builder.append(mPotentiallyDanglingMarkup).append(GURL.SERIALIZER_DELIMITER)
         builder.append(mInnerUrl != null)
         if (mInnerUrl != null) {
-            builder.append(GURL.Companion.SERIALIZER_DELIMITER).append(mInnerUrl.serialize())
+            builder.append(GURL.SERIALIZER_DELIMITER).append(mInnerUrl.serialize())
         }
         return builder.toString()
     }
@@ -135,9 +146,23 @@ internal class Parsed @CalledByNative private constructor(/* package */
                 innerParsed = deserialize(tokens, startIndex)
             }
             return Parsed(
-                schemeBegin, schemeLength, usernameBegin, usernameLength, passwordBegin,
-                passwordLength, hostBegin, hostLength, portBegin, portLength, pathBegin, pathLength,
-                queryBegin, queryLength, refBegin, refLength, potentiallyDanglingMarkup,
+                schemeBegin,
+                schemeLength,
+                usernameBegin,
+                usernameLength,
+                passwordBegin,
+                passwordLength,
+                hostBegin,
+                hostLength,
+                portBegin,
+                portLength,
+                pathBegin,
+                pathLength,
+                queryBegin,
+                queryLength,
+                refBegin,
+                refLength,
+                potentiallyDanglingMarkup,
                 innerParsed
             )
         }

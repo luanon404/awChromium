@@ -35,13 +35,11 @@ internal class GURLJni : GURL.Natives {
     companion object {
         private var testInstance: GURL.Natives? = null
         val TEST_HOOKS: JniStaticTestMocker<GURL.Natives?> =
-            object : JniStaticTestMocker<GURL.Natives?> {
-                override fun setInstanceForTesting(instance: GURL.Natives?) {
-                    if (!GEN_JNI.TESTING_ENABLED) {
-                        throw RuntimeException("Tried to set a JNI mock when mocks aren't enabled!")
-                    }
-                    testInstance = instance
+            JniStaticTestMocker<GURL.Natives?> { instance ->
+                if (!GEN_JNI.TESTING_ENABLED) {
+                    throw RuntimeException("Tried to set a JNI mock when mocks aren't enabled!")
                 }
+                testInstance = instance
             }
 
         fun get(): GURL.Natives? {

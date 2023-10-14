@@ -21,6 +21,6 @@ interface RemoteObjectGatewayFactory : Interface {
 
     companion object {
         @JvmField
-        val MANAGER = RemoteObjectGatewayFactory_Internal.MANAGER
+        val MANAGER = RemoteObjectGatewayFactoryInternal.MANAGER
     }
 }
