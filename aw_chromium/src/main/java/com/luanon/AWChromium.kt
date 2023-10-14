@@ -5,7 +5,6 @@ import android.app.Application
 import android.content.Context
 import android.widget.FrameLayout
 import android.widget.LinearLayout
-import androidx.annotation.Keep
 import org.chromium.android_webview.AwBrowserContext
 import org.chromium.android_webview.AwBrowserProcess
 import org.chromium.android_webview.AwContents
