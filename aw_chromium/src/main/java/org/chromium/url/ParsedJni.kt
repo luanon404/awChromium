@@ -56,11 +56,13 @@ internal class ParsedJni : Parsed.Natives {
     companion object {
         private var testInstance: Parsed.Natives? = null
         val TEST_HOOKS: JniStaticTestMocker<Parsed.Natives?> =
-            JniStaticTestMocker<Parsed.Natives?> { instance ->
-                if (!GEN_JNI.TESTING_ENABLED) {
-                    throw RuntimeException("Tried to set a JNI mock when mocks aren't enabled!")
+            object : JniStaticTestMocker<Parsed.Natives?> {
+                override fun setInstanceForTesting(instance: Parsed.Natives?) {
+                    if (!GEN_JNI.TESTING_ENABLED) {
+                        throw RuntimeException("Tried to set a JNI mock when mocks aren't enabled!")
+                    }
+                    testInstance = instance
                 }
-                testInstance = instance
             }
 
         fun get(): Parsed.Natives? {
