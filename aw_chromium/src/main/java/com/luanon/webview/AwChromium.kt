@@ -9,33 +9,50 @@ import androidx.annotation.Keep
 import org.chromium.android_webview.AwBrowserContext
 import org.chromium.android_webview.AwBrowserProcess
 import org.chromium.android_webview.AwContents
-import org.chromium.android_webview.AwContentsClient
 import org.chromium.android_webview.AwDevToolsServer
+import org.chromium.android_webview.AwLocaleConfig
 import org.chromium.android_webview.AwSettings
 import org.chromium.android_webview.BuildConfig
-import org.chromium.android_webview.shell.AwShellResourceProvider
-import org.chromium.android_webview.test.AwTestContainerView
 import org.chromium.base.CommandLine
 import org.chromium.base.ContextUtils
+import org.chromium.base.PathUtils
+import org.chromium.ui.base.ResourceBundle
 
 @SuppressLint("SetJavaScriptEnabled")
 @Suppress("ViewConstructor")
-class AWChromium(context: Context, webViewClient: AwContentsClient = AWChromiumClient()) :
-    FrameLayout(context) {
-    private val awTestContainerView: AwTestContainerView = AwTestContainerView(context, true)
+class AwChromium(context: Context) : FrameLayout(context) {
+    private val awContainerView = AwContainerView(context, true)
     private val awBrowserContext: AwBrowserContext
-    private val awContents: AwContents
+    private var awContents: AwContents
+    private var awPrivateSettings: AwSettings
+    private var awPrivateChromiumClient: AwChromiumClient
 
-    var settings: AwSettings
+    @get:Keep
+    @set:Keep
+    var awSettings: AwSettings
+        get() = awPrivateSettings
+        set(value) {
+            awPrivateSettings = value
+            privateReInit()
+        }
+
+    @get:Keep
+    @set:Keep
+    var awChromiumClient: AwChromiumClient
+        get() = awPrivateChromiumClient
+        set(value) {
+            awPrivateChromiumClient = value
+            privateReInit()
+        }
 
     init {
-        AwTestContainerView.installDrawFnFunctionTable(false)
         val sharedPreferences =
             context.getSharedPreferences(javaClass.simpleName, Context.MODE_PRIVATE)
         val nativePointer = AwBrowserContext.getDefault().nativePointer
 
         awBrowserContext = AwBrowserContext(sharedPreferences, nativePointer, true)
-        settings = AwSettings(
+        awPrivateChromiumClient = AwChromiumClient()
+        awPrivateSettings = AwSettings(
             /* context = */ context,
             /* isAccessFromFileURLsGrantedByDefault = */ true,
             /* supportsLegacyQuirks = */ false,
@@ -65,24 +82,43 @@ class AWChromium(context: Context, webViewClient: AwContentsClient = AWChromiumC
         }
         awContents = AwContents(
             awBrowserContext,
-            awTestContainerView,
-            awTestContainerView.context,
-            awTestContainerView.internalAccessDelegate,
-            awTestContainerView.nativeDrawFunctorFactory,
-            webViewClient,
-            settings
+            awContainerView,
+            awContainerView.context,
+            awContainerView.internalAccessDelegate,
+            awContainerView.nativeDrawFunctorFactory,
+            awPrivateChromiumClient,
+            awPrivateSettings
         ).apply {
             isFocusableInTouchMode = true
             isFocusable = true
             isScrollbarFadingEnabled = true
             setNetworkAvailable(true)
         }
-
-        awTestContainerView.initialize(awContents)
+        awContainerView.initialize(awContents)
         addView(
-            awTestContainerView,
-            LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, 1f)
+            awContainerView,
+            LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
         )
+        awContainerView.requestFocus()
+    }
+
+    @Keep
+    private fun privateReInit() {
+        awContents = AwContents(
+            awBrowserContext,
+            awContainerView,
+            awContainerView.context,
+            awContainerView.internalAccessDelegate,
+            awContainerView.nativeDrawFunctorFactory,
+            awPrivateChromiumClient,
+            awPrivateSettings
+        ).apply {
+            isFocusableInTouchMode = true
+            isFocusable = true
+            isScrollbarFadingEnabled = true
+            setNetworkAvailable(true)
+        }
+        awContainerView.initialize(awContents)
     }
 
     @Keep
@@ -165,15 +201,23 @@ class AWChromium(context: Context, webViewClient: AwContentsClient = AWChromiumC
     }
 
     companion object {
-        fun initialize(application: Application, flags: Array<String> = arrayOf()) {
+        fun initialize(application: Application) {
             AwShellResourceProvider.registerResources(application)
-            CommandLine.init(flags)
-            ContextUtils.initApplicationContext(application)
-            AwBrowserProcess.loadLibrary("AWChromium")
+            AwBrowserProcess.loadLibrary(null)
             AwBrowserProcess.start()
             if (BuildConfig.DEBUG) {
                 AwDevToolsServer().setRemoteDebuggingEnabled(true)
             }
+            /** Initialize draw function */
+            AwContainerView.installDrawFnFunctionTable(false)
+            AwContainerView(application, true)
+        }
+
+        fun initializeBase(context: Context?, flags: Array<String> = arrayOf()) {
+            ContextUtils.initApplicationContext(context)
+            PathUtils.setPrivateDataDirectorySuffix("webview", "WebView")
+            CommandLine.init(flags)
+            ResourceBundle.setAvailablePakLocales(AwLocaleConfig.getWebViewSupportedPakLocales())
         }
     }
 

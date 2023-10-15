@@ -3019,6 +3019,13 @@ public class AwContents implements SmartClipProvider {
     }
 
     /**
+     * @see androidx.webkit.View#performClick()
+     */
+    public boolean performClick(MotionEvent event) {
+        return mAwViewMethods.onTouchEvent(event);
+    }
+
+    /**
      * @see android.view.View#onHoverEvent()
      */
     public boolean onHoverEvent(MotionEvent event) {
