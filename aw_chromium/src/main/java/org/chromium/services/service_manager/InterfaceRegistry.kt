@@ -1,16 +1,13 @@
 // Copyright 2016 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+package org.chromium.services.service_manager
 
-package org.chromium.services.service_manager;
-
-import org.chromium.mojo.bindings.Interface;
-import org.chromium.mojo.system.MessagePipeHandle;
-import org.chromium.mojo.system.MojoException;
-import org.chromium.service_manager.mojom.InterfaceProvider;
-
-import java.util.HashMap;
-import java.util.Map;
+import org.chromium.mojo.bindings.Interface
+import org.chromium.mojo.bindings.Interface.Manager
+import org.chromium.mojo.system.MessagePipeHandle
+import org.chromium.mojo.system.MojoException
+import org.chromium.service_manager.mojom.InterfaceProvider
 
 /**
  * A registry where interfaces may be registered to be exposed to another application.
@@ -19,60 +16,49 @@ import java.util.Map;
  * implement an InterfaceFactory that creates instances of your implementation
  * and register that on the registry with a Manager for the interface like this:
  *
- *   registry.addInterface(InterfaceType.MANAGER, factory);
+ * registry.addInterface(InterfaceType.MANAGER, factory);
  */
-public class InterfaceRegistry implements InterfaceProvider {
-    private final Map<String, InterfaceBinder> mBinders = new HashMap<String, InterfaceBinder>();
-
-    public <I extends Interface> void addInterface(
-            Interface.Manager<I, ? extends Interface.Proxy> manager, InterfaceFactory<I> factory) {
-        mBinders.put(manager.getName(), new InterfaceBinder<I>(manager, factory));
+class InterfaceRegistry internal constructor() : InterfaceProvider {
+    private val mBinders: MutableMap<String, InterfaceBinder<*>> = HashMap()
+    fun <I : Interface?> addInterface(
+        manager: Manager<I, out Interface.Proxy?>, factory: InterfaceFactory<I>
+    ) {
+        mBinders[manager.name] = InterfaceBinder(manager, factory)
     }
 
-    public static InterfaceRegistry create(MessagePipeHandle pipe) {
-        InterfaceRegistry registry = new InterfaceRegistry();
-        InterfaceProvider.MANAGER.bind(registry, pipe);
-        return registry;
+    override fun getInterface(name: String, pipe: MessagePipeHandle) {
+        val binder = mBinders[name] ?: return
+        binder.bindToMessagePipe(pipe)
     }
 
-    @Override
-    public void getInterface(String name, MessagePipeHandle pipe) {
-        InterfaceBinder binder = mBinders.get(name);
-        if (binder == null) {
-            return;
-        }
-        binder.bindToMessagePipe(pipe);
+    override fun close() {
+        mBinders.clear()
     }
 
-    @Override
-    public void close() {
-        mBinders.clear();
+    override fun onConnectionError(e: MojoException) {
+        close()
     }
 
-    @Override
-    public void onConnectionError(MojoException e) {
-        close();
-    }
-
-    InterfaceRegistry() {}
-
-    private static class InterfaceBinder<I extends Interface> {
-        private final Interface.Manager<I, ? extends Interface.Proxy> mManager;
-        private final InterfaceFactory<I> mFactory;
-
-        public InterfaceBinder(Interface.Manager<I, ? extends Interface.Proxy> manager,
-                InterfaceFactory<I> factory) {
-            mManager = manager;
-            mFactory = factory;
-        }
-
-        public void bindToMessagePipe(MessagePipeHandle pipe) {
-            I impl = mFactory.createImpl();
+    private class InterfaceBinder<I : Interface?>(
+        private val mManager: Manager<I, out Interface.Proxy?>,
+        private val mFactory: InterfaceFactory<I>
+    ) {
+        fun bindToMessagePipe(pipe: MessagePipeHandle) {
+            val impl: I? = mFactory.createImpl()
             if (impl == null) {
-                pipe.close();
-                return;
+                pipe.close()
+                return
             }
-            mManager.bind(impl, pipe);
+            mManager.bind(impl, pipe)
+        }
+    }
+
+    companion object {
+        @JvmStatic
+        fun create(pipe: MessagePipeHandle?): InterfaceRegistry {
+            val registry = InterfaceRegistry()
+            InterfaceProvider.MANAGER.bind(registry, pipe)
+            return registry
         }
     }
 }

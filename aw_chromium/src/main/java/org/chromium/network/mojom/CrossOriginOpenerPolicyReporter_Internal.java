@@ -13,8 +13,6 @@
 
 package org.chromium.network.mojom;
 
-import androidx.annotation.IntDef;
-
 import org.chromium.mojo.bindings.InterfaceControlMessagesHelper;
 import org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants;
 
@@ -195,7 +193,6 @@ int reportType, String property, SourceLocation sourceLocation, String reportedW
                     data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static CrossOriginOpenerPolicyReporterQueueAccessReportParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -232,7 +229,6 @@ int reportType, String property, SourceLocation sourceLocation, String reportedW
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);

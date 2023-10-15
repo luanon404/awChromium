@@ -46,7 +46,7 @@ public interface IViewTypeCallback extends android.os.IInterface
         return null;
       }
       android.os.IInterface iin = obj.queryLocalInterface(DESCRIPTOR);
-      if (((iin!=null)&&(iin instanceof org.chromium.components.autofill_public.IViewTypeCallback))) {
+      if (((iin instanceof IViewTypeCallback))) {
         return ((org.chromium.components.autofill_public.IViewTypeCallback)iin);
       }
       return new org.chromium.components.autofill_public.IViewTypeCallback.Stub.Proxy(obj);

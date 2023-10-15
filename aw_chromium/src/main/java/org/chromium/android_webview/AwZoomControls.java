@@ -16,7 +16,6 @@ import androidx.annotation.VisibleForTesting;
 public class AwZoomControls {
     private final AwContents mAwContents;
     // It is advised to use getZoomController() where possible.
-    @SuppressWarnings("deprecation")
     private android.widget.ZoomButtonsController mZoomButtonsController;
     private boolean mCanZoomIn;
     private boolean mCanZoomOut;

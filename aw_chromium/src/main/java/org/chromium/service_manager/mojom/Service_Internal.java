@@ -13,8 +13,6 @@
 
 package org.chromium.service_manager.mojom;
 
-import androidx.annotation.IntDef;
-
 
 class Service_Internal {
 
@@ -280,7 +278,6 @@ Identity identity, org.chromium.mojo.bindings.InterfaceRequest<Service> receiver
                     data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static ServiceOnStartParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -303,7 +300,6 @@ Identity identity, org.chromium.mojo.bindings.InterfaceRequest<Service> receiver
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
@@ -345,7 +341,6 @@ Identity identity, org.chromium.mojo.bindings.InterfaceRequest<Service> receiver
                     data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static ServiceOnStartResponseParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -371,7 +366,6 @@ Identity identity, org.chromium.mojo.bindings.InterfaceRequest<Service> receiver
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
@@ -480,7 +474,6 @@ Identity identity, org.chromium.mojo.bindings.InterfaceRequest<Service> receiver
                     data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static ServiceOnBindInterfaceParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -511,7 +504,6 @@ Identity identity, org.chromium.mojo.bindings.InterfaceRequest<Service> receiver
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
@@ -555,7 +547,6 @@ Identity identity, org.chromium.mojo.bindings.InterfaceRequest<Service> receiver
                     data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static ServiceOnBindInterfaceResponseParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -573,7 +564,6 @@ Identity identity, org.chromium.mojo.bindings.InterfaceRequest<Service> receiver
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
@@ -671,7 +661,6 @@ Identity identity, org.chromium.mojo.bindings.InterfaceRequest<Service> receiver
                     data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static ServiceCreatePackagedServiceInstanceParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -702,7 +691,6 @@ Identity identity, org.chromium.mojo.bindings.InterfaceRequest<Service> receiver
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);

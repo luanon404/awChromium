@@ -576,7 +576,7 @@ public class PropertyModel extends PropertyObservable<PropertyKey> {
 
         @Override
         public boolean equals(Object other) {
-            return other != null && other instanceof FloatContainer
+            return other instanceof FloatContainer
                     && ((FloatContainer) other).value == value;
         }
     }
@@ -591,7 +591,7 @@ public class PropertyModel extends PropertyObservable<PropertyKey> {
 
         @Override
         public boolean equals(Object other) {
-            return other != null && other instanceof IntContainer
+            return other instanceof IntContainer
                     && ((IntContainer) other).value == value;
         }
     }
@@ -606,7 +606,7 @@ public class PropertyModel extends PropertyObservable<PropertyKey> {
 
         @Override
         public boolean equals(Object other) {
-            return other != null && other instanceof LongContainer
+            return other instanceof LongContainer
                     && ((LongContainer) other).value == value;
         }
     }
@@ -621,7 +621,7 @@ public class PropertyModel extends PropertyObservable<PropertyKey> {
 
         @Override
         public boolean equals(Object other) {
-            return other != null && other instanceof BooleanContainer
+            return other instanceof BooleanContainer
                     && ((BooleanContainer) other).value == value;
         }
     }
@@ -636,7 +636,7 @@ public class PropertyModel extends PropertyObservable<PropertyKey> {
 
         @Override
         public boolean equals(Object other) {
-            return other != null && other instanceof ObjectContainer
+            return other instanceof ObjectContainer
                     && ObjectsCompat.equals(((ObjectContainer) other).value, value);
         }
     }

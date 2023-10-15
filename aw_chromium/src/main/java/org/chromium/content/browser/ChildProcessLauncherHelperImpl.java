@@ -417,7 +417,7 @@ public final class ChildProcessLauncherHelperImpl {
                 }
             };
 
-            ChildConnectionAllocator connectionAllocator = null;
+            ChildConnectionAllocator connectionAllocator;
             if (sSandboxedServicesCountForTesting != -1) {
                 // Testing case where allocator settings are overriden.
                 String serviceName = !TextUtils.isEmpty(sSandboxedServicesNameForTesting)

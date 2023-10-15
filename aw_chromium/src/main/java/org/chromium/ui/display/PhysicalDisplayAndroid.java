@@ -97,6 +97,8 @@ import java.util.List;
                 return 4;
 
             case PixelFormat.RGBA_5551:
+
+            case PixelFormat.RGB_565:
                 return 5;
 
             case PixelFormat.RGBA_8888:
@@ -106,9 +108,6 @@ import java.util.List;
 
             case PixelFormat.RGB_332:
                 return 2;
-
-            case PixelFormat.RGB_565:
-                return 5;
 
             // Non-RGB formats.
             case PixelFormat.A_8:

@@ -13,8 +13,6 @@
 
 package org.chromium.network.mojom;
 
-import androidx.annotation.IntDef;
-
 
 public final class UrlLoaderCompletionStatus extends org.chromium.mojo.bindings.Struct {
 
@@ -44,7 +42,6 @@ public final class UrlLoaderCompletionStatus extends org.chromium.mojo.bindings.
                 data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
-    @SuppressWarnings("unchecked")
     public static UrlLoaderCompletionStatus decode(org.chromium.mojo.bindings.Decoder decoder0) {
         if (decoder0 == null) {
             return null;
@@ -62,7 +59,6 @@ public final class UrlLoaderCompletionStatus extends org.chromium.mojo.bindings.
         return result;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
         encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);

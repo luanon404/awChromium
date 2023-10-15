@@ -3575,7 +3575,7 @@ public class AwContents implements SmartClipProvider {
 
     @CalledByNative
     private void postInvalidateOnAnimation() {
-        if (!VSyncMonitor.isInsideVSync()) {
+        if (!VSyncMonitor.Companion.isInsideVSync()) {
             mContainerView.postInvalidateOnAnimation();
         } else {
             mContainerView.invalidate();

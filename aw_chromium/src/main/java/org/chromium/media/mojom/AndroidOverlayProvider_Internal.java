@@ -13,8 +13,6 @@
 
 package org.chromium.media.mojom;
 
-import androidx.annotation.IntDef;
-
 import org.chromium.mojo.bindings.InterfaceControlMessagesHelper;
 import org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants;
 
@@ -192,7 +190,6 @@ org.chromium.mojo.bindings.InterfaceRequest<AndroidOverlay> overlay, AndroidOver
                     data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static AndroidOverlayProviderCreateOverlayParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -223,7 +220,6 @@ org.chromium.mojo.bindings.InterfaceRequest<AndroidOverlay> overlay, AndroidOver
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);

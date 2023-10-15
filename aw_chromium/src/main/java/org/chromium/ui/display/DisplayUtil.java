@@ -15,7 +15,7 @@ public abstract class DisplayUtil {
     public static int getSmallestWidth(DisplayAndroid display) {
         int width = display.getDisplayWidth();
         int height = display.getDisplayHeight();
-        return width < height ? width : height;
+        return Math.min(width, height);
     }
 
     /**

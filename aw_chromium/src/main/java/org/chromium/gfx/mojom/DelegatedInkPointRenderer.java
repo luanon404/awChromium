@@ -13,8 +13,6 @@
 
 package org.chromium.gfx.mojom;
 
-import androidx.annotation.IntDef;
-
 
 public interface DelegatedInkPointRenderer extends org.chromium.mojo.bindings.Interface {
 

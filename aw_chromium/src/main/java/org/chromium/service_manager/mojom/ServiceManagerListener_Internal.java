@@ -13,8 +13,6 @@
 
 package org.chromium.service_manager.mojom;
 
-import androidx.annotation.IntDef;
-
 import org.chromium.mojo.bindings.InterfaceControlMessagesHelper;
 import org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants;
 
@@ -350,7 +348,6 @@ Identity identity) {
                     data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static ServiceManagerListenerOnInitParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -381,7 +378,6 @@ Identity identity) {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
@@ -430,7 +426,6 @@ Identity identity) {
                     data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static ServiceManagerListenerOnServiceCreatedParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -453,7 +448,6 @@ Identity identity) {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
@@ -495,7 +489,6 @@ Identity identity) {
                     data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static ServiceManagerListenerOnServiceStartedParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -522,7 +515,6 @@ Identity identity) {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
@@ -566,7 +558,6 @@ Identity identity) {
                     data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static ServiceManagerListenerOnServicePidReceivedParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -593,7 +584,6 @@ Identity identity) {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
@@ -636,7 +626,6 @@ Identity identity) {
                     data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static ServiceManagerListenerOnServiceFailedToStartParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -659,7 +648,6 @@ Identity identity) {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
@@ -700,7 +688,6 @@ Identity identity) {
                     data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static ServiceManagerListenerOnServiceStoppedParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -723,7 +710,6 @@ Identity identity) {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);

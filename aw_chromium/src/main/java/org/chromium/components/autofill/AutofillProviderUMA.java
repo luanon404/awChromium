@@ -117,9 +117,6 @@ public class AutofillProviderUMA {
             if (EVENT_USER_CHANGED_FIELD_VALUE == event && mUserChangedAutofilledField == null) {
                 mUserChangedAutofilledField = Boolean.valueOf(false);
             } else if (EVENT_USER_CHANGED_AUTOFILLED_FIELD == event) {
-                if (mUserChangedAutofilledField == null) {
-                    mUserChangedAutofilledField = Boolean.valueOf(true);
-                }
                 mUserChangedAutofilledField = true;
                 event = EVENT_USER_CHANGED_FIELD_VALUE;
             }

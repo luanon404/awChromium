@@ -13,8 +13,6 @@
 
 package org.chromium.service_manager.mojom;
 
-import androidx.annotation.IntDef;
-
 
 class Connector_Internal {
 
@@ -368,7 +366,6 @@ org.chromium.mojo.bindings.InterfaceRequest<Connector> receiver) {
                     data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static ConnectorBindInterfaceParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -405,7 +402,6 @@ org.chromium.mojo.bindings.InterfaceRequest<Connector> receiver) {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
@@ -453,7 +449,6 @@ org.chromium.mojo.bindings.InterfaceRequest<Connector> receiver) {
                     data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static ConnectorBindInterfaceResponseParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -482,7 +477,6 @@ org.chromium.mojo.bindings.InterfaceRequest<Connector> receiver) {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
@@ -588,7 +582,6 @@ org.chromium.mojo.bindings.InterfaceRequest<Connector> receiver) {
                     data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static ConnectorQueryServiceParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -610,7 +603,6 @@ org.chromium.mojo.bindings.InterfaceRequest<Connector> receiver) {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
@@ -651,7 +643,6 @@ org.chromium.mojo.bindings.InterfaceRequest<Connector> receiver) {
                     data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static ConnectorQueryServiceResponseParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -674,7 +665,6 @@ org.chromium.mojo.bindings.InterfaceRequest<Connector> receiver) {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
@@ -776,7 +766,6 @@ org.chromium.mojo.bindings.InterfaceRequest<Connector> receiver) {
                     data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static ConnectorWarmServiceParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -799,7 +788,6 @@ org.chromium.mojo.bindings.InterfaceRequest<Connector> receiver) {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
@@ -841,7 +829,6 @@ org.chromium.mojo.bindings.InterfaceRequest<Connector> receiver) {
                     data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static ConnectorWarmServiceResponseParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -870,7 +857,6 @@ org.chromium.mojo.bindings.InterfaceRequest<Connector> receiver) {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
@@ -979,7 +965,6 @@ org.chromium.mojo.bindings.InterfaceRequest<Connector> receiver) {
                     data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static ConnectorRegisterServiceInstanceParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -1010,7 +995,6 @@ org.chromium.mojo.bindings.InterfaceRequest<Connector> receiver) {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
@@ -1055,7 +1039,6 @@ org.chromium.mojo.bindings.InterfaceRequest<Connector> receiver) {
                     data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static ConnectorRegisterServiceInstanceResponseParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -1079,7 +1062,6 @@ org.chromium.mojo.bindings.InterfaceRequest<Connector> receiver) {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
@@ -1181,7 +1163,6 @@ org.chromium.mojo.bindings.InterfaceRequest<Connector> receiver) {
                     data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static ConnectorCloneParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -1203,7 +1184,6 @@ org.chromium.mojo.bindings.InterfaceRequest<Connector> receiver) {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);

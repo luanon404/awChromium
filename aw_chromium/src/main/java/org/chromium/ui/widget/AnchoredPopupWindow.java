@@ -405,10 +405,10 @@ public class AnchoredPopupWindow implements OnTouchListener, RectProvider.Observ
         // Aggressively try to put it below the anchor.  Put it above only if it would fit better.
         View contentView = mPopupWindow.getContentView();
 
-        int widthSpec = 0;
+        int widthSpec;
         if (mDesiredContentWidth > 0) {
             int width =
-                    mDesiredContentWidth < maxContentWidth ? mDesiredContentWidth : maxContentWidth;
+                    Math.min(mDesiredContentWidth, maxContentWidth);
             widthSpec = MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY);
         } else {
             widthSpec = MeasureSpec.makeMeasureSpec(maxContentWidth, MeasureSpec.AT_MOST);
@@ -584,8 +584,8 @@ public class AnchoredPopupWindow implements OnTouchListener, RectProvider.Observ
     }
 
     private static int clamp(int value, int a, int b) {
-        int min = (a > b) ? b : a;
-        int max = (a > b) ? a : b;
+        int min = Math.min(a, b);
+        int max = Math.max(a, b);
         if (value < min) {
             value = min;
         } else if (value > max) {

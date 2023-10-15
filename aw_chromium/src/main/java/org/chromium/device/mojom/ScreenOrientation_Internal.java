@@ -13,8 +13,6 @@
 
 package org.chromium.device.mojom;
 
-import androidx.annotation.IntDef;
-
 
 class ScreenOrientation_Internal {
 
@@ -228,7 +226,6 @@ LockOrientationResponse callback) {
                     data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static ScreenOrientationLockOrientationParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -252,7 +249,6 @@ LockOrientationResponse callback) {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
@@ -293,7 +289,6 @@ LockOrientationResponse callback) {
                     data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static ScreenOrientationLockOrientationResponseParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -317,7 +312,6 @@ LockOrientationResponse callback) {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
@@ -418,7 +412,6 @@ LockOrientationResponse callback) {
                     data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static ScreenOrientationUnlockOrientationParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -436,7 +429,6 @@ LockOrientationResponse callback) {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);

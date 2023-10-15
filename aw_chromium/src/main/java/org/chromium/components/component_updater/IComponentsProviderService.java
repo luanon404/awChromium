@@ -55,7 +55,7 @@ public interface IComponentsProviderService extends android.os.IInterface
         return null;
       }
       android.os.IInterface iin = obj.queryLocalInterface(DESCRIPTOR);
-      if (((iin!=null)&&(iin instanceof org.chromium.components.component_updater.IComponentsProviderService))) {
+      if (((iin instanceof IComponentsProviderService))) {
         return ((org.chromium.components.component_updater.IComponentsProviderService)iin);
       }
       return new org.chromium.components.component_updater.IComponentsProviderService.Stub.Proxy(obj);

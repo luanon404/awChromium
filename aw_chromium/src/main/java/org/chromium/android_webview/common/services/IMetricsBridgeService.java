@@ -58,7 +58,7 @@ public interface IMetricsBridgeService extends android.os.IInterface
         return null;
       }
       android.os.IInterface iin = obj.queryLocalInterface(DESCRIPTOR);
-      if (((iin!=null)&&(iin instanceof org.chromium.android_webview.common.services.IMetricsBridgeService))) {
+      if (((iin instanceof IMetricsBridgeService))) {
         return ((org.chromium.android_webview.common.services.IMetricsBridgeService)iin);
       }
       return new org.chromium.android_webview.common.services.IMetricsBridgeService.Stub.Proxy(obj);
@@ -162,7 +162,7 @@ public interface IMetricsBridgeService extends android.os.IInterface
             return getDefaultImpl().retrieveNonembeddedMetrics();
           }
           _reply.readException();
-          java.lang.ClassLoader cl = (java.lang.ClassLoader)this.getClass().getClassLoader();
+          java.lang.ClassLoader cl = this.getClass().getClassLoader();
           _result = _reply.readArrayList(cl);
         }
         finally {

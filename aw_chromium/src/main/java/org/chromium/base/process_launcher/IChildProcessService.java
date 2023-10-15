@@ -60,7 +60,7 @@ public interface IChildProcessService extends android.os.IInterface
         return null;
       }
       android.os.IInterface iin = obj.queryLocalInterface(DESCRIPTOR);
-      if (((iin!=null)&&(iin instanceof org.chromium.base.process_launcher.IChildProcessService))) {
+      if (((iin instanceof IChildProcessService))) {
         return ((org.chromium.base.process_launcher.IChildProcessService)iin);
       }
       return new org.chromium.base.process_launcher.IChildProcessService.Stub.Proxy(obj);

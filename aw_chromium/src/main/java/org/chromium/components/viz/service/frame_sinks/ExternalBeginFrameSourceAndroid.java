@@ -4,7 +4,6 @@
 
 package org.chromium.components.viz.service.frame_sinks;
 
-import org.chromium.base.ContextUtils;
 import org.chromium.base.annotations.CalledByNative;
 import org.chromium.base.annotations.JNINamespace;
 import org.chromium.base.annotations.MainDex;
@@ -38,7 +37,7 @@ public class ExternalBeginFrameSourceAndroid {
             long nativeExternalBeginFrameSourceAndroid, float refreshRate) {
         mNativeExternalBeginFrameSourceAndroid = nativeExternalBeginFrameSourceAndroid;
         mVSyncMonitor =
-                new VSyncMonitor(ContextUtils.getApplicationContext(), mVSyncListener, refreshRate);
+                new VSyncMonitor(mVSyncListener, refreshRate);
     }
 
     @CalledByNative

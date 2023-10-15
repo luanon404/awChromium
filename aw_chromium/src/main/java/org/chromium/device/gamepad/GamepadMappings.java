@@ -620,8 +620,6 @@ abstract class GamepadMappings {
                         mRightStickYAxis = axis;
                         break;
                     case MotionEvent.AXIS_HAT_X:
-                        hatAxesFound++;
-                        break;
                     case MotionEvent.AXIS_HAT_Y:
                         hatAxesFound++;
                         break;

@@ -337,7 +337,7 @@ public class VariationsSeedLoader {
             Log.e(TAG, "Failed to create seed file " + newSeedFile);
             return false;
         }
-        ParcelFileDescriptor newSeedFd = null;
+        ParcelFileDescriptor newSeedFd;
         try {
             newSeedFd =
                     ParcelFileDescriptor.open(newSeedFile, ParcelFileDescriptor.MODE_WRITE_ONLY);

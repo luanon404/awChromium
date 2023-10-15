@@ -29,7 +29,7 @@ public final class MediaImage {
     private String mType;
 
     @NonNull
-    private List<Rect> mSizes = new ArrayList<Rect>();
+    private List<Rect> mSizes;
 
     /**
      * Creates a new MediaImage.

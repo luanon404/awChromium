@@ -13,8 +13,6 @@
 
 package org.chromium.device.mojom;
 
-import androidx.annotation.IntDef;
-
 import org.chromium.mojo.bindings.InterfaceControlMessagesHelper;
 import org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants;
 
@@ -229,7 +227,6 @@ GetDevicesResponse callback) {
                     data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static InputDeviceManagerGetDevicesAndSetClientParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -251,7 +248,6 @@ GetDevicesResponse callback) {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
@@ -292,7 +288,6 @@ GetDevicesResponse callback) {
                     data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static InputDeviceManagerGetDevicesAndSetClientResponseParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -323,7 +318,6 @@ GetDevicesResponse callback) {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
@@ -432,7 +426,6 @@ GetDevicesResponse callback) {
                     data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static InputDeviceManagerGetDevicesParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -450,7 +443,6 @@ GetDevicesResponse callback) {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
@@ -489,7 +481,6 @@ GetDevicesResponse callback) {
                     data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static InputDeviceManagerGetDevicesResponseParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -520,7 +511,6 @@ GetDevicesResponse callback) {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);

@@ -13,8 +13,6 @@
 
 package org.chromium.device.mojom;
 
-import androidx.annotation.IntDef;
-
 
 public final class BatteryStatus extends org.chromium.mojo.bindings.Struct {
 
@@ -28,10 +26,10 @@ public final class BatteryStatus extends org.chromium.mojo.bindings.Struct {
 
     private BatteryStatus(int version) {
         super(STRUCT_SIZE, version);
-        this.charging = (boolean) true;
-        this.chargingTime = (double) 0.0;
-        this.dischargingTime = (double) java.lang.Double.POSITIVE_INFINITY;
-        this.level = (double) 1.0;
+        this.charging = true;
+        this.chargingTime = 0.0;
+        this.dischargingTime = Double.POSITIVE_INFINITY;
+        this.level = 1.0;
     }
 
     public BatteryStatus() {
@@ -52,7 +50,6 @@ public final class BatteryStatus extends org.chromium.mojo.bindings.Struct {
                 data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
-    @SuppressWarnings("unchecked")
     public static BatteryStatus decode(org.chromium.mojo.bindings.Decoder decoder0) {
         if (decoder0 == null) {
             return null;
@@ -86,7 +83,6 @@ public final class BatteryStatus extends org.chromium.mojo.bindings.Struct {
         return result;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);

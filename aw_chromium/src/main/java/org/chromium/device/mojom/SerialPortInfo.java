@@ -13,8 +13,6 @@
 
 package org.chromium.device.mojom;
 
-import androidx.annotation.IntDef;
-
 
 public final class SerialPortInfo extends org.chromium.mojo.bindings.Struct {
 
@@ -33,9 +31,9 @@ public final class SerialPortInfo extends org.chromium.mojo.bindings.Struct {
 
     private SerialPortInfo(int version) {
         super(STRUCT_SIZE, version);
-        this.type = (int) DeviceType.PLATFORM_SERIAL;
-        this.hasVendorId = (boolean) false;
-        this.hasProductId = (boolean) false;
+        this.type = DeviceType.PLATFORM_SERIAL;
+        this.hasVendorId = false;
+        this.hasProductId = false;
     }
 
     public SerialPortInfo() {
@@ -56,7 +54,6 @@ public final class SerialPortInfo extends org.chromium.mojo.bindings.Struct {
                 data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
-    @SuppressWarnings("unchecked")
     public static SerialPortInfo decode(org.chromium.mojo.bindings.Decoder decoder0) {
         if (decoder0 == null) {
             return null;
@@ -114,7 +111,6 @@ public final class SerialPortInfo extends org.chromium.mojo.bindings.Struct {
         return result;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);

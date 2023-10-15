@@ -83,7 +83,7 @@ public class AndroidKeyStore {
             PrivateKey privateKey, String algorithm, byte[] message) {
         // Hint: Algorithm names come from:
         // http://docs.oracle.com/javase/6/docs/technotes/guides/security/StandardNames.html
-        Signature signature = null;
+        Signature signature;
         try {
             signature = Signature.getInstance(algorithm);
         } catch (NoSuchAlgorithmException e) {
@@ -115,7 +115,7 @@ public class AndroidKeyStore {
     @CalledByNative
     private static byte[] encryptWithPrivateKey(
             PrivateKey privateKey, String algorithm, byte[] message) {
-        Cipher cipher = null;
+        Cipher cipher;
         try {
             cipher = Cipher.getInstance(algorithm);
         } catch (NoSuchAlgorithmException | NoSuchPaddingException e) {

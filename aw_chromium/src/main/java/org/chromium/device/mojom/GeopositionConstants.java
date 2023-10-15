@@ -13,33 +13,31 @@
 
 package org.chromium.device.mojom;
 
-import androidx.annotation.IntDef;
-
 public final class GeopositionConstants {
 
 
     
-    public static final double BAD_LATITUDE_LONGITUDE = (double) 200;
+    public static final double BAD_LATITUDE_LONGITUDE = 200;
 
 
 
     
-    public static final double BAD_ALTITUDE = (double) -10000;
+    public static final double BAD_ALTITUDE = -10000;
 
 
 
     
-    public static final double BAD_ACCURACY = (double) -1;
+    public static final double BAD_ACCURACY = -1;
 
 
 
     
-    public static final double BAD_HEADING = (double) -1;
+    public static final double BAD_HEADING = -1;
 
 
 
     
-    public static final double BAD_SPEED = (double) -1;
+    public static final double BAD_SPEED = -1;
 
 
 

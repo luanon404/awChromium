@@ -104,7 +104,7 @@ public class VariationsUtils {
         try {
             in = new FileInputStream(inFile);
 
-            AwVariationsSeed proto = null;
+            AwVariationsSeed proto;
             try {
                 proto = AwVariationsSeed.parseFrom(in);
             } catch (InvalidProtocolBufferException e) {

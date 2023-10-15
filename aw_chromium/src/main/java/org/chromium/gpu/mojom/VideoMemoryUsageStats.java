@@ -13,8 +13,6 @@
 
 package org.chromium.gpu.mojom;
 
-import androidx.annotation.IntDef;
-
 
 public final class VideoMemoryUsageStats extends org.chromium.mojo.bindings.Struct {
 
@@ -46,7 +44,6 @@ public final class VideoMemoryUsageStats extends org.chromium.mojo.bindings.Stru
                 data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
-    @SuppressWarnings("unchecked")
     public static VideoMemoryUsageStats decode(org.chromium.mojo.bindings.Decoder decoder0) {
         if (decoder0 == null) {
             return null;
@@ -98,7 +95,6 @@ public final class VideoMemoryUsageStats extends org.chromium.mojo.bindings.Stru
         return result;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);

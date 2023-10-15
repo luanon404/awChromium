@@ -264,9 +264,6 @@ public class HttpNegotiateAuthenticator {
             case HttpNegotiateConstants.OK:
                 status = NetError.OK;
                 break;
-            case HttpNegotiateConstants.ERR_UNEXPECTED:
-                status = NetError.ERR_UNEXPECTED;
-                break;
             case HttpNegotiateConstants.ERR_ABORTED:
                 status = NetError.ERR_ABORTED;
                 break;
@@ -291,6 +288,7 @@ public class HttpNegotiateAuthenticator {
             case HttpNegotiateConstants.ERR_MALFORMED_IDENTITY:
                 status = NetError.ERR_MALFORMED_IDENTITY;
                 break;
+            case HttpNegotiateConstants.ERR_UNEXPECTED:
             default:
                 status = NetError.ERR_UNEXPECTED;
         }

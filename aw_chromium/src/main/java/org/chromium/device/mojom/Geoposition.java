@@ -70,14 +70,14 @@ public final class Geoposition extends org.chromium.mojo.bindings.Struct {
 
     private Geoposition(int version) {
         super(STRUCT_SIZE, version);
-        this.latitude = (double) GeopositionConstants.BAD_LATITUDE_LONGITUDE;
-        this.longitude = (double) GeopositionConstants.BAD_LATITUDE_LONGITUDE;
-        this.altitude = (double) GeopositionConstants.BAD_ALTITUDE;
-        this.accuracy = (double) GeopositionConstants.BAD_ACCURACY;
-        this.altitudeAccuracy = (double) GeopositionConstants.BAD_ACCURACY;
-        this.heading = (double) GeopositionConstants.BAD_HEADING;
-        this.speed = (double) GeopositionConstants.BAD_SPEED;
-        this.errorCode = (int) Geoposition.ErrorCode.NONE;
+        this.latitude = GeopositionConstants.BAD_LATITUDE_LONGITUDE;
+        this.longitude = GeopositionConstants.BAD_LATITUDE_LONGITUDE;
+        this.altitude = GeopositionConstants.BAD_ALTITUDE;
+        this.accuracy = GeopositionConstants.BAD_ACCURACY;
+        this.altitudeAccuracy = GeopositionConstants.BAD_ACCURACY;
+        this.heading = GeopositionConstants.BAD_HEADING;
+        this.speed = GeopositionConstants.BAD_SPEED;
+        this.errorCode = ErrorCode.NONE;
     }
 
     public Geoposition() {
@@ -98,7 +98,6 @@ public final class Geoposition extends org.chromium.mojo.bindings.Struct {
                 data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
-    @SuppressWarnings("unchecked")
     public static Geoposition decode(org.chromium.mojo.bindings.Decoder decoder0) {
         if (decoder0 == null) {
             return null;
@@ -163,7 +162,6 @@ public final class Geoposition extends org.chromium.mojo.bindings.Struct {
         return result;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);

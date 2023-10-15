@@ -40,7 +40,7 @@ public interface IVariationsSeedServer extends android.os.IInterface
         return null;
       }
       android.os.IInterface iin = obj.queryLocalInterface(DESCRIPTOR);
-      if (((iin!=null)&&(iin instanceof org.chromium.android_webview.common.services.IVariationsSeedServer))) {
+      if (((iin instanceof IVariationsSeedServer))) {
         return ((org.chromium.android_webview.common.services.IVariationsSeedServer)iin);
       }
       return new org.chromium.android_webview.common.services.IVariationsSeedServer.Stub.Proxy(obj);

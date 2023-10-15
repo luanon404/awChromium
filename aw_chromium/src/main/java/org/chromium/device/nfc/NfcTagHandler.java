@@ -7,7 +7,6 @@ package org.chromium.device.nfc;
 import android.nfc.FormatException;
 import android.nfc.NdefMessage;
 import android.nfc.Tag;
-import android.nfc.TagLostException;
 import android.nfc.tech.Ndef;
 import android.nfc.tech.NdefFormatable;
 import android.nfc.tech.TagTechnology;

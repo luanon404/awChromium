@@ -155,7 +155,6 @@ public class Clipboard implements ClipboardManager.OnPrimaryClipChangedListener 
      *         the clipboard currently has an item and coercion of the item into
      *         a string is possible; otherwise, <code>null</code>
      */
-    @SuppressWarnings("javadoc")
     @CalledByNative
     private String getCoercedText() {
         // getPrimaryClip() has been observed to throw unexpected exceptions for some devices (see

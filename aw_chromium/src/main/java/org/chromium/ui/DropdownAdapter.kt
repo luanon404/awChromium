@@ -1,190 +1,182 @@
 // Copyright 2014 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+package org.chromium.ui
 
-package org.chromium.ui;
-
-import android.content.Context;
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.text.TextUtils;
-import android.util.TypedValue;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AbsListView.LayoutParams;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.core.view.MarginLayoutParamsCompat;
-import androidx.core.view.ViewCompat;
-
-import org.chromium.android_webview.R;
-import org.chromium.base.ApiCompatibilityUtils;
-
-import java.util.List;
-import java.util.Set;
+import android.annotation.SuppressLint
+import android.content.Context
+import android.graphics.Color
+import android.graphics.Typeface
+import android.text.TextUtils
+import android.util.TypedValue
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.ViewGroup.MarginLayoutParams
+import android.widget.AbsListView
+import android.widget.ArrayAdapter
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.view.MarginLayoutParamsCompat
+import androidx.core.view.ViewCompat
+import org.chromium.android_webview.R
+import org.chromium.base.ApiCompatibilityUtils
 
 /**
  * Dropdown item adapter for DropdownPopupWindow.
+ * @param mContext Application Context.
+ * @param items List of labels and icons to display.
+ * @param separators Set of positions that separate `items`.
  */
-public class DropdownAdapter extends ArrayAdapter<DropdownItem> {
-    private final Context mContext;
-    private final Set<Integer> mSeparators;
-    private final boolean mAreAllItemsEnabled;
-    private final int mLabelMargin;
+class DropdownAdapter(
+    private val mContext: Context, items: List<DropdownItem?>?, separators: Set<Int>?
+) : ArrayAdapter<DropdownItem?>(
+    mContext, R.layout.dropdown_item
+) {
+    private val mSeparators: Set<Int>?
+    private val mAreAllItemsEnabled: Boolean
+    private val mLabelMargin: Int
 
-    /**
-     * Creates an {@code ArrayAdapter} with specified parameters.
-     * @param context Application context.
-     * @param items List of labels and icons to display.
-     * @param separators Set of positions that separate {@code items}.
-     */
-    public DropdownAdapter(
-            Context context, List<? extends DropdownItem> items, Set<Integer> separators) {
-        super(context, R.layout.dropdown_item);
-        mContext = context;
-        addAll(items);
-        mSeparators = separators;
-        mAreAllItemsEnabled = checkAreAllItemsEnabled();
-        mLabelMargin =
-                context.getResources().getDimensionPixelSize(R.dimen.dropdown_item_label_margin);
+
+    init {
+        addAll(items!!)
+        mSeparators = separators
+        mAreAllItemsEnabled = checkAreAllItemsEnabled()
+        mLabelMargin = mContext.resources.getDimensionPixelSize(R.dimen.dropdown_item_label_margin)
     }
 
-    private boolean checkAreAllItemsEnabled() {
-        for (int i = 0; i < getCount(); i++) {
-            DropdownItem item = getItem(i);
-            if (item.isEnabled() && !item.isGroupHeader()) {
-                return false;
+    private fun checkAreAllItemsEnabled(): Boolean {
+        for (i in 0 until count) {
+            val item = getItem(i)
+            if (item!!.isEnabled && !item.isGroupHeader) {
+                return false
             }
         }
-        return true;
+        return true
     }
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View layout = convertView;
+    @SuppressLint("InflateParams")
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+        var layout = convertView
         if (convertView == null) {
-            LayoutInflater inflater =
-                    (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            layout = inflater.inflate(R.layout.dropdown_item, null);
-            layout.setBackground(new DropdownDividerDrawable(/*backgroundColor=*/null));
+            val inflater =
+                mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            layout = inflater.inflate(R.layout.dropdown_item, null)
+            layout.background = DropdownDividerDrawable( /*backgroundColor=*/null)
         }
-        DropdownDividerDrawable divider = (DropdownDividerDrawable) layout.getBackground();
-        int height = mContext.getResources().getDimensionPixelSize(R.dimen.dropdown_item_height);
-
+        val divider = layout!!.background as DropdownDividerDrawable
+        var height = mContext.resources.getDimensionPixelSize(R.dimen.dropdown_item_height)
         if (position == 0) {
-            divider.setDividerColor(Color.TRANSPARENT);
+            divider.setDividerColor(Color.TRANSPARENT)
         } else {
-            int dividerHeight = mContext.getResources().getDimensionPixelSize(
-                    R.dimen.dropdown_item_divider_height);
-            height += dividerHeight;
-            divider.setHeight(dividerHeight);
-            int dividerColor;
-            if (mSeparators != null && mSeparators.contains(position)) {
-                dividerColor = ApiCompatibilityUtils.getColor(mContext.getResources(),
-                        R.color.dropdown_dark_divider_color);
+            val dividerHeight = mContext.resources.getDimensionPixelSize(
+                R.dimen.dropdown_item_divider_height
+            )
+            height += dividerHeight
+            divider.setHeight(dividerHeight)
+            val dividerColor: Int = if (mSeparators != null && mSeparators.contains(position)) {
+                ApiCompatibilityUtils.getColor(
+                    mContext.resources, R.color.dropdown_dark_divider_color
+                )
             } else {
-                dividerColor = ApiCompatibilityUtils.getColor(mContext.getResources(),
-                        R.color.dropdown_divider_color);
+                ApiCompatibilityUtils.getColor(
+                    mContext.resources, R.color.dropdown_divider_color
+                )
             }
-            divider.setDividerColor(dividerColor);
+            divider.setDividerColor(dividerColor)
         }
-
-        DropdownItem item = getItem(position);
+        val item = getItem(position)
 
         // Note: trying to set the height of the root LinearLayout breaks accessibility,
         // so we have to adjust the height of this LinearLayout that wraps the TextViews instead.
         // If you need to modify this layout, don't forget to test it with TalkBack and make sure
         // it doesn't regress.
         // http://crbug.com/429364
-        LinearLayout wrapper = (LinearLayout) layout.findViewById(R.id.dropdown_label_wrapper);
-        if (item.isMultilineLabel()) height = LayoutParams.WRAP_CONTENT;
-        wrapper.setOrientation(LinearLayout.VERTICAL);
-        wrapper.setLayoutParams(new LinearLayout.LayoutParams(0, height, 1));
+        val wrapper = layout.findViewById<View>(R.id.dropdown_label_wrapper) as LinearLayout
+        if (item!!.isMultilineLabel) height = AbsListView.LayoutParams.WRAP_CONTENT
+        wrapper.orientation = LinearLayout.VERTICAL
+        wrapper.layoutParams = LinearLayout.LayoutParams(0, height, 1f)
 
         // Layout of the main label view.
-        TextView labelView = (TextView) layout.findViewById(R.id.dropdown_label);
-        labelView.setText(item.getLabel());
-        labelView.setSingleLine(!item.isMultilineLabel());
-        if (item.isMultilineLabel()) {
+        val labelView = layout.findViewById<View>(R.id.dropdown_label) as TextView
+        labelView.text = item.label
+        labelView.isSingleLine = !item.isMultilineLabel
+        if (item.isMultilineLabel) {
             // If there is a multiline label, we add extra padding at the top and bottom because
             // WRAP_CONTENT, defined above for multiline labels, leaves none.
-            int existingStart = ViewCompat.getPaddingStart(labelView);
-            int existingEnd = ViewCompat.getPaddingEnd(labelView);
+            val existingStart = ViewCompat.getPaddingStart(labelView)
+            val existingEnd = ViewCompat.getPaddingEnd(labelView)
             ViewCompat.setPaddingRelative(
-                    labelView, existingStart, mLabelMargin, existingEnd, mLabelMargin);
+                labelView, existingStart, mLabelMargin, existingEnd, mLabelMargin
+            )
         }
-
-        labelView.setEnabled(item.isEnabled());
-        if (item.isGroupHeader() || item.isBoldLabel()) {
-            labelView.setTypeface(null, Typeface.BOLD);
+        labelView.isEnabled = item.isEnabled
+        if (item.isGroupHeader || item.isBoldLabel) {
+            labelView.setTypeface(null, Typeface.BOLD)
         } else {
-            labelView.setTypeface(null, Typeface.NORMAL);
+            labelView.setTypeface(null, Typeface.NORMAL)
         }
-
-        labelView.setTextColor(ApiCompatibilityUtils.getColor(
-                mContext.getResources(), item.getLabelFontColorResId()));
-        labelView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-                mContext.getResources().getDimension(R.dimen.text_size_large));
+        labelView.setTextColor(
+            ApiCompatibilityUtils.getColor(
+                mContext.resources, item.labelFontColorResId
+            )
+        )
+        labelView.setTextSize(
+            TypedValue.COMPLEX_UNIT_PX, mContext.resources.getDimension(R.dimen.text_size_large)
+        )
 
         // Layout of the sublabel view, which has a smaller font and usually sits below the main
         // label.
-        TextView sublabelView = (TextView) layout.findViewById(R.id.dropdown_sublabel);
-        CharSequence sublabel = item.getSublabel();
+        val sublabelView = layout.findViewById<View>(R.id.dropdown_sublabel) as TextView
+        val sublabel: CharSequence? = item.sublabel
         if (TextUtils.isEmpty(sublabel)) {
-            sublabelView.setVisibility(View.GONE);
+            sublabelView.visibility = View.GONE
         } else {
-            sublabelView.setText(sublabel);
-            sublabelView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-                    mContext.getResources().getDimension(item.getSublabelFontSizeResId()));
-            sublabelView.setVisibility(View.VISIBLE);
+            sublabelView.text = sublabel
+            sublabelView.setTextSize(
+                TypedValue.COMPLEX_UNIT_PX,
+                mContext.resources.getDimension(item.sublabelFontSizeResId)
+            )
+            sublabelView.visibility = View.VISIBLE
         }
-
-        ImageView iconViewStart = (ImageView) layout.findViewById(R.id.start_dropdown_icon);
-        ImageView iconViewEnd = (ImageView) layout.findViewById(R.id.end_dropdown_icon);
-        if (item.isIconAtStart()) {
-            iconViewEnd.setVisibility(View.GONE);
+        val iconViewStart = layout.findViewById<View>(R.id.start_dropdown_icon) as ImageView
+        val iconViewEnd = layout.findViewById<View>(R.id.end_dropdown_icon) as ImageView
+        if (item.isIconAtStart) {
+            iconViewEnd.visibility = View.GONE
         } else {
-            iconViewStart.setVisibility(View.GONE);
+            iconViewStart.visibility = View.GONE
         }
-
-        ImageView iconView = item.isIconAtStart() ? iconViewStart : iconViewEnd;
-        if (item.getIconId() == DropdownItem.NO_ICON) {
-            iconView.setVisibility(View.GONE);
+        val iconView = if (item.isIconAtStart) iconViewStart else iconViewEnd
+        if (item.iconId == DropdownItem.NO_ICON) {
+            iconView.visibility = View.GONE
         } else {
-            int iconSizeResId = item.getIconSizeResId();
-            int iconSize = iconSizeResId == 0
-                    ? LayoutParams.WRAP_CONTENT
-                    : mContext.getResources().getDimensionPixelSize(iconSizeResId);
-            ViewGroup.MarginLayoutParams iconLayoutParams =
-                    (ViewGroup.MarginLayoutParams) iconView.getLayoutParams();
-            iconLayoutParams.width = iconSize;
-            iconLayoutParams.height = iconSize;
-            int iconMargin =
-                    mContext.getResources().getDimensionPixelSize(item.getIconMarginResId());
-            MarginLayoutParamsCompat.setMarginStart(iconLayoutParams, iconMargin);
-            MarginLayoutParamsCompat.setMarginEnd(iconLayoutParams, iconMargin);
-            iconView.setLayoutParams(iconLayoutParams);
-            iconView.setImageDrawable(AppCompatResources.getDrawable(mContext, item.getIconId()));
-            iconView.setVisibility(View.VISIBLE);
+            val iconSizeResId = item.iconSizeResId
+            val iconSize =
+                if (iconSizeResId == 0) AbsListView.LayoutParams.WRAP_CONTENT else mContext.resources.getDimensionPixelSize(
+                    iconSizeResId
+                )
+            val iconLayoutParams = iconView.layoutParams as MarginLayoutParams
+            iconLayoutParams.width = iconSize
+            iconLayoutParams.height = iconSize
+            val iconMargin = mContext.resources.getDimensionPixelSize(item.iconMarginResId)
+            MarginLayoutParamsCompat.setMarginStart(iconLayoutParams, iconMargin)
+            MarginLayoutParamsCompat.setMarginEnd(iconLayoutParams, iconMargin)
+            iconView.layoutParams = iconLayoutParams
+            iconView.setImageDrawable(AppCompatResources.getDrawable(mContext, item.iconId))
+            iconView.visibility = View.VISIBLE
         }
-
-        return layout;
+        return layout
     }
 
-    @Override
-    public boolean areAllItemsEnabled() {
-        return mAreAllItemsEnabled;
+    override fun areAllItemsEnabled(): Boolean {
+        return mAreAllItemsEnabled
     }
 
-    @Override
-    public boolean isEnabled(int position) {
-        if (position < 0 || position >= getCount()) return false;
-        DropdownItem item = getItem(position);
-        return item.isEnabled() && !item.isGroupHeader();
+    override fun isEnabled(position: Int): Boolean {
+        if (position < 0 || position >= count) return false
+        val item = getItem(position)
+        return item!!.isEnabled && !item.isGroupHeader
     }
 }

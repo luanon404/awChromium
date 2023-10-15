@@ -13,8 +13,6 @@
 
 package org.chromium.media.mojom;
 
-import androidx.annotation.IntDef;
-
 
 class VideoCaptureHost_Internal {
 
@@ -535,7 +533,6 @@ org.chromium.mojo_base.mojom.UnguessableToken deviceId, String message) {
                     data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static VideoCaptureHostStartParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -572,7 +569,6 @@ org.chromium.mojo_base.mojom.UnguessableToken deviceId, String message) {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
@@ -619,7 +615,6 @@ org.chromium.mojo_base.mojom.UnguessableToken deviceId, String message) {
                     data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static VideoCaptureHostStopParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -642,7 +637,6 @@ org.chromium.mojo_base.mojom.UnguessableToken deviceId, String message) {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
@@ -683,7 +677,6 @@ org.chromium.mojo_base.mojom.UnguessableToken deviceId, String message) {
                     data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static VideoCaptureHostPauseParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -706,7 +699,6 @@ org.chromium.mojo_base.mojom.UnguessableToken deviceId, String message) {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
@@ -749,7 +741,6 @@ org.chromium.mojo_base.mojom.UnguessableToken deviceId, String message) {
                     data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static VideoCaptureHostResumeParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -782,7 +773,6 @@ org.chromium.mojo_base.mojom.UnguessableToken deviceId, String message) {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
@@ -827,7 +817,6 @@ org.chromium.mojo_base.mojom.UnguessableToken deviceId, String message) {
                     data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static VideoCaptureHostRequestRefreshFrameParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -850,7 +839,6 @@ org.chromium.mojo_base.mojom.UnguessableToken deviceId, String message) {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
@@ -893,7 +881,6 @@ org.chromium.mojo_base.mojom.UnguessableToken deviceId, String message) {
                     data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static VideoCaptureHostReleaseBufferParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -925,7 +912,6 @@ org.chromium.mojo_base.mojom.UnguessableToken deviceId, String message) {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
@@ -971,7 +957,6 @@ org.chromium.mojo_base.mojom.UnguessableToken deviceId, String message) {
                     data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static VideoCaptureHostGetDeviceSupportedFormatsParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -999,7 +984,6 @@ org.chromium.mojo_base.mojom.UnguessableToken deviceId, String message) {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
@@ -1042,7 +1026,6 @@ org.chromium.mojo_base.mojom.UnguessableToken deviceId, String message) {
                     data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static VideoCaptureHostGetDeviceSupportedFormatsResponseParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -1073,7 +1056,6 @@ org.chromium.mojo_base.mojom.UnguessableToken deviceId, String message) {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
@@ -1184,7 +1166,6 @@ org.chromium.mojo_base.mojom.UnguessableToken deviceId, String message) {
                     data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static VideoCaptureHostGetDeviceFormatsInUseParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -1212,7 +1193,6 @@ org.chromium.mojo_base.mojom.UnguessableToken deviceId, String message) {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
@@ -1255,7 +1235,6 @@ org.chromium.mojo_base.mojom.UnguessableToken deviceId, String message) {
                     data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static VideoCaptureHostGetDeviceFormatsInUseResponseParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -1286,7 +1265,6 @@ org.chromium.mojo_base.mojom.UnguessableToken deviceId, String message) {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
@@ -1397,7 +1375,6 @@ org.chromium.mojo_base.mojom.UnguessableToken deviceId, String message) {
                     data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static VideoCaptureHostOnFrameDroppedParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -1426,7 +1403,6 @@ org.chromium.mojo_base.mojom.UnguessableToken deviceId, String message) {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
@@ -1470,7 +1446,6 @@ org.chromium.mojo_base.mojom.UnguessableToken deviceId, String message) {
                     data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static VideoCaptureHostOnLogParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -1497,7 +1472,6 @@ org.chromium.mojo_base.mojom.UnguessableToken deviceId, String message) {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);

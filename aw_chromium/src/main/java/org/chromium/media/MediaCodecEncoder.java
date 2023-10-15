@@ -57,7 +57,7 @@ class MediaCodecEncoder extends MediaCodecBridge {
         try {
             indexOrStatus = mMediaCodec.dequeueOutputBuffer(info, timeoutUs);
 
-            ByteBuffer codecOutputBuffer = null;
+            ByteBuffer codecOutputBuffer;
             if (indexOrStatus >= 0) {
                 boolean isConfigFrame = (info.flags & MediaCodec.BUFFER_FLAG_CODEC_CONFIG) != 0;
                 if (isConfigFrame) {
@@ -71,7 +71,7 @@ class MediaCodecEncoder extends MediaCodecBridge {
                     mConfigData.put(codecOutputBuffer);
                     // Log few SPS header bytes to check profile and level.
                     StringBuilder spsData = new StringBuilder();
-                    for (int i = 0; i < (info.size < 8 ? info.size : 8); i++) {
+                    for (int i = 0; i < (Math.min(info.size, 8)); i++) {
                         spsData.append(Integer.toHexString(mConfigData.get(i) & 0xff)).append(" ");
                     }
                     Log.i(TAG, "spsData: %s", spsData.toString());
@@ -118,7 +118,6 @@ class MediaCodecEncoder extends MediaCodecBridge {
     }
 
     // Call this function with catching IllegalStateException.
-    @SuppressWarnings("deprecation")
     private ByteBuffer getMediaCodecOutputBuffer(int index) {
         ByteBuffer outputBuffer = super.getOutputBuffer(index);
         if (outputBuffer == null) {

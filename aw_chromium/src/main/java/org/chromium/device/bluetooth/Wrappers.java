@@ -4,7 +4,6 @@
 
 package org.chromium.device.bluetooth;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.bluetooth.BluetoothAdapter;

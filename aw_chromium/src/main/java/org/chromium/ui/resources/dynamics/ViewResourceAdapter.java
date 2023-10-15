@@ -325,7 +325,7 @@ public class ViewResourceAdapter extends DynamicResource implements OnLayoutChan
 
             // If we didn't have a bitmap to return and there isn't an ongoing request already we
             // will start a bitmap copy which will be done Async on a different thread.
-            RenderNode renderNode = null;
+            RenderNode renderNode;
             if (currentState.mRequestNewDraw && !mDirtyRect.isEmpty()) {
                 // TODO(nuskos): There are potential optimizations here.
                 //                   1) We could save the RenderNode if nothing has changed and all

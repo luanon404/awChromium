@@ -73,7 +73,7 @@ public class WindowAndroid implements AndroidPermissionDelegate, DisplayAndroidO
     private final LifetimeAssert mLifetimeAssert;
 
     private KeyboardVisibilityDelegate mKeyboardVisibilityDelegate =
-            KeyboardVisibilityDelegate.getInstance();
+            KeyboardVisibilityDelegate.Companion.getInstance();
 
     private class TouchExplorationMonitor {
         // Listener that tells us when touch exploration is enabled or disabled.
@@ -759,7 +759,7 @@ public class WindowAndroid implements AndroidPermissionDelegate, DisplayAndroidO
     public void setKeyboardDelegate(KeyboardVisibilityDelegate keyboardDelegate) {
         mKeyboardVisibilityDelegate = keyboardDelegate;
         // TODO(fhorschig): Remove - every caller should use the window to get the delegate.
-        KeyboardVisibilityDelegate.setInstance(keyboardDelegate);
+        KeyboardVisibilityDelegate.Companion.setInstance(keyboardDelegate);
     }
 
     /**
@@ -940,7 +940,6 @@ public class WindowAndroid implements AndroidPermissionDelegate, DisplayAndroidO
                     && currentMode.getPhysicalHeight() == supportedModes.get(i).getPhysicalHeight()
                     && currentMode.getRefreshRate() != supportedModes.get(i).getRefreshRate()) {
                 supportedRefreshRateModes.add(supportedModes.get(i));
-                continue;
             }
         }
 

@@ -392,10 +392,10 @@ public final class MetricsBridgeRecords {
       }
 
       public static Builder newBuilder() {
-        return (Builder) DEFAULT_INSTANCE.createBuilder();
+        return DEFAULT_INSTANCE.createBuilder();
       }
       public static Builder newBuilder(org.chromium.android_webview.proto.MetricsBridgeRecords.HistogramRecord.Metadata prototype) {
-        return (Builder) DEFAULT_INSTANCE.createBuilder(prototype);
+        return DEFAULT_INSTANCE.createBuilder(prototype);
       }
 
       /**
@@ -463,7 +463,6 @@ public final class MetricsBridgeRecords {
         // @@protoc_insertion_point(builder_scope:org.chromium.android_webview.proto.HistogramRecord.Metadata)
       }
       @java.lang.Override
-      @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
       protected java.lang.Object dynamicMethod(
           com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
           java.lang.Object arg0, java.lang.Object arg1) {
@@ -966,10 +965,10 @@ public final class MetricsBridgeRecords {
     }
 
     public static Builder newBuilder() {
-      return (Builder) DEFAULT_INSTANCE.createBuilder();
+      return DEFAULT_INSTANCE.createBuilder();
     }
     public static Builder newBuilder(org.chromium.android_webview.proto.MetricsBridgeRecords.HistogramRecord prototype) {
-      return (Builder) DEFAULT_INSTANCE.createBuilder(prototype);
+      return DEFAULT_INSTANCE.createBuilder(prototype);
     }
 
     /**
@@ -1370,7 +1369,6 @@ public final class MetricsBridgeRecords {
       // @@protoc_insertion_point(builder_scope:org.chromium.android_webview.proto.HistogramRecord)
     }
     @java.lang.Override
-    @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
     protected java.lang.Object dynamicMethod(
         com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
         java.lang.Object arg0, java.lang.Object arg1) {

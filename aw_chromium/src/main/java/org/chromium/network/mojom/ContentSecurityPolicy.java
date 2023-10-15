@@ -13,8 +13,6 @@
 
 package org.chromium.network.mojom;
 
-import androidx.annotation.IntDef;
-
 
 public final class ContentSecurityPolicy extends org.chromium.mojo.bindings.Struct {
 
@@ -37,12 +35,12 @@ public final class ContentSecurityPolicy extends org.chromium.mojo.bindings.Stru
 
     private ContentSecurityPolicy(int version) {
         super(STRUCT_SIZE, version);
-        this.upgradeInsecureRequests = (boolean) false;
-        this.treatAsPublicAddress = (boolean) false;
-        this.blockAllMixedContent = (boolean) false;
-        this.sandbox = (int) WebSandboxFlags.NONE;
-        this.useReportingApi = (boolean) false;
-        this.requireTrustedTypesFor = (int) CspRequireTrustedTypesFor.NONE;
+        this.upgradeInsecureRequests = false;
+        this.treatAsPublicAddress = false;
+        this.blockAllMixedContent = false;
+        this.sandbox = WebSandboxFlags.NONE;
+        this.useReportingApi = false;
+        this.requireTrustedTypesFor = CspRequireTrustedTypesFor.NONE;
     }
 
     public ContentSecurityPolicy() {
@@ -63,7 +61,6 @@ public final class ContentSecurityPolicy extends org.chromium.mojo.bindings.Stru
                 data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
-    @SuppressWarnings("unchecked")
     public static ContentSecurityPolicy decode(org.chromium.mojo.bindings.Decoder decoder0) {
         if (decoder0 == null) {
             return null;
@@ -217,7 +214,6 @@ public final class ContentSecurityPolicy extends org.chromium.mojo.bindings.Stru
         return result;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);

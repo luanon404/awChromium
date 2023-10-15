@@ -101,11 +101,11 @@ public class DateTimePickerDialog extends AlertDialog implements OnClickListener
                 (LayoutInflater) dialogContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.date_time_picker_dialog, null);
         setView(view);
-        mDatePicker = (DatePicker) view.findViewById(R.id.date_picker);
+        mDatePicker = view.findViewById(R.id.date_picker);
         DateDialogNormalizer.normalize(mDatePicker, this,
                 year, monthOfYear, dayOfMonth, mMinTimeMillis, mMaxTimeMillis);
 
-        mTimePicker = (TimePicker) view.findViewById(R.id.time_picker);
+        mTimePicker = view.findViewById(R.id.time_picker);
         mTimePicker.setIs24HourView(is24HourView);
         setHour(mTimePicker, hourOfDay);
         setMinute(mTimePicker, minute);
@@ -232,7 +232,6 @@ public class DateTimePickerDialog extends AlertDialog implements OnClickListener
         }
 
         private static class WrappedResources extends Resources {
-            @SuppressWarnings("deprecation")
             WrappedResources(AssetManager assets, DisplayMetrics displayMetrics,
                     Configuration configuration) {
                 // The Resources constructor is safe to use on L & L_MR1

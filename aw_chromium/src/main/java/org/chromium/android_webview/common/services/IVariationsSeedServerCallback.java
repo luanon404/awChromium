@@ -42,7 +42,7 @@ public interface IVariationsSeedServerCallback extends android.os.IInterface
         return null;
       }
       android.os.IInterface iin = obj.queryLocalInterface(DESCRIPTOR);
-      if (((iin!=null)&&(iin instanceof org.chromium.android_webview.common.services.IVariationsSeedServerCallback))) {
+      if (((iin instanceof IVariationsSeedServerCallback))) {
         return ((org.chromium.android_webview.common.services.IVariationsSeedServerCallback)iin);
       }
       return new org.chromium.android_webview.common.services.IVariationsSeedServerCallback.Stub.Proxy(obj);

@@ -101,7 +101,7 @@ public class SpeechRecognitionImpl {
 
         @Override
         public void onError(int error) {
-            int code = SpeechRecognitionErrorCode.NONE;
+            int code;
 
             // Translate Android SpeechRecognizer errors to Web Speech API errors.
             switch(error) {

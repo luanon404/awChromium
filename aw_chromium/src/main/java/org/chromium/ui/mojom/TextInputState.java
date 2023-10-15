@@ -13,8 +13,6 @@
 
 package org.chromium.ui.mojom;
 
-import androidx.annotation.IntDef;
-
 
 public final class TextInputState extends org.chromium.mojo.bindings.Struct {
 
@@ -41,13 +39,13 @@ public final class TextInputState extends org.chromium.mojo.bindings.Struct {
 
     private TextInputState(int version) {
         super(STRUCT_SIZE, version);
-        this.nodeId = (int) 0;
-        this.type = (int) TextInputType.NONE;
-        this.mode = (int) TextInputMode.DEFAULT;
-        this.action = (int) TextInputAction.DEFAULT;
-        this.canComposeInline = (boolean) true;
-        this.vkPolicy = (int) VirtualKeyboardPolicy.AUTO;
-        this.lastVkVisibilityRequest = (int) VirtualKeyboardVisibilityRequest.NONE;
+        this.nodeId = 0;
+        this.type = TextInputType.NONE;
+        this.mode = TextInputMode.DEFAULT;
+        this.action = TextInputAction.DEFAULT;
+        this.canComposeInline = true;
+        this.vkPolicy = VirtualKeyboardPolicy.AUTO;
+        this.lastVkVisibilityRequest = VirtualKeyboardVisibilityRequest.NONE;
     }
 
     public TextInputState() {
@@ -68,7 +66,6 @@ public final class TextInputState extends org.chromium.mojo.bindings.Struct {
                 data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
-    @SuppressWarnings("unchecked")
     public static TextInputState decode(org.chromium.mojo.bindings.Decoder decoder0) {
         if (decoder0 == null) {
             return null;
@@ -178,7 +175,6 @@ public final class TextInputState extends org.chromium.mojo.bindings.Struct {
         return result;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);

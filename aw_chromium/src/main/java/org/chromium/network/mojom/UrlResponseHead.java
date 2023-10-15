@@ -13,8 +13,6 @@
 
 package org.chromium.network.mojom;
 
-import androidx.annotation.IntDef;
-
 
 public final class UrlResponseHead extends org.chromium.mojo.bindings.Struct {
 
@@ -76,33 +74,33 @@ public final class UrlResponseHead extends org.chromium.mojo.bindings.Struct {
 
     private UrlResponseHead(int version) {
         super(STRUCT_SIZE, version);
-        this.contentLength = (long) -1;
-        this.encodedDataLength = (long) -1;
-        this.encodedBodyLength = (long) -1;
-        this.networkAccessed = (boolean) false;
-        this.appcacheId = (long) 0;
-        this.wasFetchedViaSpdy = (boolean) false;
-        this.wasAlpnNegotiated = (boolean) false;
-        this.wasAlternateProtocolAvailable = (boolean) false;
-        this.isValidated = (boolean) false;
-        this.wasFetchedViaCache = (boolean) false;
-        this.wasFetchedViaServiceWorker = (boolean) false;
-        this.serviceWorkerResponseSource = (int) FetchResponseSource.UNSPECIFIED;
-        this.responseType = (int) FetchResponseType.DEFAULT;
-        this.padding = (long) 0;
-        this.certStatus = (int) 0;
-        this.didServiceWorkerNavigationPreload = (boolean) false;
-        this.shouldReportCorbBlocking = (boolean) false;
-        this.asyncRevalidationRequested = (boolean) false;
-        this.didMimeSniff = (boolean) false;
-        this.isSignedExchangeInnerResponse = (boolean) false;
-        this.wasInPrefetchCache = (boolean) false;
-        this.wasCookieInRequest = (boolean) false;
-        this.interceptedByPlugin = (boolean) false;
-        this.isLegacyTlsVersion = (boolean) false;
-        this.hasRangeRequested = (boolean) false;
-        this.timingAllowPassed = (boolean) false;
-        this.hasAuthorizationCoveredByWildcardOnPreflight = (boolean) false;
+        this.contentLength = -1;
+        this.encodedDataLength = -1;
+        this.encodedBodyLength = -1;
+        this.networkAccessed = false;
+        this.appcacheId = 0;
+        this.wasFetchedViaSpdy = false;
+        this.wasAlpnNegotiated = false;
+        this.wasAlternateProtocolAvailable = false;
+        this.isValidated = false;
+        this.wasFetchedViaCache = false;
+        this.wasFetchedViaServiceWorker = false;
+        this.serviceWorkerResponseSource = FetchResponseSource.UNSPECIFIED;
+        this.responseType = FetchResponseType.DEFAULT;
+        this.padding = 0;
+        this.certStatus = 0;
+        this.didServiceWorkerNavigationPreload = false;
+        this.shouldReportCorbBlocking = false;
+        this.asyncRevalidationRequested = false;
+        this.didMimeSniff = false;
+        this.isSignedExchangeInnerResponse = false;
+        this.wasInPrefetchCache = false;
+        this.wasCookieInRequest = false;
+        this.interceptedByPlugin = false;
+        this.isLegacyTlsVersion = false;
+        this.hasRangeRequested = false;
+        this.timingAllowPassed = false;
+        this.hasAuthorizationCoveredByWildcardOnPreflight = false;
     }
 
     public UrlResponseHead() {
@@ -123,7 +121,6 @@ public final class UrlResponseHead extends org.chromium.mojo.bindings.Struct {
                 data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
-    @SuppressWarnings("unchecked")
     public static UrlResponseHead decode(org.chromium.mojo.bindings.Decoder decoder0) {
         if (decoder0 == null) {
             return null;
@@ -398,7 +395,6 @@ public final class UrlResponseHead extends org.chromium.mojo.bindings.Struct {
         return result;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);

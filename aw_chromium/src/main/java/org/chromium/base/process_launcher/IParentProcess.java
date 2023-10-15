@@ -56,7 +56,7 @@ public interface IParentProcess extends android.os.IInterface
         return null;
       }
       android.os.IInterface iin = obj.queryLocalInterface(DESCRIPTOR);
-      if (((iin!=null)&&(iin instanceof org.chromium.base.process_launcher.IParentProcess))) {
+      if (((iin instanceof IParentProcess))) {
         return ((org.chromium.base.process_launcher.IParentProcess)iin);
       }
       return new org.chromium.base.process_launcher.IParentProcess.Stub.Proxy(obj);

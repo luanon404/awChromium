@@ -19,7 +19,6 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import org.chromium.base.annotations.JNINamespace;
 import org.chromium.content_public.browser.AccessibilitySnapshotNode;
 
-import java.util.Arrays;
 import java.util.Collections;
 
 /**

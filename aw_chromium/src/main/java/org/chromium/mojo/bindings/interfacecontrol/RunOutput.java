@@ -13,8 +13,6 @@
 
 package org.chromium.mojo.bindings.interfacecontrol;
 
-import androidx.annotation.IntDef;
-
 import org.chromium.mojo.bindings.DataHeader;
 import org.chromium.mojo.bindings.Decoder;
 

@@ -220,7 +220,6 @@ class TtsPlatformImpl {
         });
     }
 
-    @SuppressWarnings("deprecation")
     private void addOnUtteranceProgressListener() {
         mTextToSpeech.setOnUtteranceProgressListener(new UtteranceProgressListener() {
             @Override
@@ -244,7 +243,6 @@ class TtsPlatformImpl {
         });
     }
 
-    @SuppressWarnings("deprecation")
     private int callSpeak(String text, float volume, int utteranceId) {
         Bundle params = new Bundle();
         if (volume != 1.0) {

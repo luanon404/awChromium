@@ -13,8 +13,6 @@
 
 package org.chromium.network.mojom;
 
-import androidx.annotation.IntDef;
-
 
 public final class ParsedHeaders extends org.chromium.mojo.bindings.Struct {
 
@@ -36,9 +34,9 @@ public final class ParsedHeaders extends org.chromium.mojo.bindings.Struct {
 
     private ParsedHeaders(int version) {
         super(STRUCT_SIZE, version);
-        this.originAgentCluster = (boolean) false;
-        this.xfo = (int) XFrameOptionsValue.NONE;
-        this.bfcacheOptInUnload = (boolean) false;
+        this.originAgentCluster = false;
+        this.xfo = XFrameOptionsValue.NONE;
+        this.bfcacheOptInUnload = false;
     }
 
     public ParsedHeaders() {
@@ -59,7 +57,6 @@ public final class ParsedHeaders extends org.chromium.mojo.bindings.Struct {
                 data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
-    @SuppressWarnings("unchecked")
     public static ParsedHeaders decode(org.chromium.mojo.bindings.Decoder decoder0) {
         if (decoder0 == null) {
             return null;
@@ -158,7 +155,6 @@ public final class ParsedHeaders extends org.chromium.mojo.bindings.Struct {
         return result;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);

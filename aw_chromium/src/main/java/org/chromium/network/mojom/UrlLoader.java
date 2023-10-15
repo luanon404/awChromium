@@ -13,14 +13,12 @@
 
 package org.chromium.network.mojom;
 
-import androidx.annotation.IntDef;
-
 
 public interface UrlLoader extends org.chromium.mojo.bindings.Interface {
 
 
     
-    int CLIENT_DISCONNECT_REASON = (int) 1;
+    int CLIENT_DISCONNECT_REASON = 1;
 
 
 

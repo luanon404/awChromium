@@ -10,7 +10,6 @@ import android.graphics.Rect
 import android.os.Bundle
 import android.os.Handler
 import android.os.HandlerThread
-import android.util.Log
 import android.view.DragEvent
 import android.view.KeyEvent
 import android.view.MotionEvent
@@ -221,10 +220,6 @@ class AwContainerView(context: Context, allowHardwareAcceleration: Boolean) : Fr
         this.awContents = awContents
     }
 
-    fun setWindowVisibleDisplayFrameOverride(rect: Rect?) {
-        mWindowVisibleDisplayFrameOverride = rect
-    }
-
     override fun getWindowVisibleDisplayFrame(outRect: Rect) {
         if (mWindowVisibleDisplayFrameOverride != null) {
             outRect.set(mWindowVisibleDisplayFrameOverride!!)
@@ -235,14 +230,6 @@ class AwContainerView(context: Context, allowHardwareAcceleration: Boolean) : Fr
 
     val isBackedByHardwareView: Boolean
         get() = mHardwareView != null
-
-    /**
-     * Use glReadPixels to get 4 pixels from center of 4 quadrants. Result is in row-major order.
-     */
-    fun readbackQuadrantColors(callback: Callback<IntArray?>) {
-        assert(isBackedByHardwareView)
-        mHardwareView!!.readbackQuadrantColors(callback)
-    }
 
     val webContents: WebContents
         @SuppressLint("VisibleForTests") get() = awContents!!.webContents
@@ -406,6 +393,10 @@ class AwContainerView(context: Context, allowHardwareAcceleration: Boolean) : Fr
             return super@AwContainerView.onGenericMotionEvent(event)
         }
 
+        override fun onScrollChanged(lPix: Int, tPix: Int, oldlPix: Int, oldtPix: Int) {
+            super@AwContainerView.onScrollChanged(lPix, tPix, oldlPix, oldtPix)
+        }
+
         override fun super_onConfigurationChanged(newConfig: Configuration) {
             super@AwContainerView.onConfigurationChanged(newConfig)
         }
@@ -419,6 +410,10 @@ class AwContainerView(context: Context, allowHardwareAcceleration: Boolean) : Fr
                 mHardwareView!!.translationX = scrollX.toFloat()
                 mHardwareView!!.translationY = scrollY.toFloat()
             }
+        }
+
+        override fun setMeasuredDimension(measuredWidth: Int, measuredHeight: Int) {
+            super@AwContainerView.setMeasuredDimension(measuredWidth, measuredHeight)
         }
 
         override fun overScrollBy(
@@ -444,14 +439,6 @@ class AwContainerView(context: Context, allowHardwareAcceleration: Boolean) : Fr
                 maxOverScrollY,
                 isTouchEvent
             )
-        }
-
-        override fun onScrollChanged(l: Int, t: Int, oldl: Int, oldt: Int) {
-            super@AwContainerView.onScrollChanged(l, t, oldl, oldt)
-        }
-
-        override fun setMeasuredDimension(measuredWidth: Int, measuredHeight: Int) {
-            super@AwContainerView.setMeasuredDimension(measuredWidth, measuredHeight)
         }
 
         override fun super_getScrollBarStyle(): Int {

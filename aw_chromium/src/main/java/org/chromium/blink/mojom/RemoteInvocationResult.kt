@@ -14,18 +14,14 @@ import org.chromium.mojo.bindings.Decoder
 import org.chromium.mojo.bindings.Encoder
 import org.chromium.mojo.bindings.Message
 import org.chromium.mojo.bindings.Struct
-import org.chromium.url.internal.mojom.Origin.Companion.decode
 import java.nio.ByteBuffer
 
 class RemoteInvocationResult private constructor(version: Int) : Struct(STRUCT_SIZE, version) {
     @JvmField
-    var error: Int
+    var error: Int = RemoteInvocationError.OK
+
     @JvmField
     var value: RemoteInvocationResultValue? = null
-
-    init {
-        error = RemoteInvocationError.OK
-    }
 
     constructor() : this(0)
 
@@ -71,7 +67,7 @@ class RemoteInvocationResult private constructor(version: Int) : Struct(STRUCT_S
                     RemoteInvocationError.validate(result.error)
                     result.error = RemoteInvocationError.toKnownValue(result.error)
                 }
-                run { result.value = RemoteInvocationResultValue.Companion.decode(decoder0, 16) }
+                run { result.value = RemoteInvocationResultValue.decode(decoder0, 16) }
             } finally {
                 decoder0.decreaseStackDepth()
             }

@@ -13,8 +13,6 @@
 
 package org.chromium.network.mojom;
 
-import androidx.annotation.IntDef;
-
 
 public final class ContentSecurityPolicyHeader extends org.chromium.mojo.bindings.Struct {
 
@@ -27,8 +25,8 @@ public final class ContentSecurityPolicyHeader extends org.chromium.mojo.binding
 
     private ContentSecurityPolicyHeader(int version) {
         super(STRUCT_SIZE, version);
-        this.type = (int) ContentSecurityPolicyType.ENFORCE;
-        this.source = (int) ContentSecurityPolicySource.HTTP;
+        this.type = ContentSecurityPolicyType.ENFORCE;
+        this.source = ContentSecurityPolicySource.HTTP;
     }
 
     public ContentSecurityPolicyHeader() {
@@ -49,7 +47,6 @@ public final class ContentSecurityPolicyHeader extends org.chromium.mojo.binding
                 data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
-    @SuppressWarnings("unchecked")
     public static ContentSecurityPolicyHeader decode(org.chromium.mojo.bindings.Decoder decoder0) {
         if (decoder0 == null) {
             return null;
@@ -83,7 +80,6 @@ public final class ContentSecurityPolicyHeader extends org.chromium.mojo.binding
         return result;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);

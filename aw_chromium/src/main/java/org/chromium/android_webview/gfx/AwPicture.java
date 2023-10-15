@@ -71,11 +71,6 @@ public class AwPicture extends Picture {
         AwPictureJni.get().draw(mNativeAwPicture, AwPicture.this, canvas);
     }
 
-    @SuppressWarnings("deprecation")
-    public void writeToStream(OutputStream stream) {
-        unsupportedOperation();
-    }
-
     private void unsupportedOperation() {
         throw new IllegalStateException("Unsupported in AwPicture");
     }

@@ -23,7 +23,7 @@ public class ComponentLoaderPolicyBridge {
 
     private final LifetimeAssert mLifetimeAssert = LifetimeAssert.create(this);
 
-    private long mNativeAndroidComponentLoaderPolicy = NATIVE_NULL;
+    private long mNativeAndroidComponentLoaderPolicy;
 
     @CalledByNative
     private ComponentLoaderPolicyBridge(long nativeAndroidComponentLoaderPolicy) {

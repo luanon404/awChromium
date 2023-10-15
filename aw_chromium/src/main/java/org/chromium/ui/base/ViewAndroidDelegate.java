@@ -169,7 +169,6 @@ public class ViewAndroidDelegate {
      * @param text The dragged text.
      * @param shadowImage The shadow image for the dragged text.
      */
-    @SuppressWarnings("deprecation")
     @TargetApi(Build.VERSION_CODES.N)
     @CalledByNative
     private boolean startDragAndDrop(String text, Bitmap shadowImage) {
@@ -219,6 +218,7 @@ public class ViewAndroidDelegate {
                 pointerIconType = PointerIcon.TYPE_HELP;
                 break;
             case CursorType.WAIT:
+            case CursorType.PROGRESS:
                 pointerIconType = PointerIcon.TYPE_WAIT;
                 break;
             case CursorType.CELL:
@@ -240,18 +240,31 @@ public class ViewAndroidDelegate {
                 pointerIconType = PointerIcon.TYPE_COPY;
                 break;
             case CursorType.NO_DROP:
+            case CursorType.NOT_ALLOWED:
                 pointerIconType = PointerIcon.TYPE_NO_DROP;
                 break;
             case CursorType.COLUMN_RESIZE:
+            case CursorType.WEST_RESIZE:
+            case CursorType.EAST_RESIZE:
+                // TODO(jaebaek): set types correctly
+                // after fixing http://crbug.com/584424.
+            case CursorType.EAST_WEST_RESIZE:
                 pointerIconType = PointerIcon.TYPE_HORIZONTAL_DOUBLE_ARROW;
                 break;
             case CursorType.ROW_RESIZE:
+            case CursorType.SOUTH_RESIZE:
+            case CursorType.NORTH_RESIZE:
+            case CursorType.NORTH_SOUTH_RESIZE:
                 pointerIconType = PointerIcon.TYPE_VERTICAL_DOUBLE_ARROW;
                 break;
             case CursorType.NORTH_EAST_SOUTH_WEST_RESIZE:
+            case CursorType.SOUTH_WEST_RESIZE:
+            case CursorType.NORTH_EAST_RESIZE:
                 pointerIconType = PointerIcon.TYPE_TOP_RIGHT_DIAGONAL_DOUBLE_ARROW;
                 break;
             case CursorType.NORTH_WEST_SOUTH_EAST_RESIZE:
+            case CursorType.SOUTH_EAST_RESIZE:
+            case CursorType.NORTH_WEST_RESIZE:
                 pointerIconType = PointerIcon.TYPE_TOP_LEFT_DIAGONAL_DOUBLE_ARROW;
                 break;
             case CursorType.ZOOM_IN:
@@ -265,44 +278,6 @@ public class ViewAndroidDelegate {
                 break;
             case CursorType.GRABBING:
                 pointerIconType = PointerIcon.TYPE_GRABBING;
-                break;
-            // TODO(jaebaek): set types correctly
-            // after fixing http://crbug.com/584424.
-            case CursorType.EAST_WEST_RESIZE:
-                pointerIconType = PointerIcon.TYPE_HORIZONTAL_DOUBLE_ARROW;
-                break;
-            case CursorType.NORTH_SOUTH_RESIZE:
-                pointerIconType = PointerIcon.TYPE_VERTICAL_DOUBLE_ARROW;
-                break;
-            case CursorType.EAST_RESIZE:
-                pointerIconType = PointerIcon.TYPE_HORIZONTAL_DOUBLE_ARROW;
-                break;
-            case CursorType.NORTH_RESIZE:
-                pointerIconType = PointerIcon.TYPE_VERTICAL_DOUBLE_ARROW;
-                break;
-            case CursorType.NORTH_EAST_RESIZE:
-                pointerIconType = PointerIcon.TYPE_TOP_RIGHT_DIAGONAL_DOUBLE_ARROW;
-                break;
-            case CursorType.NORTH_WEST_RESIZE:
-                pointerIconType = PointerIcon.TYPE_TOP_LEFT_DIAGONAL_DOUBLE_ARROW;
-                break;
-            case CursorType.SOUTH_RESIZE:
-                pointerIconType = PointerIcon.TYPE_VERTICAL_DOUBLE_ARROW;
-                break;
-            case CursorType.SOUTH_EAST_RESIZE:
-                pointerIconType = PointerIcon.TYPE_TOP_LEFT_DIAGONAL_DOUBLE_ARROW;
-                break;
-            case CursorType.SOUTH_WEST_RESIZE:
-                pointerIconType = PointerIcon.TYPE_TOP_RIGHT_DIAGONAL_DOUBLE_ARROW;
-                break;
-            case CursorType.WEST_RESIZE:
-                pointerIconType = PointerIcon.TYPE_HORIZONTAL_DOUBLE_ARROW;
-                break;
-            case CursorType.PROGRESS:
-                pointerIconType = PointerIcon.TYPE_WAIT;
-                break;
-            case CursorType.NOT_ALLOWED:
-                pointerIconType = PointerIcon.TYPE_NO_DROP;
                 break;
             case CursorType.MOVE:
             case CursorType.MIDDLE_PANNING:

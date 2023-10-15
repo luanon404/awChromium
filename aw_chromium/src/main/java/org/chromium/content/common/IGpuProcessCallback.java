@@ -38,7 +38,7 @@ public interface IGpuProcessCallback extends android.os.IInterface
         return null;
       }
       android.os.IInterface iin = obj.queryLocalInterface(DESCRIPTOR);
-      if (((iin!=null)&&(iin instanceof org.chromium.content.common.IGpuProcessCallback))) {
+      if (((iin instanceof IGpuProcessCallback))) {
         return ((org.chromium.content.common.IGpuProcessCallback)iin);
       }
       return new org.chromium.content.common.IGpuProcessCallback.Stub.Proxy(obj);

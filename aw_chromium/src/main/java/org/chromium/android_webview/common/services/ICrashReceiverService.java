@@ -34,7 +34,7 @@ public interface ICrashReceiverService extends android.os.IInterface
         return null;
       }
       android.os.IInterface iin = obj.queryLocalInterface(DESCRIPTOR);
-      if (((iin!=null)&&(iin instanceof org.chromium.android_webview.common.services.ICrashReceiverService))) {
+      if (((iin instanceof ICrashReceiverService))) {
         return ((org.chromium.android_webview.common.services.ICrashReceiverService)iin);
       }
       return new org.chromium.android_webview.common.services.ICrashReceiverService.Stub.Proxy(obj);
@@ -59,7 +59,7 @@ public interface ICrashReceiverService extends android.os.IInterface
           android.os.ParcelFileDescriptor[] _arg0;
           _arg0 = data.createTypedArray(android.os.ParcelFileDescriptor.CREATOR);
           java.util.List _arg1;
-          java.lang.ClassLoader cl = (java.lang.ClassLoader)this.getClass().getClassLoader();
+          java.lang.ClassLoader cl = this.getClass().getClassLoader();
           _arg1 = data.readArrayList(cl);
           this.transmitCrashes(_arg0, _arg1);
           reply.writeNoException();

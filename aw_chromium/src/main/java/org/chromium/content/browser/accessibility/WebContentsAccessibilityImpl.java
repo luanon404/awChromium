@@ -1783,7 +1783,7 @@ public class WebContentsAccessibilityImpl extends AccessibilityNodeProvider
                 int start = suggestionStarts[i];
                 int end = suggestionEnds[i];
                 // Ignore any spans outside the range of the spannable string.
-                if (start < 0 || start > spannableLen || end < 0 || end > spannableLen
+                if (start < 0 || end < 0 || end > spannableLen
                         || start > end) {
                     continue;
                 }

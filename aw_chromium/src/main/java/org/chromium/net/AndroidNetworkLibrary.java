@@ -85,7 +85,7 @@ class AndroidNetworkLibrary {
      */
     @CalledByNative
     public static boolean haveOnlyLoopbackAddresses() {
-        Enumeration<NetworkInterface> list = null;
+        Enumeration<NetworkInterface> list;
         try {
             list = NetworkInterface.getNetworkInterfaces();
             if (list == null) return false;
@@ -99,7 +99,6 @@ class AndroidNetworkLibrary {
             try {
                 if (netIf.isUp() && !netIf.isLoopback()) return false;
             } catch (SocketException e) {
-                continue;
             }
         }
         return true;
@@ -232,7 +231,7 @@ class AndroidNetworkLibrary {
                                     NetworkCapabilities.TRANSPORT_WIFI)) {
                         TransportInfo transportInfo =
                                 ApiHelperForQ.getTransportInfo(networkCapabilities);
-                        if (transportInfo != null && transportInfo instanceof WifiInfo) {
+                        if (transportInfo instanceof WifiInfo) {
                             return (WifiInfo) transportInfo;
                         }
                     }
@@ -306,7 +305,7 @@ class AndroidNetworkLibrary {
             }
             rssi = wifiInfo.getRssi();
         } else {
-            Intent intent = null;
+            Intent intent;
             try {
                 intent = ContextUtils.getApplicationContext().registerReceiver(
                         null, new IntentFilter(WifiManager.RSSI_CHANGED_ACTION));

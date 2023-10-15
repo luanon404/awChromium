@@ -346,7 +346,6 @@ class MediaCodecBridge {
     }
 
     // TODO(sanfin): Move this to constructor or builder.
-    @SuppressWarnings("deprecation")
     boolean start() {
         try {
             if (mUseAsyncApi) {

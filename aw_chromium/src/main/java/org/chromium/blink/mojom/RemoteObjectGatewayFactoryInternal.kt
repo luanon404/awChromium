@@ -147,7 +147,7 @@ internal object RemoteObjectGatewayFactoryInternal {
 
         override fun encode(encoder: Encoder) {
             val encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO)
-            encoder0.encode<RemoteObjectHost?>(host, 8, false, RemoteObjectHost.Companion.MANAGER)
+            encoder0.encode<RemoteObjectHost?>(host, 8, false, RemoteObjectHost.MANAGER)
             encoder0.encode(gateway, 16, false)
         }
 
@@ -187,7 +187,7 @@ internal object RemoteObjectGatewayFactoryInternal {
                         result.host = decoder0.readServiceInterface<RemoteObjectHost.Proxy?>(
                             8,
                             false,
-                            RemoteObjectHost.Companion.MANAGER
+                            RemoteObjectHost.MANAGER
                         )
                     }
                     run { result.gateway = decoder0.readInterfaceRequest(16, false) }

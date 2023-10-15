@@ -22,7 +22,6 @@ public interface ViewEventSink {
      * All methods with the "super_" prefix should be routed to the parent of the
      * implementing container view.
      */
-    @SuppressWarnings("javadoc")
     interface InternalAccessDelegate {
         /**
          * @see View#onKeyUp(keyCode, KeyEvent)

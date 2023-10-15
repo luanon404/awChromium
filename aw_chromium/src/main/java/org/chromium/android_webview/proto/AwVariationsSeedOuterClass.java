@@ -663,10 +663,10 @@ public final class AwVariationsSeedOuterClass {
     }
 
     public static Builder newBuilder() {
-      return (Builder) DEFAULT_INSTANCE.createBuilder();
+      return DEFAULT_INSTANCE.createBuilder();
     }
     public static Builder newBuilder(org.chromium.android_webview.proto.AwVariationsSeedOuterClass.AwVariationsSeed prototype) {
-      return (Builder) DEFAULT_INSTANCE.createBuilder(prototype);
+      return DEFAULT_INSTANCE.createBuilder(prototype);
     }
 
     /**
@@ -1109,7 +1109,6 @@ public final class AwVariationsSeedOuterClass {
       // @@protoc_insertion_point(builder_scope:android_webview.AwVariationsSeed)
     }
     @java.lang.Override
-    @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
     protected java.lang.Object dynamicMethod(
         com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
         java.lang.Object arg0, java.lang.Object arg1) {

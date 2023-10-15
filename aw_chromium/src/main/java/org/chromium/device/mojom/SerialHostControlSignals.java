@@ -13,8 +13,6 @@
 
 package org.chromium.device.mojom;
 
-import androidx.annotation.IntDef;
-
 
 public final class SerialHostControlSignals extends org.chromium.mojo.bindings.Struct {
 
@@ -30,9 +28,9 @@ public final class SerialHostControlSignals extends org.chromium.mojo.bindings.S
 
     private SerialHostControlSignals(int version) {
         super(STRUCT_SIZE, version);
-        this.hasDtr = (boolean) false;
-        this.hasRts = (boolean) false;
-        this.hasBrk = (boolean) false;
+        this.hasDtr = false;
+        this.hasRts = false;
+        this.hasBrk = false;
     }
 
     public SerialHostControlSignals() {
@@ -53,7 +51,6 @@ public final class SerialHostControlSignals extends org.chromium.mojo.bindings.S
                 data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
-    @SuppressWarnings("unchecked")
     public static SerialHostControlSignals decode(org.chromium.mojo.bindings.Decoder decoder0) {
         if (decoder0 == null) {
             return null;
@@ -95,7 +92,6 @@ public final class SerialHostControlSignals extends org.chromium.mojo.bindings.S
         return result;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);

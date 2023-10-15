@@ -101,7 +101,6 @@ public class SelectPopupDialog implements SelectPopup.Ui {
         });
     }
 
-    @SuppressWarnings("deprecation")
     private static void setInverseBackgroundForced(AlertDialog dialog) {
         // This is needed for pre-Holo themes (e.g. android:Theme.Black), which can be used in
         // WebView. See http://crbug.com/596626. This can be removed if/when this class starts

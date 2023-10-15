@@ -24,8 +24,8 @@ public class MathUtils {
      * @return The passed in value if it is within the range, otherwise the closest boundary value.
      */
     public static int clamp(int value, int a, int b) {
-        int min = (a > b) ? b : a;
-        int max = (a > b) ? a : b;
+        int min = Math.min(a, b);
+        int max = Math.max(a, b);
         if (value < min) {
             value = min;
         } else if (value > max) {
@@ -45,8 +45,8 @@ public class MathUtils {
      * @return The passed in value if it is within the range, otherwise the closest boundary value.
      */
     public static long clamp(long value, long a, long b) {
-        long min = (a > b) ? b : a;
-        long max = (a > b) ? a : b;
+        long min = Math.min(a, b);
+        long max = Math.max(a, b);
         if (value < min) {
             value = min;
         } else if (value > max) {
@@ -66,8 +66,8 @@ public class MathUtils {
      * @return The passed in value if it is within the range, otherwise the closest boundary value.
      */
     public static float clamp(float value, float a, float b) {
-        float min = (a > b) ? b : a;
-        float max = (a > b) ? a : b;
+        float min = Math.min(a, b);
+        float max = Math.max(a, b);
         if (value < min) {
             value = min;
         } else if (value > max) {

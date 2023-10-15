@@ -13,8 +13,6 @@
 
 package org.chromium.network.mojom;
 
-import androidx.annotation.IntDef;
-
 
 public final class CspSourceList extends org.chromium.mojo.bindings.Struct {
 
@@ -36,15 +34,15 @@ public final class CspSourceList extends org.chromium.mojo.bindings.Struct {
 
     private CspSourceList(int version) {
         super(STRUCT_SIZE, version);
-        this.allowSelf = (boolean) false;
-        this.allowStar = (boolean) false;
-        this.allowResponseRedirects = (boolean) false;
-        this.allowInline = (boolean) false;
-        this.allowEval = (boolean) false;
-        this.allowWasmEval = (boolean) false;
-        this.allowDynamic = (boolean) false;
-        this.allowUnsafeHashes = (boolean) false;
-        this.reportSample = (boolean) false;
+        this.allowSelf = false;
+        this.allowStar = false;
+        this.allowResponseRedirects = false;
+        this.allowInline = false;
+        this.allowEval = false;
+        this.allowWasmEval = false;
+        this.allowDynamic = false;
+        this.allowUnsafeHashes = false;
+        this.reportSample = false;
     }
 
     public CspSourceList() {
@@ -65,7 +63,6 @@ public final class CspSourceList extends org.chromium.mojo.bindings.Struct {
                 data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
-    @SuppressWarnings("unchecked")
     public static CspSourceList decode(org.chromium.mojo.bindings.Decoder decoder0) {
         if (decoder0 == null) {
             return null;
@@ -157,7 +154,6 @@ public final class CspSourceList extends org.chromium.mojo.bindings.Struct {
         return result;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);

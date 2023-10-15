@@ -13,8 +13,6 @@
 
 package org.chromium.network.mojom;
 
-import androidx.annotation.IntDef;
-
 
 public final class CrossOriginEmbedderPolicy extends org.chromium.mojo.bindings.Struct {
 
@@ -28,8 +26,8 @@ public final class CrossOriginEmbedderPolicy extends org.chromium.mojo.bindings.
 
     private CrossOriginEmbedderPolicy(int version) {
         super(STRUCT_SIZE, version);
-        this.value = (int) CrossOriginEmbedderPolicyValue.NONE;
-        this.reportOnlyValue = (int) CrossOriginEmbedderPolicyValue.NONE;
+        this.value = CrossOriginEmbedderPolicyValue.NONE;
+        this.reportOnlyValue = CrossOriginEmbedderPolicyValue.NONE;
     }
 
     public CrossOriginEmbedderPolicy() {
@@ -50,7 +48,6 @@ public final class CrossOriginEmbedderPolicy extends org.chromium.mojo.bindings.
                 data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
-    @SuppressWarnings("unchecked")
     public static CrossOriginEmbedderPolicy decode(org.chromium.mojo.bindings.Decoder decoder0) {
         if (decoder0 == null) {
             return null;
@@ -88,7 +85,6 @@ public final class CrossOriginEmbedderPolicy extends org.chromium.mojo.bindings.
         return result;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);

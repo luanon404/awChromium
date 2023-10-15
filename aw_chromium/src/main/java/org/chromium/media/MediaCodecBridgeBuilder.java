@@ -26,7 +26,7 @@ class MediaCodecBridgeBuilder {
             MediaCrypto mediaCrypto, int width, int height, Surface surface, byte[] csd0,
             byte[] csd1, HdrMetadata hdrMetadata, boolean allowAdaptivePlayback,
             boolean useAsyncApi) {
-        CodecCreationInfo info = new CodecCreationInfo();
+        CodecCreationInfo info;
         try {
             Log.i(TAG, "create MediaCodec video decoder, mime %s", mime);
             info = MediaCodecUtil.createDecoder(mime, codecType, mediaCrypto);

@@ -254,7 +254,7 @@ public class CrashFileManager {
      */
     public static int readAttemptNumber(String filename) {
         int numTries = readAttemptNumberInternal(filename);
-        return numTries >= 0 ? numTries : 0;
+        return Math.max(numTries, 0);
     }
 
     /**

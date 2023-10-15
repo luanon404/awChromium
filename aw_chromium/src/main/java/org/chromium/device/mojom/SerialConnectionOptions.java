@@ -13,8 +13,6 @@
 
 package org.chromium.device.mojom;
 
-import androidx.annotation.IntDef;
-
 
 public final class SerialConnectionOptions extends org.chromium.mojo.bindings.Struct {
 
@@ -30,11 +28,11 @@ public final class SerialConnectionOptions extends org.chromium.mojo.bindings.St
 
     private SerialConnectionOptions(int version) {
         super(STRUCT_SIZE, version);
-        this.bitrate = (int) 0;
-        this.dataBits = (int) SerialDataBits.NONE;
-        this.parityBit = (int) SerialParityBit.NONE;
-        this.stopBits = (int) SerialStopBits.NONE;
-        this.hasCtsFlowControl = (boolean) false;
+        this.bitrate = 0;
+        this.dataBits = SerialDataBits.NONE;
+        this.parityBit = SerialParityBit.NONE;
+        this.stopBits = SerialStopBits.NONE;
+        this.hasCtsFlowControl = false;
     }
 
     public SerialConnectionOptions() {
@@ -55,7 +53,6 @@ public final class SerialConnectionOptions extends org.chromium.mojo.bindings.St
                 data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
-    @SuppressWarnings("unchecked")
     public static SerialConnectionOptions decode(org.chromium.mojo.bindings.Decoder decoder0) {
         if (decoder0 == null) {
             return null;
@@ -103,7 +100,6 @@ public final class SerialConnectionOptions extends org.chromium.mojo.bindings.St
         return result;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);

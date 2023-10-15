@@ -21,7 +21,6 @@ import org.chromium.base.annotations.JNINamespace;
  * class to manipulate the |id|s of devices.
  **/
 @JNINamespace("media")
-@SuppressWarnings("deprecation")
 class VideoCaptureFactory {
     // Internal class to encapsulate camera device id manipulations.
     static class ChromiumCameraInfo {

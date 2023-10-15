@@ -13,8 +13,6 @@
 
 package org.chromium.gfx.mojom;
 
-import androidx.annotation.IntDef;
-
 
 public final class Size extends org.chromium.mojo.bindings.Struct {
 
@@ -46,7 +44,6 @@ public final class Size extends org.chromium.mojo.bindings.Struct {
                 data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
-    @SuppressWarnings("unchecked")
     public static Size decode(org.chromium.mojo.bindings.Decoder decoder0) {
         if (decoder0 == null) {
             return null;
@@ -72,7 +69,6 @@ public final class Size extends org.chromium.mojo.bindings.Struct {
         return result;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);

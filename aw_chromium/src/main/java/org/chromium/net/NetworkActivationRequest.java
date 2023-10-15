@@ -72,7 +72,7 @@ public class NetworkActivationRequest extends NetworkCallback {
      */
     @CalledByNative
     private void unregister() {
-        boolean shouldUnregister = false;
+        boolean shouldUnregister;
         synchronized (mNativePtrLock) {
             shouldUnregister = mNativePtr != 0;
             mNativePtr = 0;

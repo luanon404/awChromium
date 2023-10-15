@@ -44,7 +44,7 @@ public interface IAutofillHintsService extends android.os.IInterface
         return null;
       }
       android.os.IInterface iin = obj.queryLocalInterface(DESCRIPTOR);
-      if (((iin!=null)&&(iin instanceof org.chromium.components.autofill_public.IAutofillHintsService))) {
+      if (((iin instanceof IAutofillHintsService))) {
         return ((org.chromium.components.autofill_public.IAutofillHintsService)iin);
       }
       return new org.chromium.components.autofill_public.IAutofillHintsService.Stub.Proxy(obj);

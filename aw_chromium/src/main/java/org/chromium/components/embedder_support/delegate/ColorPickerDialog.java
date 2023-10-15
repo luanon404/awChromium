@@ -40,7 +40,7 @@ public class ColorPickerDialog extends AlertDialog implements OnColorChangedList
     private int mCurrentColor;
 
     View inflateView(Context context, int id) {
-        return LayoutInflaterUtils.inflate(context, id, null);
+        return LayoutInflaterUtils.INSTANCE.inflate(context, id, null);
     }
 
     /**
@@ -63,7 +63,7 @@ public class ColorPickerDialog extends AlertDialog implements OnColorChangedList
 
         mCurrentColorView = title.findViewById(R.id.selected_color_view);
 
-        TextView titleText = (TextView) title.findViewById(R.id.title);
+        TextView titleText = title.findViewById(R.id.title);
         titleText.setText(R.string.color_picker_dialog_title);
 
         // Initialize Set/Cancel buttons
@@ -102,7 +102,7 @@ public class ColorPickerDialog extends AlertDialog implements OnColorChangedList
         setView(mContent);
 
         // Initialize More button.
-        mMoreButton = (Button) mContent.findViewById(R.id.more_colors_button);
+        mMoreButton = mContent.findViewById(R.id.more_colors_button);
         mMoreButton.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,11 +112,11 @@ public class ColorPickerDialog extends AlertDialog implements OnColorChangedList
 
         // Initialize advanced color view (hidden initially).
         mAdvancedColorPicker =
-                (ColorPickerAdvanced) mContent.findViewById(R.id.color_picker_advanced);
+                mContent.findViewById(R.id.color_picker_advanced);
         mAdvancedColorPicker.setVisibility(View.GONE);
 
         // Initialize simple color view (default view).
-        mSimpleColorPicker = (ColorPickerSimple) mContent.findViewById(R.id.color_picker_simple);
+        mSimpleColorPicker = mContent.findViewById(R.id.color_picker_simple);
         mSimpleColorPicker.init(suggestions, this);
 
         updateCurrentColor(mInitialColor);

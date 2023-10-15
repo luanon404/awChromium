@@ -43,10 +43,10 @@ public class ColorPickerAdvancedComponent {
     ColorPickerAdvancedComponent(final View rootView, final int textResourceId,
             final int seekBarMax, final OnSeekBarChangeListener seekBarListener) {
         mGradientView = rootView.findViewById(R.id.gradient);
-        mText = (TextView) rootView.findViewById(R.id.text);
+        mText = rootView.findViewById(R.id.text);
         mText.setText(textResourceId);
         mGradientDrawable = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, null);
-        mSeekBar = (SeekBar) rootView.findViewById(R.id.seek_bar);
+        mSeekBar = rootView.findViewById(R.id.seek_bar);
         mSeekBar.setOnSeekBarChangeListener(seekBarListener);
         mSeekBar.setMax(seekBarMax);
         // Setting the thumb offset means the seek bar thumb can move all the way to each end

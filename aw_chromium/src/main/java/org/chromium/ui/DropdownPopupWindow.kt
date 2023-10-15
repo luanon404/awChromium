@@ -1,16 +1,14 @@
 // Copyright 2014 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+package org.chromium.ui
 
-package org.chromium.ui;
-
-import android.content.Context;
-import android.os.Build;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.PopupWindow;
+import android.content.Context
+import android.view.View
+import android.widget.AdapterView.OnItemClickListener
+import android.widget.ListAdapter
+import android.widget.ListView
+import android.widget.PopupWindow
 
 /**
  * The dropdown popup window that decides what widget should be used for the popup.
@@ -19,21 +17,16 @@ import android.widget.PopupWindow;
  * on ListPopupWindow.
  * Note that AnchoredPopupWindow can not be used on Android J due to a focus issue
  * that blocks user from selecting the items.
+ * Creates an DropdownPopupWindow with specified parameters.
+ * @param context Application context.
+ * @param anchorView Popup view to be anchored.
  */
-public class DropdownPopupWindow {
-    private final DropdownPopupWindowInterface mPopup;
+open class DropdownPopupWindow(context: Context, anchorView: View) {
+    private val mPopup: DropdownPopupWindowInterface
 
-    /**
-     * Creates an DropdownPopupWindow with specified parameters.
-     * @param context Application context.
-     * @param anchorView Popup view to be anchored.
-     */
-    public DropdownPopupWindow(Context context, View anchorView) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            mPopup = new DropdownPopupWindowImpl(context, anchorView);
-        } else {
-            mPopup = new DropdownPopupWindowJellyBean(context, anchorView);
-        }
+
+    init {
+        mPopup = DropdownPopupWindowImpl(context, anchorView)
     }
 
     /**
@@ -42,19 +35,19 @@ public class DropdownPopupWindow {
      *
      * @param adapter The adapter to use to create this window's content.
      */
-    public void setAdapter(ListAdapter adapter) {
-        mPopup.setAdapter(adapter);
+    fun setAdapter(adapter: ListAdapter?) {
+        mPopup.setAdapter(adapter)
     }
 
-    public void setInitialSelection(int initialSelection) {
-        mPopup.setInitialSelection(initialSelection);
+    fun setInitialSelection(initialSelection: Int) {
+        mPopup.setInitialSelection(initialSelection)
     }
 
     /**
      * Shows the popup. The adapter should be set before calling this method.
      */
-    public void show() {
-        mPopup.show();
+    fun show() {
+        mPopup.show()
     }
 
     /**
@@ -62,24 +55,24 @@ public class DropdownPopupWindow {
      *
      * @param listener Listener that will be notified when the popup is dismissed.
      */
-    public void setOnDismissListener(PopupWindow.OnDismissListener listener) {
-        mPopup.setOnDismissListener(listener);
+    fun setOnDismissListener(listener: PopupWindow.OnDismissListener?) {
+        mPopup.setOnDismissListener(listener)
     }
 
     /**
      * Sets the text direction in the dropdown. Should be called before show().
      * @param isRtl If true, then dropdown text direction is right to left.
      */
-    public void setRtl(boolean isRtl) {
-        mPopup.setRtl(isRtl);
+    fun setRtl(isRtl: Boolean) {
+        mPopup.setRtl(isRtl)
     }
 
     /**
      * Disable hiding on outside tap so that tapping on a text input field associated with the popup
      * will not hide the popup.
      */
-    public void disableHideOnOutsideTap() {
-        mPopup.disableHideOnOutsideTap();
+    fun disableHideOnOutsideTap() {
+        mPopup.disableHideOnOutsideTap()
     }
 
     /**
@@ -87,8 +80,8 @@ public class DropdownPopupWindow {
      * shown.
      * @param description The description of the content to be announced.
      */
-    public void setContentDescriptionForAccessibility(CharSequence description) {
-        mPopup.setContentDescriptionForAccessibility(description);
+    fun setContentDescriptionForAccessibility(description: CharSequence?) {
+        mPopup.setContentDescriptionForAccessibility(description)
     }
 
     /**
@@ -96,43 +89,40 @@ public class DropdownPopupWindow {
      *
      * @param clickListener Listener to register
      */
-    public void setOnItemClickListener(AdapterView.OnItemClickListener clickListener) {
-        mPopup.setOnItemClickListener(clickListener);
+    fun setOnItemClickListener(clickListener: OnItemClickListener?) {
+        mPopup.setOnItemClickListener(clickListener)
     }
 
     /**
      * Show the popup. Will have no effect if the popup is already showing.
-     * Post a {@link #show()} call to the UI thread.
+     * Post a [.show] call to the UI thread.
      */
-    public void postShow() {
-        mPopup.postShow();
+    fun postShow() {
+        mPopup.postShow()
     }
 
     /**
      * Disposes of the popup window.
      */
-    public void dismiss() {
-        mPopup.dismiss();
+    fun dismiss() {
+        mPopup.dismiss()
     }
 
-    /**
-     * @return The {@link ListView} displayed within the popup window.
-     */
-    public ListView getListView() {
-        return mPopup.getListView();
-    }
+    val listView: ListView?
+        /**
+         * @return The [ListView] displayed within the popup window.
+         */
+        get() = mPopup.listView
+    val isShowing: Boolean
+        /**
+         * @return Whether the popup is currently showing.
+         */
+        get() = mPopup.isShowing
 
     /**
-     * @return Whether the popup is currently showing.
+     * See [DropdownPopupWindowInterface.setFooterView].
      */
-    public boolean isShowing() {
-        return mPopup.isShowing();
-    }
-
-    /**
-     * See {@link DropdownPopupWindowInterface#setFooterView(View)}.
-     */
-    protected void setFooterView(View footerItem) {
-        mPopup.setFooterView(footerItem);
+    protected fun setFooterView(footerItem: View?) {
+        mPopup.setFooterView(footerItem)
     }
 }

@@ -173,7 +173,7 @@ public class SysUtils {
 
         // If this logic changes, update the comments above base::SysUtils::IsLowEndDevice.
         sAmountOfPhysicalMemoryKB = detectAmountOfPhysicalMemoryKB();
-        boolean isLowEnd = true;
+        boolean isLowEnd;
         if (sAmountOfPhysicalMemoryKB <= 0) {
             isLowEnd = false;
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

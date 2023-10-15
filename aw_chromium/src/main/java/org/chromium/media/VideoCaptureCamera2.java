@@ -920,7 +920,7 @@ public class VideoCaptureCamera2 extends VideoCapture {
             // TODO(mcasas): release this Surface when not needed, https://crbug.com/643884.
             surfaceList.add(imageReader.getSurface());
 
-            CaptureRequest.Builder photoRequestBuilder = null;
+            CaptureRequest.Builder photoRequestBuilder;
             try {
                 photoRequestBuilder =
                         mCameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE);
@@ -1333,7 +1333,7 @@ public class VideoCaptureCamera2 extends VideoCapture {
     }
 
     public static int getNumberOfCameras() {
-        CameraManager manager = null;
+        CameraManager manager;
         try {
             manager = (CameraManager) ContextUtils.getApplicationContext().getSystemService(
                     Context.CAMERA_SERVICE);
@@ -1454,7 +1454,6 @@ public class VideoCaptureCamera2 extends VideoCapture {
                         return index;
                     }
                 } catch (NumberFormatException e) {
-                    continue;
                 }
             }
         } catch (CameraAccessException ex) {
@@ -1518,7 +1517,7 @@ public class VideoCaptureCamera2 extends VideoCapture {
                 final Size[] sizes = streamMap.getOutputSizes(format);
                 if (sizes == null) continue;
                 for (Size size : sizes) {
-                    double minFrameRate = 0.0f;
+                    double minFrameRate;
                     if (minFrameDurationAvailable) {
                         final long minFrameDurationInNanoseconds =
                                 streamMap.getOutputMinFrameDuration(format, size);

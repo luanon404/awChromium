@@ -55,7 +55,6 @@ import org.chromium.base.annotations.VerifiesOnP;
 import org.chromium.base.annotations.VerifiesOnQ;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
@@ -350,7 +349,6 @@ public class ApiCompatibilityUtils {
     /**
      * @see android.content.res.Resources#getDrawableForDensity(int id, int density).
      */
-    @SuppressWarnings("deprecation")
     public static Drawable getDrawableForDensity(Resources res, int id, int density) {
         StrictMode.ThreadPolicy oldPolicy = StrictMode.allowThreadDiskReads();
         try {

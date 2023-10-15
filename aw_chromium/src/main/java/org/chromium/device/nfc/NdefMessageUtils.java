@@ -15,7 +15,6 @@ import org.chromium.device.mojom.NdefRecordTypeCategory;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;

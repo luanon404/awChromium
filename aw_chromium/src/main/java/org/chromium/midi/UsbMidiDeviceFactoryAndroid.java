@@ -202,7 +202,7 @@ class UsbMidiDeviceFactoryAndroid {
      * @param intent
      */
     private void onUsbDevicePermissionRequestDone(Context context, Intent intent) {
-        UsbDevice device = (UsbDevice) intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
+        UsbDevice device = intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
         UsbMidiDeviceAndroid midiDevice = null;
         if (mRequestedDevices.contains(device)) {
             mRequestedDevices.remove(device);

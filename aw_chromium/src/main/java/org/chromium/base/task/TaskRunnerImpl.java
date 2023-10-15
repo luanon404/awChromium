@@ -91,7 +91,6 @@ public class TaskRunnerImpl implements TaskRunner {
         while (true) {
             // ReferenceQueue#poll immediately removes and returns an element from the queue,
             // returning null if the queue is empty.
-            @SuppressWarnings("unchecked")
             TaskRunnerCleaner cleaner = (TaskRunnerCleaner) sQueue.poll();
             if (cleaner == null) return;
             cleaner.destroy();

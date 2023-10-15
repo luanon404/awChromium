@@ -122,7 +122,7 @@ public class ExecutorFactory {
          * Run the next action in the |mPendingActions| queue.
          */
         private void runNextAction() {
-            Runnable toRun = null;
+            Runnable toRun;
             synchronized (mLock) {
                 toRun = mPendingActions.remove(0);
             }

@@ -32,7 +32,6 @@ public class ScreenResolutionUtil {
                     return true;
                 }
             } catch (IllegalArgumentException e) {
-                continue;
             }
         }
         return false;

@@ -634,7 +634,7 @@ public class SelectFileDialog implements WindowAndroid.IntentCallback, PhotoPick
     private File getFileForImageCapture(Context context) throws IOException {
         assert !ThreadUtils.runningOnUiThread();
         File photoFile = File.createTempFile(String.valueOf(System.currentTimeMillis()), ".jpg",
-                UiUtils.getDirectoryForImageCapture(context));
+                UiUtils.INSTANCE.getDirectoryForImageCapture(context));
         return photoFile;
     }
 
@@ -1026,7 +1026,7 @@ public class SelectFileDialog implements WindowAndroid.IntentCallback, PhotoPick
         PostTask.postTask(TaskTraits.BEST_EFFORT_MAY_BLOCK, () -> {
             try {
                 File path =
-                        UiUtils.getDirectoryForImageCapture(ContextUtils.getApplicationContext());
+                        UiUtils.INSTANCE.getDirectoryForImageCapture(ContextUtils.getApplicationContext());
                 if (!path.isDirectory()) return;
                 File[] files = path.listFiles();
                 if (files == null) return;

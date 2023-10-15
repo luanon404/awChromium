@@ -191,7 +191,6 @@ public class DisplayAndroid {
     /**
      * @return Number of bits per each color component.
      */
-    @SuppressWarnings("deprecation")
     /* package */ int getBitsPerComponent() {
         return mBitsPerComponent;
     }

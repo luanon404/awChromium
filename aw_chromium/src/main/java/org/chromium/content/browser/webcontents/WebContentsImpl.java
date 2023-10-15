@@ -1015,7 +1015,7 @@ public class WebContentsImpl implements WebContents, RenderFrameHostDelegate, Wi
     @Override
     public void onRotationChanged(int rotation) {
         if (mNativeWebContentsAndroid == 0) return;
-        int rotationDegrees = 0;
+        int rotationDegrees;
         switch (rotation) {
             case Surface.ROTATION_0:
                 rotationDegrees = 0;

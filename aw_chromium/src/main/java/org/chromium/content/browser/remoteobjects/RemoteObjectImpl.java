@@ -214,7 +214,7 @@ class RemoteObjectImpl implements RemoteObject {
             }
         }
 
-        Object result = null;
+        Object result;
         try {
             result = method.invoke(target, args);
         } catch (IllegalAccessException | IllegalArgumentException | NullPointerException e) {
@@ -402,7 +402,7 @@ class RemoteObjectImpl implements RemoteObject {
         @Override
         protected Number get(int index) {
             short number = mBuffer.get(index);
-            return (mUnsigned ? (int) (number & UNSIGNED_SHORT_MASK) : number);
+            return (mUnsigned ? (number & UNSIGNED_SHORT_MASK) : number);
         }
     }
 
@@ -429,7 +429,7 @@ class RemoteObjectImpl implements RemoteObject {
         @Override
         protected Number get(int index) {
             int number = mBuffer.get(index);
-            return (mUnsigned ? (long) (number & UNSIGNED_INT_MASK) : number);
+            return (mUnsigned ? (number & UNSIGNED_INT_MASK) : number);
         }
     }
 
@@ -802,7 +802,7 @@ class RemoteObjectImpl implements RemoteObject {
         } else if (parameterType == short.class) {
             return (short) 0;
         } else if (parameterType == int.class) {
-            return (int) 0;
+            return 0;
         } else if (parameterType == long.class) {
             return (long) 0;
         } else if (parameterType == float.class) {

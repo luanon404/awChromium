@@ -307,7 +307,7 @@ public class MediaDrmBridge {
         assert mMediaCryptoSession == null;
 
         // Open media crypto session.
-        byte[] mediaCryptoSessionDrmId = null;
+        byte[] mediaCryptoSessionDrmId;
         try {
             mediaCryptoSessionDrmId = openSession();
         } catch (android.media.NotProvisionedException e) {
@@ -411,7 +411,7 @@ public class MediaDrmBridge {
      */
     @CalledByNative
     private static int getFirstApiLevel() {
-        int firstApiLevel = 0;
+        int firstApiLevel;
         try {
             final Class<?> systemProperties = Class.forName("android.os.SystemProperties");
             final Method getInt = systemProperties.getMethod("getInt", String.class, int.class);
@@ -440,7 +440,7 @@ public class MediaDrmBridge {
         Log.i(TAG, "Create MediaDrmBridge with level %s and origin %s", securityLevel,
                 securityOrigin);
 
-        MediaDrmBridge mediaDrmBridge = null;
+        MediaDrmBridge mediaDrmBridge;
         try {
             UUID cryptoScheme = getUUIDFromBytes(schemeUUID);
             if (cryptoScheme == null || !MediaDrm.isCryptoSchemeSupported(cryptoScheme)) {
@@ -997,7 +997,7 @@ public class MediaDrmBridge {
      */
     @TargetApi(Build.VERSION_CODES.M)
     private void loadSessionWithLoadedStorage(SessionId sessionId, final long promiseId) {
-        byte[] drmId = null;
+        byte[] drmId;
         try {
             drmId = openSession();
             if (drmId == null) {
@@ -1356,7 +1356,7 @@ public class MediaDrmBridge {
     private void onSessionMessage(final SessionId sessionId, final MediaDrm.KeyRequest request) {
         if (!isNativeMediaDrmBridgeValid()) return;
 
-        int requestType = MediaDrm.KeyRequest.REQUEST_TYPE_INITIAL;
+        int requestType;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestType = request.getRequestType();
         } else {
@@ -1413,7 +1413,7 @@ public class MediaDrmBridge {
             switch (event) {
                 case MediaDrm.EVENT_KEY_REQUIRED:
                     Log.d(TAG, "MediaDrm.EVENT_KEY_REQUIRED");
-                    MediaDrm.KeyRequest request = null;
+                    MediaDrm.KeyRequest request;
                     try {
                         request = getKeyRequest(sessionId, data, sessionInfo.mimeType(),
                                 sessionInfo.keyType(), null);

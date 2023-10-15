@@ -118,11 +118,6 @@ public class NetworkChangeNotifierAutoDetect extends BroadcastReceiver {
             }
 
             switch (getNetworkType()) {
-                case ConnectivityManager.TYPE_ETHERNET:
-                case ConnectivityManager.TYPE_WIFI:
-                case ConnectivityManager.TYPE_WIMAX:
-                case ConnectivityManager.TYPE_BLUETOOTH:
-                    return ConnectionSubtype.SUBTYPE_UNKNOWN;
                 case ConnectivityManager.TYPE_MOBILE:
                 case ConnectivityManager.TYPE_MOBILE_DUN:
                 case ConnectivityManager.TYPE_MOBILE_HIPRI:
@@ -161,6 +156,10 @@ public class NetworkChangeNotifierAutoDetect extends BroadcastReceiver {
                         default:
                             return ConnectionSubtype.SUBTYPE_UNKNOWN;
                     }
+                case ConnectivityManager.TYPE_ETHERNET:
+                case ConnectivityManager.TYPE_WIFI:
+                case ConnectivityManager.TYPE_WIMAX:
+                case ConnectivityManager.TYPE_BLUETOOTH:
                 default:
                     return ConnectionSubtype.SUBTYPE_UNKNOWN;
             }

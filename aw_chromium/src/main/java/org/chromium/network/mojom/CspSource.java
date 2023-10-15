@@ -13,8 +13,6 @@
 
 package org.chromium.network.mojom;
 
-import androidx.annotation.IntDef;
-
 
 public final class CspSource extends org.chromium.mojo.bindings.Struct {
 
@@ -30,9 +28,9 @@ public final class CspSource extends org.chromium.mojo.bindings.Struct {
 
     private CspSource(int version) {
         super(STRUCT_SIZE, version);
-        this.port = (int) -1;
-        this.isHostWildcard = (boolean) false;
-        this.isPortWildcard = (boolean) false;
+        this.port = -1;
+        this.isHostWildcard = false;
+        this.isPortWildcard = false;
     }
 
     public CspSource() {
@@ -53,7 +51,6 @@ public final class CspSource extends org.chromium.mojo.bindings.Struct {
                 data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
-    @SuppressWarnings("unchecked")
     public static CspSource decode(org.chromium.mojo.bindings.Decoder decoder0) {
         if (decoder0 == null) {
             return null;
@@ -95,7 +92,6 @@ public final class CspSource extends org.chromium.mojo.bindings.Struct {
         return result;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);

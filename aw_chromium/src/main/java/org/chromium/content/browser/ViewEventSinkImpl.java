@@ -81,7 +81,6 @@ public final class ViewEventSinkImpl implements ViewEventSink, ActivityStateObse
         mHideKeyboardOnBlur = hideKeyboardOnBlur;
     }
 
-    @SuppressWarnings("javadoc")
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         try {
