@@ -1,213 +1,222 @@
 /*
  * This file is auto-generated.  DO NOT MODIFY.
  */
-package org.chromium.android_webview.common.services;
+package org.chromium.android_webview.common.services
+
+import android.os.Binder
+import android.os.IBinder
+import android.os.IInterface
+import android.os.Parcel
+import android.os.RemoteException
+
 /**
  * Interface to record UMA API calls inside non-embedded WebView processes and retrieve theses
  * records back in an embedded WebView.
  */
-public interface IMetricsBridgeService extends android.os.IInterface
-{
-  /** Default implementation for IMetricsBridgeService. */
-  class Default implements org.chromium.android_webview.common.services.IMetricsBridgeService
-  {
-    /**
+interface IMetricsBridgeService : IInterface {
+    /** Default implementation for IMetricsBridgeService.  */
+    class Default : IMetricsBridgeService {
+        /**
          * Record a UMA API method call from a non-embedded WebView processes. This should only be
          * called by WebView's non-embedded processes (which are trusted). This is a blocking IPC,
          * although its work (including disk IO) happens asynchronously.
          *
          * @param methodCall a byte array serialization of
-         *                   org.chromium.android_webview.proto.HistogramRecord proto message object.
+         * org.chromium.android_webview.proto.HistogramRecord proto message object.
          */
-    @Override public void recordMetrics(byte[] methodCall) throws android.os.RemoteException
-    {
-    }
-    /**
+        @Throws(RemoteException::class)
+        override fun recordMetrics(methodCall: ByteArray?) {
+        }
+
+        /**
          * Get a list of recorded UMA method calls through the callback. This a blocking call.
          * This should only be called from a process that can call UMA APIs directly (e.g embedded
          * WebView).
          *
-         * @returns a List<byte[]> of byte array serialization of
-                    org.chromium.android_webview.proto.HistogramRecord proto message object.
+         * @returns a List<byte></byte>[]> of byte array serialization of
+         * org.chromium.android_webview.proto.HistogramRecord proto message object.
          */
-    @Override public java.util.List retrieveNonembeddedMetrics() throws android.os.RemoteException
-    {
-      return null;
+        @Throws(RemoteException::class)
+        override fun retrieveNonembeddedMetrics(): List<*>? {
+            return null
+        }
+
+        override fun asBinder(): IBinder? {
+            return null
+        }
     }
-    @Override
-    public android.os.IBinder asBinder() {
-      return null;
+
+    /** Local-side IPC implementation stub class.  */
+    abstract class Stub : Binder(), IMetricsBridgeService {
+        override fun asBinder(): IBinder {
+            return this
+        }
+
+        @Throws(RemoteException::class)
+        public override fun onTransact(
+            code: Int,
+            data: Parcel,
+            reply: Parcel?,
+            flags: Int
+        ): Boolean {
+            val descriptor = Companion.interfaceDescriptor
+            return when (code) {
+                INTERFACE_TRANSACTION -> {
+                    reply!!.writeString(descriptor)
+                    true
+                }
+
+                TRANSACTION_recordMetrics -> {
+                    data.enforceInterface(descriptor)
+                    val _arg0: ByteArray? = data.createByteArray()
+                    recordMetrics(_arg0)
+                    reply!!.writeNoException()
+                    true
+                }
+
+                TRANSACTION_retrieveNonembeddedMetrics -> {
+                    data.enforceInterface(descriptor)
+                    val _result = retrieveNonembeddedMetrics()!!
+                    reply!!.writeNoException()
+                    reply.writeList(_result)
+                    true
+                }
+
+                else -> {
+                    super.onTransact(code, data, reply, flags)
+                }
+            }
+        }
+
+        private class Proxy(private val mRemote: IBinder) :
+            IMetricsBridgeService {
+            override fun asBinder(): IBinder {
+                return mRemote
+            }
+
+            /**
+             * Record a UMA API method call from a non-embedded WebView processes. This should only be
+             * called by WebView's non-embedded processes (which are trusted). This is a blocking IPC,
+             * although its work (including disk IO) happens asynchronously.
+             *
+             * @param methodCall a byte array serialization of
+             * org.chromium.android_webview.proto.HistogramRecord proto message object.
+             */
+            @Throws(RemoteException::class)
+            override fun recordMetrics(methodCall: ByteArray?) {
+                val _data = Parcel.obtain()
+                val _reply = Parcel.obtain()
+                try {
+                    _data.writeInterfaceToken(interfaceDescriptor)
+                    _data.writeByteArray(methodCall)
+                    val _status = mRemote.transact(TRANSACTION_recordMetrics, _data, _reply, 0)
+                    if (!_status && defaultImpl != null) {
+                        defaultImpl!!.recordMetrics(methodCall)
+                        return
+                    }
+                    _reply.readException()
+                } finally {
+                    _reply.recycle()
+                    _data.recycle()
+                }
+            }
+
+            /**
+             * Get a list of recorded UMA method calls through the callback. This a blocking call.
+             * This should only be called from a process that can call UMA APIs directly (e.g embedded
+             * WebView).
+             *
+             * @returns a List<byte></byte>[]> of byte array serialization of
+             * org.chromium.android_webview.proto.HistogramRecord proto message object.
+             */
+            @Throws(RemoteException::class)
+            override fun retrieveNonembeddedMetrics(): List<*>? {
+                val _data = Parcel.obtain()
+                val _reply = Parcel.obtain()
+                val _result: List<*>? = try {
+                    _data.writeInterfaceToken(interfaceDescriptor)
+                    val _status = mRemote.transact(
+                        TRANSACTION_retrieveNonembeddedMetrics,
+                        _data,
+                        _reply,
+                        0
+                    )
+                    if (!_status && defaultImpl != null) {
+                        return defaultImpl!!.retrieveNonembeddedMetrics()
+                    }
+                    _reply.readException()
+                    val cl = this.javaClass.classLoader
+                    _reply.readArrayList(cl)
+                } finally {
+                    _reply.recycle()
+                    _data.recycle()
+                }
+                return _result
+            }
+
+            companion object {
+                var defaultImpl: IMetricsBridgeService? = null
+            }
+        }
+
+        /** Construct the stub at attach it to the interface.  */
+        init {
+            this.attachInterface(this, Companion.interfaceDescriptor)
+        }
+
+        companion object {
+            const val interfaceDescriptor =
+                "org.chromium.android_webview.common.services.IMetricsBridgeService"
+
+            /**
+             * Cast an IBinder object into an org.chromium.android_webview.common.services.IMetricsBridgeService interface,
+             * generating a proxy if needed.
+             */
+            fun asInterface(obj: IBinder?): IMetricsBridgeService? {
+                if (obj == null) {
+                    return null
+                }
+                val iin = obj.queryLocalInterface(interfaceDescriptor)
+                return if (iin is IMetricsBridgeService) {
+                    iin
+                } else Proxy(obj)
+            }
+
+            const val TRANSACTION_recordMetrics = FIRST_CALL_TRANSACTION
+            const val TRANSACTION_retrieveNonembeddedMetrics = FIRST_CALL_TRANSACTION + 1
+            fun setDefaultImpl(impl: IMetricsBridgeService?): Boolean {
+                // Only one user of this interface can use this function
+                // at a time. This is a heuristic to detect if two different
+                // users in the same process use this function.
+                check(Proxy.defaultImpl == null) { "setDefaultImpl() called twice" }
+                if (impl != null) {
+                    Proxy.defaultImpl = impl
+                    return true
+                }
+                return false
+            }
+        }
     }
-  }
-  /** Local-side IPC implementation stub class. */
-  abstract class Stub extends android.os.Binder implements org.chromium.android_webview.common.services.IMetricsBridgeService
-  {
-    private static final java.lang.String DESCRIPTOR = "org.chromium.android_webview.common.services.IMetricsBridgeService";
-    /** Construct the stub at attach it to the interface. */
-    public Stub()
-    {
-      this.attachInterface(this, DESCRIPTOR);
-    }
+
     /**
-     * Cast an IBinder object into an org.chromium.android_webview.common.services.IMetricsBridgeService interface,
-     * generating a proxy if needed.
+     * Record a UMA API method call from a non-embedded WebView processes. This should only be
+     * called by WebView's non-embedded processes (which are trusted). This is a blocking IPC,
+     * although its work (including disk IO) happens asynchronously.
+     *
+     * @param methodCall a byte array serialization of
+     * org.chromium.android_webview.proto.HistogramRecord proto message object.
      */
-    public static org.chromium.android_webview.common.services.IMetricsBridgeService asInterface(android.os.IBinder obj)
-    {
-      if ((obj==null)) {
-        return null;
-      }
-      android.os.IInterface iin = obj.queryLocalInterface(DESCRIPTOR);
-      if (((iin instanceof IMetricsBridgeService))) {
-        return ((org.chromium.android_webview.common.services.IMetricsBridgeService)iin);
-      }
-      return new org.chromium.android_webview.common.services.IMetricsBridgeService.Stub.Proxy(obj);
-    }
-    @Override public android.os.IBinder asBinder()
-    {
-      return this;
-    }
-    @Override public boolean onTransact(int code, android.os.Parcel data, android.os.Parcel reply, int flags) throws android.os.RemoteException
-    {
-      java.lang.String descriptor = DESCRIPTOR;
-      switch (code)
-      {
-        case INTERFACE_TRANSACTION:
-        {
-          reply.writeString(descriptor);
-          return true;
-        }
-        case TRANSACTION_recordMetrics:
-        {
-          data.enforceInterface(descriptor);
-          byte[] _arg0;
-          _arg0 = data.createByteArray();
-          this.recordMetrics(_arg0);
-          reply.writeNoException();
-          return true;
-        }
-        case TRANSACTION_retrieveNonembeddedMetrics:
-        {
-          data.enforceInterface(descriptor);
-          java.util.List _result = this.retrieveNonembeddedMetrics();
-          reply.writeNoException();
-          reply.writeList(_result);
-          return true;
-        }
-        default:
-        {
-          return super.onTransact(code, data, reply, flags);
-        }
-      }
-    }
-    private static class Proxy implements org.chromium.android_webview.common.services.IMetricsBridgeService
-    {
-      private final android.os.IBinder mRemote;
-      Proxy(android.os.IBinder remote)
-      {
-        mRemote = remote;
-      }
-      @Override public android.os.IBinder asBinder()
-      {
-        return mRemote;
-      }
-      public java.lang.String getInterfaceDescriptor()
-      {
-        return DESCRIPTOR;
-      }
-      /**
-           * Record a UMA API method call from a non-embedded WebView processes. This should only be
-           * called by WebView's non-embedded processes (which are trusted). This is a blocking IPC,
-           * although its work (including disk IO) happens asynchronously.
-           *
-           * @param methodCall a byte array serialization of
-           *                   org.chromium.android_webview.proto.HistogramRecord proto message object.
-           */
-      @Override public void recordMetrics(byte[] methodCall) throws android.os.RemoteException
-      {
-        android.os.Parcel _data = android.os.Parcel.obtain();
-        android.os.Parcel _reply = android.os.Parcel.obtain();
-        try {
-          _data.writeInterfaceToken(DESCRIPTOR);
-          _data.writeByteArray(methodCall);
-          boolean _status = mRemote.transact(Stub.TRANSACTION_recordMetrics, _data, _reply, 0);
-          if (!_status && getDefaultImpl() != null) {
-            getDefaultImpl().recordMetrics(methodCall);
-            return;
-          }
-          _reply.readException();
-        }
-        finally {
-          _reply.recycle();
-          _data.recycle();
-        }
-      }
-      /**
-           * Get a list of recorded UMA method calls through the callback. This a blocking call.
-           * This should only be called from a process that can call UMA APIs directly (e.g embedded
-           * WebView).
-           *
-           * @returns a List<byte[]> of byte array serialization of
-                      org.chromium.android_webview.proto.HistogramRecord proto message object.
-           */
-      @Override public java.util.List retrieveNonembeddedMetrics() throws android.os.RemoteException
-      {
-        android.os.Parcel _data = android.os.Parcel.obtain();
-        android.os.Parcel _reply = android.os.Parcel.obtain();
-        java.util.List _result;
-        try {
-          _data.writeInterfaceToken(DESCRIPTOR);
-          boolean _status = mRemote.transact(Stub.TRANSACTION_retrieveNonembeddedMetrics, _data, _reply, 0);
-          if (!_status && getDefaultImpl() != null) {
-            return getDefaultImpl().retrieveNonembeddedMetrics();
-          }
-          _reply.readException();
-          java.lang.ClassLoader cl = this.getClass().getClassLoader();
-          _result = _reply.readArrayList(cl);
-        }
-        finally {
-          _reply.recycle();
-          _data.recycle();
-        }
-        return _result;
-      }
-      public static org.chromium.android_webview.common.services.IMetricsBridgeService sDefaultImpl;
-    }
-    static final int TRANSACTION_recordMetrics = (android.os.IBinder.FIRST_CALL_TRANSACTION);
-    static final int TRANSACTION_retrieveNonembeddedMetrics = (android.os.IBinder.FIRST_CALL_TRANSACTION + 1);
-    public static boolean setDefaultImpl(org.chromium.android_webview.common.services.IMetricsBridgeService impl) {
-      // Only one user of this interface can use this function
-      // at a time. This is a heuristic to detect if two different
-      // users in the same process use this function.
-      if (Stub.Proxy.sDefaultImpl != null) {
-        throw new IllegalStateException("setDefaultImpl() called twice");
-      }
-      if (impl != null) {
-        Stub.Proxy.sDefaultImpl = impl;
-        return true;
-      }
-      return false;
-    }
-    public static org.chromium.android_webview.common.services.IMetricsBridgeService getDefaultImpl() {
-      return Stub.Proxy.sDefaultImpl;
-    }
-  }
-  /**
-       * Record a UMA API method call from a non-embedded WebView processes. This should only be
-       * called by WebView's non-embedded processes (which are trusted). This is a blocking IPC,
-       * although its work (including disk IO) happens asynchronously.
-       *
-       * @param methodCall a byte array serialization of
-       *                   org.chromium.android_webview.proto.HistogramRecord proto message object.
-       */
-  void recordMetrics(byte[] methodCall) throws android.os.RemoteException;
-  /**
-       * Get a list of recorded UMA method calls through the callback. This a blocking call.
-       * This should only be called from a process that can call UMA APIs directly (e.g embedded
-       * WebView).
-       *
-       * @returns a List<byte[]> of byte array serialization of
-                  org.chromium.android_webview.proto.HistogramRecord proto message object.
-       */
-  java.util.List retrieveNonembeddedMetrics() throws android.os.RemoteException;
+    @Throws(RemoteException::class)
+    fun recordMetrics(methodCall: ByteArray?)
+
+    /**
+     * Get a list of recorded UMA method calls through the callback. This a blocking call.
+     * This should only be called from a process that can call UMA APIs directly (e.g embedded
+     * WebView).
+     *
+     * @returns a List<byte></byte>[]> of byte array serialization of
+     * org.chromium.android_webview.proto.HistogramRecord proto message object.
+     */
+    @Throws(RemoteException::class)
+    fun retrieveNonembeddedMetrics(): List<*>?
 }

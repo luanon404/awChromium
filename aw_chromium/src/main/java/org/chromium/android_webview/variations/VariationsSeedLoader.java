@@ -35,6 +35,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Date;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
@@ -125,17 +126,17 @@ public class VariationsSeedLoader {
     }
 
     private static boolean shouldThrottleRequests(long now) {
-        long lastRequestTime = VariationsUtils.getStampTime();
+        long lastRequestTime = VariationsUtils.INSTANCE.getStampTime();
         if (lastRequestTime == 0) {
             return false;
         }
-        long maxRequestPeriodMillis = VariationsUtils.getDurationSwitchValueInMillis(
+        long maxRequestPeriodMillis = VariationsUtils.INSTANCE.getDurationSwitchValueInMillis(
                 AwSwitches.FINCH_SEED_MIN_UPDATE_PERIOD, MAX_REQUEST_PERIOD_MILLIS);
         return now < lastRequestTime + maxRequestPeriodMillis;
     }
 
     private boolean isSeedExpired(long seedFileTime) {
-        long expirationDuration = VariationsUtils.getDurationSwitchValueInMillis(
+        long expirationDuration = VariationsUtils.INSTANCE.getDurationSwitchValueInMillis(
                 AwSwitches.FINCH_SEED_EXPIRATION_AGE, SEED_EXPIRATION_MILLIS);
         return getCurrentTimeMillis() > seedFileTime + expirationDuration;
     }
@@ -158,15 +159,15 @@ public class VariationsSeedLoader {
 
         private boolean parseSeedFile(File seedFile) {
             if (!VariationsSeedLoaderJni.get().parseAndSaveSeedProto(seedFile.getPath())) {
-                VariationsUtils.debugLog("Failed reading seed file \"" + seedFile + '"');
+                VariationsUtils.INSTANCE.debugLog("Failed reading seed file \"" + seedFile + '"');
                 return false;
             }
             return true;
         }
 
         private final FutureTask<Boolean> mLoadTask = new FutureTask<>(() -> {
-            File newSeedFile = VariationsUtils.getNewSeedFile();
-            File oldSeedFile = VariationsUtils.getSeedFile();
+            File newSeedFile = VariationsUtils.INSTANCE.getNewSeedFile();
+            File oldSeedFile = VariationsUtils.INSTANCE.getSeedFile();
 
             // First check for a new seed.
             boolean loadedSeed = false;
@@ -207,7 +208,7 @@ public class VariationsSeedLoader {
                 // writing to this file when we move it, because mFoundNewSeed means we already read
                 // the seed and found it to be complete. Therefore the service must have already
                 // finished writing.
-                VariationsUtils.replaceOldWithNewSeed();
+                VariationsUtils.INSTANCE.replaceOldWithNewSeed();
             }
 
             boolean connectedToVariationsService = false;
@@ -215,7 +216,7 @@ public class VariationsSeedLoader {
                 // The new seed will arrive asynchronously; the new seed file is written by the
                 // service, and may complete after this app process has died.
                 connectedToVariationsService = requestSeedFromService(mCurrentSeedDate);
-                VariationsUtils.updateStampTime();
+                VariationsUtils.INSTANCE.updateStampTime();
             }
 
             RecordHistogram.recordBooleanHistogram(
@@ -271,14 +272,14 @@ public class VariationsSeedLoader {
         public void onServiceConnected(ComponentName name, IBinder service) {
             try {
                 if (mNewSeedFd.getFd() >= 0) {
-                    IVariationsSeedServer.Stub.asInterface(service).getSeed(
+                    Objects.requireNonNull(IVariationsSeedServer.Stub.Companion.asInterface(service)).getSeed(
                             mNewSeedFd, mOldSeedDate, mSeedServerCallback);
                 }
             } catch (RemoteException e) {
                 Log.e(TAG, "Faild requesting seed", e);
             } finally {
                 ContextUtils.getApplicationContext().unbindService(this);
-                VariationsUtils.closeSafely(mNewSeedFd);
+                VariationsUtils.INSTANCE.closeSafely(mNewSeedFd);
             }
         }
 
@@ -290,7 +291,7 @@ public class VariationsSeedLoader {
         @Override
         public void reportVariationsServiceMetrics(Bundle metricsBundle) {
             VariationsServiceMetricsHelper metrics =
-                    VariationsServiceMetricsHelper.fromBundle(metricsBundle);
+                    VariationsServiceMetricsHelper.Companion.fromBundle(metricsBundle);
             if (metrics.hasJobInterval()) {
                 // Variations.DownloadJobInterval records time in minutes.
                 recordMinuteHistogram(DOWNLOAD_JOB_INTERVAL_HISTOGRAM_NAME,
@@ -330,7 +331,7 @@ public class VariationsSeedLoader {
     @VisibleForTesting
     // Returns false if it didn't connect to the service.
     protected boolean requestSeedFromService(long oldSeedDate) {
-        File newSeedFile = VariationsUtils.getNewSeedFile();
+        File newSeedFile = VariationsUtils.INSTANCE.getNewSeedFile();
         try {
             newSeedFile.createNewFile(); // Silently returns false if already exists.
         } catch (IOException e) {
@@ -346,7 +347,7 @@ public class VariationsSeedLoader {
             return false;
         }
 
-        VariationsUtils.debugLog("Requesting new seed from IVariationsSeedServer");
+        VariationsUtils.INSTANCE.debugLog("Requesting new seed from IVariationsSeedServer");
         SeedServerConnection connection = new SeedServerConnection(newSeedFd, oldSeedDate);
         connection.start();
 
@@ -371,7 +372,7 @@ public class VariationsSeedLoader {
                 long seedDate = mRunnable.getLoadedSeedDate();
                 if (gotSeed && seedDate > 0) {
                     long seedAge = TimeUnit.MILLISECONDS.toSeconds(new Date().getTime() - seedDate);
-                    VariationsUtils.debugLog("Loaded seed with age " + seedAge + "s");
+                    VariationsUtils.INSTANCE.debugLog("Loaded seed with age " + seedAge + "s");
                 }
                 return gotSeed;
             } finally {

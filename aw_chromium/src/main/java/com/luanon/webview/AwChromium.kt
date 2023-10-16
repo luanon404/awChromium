@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import android.widget.FrameLayout
-import android.widget.LinearLayout
 import androidx.annotation.Keep
 import org.chromium.android_webview.AwBrowserContext
 import org.chromium.android_webview.AwBrowserProcess
@@ -97,7 +96,7 @@ class AwChromium(context: Context) : FrameLayout(context) {
         awContainerView.initialize(awContents)
         addView(
             awContainerView,
-            LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
+            LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
         )
         awContainerView.requestFocus()
     }

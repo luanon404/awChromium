@@ -1,130 +1,135 @@
 /*
  * This file is auto-generated.  DO NOT MODIFY.
  */
-package org.chromium.android_webview.common.services;
-public interface ICrashReceiverService extends android.os.IInterface
-{
-  /** Default implementation for ICrashReceiverService. */
-  class Default implements org.chromium.android_webview.common.services.ICrashReceiverService
-  {
-    @Override public void transmitCrashes(android.os.ParcelFileDescriptor[] fileDescriptors, java.util.List crashInfo) throws android.os.RemoteException
-    {
-    }
-    @Override
-    public android.os.IBinder asBinder() {
-      return null;
-    }
-  }
-  /** Local-side IPC implementation stub class. */
-  abstract class Stub extends android.os.Binder implements org.chromium.android_webview.common.services.ICrashReceiverService
-  {
-    private static final java.lang.String DESCRIPTOR = "org.chromium.android_webview.common.services.ICrashReceiverService";
-    /** Construct the stub at attach it to the interface. */
-    public Stub()
-    {
-      this.attachInterface(this, DESCRIPTOR);
-    }
-    /**
-     * Cast an IBinder object into an org.chromium.android_webview.common.services.ICrashReceiverService interface,
-     * generating a proxy if needed.
-     */
-    public static org.chromium.android_webview.common.services.ICrashReceiverService asInterface(android.os.IBinder obj)
-    {
-      if ((obj==null)) {
-        return null;
-      }
-      android.os.IInterface iin = obj.queryLocalInterface(DESCRIPTOR);
-      if (((iin instanceof ICrashReceiverService))) {
-        return ((org.chromium.android_webview.common.services.ICrashReceiverService)iin);
-      }
-      return new org.chromium.android_webview.common.services.ICrashReceiverService.Stub.Proxy(obj);
-    }
-    @Override public android.os.IBinder asBinder()
-    {
-      return this;
-    }
-    @Override public boolean onTransact(int code, android.os.Parcel data, android.os.Parcel reply, int flags) throws android.os.RemoteException
-    {
-      java.lang.String descriptor = DESCRIPTOR;
-      switch (code)
-      {
-        case INTERFACE_TRANSACTION:
-        {
-          reply.writeString(descriptor);
-          return true;
+package org.chromium.android_webview.common.services
+
+import android.os.Binder
+import android.os.IBinder
+import android.os.IInterface
+import android.os.Parcel
+import android.os.ParcelFileDescriptor
+import android.os.RemoteException
+
+interface ICrashReceiverService : IInterface {
+    /** Default implementation for ICrashReceiverService.  */
+    class Default : ICrashReceiverService {
+        @Throws(RemoteException::class)
+        override fun transmitCrashes(
+            fileDescriptors: Array<ParcelFileDescriptor>?, crashInfo: List<*>?
+        ) {
         }
-        case TRANSACTION_transmitCrashes:
-        {
-          data.enforceInterface(descriptor);
-          android.os.ParcelFileDescriptor[] _arg0;
-          _arg0 = data.createTypedArray(android.os.ParcelFileDescriptor.CREATOR);
-          java.util.List _arg1;
-          java.lang.ClassLoader cl = this.getClass().getClassLoader();
-          _arg1 = data.readArrayList(cl);
-          this.transmitCrashes(_arg0, _arg1);
-          reply.writeNoException();
-          return true;
+
+        override fun asBinder(): IBinder? {
+            return null
         }
-        default:
-        {
-          return super.onTransact(code, data, reply, flags);
+    }
+
+    /** Local-side IPC implementation stub class.  */
+    abstract class Stub : Binder(), ICrashReceiverService {
+        override fun asBinder(): IBinder {
+            return this
         }
-      }
-    }
-    private static class Proxy implements org.chromium.android_webview.common.services.ICrashReceiverService
-    {
-      private final android.os.IBinder mRemote;
-      Proxy(android.os.IBinder remote)
-      {
-        mRemote = remote;
-      }
-      @Override public android.os.IBinder asBinder()
-      {
-        return mRemote;
-      }
-      public java.lang.String getInterfaceDescriptor()
-      {
-        return DESCRIPTOR;
-      }
-      @Override public void transmitCrashes(android.os.ParcelFileDescriptor[] fileDescriptors, java.util.List crashInfo) throws android.os.RemoteException
-      {
-        android.os.Parcel _data = android.os.Parcel.obtain();
-        android.os.Parcel _reply = android.os.Parcel.obtain();
-        try {
-          _data.writeInterfaceToken(DESCRIPTOR);
-          _data.writeTypedArray(fileDescriptors, 0);
-          _data.writeList(crashInfo);
-          boolean _status = mRemote.transact(Stub.TRANSACTION_transmitCrashes, _data, _reply, 0);
-          if (!_status && getDefaultImpl() != null) {
-            getDefaultImpl().transmitCrashes(fileDescriptors, crashInfo);
-            return;
-          }
-          _reply.readException();
+
+        @Throws(RemoteException::class)
+        public override fun onTransact(
+            code: Int, data: Parcel, reply: Parcel?, flags: Int
+        ): Boolean {
+            val descriptor = Companion.interfaceDescriptor
+            return when (code) {
+                INTERFACE_TRANSACTION -> {
+                    reply!!.writeString(descriptor)
+                    true
+                }
+
+                TRANSACTION_transmitCrashes -> {
+                    data.enforceInterface(descriptor)
+                    val _arg0: Array<ParcelFileDescriptor>? =
+                        data.createTypedArray(ParcelFileDescriptor.CREATOR)
+                    val _arg1: List<*>?
+                    val cl = this.javaClass.classLoader
+                    _arg1 = data.readArrayList(cl)
+                    transmitCrashes(_arg0, _arg1)
+                    reply!!.writeNoException()
+                    true
+                }
+
+                else -> {
+                    super.onTransact(code, data, reply, flags)
+                }
+            }
         }
-        finally {
-          _reply.recycle();
-          _data.recycle();
+
+        private class Proxy(private val mRemote: IBinder) :
+            ICrashReceiverService {
+            override fun asBinder(): IBinder {
+                return mRemote
+            }
+
+            @Throws(RemoteException::class)
+            override fun transmitCrashes(
+                fileDescriptors: Array<ParcelFileDescriptor>?, crashInfo: List<*>?
+            ) {
+                val _data = Parcel.obtain()
+                val _reply = Parcel.obtain()
+                try {
+                    _data.writeInterfaceToken(interfaceDescriptor)
+                    _data.writeTypedArray(fileDescriptors, 0)
+                    _data.writeList(crashInfo)
+                    val _status = mRemote.transact(TRANSACTION_transmitCrashes, _data, _reply, 0)
+                    if (!_status && defaultImpl != null) {
+                        defaultImpl!!.transmitCrashes(fileDescriptors, crashInfo)
+                        return
+                    }
+                    _reply.readException()
+                } finally {
+                    _reply.recycle()
+                    _data.recycle()
+                }
+            }
+
+            companion object {
+                var defaultImpl: ICrashReceiverService? = null
+            }
         }
-      }
-      public static org.chromium.android_webview.common.services.ICrashReceiverService sDefaultImpl;
+
+        /** Construct the stub at attach it to the interface.  */
+        init {
+            this.attachInterface(this, Companion.interfaceDescriptor)
+        }
+
+        companion object {
+            const val interfaceDescriptor =
+                "org.chromium.android_webview.common.services.ICrashReceiverService"
+
+            /**
+             * Cast an IBinder object into an org.chromium.android_webview.common.services.ICrashReceiverService interface,
+             * generating a proxy if needed.
+             */
+            fun asInterface(obj: IBinder?): ICrashReceiverService? {
+                if (obj == null) {
+                    return null
+                }
+                val iin = obj.queryLocalInterface(interfaceDescriptor)
+                return if (iin is ICrashReceiverService) {
+                    iin
+                } else Proxy(obj)
+            }
+
+            const val TRANSACTION_transmitCrashes = FIRST_CALL_TRANSACTION
+            fun setDefaultImpl(impl: ICrashReceiverService?): Boolean {
+                // Only one user of this interface can use this function
+                // at a time. This is a heuristic to detect if two different
+                // users in the same process use this function.
+                check(Proxy.defaultImpl == null) { "setDefaultImpl() called twice" }
+                if (impl != null) {
+                    Proxy.defaultImpl = impl
+                    return true
+                }
+                return false
+            }
+        }
     }
-    static final int TRANSACTION_transmitCrashes = (android.os.IBinder.FIRST_CALL_TRANSACTION);
-    public static boolean setDefaultImpl(org.chromium.android_webview.common.services.ICrashReceiverService impl) {
-      // Only one user of this interface can use this function
-      // at a time. This is a heuristic to detect if two different
-      // users in the same process use this function.
-      if (Stub.Proxy.sDefaultImpl != null) {
-        throw new IllegalStateException("setDefaultImpl() called twice");
-      }
-      if (impl != null) {
-        Stub.Proxy.sDefaultImpl = impl;
-        return true;
-      }
-      return false;
-    }
-    public static org.chromium.android_webview.common.services.ICrashReceiverService getDefaultImpl() {
-      return Stub.Proxy.sDefaultImpl;
-    }
-  }
-  void transmitCrashes(android.os.ParcelFileDescriptor[] fileDescriptors, java.util.List crashInfo) throws android.os.RemoteException;
+
+    @Throws(RemoteException::class)
+    fun transmitCrashes(fileDescriptors: Array<ParcelFileDescriptor>?, crashInfo: List<*>?)
 }

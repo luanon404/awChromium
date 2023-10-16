@@ -362,7 +362,7 @@ public final class AwBrowserProcess {
                         // the background thread.
                         sSequencedTaskRunner.postTask(() -> {
                             transmitMinidumps(minidumpFiles, crashesInfoMap,
-                                    ICrashReceiverService.Stub.asInterface(service));
+                                    ICrashReceiverService.Stub.Companion.asInterface(service));
                             appContext.unbindService(this);
                         });
                     }
@@ -446,9 +446,9 @@ public final class AwBrowserProcess {
                 PostTask.postTask(TaskTraits.THREAD_POOL_BEST_EFFORT, () -> {
                     try {
                         IMetricsBridgeService metricsService =
-                                IMetricsBridgeService.Stub.asInterface(service);
+                                IMetricsBridgeService.Stub.Companion.asInterface(service);
 
-                        List<byte[]> data = metricsService.retrieveNonembeddedMetrics();
+                        List<byte[]> data = (List<byte[]>) metricsService.retrieveNonembeddedMetrics();
                         // Subtract one to avoid skewing NumHistograms because of the meta
                         // RetrieveMetricsTaskStatus histogram which is always added to the list.
                         RecordHistogram.recordCount1000Histogram(

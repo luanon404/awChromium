@@ -29,9 +29,9 @@ public class VariationsSeedSafeModeAction implements SafeModeAction {
 
     @Override
     public void execute() {
-        deleteIfExists(VariationsUtils.getSeedFile());
-        deleteIfExists(VariationsUtils.getNewSeedFile());
-        deleteIfExists(VariationsUtils.getStampFile());
+        deleteIfExists(VariationsUtils.INSTANCE.getSeedFile());
+        deleteIfExists(VariationsUtils.INSTANCE.getNewSeedFile());
+        deleteIfExists(VariationsUtils.INSTANCE.getStampFile());
     }
 
     private static void deleteIfExists(File file) {

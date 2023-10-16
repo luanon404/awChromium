@@ -93,7 +93,7 @@ public class ModelListAdapter extends BaseAdapter implements MVCListAdapter {
 
     @Override
     public int getItemViewType(int position) {
-        return mModelList.get(position).type;
+        return mModelList.get(position).getType();
     }
 
     @Override
@@ -156,9 +156,9 @@ public class ModelListAdapter extends BaseAdapter implements MVCListAdapter {
             oldModel = (PropertyModel) convertView.getTag(R.id.view_model);
         }
 
-        PropertyModel model = mModelList.get(position).model;
+        PropertyModel model = mModelList.get(position).getModel();
         PropertyModelChangeProcessor.ViewBinder binder =
-                mViewBuilderMap.get(mModelList.get(position).type).second;
+                mViewBuilderMap.get(mModelList.get(position).getType()).second;
 
         // 3. Attach a PropertyModelChangeProcessor and PropertyModel to the view (for #1/2 above
         //    when re-using a view).

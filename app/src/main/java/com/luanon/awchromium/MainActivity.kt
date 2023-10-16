@@ -5,7 +5,6 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.FrameLayout
-import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.luanon.webview.AwChromium
 import com.luanon.webview.AwChromiumClient
@@ -47,8 +46,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
         awContainerView1.addView(
-            awChromium1, LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT
+            awChromium1, FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT
             )
         )
 
@@ -114,8 +113,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
         awContainerView2.addView(
-            awChromium2, LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT
+            awChromium2, FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT
             )
         )
 
