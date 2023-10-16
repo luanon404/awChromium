@@ -6,8 +6,8 @@ Android WebView separated from Chromium source code.
 
 - Google vs this project: 😁😁😁
 - Me vs this project: 👁️👄👁️
-- Don't convert Java code to Kotlin if the class starts with '@JNINamespace'.
-- Don't delete functions start with 'CalledByNative'.
+- Do not convert Java classes to Kotlin with '@JNINamespace' annotation (maybe that annotation only see Java class but Kotlin not).
+- Do not remove functions with 'CalledByNative' annotation.
 
 # Goal
 
