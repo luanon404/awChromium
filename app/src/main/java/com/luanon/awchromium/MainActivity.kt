@@ -9,6 +9,9 @@ import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.luanon.webview.AwChromium
 import com.luanon.webview.AwChromiumClient
+import org.chromium.android_webview.JsPromptResultReceiver
+import org.chromium.android_webview.JsResultReceiver
+import org.chromium.android_webview.permission.AwPermissionRequest
 
 class MainActivity : AppCompatActivity() {
     private lateinit var urlBar1: EditText
@@ -83,6 +86,31 @@ class MainActivity : AppCompatActivity() {
             override fun onPageFinished(url: String) {
                 super.onPageFinished(url)
                 urlBar2.setText(url)
+                awChromium2.evaluateJavascript("javascript:(function () { var script = document.createElement('script'); script.src=\"https://cdn.jsdelivr.net/npm/eruda\"; document.body.append(script); script.onload = function () { eruda.init(); } })();")
+            }
+
+            override fun onPermissionRequest(awPermissionRequest: AwPermissionRequest) {
+                awPermissionRequest.grant()
+            }
+
+            override fun handleJsAlert(url: String, message: String, receiver: JsResultReceiver) {
+                receiver.confirm()
+            }
+
+            override fun handleJsBeforeUnload(url: String, message: String, receiver: JsResultReceiver) {
+                receiver.confirm()
+            }
+
+            override fun handleJsConfirm(url: String, message: String, receiver: JsResultReceiver) {
+                receiver.confirm()
+            }
+
+            override fun handleJsPrompt(url: String, message: String, defaultValue: String, receiver: JsPromptResultReceiver) {
+                receiver.confirm(Utils.TAG)
+            }
+
+            override fun onCreateWindow(isDialog: Boolean, isUserGesture: Boolean): Boolean {
+                return true
             }
         }
         awContainerView2.addView(
@@ -99,7 +127,13 @@ class MainActivity : AppCompatActivity() {
 
         refreshButton2.setOnClickListener {
             val url = urlBar2.text.toString()
-            awChromium2.loadUrl(url)
+            if (url.startsWith("javascript:")){
+                val script = url.replace("javascript:", "")
+                Log.i(Utils.TAG, script)
+                awChromium2.evaluateJavascript(script)
+            }else{
+                awChromium2.loadUrl(url)
+            }
         }
 
         backButton2.setOnClickListener {

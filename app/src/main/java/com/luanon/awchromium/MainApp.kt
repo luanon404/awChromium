@@ -13,7 +13,10 @@ class MainApp : Application() {
 
     override fun attachBaseContext(context: Context?) {
         super.attachBaseContext(context)
-        AwChromium.initializeBase(this)
+        AwChromium.initializeBase(
+            this,
+            arrayOf("--disable-site-isolation-trials", "--disable-web-security")
+        )
     }
 
 }
