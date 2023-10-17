@@ -1,32 +1,28 @@
 // Copyright 2020 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+package org.chromium.android_webview
 
-package org.chromium.android_webview;
-
-import org.chromium.base.ThreadUtils;
-
-import java.lang.ref.WeakReference;
+import org.chromium.base.ThreadUtils
+import java.lang.ref.WeakReference
 
 /**
  * Used for Js Java interaction, to delete the document start JavaScript snippet.
  */
-public class ScriptHandler {
-    private final WeakReference<AwContents> mAwContentsRef;
-    private final int mScriptId;
+class ScriptHandler(awContents: AwContents?, scriptId: Int) {
+    private val mAwContentsRef: WeakReference<AwContents?>
+    private val mScriptId: Int
 
-    public ScriptHandler(AwContents awContents, int scriptId) {
-        assert scriptId >= 0;
-        mAwContentsRef = new WeakReference(awContents);
-        mScriptId = scriptId;
+    init {
+        assert(scriptId >= 0)
+        mAwContentsRef = WeakReference<AwContents?>(awContents)
+        mScriptId = scriptId
     }
 
     // Must be called on UI thread.
-    public void remove() {
-        ThreadUtils.checkUiThread();
-
-        AwContents awContents = mAwContentsRef.get();
-        if (awContents == null) return;
-        awContents.removeDocumentStartJavaScript(mScriptId);
+    fun remove() {
+        ThreadUtils.checkUiThread()
+        val awContents = mAwContentsRef.get() ?: return
+        awContents.removeDocumentStartJavaScript(mScriptId)
     }
 }

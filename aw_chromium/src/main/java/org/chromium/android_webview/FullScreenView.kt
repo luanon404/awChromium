@@ -1,263 +1,234 @@
 // Copyright 2014 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+package org.chromium.android_webview
 
-package org.chromium.android_webview;
-
-import android.content.Context;
-import android.content.Intent;
-import android.content.res.Configuration;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.Rect;
-import android.os.Bundle;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.accessibility.AccessibilityNodeProvider;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputConnection;
-import android.widget.FrameLayout;
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
+import android.content.res.Configuration
+import android.graphics.Canvas
+import android.graphics.Paint
+import android.graphics.Rect
+import android.os.Bundle
+import android.view.KeyEvent
+import android.view.MotionEvent
+import android.view.View
+import android.view.accessibility.AccessibilityNodeProvider
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputConnection
+import android.widget.FrameLayout
 
 /**
  * A view that is used to render the web contents in fullscreen mode, ie.
- * html controls and subtitles, over the {@link ContentVideoView}.
+ * html controls and subtitles, over the [ContentVideoView].
  */
-public class FullScreenView extends FrameLayout {
+@SuppressLint("ViewConstructor")
+class FullScreenView(context: Context?, awViewMethods: AwViewMethods?, awContents: AwContents) :
+    FrameLayout(
+        context!!
+    ) {
+    private var mAwViewMethods: AwViewMethods? = null
+    private val mAwContents: AwContents
+    val internalAccessAdapter: InternalAccessAdapter
 
-    private AwViewMethods mAwViewMethods;
-    private final AwContents mAwContents;
-    private final InternalAccessAdapter mInternalAccessAdapter;
-
-    public FullScreenView(Context context, AwViewMethods awViewMethods, AwContents awContents) {
-        super(context);
-        setAwViewMethods(awViewMethods);
-        mAwContents = awContents;
-        mInternalAccessAdapter = new InternalAccessAdapter();
+    init {
+        setAwViewMethods(awViewMethods)
+        mAwContents = awContents
+        internalAccessAdapter = InternalAccessAdapter()
     }
 
-    public InternalAccessAdapter getInternalAccessAdapter() {
-        return mInternalAccessAdapter;
+    fun setAwViewMethods(awViewMethods: AwViewMethods?) {
+        mAwViewMethods = awViewMethods
     }
 
-    public void setAwViewMethods(AwViewMethods awViewMethods) {
-        mAwViewMethods = awViewMethods;
+    public override fun onDraw(canvas: Canvas) {
+        mAwViewMethods!!.onDraw(canvas)
     }
 
-    @Override
-    public void onDraw(final Canvas canvas) {
-        mAwViewMethods.onDraw(canvas);
+    public override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        mAwViewMethods!!.onMeasure(widthMeasureSpec, heightMeasureSpec)
     }
 
-    @Override
-    public void onMeasure(final int widthMeasureSpec, final int heightMeasureSpec) {
-        mAwViewMethods.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    override fun requestFocus(direction: Int, previouslyFocusedRect: Rect): Boolean {
+        mAwViewMethods!!.requestFocus()
+        return super.requestFocus(direction, previouslyFocusedRect)
     }
 
-    @Override
-    public boolean requestFocus(final int direction, final Rect previouslyFocusedRect) {
-        mAwViewMethods.requestFocus();
-        return super.requestFocus(direction, previouslyFocusedRect);
+    override fun setLayerType(layerType: Int, paint: Paint?) {
+        super.setLayerType(layerType, paint)
+        mAwViewMethods!!.setLayerType(layerType, paint)
     }
 
-    @Override
-    public void setLayerType(int layerType, Paint paint) {
-        super.setLayerType(layerType, paint);
-        mAwViewMethods.setLayerType(layerType, paint);
+    override fun onCreateInputConnection(outAttrs: EditorInfo): InputConnection {
+        return mAwViewMethods!!.onCreateInputConnection(outAttrs)!!
     }
 
-    @Override
-    public InputConnection onCreateInputConnection(final EditorInfo outAttrs) {
-        return mAwViewMethods.onCreateInputConnection(outAttrs);
+    override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
+        return mAwViewMethods!!.onKeyUp(keyCode, event)
     }
 
-    @Override
-    public boolean onKeyUp(final int keyCode, final KeyEvent event) {
-        return mAwViewMethods.onKeyUp(keyCode, event);
-    }
-
-    @Override
-    public boolean dispatchKeyEvent(final KeyEvent event) {
-        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK
-                && event.getAction() == KeyEvent.ACTION_UP
-                && mAwContents.isFullScreen()) {
-            mAwContents.requestExitFullscreen();
-            return true;
+    override fun dispatchKeyEvent(event: KeyEvent): Boolean {
+        if (event.keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_UP && mAwContents.isFullScreen) {
+            mAwContents.requestExitFullscreen()
+            return true
         }
-        return mAwViewMethods.dispatchKeyEvent(event);
+        return mAwViewMethods!!.dispatchKeyEvent(event)
     }
 
-    @Override
-    public boolean onTouchEvent(final MotionEvent event) {
-        return mAwViewMethods.onTouchEvent(event);
+    @SuppressLint("ClickableViewAccessibility")
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        return mAwViewMethods!!.onTouchEvent(event)
     }
 
-    @Override
-    public boolean onHoverEvent(final MotionEvent event) {
-        return mAwViewMethods.onHoverEvent(event);
+    override fun onHoverEvent(event: MotionEvent): Boolean {
+        return mAwViewMethods!!.onHoverEvent(event)
     }
 
-    @Override
-    public boolean onGenericMotionEvent(final MotionEvent event) {
-        return mAwViewMethods.onGenericMotionEvent(event);
+    override fun onGenericMotionEvent(event: MotionEvent): Boolean {
+        return mAwViewMethods!!.onGenericMotionEvent(event)
     }
 
-    @Override
-    public void onConfigurationChanged(final Configuration newConfig) {
-        mAwViewMethods.onConfigurationChanged(newConfig);
+    public override fun onConfigurationChanged(newConfig: Configuration) {
+        mAwViewMethods!!.onConfigurationChanged(newConfig)
     }
 
-    @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        mAwViewMethods.onAttachedToWindow();
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        mAwViewMethods!!.onAttachedToWindow()
     }
 
-    @Override
-    public void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
-        mAwViewMethods.onDetachedFromWindow();
+    public override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+        mAwViewMethods!!.onDetachedFromWindow()
     }
 
-    @Override
-    public void onWindowFocusChanged(final boolean hasWindowFocus) {
-        super.onWindowFocusChanged(hasWindowFocus);
-        mAwViewMethods.onWindowFocusChanged(hasWindowFocus);
+    override fun onWindowFocusChanged(hasWindowFocus: Boolean) {
+        super.onWindowFocusChanged(hasWindowFocus)
+        mAwViewMethods!!.onWindowFocusChanged(hasWindowFocus)
     }
 
-    @Override
-    public void onFocusChanged(final boolean focused, final int direction,
-            final Rect previouslyFocusedRect) {
-        super.onFocusChanged(focused, direction, previouslyFocusedRect);
-        mAwViewMethods.onFocusChanged(
-                focused, direction, previouslyFocusedRect);
+    public override fun onFocusChanged(
+        focused: Boolean, direction: Int,
+        previouslyFocusedRect: Rect?
+    ) {
+        super.onFocusChanged(focused, direction, previouslyFocusedRect)
+        mAwViewMethods!!.onFocusChanged(
+            focused, direction, previouslyFocusedRect
+        )
     }
 
-    @Override
-    public void onSizeChanged(final int w, final int h, final int ow, final int oh) {
-        super.onSizeChanged(w, h, ow, oh);
-        mAwViewMethods.onSizeChanged(w, h, ow, oh);
+    public override fun onSizeChanged(w: Int, h: Int, ow: Int, oh: Int) {
+        super.onSizeChanged(w, h, ow, oh)
+        mAwViewMethods!!.onSizeChanged(w, h, ow, oh)
     }
 
-    @Override
-    protected void onVisibilityChanged(View changedView, int visibility) {
-        super.onVisibilityChanged(changedView, visibility);
-        mAwViewMethods.onVisibilityChanged(changedView, visibility);
+    override fun onVisibilityChanged(changedView: View, visibility: Int) {
+        super.onVisibilityChanged(changedView, visibility)
+        mAwViewMethods!!.onVisibilityChanged(changedView, visibility)
     }
 
-    @Override
-    public void onWindowVisibilityChanged(final int visibility) {
-        super.onWindowVisibilityChanged(visibility);
-        mAwViewMethods.onWindowVisibilityChanged(visibility);
+    public override fun onWindowVisibilityChanged(visibility: Int) {
+        super.onWindowVisibilityChanged(visibility)
+        mAwViewMethods!!.onWindowVisibilityChanged(visibility)
     }
 
-    @Override
-    public void onOverScrolled(int scrollX, int scrollY, boolean clampedX, boolean clampedY) {
-        mAwViewMethods.onContainerViewOverScrolled(scrollX, scrollY, clampedX, clampedY);
+    public override fun onOverScrolled(
+        scrollX: Int,
+        scrollY: Int,
+        clampedX: Boolean,
+        clampedY: Boolean
+    ) {
+        mAwViewMethods!!.onContainerViewOverScrolled(scrollX, scrollY, clampedX, clampedY)
     }
 
-    @Override
-    public void onScrollChanged(int l, int t, int oldl, int oldt) {
-        super.onScrollChanged(l, t, oldl, oldt);
-        mAwViewMethods.onContainerViewScrollChanged(l, t, oldl, oldt);
+    public override fun onScrollChanged(l: Int, t: Int, oldl: Int, oldt: Int) {
+        super.onScrollChanged(l, t, oldl, oldt)
+        mAwViewMethods!!.onContainerViewScrollChanged(l, t, oldl, oldt)
     }
 
-    @Override
-    public int computeHorizontalScrollRange() {
-        return mAwViewMethods.computeHorizontalScrollRange();
+    public override fun computeHorizontalScrollRange(): Int {
+        return mAwViewMethods!!.computeHorizontalScrollRange()
     }
 
-    @Override
-    public int computeHorizontalScrollOffset() {
-        return mAwViewMethods.computeHorizontalScrollOffset();
+    public override fun computeHorizontalScrollOffset(): Int {
+        return mAwViewMethods!!.computeHorizontalScrollOffset()
     }
 
-    @Override
-    public int computeVerticalScrollRange() {
-        return mAwViewMethods.computeVerticalScrollRange();
+    public override fun computeVerticalScrollRange(): Int {
+        return mAwViewMethods!!.computeVerticalScrollRange()
     }
 
-    @Override
-    public int computeVerticalScrollOffset() {
-        return mAwViewMethods.computeVerticalScrollOffset();
+    public override fun computeVerticalScrollOffset(): Int {
+        return mAwViewMethods!!.computeVerticalScrollOffset()
     }
 
-    @Override
-    public int computeVerticalScrollExtent() {
-        return mAwViewMethods.computeVerticalScrollExtent();
+    public override fun computeVerticalScrollExtent(): Int {
+        return mAwViewMethods!!.computeVerticalScrollExtent()
     }
 
-    @Override
-    public void computeScroll() {
-        mAwViewMethods.computeScroll();
+    override fun computeScroll() {
+        mAwViewMethods!!.computeScroll()
     }
 
-    @Override
-    public AccessibilityNodeProvider getAccessibilityNodeProvider() {
-        return mAwViewMethods.getAccessibilityNodeProvider();
+    override fun getAccessibilityNodeProvider(): AccessibilityNodeProvider {
+        return mAwViewMethods!!.accessibilityNodeProvider!!
     }
 
-    @Override
-    public boolean performAccessibilityAction(final int action, final Bundle arguments) {
-        return mAwViewMethods.performAccessibilityAction(action, arguments);
+    override fun performAccessibilityAction(action: Int, arguments: Bundle?): Boolean {
+        return mAwViewMethods!!.performAccessibilityAction(action, arguments)
     }
 
     // AwContents.InternalAccessDelegate implementation --------------------------------------
-    private class InternalAccessAdapter implements AwContents.InternalAccessDelegate {
-
-        @Override
-        public boolean super_onKeyUp(int keyCode, KeyEvent event) {
-            return FullScreenView.super.onKeyUp(keyCode, event);
+    inner class InternalAccessAdapter : AwContents.InternalAccessDelegate {
+        override fun super_onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
+            return super@FullScreenView.onKeyUp(keyCode, event)
         }
 
-        @Override
-        public boolean super_dispatchKeyEvent(KeyEvent event) {
-            return FullScreenView.super.dispatchKeyEvent(event);
+        override fun super_dispatchKeyEvent(event: KeyEvent): Boolean {
+            return super@FullScreenView.dispatchKeyEvent(event)
         }
 
-        @Override
-        public boolean super_onGenericMotionEvent(MotionEvent event) {
-            return FullScreenView.super.onGenericMotionEvent(event);
+        override fun super_onGenericMotionEvent(event: MotionEvent): Boolean {
+            return super@FullScreenView.onGenericMotionEvent(event)
         }
 
-        @Override
-        public void super_onConfigurationChanged(Configuration newConfig) {
+        override fun super_onConfigurationChanged(newConfig: Configuration) {
             // Intentional no-op
         }
 
-        @Override
-        public int super_getScrollBarStyle() {
-            return FullScreenView.super.getScrollBarStyle();
+        override fun super_getScrollBarStyle(): Int {
+            return super@FullScreenView.getScrollBarStyle()
         }
 
-        @Override
-        public void super_startActivityForResult(Intent intent, int requestCode) {
-            throw new RuntimeException(
-                    "FullScreenView InternalAccessAdapter shouldn't call startActivityForResult. "
-                    + "See AwContents#startActivityForResult");
+        override fun super_startActivityForResult(intent: Intent, requestCode: Int) {
+            throw RuntimeException(
+                "FullScreenView InternalAccessAdapter shouldn't call startActivityForResult. "
+                        + "See AwContents#startActivityForResult"
+            )
         }
 
-        @Override
-        public void onScrollChanged(int lPix, int tPix, int oldlPix, int oldtPix) {
-            FullScreenView.this.onScrollChanged(lPix, tPix, oldlPix, oldtPix);
+        override fun onScrollChanged(lPix: Int, tPix: Int, oldlPix: Int, oldtPix: Int) {
+            this@FullScreenView.onScrollChanged(lPix, tPix, oldlPix, oldtPix)
         }
 
-        @Override
-        public void overScrollBy(int deltaX, int deltaY, int scrollX, int scrollY,
-                int scrollRangeX, int scrollRangeY, int maxOverScrollX,
-                int maxOverScrollY, boolean isTouchEvent) {
-            FullScreenView.this.overScrollBy(deltaX, deltaY, scrollX, scrollY, scrollRangeX,
-                    scrollRangeY, maxOverScrollX, maxOverScrollY, isTouchEvent);
+        override fun overScrollBy(
+            deltaX: Int, deltaY: Int, scrollX: Int, scrollY: Int,
+            scrollRangeX: Int, scrollRangeY: Int, maxOverScrollX: Int,
+            maxOverScrollY: Int, isTouchEvent: Boolean
+        ) {
+            this@FullScreenView.overScrollBy(
+                deltaX, deltaY, scrollX, scrollY, scrollRangeX,
+                scrollRangeY, maxOverScrollX, maxOverScrollY, isTouchEvent
+            )
         }
 
-        @Override
-        public void super_scrollTo(int scrollX, int scrollY) {
-            FullScreenView.super.scrollTo(scrollX, scrollY);
+        override fun super_scrollTo(scrollX: Int, scrollY: Int) {
+            super@FullScreenView.scrollTo(scrollX, scrollY)
         }
 
-        @Override
-        public void setMeasuredDimension(int measuredWidth, int measuredHeight) {
-            FullScreenView.this.setMeasuredDimension(measuredWidth, measuredHeight);
+        override fun setMeasuredDimension(measuredWidth: Int, measuredHeight: Int) {
+            this@FullScreenView.setMeasuredDimension(measuredWidth, measuredHeight)
         }
     }
 }

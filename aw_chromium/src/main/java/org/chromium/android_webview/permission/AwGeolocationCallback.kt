@@ -1,75 +1,73 @@
 // Copyright 2015 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+package org.chromium.android_webview.permission
 
-package org.chromium.android_webview.permission;
-
-import org.chromium.android_webview.AwContents;
-import org.chromium.android_webview.AwGeolocationPermissions;
-import org.chromium.android_webview.CleanupReference;
-import org.chromium.base.Log;
-import org.chromium.base.ThreadUtils;
-
-import java.lang.ref.WeakReference;
+import org.chromium.android_webview.AwContents
+import org.chromium.android_webview.AwGeolocationPermissions
+import org.chromium.android_webview.CleanupReference
+import org.chromium.base.Log
+import org.chromium.base.ThreadUtils
+import java.lang.ref.WeakReference
 
 /**
  * This class implements AwGeolocationPermissions.Callback, and will be sent to
  * WebView applications through WebChromeClient.onGeolocationPermissionsShowPrompt().
  */
-public class AwGeolocationCallback implements AwGeolocationPermissions.Callback {
-    private static final String TAG = "Geolocation";
+class AwGeolocationCallback(origin: String, awContents: AwContents) :
+    AwGeolocationPermissions.Callback {
+    private var mCleanupRunable: CleanupRunable?
+    private var mCleanupReference: CleanupReference?
 
-    private CleanupRunable mCleanupRunable;
-    private CleanupReference mCleanupReference;
+    private class CleanupRunable(awContents: AwContents, private var mOrigin: String?) : Runnable {
+        private val mAwContents: WeakReference<AwContents>
+        private var mAllow = false
+        private var mRetain = false
 
-    private static class CleanupRunable implements Runnable {
-        private final WeakReference<AwContents> mAwContents;
-        private boolean mAllow;
-        private boolean mRetain;
-        private String mOrigin;
-
-        public CleanupRunable(AwContents awContents, String origin) {
-            mAwContents = new WeakReference<AwContents>(awContents);
-            mOrigin = origin;
+        init {
+            mAwContents = WeakReference(awContents)
         }
 
-        @Override
-        public void run() {
-            assert ThreadUtils.runningOnUiThread();
-            AwContents awContents = mAwContents.get();
-            if (awContents == null) return;
+        override fun run() {
+            assert(ThreadUtils.runningOnUiThread())
+            val awContents = mAwContents.get() ?: return
             if (mRetain) {
                 if (mAllow) {
-                    awContents.getGeolocationPermissions().allow(mOrigin);
+                    awContents.geolocationPermissions.allow(mOrigin)
                 } else {
-                    awContents.getGeolocationPermissions().deny(mOrigin);
+                    awContents.geolocationPermissions.deny(mOrigin)
                 }
             }
-            awContents.invokeGeolocationCallback(mAllow, mOrigin);
+            awContents.invokeGeolocationCallback(mAllow, mOrigin)
         }
 
-        public void setResponse(String origin, boolean allow, boolean retain) {
-            mOrigin = origin;
-            mAllow = allow;
-            mRetain = retain;
+        fun setResponse(origin: String?, allow: Boolean, retain: Boolean) {
+            mOrigin = origin
+            mAllow = allow
+            mRetain = retain
         }
     }
 
-    public AwGeolocationCallback(String origin, AwContents awContents) {
-        mCleanupRunable = new CleanupRunable(awContents, origin);
-        mCleanupReference = new CleanupReference(this, mCleanupRunable);
+    init {
+        mCleanupRunable = CleanupRunable(awContents, origin)
+        mCleanupReference = CleanupReference(this, mCleanupRunable)
     }
 
-    @Override
-    public void invoke(String origin, boolean allow, boolean retain) {
+    override fun invoke(origin: String?, allow: Boolean, retain: Boolean) {
         if (mCleanupRunable == null || mCleanupReference == null) {
-            Log.w(TAG, "Response for this geolocation request has been received."
-                    + " Ignoring subsequent responses");
-            return;
+            Log.w(
+                TAG,
+                "Response for this geolocation request has been received." + " Ignoring subsequent responses"
+            )
+            return
         }
-        mCleanupRunable.setResponse(origin, allow, retain);
-        mCleanupReference.cleanupNow();
-        mCleanupReference = null;
-        mCleanupRunable = null;
+        mCleanupRunable!!.setResponse(origin, allow, retain)
+        mCleanupReference!!.cleanupNow()
+        mCleanupReference = null
+        mCleanupRunable = null
+    }
+
+    companion object {
+        private const val TAG = "Geolocation"
     }
 }

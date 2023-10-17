@@ -1,75 +1,71 @@
 // Copyright 2014 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+package org.chromium.android_webview
 
-package org.chromium.android_webview;
-
-import java.security.PrivateKey;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.security.PrivateKey
+import java.util.Arrays
 
 /**
  * Store user's client certificate decision for a host and port pair. Not
  * thread-safe. All accesses are done on UI thread.
  */
-public class ClientCertLookupTable {
-
+class ClientCertLookupTable {
     /**
      * A container for the certificate data.
      */
-    public static class Cert {
-        PrivateKey mPrivateKey;
-        byte[][] mCertChain;
-        public Cert(PrivateKey privateKey, byte[][] certChain) {
-            this.mPrivateKey = privateKey;
-            byte[][] newChain = new byte[certChain.length][];
-            for (int i = 0; i < certChain.length; i++) {
-                newChain[i] = Arrays.copyOf(certChain[i], certChain[i].length);
+    class Cert(@JvmField var mPrivateKey: PrivateKey, certChain: Array<ByteArray>) {
+        @JvmField
+        var mCertChain: Array<ByteArray?>
+
+        init {
+            val newChain = arrayOfNulls<ByteArray>(certChain.size)
+            for (i in certChain.indices) {
+                newChain[i] = certChain[i].copyOf(certChain[i].size)
             }
-            this.mCertChain = newChain;
+            mCertChain = newChain
         }
     }
 
-    private final Map<String, Cert> mCerts;
-    private final Set<String> mDenieds;
+    private val mCerts: MutableMap<String, Cert>
+    private val mDenieds: MutableSet<String>
 
     // Clear client certificate preferences
-    public void clear() {
-        mCerts.clear();
-        mDenieds.clear();
+    fun clear() {
+        mCerts.clear()
+        mDenieds.clear()
     }
 
-    public ClientCertLookupTable() {
-        mCerts = new HashMap<String, Cert>();
-        mDenieds = new HashSet<String>();
+    init {
+        mCerts = HashMap()
+        mDenieds = HashSet()
     }
 
-    public void allow(String host, int port, PrivateKey privateKey, byte[][] chain) {
-        String host_and_port = hostAndPort(host, port);
-        mCerts.put(host_and_port, new Cert(privateKey, chain));
-        mDenieds.remove(host_and_port);
+    fun allow(host: String, port: Int, privateKey: PrivateKey, chain: Array<ByteArray>) {
+        val host_and_port = hostAndPort(host, port)
+        mCerts[host_and_port] = Cert(privateKey, chain)
+        mDenieds.remove(host_and_port)
     }
 
-    public void deny(String host, int port) {
-        String host_and_port = hostAndPort(host, port);
-        mCerts.remove(host_and_port);
-        mDenieds.add(host_and_port);
+    fun deny(host: String, port: Int) {
+        val host_and_port = hostAndPort(host, port)
+        mCerts.remove(host_and_port)
+        mDenieds.add(host_and_port)
     }
 
-    public Cert getCertData(String host, int port) {
-        return mCerts.get(hostAndPort(host, port));
+    fun getCertData(host: String, port: Int): Cert? {
+        return mCerts[hostAndPort(host, port)]
     }
 
-    public boolean isDenied(String host, int port) {
-        return mDenieds.contains(hostAndPort(host, port));
+    fun isDenied(host: String, port: Int): Boolean {
+        return mDenieds.contains(hostAndPort(host, port))
     }
 
-    // TODO(sgurun) add a test for this. Not separating host and pair properly will be
-    // a security issue.
-    private static String hostAndPort(String host, int port) {
-        return host + ":" + port;
+    companion object {
+        // TODO(sgurun) add a test for this. Not separating host and pair properly will be
+        // a security issue.
+        private fun hostAndPort(host: String, port: Int): String {
+            return "$host:$port"
+        }
     }
 }

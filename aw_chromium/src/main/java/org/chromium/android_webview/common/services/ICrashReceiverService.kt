@@ -4,6 +4,7 @@
 package org.chromium.android_webview.common.services
 
 import android.os.Binder
+import android.os.Build
 import android.os.IBinder
 import android.os.IInterface
 import android.os.Parcel
@@ -45,9 +46,14 @@ interface ICrashReceiverService : IInterface {
                     data.enforceInterface(descriptor)
                     val _arg0: Array<ParcelFileDescriptor>? =
                         data.createTypedArray(ParcelFileDescriptor.CREATOR)
-                    val _arg1: List<*>?
-                    val cl = this.javaClass.classLoader
-                    _arg1 = data.readArrayList(cl)
+                    val _arg1: List<*>? =
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                            data.readArrayList(this.javaClass.classLoader, Any::class.java)
+                        } else {
+                            @Suppress("DEPRECATION")
+                            /** Don't know why still deprecated when use if else */
+                            data.readArrayList(this.javaClass.classLoader)
+                        }
                     transmitCrashes(_arg0, _arg1)
                     reply!!.writeNoException()
                     true
@@ -59,8 +65,7 @@ interface ICrashReceiverService : IInterface {
             }
         }
 
-        private class Proxy(private val mRemote: IBinder) :
-            ICrashReceiverService {
+        private class Proxy(private val mRemote: IBinder) : ICrashReceiverService {
             override fun asBinder(): IBinder {
                 return mRemote
             }

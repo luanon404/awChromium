@@ -1,179 +1,179 @@
 // Copyright 2014 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+package org.chromium.android_webview
 
-package org.chromium.android_webview;
-
-import android.content.res.Configuration;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.Rect;
-import android.os.Bundle;
-import android.view.DragEvent;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.accessibility.AccessibilityNodeProvider;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputConnection;
+import android.content.res.Configuration
+import android.graphics.Canvas
+import android.graphics.Paint
+import android.graphics.Rect
+import android.os.Bundle
+import android.view.DragEvent
+import android.view.KeyEvent
+import android.view.MotionEvent
+import android.view.View
+import android.view.accessibility.AccessibilityNodeProvider
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputConnection
 
 /**
- * An interface that defines a subset of the {@link View} functionality.
+ * An interface that defines a subset of the [View] functionality.
  *
- * <p>This interface allows us to hook up drawing and input related methods to the
- * {@link AwContents}'s consumer in embedded mode, and to the {@link FullScreenView}
+ *
+ * This interface allows us to hook up drawing and input related methods to the
+ * [AwContents]'s consumer in embedded mode, and to the [FullScreenView]
  * in fullscreen mode.
  */
 interface AwViewMethods {
+    /**
+     * @see android.view.View.onDraw
+     */
+    fun onDraw(canvas: Canvas?)
 
     /**
-     * @see android.view.View#onDraw
+     * @see android.view.View.onMeasure
      */
-    void onDraw(Canvas canvas);
+    fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int)
 
     /**
-     * @see android.view.View#onMeasure
+     * @see android.view.View.requestFocus
      */
-    void onMeasure(int widthMeasureSpec, int heightMeasureSpec);
+    fun requestFocus()
 
     /**
-     * @see android.view.View#requestFocus
+     * @see android.view.View.setLayerType
      */
-    void requestFocus();
+    fun setLayerType(layerType: Int, paint: Paint?)
 
     /**
-     * @see android.view.View#setLayerType
+     * @see android.view.View.onCreateInputConnection
      */
-    void setLayerType(int layerType, Paint paint);
+    fun onCreateInputConnection(outAttrs: EditorInfo?): InputConnection?
 
     /**
-     * @see android.view.View#onCreateInputConnection
+     * @see android.view.View.onDragEvent
      */
-    InputConnection onCreateInputConnection(EditorInfo outAttrs);
+    fun onDragEvent(event: DragEvent?): Boolean
 
     /**
-     * @see android.view.View#onDragEvent
+     * @see android.view.View.onKeyUp
      */
-    boolean onDragEvent(DragEvent event);
+    fun onKeyUp(keyCode: Int, event: KeyEvent?): Boolean
 
     /**
-     * @see android.view.View#onKeyUp
+     * @see android.view.View.dispatchKeyEvent
      */
-    boolean onKeyUp(int keyCode, KeyEvent event);
+    fun dispatchKeyEvent(event: KeyEvent?): Boolean
 
     /**
-     * @see android.view.View#dispatchKeyEvent
+     * @see android.view.View.onTouchEvent
      */
-    boolean dispatchKeyEvent(KeyEvent event);
+    fun onTouchEvent(event: MotionEvent?): Boolean
 
     /**
-     * @see android.view.View#onTouchEvent
+     * @see android.view.View.onHoverEvent
      */
-    boolean onTouchEvent(MotionEvent event);
+    fun onHoverEvent(event: MotionEvent?): Boolean
 
     /**
-     * @see android.view.View#onHoverEvent
+     * @see android.view.View.onGenericMotionEvent
      */
-    boolean onHoverEvent(MotionEvent event);
+    fun onGenericMotionEvent(event: MotionEvent?): Boolean
 
     /**
-     * @see android.view.View#onGenericMotionEvent
+     * @see android.view.View.onConfigurationChanged
      */
-    boolean onGenericMotionEvent(MotionEvent event);
+    fun onConfigurationChanged(newConfig: Configuration?)
 
     /**
-     * @see android.view.View#onConfigurationChanged
+     * @see android.view.View.onAttachedToWindow
      */
-    void onConfigurationChanged(Configuration newConfig);
+    fun onAttachedToWindow()
 
     /**
-     * @see android.view.View#onAttachedToWindow
+     * @see android.view.View.onDetachedFromWindow
      */
-    void onAttachedToWindow();
+    fun onDetachedFromWindow()
 
     /**
-     * @see android.view.View#onDetachedFromWindow
+     * @see android.view.View.onWindowFocusChanged
      */
-    void onDetachedFromWindow();
+    fun onWindowFocusChanged(hasWindowFocus: Boolean)
 
     /**
-     * @see android.view.View#onWindowFocusChanged
+     * @see android.view.View.onFocusChanged
      */
-    void onWindowFocusChanged(boolean hasWindowFocus);
+    fun onFocusChanged(focused: Boolean, direction: Int, previouslyFocusedRect: Rect?)
 
     /**
-     * @see android.view.View#onFocusChanged
+     * @see android.view.View.onSizeChanged
      */
-    void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect);
+    fun onSizeChanged(w: Int, h: Int, ow: Int, oh: Int)
 
     /**
-     * @see android.view.View#onSizeChanged
+     * @see android.view.View.onVisibilityChanged
      */
-    void onSizeChanged(int w, int h, int ow, int oh);
+    fun onVisibilityChanged(changedView: View?, visibility: Int)
 
     /**
-     * @see android.view.View#onVisibilityChanged
+     * @see android.view.View.onWindowVisibilityChanged
      */
-    void onVisibilityChanged(View changedView, int visibility);
+    fun onWindowVisibilityChanged(visibility: Int)
 
     /**
-     * @see android.view.View#onWindowVisibilityChanged
+     * @see android.view.View.onScrollChanged
      */
-    void onWindowVisibilityChanged(int visibility);
+    fun onContainerViewScrollChanged(l: Int, t: Int, oldl: Int, oldt: Int)
 
     /**
-     * @see android.view.View#onScrollChanged
+     * @see android.view.View.onOverScrolled
      */
-    void onContainerViewScrollChanged(int l, int t, int oldl, int oldt);
+    fun onContainerViewOverScrolled(
+        scrollX: Int, scrollY: Int, clampedX: Boolean, clampedY: Boolean
+    )
 
     /**
-     * @see android.view.View#onOverScrolled
+     * @see android.view.View.computeHorizontalScrollRange
      */
-    void onContainerViewOverScrolled(
-            int scrollX, int scrollY, boolean clampedX, boolean clampedY);
+    fun computeHorizontalScrollRange(): Int
 
     /**
-     * @see android.view.View#computeHorizontalScrollRange
+     * @see android.view.View.computeHorizontalScrollOffset
      */
-    int computeHorizontalScrollRange();
+    fun computeHorizontalScrollOffset(): Int
 
     /**
-     * @see android.view.View#computeHorizontalScrollOffset
+     * @see android.view.View.computeVerticalScrollRange
      */
-    int computeHorizontalScrollOffset();
+    fun computeVerticalScrollRange(): Int
 
     /**
-     * @see android.view.View#computeVerticalScrollRange
+     * @see android.view.View.computeVerticalScrollOffset
      */
-    int computeVerticalScrollRange();
+    fun computeVerticalScrollOffset(): Int
 
     /**
-     * @see android.view.View#computeVerticalScrollOffset
+     * @see android.view.View.computeVerticalScrollExtent
      */
-    int computeVerticalScrollOffset();
+    fun computeVerticalScrollExtent(): Int
 
     /**
-     * @see android.view.View#computeVerticalScrollExtent
+     * @see android.view.View.computeScroll
      */
-    int computeVerticalScrollExtent();
+    fun computeScroll()
 
     /**
-     * @see android.view.View#computeScroll
+     * @see android.view.View.onCheckIsTextEditor
      */
-    void computeScroll();
+    fun onCheckIsTextEditor(): Boolean
 
     /**
-     * @see android.view.View#onCheckIsTextEditor
+     * @see android.view.View.getAccessibilityNodeProvider
      */
-    boolean onCheckIsTextEditor();
+    val accessibilityNodeProvider: AccessibilityNodeProvider?
 
     /**
-     * @see android.view.View#getAccessibilityNodeProvider
+     * @see android.view.View.performAccessibilityAction
      */
-    AccessibilityNodeProvider getAccessibilityNodeProvider();
-
-    /**
-     * @see android.view.View#performAccessibilityAction
-     */
-    boolean performAccessibilityAction(final int action, final Bundle arguments);
+    fun performAccessibilityAction(action: Int, arguments: Bundle?): Boolean
 }

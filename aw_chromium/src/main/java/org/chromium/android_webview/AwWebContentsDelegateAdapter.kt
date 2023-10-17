@@ -1,365 +1,312 @@
 // Copyright 2013 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+package org.chromium.android_webview
 
-package org.chromium.android_webview;
-
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.media.AudioManager;
-import android.net.Uri;
-import android.os.Handler;
-import android.os.Message;
-import android.provider.MediaStore;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.KeyEvent;
-import android.view.View;
-import android.webkit.URLUtil;
-import android.widget.FrameLayout;
-import org.chromium.base.Callback;
-import org.chromium.base.ContentUriUtils;
-import org.chromium.base.ThreadUtils;
-import org.chromium.base.task.AsyncTask;
-import org.chromium.content_public.browser.InvalidateTypes;
-import org.chromium.content_public.common.ContentUrlConstants;
-import org.chromium.content_public.common.ResourceRequestBody;
-import org.chromium.url.GURL;
+import android.annotation.SuppressLint
+import android.content.Context
+import android.media.AudioManager
+import android.net.Uri
+import android.os.Handler
+import android.os.Message
+import android.provider.MediaStore
+import android.text.TextUtils
+import android.util.Log
+import android.view.KeyEvent
+import android.view.View
+import android.webkit.URLUtil
+import android.widget.FrameLayout
+import org.chromium.android_webview.AwContentsClient.FileChooserParamsImpl
+import org.chromium.base.Callback
+import org.chromium.base.ContentUriUtils
+import org.chromium.base.ThreadUtils
+import org.chromium.base.task.AsyncTask
+import org.chromium.content_public.browser.InvalidateTypes
+import org.chromium.content_public.common.ContentUrlConstants
+import org.chromium.content_public.common.ResourceRequestBody
+import org.chromium.url.GURL
 
 /**
  * Adapts the AwWebContentsDelegate interface to the AwContentsClient interface.
  * This class also serves a secondary function of routing certain callbacks from the content layer
  * to specific listener interfaces.
  */
-class AwWebContentsDelegateAdapter extends AwWebContentsDelegate {
-    private static final String TAG = "AwWebContentsDelegateAdapter";
+internal class AwWebContentsDelegateAdapter(
+    private val mAwContents: AwContents, private val mContentsClient: AwContentsClient,
+    private val mAwSettings: AwSettings?, private val mContext: Context, containerView: View?
+) : AwWebContentsDelegate() {
+    private var mContainerView: View? = null
+    private var mCustomView: FrameLayout? = null
 
-    private final AwContents mAwContents;
-    private final AwContentsClient mContentsClient;
-    private final AwSettings mAwSettings;
-    private final Context mContext;
-    private View mContainerView;
-    private FrameLayout mCustomView;
-
-    public AwWebContentsDelegateAdapter(AwContents awContents, AwContentsClient contentsClient,
-            AwSettings settings, Context context, View containerView) {
-        mAwContents = awContents;
-        mContentsClient = contentsClient;
-        mAwSettings = settings;
-        mContext = context;
-        setContainerView(containerView);
+    init {
+        setContainerView(containerView)
     }
 
-    public void setContainerView(View containerView) {
-        mContainerView = containerView;
-        mContainerView.setClickable(true);
+    fun setContainerView(containerView: View?) {
+        mContainerView = containerView
+        mContainerView!!.isClickable = true
     }
 
-    @Override
-    public void handleKeyboardEvent(KeyEvent event) {
-        if (event.getAction() == KeyEvent.ACTION_DOWN) {
-            int direction;
-            switch (event.getKeyCode()) {
-                case KeyEvent.KEYCODE_DPAD_DOWN:
-                    direction = View.FOCUS_DOWN;
-                    break;
-                case KeyEvent.KEYCODE_DPAD_UP:
-                    direction = View.FOCUS_UP;
-                    break;
-                case KeyEvent.KEYCODE_DPAD_LEFT:
-                    direction = View.FOCUS_LEFT;
-                    break;
-                case KeyEvent.KEYCODE_DPAD_RIGHT:
-                    direction = View.FOCUS_RIGHT;
-                    break;
-                default:
-                    direction = 0;
-                    break;
+    override fun handleKeyboardEvent(event: KeyEvent) {
+        if (event.action == KeyEvent.ACTION_DOWN) {
+            val direction: Int = when (event.keyCode) {
+                KeyEvent.KEYCODE_DPAD_DOWN -> View.FOCUS_DOWN
+                KeyEvent.KEYCODE_DPAD_UP -> View.FOCUS_UP
+                KeyEvent.KEYCODE_DPAD_LEFT -> View.FOCUS_LEFT
+                KeyEvent.KEYCODE_DPAD_RIGHT -> View.FOCUS_RIGHT
+                else -> 0
             }
-            if (direction != 0 && tryToMoveFocus(direction)) return;
+            if (direction != 0 && tryToMoveFocus(direction)) return
         }
-        handleMediaKey(event);
-        mContentsClient.onUnhandledKeyEvent(event);
+        handleMediaKey(event)
+        mContentsClient.onUnhandledKeyEvent(event)
     }
 
     /**
      * Redispatches unhandled media keys. This allows bluetooth headphones with play/pause or
      * other buttons to function correctly.
      */
-    private void handleMediaKey(KeyEvent e) {
-        switch (e.getKeyCode()) {
-            case KeyEvent.KEYCODE_MUTE:
-            case KeyEvent.KEYCODE_HEADSETHOOK:
-            case KeyEvent.KEYCODE_MEDIA_PLAY:
-            case KeyEvent.KEYCODE_MEDIA_PAUSE:
-            case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
-            case KeyEvent.KEYCODE_MEDIA_STOP:
-            case KeyEvent.KEYCODE_MEDIA_NEXT:
-            case KeyEvent.KEYCODE_MEDIA_PREVIOUS:
-            case KeyEvent.KEYCODE_MEDIA_REWIND:
-            case KeyEvent.KEYCODE_MEDIA_RECORD:
-            case KeyEvent.KEYCODE_MEDIA_FAST_FORWARD:
-            case KeyEvent.KEYCODE_MEDIA_CLOSE:
-            case KeyEvent.KEYCODE_MEDIA_EJECT:
-            case KeyEvent.KEYCODE_MEDIA_AUDIO_TRACK:
-                AudioManager am = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
-                am.dispatchMediaKeyEvent(e);
-                break;
-            default:
-                break;
+    private fun handleMediaKey(e: KeyEvent) {
+        when (e.keyCode) {
+            KeyEvent.KEYCODE_MUTE, KeyEvent.KEYCODE_HEADSETHOOK, KeyEvent.KEYCODE_MEDIA_PLAY, KeyEvent.KEYCODE_MEDIA_PAUSE, KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE, KeyEvent.KEYCODE_MEDIA_STOP, KeyEvent.KEYCODE_MEDIA_NEXT, KeyEvent.KEYCODE_MEDIA_PREVIOUS, KeyEvent.KEYCODE_MEDIA_REWIND, KeyEvent.KEYCODE_MEDIA_RECORD, KeyEvent.KEYCODE_MEDIA_FAST_FORWARD, KeyEvent.KEYCODE_MEDIA_CLOSE, KeyEvent.KEYCODE_MEDIA_EJECT, KeyEvent.KEYCODE_MEDIA_AUDIO_TRACK -> {
+                val am = mContext.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+                am.dispatchMediaKeyEvent(e)
+            }
+
+            else -> {}
         }
     }
 
-    @Override
-    public boolean takeFocus(boolean reverse) {
-        int direction =
-                (reverse == (mContainerView.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL))
-                ? View.FOCUS_RIGHT : View.FOCUS_LEFT;
-        if (tryToMoveFocus(direction)) return true;
-        direction = reverse ? View.FOCUS_BACKWARD : View.FOCUS_FORWARD;
-        return tryToMoveFocus(direction);
+    override fun takeFocus(reverse: Boolean): Boolean {
+        var direction =
+            if (reverse == (mContainerView!!.layoutDirection == View.LAYOUT_DIRECTION_RTL)) View.FOCUS_RIGHT else View.FOCUS_LEFT
+        if (tryToMoveFocus(direction)) return true
+        direction = if (reverse) View.FOCUS_BACKWARD else View.FOCUS_FORWARD
+        return tryToMoveFocus(direction)
     }
 
-    private boolean tryToMoveFocus(int direction) {
-        View focus = mContainerView.focusSearch(direction);
-        return focus != null && focus != mContainerView && focus.requestFocus();
+    private fun tryToMoveFocus(direction: Int): Boolean {
+        val focus = mContainerView!!.focusSearch(direction)
+        return focus != null && focus !== mContainerView && focus.requestFocus()
     }
 
-    @Override
-    public boolean addMessageToConsole(int level, String message, int lineNumber,
-            String sourceId) {
-        @AwConsoleMessage.MessageLevel
-        int messageLevel = AwConsoleMessage.MESSAGE_LEVEL_DEBUG;
-        switch(level) {
-            case LOG_LEVEL_TIP:
-                messageLevel = AwConsoleMessage.MESSAGE_LEVEL_TIP;
-                break;
-            case LOG_LEVEL_LOG:
-                messageLevel = AwConsoleMessage.MESSAGE_LEVEL_LOG;
-                break;
-            case LOG_LEVEL_WARNING:
-                messageLevel = AwConsoleMessage.MESSAGE_LEVEL_WARNING;
-                break;
-            case LOG_LEVEL_ERROR:
-                messageLevel = AwConsoleMessage.MESSAGE_LEVEL_ERROR;
-                break;
-            default:
-                Log.w(TAG, "Unknown message level, defaulting to DEBUG");
-                break;
+    override fun addMessageToConsole(
+        level: Int, message: String, lineNumber: Int,
+        sourceId: String
+    ): Boolean {
+        @AwConsoleMessage.MessageLevel var messageLevel =
+            AwConsoleMessage.MESSAGE_LEVEL_DEBUG
+        when (level) {
+            LOG_LEVEL_TIP -> messageLevel =
+                AwConsoleMessage.MESSAGE_LEVEL_TIP
+
+            LOG_LEVEL_LOG -> messageLevel =
+                AwConsoleMessage.MESSAGE_LEVEL_LOG
+
+            LOG_LEVEL_WARNING -> messageLevel =
+                AwConsoleMessage.MESSAGE_LEVEL_WARNING
+
+            LOG_LEVEL_ERROR -> messageLevel =
+                AwConsoleMessage.MESSAGE_LEVEL_ERROR
+
+            else -> Log.w(
+                TAG,
+                "Unknown message level, defaulting to DEBUG"
+            )
         }
-        boolean result = mContentsClient.onConsoleMessage(
-                new AwConsoleMessage(message, sourceId, lineNumber, messageLevel));
-        return result;
+        return mContentsClient.onConsoleMessage(
+            AwConsoleMessage(message, messageLevel)
+        )
     }
 
-    @Override
-    public void onUpdateUrl(GURL url) {
+    override fun onUpdateUrl(url: GURL) {
         // TODO: implement
     }
 
-    @Override
-    public void openNewTab(GURL url, String extraHeaders, ResourceRequestBody postData,
-            int disposition, boolean isRendererInitiated) {
+    override fun openNewTab(
+        url: GURL, extraHeaders: String, postData: ResourceRequestBody,
+        disposition: Int, isRendererInitiated: Boolean
+    ) {
         // This is only called in chrome layers.
-        assert false;
+        assert(false)
     }
 
-    @Override
-    public void closeContents() {
-        mContentsClient.onCloseWindow();
+    override fun closeContents() {
+        mContentsClient.onCloseWindow()
     }
 
-    @Override
     @SuppressLint("HandlerLeak")
-    public void showRepostFormWarningDialog() {
+    override fun showRepostFormWarningDialog() {
         // TODO(mkosiba) We should be using something akin to the JsResultReceiver as the
         // callback parameter (instead of WebContents) and implement a way of converting
         // that to a pair of messages.
-        final int msgContinuePendingReload = 1;
-        final int msgCancelPendingReload = 2;
+        val msgContinuePendingReload = 1
+        val msgCancelPendingReload = 2
 
         // TODO(sgurun) Remember the URL to cancel the reload behavior
         // if it is different than the most recent NavigationController entry.
-        final Handler handler = new Handler(ThreadUtils.getUiThreadLooper()) {
-            @Override
-            public void handleMessage(Message msg) {
-                if (mAwContents.getNavigationController() == null) return;
+        val handler: Handler = object : Handler(ThreadUtils.getUiThreadLooper()) {
+            @SuppressLint("VisibleForTests")
+            override fun handleMessage(msg: Message) {
+                if (mAwContents.navigationController == null) return
+                when (msg.what) {
+                    msgContinuePendingReload -> {
+                        mAwContents.navigationController.continuePendingReload()
+                    }
 
-                switch(msg.what) {
-                    case msgContinuePendingReload: {
-                        mAwContents.getNavigationController().continuePendingReload();
-                        break;
+                    msgCancelPendingReload -> {
+                        mAwContents.navigationController.cancelPendingReload()
                     }
-                    case msgCancelPendingReload: {
-                        mAwContents.getNavigationController().cancelPendingReload();
-                        break;
-                    }
-                    default:
-                        throw new IllegalStateException(
-                                "WebContentsDelegateAdapter: unhandled message " + msg.what);
+
+                    else -> throw IllegalStateException(
+                        "WebContentsDelegateAdapter: unhandled message " + msg.what
+                    )
                 }
             }
-        };
-
-        Message resend = handler.obtainMessage(msgContinuePendingReload);
-        Message dontResend = handler.obtainMessage(msgCancelPendingReload);
-        mContentsClient.getCallbackHelper().postOnFormResubmission(dontResend, resend);
+        }
+        val resend = handler.obtainMessage(msgContinuePendingReload)
+        val dontResend = handler.obtainMessage(msgCancelPendingReload)
+        mContentsClient.callbackHelper!!.postOnFormResubmission(dontResend, resend)
     }
 
-    @Override
-    public void runFileChooser(final int processId, final int renderId, final int modeFlags,
-            String acceptTypes, String title, String defaultFilename, boolean capture) {
-        AwContentsClient.FileChooserParamsImpl params = new AwContentsClient.FileChooserParamsImpl(
-                modeFlags, acceptTypes, title, defaultFilename, capture);
-
-        mContentsClient.showFileChooser(new Callback<String[]>() {
-            boolean mCompleted;
-            @Override
-            public void onResult(String[] results) {
-                if (mCompleted) {
-                    throw new IllegalStateException("Duplicate showFileChooser result");
-                }
-                mCompleted = true;
+    override fun runFileChooser(
+        processId: Int, renderId: Int, modeFlags: Int,
+        acceptTypes: String?, title: String?, defaultFilename: String?, capture: Boolean
+    ) {
+        val params = FileChooserParamsImpl(
+            modeFlags, title.toString()
+        )
+        mContentsClient.showFileChooser(object : Callback<Array<String?>?> {
+            var mCompleted = false
+            @SuppressLint("VisibleForTests")
+            override fun onResult(results: Array<String?>?) {
+                check(!mCompleted) { "Duplicate showFileChooser result" }
+                mCompleted = true
                 if (results == null) {
                     AwWebContentsDelegateJni.get().filesSelectedInChooser(
-                            processId, renderId, modeFlags, null, null);
-                    return;
+                        processId, renderId, modeFlags, null, null
+                    )
+                    return
                 }
-                GetDisplayNameTask task =
-                        new GetDisplayNameTask(mContext, processId, renderId, modeFlags, results);
-                task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                val task = GetDisplayNameTask(mContext, processId, renderId, modeFlags, results)
+                task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
             }
-        }, params);
+        }, params)
+    }
+    override fun addNewContents(isDialog: Boolean, isUserGesture: Boolean): Boolean {
+        return mContentsClient.onCreateWindow(isDialog, isUserGesture)
     }
 
-    @Override
-    public boolean addNewContents(boolean isDialog, boolean isUserGesture) {
-        return mContentsClient.onCreateWindow(isDialog, isUserGesture);
+    override fun activateContents() {
+        mContentsClient.onRequestFocus()
     }
 
-    @Override
-    public void activateContents() {
-        mContentsClient.onRequestFocus();
-    }
-
-    @Override
-    public void navigationStateChanged(int flags) {
-        if ((flags & InvalidateTypes.URL) != 0
-                && mAwContents.isPopupWindow()
-                && mAwContents.hasAccessedInitialDocument()) {
+    override fun navigationStateChanged(flags: Int) {
+        if (flags and InvalidateTypes.URL != 0 && mAwContents.isPopupWindow
+            && mAwContents.hasAccessedInitialDocument()
+        ) {
             // Hint the client to show the last committed url, as it may be unsafe to show
             // the pending entry.
-            String url = mAwContents.getLastCommittedUrl();
-            url = TextUtils.isEmpty(url) ? ContentUrlConstants.ABOUT_BLANK_DISPLAY_URL : url;
-            mContentsClient.getCallbackHelper().postSynthesizedPageLoadingForUrlBarUpdate(url);
+            var url = mAwContents.lastCommittedUrl
+            url = if (TextUtils.isEmpty(url)) ContentUrlConstants.ABOUT_BLANK_DISPLAY_URL else url
+            mContentsClient.callbackHelper!!.postSynthesizedPageLoadingForUrlBarUpdate(url)
         }
     }
 
-    @Override
-    public void enterFullscreenModeForTab(boolean prefersNavigationBar) {
-        enterFullscreen();
+    override fun enterFullscreenModeForTab(prefersNavigationBar: Boolean) {
+        enterFullscreen()
     }
 
-    @Override
-    public void exitFullscreenModeForTab() {
-        exitFullscreen();
+    override fun exitFullscreenModeForTab() {
+        exitFullscreen()
     }
 
-    @Override
-    public int getDisplayMode() {
-        return mAwContents.getDisplayMode();
+    override fun getDisplayMode(): Int {
+        return mAwContents.displayMode
     }
 
-    @Override
-    public void loadingStateChanged() {
-        mContentsClient.updateTitle(mAwContents.getTitle(), false);
+    override fun loadingStateChanged() {
+        mContentsClient.updateTitle(mAwContents.title, false)
     }
 
     /**
      * Called to show the web contents in fullscreen mode.
      *
-     * <p>If entering fullscreen on a video element the web contents will contain just
-     * the html5 video controls. {@link #enterFullscreenVideo(View)} will be called later
+     *
+     * If entering fullscreen on a video element the web contents will contain just
+     * the html5 video controls. [.enterFullscreenVideo] will be called later
      * once the ContentVideoView, which contains the hardware accelerated fullscreen video,
      * is ready to be shown.
      */
-    private void enterFullscreen() {
-        if (mAwContents.isFullScreen()) {
-            return;
+    private fun enterFullscreen() {
+        if (mAwContents.isFullScreen) {
+            return
         }
-        View fullscreenView = mAwContents.enterFullScreen();
-        if (fullscreenView == null) {
-            return;
-        }
-        AwContentsClient.CustomViewCallback cb = () -> {
-            if (mCustomView != null) {
-                mAwContents.requestExitFullscreen();
+        val fullscreenView = mAwContents.enterFullScreen() ?: return
+        val cb = object : AwContentsClient.CustomViewCallback {
+            override fun onCustomViewHidden() {
+                if (mCustomView != null) {
+                    mAwContents.requestExitFullscreen()
+                }
             }
-        };
-        mCustomView = new FrameLayout(mContext);
-        mCustomView.addView(fullscreenView);
-        mContentsClient.onShowCustomView(mCustomView, cb);
+        }
+        mCustomView = FrameLayout(mContext)
+        mCustomView!!.addView(fullscreenView)
+        mContentsClient.onShowCustomView(mCustomView, cb)
     }
 
     /**
      * Called to show the web contents in embedded mode.
      */
-    private void exitFullscreen() {
+    private fun exitFullscreen() {
         if (mCustomView != null) {
-            mCustomView = null;
-            mAwContents.exitFullScreen();
-            mContentsClient.onHideCustomView();
+            mCustomView = null
+            mAwContents.exitFullScreen()
+            mContentsClient.onHideCustomView()
         }
     }
 
-    @Override
-    public boolean shouldBlockMediaRequest(GURL url) {
-        return mAwSettings == null || mAwSettings.getBlockNetworkLoads() && URLUtil.isNetworkUrl(url.getSpec());
+    override fun shouldBlockMediaRequest(url: GURL): Boolean {
+        return mAwSettings == null || mAwSettings.blockNetworkLoads && URLUtil.isNetworkUrl(url.spec)
     }
 
-    private static class GetDisplayNameTask extends AsyncTask<String[]> {
-        final int mProcessId;
-        final int mRenderId;
-        final int mModeFlags;
-        final String[] mFilePaths;
-
+    private class GetDisplayNameTask(
         // The task doesn't run long, so we don't gain anything from a weak ref.
-        @SuppressLint("StaticFieldLeak")
-        final Context mContext;
-
-        public GetDisplayNameTask(
-                Context context, int processId, int renderId, int modeFlags, String[] filePaths) {
-            mProcessId = processId;
-            mRenderId = renderId;
-            mModeFlags = modeFlags;
-            mFilePaths = filePaths;
-            mContext = context;
-        }
-
-        @Override
-        protected String[] doInBackground() {
-            String[] displayNames = new String[mFilePaths.length];
-            for (int i = 0; i < mFilePaths.length; i++) {
-                displayNames[i] = resolveFileName(mFilePaths[i]);
+        @field:SuppressLint("StaticFieldLeak") val mContext: Context,
+        val mProcessId: Int,
+        val mRenderId: Int,
+        val mModeFlags: Int,
+        val mFilePaths: Array<String?>
+    ) : AsyncTask<Array<String?>?>() {
+        override fun doInBackground(): Array<String?> {
+            val displayNames = arrayOfNulls<String>(mFilePaths.size)
+            for (i in mFilePaths.indices) {
+                displayNames[i] = resolveFileName(mFilePaths[i])
             }
-            return displayNames;
+            return displayNames
         }
 
-        @Override
-        protected void onPostExecute(String[] result) {
+        @SuppressLint("VisibleForTests")
+        override fun onPostExecute(result: Array<String?>?) {
             AwWebContentsDelegateJni.get().filesSelectedInChooser(
-                    mProcessId, mRenderId, mModeFlags, mFilePaths, result);
+                mProcessId, mRenderId, mModeFlags, mFilePaths, result
+            )
         }
 
         /**
          * @return the display name of a path if it is a content URI and is present in the database
          * or an empty string otherwise.
          */
-        private String resolveFileName(String filePath) {
-            if (filePath == null) return "";
-            Uri uri = Uri.parse(filePath);
+        private fun resolveFileName(filePath: String?): String {
+            if (filePath == null) return ""
+            val uri = Uri.parse(filePath)
             return ContentUriUtils.getDisplayName(
-                    uri, mContext, MediaStore.MediaColumns.DISPLAY_NAME);
+                uri, mContext, MediaStore.MediaColumns.DISPLAY_NAME
+            )
         }
+    }
+
+    companion object {
+        private const val TAG = "AwWebContentsDelegateAdapter"
     }
 }

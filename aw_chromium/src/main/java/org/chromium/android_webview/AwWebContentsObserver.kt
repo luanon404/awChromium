@@ -1,169 +1,153 @@
 // Copyright 2014 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+package org.chromium.android_webview
 
-package org.chromium.android_webview;
-
-import org.chromium.android_webview.AwContents.VisualStateCallback;
-import org.chromium.base.task.PostTask;
-import org.chromium.content_public.browser.NavigationHandle;
-import org.chromium.content_public.browser.UiThreadTaskTraits;
-import org.chromium.content_public.browser.WebContents;
-import org.chromium.content_public.browser.WebContentsObserver;
-import org.chromium.content_public.common.ContentUrlConstants;
-import org.chromium.net.NetError;
-import org.chromium.ui.base.PageTransition;
-import org.chromium.url.GURL;
-
-import java.lang.ref.WeakReference;
+import org.chromium.base.task.PostTask
+import org.chromium.content_public.browser.NavigationHandle
+import org.chromium.content_public.browser.UiThreadTaskTraits
+import org.chromium.content_public.browser.WebContents
+import org.chromium.content_public.browser.WebContentsObserver
+import org.chromium.content_public.common.ContentUrlConstants
+import org.chromium.net.NetError
+import org.chromium.ui.base.PageTransition
+import org.chromium.url.GURL
+import java.lang.ref.WeakReference
+import kotlin.math.roundToInt
 
 /**
  * Routes notifications from WebContents to AwContentsClient and other listeners.
  */
-public class AwWebContentsObserver extends WebContentsObserver {
+class AwWebContentsObserver(
+    webContents: WebContents?, awContents: AwContents, awContentsClient: AwContentsClient
+) : WebContentsObserver(webContents) {
     // TODO(tobiasjs) similarly to WebContentsObserver.mWebContents, mAwContents
     // needs to be a WeakReference, which suggests that there exists a strong
     // reference to an AwWebContentsObserver instance. This is not intentional,
     // and should be found and cleaned up.
-    private final WeakReference<AwContents> mAwContents;
-    private final WeakReference<AwContentsClient> mAwContentsClient;
+    private val mAwContents: WeakReference<AwContents>
+    private val mAwContentsClient: WeakReference<AwContentsClient>
 
     // Whether this webcontents has ever committed any navigation.
-    private boolean mCommittedNavigation;
+    private var mCommittedNavigation = false
 
     // Temporarily stores the URL passed the last time to didFinishLoad callback.
-    private String mLastDidFinishLoadUrl;
+    private var mLastDidFinishLoadUrl: String? = null
 
-    public AwWebContentsObserver(
-            WebContents webContents, AwContents awContents, AwContentsClient awContentsClient) {
-        super(webContents);
-        mAwContents = new WeakReference<>(awContents);
-        mAwContentsClient = new WeakReference<>(awContentsClient);
+    init {
+        mAwContents = WeakReference(awContents)
+        mAwContentsClient = WeakReference(awContentsClient)
     }
 
-    private AwContentsClient getClientIfNeedToFireCallback(String validatedUrl) {
-        AwContentsClient client = mAwContentsClient.get();
+    private fun getClientIfNeedToFireCallback(validatedUrl: String?): AwContentsClient? {
+        val client = mAwContentsClient.get()
         if (client != null) {
-            String unreachableWebDataUrl = AwContentsStatics.getUnreachableWebDataUrl();
-            if (unreachableWebDataUrl == null || !unreachableWebDataUrl.equals(validatedUrl)) {
-                return client;
+            val unreachableWebDataUrl = AwContentsStatics.getUnreachableWebDataUrl()
+            if (unreachableWebDataUrl == null || unreachableWebDataUrl != validatedUrl) {
+                return client
             }
         }
-        return null;
+        return null
     }
 
-    @Override
-    public void didFinishLoad(long frameId, GURL url, boolean isKnownValid, boolean isMainFrame) {
-        String validatedUrl = isKnownValid ? url.getSpec() : url.getPossiblyInvalidSpec();
+    override fun didFinishLoad(
+        frameId: Long,
+        url: GURL,
+        isKnownValid: Boolean,
+        isMainFrame: Boolean
+    ) {
+        val validatedUrl = if (isKnownValid) url.spec else url.possiblyInvalidSpec
         if (isMainFrame && getClientIfNeedToFireCallback(validatedUrl) != null) {
-            mLastDidFinishLoadUrl = validatedUrl;
+            mLastDidFinishLoadUrl = validatedUrl
         }
     }
 
-    @Override
-    public void didStopLoading(GURL gurl, boolean isKnownValid) {
-        String url = isKnownValid ? gurl.getSpec() : gurl.getPossiblyInvalidSpec();
-        if (url.length() == 0) url = ContentUrlConstants.ABOUT_BLANK_DISPLAY_URL;
-        AwContentsClient client = getClientIfNeedToFireCallback(url);
-        if (client != null && url.equals(mLastDidFinishLoadUrl)) {
-            client.getCallbackHelper().postOnPageFinished(url);
-            mLastDidFinishLoadUrl = null;
+    override fun didStopLoading(gurl: GURL, isKnownValid: Boolean) {
+        var url = if (isKnownValid) gurl.spec else gurl.possiblyInvalidSpec
+        if (url!!.isEmpty()) url = ContentUrlConstants.ABOUT_BLANK_DISPLAY_URL
+        val client = getClientIfNeedToFireCallback(url)
+        if (client != null && url == mLastDidFinishLoadUrl) {
+            client.callbackHelper!!.postOnPageFinished(url)
+            mLastDidFinishLoadUrl = null
         }
     }
 
-    @Override
-    public void loadProgressChanged(float progress) {
-        AwContentsClient client = mAwContentsClient.get();
-        if (client == null) return;
-        client.getCallbackHelper().postOnProgressChanged(Math.round(progress * 100));
+    override fun loadProgressChanged(progress: Float) {
+        val client = mAwContentsClient.get() ?: return
+        client.callbackHelper!!.postOnProgressChanged((progress * 100).roundToInt())
     }
 
-    @Override
-    public void didFailLoad(boolean isMainFrame, @NetError int errorCode, GURL failingGurl) {
-        String failingUrl = failingGurl.getPossiblyInvalidSpec();
-        AwContentsClient client = mAwContentsClient.get();
-        if (client == null) return;
-        String unreachableWebDataUrl = AwContentsStatics.getUnreachableWebDataUrl();
-        boolean isErrorUrl =
-                unreachableWebDataUrl != null && unreachableWebDataUrl.equals(failingUrl);
+    override fun didFailLoad(isMainFrame: Boolean, @NetError errorCode: Int, failingGurl: GURL) {
+        val failingUrl = failingGurl.possiblyInvalidSpec
+        val client = mAwContentsClient.get() ?: return
+        val unreachableWebDataUrl = AwContentsStatics.getUnreachableWebDataUrl()
+        val isErrorUrl = unreachableWebDataUrl != null && unreachableWebDataUrl == failingUrl
         if (isMainFrame && !isErrorUrl) {
             if (errorCode == NetError.ERR_ABORTED) {
                 // Need to call onPageFinished for backwards compatibility with the classic webview.
                 // See also AwContentsClientBridge.onReceivedError.
-                client.getCallbackHelper().postOnPageFinished(failingUrl);
+                client.callbackHelper!!.postOnPageFinished(failingUrl)
             } else if (errorCode == NetError.ERR_HTTP_RESPONSE_CODE_FAILURE) {
                 // This is a HTTP error that results in an error page. We need to call onPageStarted
                 // and onPageFinished to have the same behavior with HTTP error navigations that
                 // don't result in an error page. See also
                 // AwContentsClientBridge.onReceivedHttpError.
-                client.getCallbackHelper().postOnPageStarted(failingUrl);
-                client.getCallbackHelper().postOnPageFinished(failingUrl);
+                client.callbackHelper!!.postOnPageStarted(failingUrl)
+                client.callbackHelper!!.postOnPageFinished(failingUrl)
             }
         }
     }
 
-    @Override
-    public void titleWasSet(String title) {
-        AwContentsClient client = mAwContentsClient.get();
-        if (client == null) return;
-        client.updateTitle(title, true);
+    override fun titleWasSet(title: String) {
+        val client = mAwContentsClient.get() ?: return
+        client.updateTitle(title, true)
     }
 
-    @Override
-    public void didFinishNavigation(NavigationHandle navigation) {
-        String url = navigation.getUrl().getPossiblyInvalidSpec();
-        if (navigation.errorCode() != NetError.OK && !navigation.isDownload()) {
-            didFailLoad(navigation.isInMainFrame(), navigation.errorCode(), navigation.getUrl());
+    override fun didFinishNavigation(navigation: NavigationHandle) {
+        val url = navigation.url.possiblyInvalidSpec
+        if (navigation.errorCode() != NetError.OK && !navigation.isDownload) {
+            didFailLoad(navigation.isInMainFrame, navigation.errorCode(), navigation.url)
         }
-
-        if (!navigation.hasCommitted()) return;
-
-        mCommittedNavigation = true;
-
-        if (!navigation.isInMainFrame()) return;
-
-        AwContentsClient client = mAwContentsClient.get();
+        if (!navigation.hasCommitted()) return
+        mCommittedNavigation = true
+        if (!navigation.isInMainFrame) return
+        val client = mAwContentsClient.get()
         if (client != null) {
             // OnPageStarted is not called for in-page navigations, which include fragment
             // navigations and navigation from history.push/replaceState.
             // Error page is handled by AwContentsClientBridge.onReceivedError.
-            if (!navigation.isSameDocument() && !navigation.isErrorPage()
-                    && AwFeatureList.pageStartedOnCommitEnabled(navigation.isRendererInitiated())) {
-                client.getCallbackHelper().postOnPageStarted(url);
+            if (!navigation.isSameDocument && !navigation.isErrorPage
+                && AwFeatureList.pageStartedOnCommitEnabled(navigation.isRendererInitiated)
+            ) {
+                client.callbackHelper!!.postOnPageStarted(url)
             }
-
-            boolean isReload = navigation.pageTransition() != null
-                    && ((navigation.pageTransition() & PageTransition.CORE_MASK)
-                            == PageTransition.RELOAD);
-            client.getCallbackHelper().postDoUpdateVisitedHistory(url, isReload);
+            val isReload = (navigation.pageTransition() != null
+                    && (navigation.pageTransition() and PageTransition.CORE_MASK
+                    == PageTransition.RELOAD))
+            client.callbackHelper!!.postDoUpdateVisitedHistory(url!!, isReload)
         }
 
         // Only invoke the onPageCommitVisible callback when navigating to a different document,
         // but not when navigating to a different fragment within the same document.
-        if (!navigation.isSameDocument()) {
-            PostTask.postTask(UiThreadTaskTraits.DEFAULT, () -> {
-                AwContents awContents = mAwContents.get();
-                if (awContents != null) {
-                    awContents.insertVisualStateCallbackIfNotDestroyed(
-                            0, new VisualStateCallback() {
-                                @Override
-                                public void onComplete(long requestId) {
-                                    AwContentsClient client1 = mAwContentsClient.get();
-                                    if (client1 == null) return;
-                                    client1.onPageCommitVisible(url);
-                                }
-                            });
-                }
-            });
+        if (!navigation.isSameDocument) {
+            PostTask.postTask(UiThreadTaskTraits.DEFAULT) {
+                val awContents = mAwContents.get()
+                awContents?.insertVisualStateCallbackIfNotDestroyed(
+                    0, object : AwContents.VisualStateCallback() {
+                        override fun onComplete(requestId: Long) {
+                            val client1 = mAwContentsClient.get() ?: return
+                            client1.onPageCommitVisible(url)
+                        }
+                    })
+            }
         }
-
-        if (client != null && navigation.isFragmentNavigation()) {
+        if (client != null && navigation.isFragmentNavigation) {
             // Note fragment navigations do not have a matching onPageStarted.
-            client.getCallbackHelper().postOnPageFinished(url);
+            client.callbackHelper!!.postOnPageFinished(url)
         }
     }
 
-    public boolean didEverCommitNavigation() {
-        return mCommittedNavigation;
+    fun didEverCommitNavigation(): Boolean {
+        return mCommittedNavigation
     }
 }

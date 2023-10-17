@@ -1,110 +1,95 @@
 // Copyright 2020 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-package org.chromium.android_webview.metrics;
+package org.chromium.android_webview.metrics
 
-import android.os.Bundle;
-
-import org.chromium.android_webview.proto.MetricsBridgeRecords.HistogramRecord;
-import org.chromium.android_webview.proto.MetricsBridgeRecords.HistogramRecord.RecordType;
-import org.chromium.base.Log;
-import org.chromium.base.metrics.UmaRecorderHolder;
+import org.chromium.android_webview.proto.MetricsBridgeRecords.HistogramRecord
+import org.chromium.android_webview.proto.MetricsBridgeRecords.HistogramRecord.RecordType
+import org.chromium.base.Log
+import org.chromium.base.metrics.UmaRecorderHolder
 
 /**
- * Replay the recorded method calls recorded by {@link AwProcessUmaRecorder}.
+ * Replay the recorded method calls recorded by [AwProcessUmaRecorder].
  *
  * Should be used in processes which have initialized Uma, such as the browser process.
  */
-public class AwNonembeddedUmaReplayer {
-    private static final String TAG = "AwNonembedUmaReplay";
+object AwNonembeddedUmaReplayer {
+    private const val TAG = "AwNonembedUmaReplay"
 
     /**
-     * Extract method arguments from the given {@link HistogramRecord} and call
-     * {@link org.chromium.base.metrics.UmaRecorder#recordBooleanHistogram}.
+     * Extract method arguments from the given [HistogramRecord] and call
+     * [org.chromium.base.metrics.UmaRecorder.recordBooleanHistogram].
      */
-    private static void replayBooleanHistogram(HistogramRecord proto) {
-        assert proto.getRecordType() == RecordType.HISTOGRAM_BOOLEAN;
-
-        int sample = proto.getSample();
+    private fun replayBooleanHistogram(proto: HistogramRecord) {
+        assert(proto.recordType == RecordType.HISTOGRAM_BOOLEAN)
+        val sample = proto.sample
         if (sample != 0 && sample != 1) {
-            Log.d(TAG, "Expected BooleanHistogram to have sample of 0 or 1, but was " + sample);
-            return;
+            Log.d(TAG, "Expected BooleanHistogram to have sample of 0 or 1, but was $sample")
+            return
         }
-
         UmaRecorderHolder.get().recordBooleanHistogram(
-                proto.getHistogramName(), proto.getSample() != 0);
+            proto.histogramName, proto.sample != 0
+        )
     }
 
     /**
-     * Extract method arguments from the given {@link HistogramRecord} and call
-     * {@link org.chromium.base.metrics.UmaRecorder#recordExponentialHistogram}.
+     * Extract method arguments from the given [HistogramRecord] and call
+     * [org.chromium.base.metrics.UmaRecorder.recordExponentialHistogram].
      */
-    private static void replayExponentialHistogram(HistogramRecord proto) {
-        assert proto.getRecordType() == RecordType.HISTOGRAM_EXPONENTIAL;
-
-        UmaRecorderHolder.get().recordExponentialHistogram(proto.getHistogramName(),
-                proto.getSample(), proto.getMin(), proto.getMax(), proto.getNumBuckets());
+    private fun replayExponentialHistogram(proto: HistogramRecord) {
+        assert(proto.recordType == RecordType.HISTOGRAM_EXPONENTIAL)
+        UmaRecorderHolder.get().recordExponentialHistogram(
+            proto.histogramName,
+            proto.sample, proto.min, proto.max, proto.numBuckets
+        )
     }
 
     /**
-     * Extract method arguments from the given {@link HistogramRecord} and call
-     * {@link org.chromium.base.metrics.UmaRecorder#recordLinearHistogram}.
+     * Extract method arguments from the given [HistogramRecord] and call
+     * [org.chromium.base.metrics.UmaRecorder.recordLinearHistogram].
      */
-    private static void replayLinearHistogram(HistogramRecord proto) {
-        assert proto.getRecordType() == RecordType.HISTOGRAM_LINEAR;
-
-        UmaRecorderHolder.get().recordLinearHistogram(proto.getHistogramName(), proto.getSample(),
-                proto.getMin(), proto.getMax(), proto.getNumBuckets());
+    private fun replayLinearHistogram(proto: HistogramRecord) {
+        assert(proto.recordType == RecordType.HISTOGRAM_LINEAR)
+        UmaRecorderHolder.get().recordLinearHistogram(
+            proto.histogramName, proto.sample,
+            proto.min, proto.max, proto.numBuckets
+        )
     }
 
     /**
-     * Extract method arguments from the given {@link HistogramRecord} and call
-     * {@link org.chromium.base.metrics.UmaRecorder#recordSparseHistogram}.
+     * Extract method arguments from the given [HistogramRecord] and call
+     * [org.chromium.base.metrics.UmaRecorder.recordSparseHistogram].
      */
-    private static void replaySparseHistogram(HistogramRecord proto) {
-        assert proto.getRecordType() == RecordType.HISTOGRAM_SPARSE;
-
-        UmaRecorderHolder.get().recordSparseHistogram(proto.getHistogramName(), proto.getSample());
+    private fun replaySparseHistogram(proto: HistogramRecord) {
+        assert(proto.recordType == RecordType.HISTOGRAM_SPARSE)
+        UmaRecorderHolder.get().recordSparseHistogram(proto.histogramName, proto.sample)
     }
 
     /**
-     * Extract method arguments from the given {@link HistogramRecord} and call
-     * {@link org.chromium.base.metrics.UmaRecorder#recordUserAction}.
+     * Extract method arguments from the given [HistogramRecord] and call
+     * [org.chromium.base.metrics.UmaRecorder.recordUserAction].
      */
-    private static void replayUserAction(HistogramRecord proto) {
-        assert proto.getRecordType() == RecordType.USER_ACTION;
-
+    private fun replayUserAction(proto: HistogramRecord) {
+        assert(proto.recordType == RecordType.USER_ACTION)
         UmaRecorderHolder.get().recordUserAction(
-                proto.getHistogramName(), proto.getElapsedRealtimeMillis());
+            proto.histogramName, proto.elapsedRealtimeMillis
+        )
     }
 
     /**
      * Replay UMA API call record by calling that API method.
      *
-     * @param methodCall {@link Bundle} that contains the UMA API type and arguments.
+     * @param methodCall [android.os.Bundle] that contains the UMA API type and arguments.
      */
-    public static void replayMethodCall(HistogramRecord methodCall) {
-        switch (methodCall.getRecordType()) {
-            case HISTOGRAM_BOOLEAN:
-                replayBooleanHistogram(methodCall);
-                break;
-            case HISTOGRAM_EXPONENTIAL:
-                replayExponentialHistogram(methodCall);
-                break;
-            case HISTOGRAM_LINEAR:
-                replayLinearHistogram(methodCall);
-                break;
-            case HISTOGRAM_SPARSE:
-                replaySparseHistogram(methodCall);
-                break;
-            case USER_ACTION:
-                replayUserAction(methodCall);
-                break;
-            default:
-                Log.d(TAG, "Unrecognized record type");
+    @JvmStatic
+    fun replayMethodCall(methodCall: HistogramRecord) {
+        when (methodCall.recordType) {
+            RecordType.HISTOGRAM_BOOLEAN -> replayBooleanHistogram(methodCall)
+            RecordType.HISTOGRAM_EXPONENTIAL -> replayExponentialHistogram(methodCall)
+            RecordType.HISTOGRAM_LINEAR -> replayLinearHistogram(methodCall)
+            RecordType.HISTOGRAM_SPARSE -> replaySparseHistogram(methodCall)
+            RecordType.USER_ACTION -> replayUserAction(methodCall)
+            else -> Log.d(TAG, "Unrecognized record type")
         }
     }
-
-    // Don't instantiate this class.
-    private AwNonembeddedUmaReplayer() {}
 }

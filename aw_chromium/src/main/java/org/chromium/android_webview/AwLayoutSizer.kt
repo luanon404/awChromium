@@ -1,85 +1,83 @@
 // Copyright 2012 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+package org.chromium.android_webview
 
-package org.chromium.android_webview;
-
-import android.view.View;
-import android.view.View.MeasureSpec;
+import android.view.View
+import android.view.View.MeasureSpec
 
 /**
  * Helper methods used to manage the layout of the View that contains AwContents.
  */
-public class AwLayoutSizer {
+class AwLayoutSizer
+/**
+ * Default constructor. Note: both setDelegate and setDIPScale must be called before the class
+ * is ready for use.
+ */
+{
     // These are used to prevent a re-layout if the content size changes within a dimension that is
     // fixed by the view system.
-    private boolean mWidthMeasurementIsFixed;
-    private boolean mHeightMeasurementIsFixed;
+    private var mWidthMeasurementIsFixed = false
+    private var mHeightMeasurementIsFixed = false
 
     // Size of the rendered content, as reported by native.
-    private int mContentHeightCss;
-    private int mContentWidthCss;
+    private var mContentHeightCss = 0
+    private var mContentWidthCss = 0
 
     // Page scale factor.
-    private float mPageScaleFactor = 1.0f;
+    private var mPageScaleFactor = 1.0f
 
     // Whether to postpone layout requests.
-    private boolean mFreezeLayoutRequests;
-    // Did we try to request a layout since the last time mPostponeLayoutRequests was set to true.
-    private boolean mFrozenLayoutRequestPending;
+    private var mFreezeLayoutRequests = false
 
-    private double mDIPScale;
+    // Did we try to request a layout since the last time mPostponeLayoutRequests was set to true.
+    private var mFrozenLayoutRequestPending = false
+    private var mDIPScale = 0.0
 
     // Was our height larger than the AT_MOST constraint the last time onMeasure was called?
-    private boolean mHeightMeasurementLimited;
+    private var mHeightMeasurementLimited = false
+
     // If mHeightMeasurementLimited is true then this contains the height limit.
-    private int mHeightMeasurementLimit;
+    private var mHeightMeasurementLimit = 0
 
     // Callback object for interacting with the View.
-    private Delegate mDelegate;
+    private var mDelegate: Delegate? = null
 
     /**
      * Delegate interface through which the AwLayoutSizer communicates with the view it's sizing.
      */
-    public interface Delegate {
-        void requestLayout();
-        void setMeasuredDimension(int measuredWidth, int measuredHeight);
-        boolean isLayoutParamsHeightWrapContent();
-        void setForceZeroLayoutHeight(boolean forceZeroHeight);
+    interface Delegate {
+        fun requestLayout()
+        fun setMeasuredDimension(measuredWidth: Int, measuredHeight: Int)
+        val isLayoutParamsHeightWrapContent: Boolean
+        fun setForceZeroLayoutHeight(forceZeroHeight: Boolean)
     }
 
-    /**
-     * Default constructor. Note: both setDelegate and setDIPScale must be called before the class
-     * is ready for use.
-     */
-    public AwLayoutSizer() {
+    fun setDelegate(delegate: Delegate?) {
+        mDelegate = delegate
     }
 
-    public void setDelegate(Delegate delegate) {
-        mDelegate = delegate;
-    }
-
-    public void setDIPScale(double dipScale) {
-        mDIPScale = dipScale;
+    fun setDIPScale(dipScale: Double) {
+        mDIPScale = dipScale
     }
 
     /**
      * Postpone requesting layouts till unfreezeLayoutRequests is called.
      */
-    public void freezeLayoutRequests() {
-        mFreezeLayoutRequests = true;
-        mFrozenLayoutRequestPending = false;
+    fun freezeLayoutRequests() {
+        mFreezeLayoutRequests = true
+        mFrozenLayoutRequestPending = false
     }
 
     /**
      * Stop postponing layout requests and request layout if such a request would have been made
      * had the freezeLayoutRequests method not been called before.
      */
-    public void unfreezeLayoutRequests() {
-        mFreezeLayoutRequests = false;
+    fun unfreezeLayoutRequests() {
+        mFreezeLayoutRequests = false
         if (mFrozenLayoutRequestPending) {
-            mFrozenLayoutRequestPending = false;
-            mDelegate.requestLayout();
+            mFrozenLayoutRequestPending = false
+            mDelegate!!.requestLayout()
         }
     }
 
@@ -88,8 +86,8 @@ public class AwLayoutSizer {
      * This should be called whenever the content size changes (due to DOM manipulation or page
      * load, for example).
      */
-    public void onContentSizeChanged(int widthCss, int heightCss) {
-        doUpdate(widthCss, heightCss, mPageScaleFactor);
+    fun onContentSizeChanged(widthCss: Int, heightCss: Int) {
+        doUpdate(widthCss, heightCss, mPageScaleFactor)
     }
 
     /**
@@ -97,33 +95,29 @@ public class AwLayoutSizer {
      * This should be called whenever the content page scale factor changes (due to pinch zoom, for
      * example).
      */
-    public void onPageScaleChanged(float pageScaleFactor) {
-        doUpdate(mContentWidthCss, mContentHeightCss, pageScaleFactor);
+    fun onPageScaleChanged(pageScaleFactor: Float) {
+        doUpdate(mContentWidthCss, mContentHeightCss, pageScaleFactor)
     }
 
-    private void doUpdate(int widthCss, int heightCss, float pageScaleFactor) {
+    private fun doUpdate(widthCss: Int, heightCss: Int, pageScaleFactor: Float) {
         // We want to request layout only if the size or scale change, however if any of the
         // measurements are 'fixed', then changing the underlying size won't have any effect, so we
         // ignore changes to dimensions that are 'fixed'.
-        final int heightPix = (int) (heightCss * mPageScaleFactor * mDIPScale);
-        boolean pageScaleChanged = mPageScaleFactor != pageScaleFactor;
-        boolean contentHeightChangeMeaningful = !mHeightMeasurementIsFixed
-                && (!mHeightMeasurementLimited || heightPix < mHeightMeasurementLimit);
-        boolean pageScaleChangeMeaningful =
-                !mWidthMeasurementIsFixed || contentHeightChangeMeaningful;
-        boolean layoutNeeded = (mContentWidthCss != widthCss && !mWidthMeasurementIsFixed)
-                || (mContentHeightCss != heightCss && contentHeightChangeMeaningful)
-                || (pageScaleChanged && pageScaleChangeMeaningful);
-
-        mContentWidthCss = widthCss;
-        mContentHeightCss = heightCss;
-        mPageScaleFactor = pageScaleFactor;
-
+        val heightPix = (heightCss * mPageScaleFactor * mDIPScale).toInt()
+        val pageScaleChanged = mPageScaleFactor != pageScaleFactor
+        val contentHeightChangeMeaningful = (!mHeightMeasurementIsFixed
+                && (!mHeightMeasurementLimited || heightPix < mHeightMeasurementLimit))
+        val pageScaleChangeMeaningful = !mWidthMeasurementIsFixed || contentHeightChangeMeaningful
+        val layoutNeeded =
+            mContentWidthCss != widthCss && !mWidthMeasurementIsFixed || mContentHeightCss != heightCss && contentHeightChangeMeaningful || pageScaleChanged && pageScaleChangeMeaningful
+        mContentWidthCss = widthCss
+        mContentHeightCss = heightCss
+        mPageScaleFactor = pageScaleFactor
         if (layoutNeeded) {
             if (mFreezeLayoutRequests) {
-                mFrozenLayoutRequestPending = true;
+                mFrozenLayoutRequestPending = true
             } else {
-                mDelegate.requestLayout();
+                mDelegate!!.requestLayout()
             }
         }
     }
@@ -132,42 +126,35 @@ public class AwLayoutSizer {
      * Calculate the size of the view.
      * This is designed to be used to implement the android.view.View#onMeasure() method.
      */
-    public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
-        int heightSize = MeasureSpec.getSize(heightMeasureSpec);
-        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
-        int widthSize = MeasureSpec.getSize(widthMeasureSpec);
-
-        int contentHeightPix = (int) (mContentHeightCss * mPageScaleFactor * mDIPScale);
-        int contentWidthPix = (int) (mContentWidthCss * mPageScaleFactor * mDIPScale);
-
-        int measuredHeight = contentHeightPix;
-        int measuredWidth = contentWidthPix;
+    fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        val heightMode = MeasureSpec.getMode(heightMeasureSpec)
+        val heightSize = MeasureSpec.getSize(heightMeasureSpec)
+        val widthMode = MeasureSpec.getMode(widthMeasureSpec)
+        val widthSize = MeasureSpec.getSize(widthMeasureSpec)
+        val contentHeightPix = (mContentHeightCss * mPageScaleFactor * mDIPScale).toInt()
+        val contentWidthPix = (mContentWidthCss * mPageScaleFactor * mDIPScale).toInt()
+        var measuredHeight = contentHeightPix
+        var measuredWidth = contentWidthPix
 
         // Always use the given size unless unspecified. This matches WebViewClassic behavior.
-        mWidthMeasurementIsFixed = (widthMode != MeasureSpec.UNSPECIFIED);
-        mHeightMeasurementIsFixed = (heightMode == MeasureSpec.EXACTLY);
+        mWidthMeasurementIsFixed = widthMode != MeasureSpec.UNSPECIFIED
+        mHeightMeasurementIsFixed = heightMode == MeasureSpec.EXACTLY
         mHeightMeasurementLimited =
-            (heightMode == MeasureSpec.AT_MOST) && (contentHeightPix > heightSize);
-        mHeightMeasurementLimit = heightSize;
-
+            heightMode == MeasureSpec.AT_MOST && contentHeightPix > heightSize
+        mHeightMeasurementLimit = heightSize
         if (mHeightMeasurementIsFixed || mHeightMeasurementLimited) {
-            measuredHeight = heightSize;
+            measuredHeight = heightSize
         }
-
         if (mWidthMeasurementIsFixed) {
-            measuredWidth = widthSize;
+            measuredWidth = widthSize
         }
-
         if (measuredHeight < contentHeightPix) {
-            measuredHeight |= View.MEASURED_STATE_TOO_SMALL;
+            measuredHeight = measuredHeight or View.MEASURED_STATE_TOO_SMALL
         }
-
         if (measuredWidth < contentWidthPix) {
-            measuredWidth |= View.MEASURED_STATE_TOO_SMALL;
+            measuredWidth = measuredWidth or View.MEASURED_STATE_TOO_SMALL
         }
-
-        mDelegate.setMeasuredDimension(measuredWidth, measuredHeight);
+        mDelegate!!.setMeasuredDimension(measuredWidth, measuredHeight)
     }
 
     /**
@@ -175,8 +162,8 @@ public class AwLayoutSizer {
      * This should be called by the Android view system after onMeasure if the view's size has
      * changed.
      */
-    public void onSizeChanged(int w, int h, int ow, int oh) {
-        updateLayoutSettings();
+    fun onSizeChanged() {
+        updateLayoutSettings()
     }
 
     /**
@@ -184,13 +171,13 @@ public class AwLayoutSizer {
      * completed.
      * This should be called after onSizeChanged regardless of whether the size has changed or not.
      */
-    public void onLayoutParamsChange() {
-        updateLayoutSettings();
+    fun onLayoutParamsChange() {
+        updateLayoutSettings()
     }
 
     // This needs to be called every time either the physical size of the view is changed or layout
     // params are updated.
-    private void updateLayoutSettings() {
-        mDelegate.setForceZeroLayoutHeight(mDelegate.isLayoutParamsHeightWrapContent());
+    private fun updateLayoutSettings() {
+        mDelegate!!.setForceZeroLayoutHeight(mDelegate!!.isLayoutParamsHeightWrapContent)
     }
 }

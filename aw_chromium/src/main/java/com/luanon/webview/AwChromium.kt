@@ -200,8 +200,9 @@ class AwChromium(context: Context) : FrameLayout(context) {
     }
 
     companion object {
-        fun initialize(application: Application) {
-            AwShellResourceProvider.registerResources(application)
+        fun initialize(context: Context, flags: Array<String> = arrayOf()) {
+            CommandLine.init(flags) /** Important */
+            AwShellResourceProvider.registerResources(context)
             AwBrowserProcess.loadLibrary(null)
             AwBrowserProcess.start()
             if (BuildConfig.DEBUG) {
@@ -209,14 +210,13 @@ class AwChromium(context: Context) : FrameLayout(context) {
             }
             /** Initialize draw function */
             AwContainerView.installDrawFnFunctionTable(false)
-            AwContainerView(application, true)
+            AwContainerView(context, true)
         }
 
-        fun initializeBase(context: Context?, flags: Array<String> = arrayOf()) {
+        fun initializeBase(context: Context?) {
             ContextUtils.initApplicationContext(context)
             PathUtils.setPrivateDataDirectorySuffix("webview", "WebView")
-            CommandLine.init(flags)
-            ResourceBundle.setAvailablePakLocales(AwLocaleConfig.getWebViewSupportedPakLocales())
+            ResourceBundle.setAvailablePakLocales(AwLocaleConfig.webViewSupportedPakLocales)
         }
     }
 

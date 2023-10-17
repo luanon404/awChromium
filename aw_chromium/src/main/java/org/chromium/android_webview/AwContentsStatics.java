@@ -120,7 +120,7 @@ public class AwContentsStatics {
         };
 
         PlatformServiceBridge.getInstance().warmUpSafeBrowsing(
-                context.getApplicationContext(), wrapperCallback);
+                wrapperCallback);
     }
 
     public static Uri getSafeBrowsingPrivacyPolicyUrl() {

@@ -1,10 +1,12 @@
 // Copyright 2013 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+package org.chromium.android_webview
 
-package org.chromium.android_webview;
-
-import android.graphics.Rect;
+import android.graphics.Rect
+import kotlin.math.abs
+import kotlin.math.max
+import kotlin.math.min
 
 /**
  * Takes care of syncing the scroll offset between the Android View system and the
@@ -12,31 +14,26 @@ import android.graphics.Rect;
  *
  * Unless otherwise values (sizes, scroll offsets) are in physical pixels.
  */
-public class AwScrollOffsetManager {
-    // Values taken from WebViewClassic.
-
-    // The amount of content to overlap between two screens when using pageUp/pageDown methiods.
-    private static final int PAGE_SCROLL_OVERLAP = 24;
-    // Standard animated scroll speed.
-    private static final int STD_SCROLL_ANIMATION_SPEED_PIX_PER_SEC = 480;
-    // Time for the longest scroll animation.
-    private static final int MAX_SCROLL_ANIMATION_DURATION_MILLISEC = 750;
-
+class AwScrollOffsetManager(private val mDelegate: Delegate) {
     /**
      * The interface that all users of AwScrollOffsetManager should implement.
      *
      * The unit of all the values in this delegate are physical pixels.
      */
-    public interface Delegate {
+    interface Delegate {
         // Call View#overScrollBy on the containerView.
-        void overScrollContainerViewBy(int deltaX, int deltaY, int scrollX, int scrollY,
-                int scrollRangeX, int scrollRangeY, boolean isTouchEvent);
+        fun overScrollContainerViewBy(
+            deltaX: Int, deltaY: Int, scrollX: Int, scrollY: Int,
+            scrollRangeX: Int, scrollRangeY: Int, isTouchEvent: Boolean
+        )
+
         // Call View#scrollTo on the containerView.
-        void scrollContainerViewTo(int x, int y);
+        fun scrollContainerViewTo(x: Int, y: Int)
+
         // Store the scroll offset in the native side. This should really be a simple store
         // operation, the native side shouldn't synchronously alter the scroll offset from within
         // this call.
-        void scrollNativeTo(int x, int y);
+        fun scrollNativeTo(x: Int, y: Int)
 
         /**
          * Smooth scrolls the view to targetX, targetY, within durationMs.
@@ -44,337 +41,316 @@ public class AwScrollOffsetManager {
          * @param targetY y-coordinate of target scroll position.
          * @param durationMs the animation duration in milliseconds.
          */
-        void smoothScroll(int targetX, int targetY, long durationMs);
-
-        int getContainerViewScrollX();
-        int getContainerViewScrollY();
-
-        void invalidate();
-
-        void cancelFling();
+        fun smoothScroll(targetX: Int, targetY: Int, durationMs: Long)
+        val containerViewScrollX: Int
+        val containerViewScrollY: Int
+        fun invalidate()
+        fun cancelFling()
     }
 
-    private final Delegate mDelegate;
-
     // Scroll offset as seen by the native side.
-    private int mNativeScrollX;
-    private int mNativeScrollY;
+    var scrollX = 0
+        private set
+    var scrollY = 0
+        private set
 
     // How many pixels can we scroll in a given direction.
-    private int mMaxHorizontalScrollOffset;
-    private int mMaxVerticalScrollOffset;
+    private var mMaxHorizontalScrollOffset = 0
+    private var mMaxVerticalScrollOffset = 0
 
     // Size of the container view.
-    private int mContainerViewWidth;
-    private int mContainerViewHeight;
+    private var mContainerViewWidth = 0
+    private var mContainerViewHeight = 0
 
     // Whether we're in the middle of processing a touch event.
-    private boolean mProcessingTouchEvent;
+    private var mProcessingTouchEvent = false
 
     // Whether (and to what value) to update the native side scroll offset after we've finished
     // processing a touch event.
-    private boolean mApplyDeferredNativeScroll;
-    private int mDeferredNativeScrollX;
-    private int mDeferredNativeScrollY;
-
-    public AwScrollOffsetManager(Delegate delegate) {
-        mDelegate = delegate;
-    }
+    private var mApplyDeferredNativeScroll = false
+    private var mDeferredNativeScrollX = 0
+    private var mDeferredNativeScrollY = 0
 
     //----- Scroll range and extent calculation methods -------------------------------------------
-
-    public int computeHorizontalScrollRange() {
-        return mContainerViewWidth + mMaxHorizontalScrollOffset;
+    fun computeHorizontalScrollRange(): Int {
+        return mContainerViewWidth + mMaxHorizontalScrollOffset
     }
 
-    public int computeMaximumHorizontalScrollOffset() {
-        return mMaxHorizontalScrollOffset;
+    fun computeMaximumHorizontalScrollOffset(): Int {
+        return mMaxHorizontalScrollOffset
     }
 
-    public int computeHorizontalScrollOffset() {
-        return mDelegate.getContainerViewScrollX();
+    fun computeHorizontalScrollOffset(): Int {
+        return mDelegate.containerViewScrollX
     }
 
-    public int computeVerticalScrollRange() {
-        return mContainerViewHeight + mMaxVerticalScrollOffset;
+    fun computeVerticalScrollRange(): Int {
+        return mContainerViewHeight + mMaxVerticalScrollOffset
     }
 
-    public int computeMaximumVerticalScrollOffset() {
-        return mMaxVerticalScrollOffset;
+    fun computeMaximumVerticalScrollOffset(): Int {
+        return mMaxVerticalScrollOffset
     }
 
-    public int computeVerticalScrollOffset() {
-        return mDelegate.getContainerViewScrollY();
+    fun computeVerticalScrollOffset(): Int {
+        return mDelegate.containerViewScrollY
     }
 
-    public int computeVerticalScrollExtent() {
-        return mContainerViewHeight;
+    fun computeVerticalScrollExtent(): Int {
+        return mContainerViewHeight
     }
-
     //---------------------------------------------------------------------------------------------
     /**
      * Called when the scroll range changes. This needs to be the size of the on-screen content.
      */
-    public void setMaxScrollOffset(int width, int height) {
-        mMaxHorizontalScrollOffset = width;
-        mMaxVerticalScrollOffset = height;
+    fun setMaxScrollOffset(width: Int, height: Int) {
+        mMaxHorizontalScrollOffset = width
+        mMaxVerticalScrollOffset = height
     }
 
     /**
      * Called when the physical size of the view changes.
      */
-    public void setContainerViewSize(int width, int height) {
-        mContainerViewWidth = width;
-        mContainerViewHeight = height;
+    fun setContainerViewSize(width: Int, height: Int) {
+        mContainerViewWidth = width
+        mContainerViewHeight = height
     }
 
-    public void syncScrollOffsetFromOnDraw() {
+    fun syncScrollOffsetFromOnDraw() {
         // Unfortunately apps override onScrollChanged without calling super which is why we need
         // to sync the scroll offset on every onDraw.
-        onContainerViewScrollChanged(mDelegate.getContainerViewScrollX(),
-                mDelegate.getContainerViewScrollY());
+        onContainerViewScrollChanged(
+            mDelegate.containerViewScrollX,
+            mDelegate.containerViewScrollY
+        )
     }
 
-    public void setProcessingTouchEvent(boolean processingTouchEvent) {
-        assert mProcessingTouchEvent != processingTouchEvent;
-        mProcessingTouchEvent = processingTouchEvent;
-
+    fun setProcessingTouchEvent(processingTouchEvent: Boolean) {
+        assert(mProcessingTouchEvent != processingTouchEvent)
+        mProcessingTouchEvent = processingTouchEvent
         if (!mProcessingTouchEvent && mApplyDeferredNativeScroll) {
-            mApplyDeferredNativeScroll = false;
-            scrollNativeTo(mDeferredNativeScrollX, mDeferredNativeScrollY);
+            mApplyDeferredNativeScroll = false
+            scrollNativeTo(mDeferredNativeScrollX, mDeferredNativeScrollY)
         }
     }
 
     // Called by the native side to scroll the container view.
-    public void scrollContainerViewTo(int x, int y) {
-        mNativeScrollX = x;
-        mNativeScrollY = y;
-
-        final int scrollX = mDelegate.getContainerViewScrollX();
-        final int scrollY = mDelegate.getContainerViewScrollY();
-        final int deltaX = x - scrollX;
-        final int deltaY = y - scrollY;
-        final int scrollRangeX = computeMaximumHorizontalScrollOffset();
-        final int scrollRangeY = computeMaximumVerticalScrollOffset();
+    fun scrollContainerViewTo(x: Int, y: Int) {
+        scrollX = x
+        scrollY = y
+        val scrollX = mDelegate.containerViewScrollX
+        val scrollY = mDelegate.containerViewScrollY
+        val deltaX = x - scrollX
+        val deltaY = y - scrollY
+        val scrollRangeX = computeMaximumHorizontalScrollOffset()
+        val scrollRangeY = computeMaximumVerticalScrollOffset()
 
         // We use overScrollContainerViewBy to be compatible with WebViewClassic which used this
         // method for handling both over-scroll as well as in-bounds scroll.
-        mDelegate.overScrollContainerViewBy(deltaX, deltaY, scrollX, scrollY,
-                scrollRangeX, scrollRangeY, mProcessingTouchEvent);
+        mDelegate.overScrollContainerViewBy(
+            deltaX, deltaY, scrollX, scrollY,
+            scrollRangeX, scrollRangeY, mProcessingTouchEvent
+        )
     }
 
     // Called by the native side to over-scroll the container view.
-    public void overScrollBy(int deltaX, int deltaY) {
+    fun overScrollBy(deltaX: Int, deltaY: Int) {
         // TODO(mkosiba): Once http://crbug.com/260663 and http://crbug.com/261239 are fixed it
         // should be possible to uncomment the following asserts:
         // if (deltaX < 0) assert mDelegate.getContainerViewScrollX() == 0;
         // if (deltaX > 0) assert mDelegate.getContainerViewScrollX() ==
         //          computeMaximumHorizontalScrollOffset();
-        scrollBy(deltaX, deltaY);
+        scrollBy(deltaX, deltaY)
     }
 
-    private void scrollBy(int deltaX, int deltaY) {
-        if (deltaX == 0 && deltaY == 0) return;
-
-        final int scrollX = mDelegate.getContainerViewScrollX();
-        final int scrollY = mDelegate.getContainerViewScrollY();
-        final int scrollRangeX = computeMaximumHorizontalScrollOffset();
-        final int scrollRangeY = computeMaximumVerticalScrollOffset();
+    private fun scrollBy(deltaX: Int, deltaY: Int) {
+        if (deltaX == 0 && deltaY == 0) return
+        val scrollX = mDelegate.containerViewScrollX
+        val scrollY = mDelegate.containerViewScrollY
+        val scrollRangeX = computeMaximumHorizontalScrollOffset()
+        val scrollRangeY = computeMaximumVerticalScrollOffset()
 
         // The android.view.View.overScrollBy method is used for both scrolling and over-scrolling
         // which is why we use it here.
-        mDelegate.overScrollContainerViewBy(deltaX, deltaY, scrollX, scrollY,
-                scrollRangeX, scrollRangeY, mProcessingTouchEvent);
+        mDelegate.overScrollContainerViewBy(
+            deltaX, deltaY, scrollX, scrollY,
+            scrollRangeX, scrollRangeY, mProcessingTouchEvent
+        )
     }
 
-    private int clampHorizontalScroll(int scrollX) {
-        scrollX = Math.max(0, scrollX);
-        scrollX = Math.min(computeMaximumHorizontalScrollOffset(), scrollX);
-        return scrollX;
+    private fun clampHorizontalScroll(scrollX: Int): Int {
+        return min(computeMaximumHorizontalScrollOffset(), max(0, scrollX))
     }
 
-    private int clampVerticalScroll(int scrollY) {
-        scrollY = Math.max(0, scrollY);
-        scrollY = Math.min(computeMaximumVerticalScrollOffset(), scrollY);
-        return scrollY;
+    private fun clampVerticalScroll(scrollY: Int): Int {
+        return min(computeMaximumVerticalScrollOffset(), max(0, scrollY))
     }
 
     // Called by the View system as a response to the mDelegate.overScrollContainerViewBy call.
-    public void onContainerViewOverScrolled(int scrollX, int scrollY, boolean clampedX,
-            boolean clampedY) {
+    fun onContainerViewOverScrolled(
+        scrollX: Int, scrollY: Int
+    ) {
         // Clamp the scroll offset at (0, max).
-        scrollX = clampHorizontalScroll(scrollX);
-        scrollY = clampVerticalScroll(scrollY);
-
-        mDelegate.scrollContainerViewTo(scrollX, scrollY);
+        mDelegate.scrollContainerViewTo(clampHorizontalScroll(scrollX), clampVerticalScroll(scrollY))
 
         // This is only necessary if the containerView scroll offset ends up being different
         // than the one set from native in which case we want the value stored on the native side
         // to reflect the value stored in the containerView (and not the other way around).
-        scrollNativeTo(mDelegate.getContainerViewScrollX(), mDelegate.getContainerViewScrollY());
+        scrollNativeTo(mDelegate.containerViewScrollX, mDelegate.containerViewScrollY)
     }
 
     // Called by the View system when the scroll offset had changed. This might not get called if
     // the embedder overrides WebView#onScrollChanged without calling super.onScrollChanged. If
     // this method does get called it is called both as a response to the embedder scrolling the
     // view as well as a response to mDelegate.scrollContainerViewTo.
-    public void onContainerViewScrollChanged(int x, int y) {
-        scrollNativeTo(x, y);
+    fun onContainerViewScrollChanged(x: Int, y: Int) {
+        scrollNativeTo(x, y)
     }
 
-    private void scrollNativeTo(int x, int y) {
-        x = clampHorizontalScroll(x);
-        y = clampVerticalScroll(y);
+    private fun scrollNativeTo(x: Int, y: Int) {
+        /** Origin name is x, y */
+        val correctX = clampHorizontalScroll(x)
+        val correctY = clampVerticalScroll(y)
 
         // We shouldn't do the store to native while processing a touch event since that confuses
         // the gesture processing logic.
         if (mProcessingTouchEvent) {
-            mDeferredNativeScrollX = x;
-            mDeferredNativeScrollY = y;
-            mApplyDeferredNativeScroll = true;
-            return;
+            mDeferredNativeScrollX = correctX
+            mDeferredNativeScrollY = correctY
+            mApplyDeferredNativeScroll = true
+            return
         }
-
-        if (x == mNativeScrollX && y == mNativeScrollY) return;
+        if (correctX == scrollX && correctY == scrollY) return
 
         // The scrollNativeTo call should be a simple store, so it's OK to assume it always
         // succeeds.
-        mNativeScrollX = x;
-        mNativeScrollY = y;
-
-        mDelegate.scrollNativeTo(x, y);
+        scrollX = correctX
+        scrollY = correctY
+        mDelegate.scrollNativeTo(correctX, correctY)
     }
 
-    int getScrollX() {
-        return mNativeScrollX;
-    }
-
-    int getScrollY() {
-        return mNativeScrollY;
-    }
-
-    private static int computeDurationInMilliSec(int dx, int dy) {
-        int distance = Math.max(Math.abs(dx), Math.abs(dy));
-        int duration = distance * 1000 / STD_SCROLL_ANIMATION_SPEED_PIX_PER_SEC;
-        return Math.min(duration, MAX_SCROLL_ANIMATION_DURATION_MILLISEC);
-    }
-
-    private boolean animateScrollTo(int x, int y) {
-        final int scrollX = mDelegate.getContainerViewScrollX();
-        final int scrollY = mDelegate.getContainerViewScrollY();
-
-        x = clampHorizontalScroll(x);
-        y = clampVerticalScroll(y);
-
-        int dx = x - scrollX;
-        int dy = y - scrollY;
-
-        if (dx == 0 && dy == 0) return false;
-
-        mDelegate.smoothScroll(scrollX + dx, scrollY + dy, computeDurationInMilliSec(dx, dy));
-        mDelegate.invalidate();
-
-        return true;
+    private fun animateScrollTo(x: Int, y: Int): Boolean {
+        val scrollX = mDelegate.containerViewScrollX
+        val scrollY = mDelegate.containerViewScrollY
+        val dx = clampHorizontalScroll(x) - scrollX
+        val dy = clampVerticalScroll(y) - scrollY
+        if (dx == 0 && dy == 0) return false
+        mDelegate.smoothScroll(
+            scrollX + dx,
+            scrollY + dy,
+            computeDurationInMilliSec(dx, dy).toLong()
+        )
+        mDelegate.invalidate()
+        return true
     }
 
     /**
-     * See {@link android.webkit.WebView#pageUp(boolean)}
+     * See [android.webkit.WebView.pageUp]
      */
-    public boolean pageUp(boolean top) {
-        final int scrollX = mDelegate.getContainerViewScrollX();
-        final int scrollY = mDelegate.getContainerViewScrollY();
-
+    fun pageUp(top: Boolean): Boolean {
+        val scrollX = mDelegate.containerViewScrollX
+        val scrollY = mDelegate.containerViewScrollY
         if (top) {
             // go to the top of the document
-            return animateScrollTo(scrollX, 0);
+            return animateScrollTo(scrollX, 0)
         }
-        int dy = -mContainerViewHeight / 2;
+        var dy = -mContainerViewHeight / 2
         if (mContainerViewHeight > 2 * PAGE_SCROLL_OVERLAP) {
-            dy = -mContainerViewHeight + PAGE_SCROLL_OVERLAP;
+            dy = -mContainerViewHeight + PAGE_SCROLL_OVERLAP
         }
         // animateScrollTo clamps the argument to the scrollable range so using (scrollY + dy) is
         // fine.
-        return animateScrollTo(scrollX, scrollY + dy);
+        return animateScrollTo(scrollX, scrollY + dy)
     }
 
     /**
-     * See {@link android.webkit.WebView#pageDown(boolean)}
+     * See [android.webkit.WebView.pageDown]
      */
-    public boolean pageDown(boolean bottom) {
-        final int scrollX = mDelegate.getContainerViewScrollX();
-        final int scrollY = mDelegate.getContainerViewScrollY();
-
+    fun pageDown(bottom: Boolean): Boolean {
+        val scrollX = mDelegate.containerViewScrollX
+        val scrollY = mDelegate.containerViewScrollY
         if (bottom) {
-            return animateScrollTo(scrollX, computeVerticalScrollRange());
+            return animateScrollTo(scrollX, computeVerticalScrollRange())
         }
-        int dy = mContainerViewHeight / 2;
+        var dy = mContainerViewHeight / 2
         if (mContainerViewHeight > 2 * PAGE_SCROLL_OVERLAP) {
-            dy = mContainerViewHeight - PAGE_SCROLL_OVERLAP;
+            dy = mContainerViewHeight - PAGE_SCROLL_OVERLAP
         }
         // animateScrollTo clamps the argument to the scrollable range so using (scrollY + dy) is
         // fine.
-        return animateScrollTo(scrollX, scrollY + dy);
+        return animateScrollTo(scrollX, scrollY + dy)
     }
 
     /**
-     * See {@link android.webkit.WebView#requestChildRectangleOnScreen(View, Rect, boolean)}
+     * See [android.webkit.WebView.requestChildRectangleOnScreen]
      */
-    public boolean requestChildRectangleOnScreen(int childOffsetX, int childOffsetY, Rect rect,
-            boolean immediate) {
+    fun requestChildRectangleOnScreen(
+        childOffsetX: Int, childOffsetY: Int, rect: Rect,
+        immediate: Boolean
+    ): Boolean {
         // TODO(mkosiba): WebViewClassic immediately returns false if a zoom animation is
         // in progress. We currently can't tell if one is happening.. should we instead cancel any
         // scroll animation when the size/pageScaleFactor changes?
 
         // TODO(mkosiba): Take scrollbar width into account in the screenRight/screenBotton
         // calculations. http://crbug.com/269032
-
-        final int scrollX = mDelegate.getContainerViewScrollX();
-        final int scrollY = mDelegate.getContainerViewScrollY();
-
-        rect.offset(childOffsetX, childOffsetY);
-
-        int screenTop = scrollY;
-        int screenBottom = scrollY + mContainerViewHeight;
-        int scrollYDelta = 0;
-
+        val scrollX = mDelegate.containerViewScrollX
+        val scrollY = mDelegate.containerViewScrollY
+        rect.offset(childOffsetX, childOffsetY)
+        val screenTop = scrollY
+        val screenBottom = scrollY + mContainerViewHeight
+        var scrollYDelta = 0
         if (rect.bottom > screenBottom) {
-            int oneThirdOfScreenHeight = mContainerViewHeight / 3;
-            if (rect.width() > 2 * oneThirdOfScreenHeight) {
+            val oneThirdOfScreenHeight = mContainerViewHeight / 3
+            scrollYDelta = if (rect.width() > 2 * oneThirdOfScreenHeight) {
                 // If the rectangle is too tall to fit in the bottom two thirds
                 // of the screen, place it at the top.
-                scrollYDelta = rect.top - screenTop;
+                rect.top - screenTop
             } else {
                 // If the rectangle will still fit on screen, we want its
                 // top to be in the top third of the screen.
-                scrollYDelta = rect.top - (screenTop + oneThirdOfScreenHeight);
+                rect.top - (screenTop + oneThirdOfScreenHeight)
             }
         } else if (rect.top < screenTop) {
-            scrollYDelta = rect.top - screenTop;
+            scrollYDelta = rect.top - screenTop
         }
-
-        int screenLeft = scrollX;
-        int screenRight = scrollX + mContainerViewWidth;
-        int scrollXDelta = 0;
-
+        val screenLeft = scrollX
+        val screenRight = scrollX + mContainerViewWidth
+        var scrollXDelta = 0
         if (rect.right > screenRight && rect.left > screenLeft) {
-            if (rect.width() > mContainerViewWidth) {
-                scrollXDelta += (rect.left - screenLeft);
+            scrollXDelta += if (rect.width() > mContainerViewWidth) {
+                rect.left - screenLeft
             } else {
-                scrollXDelta += (rect.right - screenRight);
+                rect.right - screenRight
             }
         } else if (rect.left < screenLeft) {
-            scrollXDelta -= (screenLeft - rect.left);
+            scrollXDelta -= screenLeft - rect.left
         }
-
         if (scrollYDelta == 0 && scrollXDelta == 0) {
-            return false;
+            return false
         }
-
-        if (immediate) {
-            scrollBy(scrollXDelta, scrollYDelta);
-            return true;
+        return if (immediate) {
+            scrollBy(scrollXDelta, scrollYDelta)
+            true
         } else {
-            return animateScrollTo(scrollX + scrollXDelta, scrollY + scrollYDelta);
+            animateScrollTo(scrollX + scrollXDelta, scrollY + scrollYDelta)
+        }
+    }
+
+    companion object {
+        // Values taken from WebViewClassic.
+        // The amount of content to overlap between two screens when using pageUp/pageDown methiods.
+        private const val PAGE_SCROLL_OVERLAP = 24
+
+        // Standard animated scroll speed.
+        private const val STD_SCROLL_ANIMATION_SPEED_PIX_PER_SEC = 480
+
+        // Time for the longest scroll animation.
+        private const val MAX_SCROLL_ANIMATION_DURATION_MILLISEC = 750
+        private fun computeDurationInMilliSec(dx: Int, dy: Int): Int {
+            val distance = max(abs(dx), abs(dy))
+            val duration = distance * 1000 / STD_SCROLL_ANIMATION_SPEED_PIX_PER_SEC
+            return min(duration, MAX_SCROLL_ANIMATION_DURATION_MILLISEC)
         }
     }
 }

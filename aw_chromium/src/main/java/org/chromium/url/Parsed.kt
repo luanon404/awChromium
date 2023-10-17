@@ -123,27 +123,28 @@ internal class Parsed @CalledByNative private constructor(/* package */
 
         /* package */
         fun deserialize(tokens: Array<String>, startIndex: Int): Parsed {
-            var startIndex = startIndex
-            val schemeBegin = tokens[startIndex++].toInt()
-            val schemeLength = tokens[startIndex++].toInt()
-            val usernameBegin = tokens[startIndex++].toInt()
-            val usernameLength = tokens[startIndex++].toInt()
-            val passwordBegin = tokens[startIndex++].toInt()
-            val passwordLength = tokens[startIndex++].toInt()
-            val hostBegin = tokens[startIndex++].toInt()
-            val hostLength = tokens[startIndex++].toInt()
-            val portBegin = tokens[startIndex++].toInt()
-            val portLength = tokens[startIndex++].toInt()
-            val pathBegin = tokens[startIndex++].toInt()
-            val pathLength = tokens[startIndex++].toInt()
-            val queryBegin = tokens[startIndex++].toInt()
-            val queryLength = tokens[startIndex++].toInt()
-            val refBegin = tokens[startIndex++].toInt()
-            val refLength = tokens[startIndex++].toInt()
-            val potentiallyDanglingMarkup = java.lang.Boolean.parseBoolean(tokens[startIndex++])
+            /** Origin name is startIndex */
+            var startIndexIncrease = startIndex
+            val schemeBegin = tokens[startIndexIncrease++].toInt()
+            val schemeLength = tokens[startIndexIncrease++].toInt()
+            val usernameBegin = tokens[startIndexIncrease++].toInt()
+            val usernameLength = tokens[startIndexIncrease++].toInt()
+            val passwordBegin = tokens[startIndexIncrease++].toInt()
+            val passwordLength = tokens[startIndexIncrease++].toInt()
+            val hostBegin = tokens[startIndexIncrease++].toInt()
+            val hostLength = tokens[startIndexIncrease++].toInt()
+            val portBegin = tokens[startIndexIncrease++].toInt()
+            val portLength = tokens[startIndexIncrease++].toInt()
+            val pathBegin = tokens[startIndexIncrease++].toInt()
+            val pathLength = tokens[startIndexIncrease++].toInt()
+            val queryBegin = tokens[startIndexIncrease++].toInt()
+            val queryLength = tokens[startIndexIncrease++].toInt()
+            val refBegin = tokens[startIndexIncrease++].toInt()
+            val refLength = tokens[startIndexIncrease++].toInt()
+            val potentiallyDanglingMarkup = java.lang.Boolean.parseBoolean(tokens[startIndexIncrease++])
             var innerParsed: Parsed? = null
-            if (java.lang.Boolean.parseBoolean(tokens[startIndex++])) {
-                innerParsed = deserialize(tokens, startIndex)
+            if (java.lang.Boolean.parseBoolean(tokens[startIndexIncrease++])) {
+                innerParsed = deserialize(tokens, startIndexIncrease)
             }
             return Parsed(
                 schemeBegin,

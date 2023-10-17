@@ -1,20 +1,22 @@
 // Copyright 2013 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+package org.chromium.android_webview
 
-package org.chromium.android_webview;
-
-import android.graphics.Picture;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
-import android.os.SystemClock;
-
-import org.chromium.android_webview.safe_browsing.AwSafeBrowsingResponse;
-import org.chromium.base.Callback;
-import org.chromium.components.embedder_support.util.WebResourceResponseInfo;
-
-import java.util.concurrent.Callable;
+import android.graphics.Picture
+import android.os.Build
+import android.os.Handler
+import android.os.Looper
+import android.os.Message
+import android.os.SystemClock
+import androidx.annotation.RequiresApi
+import org.chromium.android_webview.AwContentsClient.AwWebResourceError
+import org.chromium.android_webview.AwContentsClient.AwWebResourceRequest
+import org.chromium.android_webview.safe_browsing.AwSafeBrowsingResponse
+import org.chromium.base.Callback
+import org.chromium.components.embedder_support.util.WebResourceResponseInfo
+import java.util.concurrent.Callable
+import kotlin.math.max
 
 /**
  * This class is responsible for calling certain client callbacks on the UI thread.
@@ -22,336 +24,296 @@ import java.util.concurrent.Callable;
  * Most callbacks do no go through here, but get forwarded to AwContentsClient directly. The
  * messages processed here may originate from the IO or UI thread.
  */
-public class AwContentsClientCallbackHelper {
+class AwContentsClientCallbackHelper(looper: Looper, contentsClient: AwContentsClient) {
     /**
      * Interface to tell CallbackHelper to cancel posted callbacks.
      */
-    public interface CancelCallbackPoller { boolean shouldCancelAllCallbacks(); }
+    interface CancelCallbackPoller {
+        fun shouldCancelAllCallbacks(): Boolean
+    }
 
     // TODO(boliu): Consider removing DownloadInfo and LoginRequestInfo by using native
     // MessageLoop to post directly to AwContents.
+    private class DownloadInfo(
+        val mUrl: String,
+        val mUserAgent: String,
+        val mContentDisposition: String,
+        val mMimeType: String,
+        val mContentLength: Long
+    )
 
-    private static class DownloadInfo {
-        final String mUrl;
-        final String mUserAgent;
-        final String mContentDisposition;
-        final String mMimeType;
-        final long mContentLength;
+    private class LoginRequestInfo(
+        val mRealm: String,
+        val mAccount: String,
+        val mArgs: String
+    )
 
-        DownloadInfo(String url,
-                     String userAgent,
-                     String contentDisposition,
-                     String mimeType,
-                     long contentLength) {
-            mUrl = url;
-            mUserAgent = userAgent;
-            mContentDisposition = contentDisposition;
-            mMimeType = mimeType;
-            mContentLength = contentLength;
-        }
-    }
+    private class OnReceivedErrorInfo(
+        val mRequest: AwWebResourceRequest,
+        val mError: AwWebResourceError
+    )
 
-    private static class LoginRequestInfo {
-        final String mRealm;
-        final String mAccount;
-        final String mArgs;
+    private class OnSafeBrowsingHitInfo(
+        val mRequest: AwWebResourceRequest, val mThreatType: Int,
+        val mCallback: Callback<AwSafeBrowsingResponse?>
+    )
 
-        LoginRequestInfo(String realm, String account, String args) {
-            mRealm = realm;
-            mAccount = account;
-            mArgs = args;
-        }
-    }
+    private class OnReceivedHttpErrorInfo(
+        val mRequest: AwWebResourceRequest, val mResponse: WebResourceResponseInfo
+    )
 
-    private static class OnReceivedErrorInfo {
-        final AwContentsClient.AwWebResourceRequest mRequest;
-        final AwContentsClient.AwWebResourceError mError;
+    private class DoUpdateVisitedHistoryInfo(
+        val mUrl: String,
+        val mIsReload: Boolean
+    )
 
-        OnReceivedErrorInfo(AwContentsClient.AwWebResourceRequest request,
-                AwContentsClient.AwWebResourceError error) {
-            mRequest = request;
-            mError = error;
-        }
-    }
+    private class OnFormResubmissionInfo(
+        val mDontResend: Message,
+        val mResend: Message
+    )
 
-    private static class OnSafeBrowsingHitInfo {
-        final AwContentsClient.AwWebResourceRequest mRequest;
-        final int mThreatType;
-        final Callback<AwSafeBrowsingResponse> mCallback;
-
-        OnSafeBrowsingHitInfo(AwContentsClient.AwWebResourceRequest request, int threatType,
-                Callback<AwSafeBrowsingResponse> callback) {
-            mRequest = request;
-            mThreatType = threatType;
-            mCallback = callback;
-        }
-    }
-
-    private static class OnReceivedHttpErrorInfo {
-        final AwContentsClient.AwWebResourceRequest mRequest;
-        final WebResourceResponseInfo mResponse;
-
-        OnReceivedHttpErrorInfo(
-                AwContentsClient.AwWebResourceRequest request, WebResourceResponseInfo response) {
-            mRequest = request;
-            mResponse = response;
-        }
-    }
-
-    private static class DoUpdateVisitedHistoryInfo {
-        final String mUrl;
-        final boolean mIsReload;
-
-        DoUpdateVisitedHistoryInfo(String url, boolean isReload) {
-            mUrl = url;
-            mIsReload = isReload;
-        }
-    }
-
-    private static class OnFormResubmissionInfo {
-        final Message mDontResend;
-        final Message mResend;
-
-        OnFormResubmissionInfo(Message dontResend, Message resend) {
-            mDontResend = dontResend;
-            mResend = resend;
-        }
-    }
-
-    private static final int MSG_ON_LOAD_RESOURCE = 1;
-    private static final int MSG_ON_PAGE_STARTED = 2;
-    private static final int MSG_ON_DOWNLOAD_START = 3;
-    private static final int MSG_ON_RECEIVED_LOGIN_REQUEST = 4;
-    private static final int MSG_ON_RECEIVED_ERROR = 5;
-    private static final int MSG_ON_NEW_PICTURE = 6;
-    private static final int MSG_ON_SCALE_CHANGED_SCALED = 7;
-    private static final int MSG_ON_RECEIVED_HTTP_ERROR = 8;
-    private static final int MSG_ON_PAGE_FINISHED = 9;
-    private static final int MSG_ON_RECEIVED_TITLE = 10;
-    private static final int MSG_ON_PROGRESS_CHANGED = 11;
-    private static final int MSG_SYNTHESIZE_PAGE_LOADING = 12;
-    private static final int MSG_DO_UPDATE_VISITED_HISTORY = 13;
-    private static final int MSG_ON_FORM_RESUBMISSION = 14;
-    private static final int MSG_ON_SAFE_BROWSING_HIT = 15;
-
-    // Minimum period allowed between consecutive onNewPicture calls, to rate-limit the callbacks.
-    private static final long ON_NEW_PICTURE_MIN_PERIOD_MILLIS = 500;
     // Timestamp of the most recent onNewPicture callback.
-    private long mLastPictureTime;
+    private var mLastPictureTime: Long = 0
+
     // True when a onNewPicture callback is currenly in flight.
-    private boolean mHasPendingOnNewPicture;
-
-    private final AwContentsClient mContentsClient;
-
-    private final Handler mHandler;
-
-    private CancelCallbackPoller mCancelCallbackPoller;
-
-    private class MyHandler extends Handler {
-        private MyHandler(Looper looper) {
-            super(looper);
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            if (mCancelCallbackPoller != null && mCancelCallbackPoller.shouldCancelAllCallbacks()) {
-                removeCallbacksAndMessages(null);
-                return;
-            }
-
-            switch(msg.what) {
-                case MSG_ON_LOAD_RESOURCE: {
-                    final String url = (String) msg.obj;
-                    mContentsClient.onLoadResource(url);
-                    break;
-                }
-                case MSG_ON_PAGE_STARTED: {
-                    final String url = (String) msg.obj;
-                    mContentsClient.onPageStarted(url);
-                    break;
-                }
-                case MSG_ON_DOWNLOAD_START: {
-                    DownloadInfo info = (DownloadInfo) msg.obj;
-                    mContentsClient.onDownloadStart(info.mUrl, info.mUserAgent,
-                            info.mContentDisposition, info.mMimeType, info.mContentLength);
-                    break;
-                }
-                case MSG_ON_RECEIVED_LOGIN_REQUEST: {
-                    LoginRequestInfo info = (LoginRequestInfo) msg.obj;
-                    mContentsClient.onReceivedLoginRequest(info.mRealm, info.mAccount, info.mArgs);
-                    break;
-                }
-                case MSG_ON_RECEIVED_ERROR: {
-                    OnReceivedErrorInfo info = (OnReceivedErrorInfo) msg.obj;
-                    mContentsClient.onReceivedError(info.mRequest, info.mError);
-                    break;
-                }
-                case MSG_ON_SAFE_BROWSING_HIT: {
-                    OnSafeBrowsingHitInfo info = (OnSafeBrowsingHitInfo) msg.obj;
-                    mContentsClient.onSafeBrowsingHit(
-                            info.mRequest, info.mThreatType, info.mCallback);
-                    break;
-                }
-                case MSG_ON_NEW_PICTURE: {
-                    Picture picture = null;
-                    try {
-                        if (msg.obj != null) picture = (Picture) ((Callable<?>) msg.obj).call();
-                    } catch (Exception e) {
-                        throw new RuntimeException("Error getting picture", e);
-                    }
-                    mContentsClient.onNewPicture(picture);
-                    mLastPictureTime = SystemClock.uptimeMillis();
-                    mHasPendingOnNewPicture = false;
-                    break;
-                }
-                case MSG_ON_SCALE_CHANGED_SCALED: {
-                    float oldScale = Float.intBitsToFloat(msg.arg1);
-                    float newScale = Float.intBitsToFloat(msg.arg2);
-                    mContentsClient.onScaleChangedScaled(oldScale, newScale);
-                    break;
-                }
-                case MSG_ON_RECEIVED_HTTP_ERROR: {
-                    OnReceivedHttpErrorInfo info = (OnReceivedHttpErrorInfo) msg.obj;
-                    mContentsClient.onReceivedHttpError(info.mRequest, info.mResponse);
-                    break;
-                }
-                case MSG_ON_PAGE_FINISHED: {
-                    final String url = (String) msg.obj;
-                    mContentsClient.onPageFinished(url);
-                    break;
-                }
-                case MSG_ON_RECEIVED_TITLE: {
-                    final String title = (String) msg.obj;
-                    mContentsClient.onReceivedTitle(title);
-                    break;
-                }
-                case MSG_ON_PROGRESS_CHANGED: {
-                    mContentsClient.onProgressChanged(msg.arg1);
-                    break;
-                }
-                case MSG_SYNTHESIZE_PAGE_LOADING: {
-                    final String url = (String) msg.obj;
-                    mContentsClient.onPageStarted(url);
-                    mContentsClient.onLoadResource(url);
-                    mContentsClient.onProgressChanged(100);
-                    mContentsClient.onPageFinished(url);
-                    break;
-                }
-                case MSG_DO_UPDATE_VISITED_HISTORY: {
-                    final DoUpdateVisitedHistoryInfo info = (DoUpdateVisitedHistoryInfo) msg.obj;
-                    mContentsClient.doUpdateVisitedHistory(info.mUrl, info.mIsReload);
-                    break;
-                }
-                case MSG_ON_FORM_RESUBMISSION: {
-                    final OnFormResubmissionInfo info = (OnFormResubmissionInfo) msg.obj;
-                    mContentsClient.onFormResubmission(info.mDontResend, info.mResend);
-                    break;
-                }
-                default:
-                    throw new IllegalStateException(
-                            "AwContentsClientCallbackHelper: unhandled message " + msg.what);
-            }
-        }
-    }
-
-    public AwContentsClientCallbackHelper(Looper looper, AwContentsClient contentsClient) {
-        mHandler = new MyHandler(looper);
-        mContentsClient = contentsClient;
-    }
+    private var mHasPendingOnNewPicture = false
+    private val mContentsClient: AwContentsClient
+    private val mHandler: Handler
 
     // Public for tests.
-    public void setCancelCallbackPoller(CancelCallbackPoller poller) {
-        mCancelCallbackPoller = poller;
+    var cancelCallbackPoller: CancelCallbackPoller? = null
+
+    private inner class MyHandler(looper: Looper) : Handler(looper) {
+        @RequiresApi(Build.VERSION_CODES.O)
+        override fun handleMessage(msg: Message) {
+            if (cancelCallbackPoller != null && cancelCallbackPoller!!.shouldCancelAllCallbacks()) {
+                removeCallbacksAndMessages(null)
+                return
+            }
+            when (msg.what) {
+                MSG_ON_LOAD_RESOURCE -> {
+                    val url = msg.obj as String
+                    mContentsClient.onLoadResource(url)
+                }
+
+                MSG_ON_PAGE_STARTED -> {
+                    val url = msg.obj as String
+                    mContentsClient.onPageStarted(url)
+                }
+
+                MSG_ON_DOWNLOAD_START -> {
+                    val info = msg.obj as DownloadInfo
+                    mContentsClient.onDownloadStart(
+                        info.mUrl, info.mUserAgent,
+                        info.mContentDisposition, info.mMimeType, info.mContentLength
+                    )
+                }
+
+                MSG_ON_RECEIVED_LOGIN_REQUEST -> {
+                    val info = msg.obj as LoginRequestInfo
+                    mContentsClient.onReceivedLoginRequest(info.mRealm, info.mAccount, info.mArgs)
+                }
+
+                MSG_ON_RECEIVED_ERROR -> {
+                    val info = msg.obj as OnReceivedErrorInfo
+                    mContentsClient.onReceivedError(info.mRequest, info.mError)
+                }
+
+                MSG_ON_SAFE_BROWSING_HIT -> {
+                    val info = msg.obj as OnSafeBrowsingHitInfo
+                    mContentsClient.onSafeBrowsingHit(
+                        info.mRequest, info.mThreatType, info.mCallback
+                    )
+                }
+
+                MSG_ON_NEW_PICTURE -> {
+                    var picture: Picture? = null
+                    try {
+                        if (msg.obj != null) picture = (msg.obj as Callable<*>).call() as Picture
+                    } catch (e: Exception) {
+                        throw RuntimeException("Error getting picture", e)
+                    }
+                    mContentsClient.onNewPicture(picture)
+                    mLastPictureTime = SystemClock.uptimeMillis()
+                    mHasPendingOnNewPicture = false
+                }
+
+                MSG_ON_SCALE_CHANGED_SCALED -> {
+                    val oldScale = java.lang.Float.intBitsToFloat(msg.arg1)
+                    val newScale = java.lang.Float.intBitsToFloat(msg.arg2)
+                    mContentsClient.onScaleChangedScaled(oldScale, newScale)
+                }
+
+                MSG_ON_RECEIVED_HTTP_ERROR -> {
+                    val info = msg.obj as OnReceivedHttpErrorInfo
+                    mContentsClient.onReceivedHttpError(info.mRequest, info.mResponse)
+                }
+
+                MSG_ON_PAGE_FINISHED -> {
+                    val url = msg.obj as String
+                    mContentsClient.onPageFinished(url)
+                }
+
+                MSG_ON_RECEIVED_TITLE -> {
+                    val title = msg.obj as String
+                    mContentsClient.onReceivedTitle(title)
+                }
+
+                MSG_ON_PROGRESS_CHANGED -> {
+                    mContentsClient.onProgressChanged(msg.arg1)
+                }
+
+                MSG_SYNTHESIZE_PAGE_LOADING -> {
+                    val url = msg.obj as String
+                    mContentsClient.onPageStarted(url)
+                    mContentsClient.onLoadResource(url)
+                    mContentsClient.onProgressChanged(100)
+                    mContentsClient.onPageFinished(url)
+                }
+
+                MSG_DO_UPDATE_VISITED_HISTORY -> {
+                    val info = msg.obj as DoUpdateVisitedHistoryInfo
+                    mContentsClient.doUpdateVisitedHistory(info.mUrl, info.mIsReload)
+                }
+
+                MSG_ON_FORM_RESUBMISSION -> {
+                    val info = msg.obj as OnFormResubmissionInfo
+                    mContentsClient.onFormResubmission(info.mDontResend, info.mResend)
+                }
+
+                else -> throw IllegalStateException(
+                    "AwContentsClientCallbackHelper: unhandled message " + msg.what
+                )
+            }
+        }
     }
 
-    CancelCallbackPoller getCancelCallbackPoller() {
-        return mCancelCallbackPoller;
+    init {
+        mHandler = MyHandler(looper)
+        mContentsClient = contentsClient
     }
 
-    public void postOnLoadResource(String url) {
-        mHandler.sendMessage(mHandler.obtainMessage(MSG_ON_LOAD_RESOURCE, url));
+    fun postOnLoadResource(url: String?) {
+        mHandler.sendMessage(mHandler.obtainMessage(MSG_ON_LOAD_RESOURCE, url))
     }
 
-    public void postOnPageStarted(String url) {
-        mHandler.sendMessage(mHandler.obtainMessage(MSG_ON_PAGE_STARTED, url));
+    fun postOnPageStarted(url: String?) {
+        mHandler.sendMessage(mHandler.obtainMessage(MSG_ON_PAGE_STARTED, url))
     }
 
-    public void postOnDownloadStart(String url, String userAgent, String contentDisposition,
-            String mimeType, long contentLength) {
-        DownloadInfo info = new DownloadInfo(url, userAgent, contentDisposition, mimeType,
-                contentLength);
-        mHandler.sendMessage(mHandler.obtainMessage(MSG_ON_DOWNLOAD_START, info));
+    fun postOnDownloadStart(
+        url: String, userAgent: String, contentDisposition: String,
+        mimeType: String, contentLength: Long
+    ) {
+        val info = DownloadInfo(
+            url, userAgent, contentDisposition, mimeType,
+            contentLength
+        )
+        mHandler.sendMessage(mHandler.obtainMessage(MSG_ON_DOWNLOAD_START, info))
     }
 
-    public void postOnReceivedLoginRequest(String realm, String account, String args) {
-        LoginRequestInfo info = new LoginRequestInfo(realm, account, args);
-        mHandler.sendMessage(mHandler.obtainMessage(MSG_ON_RECEIVED_LOGIN_REQUEST, info));
+    fun postOnReceivedLoginRequest(realm: String, account: String, args: String) {
+        val info = LoginRequestInfo(realm, account, args)
+        mHandler.sendMessage(mHandler.obtainMessage(MSG_ON_RECEIVED_LOGIN_REQUEST, info))
     }
 
-    public void postOnReceivedError(AwContentsClient.AwWebResourceRequest request,
-            AwContentsClient.AwWebResourceError error) {
-        OnReceivedErrorInfo info = new OnReceivedErrorInfo(request, error);
-        mHandler.sendMessage(mHandler.obtainMessage(MSG_ON_RECEIVED_ERROR, info));
+    fun postOnReceivedError(
+        request: AwWebResourceRequest,
+        error: AwWebResourceError
+    ) {
+        val info = OnReceivedErrorInfo(request, error)
+        mHandler.sendMessage(mHandler.obtainMessage(MSG_ON_RECEIVED_ERROR, info))
     }
 
-    public void postOnSafeBrowsingHit(AwContentsClient.AwWebResourceRequest request, int threatType,
-            Callback<AwSafeBrowsingResponse> callback) {
-        OnSafeBrowsingHitInfo info = new OnSafeBrowsingHitInfo(request, threatType, callback);
-        mHandler.sendMessage(mHandler.obtainMessage(MSG_ON_SAFE_BROWSING_HIT, info));
+    fun postOnSafeBrowsingHit(
+        request: AwWebResourceRequest, threatType: Int,
+        callback: Callback<AwSafeBrowsingResponse?>
+    ) {
+        val info = OnSafeBrowsingHitInfo(request, threatType, callback)
+        mHandler.sendMessage(mHandler.obtainMessage(MSG_ON_SAFE_BROWSING_HIT, info))
     }
 
-    public void postOnNewPicture(Callable<Picture> pictureProvider) {
-        if (mHasPendingOnNewPicture) return;
-        mHasPendingOnNewPicture = true;
-        long pictureTime = java.lang.Math.max(mLastPictureTime + ON_NEW_PICTURE_MIN_PERIOD_MILLIS,
-                SystemClock.uptimeMillis());
-        mHandler.sendMessageAtTime(mHandler.obtainMessage(MSG_ON_NEW_PICTURE, pictureProvider),
-                pictureTime);
+    fun postOnNewPicture(pictureProvider: Callable<Picture?>?) {
+        if (mHasPendingOnNewPicture) return
+        mHasPendingOnNewPicture = true
+        val pictureTime = max(
+            mLastPictureTime + ON_NEW_PICTURE_MIN_PERIOD_MILLIS,
+            SystemClock.uptimeMillis()
+        )
+        mHandler.sendMessageAtTime(
+            mHandler.obtainMessage(MSG_ON_NEW_PICTURE, pictureProvider),
+            pictureTime
+        )
     }
 
-    public void postOnScaleChangedScaled(float oldScale, float newScale) {
+    fun postOnScaleChangedScaled(oldScale: Float, newScale: Float) {
         // The float->int->float conversion here is to avoid unnecessary allocations. The
         // documentation states that intBitsToFloat(floatToIntBits(a)) == a for all values of a
         // (except for NaNs which are collapsed to a single canonical NaN, but we don't care for
         // that case).
-        mHandler.sendMessage(mHandler.obtainMessage(MSG_ON_SCALE_CHANGED_SCALED,
-                    Float.floatToIntBits(oldScale), Float.floatToIntBits(newScale)));
+        mHandler.sendMessage(
+            mHandler.obtainMessage(
+                MSG_ON_SCALE_CHANGED_SCALED,
+                java.lang.Float.floatToIntBits(oldScale), java.lang.Float.floatToIntBits(newScale)
+            )
+        )
     }
 
-    public void postOnReceivedHttpError(
-            AwContentsClient.AwWebResourceRequest request, WebResourceResponseInfo response) {
-        OnReceivedHttpErrorInfo info =
-                new OnReceivedHttpErrorInfo(request, response);
-        mHandler.sendMessage(mHandler.obtainMessage(MSG_ON_RECEIVED_HTTP_ERROR, info));
+    fun postOnReceivedHttpError(
+        request: AwWebResourceRequest, response: WebResourceResponseInfo
+    ) {
+        val info = OnReceivedHttpErrorInfo(request, response)
+        mHandler.sendMessage(mHandler.obtainMessage(MSG_ON_RECEIVED_HTTP_ERROR, info))
     }
 
-    public void postOnPageFinished(String url) {
-        mHandler.sendMessage(mHandler.obtainMessage(MSG_ON_PAGE_FINISHED, url));
+    fun postOnPageFinished(url: String?) {
+        mHandler.sendMessage(mHandler.obtainMessage(MSG_ON_PAGE_FINISHED, url))
     }
 
-    public void postOnReceivedTitle(String title) {
-        mHandler.sendMessage(mHandler.obtainMessage(MSG_ON_RECEIVED_TITLE, title));
+    fun postOnReceivedTitle(title: String?) {
+        mHandler.sendMessage(mHandler.obtainMessage(MSG_ON_RECEIVED_TITLE, title))
     }
 
-    public void postOnProgressChanged(int progress) {
-        mHandler.sendMessage(mHandler.obtainMessage(MSG_ON_PROGRESS_CHANGED, progress, 0));
+    fun postOnProgressChanged(progress: Int) {
+        mHandler.sendMessage(mHandler.obtainMessage(MSG_ON_PROGRESS_CHANGED, progress, 0))
     }
 
-    public void postSynthesizedPageLoadingForUrlBarUpdate(String url) {
-        mHandler.sendMessage(mHandler.obtainMessage(MSG_SYNTHESIZE_PAGE_LOADING, url));
+    fun postSynthesizedPageLoadingForUrlBarUpdate(url: String?) {
+        mHandler.sendMessage(mHandler.obtainMessage(MSG_SYNTHESIZE_PAGE_LOADING, url))
     }
 
-    public void postDoUpdateVisitedHistory(String url, boolean isReload) {
-        DoUpdateVisitedHistoryInfo info = new DoUpdateVisitedHistoryInfo(url, isReload);
-        mHandler.sendMessage(mHandler.obtainMessage(MSG_DO_UPDATE_VISITED_HISTORY, info));
+    fun postDoUpdateVisitedHistory(url: String, isReload: Boolean) {
+        val info = DoUpdateVisitedHistoryInfo(url, isReload)
+        mHandler.sendMessage(mHandler.obtainMessage(MSG_DO_UPDATE_VISITED_HISTORY, info))
     }
 
-    public void postOnFormResubmission(Message dontResend, Message resend) {
-        OnFormResubmissionInfo info = new OnFormResubmissionInfo(dontResend, resend);
-        mHandler.sendMessage(mHandler.obtainMessage(MSG_ON_FORM_RESUBMISSION, info));
+    fun postOnFormResubmission(dontResend: Message, resend: Message) {
+        val info = OnFormResubmissionInfo(dontResend, resend)
+        mHandler.sendMessage(mHandler.obtainMessage(MSG_ON_FORM_RESUBMISSION, info))
     }
 
-    void removeCallbacksAndMessages() {
-        mHandler.removeCallbacksAndMessages(null);
+    fun removeCallbacksAndMessages() {
+        mHandler.removeCallbacksAndMessages(null)
+    }
+
+    companion object {
+        private const val MSG_ON_LOAD_RESOURCE = 1
+        private const val MSG_ON_PAGE_STARTED = 2
+        private const val MSG_ON_DOWNLOAD_START = 3
+        private const val MSG_ON_RECEIVED_LOGIN_REQUEST = 4
+        private const val MSG_ON_RECEIVED_ERROR = 5
+        private const val MSG_ON_NEW_PICTURE = 6
+        private const val MSG_ON_SCALE_CHANGED_SCALED = 7
+        private const val MSG_ON_RECEIVED_HTTP_ERROR = 8
+        private const val MSG_ON_PAGE_FINISHED = 9
+        private const val MSG_ON_RECEIVED_TITLE = 10
+        private const val MSG_ON_PROGRESS_CHANGED = 11
+        private const val MSG_SYNTHESIZE_PAGE_LOADING = 12
+        private const val MSG_DO_UPDATE_VISITED_HISTORY = 13
+        private const val MSG_ON_FORM_RESUBMISSION = 14
+        private const val MSG_ON_SAFE_BROWSING_HIT = 15
+
+        // Minimum period allowed between consecutive onNewPicture calls, to rate-limit the callbacks.
+        private const val ON_NEW_PICTURE_MIN_PERIOD_MILLIS: Long = 500
     }
 }

@@ -1,110 +1,86 @@
 // Copyright 2013 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+package org.chromium.android_webview
 
-package org.chromium.android_webview;
-
-import android.view.View;
-import android.view.ViewTreeObserver;
-
-import java.util.ArrayList;
+import android.view.View
+import android.view.ViewTreeObserver
 
 /**
  * Used to register listeners that can be notified of changes to the position of a view.
+ * @param mView The view to observe.
  */
-public class ViewPositionObserver {
+class ViewPositionObserver(private val mView: View) {
     /**
      * Called during predraw if the position of the underlying view has changed.
      */
-    public interface Listener { void onPositionChanged(int positionX, int positionY); }
+    interface Listener {
+        fun onPositionChanged(positionX: Int, positionY: Int)
+    }
 
-    private final View mView;
     // Absolute position of the container view relative to its parent window.
-    private final int[] mPosition = new int[2];
+    private val mPosition = IntArray(2)
+    private val mListeners: ArrayList<Listener> = ArrayList()
+    private val mPreDrawListener: ViewTreeObserver.OnPreDrawListener
 
-    private final ArrayList<Listener> mListeners;
-    private final ViewTreeObserver.OnPreDrawListener mPreDrawListener;
-
-    /**
-     * @param view The view to observe.
-     */
-    public ViewPositionObserver(View view) {
-        mView = view;
-        mListeners = new ArrayList<Listener>();
-        updatePosition();
-        mPreDrawListener = new ViewTreeObserver.OnPreDrawListener() {
-            @Override
-            public boolean onPreDraw() {
-                updatePosition();
-                return true;
-            }
-        };
+    init {
+        updatePosition()
+        mPreDrawListener = ViewTreeObserver.OnPreDrawListener {
+            updatePosition()
+            true
+        }
     }
 
-    /**
-     * @return The current x position of the observed view.
-     */
-    public int getPositionX() {
-        // The stored position may be out-of-date. Get the real current position.
-        updatePosition();
-        return mPosition[0];
-    }
-
-    /**
-     * @return The current y position of the observed view.
-     */
-    public int getPositionY() {
-        // The stored position may be out-of-date. Get the real current position.
-        updatePosition();
-        return mPosition[1];
-    }
+    val positionX: Int
+        /**
+         * @return The current x position of the observed view.
+         */
+        get() {
+            // The stored position may be out-of-date. Get the real current position.
+            updatePosition()
+            return mPosition[0]
+        }
+    val positionY: Int
+        /**
+         * @return The current y position of the observed view.
+         */
+        get() {
+            // The stored position may be out-of-date. Get the real current position.
+            updatePosition()
+            return mPosition[1]
+        }
 
     /**
      * Register a listener to be called when the position of the underlying view changes.
      */
-    public void addListener(Listener listener) {
-        if (mListeners.contains(listener)) return;
-
+    fun addListener(listener: Listener) {
+        if (mListeners.contains(listener)) return
         if (mListeners.isEmpty()) {
-            mView.getViewTreeObserver().addOnPreDrawListener(mPreDrawListener);
-            updatePosition();
+            mView.viewTreeObserver.addOnPreDrawListener(mPreDrawListener)
+            updatePosition()
         }
-
-        mListeners.add(listener);
+        mListeners.add(listener)
     }
 
-    /**
-     * Remove a previously installed listener.
-     */
-    public void removeListener(Listener listener) {
-        if (!mListeners.contains(listener)) return;
-
-        mListeners.remove(listener);
-
-        if (mListeners.isEmpty()) {
-            mView.getViewTreeObserver().removeOnPreDrawListener(mPreDrawListener);
+    private fun notifyListeners() {
+        for (i in mListeners.indices) {
+            mListeners[i].onPositionChanged(mPosition[0], mPosition[1])
         }
     }
 
-    private void notifyListeners() {
-        for (int i = 0; i < mListeners.size(); i++) {
-            mListeners.get(i).onPositionChanged(mPosition[0], mPosition[1]);
-        }
-    }
-
-    private void updatePosition() {
-        int previousPositionX = mPosition[0];
-        int previousPositionY = mPosition[1];
-        mView.getLocationInWindow(mPosition);
+    private fun updatePosition() {
+        val previousPositionX = mPosition[0]
+        val previousPositionY = mPosition[1]
+        mView.getLocationInWindow(mPosition)
         if (mPosition[0] != previousPositionX || mPosition[1] != previousPositionY) {
-            notifyListeners();
+            notifyListeners()
         }
     }
 
     /**
      * Clears installed listener(s).
      */
-    public void clearListener() {
-        mListeners.clear();
+    fun clearListener() {
+        mListeners.clear()
     }
 }

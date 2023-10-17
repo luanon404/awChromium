@@ -1,13 +1,12 @@
 // Copyright 2013 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+package org.chromium.android_webview
 
-package org.chromium.android_webview;
-
-import android.os.Handler;
-import android.os.Message;
-import android.view.View;
-import android.view.accessibility.AccessibilityEvent;
+import android.os.Handler
+import android.os.Message
+import android.view.View
+import android.view.accessibility.AccessibilityEvent
 
 /**
  * Helper used to post the VIEW_SCROLLED accessibility event.
@@ -16,60 +15,55 @@ import android.view.accessibility.AccessibilityEvent;
  * TODO(mkosiba): We currently don't handle JS-initiated scrolling for layers other than the root
  * layer.
  */
-class ScrollAccessibilityHelper {
-    // This is copied straight out of android.view.ViewConfiguration.
-    private static final long SEND_RECURRING_ACCESSIBILITY_EVENTS_INTERVAL_MILLIS = 100;
+internal class ScrollAccessibilityHelper(eventSender: View) {
 
-    private class HandlerCallback implements Handler.Callback {
-        public static final int MSG_VIEW_SCROLLED = 1;
+    private val mHandler: Handler
+    private var mMsgViewScrolledQueued = false
 
-        private final View mEventSender;
-
-        public HandlerCallback(View eventSender) {
-            mEventSender = eventSender;
-        }
-
-        @Override
-        public boolean handleMessage(Message msg) {
-            if (msg.what == MSG_VIEW_SCROLLED) {
-                mMsgViewScrolledQueued = false;
-                mEventSender.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_SCROLLED);
-            } else {
-                throw new IllegalStateException(
-                        "AccessibilityInjector: unhandled message: " + msg.what);
-            }
-            return true;
-        }
-    }
-
-    private final Handler mHandler;
-    private boolean mMsgViewScrolledQueued;
-
-    public ScrollAccessibilityHelper(View eventSender) {
-        mHandler = new Handler(new HandlerCallback(eventSender));
+    init {
+        mHandler = Handler(HandlerCallback(eventSender))
     }
 
     /**
-     * Post a callback to send a {@link AccessibilityEvent#TYPE_VIEW_SCROLLED} event.
+     * Post a callback to send a [AccessibilityEvent.TYPE_VIEW_SCROLLED] event.
      * This event is sent at most once every
-     * {@link android.view.ViewConfiguration#getSendRecurringAccessibilityEventsInterval()}
+     * [android.view.ViewConfiguration.getSendRecurringAccessibilityEventsInterval]
      */
-    public void postViewScrolledAccessibilityEventCallback() {
-        if (mMsgViewScrolledQueued) return;
-        mMsgViewScrolledQueued = true;
-
-        Message msg = mHandler.obtainMessage(HandlerCallback.MSG_VIEW_SCROLLED);
-        mHandler.sendMessageDelayed(msg, SEND_RECURRING_ACCESSIBILITY_EVENTS_INTERVAL_MILLIS);
+    fun postViewScrolledAccessibilityEventCallback() {
+        if (mMsgViewScrolledQueued) return
+        mMsgViewScrolledQueued = true
+        val msg = mHandler.obtainMessage(MSG_VIEW_SCROLLED)
+        mHandler.sendMessageDelayed(msg, SEND_RECURRING_ACCESSIBILITY_EVENTS_INTERVAL_MILLIS)
     }
 
-    public void removePostedViewScrolledAccessibilityEventCallback() {
-        if (!mMsgViewScrolledQueued) return;
-        mMsgViewScrolledQueued = false;
-
-        mHandler.removeMessages(HandlerCallback.MSG_VIEW_SCROLLED);
+    fun removePostedViewScrolledAccessibilityEventCallback() {
+        if (!mMsgViewScrolledQueued) return
+        mMsgViewScrolledQueued = false
+        mHandler.removeMessages(MSG_VIEW_SCROLLED)
     }
 
-    public void removePostedCallbacks() {
-        removePostedViewScrolledAccessibilityEventCallback();
+    fun removePostedCallbacks() {
+        removePostedViewScrolledAccessibilityEventCallback()
+    }
+
+    inner class HandlerCallback(private val mEventSender: View) : Handler.Callback {
+        override fun handleMessage(msg: Message): Boolean {
+            if (msg.what == MSG_VIEW_SCROLLED) {
+                mMsgViewScrolledQueued = false
+                mEventSender.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_SCROLLED)
+            } else {
+                throw IllegalStateException(
+                    "AccessibilityInjector: unhandled message: " + msg.what
+                )
+            }
+            return true
+        }
+
+    }
+
+    companion object {
+        // This is copied straight out of android.view.ViewConfiguration.
+        private const val SEND_RECURRING_ACCESSIBILITY_EVENTS_INTERVAL_MILLIS: Long = 100
+        private const val MSG_VIEW_SCROLLED: Int = 1
     }
 }

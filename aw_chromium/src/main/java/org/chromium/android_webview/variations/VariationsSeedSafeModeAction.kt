@@ -1,48 +1,41 @@
 // Copyright 2021 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+package org.chromium.android_webview.variations
 
-package org.chromium.android_webview.variations;
-
-import androidx.annotation.NonNull;
-
-import org.chromium.android_webview.common.SafeModeAction;
-import org.chromium.android_webview.common.variations.VariationsUtils;
-import org.chromium.base.Log;
-
-import java.io.File;
+import org.chromium.android_webview.common.SafeModeAction
+import org.chromium.android_webview.common.variations.VariationsUtils.newSeedFile
+import org.chromium.android_webview.common.variations.VariationsUtils.seedFile
+import org.chromium.android_webview.common.variations.VariationsUtils.stampFile
+import org.chromium.base.Log
+import java.io.File
 
 /**
- * A {@link SafeModeAction} to delete the variations seed.
+ * A [SafeModeAction] to delete the variations seed.
  */
-public class VariationsSeedSafeModeAction implements SafeModeAction {
-    private static final String TAG = "WebViewSafeMode";
+class VariationsSeedSafeModeAction : SafeModeAction {
+    override val id: String
+        get() = "delete_variations_seed"
 
-    // This ID should not be changed or reused.
-    private static final String ID = "delete_variations_seed";
-
-    @Override
-    @NonNull
-    public String getId() {
-        return ID;
+    override fun execute() {
+        deleteIfExists(seedFile)
+        deleteIfExists(newSeedFile)
+        deleteIfExists(stampFile)
     }
 
-    @Override
-    public void execute() {
-        deleteIfExists(VariationsUtils.INSTANCE.getSeedFile());
-        deleteIfExists(VariationsUtils.INSTANCE.getNewSeedFile());
-        deleteIfExists(VariationsUtils.INSTANCE.getStampFile());
-    }
+    companion object {
+        private const val TAG = "WebViewSafeMode"
 
-    private static void deleteIfExists(File file) {
-        if (!file.exists()) {
-            Log.i(TAG, "File does not exist (skipping): %s", file);
-            return;
-        }
-        if (file.delete()) {
-            Log.i(TAG, "Successfully deleted %s", file);
-        } else {
-            Log.e(TAG, "Failed to delete %s", file);
+        private fun deleteIfExists(file: File) {
+            if (!file.exists()) {
+                Log.i(TAG, "File does not exist (skipping): %s", file)
+                return
+            }
+            if (file.delete()) {
+                Log.i(TAG, "Successfully deleted %s", file)
+            } else {
+                Log.e(TAG, "Failed to delete %s", file)
+            }
         }
     }
 }

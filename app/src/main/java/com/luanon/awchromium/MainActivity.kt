@@ -22,6 +22,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        AwChromium.initialize(
+            this, arrayOf("--disable-site-isolation-trials", "--disable-web-security")
+        )
         setContentView(R.layout.activity_main)
 
         urlBar1 = findViewById(R.id.url_bar_1)
@@ -34,13 +37,13 @@ class MainActivity : AppCompatActivity() {
             javaScriptEnabled = false
         }
         awChromium1.awChromiumClient = object : AwChromiumClient() {
-            override fun shouldOverrideUrlLoading(request: AwWebResourceRequest): Boolean {
-                Log.i(Utils.TAG, "WV1-Redirect: " + request.url)
-                awChromium1.loadUrl(request.url)
+            override fun shouldOverrideUrlLoading(request: AwWebResourceRequest?): Boolean {
+                Log.i(Utils.TAG, "WV1-Redirect: " + request!!.url)
+                awChromium1.loadUrl(request.url!!)
                 return true
             }
 
-            override fun onPageFinished(url: String) {
+            override fun onPageFinished(url: String?) {
                 super.onPageFinished(url)
                 urlBar1.setText(url)
             }
@@ -76,36 +79,53 @@ class MainActivity : AppCompatActivity() {
 
         awChromium2 = AwChromium(this)
         awChromium2.awChromiumClient = object : AwChromiumClient() {
-            override fun shouldOverrideUrlLoading(request: AwWebResourceRequest): Boolean {
-                Log.i(Utils.TAG, "WV2-Redirect: " + request.url)
-                awChromium2.loadUrl(request.url)
+            override fun shouldOverrideUrlLoading(request: AwWebResourceRequest?): Boolean {
+                Log.i(Utils.TAG, "WV2-Redirect: " + request!!.url)
+                awChromium2.loadUrl(request.url!!)
                 return true
             }
 
-            override fun onPageFinished(url: String) {
+            override fun onPageFinished(url: String?) {
                 super.onPageFinished(url)
                 urlBar2.setText(url)
                 awChromium2.evaluateJavascript("javascript:(function () { var script = document.createElement('script'); script.src=\"https://cdn.jsdelivr.net/npm/eruda\"; document.body.append(script); script.onload = function () { eruda.init(); } })();")
             }
 
-            override fun onPermissionRequest(awPermissionRequest: AwPermissionRequest) {
-                awPermissionRequest.grant()
+            override fun onPermissionRequest(awPermissionRequest: AwPermissionRequest?) {
+                awPermissionRequest!!.grant()
             }
 
-            override fun handleJsAlert(url: String, message: String, receiver: JsResultReceiver) {
-                receiver.confirm()
+            override fun handleJsAlert(
+                url: String?,
+                message: String?,
+                receiver: JsResultReceiver?
+            ) {
+                receiver!!.confirm()
             }
 
-            override fun handleJsBeforeUnload(url: String, message: String, receiver: JsResultReceiver) {
-                receiver.confirm()
+            override fun handleJsBeforeUnload(
+                url: String?,
+                message: String?,
+                receiver: JsResultReceiver?
+            ) {
+                receiver!!.confirm()
             }
 
-            override fun handleJsConfirm(url: String, message: String, receiver: JsResultReceiver) {
-                receiver.confirm()
+            override fun handleJsConfirm(
+                url: String?,
+                message: String?,
+                receiver: JsResultReceiver?
+            ) {
+                receiver!!.confirm()
             }
 
-            override fun handleJsPrompt(url: String, message: String, defaultValue: String, receiver: JsPromptResultReceiver) {
-                receiver.confirm(Utils.TAG)
+            override fun handleJsPrompt(
+                url: String?,
+                message: String?,
+                defaultValue: String?,
+                receiver: JsPromptResultReceiver?
+            ) {
+                receiver!!.confirm(Utils.TAG)
             }
 
             override fun onCreateWindow(isDialog: Boolean, isUserGesture: Boolean): Boolean {
@@ -122,15 +142,17 @@ class MainActivity : AppCompatActivity() {
         val backButton2 = findViewById<Button>(R.id.back_button_2)
         val forwardButton2 = findViewById<Button>(R.id.forward_button_2)
 
-        awChromium2.loadUrl("https://www.enable-javascript.com/")
+        awChromium2.loadUrl("https://recaptcha-demo.appspot.com/recaptcha-v2-checkbox.php")
 
         refreshButton2.setOnClickListener {
             val url = urlBar2.text.toString()
-            if (url.startsWith("javascript:")){
+            if (url.startsWith("javascript:")) {
                 val script = url.replace("javascript:", "")
                 Log.i(Utils.TAG, script)
                 awChromium2.evaluateJavascript(script)
-            }else{
+            } else if (url.startsWith("testIframe")) {
+                awChromium2.evaluateJavascript("console.log(document.querySelector(\"div[class*=g-recaptcha]\").querySelector(\"iframe[title*=reCAPTCHA]\").contentWindow.document.querySelector(\"label\").textContent)")
+            } else {
                 awChromium2.loadUrl(url)
             }
         }

@@ -1,8 +1,7 @@
 // Copyright 2012 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
-package org.chromium.android_webview;
+package org.chromium.android_webview
 
 /**
  * This interface is used when the AwContentsClient offers a JavaScript
@@ -11,7 +10,7 @@ package org.chromium.android_webview;
  * client and when the client has handled the dialog, it must either callback with
  * confirm() or cancel() to allow processing to continue.
  */
-public interface JsPromptResultReceiver {
-    void confirm(String result);
-    void cancel();
+interface JsPromptResultReceiver {
+    fun confirm(result: String?)
+    fun cancel()
 }

@@ -4,6 +4,7 @@
 package org.chromium.android_webview.common.services
 
 import android.os.Binder
+import android.os.Build
 import android.os.IBinder
 import android.os.IInterface
 import android.os.Parcel
@@ -54,10 +55,7 @@ interface IMetricsBridgeService : IInterface {
 
         @Throws(RemoteException::class)
         public override fun onTransact(
-            code: Int,
-            data: Parcel,
-            reply: Parcel?,
-            flags: Int
+            code: Int, data: Parcel, reply: Parcel?, flags: Int
         ): Boolean {
             val descriptor = Companion.interfaceDescriptor
             return when (code) {
@@ -88,8 +86,7 @@ interface IMetricsBridgeService : IInterface {
             }
         }
 
-        private class Proxy(private val mRemote: IBinder) :
-            IMetricsBridgeService {
+        private class Proxy(private val mRemote: IBinder) : IMetricsBridgeService {
             override fun asBinder(): IBinder {
                 return mRemote
             }
@@ -136,17 +133,19 @@ interface IMetricsBridgeService : IInterface {
                 val _result: List<*>? = try {
                     _data.writeInterfaceToken(interfaceDescriptor)
                     val _status = mRemote.transact(
-                        TRANSACTION_retrieveNonembeddedMetrics,
-                        _data,
-                        _reply,
-                        0
+                        TRANSACTION_retrieveNonembeddedMetrics, _data, _reply, 0
                     )
                     if (!_status && defaultImpl != null) {
                         return defaultImpl!!.retrieveNonembeddedMetrics()
                     }
                     _reply.readException()
-                    val cl = this.javaClass.classLoader
-                    _reply.readArrayList(cl)
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        _reply.readArrayList(this.javaClass.classLoader, Any::class.java)
+                    } else {
+                        @Suppress("DEPRECATION")
+                        /** Don't know why still deprecated when use if else */
+                        _reply.readArrayList(this.javaClass.classLoader)
+                    }
                 } finally {
                     _reply.recycle()
                     _data.recycle()

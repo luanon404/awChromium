@@ -1072,7 +1072,7 @@ public class AwContents implements SmartClipProvider {
         mViewEventSink = ViewEventSink.from(mWebContents);
         mViewEventSink.setHideKeyboardOnBlur(false);
         SelectionPopupController controller = SelectionPopupController.fromWebContents(webContents);
-        controller.setActionModeCallback(new AwActionModeCallback(mContext, this, webContents));
+        controller.setActionModeCallback(new AwActionModeCallback(this, webContents));
         controller.setSelectionClient(SelectionClient.createSmartSelectionClient(webContents));
 
         // Listen for dpad events from IMEs (e.g. Samsung Cursor Control) so we know to enable
@@ -4128,7 +4128,7 @@ public class AwContents implements SmartClipProvider {
             // fixedLayoutSize mode the update
             // to enter fixedLayoutSize mode is sent before the first resize
             // update.
-            mLayoutSizer.onSizeChanged(w, h, ow, oh);
+            mLayoutSizer.onSizeChanged();
             AwContentsJni.get().onSizeChanged(mNativeAwContents, AwContents.this, w, h, ow, oh);
         }
 
@@ -4161,10 +4161,10 @@ public class AwContents implements SmartClipProvider {
             int oldX = mContainerView.getScrollX();
             int oldY = mContainerView.getScrollY();
 
-            mScrollOffsetManager.onContainerViewOverScrolled(scrollX, scrollY, clampedX, clampedY);
+            mScrollOffsetManager.onContainerViewOverScrolled(scrollX, scrollY);
 
             if (mOverScrollGlow != null) {
-                mOverScrollGlow.pullGlow(mContainerView.getScrollX(), mContainerView.getScrollY(),
+                mOverScrollGlow.pullGlow(
                         oldX, oldY,
                         mScrollOffsetManager.computeMaximumHorizontalScrollOffset(),
                         mScrollOffsetManager.computeMaximumVerticalScrollOffset());
