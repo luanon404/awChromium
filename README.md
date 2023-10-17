@@ -10,6 +10,7 @@ Android WebView separated from Chromium source code.
 
 # Note
 
+- Current version: 92.0.4515.115
 - Google vs this project: 😁😁😁
 - Me vs this project: 👁️👄👁️
 - Do not convert Java classes to Kotlin with '@JNINamespace' annotation (maybe that annotation only see Java class but Kotlin not).
