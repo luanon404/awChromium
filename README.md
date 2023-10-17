@@ -1,6 +1,12 @@
-# AWChromium (fixing)
+# AWChromium (THIS PROJECT STILL REMAKING)
 
 Android WebView separated from Chromium source code.
+
+# Why Kotlin?
+
+- Google create Kotlin for prevent null exception.
+- Android Studio changed to compile Kotlin better (Kotlin > Java).
+- So debug or doing something maybe easier than Java (but Java still is the best).
 
 # Note
 
