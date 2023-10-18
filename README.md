@@ -5,9 +5,10 @@ Android WebView separated from Chromium source code.
 # Note
 
 - This project name will change into LNWebDriver in future.
-- This wont open this as public library because this is for automation app.
-- PLease use android.webkit.WebView instead of this.
-- Current WebView version: 92.0.4515.115
+- This project will become a part of LNWebDriver in future.
+- This project wont open as public library because this is for my automation app.
+- PLease use android.webkit.WebView instead of this project.
+- Current WebView version: **_92.0.4515.115_**.
 - Do not convert Java classes to Kotlin with '@JNINamespace' annotation (maybe that annotation only see Java class but Kotlin not).
 - Do not remove functions with '@CalledByNative' annotation.
 
