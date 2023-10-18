@@ -18,7 +18,8 @@ import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 
 import org.chromium.base.annotations.JNINamespace;
-import org.chromium.base.compat.ApiHelperForM;
+import org.chromium.base.compat.ApiHelperForN;
+import org.chromium.base.compat.ApiHelperForQ;
 import org.chromium.build.BuildConfig;
 
 /**
@@ -149,14 +150,7 @@ public class ContextUtils {
 
     /** @return Whether the current process is 64-bit. */
     public static boolean isProcess64Bit() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            return ApiHelperForM.isProcess64Bit();
-        } else {
-            // Android sets CPU_ABI to the first supported ABI for the current process bitness
-            // (for compat reasons), so we can use this to infer our bitness.
-            return Build.SUPPORTED_64_BIT_ABIS.length > 0
-                    && Build.SUPPORTED_64_BIT_ABIS[0].equals(Build.CPU_ABI);
-        }
+        return Process.is64Bit();
     }
 
     /**

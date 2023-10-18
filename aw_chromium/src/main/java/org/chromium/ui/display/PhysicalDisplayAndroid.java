@@ -13,7 +13,6 @@ import android.view.Display;
 
 import org.chromium.base.CommandLine;
 import org.chromium.base.Log;
-import org.chromium.base.compat.ApiHelperForM;
 import org.chromium.base.compat.ApiHelperForO;
 
 import java.util.Arrays;
@@ -126,18 +125,12 @@ import java.util.List;
     }
 
     @SuppressWarnings("deprecation")
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     /* package */ void updateFromDisplay(Display display) {
         Point size = new Point();
         DisplayMetrics displayMetrics = new DisplayMetrics();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            display.getRealSize(size);
-            display.getRealMetrics(displayMetrics);
-        } else {
-            display.getSize(size);
-            display.getMetrics(displayMetrics);
-        }
-        if (hasForcedDIPScale()) displayMetrics.density = sForcedDIPScale.floatValue();
+        display.getRealSize(size);
+        display.getRealMetrics(displayMetrics);
+        if (hasForcedDIPScale()) displayMetrics.density = sForcedDIPScale;
         boolean isWideColorGamut = false;
         // Although this API was added in Android O, it was buggy.
         // Restrict to Android Q, where it was fixed.
@@ -146,19 +139,14 @@ import java.util.List;
         }
 
         // JellyBean MR1 and later always uses RGBA_8888.
-        int pixelFormatId = (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1)
-                ? display.getPixelFormat()
-                : PixelFormat.RGBA_8888;
+        int pixelFormatId = PixelFormat.RGBA_8888;
 
-        Display.Mode currentMode = null;
-        List<Display.Mode> supportedModes = null;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            currentMode = ApiHelperForM.getDisplayMode(display);
-            supportedModes = Arrays.asList(ApiHelperForM.getDisplaySupportedModes(display));
-            assert currentMode != null;
-            assert supportedModes != null;
-            assert supportedModes.size() > 0;
-        }
+        Display.Mode currentMode;
+        List<Display.Mode> supportedModes;
+        currentMode = display.getMode();
+        supportedModes = Arrays.asList(display.getSupportedModes());
+        assert currentMode != null;
+        assert supportedModes.size() > 0;
 
         super.update(size, displayMetrics.density, bitsPerPixel(pixelFormatId),
                 bitsPerComponent(pixelFormatId), display.getRotation(), isWideColorGamut, null,

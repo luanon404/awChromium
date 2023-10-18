@@ -155,7 +155,7 @@ public class Promise<T> {
         });
 
         // If this Promise is rejected, reject the next Promise.
-        exceptInner(promise::reject);
+        exceptInner(reason -> promise.reject(reason));
 
         return promise;
     }
@@ -178,7 +178,7 @@ public class Promise<T> {
             try {
                 // When the inner Promise is fulfilled, fulfill the return Promise.
                 // Alternatively, if the inner Promise is rejected, reject the return Promise.
-                function.apply(result).then(promise::fulfill, promise::reject);
+                function.apply(result).then(result1 -> promise.fulfill(result1), reason -> promise.reject(reason));
             } catch (Exception e) {
                 // If creating the inner Promise failed, reject the next Promise.
                 promise.reject(e);
@@ -186,7 +186,7 @@ public class Promise<T> {
         });
 
         // If this Promise is rejected, reject the next Promise.
-        exceptInner(promise::reject);
+        exceptInner(reason -> promise.reject(reason));
 
         return promise;
     }

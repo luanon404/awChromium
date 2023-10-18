@@ -18,7 +18,6 @@ import android.telephony.TelephonyManager;
 
 import org.chromium.base.annotations.CalledByNative;
 import org.chromium.base.annotations.JNINamespace;
-import org.chromium.base.compat.ApiHelperForM;
 import org.chromium.base.compat.ApiHelperForP;
 
 /**
@@ -80,7 +79,7 @@ public class RadioUtils {
         ConnectivityManager connectivityManager =
                 (ConnectivityManager) ContextUtils.getApplicationContext().getSystemService(
                         Context.CONNECTIVITY_SERVICE);
-        Network network = ApiHelperForM.getActiveNetwork(connectivityManager);
+        Network network = connectivityManager.getActiveNetwork();
         if (network == null) return false;
         NetworkCapabilities networkCapabilities =
                 connectivityManager.getNetworkCapabilities(network);

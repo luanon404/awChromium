@@ -21,7 +21,6 @@ import org.chromium.base.BuildInfo;
 import org.chromium.base.ContextUtils;
 import org.chromium.base.Log;
 import org.chromium.base.SysUtils;
-import org.chromium.base.compat.ApiHelperForM;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -141,7 +140,7 @@ public abstract class ChildConnectionAllocator {
             UserManager userManager =
                     (UserManager) ContextUtils.getApplicationContext().getSystemService(
                             Context.USER_SERVICE);
-            if (!ApiHelperForM.isSystemUser(userManager)) {
+            if (!userManager.isSystemUser()) {
                 return new Android10WorkaroundAllocatorImpl(launcherHandler, freeSlotCallback,
                         packageName, serviceClassName, bindToCaller, bindAsExternalService,
                         useStrongBinding, MAX_VARIABLE_ALLOCATED);

@@ -23,6 +23,7 @@ import android.os.Build;
 import android.os.Build.VERSION_CODES;
 import android.os.ParcelFileDescriptor;
 import android.os.Process;
+import android.security.NetworkSecurityPolicy;
 import android.util.Log;
 
 import androidx.annotation.VisibleForTesting;
@@ -33,7 +34,6 @@ import org.chromium.base.ContextUtils;
 import org.chromium.base.annotations.CalledByNative;
 import org.chromium.base.annotations.CalledByNativeUnchecked;
 import org.chromium.base.annotations.MainDex;
-import org.chromium.base.compat.ApiHelperForM;
 import org.chromium.base.compat.ApiHelperForN;
 import org.chromium.base.compat.ApiHelperForP;
 import org.chromium.base.compat.ApiHelperForQ;
@@ -198,7 +198,7 @@ class AndroidNetworkLibrary {
                         Context.CONNECTIVITY_SERVICE);
         if (connectivityManager == null) return false;
 
-        Network network = ApiHelperForM.getActiveNetwork(connectivityManager);
+        Network network = connectivityManager.getActiveNetwork();
         if (network == null) return false;
 
         NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(network);
@@ -354,13 +354,8 @@ class AndroidNetworkLibrary {
             return ApiHelperForN.isCleartextTrafficPermitted(host);
         }
 
-        @TargetApi(Build.VERSION_CODES.M)
         public boolean isCleartextTrafficPermitted() {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-                // Always true before M.
-                return true;
-            }
-            return ApiHelperForM.isCleartextTrafficPermitted();
+            return NetworkSecurityPolicy.getInstance().isCleartextTrafficPermitted();
         }
     }
 
@@ -380,11 +375,10 @@ class AndroidNetworkLibrary {
         // This could be racy if called on multiple threads, but races will
         // end in the same result so it's not a problem.
         if (sHaveAccessNetworkState == null) {
-            sHaveAccessNetworkState = Boolean.valueOf(
-                    ApiCompatibilityUtils.checkPermission(ContextUtils.getApplicationContext(),
-                            Manifest.permission.ACCESS_NETWORK_STATE, Process.myPid(),
-                            Process.myUid())
-                    == PackageManager.PERMISSION_GRANTED);
+            sHaveAccessNetworkState = ApiCompatibilityUtils.checkPermission(ContextUtils.getApplicationContext(),
+                    Manifest.permission.ACCESS_NETWORK_STATE, Process.myPid(),
+                    Process.myUid())
+                    == PackageManager.PERMISSION_GRANTED;
         }
         return sHaveAccessNetworkState;
     }
@@ -418,7 +412,7 @@ class AndroidNetworkLibrary {
             return null;
         }
         if (network == null) {
-            network = ApiHelperForM.getActiveNetwork(connectivityManager);
+            network = connectivityManager.getActiveNetwork();
         }
         if (network == null) {
             return null;
@@ -454,7 +448,7 @@ class AndroidNetworkLibrary {
                         Context.CONNECTIVITY_SERVICE);
         if (connectivityManager == null) return false;
 
-        ApiHelperForM.reportNetworkConnectivity(connectivityManager, null, false);
+        connectivityManager.reportNetworkConnectivity(null, false);
         return true;
     }
 

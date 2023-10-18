@@ -3,10 +3,13 @@
 // found in the LICENSE file.
 package org.chromium.base.annotations
 
+import androidx.annotation.Keep
+
 /**
  * @JNINamespace is used by the JNI generator to create the necessary JNI
  * bindings and expose this method to native code using the specified namespace.
  */
+@Keep
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.RUNTIME)
 annotation class JNINamespace(val value: String)

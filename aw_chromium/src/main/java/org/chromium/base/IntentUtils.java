@@ -4,6 +4,8 @@
 
 package org.chromium.base;
 
+import static android.app.PendingIntent.FLAG_IMMUTABLE;
+
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -21,8 +23,6 @@ import android.text.TextUtils;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.core.app.BundleCompat;
-
-import org.chromium.base.compat.ApiHelperForM;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -498,9 +498,9 @@ public class IntentUtils {
      * is the more secure default.
      */
     public static int getPendingIntentMutabilityFlag(boolean mutable) {
-        if (!mutable && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            return ApiHelperForM.getPendingIntentImmutableFlag();
-        } else if (mutable && BuildInfo.isAtLeastS()) {
+        if (!mutable) {
+            return FLAG_IMMUTABLE;
+        } else if (BuildInfo.isAtLeastS()) {
             return FLAG_MUTABLE;
         }
         return 0;

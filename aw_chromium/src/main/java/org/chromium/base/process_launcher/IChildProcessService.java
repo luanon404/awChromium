@@ -100,7 +100,7 @@ public interface IChildProcessService extends android.os.IInterface
             _arg0 = null;
           }
           org.chromium.base.process_launcher.IParentProcess _arg1;
-          _arg1 = org.chromium.base.process_launcher.IParentProcess.Stub.asInterface(data.readStrongBinder());
+          _arg1 = IParentProcess.Stub.Companion.asInterface(data.readStrongBinder());
           java.util.List<android.os.IBinder> _arg2;
           _arg2 = data.createBinderArrayList();
           this.setupConnection(_arg0, _arg1, _arg2);

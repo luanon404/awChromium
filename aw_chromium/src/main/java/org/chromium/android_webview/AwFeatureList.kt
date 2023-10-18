@@ -1,53 +1,52 @@
 // Copyright 2018 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+package org.chromium.android_webview
 
-package org.chromium.android_webview;
-
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-
-import org.chromium.base.ContextUtils;
-import org.chromium.base.annotations.JNINamespace;
-import org.chromium.base.annotations.MainDex;
-import org.chromium.base.annotations.NativeMethods;
+import android.content.pm.PackageManager
+import android.os.Build
+import android.util.Log
+import org.chromium.base.ContextUtils
+import org.chromium.base.annotations.JNINamespace
+import org.chromium.base.annotations.MainDex
+import org.chromium.base.annotations.NativeMethods
 
 /**
  * Java accessor for base/feature_list.h state.
  */
 @JNINamespace("android_webview")
 @MainDex
-public final class AwFeatureList {
-    // Do not instantiate this class.
-    private AwFeatureList() {}
-
-    private static final String GMS_PACKAGE = "com.google.android.gms";
-
-    private static Boolean sPageStartedOnCommitForBrowserNavigations;
-
-    private static boolean computePageStartedOnCommitForBrowserNavigations() {
-        if (GMS_PACKAGE.equals(ContextUtils.getApplicationContext().getPackageName())) {
+object AwFeatureList {
+    private const val GMS_PACKAGE = "com.google.android.gms"
+    private var sPageStartedOnCommitForBrowserNavigations: Boolean? = null
+    private fun computePageStartedOnCommitForBrowserNavigations(): Boolean {
+        if (GMS_PACKAGE == ContextUtils.getApplicationContext().packageName) {
             try {
-                PackageInfo gmsPackage =
-                        ContextUtils.getApplicationContext().getPackageManager().getPackageInfo(
-                                GMS_PACKAGE, 0);
-                return gmsPackage.versionCode >= 15000000;
-            } catch (PackageManager.NameNotFoundException e) {
+                val gmsPackage = ContextUtils.getApplicationContext().packageManager.getPackageInfo(
+                    GMS_PACKAGE, 0
+                )
+                return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                    gmsPackage.longVersionCode >= 15000000
+                } else {
+                    gmsPackage.versionCode >= 15000000
+                }
+            } catch (_: PackageManager.NameNotFoundException) {
             }
-            return false;
+            return false
         }
-        return true;
+        return true
     }
 
-    public static boolean pageStartedOnCommitEnabled(boolean isRendererInitiated) {
+    @JvmStatic
+    fun pageStartedOnCommitEnabled(isRendererInitiated: Boolean): Boolean {
         // Always enable for renderer-initiated navigations.
-        if (isRendererInitiated) return true;
+        if (isRendererInitiated) return true
         if (sPageStartedOnCommitForBrowserNavigations != null) {
-            return sPageStartedOnCommitForBrowserNavigations;
+            return sPageStartedOnCommitForBrowserNavigations!!
         }
         sPageStartedOnCommitForBrowserNavigations =
-                computePageStartedOnCommitForBrowserNavigations();
-        return sPageStartedOnCommitForBrowserNavigations;
+            computePageStartedOnCommitForBrowserNavigations()
+        return sPageStartedOnCommitForBrowserNavigations!!
     }
 
     /**
@@ -59,18 +58,18 @@ public final class AwFeatureList {
      * @param featureName The name of the feature to query.
      * @return Whether the feature is enabled or not.
      */
-    public static boolean isEnabled(String featureName) {
-        return AwFeatureListJni.get().isEnabled(featureName);
+    @JvmStatic
+    fun isEnabled(featureName: String?): Boolean {
+        return AwFeatureListJni.get().isEnabled(featureName)
     }
 
     // Deprecated: Use AwFeatures.*
     // This constant is here temporarily to avoid breaking Clank.
-    @Deprecated
-    public static final String WEBVIEW_CONNECTIONLESS_SAFE_BROWSING =
-            "WebViewConnectionlessSafeBrowsing";
+    @Deprecated("")
+    val WEBVIEW_CONNECTIONLESS_SAFE_BROWSING = "WebViewConnectionlessSafeBrowsing"
 
     @NativeMethods
-    interface Natives {
-        boolean isEnabled(String featureName);
+    internal interface Natives {
+        fun isEnabled(featureName: String?): Boolean
     }
 }

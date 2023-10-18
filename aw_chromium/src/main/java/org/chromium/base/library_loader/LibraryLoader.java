@@ -11,6 +11,7 @@ import android.content.pm.ApplicationInfo;
 import android.os.Build;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
+import android.os.Process;
 import android.os.SystemClock;
 import android.system.Os;
 
@@ -31,7 +32,6 @@ import org.chromium.base.annotations.CheckDiscard;
 import org.chromium.base.annotations.JNINamespace;
 import org.chromium.base.annotations.MainDex;
 import org.chromium.base.annotations.NativeMethods;
-import org.chromium.base.compat.ApiHelperForM;
 import org.chromium.base.metrics.RecordHistogram;
 import org.chromium.base.metrics.UmaRecorderHolder;
 import org.chromium.build.BuildConfig;
@@ -649,7 +649,7 @@ public class LibraryLoader {
                 System.loadLibrary(library);
             } else {
                 // Load directly from the APK.
-                boolean is64Bit = ApiHelperForM.isProcess64Bit();
+                boolean is64Bit = Process.is64Bit();
                 String zipFilePath = appInfo.sourceDir;
                 boolean crazyPrefix = forceSystemLinker(); // See comment in this function.
                 String fullPath = zipFilePath + "!/"

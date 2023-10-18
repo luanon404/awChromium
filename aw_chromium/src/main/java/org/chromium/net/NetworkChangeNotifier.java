@@ -17,7 +17,6 @@ import org.chromium.base.annotations.CalledByNative;
 import org.chromium.base.annotations.JNINamespace;
 import org.chromium.base.annotations.NativeClassQualifiedName;
 import org.chromium.base.annotations.NativeMethods;
-import org.chromium.base.compat.ApiHelperForM;
 
 import java.util.ArrayList;
 
@@ -399,15 +398,7 @@ public class NetworkChangeNotifier {
      * Is the process bound to a network?
      */
     private boolean isProcessBoundToNetworkInternal() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            return false;
-        } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            @SuppressWarnings("deprecation")
-            boolean returnValue = ConnectivityManager.getProcessDefaultNetwork() != null;
-            return returnValue;
-        } else {
-            return ApiHelperForM.getBoundNetworkForProcess(mConnectivityManager) != null;
-        }
+        return mConnectivityManager.getBoundNetworkForProcess() != null;
     }
 
     /**

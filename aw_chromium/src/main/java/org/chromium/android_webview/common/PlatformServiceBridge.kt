@@ -6,6 +6,7 @@ package org.chromium.android_webview.common
 import android.os.Handler
 import android.os.HandlerThread
 import org.chromium.base.Callback
+import org.chromium.base.Consumer
 import org.chromium.base.ThreadUtils
 import org.chromium.components.metrics.AndroidMetricsLogUploader
 import org.chromium.content_public.browser.trusttokens.TrustTokenFulfillerManager
@@ -16,7 +17,11 @@ import org.chromium.content_public.browser.trusttokens.TrustTokenFulfillerManage
  */
 abstract class PlatformServiceBridge protected constructor() {
     init {
-        AndroidMetricsLogUploader.setUploader { logMetrics() }
+        AndroidMetricsLogUploader.setUploader(object : Consumer<ByteArray?> {
+            override fun accept(t: ByteArray?) {
+                logMetrics()
+            }
+        })
     }
 
     // Overriding implementations may call "callback" asynchronously, on any thread.

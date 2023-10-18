@@ -3,6 +3,8 @@
 // found in the LICENSE file.
 package org.chromium.base.annotations
 
+import androidx.annotation.Keep
+
 /**
  * Used by the JNI generator to create the necessary JNI bindings and expose this method to native
  * code.
@@ -13,6 +15,7 @@ package org.chromium.base.annotations
  * exception, we recommend refactoring to catch exceptions and indicate errors with special return
  * values instead. If this is not possible, see [CalledByNativeUnchecked] instead.
  */
+@Keep
 @Target(
     AnnotationTarget.CONSTRUCTOR,
     AnnotationTarget.FUNCTION,
@@ -22,8 +25,4 @@ package org.chromium.base.annotations
 @Retention(
     AnnotationRetention.BINARY
 )
-annotation class CalledByNative( /*
-     *  If present, tells which inner class the method belongs to.
-     */
-                                 val value: String = ""
-)
+annotation class CalledByNative(val value: String = "")

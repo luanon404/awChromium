@@ -37,7 +37,6 @@ import org.chromium.base.ApplicationState;
 import org.chromium.base.ApplicationStatus;
 import org.chromium.base.ContextUtils;
 import org.chromium.base.StrictModeContext;
-import org.chromium.base.compat.ApiHelperForM;
 import org.chromium.base.compat.ApiHelperForO;
 import org.chromium.base.compat.ApiHelperForP;
 import org.chromium.build.BuildConfig;
@@ -240,7 +239,7 @@ public class NetworkChangeNotifierAutoDetect extends BroadcastReceiver {
             NetworkInfo networkInfo;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 network = getDefaultNetwork();
-                networkInfo = ApiHelperForM.getNetworkInfo(mConnectivityManager, network);
+                networkInfo = mConnectivityManager.getNetworkInfo(network);
             } else {
                 networkInfo = mConnectivityManager.getActiveNetworkInfo();
             }
@@ -414,14 +413,11 @@ public class NetworkChangeNotifierAutoDetect extends BroadcastReceiver {
          */
         @TargetApi(Build.VERSION_CODES.LOLLIPOP)
         Network getDefaultNetwork() {
-            Network defaultNetwork = null;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                defaultNetwork = ApiHelperForM.getActiveNetwork(mConnectivityManager);
-                // getActiveNetwork() returning null cannot be trusted to indicate disconnected
-                // as it suffers from https://crbug.com/677365.
-                if (defaultNetwork != null) {
-                    return defaultNetwork;
-                }
+            Network defaultNetwork = mConnectivityManager.getActiveNetwork();
+            // getActiveNetwork() returning null cannot be trusted to indicate disconnected
+            // as it suffers from https://crbug.com/677365.
+            if (defaultNetwork != null) {
+                return defaultNetwork;
             }
             // Android Lollipop had no API to get the default network; only an
             // API to return the NetworkInfo for the default network. To
@@ -1293,16 +1289,7 @@ public class NetworkChangeNotifierAutoDetect extends BroadcastReceiver {
      * Extracts NetID of Network on Lollipop and NetworkHandle (which is munged NetID) on
      * Marshmallow and newer releases. Only available on Lollipop and newer releases.
      */
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public static long networkToNetId(Network network) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            return ApiHelperForM.getNetworkHandle(network);
-        } else {
-            // NOTE(pauljensen): This depends on Android framework implementation details. These
-            // details cannot change because Lollipop is long since released.
-            // NetIDs are only 16-bit so use parseInt. This function returns a long because
-            // getNetworkHandle() returns a long.
-            return Integer.parseInt(network.toString());
-        }
+        return network.getNetworkHandle();
     }
 }
