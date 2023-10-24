@@ -1,4 +1,4 @@
-// Copyright 2016 The Chromium Authors. All rights reserved.
+// Copyright 2016 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -12,6 +12,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebSettings;
 
+import androidx.annotation.Nullable;
+
 import org.chromium.content.browser.selection.SelectionPopupControllerImpl;
 
 /**
@@ -22,7 +24,9 @@ import org.chromium.content.browser.selection.SelectionPopupControllerImpl;
 public abstract class ActionModeCallbackHelper {
     private static final String TAG = "ActionModeHelper";
 
-    /** Google search doesn't support requests slightly larger than this. */
+    /**
+     * Google search doesn't support requests slightly larger than this.
+     */
     public static final int MAX_SEARCH_QUERY_LENGTH = 1000;
 
     public static final int MENU_ITEM_SHARE = WebSettings.MENU_ITEM_SHARE;
@@ -34,7 +38,7 @@ public abstract class ActionModeCallbackHelper {
     /**
      * Trim a given string query to be processed safely.
      *
-     * @param query a raw query to sanitize.
+     * @param query     a raw query to sanitize.
      * @param maxLength maximum length to which the query will be truncated.
      */
     public static String sanitizeQuery(String query, int maxLength) {
@@ -42,17 +46,9 @@ public abstract class ActionModeCallbackHelper {
     }
 
     /**
-     * Tell if the platform supports floating type action mode. Used not to repeatedly
-     * attempt the creation if the request fails once at the beginning. Also check
-     * platform version since the floating type is supported only on M or later version
-     * of Android platform.
-     */
-    public abstract boolean supportsFloatingActionMode();
-
-    /**
      * Empty {@link ActionMode.Callback} that does nothing. Used for {@link #EMPTY_CALLBACK}.
      */
-    private static class EmptyActionCallback implements ActionMode.Callback {
+    private static class EmptyActionCallback extends ActionModeCallback {
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
             return false;
@@ -69,12 +65,22 @@ public abstract class ActionModeCallbackHelper {
         }
 
         @Override
-        public void onDestroyActionMode(ActionMode mode) {}
+        public void onDestroyActionMode(ActionMode mode) {
+        }
+
+        @Override
+        public void onGetContentRect(ActionMode mode, View view, Rect outRect) {
+        }
+
+        @Override
+        public boolean onDropdownItemClicked(int groupId, int id, @Nullable Intent intent, @Nullable View.OnClickListener clickListener) {
+            return false;
+        }
     }
 
     /**
      * @return {@code true} if action mode is started and in proper working state.
-     *     if null, action mode was not started or is in finished, destroyed state.
+     * if null, action mode was not started or is in finished, destroyed state.
      */
     public abstract boolean isActionModeValid();
 
@@ -84,20 +90,34 @@ public abstract class ActionModeCallbackHelper {
     public abstract void finishActionMode();
 
     /**
+     * Dismisses the menu. No matter which type (i.e. ActionMode, Dropdown) is showing.
+     */
+    public abstract void dismissMenu();
+
+    /**
      * @return The selected text (empty if no text is selected).
      */
     public abstract String getSelectedText();
 
     /**
+     * @return {@link RenderFrameHost} object only available during page selection,
+     * if there is a valid ActionMode available.
+     */
+    @Nullable
+    public abstract RenderFrameHost getRenderFrameHost();
+
+    /**
      * Called when the processed text is replied from an activity that supports
      * Intent.ACTION_PROCESS_TEXT.
+     *
      * @param resultCode the code that indicates if the activity successfully processed the text
-     * @param data the reply that contains the processed text.
+     * @param data       the reply that contains the processed text.
      */
     public abstract void onReceivedProcessTextResult(int resultCode, Intent data);
 
     /**
      * Set the action mode menu items allowed on the content.
+     *
      * @param allowedMenuItems bit field of item-flag mapping.
      */
     public abstract void setAllowedMenuItems(int allowedMenuItems);
@@ -108,6 +128,15 @@ public abstract class ActionModeCallbackHelper {
      * ActionMode.Callback#onActionItemClicked.
      */
     public abstract int getAllowedMenuItemIfAny(ActionMode mode, MenuItem item);
+
+    /**
+     * Returns the {@link WebSettings} menu item that maps to the menu item properties
+     * passed in. Otherwise, returns 0.
+     *
+     * @param groupId the group id of the menu item.
+     * @param id      the id of the menu item.
+     */
+    public abstract int getAllowedMenuItemIfAny(int groupId, int id);
 
     /**
      * @see {@link ActionMode.Callback#onCreateActionMode(ActionMode, Menu)}
@@ -123,6 +152,11 @@ public abstract class ActionModeCallbackHelper {
      * @see {@link ActionMode.Callback#onActionItemClicked(ActionMode, MenuItem)}
      */
     public abstract boolean onActionItemClicked(ActionMode mode, MenuItem item);
+
+    /**
+     * Callback for when a drop-down menu item is clicked.
+     */
+    public abstract boolean onDropdownItemClicked(int groupId, int id, @Nullable Intent intent, @Nullable View.OnClickListener clickListener);
 
     /**
      * @see {@link ActionMode.Callback#onDestroyActionMode(ActionMode)}

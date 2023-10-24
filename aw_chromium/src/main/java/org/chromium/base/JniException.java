@@ -5,7 +5,7 @@
 package org.chromium.base;
 
 /**
- *  Error when calling native methods.
+ * Error when calling native methods.
  */
 public class JniException extends RuntimeException {
     public JniException(String msg) {

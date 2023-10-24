@@ -1,10 +1,10 @@
-// Copyright 2015 The Chromium Authors. All rights reserved.
+// Copyright 2015 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
 package org.chromium.base;
 
-import org.chromium.base.annotations.CalledByNative;
+import org.jni_zero.CalledByNative;
 
 /**
  * A simple single-argument callback to handle the result of a computation.
@@ -20,11 +20,11 @@ public interface Callback<T> {
 
     /**
      * Returns a Runnable that will invoke the callback with the given value.
-     *
+     * <p>
      * For example, instead of:
-     *     mView.post(() -> myCallback.onResult(result));
+     * mView.post(() -> myCallback.onResult(result));
      * Avoid creating an inner class via:
-     *     mView.post(myCallback.bind(result));
+     * mView.post(myCallback.bind(result));
      */
     default Runnable bind(T result) {
         return () -> onResult(result);
@@ -51,6 +51,18 @@ public interface Callback<T> {
         @CalledByNative("Helper")
         static void onIntResultFromNative(Callback callback, int result) {
             callback.onResult(Integer.valueOf(result));
+        }
+
+        @SuppressWarnings("unchecked")
+        @CalledByNative("Helper")
+        static void onLongResultFromNative(Callback callback, long result) {
+            callback.onResult(Long.valueOf(result));
+        }
+
+        @SuppressWarnings("unchecked")
+        @CalledByNative("Helper")
+        static void onTimeResultFromNative(Callback callback, long result) {
+            callback.onResult(Long.valueOf(result));
         }
 
         @CalledByNative("Helper")

@@ -1,4 +1,4 @@
-// Copyright 2016 The Chromium Authors. All rights reserved.
+// Copyright 2016 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -25,9 +25,30 @@ public interface CrashReportingPermissionManager {
 
     /**
      * Checks whether uploading of usage metrics and crash dumps is currently permitted, based on
-     * user consent only.
+     * user consent and policy only. This doesn't take network conditions or experimental state
+     * (i.e. disabling upload) into consideration. A crash dump may be retried if this check passes.
      *
-     * @return whether the user has consented to reporting usage metrics and crash dumps.
+     * @return Whether usage and crash reporting is permitted.
+     */
+    default boolean isUsageAndCrashReportingPermitted() {
+        return isUsageAndCrashReportingPermittedByUser() && isUsageAndCrashReportingPermittedByPolicy();
+    }
+
+    /**
+     * Whether uploading of usage metrics and crash dumps is permitted by policy.
+     * Important. Use {@link #isUsageAndCrashReportingPermitted} when checking if this device is
+     * allowed to upload usage metrics and crash dumps.
+     *
+     * @return Whether usage and crash reporting is permitted by policy.
+     */
+    boolean isUsageAndCrashReportingPermittedByPolicy();
+
+    /**
+     * Whether uploading of usage metrics and crash dumps is permitted by user.
+     * Important. Use {@link #isUsageAndCrashReportingPermitted} when checking if this device is
+     * allowed to upload usage metrics and crash dumps.
+     *
+     * @return Whether usage and crash reporting is permitted by user.
      */
     boolean isUsageAndCrashReportingPermittedByUser();
 

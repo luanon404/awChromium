@@ -1,5 +1,4 @@
-
-// Copyright 2021 The Chromium Authors. All rights reserved.
+// Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -15,14 +14,12 @@ import androidx.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@IntDef({
-    PointerType.NONE, PointerType.FIRST, PointerType.COARSE, PointerType.FINE, PointerType.LAST
-})
+@IntDef({PointerType.NONE, PointerType.FIRST, PointerType.COARSE, PointerType.FINE, PointerType.LAST})
 @Retention(RetentionPolicy.SOURCE)
 public @interface PointerType {
-  int NONE = 1 << 0;
-  int FIRST = NONE;
-  int COARSE = 1 << 1;
-  int FINE = 1 << 2;
-  int LAST = FINE;
+    int NONE = 1 << 0;
+    int FIRST = NONE;
+    int COARSE = 1 << 1;
+    int FINE = 1 << 2;
+    int LAST = FINE;
 }

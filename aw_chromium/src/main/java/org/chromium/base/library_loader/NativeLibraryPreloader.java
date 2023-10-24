@@ -1,4 +1,4 @@
-// Copyright 2016 The Chromium Authors. All rights reserved.
+// Copyright 2016 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -6,7 +6,7 @@ package org.chromium.base.library_loader;
 
 /**
  * This is interface to preload the native library before calling System.loadLibrary.
- *
+ * <p>
  * Preloading shouldn't call System.loadLibrary() or otherwise cause any Chromium
  * code to be run, because it can be called before Chromium command line is known.
  * It can however open the library via dlopen() or android_dlopen_ext() so that

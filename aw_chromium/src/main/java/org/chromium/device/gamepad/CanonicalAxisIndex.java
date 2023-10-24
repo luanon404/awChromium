@@ -1,5 +1,4 @@
-
-// Copyright 2021 The Chromium Authors. All rights reserved.
+// Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -15,15 +14,12 @@ import androidx.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@IntDef({
-    CanonicalAxisIndex.LEFT_STICK_X, CanonicalAxisIndex.LEFT_STICK_Y,
-    CanonicalAxisIndex.RIGHT_STICK_X, CanonicalAxisIndex.RIGHT_STICK_Y, CanonicalAxisIndex.COUNT
-})
+@IntDef({CanonicalAxisIndex.LEFT_STICK_X, CanonicalAxisIndex.LEFT_STICK_Y, CanonicalAxisIndex.RIGHT_STICK_X, CanonicalAxisIndex.RIGHT_STICK_Y, CanonicalAxisIndex.COUNT})
 @Retention(RetentionPolicy.SOURCE)
 public @interface CanonicalAxisIndex {
-  int LEFT_STICK_X = 0;
-  int LEFT_STICK_Y = 1;
-  int RIGHT_STICK_X = 2;
-  int RIGHT_STICK_Y = 3;
-  int COUNT = 4;
+    int LEFT_STICK_X = 0;
+    int LEFT_STICK_Y = 1;
+    int RIGHT_STICK_X = 2;
+    int RIGHT_STICK_Y = 3;
+    int COUNT = 4;
 }

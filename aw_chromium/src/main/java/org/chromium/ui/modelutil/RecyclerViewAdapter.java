@@ -1,4 +1,4 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
+// Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,11 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
-import org.chromium.base.Callback;
-
-import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 /**
  * A base {@link RecyclerView} adapter that delegates most of its logic. This allows compositing
@@ -22,16 +18,16 @@ import java.util.Set;
  * {@link RecyclerView}.
  *
  * @param <VH> The {@link ViewHolder} type for the {@link RecyclerView}.
- * @param <P> The payload type for partial updates, or {@link Void} if the adapter does not support
- * partial updates.
+ * @param <P>  The payload type for partial updates, or {@link Void} if the adapter does not support
+ *             partial updates.
  */
-public class RecyclerViewAdapter<VH extends ViewHolder, P>
-        extends RecyclerView.Adapter<VH> implements ListObservable.ListObserver<P> {
+public class RecyclerViewAdapter<VH extends ViewHolder, P> extends RecyclerView.Adapter<VH> implements ListObservable.ListObserver<P> {
     /**
      * Delegate interface for the adapter.
+     *
      * @param <VH> The {@link ViewHolder} type for the {@link RecyclerView}.
-     * @param <P> The payload type for partial updates, or {@link Void} if the adapter does not
-     * support partial updates.
+     * @param <P>  The payload type for partial updates, or {@link Void} if the adapter does not
+     *             support partial updates.
      */
     public interface Delegate<VH, P> extends ListObservable<P> {
         /**
@@ -54,9 +50,10 @@ public class RecyclerViewAdapter<VH extends ViewHolder, P>
          * Bind a given {@code viewHolder} to the data represented by the item at the given
          * {@code position} in the adapter. If {@code payload} is non-null, performs a "partial"
          * update of only the property represented by {@code payload}.
+         *
          * @param viewHolder A view holder to bind.
-         * @param position The adapter position of the item to bind to the {@code viewHolder}.
-         * @param payload The payload for partial updates, or null to perform a full bind.
+         * @param position   The adapter position of the item to bind to the {@code viewHolder}.
+         * @param payload    The payload for partial updates, or null to perform a full bind.
          * @see RecyclerView.Adapter#onBindViewHolder
          */
         void onBindViewHolder(VH viewHolder, int position, @Nullable P payload);
@@ -65,31 +62,11 @@ public class RecyclerViewAdapter<VH extends ViewHolder, P>
          * Called when the {@link View} owned by {@code viewHolder} no longer needs to be attached
          * to its parent {@link RecyclerView}.  This is a good place to free up expensive resources
          * that might be owned by the particular {@link View} or {@code viewHolder}.
+         *
          * @param viewHolder A view holder that will be recycled.
          * @see RecyclerView.Adapter#onViewRecycled(ViewHolder)
          */
-        default void onViewRecycled(VH viewHolder) {}
-
-        /**
-         * @param position The position of an item to be dismissed.
-         * @return The set of item positions that should be dismissed simultaneously when dismissing
-         *         the item at the given {@code position} (including the position itself), or an
-         *         empty set if the item can't be dismissed.
-         * @see org.chromium.chrome.browser.ntp.cards.NewTabPageAdapter#getItemDismissalGroup
-         */
-        default Set<Integer> getItemDismissalGroup(int position) {
-            return Collections.emptySet();
-        }
-
-        /**
-         * Dismiss the item at the given {@code position}.
-         * @param position The position of the item to be dismissed.
-         * @param itemRemovedCallback Should be called with the title of the dismissed item, to
-         * announce it for accessibility purposes.
-         * @see org.chromium.chrome.browser.ntp.cards.NewTabPageAdapter#dismissItem
-         */
-        default void dismissItem(int position, Callback<String> itemRemovedCallback) {
-            assert false;
+        default void onViewRecycled(VH viewHolder) {
         }
 
         /**
@@ -97,6 +74,7 @@ public class RecyclerViewAdapter<VH extends ViewHolder, P>
          * dumping state and equality checks, different items should have distinct descriptions,
          * but for items that are unique or don't have interesting state it can be sufficient to
          * return e.g. a string that describes the type of the item.
+         *
          * @param position The position of the item to be described.
          * @return A string description of the item.
          */
@@ -107,6 +85,7 @@ public class RecyclerViewAdapter<VH extends ViewHolder, P>
 
     /**
      * Factory for creating new {@link ViewHolder}s.
+     *
      * @param <VH> The {@link ViewHolder} type for the {@link RecyclerView}.
      */
     public interface ViewHolderFactory<VH> {
@@ -114,8 +93,8 @@ public class RecyclerViewAdapter<VH extends ViewHolder, P>
          * Called when the {@link RecyclerView} needs a new {@link ViewHolder} of the given
          * {@code viewType} to represent an item.
          *
-         * @param parent The {@link ViewGroup} into which the new view will be added after
-         *               it's bound to an adapter position.
+         * @param parent   The {@link ViewGroup} into which the new view will be added after
+         *                 it's bound to an adapter position.
          * @param viewType The view type of the new view.
          * @return A new {@link ViewHolder} that holds a view of the given view type.
          * @see RecyclerView.Adapter#createViewHolder
@@ -125,8 +104,9 @@ public class RecyclerViewAdapter<VH extends ViewHolder, P>
 
     /**
      * Creates a new adapter for the given {@code delegate} and {@link ViewHolder} {@code factory}.
+     *
      * @param delegate The delegate for this adapter.
-     * @param factory The {@link ViewHolder} factory for this adapter.
+     * @param factory  The {@link ViewHolder} factory for this adapter.
      */
     public RecyclerViewAdapter(Delegate<VH, P> delegate, ViewHolderFactory<VH> factory) {
         mDelegate = delegate;
@@ -186,8 +166,7 @@ public class RecyclerViewAdapter<VH extends ViewHolder, P>
     }
 
     @Override
-    public void onItemRangeChanged(
-            ListObservable<P> source, int index, int count, @Nullable P payload) {
+    public void onItemRangeChanged(ListObservable<P> source, int index, int count, @Nullable P payload) {
         notifyItemRangeChanged(index, count, payload);
     }
 

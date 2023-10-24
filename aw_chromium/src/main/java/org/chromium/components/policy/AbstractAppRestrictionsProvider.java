@@ -1,4 +1,4 @@
-// Copyright 2015 The Chromium Authors. All rights reserved.
+// Copyright 2015 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,18 +14,21 @@ import android.os.StrictMode;
 
 import androidx.annotation.VisibleForTesting;
 
+import org.chromium.base.ContextUtils;
 import org.chromium.base.Log;
 import org.chromium.base.ThreadUtils;
 
 /**
  * Retrieves app restrictions and provides them to the parent class as Bundles.
- *
+ * <p>
  * Needs to be subclassed to specify how to retrieve the restrictions.
  */
 public abstract class AbstractAppRestrictionsProvider extends PolicyProvider {
     private static final String TAG = "policy";
 
-    /** {@link Bundle} holding the restrictions to be used during tests. */
+    /**
+     * {@link Bundle} holding the restrictions to be used during tests.
+     */
     private static Bundle sTestRestrictions;
 
     private final Context mContext;
@@ -51,7 +54,7 @@ public abstract class AbstractAppRestrictionsProvider extends PolicyProvider {
 
     /**
      * @return The intent action to listen to to be notified of restriction changes,
-     * {@code null} if it is not supported.
+     * {@code null} if it is not supported. The action will/must be a protected broadcast action.
      */
     protected abstract String getRestrictionChangeIntentAction();
 
@@ -64,9 +67,7 @@ public abstract class AbstractAppRestrictionsProvider extends PolicyProvider {
         String changeIntentAction = getRestrictionChangeIntentAction();
         if (changeIntentAction == null) return;
 
-        mContext.registerReceiver(mAppRestrictionsChangedReceiver,
-                new IntentFilter(changeIntentAction), null,
-                new Handler(ThreadUtils.getUiThreadLooper()));
+        ContextUtils.registerProtectedBroadcastReceiver(mContext, mAppRestrictionsChangedReceiver, new IntentFilter(changeIntentAction), new Handler(ThreadUtils.getUiThreadLooper()));
     }
 
     /**
@@ -86,7 +87,6 @@ public abstract class AbstractAppRestrictionsProvider extends PolicyProvider {
         StrictMode.ThreadPolicy policy = StrictMode.allowThreadDiskReads();
         long startTime = System.currentTimeMillis();
         final Bundle bundle = getApplicationRestrictions(mContext.getPackageName());
-        recordStartTimeHistogram(startTime);
         StrictMode.setThreadPolicy(policy);
 
         notifySettingsAvailable(bundle);
@@ -108,25 +108,24 @@ public abstract class AbstractAppRestrictionsProvider extends PolicyProvider {
         }
     }
 
-    // Extracted to allow stubbing, since it calls a static that can't easily be stubbed
-    @VisibleForTesting
-    protected void recordStartTimeHistogram(long startTime) {
-        // TODO(aberent): Re-implement once we understand why the previous implementation was giving
-        // random crashes (https://crbug.com/535043)
-    }
-
     /**
      * Restrictions to be used during tests. Subsequent attempts to retrieve the restrictions will
      * return the provided bundle instead.
-     *
+     * <p>
      * Chrome and WebView tests are set up to use annotations for policy testing and reset the
      * restrictions to an empty bundle if nothing is specified. To stop using a test bundle,
      * provide {@code null} as value instead.
      */
     @VisibleForTesting
     public static void setTestRestrictions(Bundle policies) {
-        Log.d(TAG, "Test Restrictions: %s",
-                (policies == null ? null : policies.keySet().toArray()));
+        Log.d(TAG, "Test Restrictions: %s", (policies == null ? null : policies.keySet().toArray()));
         sTestRestrictions = policies;
+    }
+
+    /**
+     * Returns whether any restrictions were set using {@link #setTestRestrictions}.
+     */
+    public static boolean hasTestRestrictions() {
+        return sTestRestrictions != null;
     }
 }

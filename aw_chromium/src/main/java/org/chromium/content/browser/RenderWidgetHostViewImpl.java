@@ -1,14 +1,14 @@
-// Copyright 2019 The Chromium Authors. All rights reserved.
+// Copyright 2019 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
 package org.chromium.content.browser;
 
 import org.chromium.base.Callback;
-import org.chromium.base.annotations.CalledByNative;
-import org.chromium.base.annotations.JNINamespace;
-import org.chromium.base.annotations.NativeMethods;
 import org.chromium.content_public.browser.RenderWidgetHostView;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
 
 /**
  * The Android implementation of RenderWidgetHostView.  This is a Java wrapper to allow
@@ -27,7 +27,9 @@ public class RenderWidgetHostViewImpl implements RenderWidgetHostView {
         return new RenderWidgetHostViewImpl(renderWidgetHostViewLong);
     }
 
-    /** Do not call this constructor from Java, use native WebContents->GetRenderWidgetHostView. */
+    /**
+     * Do not call this constructor from Java, use native WebContents->GetRenderWidgetHostView.
+     */
     private RenderWidgetHostViewImpl(long renderWidgetHostViewLong) {
         mNativeRenderWidgetHostView = renderWidgetHostViewLong;
     }
@@ -35,14 +37,12 @@ public class RenderWidgetHostViewImpl implements RenderWidgetHostView {
     @Override
     public boolean isReady() {
         checkNotDestroyed();
-        return RenderWidgetHostViewImplJni.get().isReady(
-                getNativePtr(), RenderWidgetHostViewImpl.this);
+        return RenderWidgetHostViewImplJni.get().isReady(getNativePtr(), RenderWidgetHostViewImpl.this);
     }
 
     @Override
     public int getBackgroundColor() {
-        return RenderWidgetHostViewImplJni.get().getBackgroundColor(
-                getNativePtr(), RenderWidgetHostViewImpl.this);
+        return RenderWidgetHostViewImplJni.get().getBackgroundColor(getNativePtr(), RenderWidgetHostViewImpl.this);
     }
 
     /**
@@ -50,34 +50,30 @@ public class RenderWidgetHostViewImpl implements RenderWidgetHostView {
      */
     public void dismissTextHandles() {
         if (isDestroyed()) return;
-        RenderWidgetHostViewImplJni.get().dismissTextHandles(
-                getNativePtr(), RenderWidgetHostViewImpl.this);
+        RenderWidgetHostViewImplJni.get().dismissTextHandles(getNativePtr(), RenderWidgetHostViewImpl.this);
     }
 
     /**
      * Shows the paste popup menu and the touch handles at the specified location.
+     *
      * @param x The horizontal location of the touch in dps.
      * @param y The vertical location of the touch in dps.
      */
     public void showContextMenuAtTouchHandle(int x, int y) {
         checkNotDestroyed();
-        RenderWidgetHostViewImplJni.get().showContextMenuAtTouchHandle(
-                getNativePtr(), RenderWidgetHostViewImpl.this, x, y);
+        RenderWidgetHostViewImplJni.get().showContextMenuAtTouchHandle(getNativePtr(), RenderWidgetHostViewImpl.this, x, y);
     }
 
     @Override
     public void onViewportInsetBottomChanged() {
         checkNotDestroyed();
-        RenderWidgetHostViewImplJni.get().onViewportInsetBottomChanged(
-                getNativePtr(), RenderWidgetHostViewImpl.this);
+        RenderWidgetHostViewImplJni.get().onViewportInsetBottomChanged(getNativePtr(), RenderWidgetHostViewImpl.this);
     }
 
     @Override
-    public void writeContentBitmapToDiskAsync(
-            int width, int height, String path, Callback<String> callback) {
+    public void writeContentBitmapToDiskAsync(int width, int height, String path, Callback<String> callback) {
         if (isDestroyed()) callback.onResult("RWHVA already destroyed!");
-        RenderWidgetHostViewImplJni.get().writeContentBitmapToDiskAsync(
-                getNativePtr(), RenderWidgetHostViewImpl.this, width, height, path, callback);
+        RenderWidgetHostViewImplJni.get().writeContentBitmapToDiskAsync(getNativePtr(), RenderWidgetHostViewImpl.this, width, height, path, callback);
     }
 
     //====================
@@ -100,23 +96,21 @@ public class RenderWidgetHostViewImpl implements RenderWidgetHostView {
 
     private void checkNotDestroyed() {
         if (getNativePtr() != 0) return;
-        throw new IllegalStateException(
-                "Native RenderWidgetHostViewAndroid already destroyed", mNativeDestroyThrowable);
+        throw new IllegalStateException("Native RenderWidgetHostViewAndroid already destroyed", mNativeDestroyThrowable);
     }
 
     @NativeMethods
     interface Natives {
         boolean isReady(long nativeRenderWidgetHostViewAndroid, RenderWidgetHostViewImpl caller);
-        int getBackgroundColor(
-                long nativeRenderWidgetHostViewAndroid, RenderWidgetHostViewImpl caller);
-        void dismissTextHandles(
-                long nativeRenderWidgetHostViewAndroid, RenderWidgetHostViewImpl caller);
-        void showContextMenuAtTouchHandle(long nativeRenderWidgetHostViewAndroid,
-                RenderWidgetHostViewImpl caller, int x, int y);
-        void onViewportInsetBottomChanged(
-                long nativeRenderWidgetHostViewAndroid, RenderWidgetHostViewImpl caller);
-        void writeContentBitmapToDiskAsync(long nativeRenderWidgetHostViewAndroid,
-                RenderWidgetHostViewImpl caller, int width, int height, String path,
-                Callback<String> callback);
+
+        int getBackgroundColor(long nativeRenderWidgetHostViewAndroid, RenderWidgetHostViewImpl caller);
+
+        void dismissTextHandles(long nativeRenderWidgetHostViewAndroid, RenderWidgetHostViewImpl caller);
+
+        void showContextMenuAtTouchHandle(long nativeRenderWidgetHostViewAndroid, RenderWidgetHostViewImpl caller, int x, int y);
+
+        void onViewportInsetBottomChanged(long nativeRenderWidgetHostViewAndroid, RenderWidgetHostViewImpl caller);
+
+        void writeContentBitmapToDiskAsync(long nativeRenderWidgetHostViewAndroid, RenderWidgetHostViewImpl caller, int width, int height, String path, Callback<String> callback);
     }
 }

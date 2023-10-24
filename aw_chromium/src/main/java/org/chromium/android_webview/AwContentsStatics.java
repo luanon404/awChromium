@@ -1,4 +1,4 @@
-// Copyright 2014 The Chromium Authors. All rights reserved.
+// Copyright 2014 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -9,16 +9,18 @@ import android.net.Uri;
 
 import org.chromium.android_webview.common.Flag;
 import org.chromium.android_webview.common.FlagOverrideHelper;
+import org.chromium.android_webview.common.Lifetime;
 import org.chromium.android_webview.common.PlatformServiceBridge;
 import org.chromium.android_webview.common.ProductionSupportedFlagList;
+import org.chromium.android_webview.safe_browsing.AwSafeBrowsingSafeModeAction;
 import org.chromium.base.Callback;
 import org.chromium.base.ThreadUtils;
-import org.chromium.base.annotations.CalledByNative;
-import org.chromium.base.annotations.JNINamespace;
-import org.chromium.base.annotations.NativeMethods;
+import org.chromium.base.metrics.RecordHistogram;
 import org.chromium.base.task.PostTask;
 import org.chromium.base.task.TaskTraits;
-import org.chromium.content_public.browser.UiThreadTaskTraits;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,17 +30,16 @@ import java.util.Map;
  * Implementations of various static methods, and also a home for static
  * data structures that are meant to be shared between all webviews.
  */
+@Lifetime.Singleton
 @JNINamespace("android_webview")
 public class AwContentsStatics {
-
     private static ClientCertLookupTable sClientCertLookupTable;
 
     private static String sUnreachableWebDataUrl;
 
     private static boolean sRecordFullDocument;
 
-    private static final String sSafeBrowsingWarmUpHelper =
-            "com.android.webview.chromium.SafeBrowsingWarmUpHelper";
+    private static final String sSafeBrowsingWarmUpHelper = "com.android.webview.chromium.SafeBrowsingWarmUpHelper";
 
     /**
      * Return the client certificate lookup table.
@@ -81,17 +82,13 @@ public class AwContentsStatics {
         sRecordFullDocument = recordFullDocument;
     }
 
-    /* package */ static boolean getRecordFullDocument() {
+    /* package */
+    static boolean getRecordFullDocument() {
         return sRecordFullDocument;
     }
 
     public static String getProductVersion() {
         return AwContentsStaticsJni.get().getProductVersion();
-    }
-
-    public static void setServiceWorkerIoThreadClient(
-            AwContentsIoThreadClient ioThreadClient, AwBrowserContext browserContext) {
-        AwContentsStaticsJni.get().setServiceWorkerIoThreadClient(ioThreadClient, browserContext);
     }
 
     @CalledByNative
@@ -115,12 +112,16 @@ public class AwContentsStatics {
         // API.
         Callback<Boolean> wrapperCallback = b -> {
             if (callback != null) {
-                PostTask.runOrPostTask(UiThreadTaskTraits.DEFAULT, callback.bind(b));
+                PostTask.runOrPostTask(TaskTraits.UI_DEFAULT, callback.bind(b));
             }
         };
 
-        PlatformServiceBridge.getInstance().warmUpSafeBrowsing(
-                wrapperCallback);
+        if (AwSafeBrowsingSafeModeAction.isSafeBrowsingDisabled()) {
+            wrapperCallback.onResult(PlatformServiceBridge.getInstance().canUseGms());
+            return;
+        }
+
+        PlatformServiceBridge.getInstance().warmUpSafeBrowsing(context.getApplicationContext(), wrapperCallback);
     }
 
     public static Uri getSafeBrowsingPrivacyPolicyUrl() {
@@ -137,9 +138,8 @@ public class AwContentsStatics {
 
     public static void logFlagOverridesWithNative(Map<String, Boolean> flagOverrides) {
         // Do work asynchronously to avoid blocking startup.
-        PostTask.postTask(TaskTraits.THREAD_POOL_BEST_EFFORT, () -> {
-            FlagOverrideHelper helper =
-                    new FlagOverrideHelper(ProductionSupportedFlagList.sFlagList);
+        PostTask.postTask(TaskTraits.BEST_EFFORT, () -> {
+            FlagOverrideHelper helper = new FlagOverrideHelper(ProductionSupportedFlagList.sFlagList);
             ArrayList<String> switches = new ArrayList<>();
             ArrayList<String> features = new ArrayList<>();
             for (Map.Entry<String, Boolean> entry : flagOverrides.entrySet()) {
@@ -153,17 +153,16 @@ public class AwContentsStatics {
                 // Only insert enabled switches; ignore explicitly disabled switches since this is
                 // usually a NOOP.
             }
-            AwContentsStaticsJni.get().logFlagMetrics(
-                    switches.toArray(new String[0]), features.toArray(new String[0]));
+            AwContentsStaticsJni.get().logFlagMetrics(switches.toArray(new String[0]), features.toArray(new String[0]));
         });
     }
 
     /**
      * Return the first substring consisting of the address of a physical location.
-     * @see {@link android.webkit.WebView#findAddress(String)}
      *
      * @param addr The string to search for addresses.
      * @return the address, or if no address is found, return null.
+     * @see {@link android.webkit.WebView#findAddress(String)}
      */
     public static String findAddress(String addr) {
         if (addr == null) {
@@ -179,19 +178,35 @@ public class AwContentsStatics {
         return AwContentsStaticsJni.get().isMultiProcessEnabled();
     }
 
+    /**
+     * Returns the variations header used with the X-Client-Data header.
+     */
+    public static String getVariationsHeader() {
+        String header = AwContentsStaticsJni.get().getVariationsHeader();
+        RecordHistogram.recordCount100Histogram("Android.WebView.VariationsHeaderLength", header.length());
+        return header;
+    }
+
     @NativeMethods
     interface Natives {
         void logCommandLineForDebugging();
+
         void logFlagMetrics(String[] switches, String[] features);
 
         String getSafeBrowsingPrivacyPolicyUrl();
+
         void clearClientCertPreferences(Runnable callback);
+
         String getUnreachableWebDataUrl();
+
         String getProductVersion();
-        void setServiceWorkerIoThreadClient(
-                AwContentsIoThreadClient ioThreadClient, AwBrowserContext browserContext);
+
         void setSafeBrowsingAllowlist(String[] urls, Callback<Boolean> callback);
+
         void setCheckClearTextPermitted(boolean permitted);
+
         boolean isMultiProcessEnabled();
+
+        String getVariationsHeader();
     }
 }

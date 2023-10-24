@@ -1,4 +1,4 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
+// Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -12,7 +12,9 @@ import java.util.Set;
  * boolean state, e.g. visibility of a view.
  */
 public class TokenHolder {
-    /** An invalid token; this can be used to indicate no token is being held. */
+    /**
+     * An invalid token; this can be used to indicate no token is being held.
+     */
     public static final int INVALID_TOKEN = -1;
 
     private int mNextToken;

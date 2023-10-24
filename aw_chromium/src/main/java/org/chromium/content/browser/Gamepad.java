@@ -1,4 +1,4 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
+// Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -26,8 +26,7 @@ class Gamepad implements WindowEventObserver, UserData {
     }
 
     public static Gamepad from(WebContents webContents) {
-        return ((WebContentsImpl) webContents)
-                .getOrSetUserData(Gamepad.class, UserDataFactoryLazyHolder.INSTANCE);
+        return ((WebContentsImpl) webContents).getOrSetUserData(Gamepad.class, UserDataFactoryLazyHolder.INSTANCE);
     }
 
     public Gamepad(WebContents webContents) {

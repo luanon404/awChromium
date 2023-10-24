@@ -1,4 +1,4 @@
-// Copyright 2019 The Chromium Authors. All rights reserved.
+// Copyright 2019 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -9,14 +9,15 @@ import android.os.Build;
 import android.view.View;
 import android.view.ViewStructure;
 
+import androidx.annotation.RequiresApi;
 import androidx.annotation.VisibleForTesting;
 
 import org.chromium.base.Log;
-import org.chromium.base.annotations.CalledByNative;
-import org.chromium.base.annotations.JNINamespace;
-import org.chromium.base.annotations.NativeMethods;
 import org.chromium.content_public.browser.RenderCoordinates;
 import org.chromium.content_public.browser.WebContents;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -33,19 +34,16 @@ public class OnscreenContentProvider {
 
     private long mNativeOnscreenContentProviderAndroid;
 
-    private final ArrayList<ContentCaptureConsumer> mContentCaptureConsumers =
-            new ArrayList<ContentCaptureConsumer>();
+    private ArrayList<ContentCaptureConsumer> mContentCaptureConsumers = new ArrayList<ContentCaptureConsumer>();
 
     private WeakReference<WebContents> mWebContents;
 
-    public OnscreenContentProvider(
-            Context context, View view, ViewStructure structure, WebContents webContents) {
+    public OnscreenContentProvider(Context context, View view, ViewStructure structure, WebContents webContents) {
         mWebContents = new WeakReference<WebContents>(webContents);
         if (sDump == null) sDump = ContentCaptureFeatures.isDumpForTestingEnabled();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            ContentCaptureConsumer consumer =
-                    PlatformContentCaptureConsumer.create(context, view, structure, webContents);
+            ContentCaptureConsumer consumer = PlatformContentCaptureConsumer.create(context, view, structure, webContents);
             if (consumer != null) {
                 mContentCaptureConsumers.add(consumer);
             }
@@ -75,8 +73,7 @@ public class OnscreenContentProvider {
     private void createNativeObject() {
         WebContents webContents = mWebContents.get();
         if (webContents != null) {
-            mNativeOnscreenContentProviderAndroid =
-                    OnscreenContentProviderJni.get().init(this, webContents);
+            mNativeOnscreenContentProviderAndroid = OnscreenContentProviderJni.get().init(this, webContents);
         }
     }
 
@@ -93,8 +90,7 @@ public class OnscreenContentProvider {
     public void onWebContentsChanged(WebContents current) {
         mWebContents = new WeakReference<WebContents>(current);
         if (mNativeOnscreenContentProviderAndroid != 0) {
-            OnscreenContentProviderJni.get().onWebContentsChanged(
-                    mNativeOnscreenContentProviderAndroid, current);
+            OnscreenContentProviderJni.get().onWebContentsChanged(mNativeOnscreenContentProviderAndroid, current);
         }
     }
 
@@ -156,7 +152,18 @@ public class OnscreenContentProvider {
                 consumer.onTitleUpdated(mainFrame);
             }
         }
-        if (sDump.booleanValue()) Log.i(TAG, "Updated Title: %s", mainFrame);
+        if (sDump.booleanValue()) Log.i(TAG, "Updated Title: %s", mainFrame.getTitle());
+    }
+
+    @CalledByNative
+    private void didUpdateFavicon(ContentCaptureFrame mainFrame) {
+        String[] urls = buildUrls(null, mainFrame);
+        for (ContentCaptureConsumer consumer : mContentCaptureConsumers) {
+            if (consumer.shouldCapture(urls)) {
+                consumer.onFaviconUpdated(mainFrame);
+            }
+        }
+        if (sDump.booleanValue()) Log.i(TAG, "Updated Favicon: %s", mainFrame.getFavicon());
     }
 
     @CalledByNative
@@ -166,7 +173,7 @@ public class OnscreenContentProvider {
 
     @CalledByNative
     private boolean shouldCapture(String url) {
-        String[] urls = new String[] {url};
+        String[] urls = new String[]{url};
         for (ContentCaptureConsumer consumer : mContentCaptureConsumers) {
             if (consumer.shouldCapture(urls)) return true;
         }
@@ -192,12 +199,12 @@ public class OnscreenContentProvider {
         return result;
     }
 
-    @VisibleForTesting(otherwise = VisibleForTesting.NONE)
     public List<ContentCaptureConsumer> getConsumersForTesting() {
         return mContentCaptureConsumers;
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.NONE)
+    @RequiresApi(Build.VERSION_CODES.Q)
     public void removePlatformConsumerForTesting() {
         for (ContentCaptureConsumer consumer : mContentCaptureConsumers) {
             if (consumer instanceof PlatformContentCaptureConsumer) {
@@ -210,8 +217,9 @@ public class OnscreenContentProvider {
     @NativeMethods
     interface Natives {
         long init(OnscreenContentProvider caller, WebContents webContents);
-        void onWebContentsChanged(
-                long nativeOnscreenContentProviderAndroid, WebContents webContents);
+
+        void onWebContentsChanged(long nativeOnscreenContentProviderAndroid, WebContents webContents);
+
         void destroy(long nativeOnscreenContentProviderAndroid);
     }
 }

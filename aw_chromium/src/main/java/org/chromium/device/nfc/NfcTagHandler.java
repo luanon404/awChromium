@@ -1,4 +1,4 @@
-// Copyright 2016 The Chromium Authors. All rights reserved.
+// Copyright 2016 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -7,6 +7,7 @@ package org.chromium.device.nfc;
 import android.nfc.FormatException;
 import android.nfc.NdefMessage;
 import android.nfc.Tag;
+import android.nfc.TagLostException;
 import android.nfc.tech.Ndef;
 import android.nfc.tech.NdefFormatable;
 import android.nfc.tech.TagTechnology;
@@ -41,8 +42,7 @@ public class NfcTagHandler {
 
         NdefFormatable formattable = NdefFormatable.get(tag);
         if (formattable != null) {
-            return new NfcTagHandler(
-                    formattable, new NdefFormattableHandler(formattable), tag.getId());
+            return new NfcTagHandler(formattable, new NdefFormattableHandler(formattable), tag.getId());
         }
 
         return null;
@@ -53,16 +53,18 @@ public class NfcTagHandler {
      * This interface provides generic methods.
      */
     private interface TagTechnologyHandler {
-        void write(NdefMessage message)
-                throws IOException, FormatException, IllegalStateException;
-        NdefMessage read()
-                throws IOException, FormatException, IllegalStateException;
-        boolean canAlwaysOverwrite()
-                throws IOException, FormatException, IllegalStateException;
+        void write(NdefMessage message) throws IOException, TagLostException, FormatException, IllegalStateException;
+
+        boolean makeReadOnly() throws IOException, TagLostException;
+
+        NdefMessage read() throws IOException, TagLostException, FormatException, IllegalStateException;
+
+        boolean canAlwaysOverwrite() throws IOException, TagLostException, FormatException, IllegalStateException;
     }
 
     /**
      * Implementation of TagTechnologyHandler that uses Ndef tag technology.
+     *
      * @see android.nfc.tech.Ndef
      */
     private static class NdefHandler implements TagTechnologyHandler {
@@ -73,20 +75,22 @@ public class NfcTagHandler {
         }
 
         @Override
-        public void write(NdefMessage message)
-                throws IOException, FormatException, IllegalStateException {
+        public void write(NdefMessage message) throws IOException, TagLostException, FormatException, IllegalStateException {
             mNdef.writeNdefMessage(message);
         }
 
         @Override
-        public NdefMessage read()
-                throws IOException, FormatException, IllegalStateException {
+        public boolean makeReadOnly() throws IOException, TagLostException {
+            return mNdef.makeReadOnly();
+        }
+
+        @Override
+        public NdefMessage read() throws IOException, TagLostException, FormatException, IllegalStateException {
             return mNdef.getNdefMessage();
         }
 
         @Override
-        public boolean canAlwaysOverwrite()
-                throws IOException, FormatException, IllegalStateException {
+        public boolean canAlwaysOverwrite() throws IOException, TagLostException, FormatException, IllegalStateException {
             // Getting null means the tag is empty, overwrite is safe.
             return mNdef.getNdefMessage() == null;
         }
@@ -94,6 +98,7 @@ public class NfcTagHandler {
 
     /**
      * Implementation of TagTechnologyHandler that uses NdefFormatable tag technology.
+     *
      * @see android.nfc.tech.NdefFormatable
      */
     private static class NdefFormattableHandler implements TagTechnologyHandler {
@@ -104,9 +109,18 @@ public class NfcTagHandler {
         }
 
         @Override
-        public void write(NdefMessage message)
-                throws IOException, FormatException, IllegalStateException {
+        public void write(NdefMessage message) throws IOException, TagLostException, FormatException, IllegalStateException {
             mNdefFormattable.format(message);
+        }
+
+        @Override
+        public boolean makeReadOnly() throws IOException, TagLostException {
+            try {
+                mNdefFormattable.formatReadOnly(NdefMessageUtils.emptyNdefMessage());
+            } catch (FormatException e) {
+                return false;
+            }
+            return true;
         }
 
         @Override
@@ -152,7 +166,7 @@ public class NfcTagHandler {
     /**
      * Connects to NFC tag.
      */
-    public void connect() throws IOException {
+    public void connect() throws IOException, SecurityException, TagLostException {
         if (!mTech.isConnected()) {
             mTech.connect();
             mWasConnected = true;
@@ -160,29 +174,20 @@ public class NfcTagHandler {
     }
 
     /**
-     * Checks if NFC tag is connected.
-     */
-    public boolean isConnected() {
-        return mTech.isConnected();
-    }
-
-    /**
-     * Closes connection.
-     */
-    public void close() throws IOException {
-        mTech.close();
-    }
-
-    /**
      * Writes NdefMessage to NFC tag.
      */
-    public void write(NdefMessage message)
-            throws IOException, FormatException, IllegalStateException {
+    public void write(NdefMessage message) throws IOException, TagLostException, FormatException, IllegalStateException {
         mTechHandler.write(message);
     }
 
-    public NdefMessage read()
-            throws IOException, FormatException, IllegalStateException {
+    /**
+     * Make NFC tag read-only.
+     */
+    public boolean makeReadOnly() throws IOException, TagLostException {
+        return mTechHandler.makeReadOnly();
+    }
+
+    public NdefMessage read() throws IOException, TagLostException, FormatException, IllegalStateException {
         return mTechHandler.read();
     }
 
@@ -193,7 +198,7 @@ public class NfcTagHandler {
     public boolean isTagOutOfRange() {
         try {
             connect();
-        } catch (IOException e) {
+        } catch (IOException | SecurityException e) {
             return mWasConnected;
         }
         return false;
@@ -203,8 +208,7 @@ public class NfcTagHandler {
      * Returns false only if the tag is already NDEF formatted and contains some records. Otherwise
      * true.
      */
-    public boolean canAlwaysOverwrite()
-            throws IOException, FormatException, IllegalStateException {
+    public boolean canAlwaysOverwrite() throws IOException, TagLostException, FormatException, IllegalStateException {
         return mTechHandler.canAlwaysOverwrite();
     }
 }

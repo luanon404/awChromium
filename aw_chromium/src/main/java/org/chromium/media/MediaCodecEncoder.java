@@ -1,4 +1,4 @@
-// Copyright 2013 The Chromium Authors. All rights reserved.
+// Copyright 2013 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -8,7 +8,7 @@ import android.media.MediaCodec;
 import android.util.SparseArray;
 
 import org.chromium.base.Log;
-import org.chromium.base.annotations.JNINamespace;
+import org.jni_zero.JNINamespace;
 
 import java.nio.ByteBuffer;
 
@@ -24,7 +24,7 @@ class MediaCodecEncoder extends MediaCodecBridge {
     private static final String TAG = "MediaCodecEncoder";
 
     // Output buffers mapping with MediaCodec output buffers for the possible frame-merging.
-    private final SparseArray<ByteBuffer> mOutputBuffers = new SparseArray<>();
+    private SparseArray<ByteBuffer> mOutputBuffers = new SparseArray<>();
     // SPS and PPS NALs (Config frame).
     private ByteBuffer mConfigData;
 
@@ -57,12 +57,11 @@ class MediaCodecEncoder extends MediaCodecBridge {
         try {
             indexOrStatus = mMediaCodec.dequeueOutputBuffer(info, timeoutUs);
 
-            ByteBuffer codecOutputBuffer;
+            ByteBuffer codecOutputBuffer = null;
             if (indexOrStatus >= 0) {
                 boolean isConfigFrame = (info.flags & MediaCodec.BUFFER_FLAG_CODEC_CONFIG) != 0;
                 if (isConfigFrame) {
-                    Log.d(TAG, "Config frame generated. Offset: %d, size: %d", info.offset,
-                            info.size);
+                    Log.d(TAG, "Config frame generated. Offset: %d, size: %d", info.offset, info.size);
                     codecOutputBuffer = getMediaCodecOutputBuffer(indexOrStatus);
                     codecOutputBuffer.position(info.offset);
                     codecOutputBuffer.limit(info.offset + info.size);
@@ -71,7 +70,7 @@ class MediaCodecEncoder extends MediaCodecBridge {
                     mConfigData.put(codecOutputBuffer);
                     // Log few SPS header bytes to check profile and level.
                     StringBuilder spsData = new StringBuilder();
-                    for (int i = 0; i < (Math.min(info.size, 8)); i++) {
+                    for (int i = 0; i < (info.size < 8 ? info.size : 8); i++) {
                         spsData.append(Integer.toHexString(mConfigData.get(i) & 0xff)).append(" ");
                     }
                     Log.i(TAG, "spsData: %s", spsData.toString());
@@ -95,8 +94,7 @@ class MediaCodecEncoder extends MediaCodecBridge {
                 }
                 final ByteBuffer frameBuffer;
                 if (isKeyFrame && mConfigData != null) {
-                    Log.d(TAG, "Appending config frame of size %d to output buffer with size %d",
-                            mConfigData.capacity(), info.size);
+                    Log.d(TAG, "Appending config frame of size %d to output buffer with size %d", mConfigData.capacity(), info.size);
                     // For encoded key frame append SPS and PPS NALs at the start.
                     frameBuffer = ByteBuffer.allocateDirect(mConfigData.capacity() + info.size);
                     mConfigData.rewind();
@@ -118,6 +116,7 @@ class MediaCodecEncoder extends MediaCodecBridge {
     }
 
     // Call this function with catching IllegalStateException.
+    @SuppressWarnings("deprecation")
     private ByteBuffer getMediaCodecOutputBuffer(int index) {
         ByteBuffer outputBuffer = super.getOutputBuffer(index);
         if (outputBuffer == null) {

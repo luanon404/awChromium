@@ -1,4 +1,4 @@
-// Copyright 2016 The Chromium Authors. All rights reserved.
+// Copyright 2016 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -13,20 +13,23 @@ import java.util.List;
  * A registrar for mojo interface implementations to provide to an InterfaceRegistry.
  *
  * @param <ParamType> the type of parameter to pass to the InterfaceRegistrar when adding its
- *     interfaces to an InterfaceRegistry
+ *                    interfaces to an InterfaceRegistry
  */
 public interface InterfaceRegistrar<ParamType> {
-    /** Invoked to register interfaces on |registry|, parametrized by |paramValue|. */
+    /**
+     * Invoked to register interfaces on |registry|, parametrized by |paramValue|.
+     */
     void registerInterfaces(InterfaceRegistry registry, ParamType paramValue);
 
-    /** A registry of InterfaceRegistrars. */
+    /**
+     * A registry of InterfaceRegistrars.
+     */
     class Registry<ParamType> {
         private static Registry<Void> sSingletonRegistry;
         private static Registry<WebContents> sWebContentsRegistry;
         private static Registry<RenderFrameHost> sRenderFrameHostRegistry;
 
-        private final List<InterfaceRegistrar<ParamType>> mRegistrars =
-                new ArrayList<InterfaceRegistrar<ParamType>>();
+        private List<InterfaceRegistrar<ParamType>> mRegistrars = new ArrayList<InterfaceRegistrar<ParamType>>();
 
         public static void applySingletonRegistrars(InterfaceRegistry interfaceRegistry) {
             if (sSingletonRegistry == null) {
@@ -35,16 +38,14 @@ public interface InterfaceRegistrar<ParamType> {
             sSingletonRegistry.applyRegistrars(interfaceRegistry, null);
         }
 
-        public static void applyWebContentsRegistrars(
-                InterfaceRegistry interfaceRegistry, WebContents webContents) {
+        public static void applyWebContentsRegistrars(InterfaceRegistry interfaceRegistry, WebContents webContents) {
             if (sWebContentsRegistry == null) {
                 return;
             }
             sWebContentsRegistry.applyRegistrars(interfaceRegistry, webContents);
         }
 
-        public static void applyRenderFrameHostRegistrars(
-                InterfaceRegistry interfaceRegistry, RenderFrameHost renderFrameHost) {
+        public static void applyRenderFrameHostRegistrars(InterfaceRegistry interfaceRegistry, RenderFrameHost renderFrameHost) {
             if (sRenderFrameHostRegistry == null) {
                 return;
             }
@@ -65,15 +66,15 @@ public interface InterfaceRegistrar<ParamType> {
             sWebContentsRegistry.addRegistrar(registrar);
         }
 
-        public static void addRenderFrameHostRegistrar(
-                InterfaceRegistrar<RenderFrameHost> registrar) {
+        public static void addRenderFrameHostRegistrar(InterfaceRegistrar<RenderFrameHost> registrar) {
             if (sRenderFrameHostRegistry == null) {
                 sRenderFrameHostRegistry = new Registry<RenderFrameHost>();
             }
             sRenderFrameHostRegistry.addRegistrar(registrar);
         }
 
-        private Registry() {}
+        private Registry() {
+        }
 
         private void addRegistrar(InterfaceRegistrar<ParamType> registrar) {
             mRegistrars.add(registrar);

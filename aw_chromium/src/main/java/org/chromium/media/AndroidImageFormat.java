@@ -1,5 +1,4 @@
-
-// Copyright 2021 The Chromium Authors. All rights reserved.
+// Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -15,18 +14,15 @@ import androidx.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@IntDef({
-    AndroidImageFormat.NV21, AndroidImageFormat.YUV_420_888, AndroidImageFormat.YV12,
-    AndroidImageFormat.UNKNOWN
-})
+@IntDef({AndroidImageFormat.NV21, AndroidImageFormat.YUV_420_888, AndroidImageFormat.YV12, AndroidImageFormat.UNKNOWN})
 @Retention(RetentionPolicy.SOURCE)
 public @interface AndroidImageFormat {
-  /**
-   * Android graphics ImageFormat mapping, see reference in:
-   * http://developer.android.com/reference/android/graphics/ImageFormat.html
-   */
-  int NV21 = 17;
-  int YUV_420_888 = 35;
-  int YV12 = 842094169;
-  int UNKNOWN = 0;
+    /**
+     * Android graphics ImageFormat mapping, see reference in:
+     * http://developer.android.com/reference/android/graphics/ImageFormat.html
+     */
+    int NV21 = 17;
+    int YUV_420_888 = 35;
+    int YV12 = 842094169;
+    int UNKNOWN = 0;
 }

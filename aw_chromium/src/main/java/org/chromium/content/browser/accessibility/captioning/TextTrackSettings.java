@@ -1,4 +1,4 @@
-// Copyright 2015 The Chromium Authors. All rights reserved.
+// Copyright 2015 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -25,23 +25,22 @@ public final class TextTrackSettings {
      * Constructs a new TextTrackSettings object that will
      * return "" for all text track properties and false for textTracksEnabled.
      */
-    public TextTrackSettings() {}
+    public TextTrackSettings() {
+    }
 
     /**
      * Constructs a new TextTrackSettings object
      *
-     * @param textTracksEnabled the captions state
+     * @param textTracksEnabled        the captions state
      * @param textTrackBackgroundColor the background color
-     * @param textTrackFontFamily the font family
-     * @param textTrackFontStyle the font style
-     * @param textTrackFontVariant the font variant
-     * @param textTrackTextColor the text color
-     * @param textTrackTextShadow the text shadow
-     * @param textTrackTextSize the text size
+     * @param textTrackFontFamily      the font family
+     * @param textTrackFontStyle       the font style
+     * @param textTrackFontVariant     the font variant
+     * @param textTrackTextColor       the text color
+     * @param textTrackTextShadow      the text shadow
+     * @param textTrackTextSize        the text size
      */
-    public TextTrackSettings(boolean textTracksEnabled, String textTrackBackgroundColor,
-            String textTrackFontFamily, String textTrackFontStyle, String textTrackFontVariant,
-            String textTrackTextColor, String textTrackTextShadow, String textTrackTextSize) {
+    public TextTrackSettings(boolean textTracksEnabled, String textTrackBackgroundColor, String textTrackFontFamily, String textTrackFontStyle, String textTrackFontVariant, String textTrackTextColor, String textTrackTextShadow, String textTrackTextSize) {
         mTextTracksEnabled = textTracksEnabled;
         mTextTrackBackgroundColor = textTrackBackgroundColor;
         mTextTrackFontFamily = textTrackFontFamily;
@@ -61,7 +60,7 @@ public final class TextTrackSettings {
 
     /**
      * @return the text track background color. Will return "" if the
-     *         value is null
+     * value is null
      */
     public String getTextTrackBackgroundColor() {
         return Objects.toString(mTextTrackBackgroundColor, DEFAULT_VALUE);
@@ -69,7 +68,7 @@ public final class TextTrackSettings {
 
     /**
      * @return the text track font family. Will return "" if the
-     *         value is null
+     * value is null
      */
     public String getTextTrackFontFamily() {
         return Objects.toString(mTextTrackFontFamily, DEFAULT_VALUE);
@@ -77,7 +76,7 @@ public final class TextTrackSettings {
 
     /**
      * @return the text track font style. Will return "" if the
-     *         value is null
+     * value is null
      */
     public String getTextTrackFontStyle() {
         return Objects.toString(mTextTrackFontStyle, DEFAULT_VALUE);
@@ -85,7 +84,7 @@ public final class TextTrackSettings {
 
     /**
      * @return the text track font variant. Will return "" if the
-     *         value is null
+     * value is null
      */
     public String getTextTrackFontVariant() {
         return Objects.toString(mTextTrackFontVariant, DEFAULT_VALUE);
@@ -93,7 +92,7 @@ public final class TextTrackSettings {
 
     /**
      * @return the text track text color. Will return "" if the
-     *         value is null
+     * value is null
      */
     public String getTextTrackTextColor() {
         return Objects.toString(mTextTrackTextColor, DEFAULT_VALUE);
@@ -101,7 +100,7 @@ public final class TextTrackSettings {
 
     /**
      * @return the text track text shadow. Will return "" if the
-     *         value is null
+     * value is null
      */
     public String getTextTrackTextShadow() {
         return Objects.toString(mTextTrackTextShadow, DEFAULT_VALUE);
@@ -109,7 +108,7 @@ public final class TextTrackSettings {
 
     /**
      * @return the text track text size. Will return "" if the
-     *         value is null
+     * value is null
      */
     public String getTextTrackTextSize() {
         return Objects.toString(mTextTrackTextSize, DEFAULT_VALUE);

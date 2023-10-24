@@ -1,4 +1,4 @@
-// Copyright 2015 The Chromium Authors. All rights reserved.
+// Copyright 2015 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,8 +14,7 @@ import java.util.Locale;
 /**
  * Implementation of SystemCaptioningBridge that uses CaptioningManager.
  */
-public class CaptioningBridge
-        extends CaptioningManager.CaptioningChangeListener implements SystemCaptioningBridge {
+public class CaptioningBridge extends CaptioningManager.CaptioningChangeListener implements SystemCaptioningBridge {
     private final CaptioningChangeDelegate mCaptioningChangeDelegate;
     private final CaptioningManager mCaptioningManager;
     private static CaptioningBridge sInstance;
@@ -29,9 +28,7 @@ public class CaptioningBridge
 
     private CaptioningBridge() {
         mCaptioningChangeDelegate = new CaptioningChangeDelegate();
-        mCaptioningManager =
-                (CaptioningManager) ContextUtils.getApplicationContext().getSystemService(
-                        Context.CAPTIONING_SERVICE);
+        mCaptioningManager = (CaptioningManager) ContextUtils.getApplicationContext().getSystemService(Context.CAPTIONING_SERVICE);
     }
 
     @Override
@@ -62,8 +59,7 @@ public class CaptioningBridge
         mCaptioningChangeDelegate.onEnabledChanged(mCaptioningManager.isEnabled());
         mCaptioningChangeDelegate.onFontScaleChanged(mCaptioningManager.getFontScale());
         mCaptioningChangeDelegate.onLocaleChanged(mCaptioningManager.getLocale());
-        mCaptioningChangeDelegate.onUserStyleChanged(
-                getCaptioningStyleFrom(mCaptioningManager.getUserStyle()));
+        mCaptioningChangeDelegate.onUserStyleChanged(getCaptioningStyleFrom(mCaptioningManager.getUserStyle()));
     }
 
     @Override

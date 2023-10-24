@@ -1,18 +1,23 @@
-// Copyright 2021 The Chromium Authors. All rights reserved.
+// Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
 package org.chromium.components.content_capture;
 
+import android.os.Build;
 import android.view.autofill.AutofillId;
+
+import androidx.annotation.RequiresApi;
 
 import org.chromium.components.content_capture.PlatformSession.PlatformSessionData;
 
 /**
  * The task to update the title change to plateform
  */
+@RequiresApi(api = Build.VERSION_CODES.Q)
 public class TitleUpdateTask extends NotificationTask {
-    private final ContentCaptureFrame mMainFrame;
+    private ContentCaptureFrame mMainFrame;
+
     public TitleUpdateTask(ContentCaptureFrame mainFrame, PlatformSession platformSession) {
         super(null, platformSession);
         mMainFrame = mainFrame;
@@ -28,10 +33,7 @@ public class TitleUpdateTask extends NotificationTask {
         // To notify the text change, the parent ContentCaptureSession and this view's autofill id
         // are needed.
         PlatformSessionData parentPlatformSessionData = buildCurrentSession();
-        AutofillId autofillId = PlatformAPIWrapper.getInstance().newAutofillId(
-                parentPlatformSessionData.contentCaptureSession,
-                mPlatformSession.getRootPlatformSessionData().autofillId, mMainFrame.getId());
-        PlatformAPIWrapper.getInstance().notifyViewTextChanged(
-                parentPlatformSessionData.contentCaptureSession, autofillId, mMainFrame.getText());
+        AutofillId autofillId = PlatformAPIWrapper.getInstance().newAutofillId(parentPlatformSessionData.contentCaptureSession, mPlatformSession.getRootPlatformSessionData().autofillId, mMainFrame.getId());
+        PlatformAPIWrapper.getInstance().notifyViewTextChanged(parentPlatformSessionData.contentCaptureSession, autofillId, mMainFrame.getText());
     }
 }

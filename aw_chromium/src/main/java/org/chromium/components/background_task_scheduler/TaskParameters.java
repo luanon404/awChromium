@@ -38,12 +38,16 @@ public class TaskParameters {
         return mExtras;
     }
 
-    /** Creates a builder for task parameters. */
+    /**
+     * Creates a builder for task parameters.
+     */
     public static Builder create(int taskId) {
         return new Builder(taskId);
     }
 
-    /** Class for building a task parameters object. Public for testing */
+    /**
+     * Class for building a task parameters object. Public for testing
+     */
     public static final class Builder {
         private final int mTaskId;
         private Bundle mExtras;

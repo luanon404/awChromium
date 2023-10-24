@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Common text sizes -->
-    <dimen name="headline_size">22sp</dimen>
     <dimen name="text_size_large">16sp</dimen>
-    <dimen name="text_size_medium">14sp</dimen>
     <dimen name="text_size_small">12sp</dimen>
 
     <dimen name="headline_size_leading" tools:ignore="UnusedResources">28sp</dimen>
@@ -25,8 +23,6 @@
     <dimen name="min_touch_target_size">48dp</dimen>
 
     <!-- Button default measures -->
-    <dimen name="button_min_width">88dp</dimen>
-    <dimen name="button_bg_vertical_inset">6dp</dimen>
 
     <!-- Chips default measures -->
     <item name="chip_background_selected_alpha_light" format="float" type="dimen">0.06</item>
@@ -57,10 +53,7 @@
     <dimen name="dropdown_item_divider_height">1px</dimen>
     <dimen name="dropdown_item_label_margin">10dp</dimen>
     <dimen name="dropdown_icon_margin">8dp</dimen>
-    <dimen name="dropdown_vertical_margin">4dp</dimen>
     <dimen name="dropdown_elevation">2dp</dimen>
-
-    <dimen name="button_compat_corner_radius">4dp</dimen>
 
     <dimen name="chrome_bullet_gap">12dp</dimen>
     <dimen name="chrome_bullet_leading_offset">1dp</dimen>
@@ -96,7 +89,6 @@
     <dimen name="autofill_dropdown_refresh_footer_icon_height">14dp</dimen>
 
     <dimen name="autofill_dropdown_refresh_horizontal_padding">16dp</dimen>
-    <dimen name="autofill_dropdown_refresh_vertical_padding">12dp</dimen>
     <dimen name="autofill_dropdown_refresh_icon_margin">24dp</dimen>
 
     <!--
@@ -110,4 +102,26 @@
     <dimen name="text_edit_suggestion_item_layout_height">48dp</dimen>
     <dimen name="text_suggestion_popup_elevation">2dp</dimen>
     <dimen name="text_suggestion_popup_vertical_margin">20dp</dimen>
+    <dimen name="drag_shadow_border_size">1.0dip</dimen>
+    <dimen name="drag_shadow_border_corner_radius">8.0dip</dimen>
+    <item name="drag_shadow_resize_ratio" type="dimen">0.6</item>
+    <item name="drag_shadow_max_size_to_window_ratio" type="dimen">0.35</item>
+    <dimen name="drag_shadow_min_size">48.0dip</dimen>
+    <dimen name="menu_negative_software_vertical_offset">0.0dip</dimen>
+    <dimen name="default_elevation_1">1.0dip</dimen>
+    <dimen name="modal_dialog_button_with_icon_text_padding">8.0dip</dimen>
+    <dimen name="modal_dialog_button_with_icon_start_padding">12.0dip</dimen>
+    <dimen name="selectable_list_toolbar_height">56.0dip</dimen>
+    <dimen name="card_padding">16.0dip</dimen>
+    <dimen name="card_rounded_corner_radius">16.0dip</dimen>
+    <dimen name="default_list_row_padding">16.0dip</dimen>
+    <dimen name="action_bar_shadow_height">10.0dip</dimen>
+    <dimen name="text_size_medium">14.0sp</dimen>
+    <dimen name="headline2_size">18.0sp</dimen>
+    <dimen name="headline2_size_leading">24.0sp</dimen>
+    <dimen name="button_min_width">88.0dip</dimen>
+    <dimen name="button_bg_vertical_inset">4.0dip</dimen>
+    <dimen name="empty_state_text_width">341.0dip</dimen>
+    <dimen name="empty_state_heading_padding_top">18.0dip</dimen>
+    <dimen name="empty_state_subheading_padding_top">8.0dip</dimen>
 </resources>

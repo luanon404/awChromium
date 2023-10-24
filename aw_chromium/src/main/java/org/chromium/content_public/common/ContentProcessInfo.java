@@ -1,4 +1,4 @@
-// Copyright 2017 The Chromium Authors. All rights reserved.
+// Copyright 2017 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -11,10 +11,12 @@ public final class ContentProcessInfo {
     private static boolean sIsChildProcess;
 
     // Static members only, prevent instantiation.
-    private ContentProcessInfo() {}
+    private ContentProcessInfo() {
+    }
 
     /**
      * Set this as a child process; should be called as early as possible in process startup.
+     *
      * @param inChildProcess true if in child process.
      */
     public static void setInChildProcess(boolean inChildProcess) {

@@ -1,4 +1,4 @@
-// Copyright 2019 The Chromium Authors. All rights reserved.
+// Copyright 2019 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -26,20 +26,24 @@ import java.lang.ref.WeakReference;
  * accessed or reused, for example as part of a {@link androidx.recyclerview.widget.RecyclerView}.
  * The logic in the {@link #fastFindViewById(int)} method would be in {@link #findViewById(int)} if
  * it weren't final on the {@link View} class.
- *
+ * <p>
  * {@link android.view.ViewGroup.OnHierarchyChangeListener}s cannot be used on ViewGroups that are
  * children of this group since they would overwrite the listeners that are critical to this class'
  * functionality.
- *
+ * <p>
  * Usage:
- *     Use the same way that you would use a normal {@link android.widget.FrameLayout}, but instead
- *     of using {@link #findViewById(int)} to access views, use {@link #fastFindViewById(int)}.
+ * Use the same way that you would use a normal {@link android.widget.FrameLayout}, but instead
+ * of using {@link #findViewById(int)} to access views, use {@link #fastFindViewById(int)}.
  */
 public class ViewLookupCachingFrameLayout extends OptimizedFrameLayout {
-    /** A map containing views that have had lookup performed on them for quicker access. */
+    /**
+     * A map containing views that have had lookup performed on them for quicker access.
+     */
     private final SparseArray<WeakReference<View>> mCachedViews = new SparseArray<>();
 
-    /** The hierarchy listener responsible for notifying the cache that the tree has changed. */
+    /**
+     * The hierarchy listener responsible for notifying the cache that the tree has changed.
+     */
     @VisibleForTesting
     final OnHierarchyChangeListener mListener = new OnHierarchyChangeListener() {
         @Override
@@ -55,7 +59,9 @@ public class ViewLookupCachingFrameLayout extends OptimizedFrameLayout {
         }
     };
 
-    /** Default constructor for use in XML. */
+    /**
+     * Default constructor for use in XML.
+     */
     public ViewLookupCachingFrameLayout(Context context, AttributeSet atts) {
         super(context, atts);
         setOnHierarchyChangeListener(mListener);
@@ -69,7 +75,8 @@ public class ViewLookupCachingFrameLayout extends OptimizedFrameLayout {
 
     /**
      * Set the hierarchy listener that invalidates relevant parts of the cache when subtrees change.
-     * @param view The root of the tree to attach listeners to.
+     *
+     * @param view     The root of the tree to attach listeners to.
      * @param listener The listener to attach (null to unset).
      */
     private void setHierarchyListenerOnTree(View view, OnHierarchyChangeListener listener) {
@@ -86,6 +93,7 @@ public class ViewLookupCachingFrameLayout extends OptimizedFrameLayout {
      * Does the same thing as {@link #findViewById(int)} but caches the result if not null.
      * Subsequent lookups are cheaper as a result. Adding or removing a child view invalidates
      * the cache for the ID of the view removed and causes a re-lookup.
+     *
      * @param id The ID of the view to lookup.
      * @return The view if it exists.
      */
@@ -97,8 +105,7 @@ public class ViewLookupCachingFrameLayout extends OptimizedFrameLayout {
         if (view == null) view = findViewById(id);
         if (BuildConfig.ENABLE_ASSERTS) {
             assert view == findViewById(id) : "View caching logic is broken!";
-            assert ref == null
-                    || ref.get() != null : "Cache held reference to garbage collected view!";
+            assert ref == null || ref.get() != null : "Cache held reference to garbage collected view!";
         }
 
         if (view != null) mCachedViews.put(id, new WeakReference<>(view));

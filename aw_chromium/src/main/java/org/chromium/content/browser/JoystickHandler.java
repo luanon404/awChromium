@@ -1,4 +1,4 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
+// Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -29,12 +29,12 @@ public class JoystickHandler implements ImeEventObserver, UserData {
     }
 
     public static JoystickHandler fromWebContents(WebContents webContents) {
-        return ((WebContentsImpl) webContents)
-                .getOrSetUserData(JoystickHandler.class, UserDataFactoryLazyHolder.INSTANCE);
+        return ((WebContentsImpl) webContents).getOrSetUserData(JoystickHandler.class, UserDataFactoryLazyHolder.INSTANCE);
     }
 
     /**
      * Creates JoystickHandler instance.
+     *
      * @param webContents WebContents instance with which this JoystickHandler is associated.
      */
     private JoystickHandler(WebContents webContents) {
@@ -55,6 +55,7 @@ public class JoystickHandler implements ImeEventObserver, UserData {
 
     /**
      * Handles joystick input events.
+     *
      * @param event {@link MotionEvent} object.
      */
     public boolean onGenericMotionEvent(MotionEvent event) {

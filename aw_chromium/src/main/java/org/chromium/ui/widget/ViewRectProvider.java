@@ -1,4 +1,4 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
+// Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -11,29 +11,36 @@ import android.view.ViewTreeObserver;
 import androidx.core.view.ViewCompat;
 
 /**
- * Provides a {@Rect} for the location of a {@View} in its window, see
- * {@link View#getLocationOnScreen(int[])}.
+ * Provides a {@link Rect} for the location of a {@link View} in its window, see
+ * {@link View#getLocationOnScreen(int[])}. When view bound changes, {@link RectProvider.Observer}
+ * will be notified.
  */
-public class ViewRectProvider extends RectProvider
-        implements ViewTreeObserver.OnGlobalLayoutListener, View.OnAttachStateChangeListener,
-                   ViewTreeObserver.OnPreDrawListener {
+public class ViewRectProvider extends RectProvider implements ViewTreeObserver.OnGlobalLayoutListener, View.OnAttachStateChangeListener, ViewTreeObserver.OnPreDrawListener {
     private final int[] mCachedWindowCoordinates = new int[2];
     private final Rect mInsetRect = new Rect();
     private final View mView;
 
-    /** If not {@code null}, the {@link ViewTreeObserver} that we are registered to. */
+    private int mCachedViewWidth;
+    private int mCachedViewHeight;
+
+    /**
+     * If not {@code null}, the {@link ViewTreeObserver} that we are registered to.
+     */
     private ViewTreeObserver mViewTreeObserver;
 
     private boolean mIncludePadding;
 
     /**
      * Creates an instance of a {@link ViewRectProvider}.
+     *
      * @param view The {@link View} used to generate a {@link Rect}.
      */
     public ViewRectProvider(View view) {
         mView = view;
         mCachedWindowCoordinates[0] = -1;
         mCachedWindowCoordinates[1] = -1;
+        mCachedViewWidth = -1;
+        mCachedViewHeight = -1;
     }
 
     /**
@@ -41,8 +48,7 @@ public class ViewRectProvider extends RectProvider
      * when creating the {@link Rect}.
      */
     public void setInsetPx(int left, int top, int right, int bottom) {
-        mInsetRect.set(left, top, right, bottom);
-        refreshRectBounds();
+        setInsetPx(new Rect(left, top, right, bottom));
     }
 
     /**
@@ -50,16 +56,22 @@ public class ViewRectProvider extends RectProvider
      * when creating the {@link Rect}.
      */
     public void setInsetPx(Rect insetRect) {
+        if (insetRect.equals(mInsetRect)) return;
+
         mInsetRect.set(insetRect);
-        refreshRectBounds();
+        refreshRectBounds(/*forceRefresh=*/true);
     }
 
     /**
      * Whether padding should be included in the {@link Rect} for the {@link View}.
+     *
      * @param includePadding Whether padding should be included. Defaults to false.
      */
     public void setIncludePadding(boolean includePadding) {
+        if (includePadding == mIncludePadding) return;
+
         mIncludePadding = includePadding;
+        refreshRectBounds(/*forceRefresh=*/true);
     }
 
     @Override
@@ -69,7 +81,7 @@ public class ViewRectProvider extends RectProvider
         mViewTreeObserver.addOnGlobalLayoutListener(this);
         mViewTreeObserver.addOnPreDrawListener(this);
 
-        refreshRectBounds();
+        refreshRectBounds(/*forceRefresh=*/false);
 
         super.startObserving(observer);
     }
@@ -99,7 +111,7 @@ public class ViewRectProvider extends RectProvider
         if (!mView.isShown()) {
             notifyRectHidden();
         } else {
-            refreshRectBounds();
+            refreshRectBounds(/*forceRefresh=*/false);
         }
 
         return true;
@@ -107,24 +119,32 @@ public class ViewRectProvider extends RectProvider
 
     // View.OnAttachStateChangedObserver implementation.
     @Override
-    public void onViewAttachedToWindow(View v) {}
+    public void onViewAttachedToWindow(View v) {
+    }
 
     @Override
     public void onViewDetachedFromWindow(View v) {
         notifyRectHidden();
     }
 
-    private void refreshRectBounds() {
+    /**
+     * @param forceRefresh Whether the rect bounds should be refreshed even when the window
+     *                     coordinates and view sizes haven't changed. This is needed when inset or padding changes.
+     */
+    private void refreshRectBounds(boolean forceRefresh) {
         int previousPositionX = mCachedWindowCoordinates[0];
         int previousPositionY = mCachedWindowCoordinates[1];
+        int previousWidth = mCachedViewWidth;
+        int previousHeight = mCachedViewHeight;
         mView.getLocationInWindow(mCachedWindowCoordinates);
 
         mCachedWindowCoordinates[0] = Math.max(mCachedWindowCoordinates[0], 0);
         mCachedWindowCoordinates[1] = Math.max(mCachedWindowCoordinates[1], 0);
+        mCachedViewWidth = mView.getWidth();
+        mCachedViewHeight = mView.getHeight();
 
-        // Return if the window coordinates haven't changed.
-        if (mCachedWindowCoordinates[0] == previousPositionX
-                && mCachedWindowCoordinates[1] == previousPositionY) {
+        // Return if the window coordinates and view sizes haven't changed.
+        if (!forceRefresh && mCachedWindowCoordinates[0] == previousPositionX && mCachedWindowCoordinates[1] == previousPositionY && mCachedViewWidth == previousWidth && mCachedViewHeight == previousHeight) {
             return;
         }
 
@@ -141,10 +161,8 @@ public class ViewRectProvider extends RectProvider
         // Account for the padding.
         if (!mIncludePadding) {
             boolean isRtl = mView.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
-            mRect.left +=
-                    isRtl ? ViewCompat.getPaddingEnd(mView) : ViewCompat.getPaddingStart(mView);
-            mRect.right -=
-                    isRtl ? ViewCompat.getPaddingStart(mView) : ViewCompat.getPaddingEnd(mView);
+            mRect.left += isRtl ? ViewCompat.getPaddingEnd(mView) : ViewCompat.getPaddingStart(mView);
+            mRect.right -= isRtl ? ViewCompat.getPaddingStart(mView) : ViewCompat.getPaddingEnd(mView);
             mRect.top += mView.getPaddingTop();
             mRect.bottom -= mView.getPaddingBottom();
         }

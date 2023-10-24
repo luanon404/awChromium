@@ -1,11 +1,11 @@
-// Copyright 2014 The Chromium Authors. All rights reserved.
+// Copyright 2014 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
 package org.chromium.components.embedder_support.util;
 
-import org.chromium.base.annotations.CalledByNative;
-import org.chromium.base.annotations.JNINamespace;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
 
 import java.io.InputStream;
 import java.util.Map;
@@ -15,9 +15,9 @@ import java.util.Map;
  */
 @JNINamespace("embedder_support")
 public class WebResourceResponseInfo {
-    private final String mMimeType;
-    private final String mCharset;
-    private final InputStream mData;
+    private String mMimeType;
+    private String mCharset;
+    private InputStream mData;
     private int mStatusCode;
     private String mReasonPhrase;
     private Map<String, String> mResponseHeaders;
@@ -30,8 +30,7 @@ public class WebResourceResponseInfo {
         mData = data;
     }
 
-    public WebResourceResponseInfo(String mimeType, String encoding, InputStream data,
-            int statusCode, String reasonPhrase, Map<String, String> responseHeaders) {
+    public WebResourceResponseInfo(String mimeType, String encoding, InputStream data, int statusCode, String reasonPhrase, Map<String, String> responseHeaders) {
         this(mimeType, encoding, data);
 
         mStatusCode = statusCode;

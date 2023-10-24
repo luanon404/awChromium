@@ -1,4 +1,4 @@
-// Copyright 2020 The Chromium Authors. All rights reserved.
+// Copyright 2020 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -16,7 +16,7 @@ import org.chromium.base.ThreadUtils;
  * OneshotSupplier and providing it as a dependency to others.
  *
  * <p>Instances of this class must only be accessed from the thread they were created on.
- *
+ * <p>
  * To use:
  * <ol>
  *    <li>Create a new {@code OneshotSupplierImpl<T>} to pass as a dependency.
@@ -44,8 +44,9 @@ public class OneshotSupplierImpl<T> implements OneshotSupplier<T> {
     }
 
     /**
-     * Set the object supplied by this supplier. This will notify registered callbacks that the
-     * dependency is available. If set() has already been called, this method will assert.
+     * Set the object supplied by this supplier. This will post notifications to registered
+     * callbacks that the dependency is available. If set() has already been called, this method
+     * will assert.
      *
      * @param object The object to supply.
      */

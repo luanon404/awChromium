@@ -1,14 +1,15 @@
-// Copyright 2012 The Chromium Authors. All rights reserved.
+// Copyright 2012 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
 package org.chromium.content_public.browser;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 
-import org.chromium.base.annotations.JNINamespace;
-import org.chromium.base.annotations.NativeMethods;
+import org.chromium.base.UserDataHost;
+import org.chromium.base.supplier.Supplier;
 import org.chromium.content_public.browser.navigation_controller.LoadURLType;
 import org.chromium.content_public.browser.navigation_controller.UserAgentOverrideOption;
 import org.chromium.content_public.common.Referrer;
@@ -16,7 +17,10 @@ import org.chromium.content_public.common.ResourceRequestBody;
 import org.chromium.ui.base.PageTransition;
 import org.chromium.url.GURL;
 import org.chromium.url.Origin;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
 
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
@@ -28,31 +32,34 @@ import java.util.Map;
 @JNINamespace("content")
 public class LoadUrlParams {
     // Fields with counterparts in NavigationController::LoadURLParams.
-    // Package private so that NavigationController.loadUrl can pass them down to
-    // native code. Should not be accessed directly anywhere else outside of
-    // this class.
-    String mUrl;
-    Origin mInitiatorOrigin;
-    int mLoadUrlType;
-    int mTransitionType;
-    Referrer mReferrer;
+    private String mUrl;
+    private Origin mInitiatorOrigin;
+    private int mLoadUrlType;
+    private int mTransitionType;
+    private Referrer mReferrer;
     private Map<String, String> mExtraHeaders;
+    @Nullable
+    private UserDataHost mNavigationHandleUserDataHost;
     private String mVerbatimHeaders;
-    int mUaOverrideOption;
-    ResourceRequestBody mPostData;
-    String mBaseUrlForDataUrl;
-    String mVirtualUrlForDataUrl;
-    String mDataUrlAsString;
-    boolean mCanLoadLocalResources;
-    boolean mIsRendererInitiated;
-    boolean mShouldReplaceCurrentEntry;
-    long mIntentReceivedTimestamp;
-    long mInputStartTimestamp;
-    boolean mHasUserGesture;
-    boolean mShouldClearHistoryList;
+    private int mUaOverrideOption;
+    private ResourceRequestBody mPostData;
+    private String mBaseUrlForDataUrl;
+    private String mVirtualUrlForDataUrl;
+    private String mDataUrlAsString;
+    private boolean mCanLoadLocalResources;
+    private boolean mIsRendererInitiated;
+    private boolean mShouldReplaceCurrentEntry;
+    private long mIntentReceivedTimestamp;
+    private long mInputStartTimestamp;
+    private boolean mHasUserGesture;
+    private boolean mShouldClearHistoryList;
+    @Nullable
+    private AdditionalNavigationParams mAdditionalNavigationParams;
+    private Supplier<Long> mNavigationUIDataSupplier;
 
     /**
      * Creates an instance with default page transition type.
+     *
      * @param url the url to be loaded
      */
     public LoadUrlParams(String url) {
@@ -61,6 +68,7 @@ public class LoadUrlParams {
 
     /**
      * Creates an instance with default page transition type.
+     *
      * @param url the url to be loaded
      */
     public LoadUrlParams(GURL url) {
@@ -69,7 +77,8 @@ public class LoadUrlParams {
 
     /**
      * Creates an instance with the given page transition type.
-     * @param url the url to be loaded
+     *
+     * @param url            the url to be loaded
      * @param transitionType the PageTransitionType constant corresponding to the load
      */
     public LoadUrlParams(GURL url, int transitionType) {
@@ -78,7 +87,8 @@ public class LoadUrlParams {
 
     /**
      * Creates an instance with the given page transition type.
-     * @param url the url to be loaded
+     *
+     * @param url            the url to be loaded
      * @param transitionType the PageTransitionType constant corresponding to the load
      */
     public LoadUrlParams(String url, int transitionType) {
@@ -96,35 +106,67 @@ public class LoadUrlParams {
     }
 
     /**
+     * Creates a new LoadUrlParams that is a copy of {@code other}.
+     * The user data host is intentionally not copied.
+     */
+    public static LoadUrlParams copy(@NonNull LoadUrlParams other) {
+        LoadUrlParams copy = new LoadUrlParams(other.mUrl);
+        copy.mInitiatorOrigin = other.mInitiatorOrigin;
+        copy.mLoadUrlType = other.mLoadUrlType;
+        copy.mTransitionType = other.mTransitionType;
+        copy.mReferrer = other.mReferrer;
+        if (other.mExtraHeaders != null) {
+            copy.mExtraHeaders = new HashMap<>(other.mExtraHeaders);
+        }
+        // mNavigationHandleUserDataHost is intentionally not copied.  We don't want any user data
+        // from one navigation to potentially affect a different navigation, and UserHandleData
+        // does not support deep copy.
+
+        copy.mVerbatimHeaders = other.mVerbatimHeaders;
+        copy.mUaOverrideOption = other.mUaOverrideOption;
+        copy.mPostData = other.mPostData;
+        copy.mBaseUrlForDataUrl = other.mBaseUrlForDataUrl;
+        copy.mVirtualUrlForDataUrl = other.mVirtualUrlForDataUrl;
+        copy.mDataUrlAsString = other.mDataUrlAsString;
+        copy.mCanLoadLocalResources = other.mCanLoadLocalResources;
+        copy.mIsRendererInitiated = other.mIsRendererInitiated;
+        copy.mShouldReplaceCurrentEntry = other.mShouldReplaceCurrentEntry;
+        copy.mIntentReceivedTimestamp = other.mIntentReceivedTimestamp;
+        copy.mInputStartTimestamp = other.mInputStartTimestamp;
+        copy.mHasUserGesture = other.mHasUserGesture;
+        copy.mShouldClearHistoryList = other.mShouldClearHistoryList;
+        copy.mAdditionalNavigationParams = other.mAdditionalNavigationParams;
+        return copy;
+    }
+
+    /**
      * Helper method to create a LoadUrlParams object for data url.
-     * @param data Data to be loaded.
-     * @param mimeType Mime type of the data.
+     *
+     * @param data            Data to be loaded.
+     * @param mimeType        Mime type of the data.
      * @param isBase64Encoded True if the data is encoded in Base 64 format.
      */
-    public static LoadUrlParams createLoadDataParams(
-            String data, String mimeType, boolean isBase64Encoded) {
+    public static LoadUrlParams createLoadDataParams(String data, String mimeType, boolean isBase64Encoded) {
         return createLoadDataParams(data, mimeType, isBase64Encoded, null);
     }
 
     /**
      * Helper method to create a LoadUrlParams object for data url.
-     * @param data Data to be loaded.
-     * @param mimeType Mime type of the data.
+     *
+     * @param data            Data to be loaded.
+     * @param mimeType        Mime type of the data.
      * @param isBase64Encoded True if the data is encoded in Base 64 format.
-     * @param charset The character set for the data. Pass null if the mime type
-     *                does not require a special charset.
+     * @param charset         The character set for the data. Pass null if the mime type
+     *                        does not require a special charset.
      */
-    public static LoadUrlParams createLoadDataParams(
-            String data, String mimeType, boolean isBase64Encoded, String charset) {
-        LoadUrlParams params = new LoadUrlParams(
-                buildDataUri(data, mimeType, isBase64Encoded, charset));
+    public static LoadUrlParams createLoadDataParams(String data, String mimeType, boolean isBase64Encoded, String charset) {
+        LoadUrlParams params = new LoadUrlParams(buildDataUri(data, mimeType, isBase64Encoded, charset));
         params.setLoadType(LoadURLType.DATA);
         params.setTransitionType(PageTransition.TYPED);
         return params;
     }
 
-    private static String buildDataUri(
-            String data, String mimeType, boolean isBase64Encoded, String charset) {
+    private static String buildDataUri(String data, String mimeType, boolean isBase64Encoded, String charset) {
         StringBuilder dataUrl = new StringBuilder("data:");
         dataUrl.append(mimeType);
         if (charset != null && !charset.isEmpty()) {
@@ -141,41 +183,38 @@ public class LoadUrlParams {
     /**
      * Helper method to create a LoadUrlParams object for data url with base
      * and virtual url.
-     * @param data Data to be loaded.
-     * @param mimeType Mime type of the data.
+     *
+     * @param data            Data to be loaded.
+     * @param mimeType        Mime type of the data.
      * @param isBase64Encoded True if the data is encoded in Base 64 format.
-     * @param baseUrl Base url of this data load. Note that for WebView compatibility,
-     *                baseUrl and historyUrl are ignored if this is a data: url.
-     *                Defaults to about:blank if null.
-     * @param historyUrl History url for this data load. Note that for WebView compatibility,
-     *                   this is ignored if baseUrl is a data: url. Defaults to about:blank
-     *                   if null.
+     * @param baseUrl         Base url of this data load. Note that for WebView compatibility,
+     *                        baseUrl and historyUrl are ignored if this is a data: url.
+     *                        Defaults to about:blank if null.
+     * @param historyUrl      History url for this data load. Note that for WebView compatibility,
+     *                        this is ignored if baseUrl is a data: url. Defaults to about:blank
+     *                        if null.
      */
-    public static LoadUrlParams createLoadDataParamsWithBaseUrl(
-            String data, String mimeType, boolean isBase64Encoded,
-            String baseUrl, String historyUrl) {
-        return createLoadDataParamsWithBaseUrl(data, mimeType, isBase64Encoded,
-                baseUrl, historyUrl, null);
+    public static LoadUrlParams createLoadDataParamsWithBaseUrl(String data, String mimeType, boolean isBase64Encoded, String baseUrl, String historyUrl) {
+        return createLoadDataParamsWithBaseUrl(data, mimeType, isBase64Encoded, baseUrl, historyUrl, null);
     }
 
     /**
      * Helper method to create a LoadUrlParams object for data url with base
      * and virtual url.
-     * @param data Data to be loaded.
-     * @param mimeType Mime type of the data.
+     *
+     * @param data            Data to be loaded.
+     * @param mimeType        Mime type of the data.
      * @param isBase64Encoded True if the data is encoded in Base 64 format.
-     * @param baseUrl Base url of this data load. Note that for WebView compatibility,
-     *                baseUrl and historyUrl are ignored if this is a data: url.
-     *                Defaults to about:blank if null.
-     * @param historyUrl History url for this data load. Note that for WebView compatibility,
-     *                   this is ignored if baseUrl is a data: url. Defaults to about:blank
-     *                   if null.
-     * @param charset The character set for the data. Pass null if the mime type
-     *                does not require a special charset.
+     * @param baseUrl         Base url of this data load. Note that for WebView compatibility,
+     *                        baseUrl and historyUrl are ignored if this is a data: url.
+     *                        Defaults to about:blank if null.
+     * @param historyUrl      History url for this data load. Note that for WebView compatibility,
+     *                        this is ignored if baseUrl is a data: url. Defaults to about:blank
+     *                        if null.
+     * @param charset         The character set for the data. Pass null if the mime type
+     *                        does not require a special charset.
      */
-    public static LoadUrlParams createLoadDataParamsWithBaseUrl(
-            String data, String mimeType, boolean isBase64Encoded,
-            String baseUrl, String historyUrl, String charset) {
+    public static LoadUrlParams createLoadDataParamsWithBaseUrl(String data, String mimeType, boolean isBase64Encoded, String baseUrl, String historyUrl, String charset) {
         LoadUrlParams params;
         // For WebView compatibility, when the base URL has the 'data:'
         // scheme, we treat it as a regular data URL load and skip setting
@@ -195,12 +234,12 @@ public class LoadUrlParams {
 
     /**
      * Helper method to create a LoadUrlParams object for an HTTP POST load.
-     * @param url URL of the load.
+     *
+     * @param url      URL of the load.
      * @param postData Post data of the load. Can be null.
      */
     @VisibleForTesting
-    public static LoadUrlParams createLoadHttpPostParams(
-            String url, byte[] postData) {
+    public static LoadUrlParams createLoadHttpPostParams(String url, byte[] postData) {
         LoadUrlParams params = new LoadUrlParams(url);
         params.setLoadType(LoadURLType.HTTP_POST);
         params.setTransitionType(PageTransition.TYPED);
@@ -245,6 +284,7 @@ public class LoadUrlParams {
 
     /**
      * Set load type of this load. Defaults to LoadURLType.DEFAULT.
+     *
      * @param loadType One of LOAD_TYPE static constants above.
      */
     public void setLoadType(int loadType) {
@@ -253,6 +293,7 @@ public class LoadUrlParams {
 
     /**
      * Set transition type of this load. Defaults to PageTransition.LINK.
+     *
      * @param transitionType One of PAGE_TRANSITION static constants in ContentView.
      */
     public void setTransitionType(int transitionType) {
@@ -282,6 +323,7 @@ public class LoadUrlParams {
 
     /**
      * Set extra headers for this load.
+     *
      * @param extraHeaders Extra HTTP headers for this load. Note that these
      *                     headers will never overwrite existing ones set by Chromium.
      */
@@ -295,6 +337,28 @@ public class LoadUrlParams {
      */
     public Map<String, String> getExtraHeaders() {
         return mExtraHeaders;
+    }
+
+    /**
+     * Returns the user data to be added to the navigation handle. Returns an empty but valid
+     * instance if there is no data.
+     */
+    public UserDataHost getNavigationHandleUserData() {
+        if (mNavigationHandleUserDataHost == null) {
+            mNavigationHandleUserDataHost = new UserDataHost();
+        }
+        return mNavigationHandleUserDataHost;
+    }
+
+    /**
+     * Returns the user data to be added to the navigation handle. Clears out the existing user data
+     * host on each call.  May return null if there is no data. This is not part of the content API.
+     */
+    @Nullable
+    public UserDataHost takeNavigationHandleUserData() {
+        UserDataHost returnValue = mNavigationHandleUserDataHost;
+        mNavigationHandleUserDataHost = null;
+        return returnValue;
     }
 
     /**
@@ -346,7 +410,10 @@ public class LoadUrlParams {
     private void verifyHeaders() {
         // TODO(https://crbug.com/1199393): Merge extra and verbatim headers internally, and only
         // expose one way to get headers, so users of this class don't miss headers.
-        assert mExtraHeaders == null || mVerbatimHeaders == null || mVerbatimHeaders.equalsIgnoreCase(getExtraHeadersString());
+        if (mExtraHeaders != null && mVerbatimHeaders != null) {
+            // If both header types are set, ensure they're the same.
+            assert mVerbatimHeaders.equalsIgnoreCase(getExtraHeadersString());
+        }
     }
 
     /**
@@ -358,6 +425,7 @@ public class LoadUrlParams {
 
     /**
      * Set user agent override option of this load. Defaults to UserAgentOverrideOption.INHERIT.
+     *
      * @param uaOption One of UA_OVERRIDE static constants above.
      */
     public void setOverrideUserAgent(int uaOption) {
@@ -366,6 +434,7 @@ public class LoadUrlParams {
 
     /**
      * Get user agent override option of this load. Defaults to UserAgentOverrideOption.INHERIT.
+     *
      * @param uaOption One of UA_OVERRIDE static constants above.
      */
     public int getUserAgentOverrideOption() {
@@ -374,6 +443,7 @@ public class LoadUrlParams {
 
     /**
      * Set the post data of this load, and if non-null, sets the load type to HTTP_POST.
+     *
      * @param postData Post data for this http post load.
      */
     public void setPostData(ResourceRequestBody postData) {
@@ -392,6 +462,7 @@ public class LoadUrlParams {
      * Set the base url for data load. It is used both to resolve relative URLs
      * and when applying JavaScript's same origin policy. It is ignored unless
      * load type is LoadURLType.DATA.
+     *
      * @param baseUrl The base url for this data load.
      */
     public void setBaseUrlForDataUrl(String baseUrl) {
@@ -401,6 +472,7 @@ public class LoadUrlParams {
     /**
      * Get the virtual url for data load. It is the url displayed to the user.
      * It is ignored unless load type is LoadURLType.DATA.
+     *
      * @return The virtual url for this data load.
      */
     public String getVirtualUrlForDataUrl() {
@@ -410,6 +482,7 @@ public class LoadUrlParams {
     /**
      * Set the virtual url for data load. It is the url displayed to the user.
      * It is ignored unless load type is LoadURLType.DATA.
+     *
      * @param virtualUrl The virtual url for this data load.
      */
     public void setVirtualUrlForDataUrl(String virtualUrl) {
@@ -419,6 +492,7 @@ public class LoadUrlParams {
     /**
      * Get the data for data load. This is then passed to the renderer as
      * a string, not as a GURL object to circumvent GURL size restriction.
+     *
      * @return The data url.
      */
     public String getDataUrlAsString() {
@@ -428,6 +502,7 @@ public class LoadUrlParams {
     /**
      * Set the data for data load. This is then passed to the renderer as
      * a string, not as a GURL object to circumvent GURL size restriction.
+     *
      * @param url The data url.
      */
     public void setDataUrlAsString(String url) {
@@ -470,7 +545,7 @@ public class LoadUrlParams {
 
     /**
      * @param shouldReplaceCurrentEntry Whether this navigation should replace
-     * the current navigation entry.
+     *                                  the current navigation entry.
      */
     public void setShouldReplaceCurrentEntry(boolean shouldReplaceCurrentEntry) {
         mShouldReplaceCurrentEntry = shouldReplaceCurrentEntry;
@@ -531,14 +606,35 @@ public class LoadUrlParams {
         return mHasUserGesture;
     }
 
-    /** Sets whether session history should be cleared once the navigation commits. */
+    /**
+     * Sets whether session history should be cleared once the navigation commits.
+     */
     public void setShouldClearHistoryList(boolean shouldClearHistoryList) {
         mShouldClearHistoryList = shouldClearHistoryList;
     }
 
-    /** Returns whether session history should be cleared once the navigation commits. */
+    /**
+     * Returns whether session history should be cleared once the navigation commits.
+     */
     public boolean getShouldClearHistoryList() {
         return mShouldClearHistoryList;
+    }
+
+    /**
+     * Set the additional navigation params associated with the load.
+     *
+     * @param additionalNavigationParams Additional navigation params associated with the load.
+     */
+    public void setAdditionalNavigationParams(AdditionalNavigationParams additionalNavigationParams) {
+        mAdditionalNavigationParams = additionalNavigationParams;
+    }
+
+    /**
+     * @return The additional navigation params associated with the load.
+     */
+    @Nullable
+    public AdditionalNavigationParams getAdditionalNavigationParams() {
+        return mAdditionalNavigationParams;
     }
 
     public boolean isBaseUrlDataScheme() {
@@ -548,6 +644,20 @@ public class LoadUrlParams {
             return true;
         }
         return LoadUrlParamsJni.get().isDataScheme(mBaseUrlForDataUrl);
+    }
+
+    /**
+     * Set the {@link NavigationUIData}.
+     */
+    public void setNavigationUIDataSupplier(Supplier<Long> navigationUIDataSupplier) {
+        mNavigationUIDataSupplier = navigationUIDataSupplier;
+    }
+
+    /**
+     * Returns the supplier for {@link NavigationUIData} or null.
+     */
+    public Supplier<Long> getNavigationUIDataSupplier() {
+        return mNavigationUIDataSupplier;
     }
 
     @NativeMethods

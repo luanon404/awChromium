@@ -1,4 +1,4 @@
-// Copyright 2014 The Chromium Authors. All rights reserved.
+// Copyright 2014 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -38,7 +38,7 @@ class BatteryStatusManager {
             BatteryStatusManager.this.onReceive(intent);
         }
     };
-    private final AndroidBatteryManagerWrapper mAndroidBatteryManager;
+    private AndroidBatteryManagerWrapper mAndroidBatteryManager;
     private boolean mEnabled;
 
     @VisibleForTesting
@@ -54,36 +54,30 @@ class BatteryStatusManager {
         }
     }
 
-    private BatteryStatusManager(
-            BatteryStatusCallback callback, @Nullable AndroidBatteryManagerWrapper batteryManager) {
+    private BatteryStatusManager(BatteryStatusCallback callback, @Nullable AndroidBatteryManagerWrapper batteryManager) {
         mCallback = callback;
         mAndroidBatteryManager = batteryManager;
     }
 
     BatteryStatusManager(BatteryStatusCallback callback) {
-        this(callback,
-                new AndroidBatteryManagerWrapper(
-                        (BatteryManager) ContextUtils.getApplicationContext().getSystemService(
-                                Context.BATTERY_SERVICE)));
+        this(callback, new AndroidBatteryManagerWrapper((BatteryManager) ContextUtils.getApplicationContext().getSystemService(Context.BATTERY_SERVICE)));
     }
 
     /**
      * Creates a BatteryStatusManager without the Galaxy Nexus workaround for consistency in
      * testing.
      */
-    static BatteryStatusManager createBatteryStatusManagerForTesting(
-            BatteryStatusCallback callback, @Nullable AndroidBatteryManagerWrapper batteryManager) {
+    static BatteryStatusManager createBatteryStatusManagerForTesting(BatteryStatusCallback callback, @Nullable AndroidBatteryManagerWrapper batteryManager) {
         return new BatteryStatusManager(callback, batteryManager);
     }
 
     /**
      * Starts listening for intents.
+     *
      * @return True on success.
      */
     boolean start() {
-        if (!mEnabled
-                && ContextUtils.getApplicationContext().registerReceiver(mReceiver, mFilter)
-                        != null) {
+        if (!mEnabled && ContextUtils.registerProtectedBroadcastReceiver(ContextUtils.getApplicationContext(), mReceiver, mFilter) != null) {
             // success
             mEnabled = true;
         }
@@ -149,6 +143,7 @@ class BatteryStatusManager {
                     updateBatteryStatus(batteryStatus);
                     return batteryStatus;
                 }
+
                 @Override
                 protected void onPostExecute(BatteryStatus batteryStatus) {
                     mCallback.onBatteryStatusChanged(batteryStatus);
@@ -160,26 +155,19 @@ class BatteryStatusManager {
     }
 
     private void updateBatteryStatus(BatteryStatus batteryStatus) {
-        double remainingCapacityRatio =
-                mAndroidBatteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY)
-                / 100.0;
-        double batteryCapacityMicroAh = mAndroidBatteryManager.getIntProperty(
-                BatteryManager.BATTERY_PROPERTY_CHARGE_COUNTER);
-        double averageCurrentMicroA = mAndroidBatteryManager.getIntProperty(
-                BatteryManager.BATTERY_PROPERTY_CURRENT_AVERAGE);
+        double remainingCapacityRatio = mAndroidBatteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY) / 100.0;
+        double batteryCapacityMicroAh = mAndroidBatteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CHARGE_COUNTER);
+        double averageCurrentMicroA = mAndroidBatteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_AVERAGE);
 
         if (batteryStatus.charging) {
-            if (batteryStatus.chargingTime == Double.POSITIVE_INFINITY
-                    && averageCurrentMicroA > 0) {
+            if (batteryStatus.chargingTime == Double.POSITIVE_INFINITY && averageCurrentMicroA > 0) {
                 double chargeFromEmptyHours = batteryCapacityMicroAh / averageCurrentMicroA;
-                batteryStatus.chargingTime =
-                        Math.ceil((1 - remainingCapacityRatio) * chargeFromEmptyHours * 3600.0);
+                batteryStatus.chargingTime = Math.ceil((1 - remainingCapacityRatio) * chargeFromEmptyHours * 3600.0);
             }
         } else {
             if (averageCurrentMicroA < 0) {
                 double dischargeFromFullHours = batteryCapacityMicroAh / -averageCurrentMicroA;
-                batteryStatus.dischargingTime =
-                        Math.floor(remainingCapacityRatio * dischargeFromFullHours * 3600.0);
+                batteryStatus.dischargingTime = Math.floor(remainingCapacityRatio * dischargeFromFullHours * 3600.0);
             }
         }
     }

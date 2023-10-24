@@ -1,4 +1,4 @@
-// Copyright 2013 The Chromium Authors. All rights reserved.
+// Copyright 2013 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -19,15 +19,14 @@ import java.util.Locale;
 
 /**
  * A time picker dialog with upto 5 number pickers left to right:
- *  hour, minute, second, milli, AM/PM.
- *
+ * hour, minute, second, milli, AM/PM.
+ * <p>
  * If is24hourFormat is true then AM/PM picker is not displayed and
  * hour range is 0..23. Otherwise hour range is 1..12.
  * The milli picker is not displayed if step >= SECOND_IN_MILLIS
  * The second picker is not displayed if step >= MINUTE_IN_MILLIS.
  */
-public class MultiFieldTimePickerDialog
-        extends AlertDialog implements OnClickListener {
+public class MultiFieldTimePickerDialog extends AlertDialog implements OnClickListener {
 
     private final NumberPicker mHourSpinner;
     private final NumberPicker mMinuteSpinner;
@@ -50,12 +49,7 @@ public class MultiFieldTimePickerDialog
     private static final int MINUTE_IN_MILLIS = 60 * SECOND_IN_MILLIS;
     private static final int HOUR_IN_MILLIS = 60 * MINUTE_IN_MILLIS;
 
-    public MultiFieldTimePickerDialog(
-            Context context,
-            int theme,
-            int hour, int minute, int second, int milli,
-            int min, int max, int step, boolean is24hourFormat,
-            OnMultiFieldTimeSetListener listener) {
+    public MultiFieldTimePickerDialog(Context context, int theme, int hour, int minute, int second, int milli, int min, int max, int step, boolean is24hourFormat, OnMultiFieldTimeSetListener listener) {
         super(context, theme);
         mListener = listener;
         mStep = step;
@@ -69,17 +63,15 @@ public class MultiFieldTimePickerDialog
             step = MINUTE_IN_MILLIS;
         }
 
-        LayoutInflater inflater =
-                (LayoutInflater) context.getSystemService(
-                        Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.multi_field_time_picker_dialog, null);
         setView(view);
 
-        mHourSpinner = view.findViewById(R.id.hour);
-        mMinuteSpinner = view.findViewById(R.id.minute);
-        mSecSpinner = view.findViewById(R.id.second);
-        mMilliSpinner = view.findViewById(R.id.milli);
-        mAmPmSpinner = view.findViewById(R.id.ampm);
+        mHourSpinner = (NumberPicker) view.findViewById(R.id.hour);
+        mMinuteSpinner = (NumberPicker) view.findViewById(R.id.minute);
+        mSecSpinner = (NumberPicker) view.findViewById(R.id.second);
+        mMilliSpinner = (NumberPicker) view.findViewById(R.id.milli);
+        mAmPmSpinner = (NumberPicker) view.findViewById(R.id.ampm);
 
         int minHour = min / HOUR_IN_MILLIS;
         int maxHour = max / HOUR_IN_MILLIS;
@@ -99,10 +91,7 @@ public class MultiFieldTimePickerDialog
             int amPm = hour / 12;
             mAmPmSpinner.setMinValue(minAmPm);
             mAmPmSpinner.setMaxValue(maxAmPm);
-            mAmPmSpinner.setDisplayedValues(new String[] {
-                    context.getString(R.string.time_picker_dialog_am),
-                    context.getString(R.string.time_picker_dialog_pm)
-            });
+            mAmPmSpinner.setDisplayedValues(new String[]{context.getString(R.string.time_picker_dialog_am), context.getString(R.string.time_picker_dialog_pm)});
 
             hour %= 12;
             if (hour == 0) {
@@ -149,8 +138,7 @@ public class MultiFieldTimePickerDialog
             mMinuteSpinner.setMaxValue(maxMinute);
             if (minMinute == maxMinute) {
                 // Set this otherwise the box is empty until you stroke it.
-                mMinuteSpinner.setDisplayedValues(
-                        new String[] { twoDigitPaddingFormatter.format(minMinute) });
+                mMinuteSpinner.setDisplayedValues(new String[]{twoDigitPaddingFormatter.format(minMinute)});
                 mMinuteSpinner.setEnabled(false);
                 minute = minMinute;
             }
@@ -185,8 +173,7 @@ public class MultiFieldTimePickerDialog
             mSecSpinner.setMaxValue(maxSecond);
             if (minSecond == maxSecond) {
                 // Set this otherwise the box is empty until you stroke it.
-                mSecSpinner.setDisplayedValues(
-                        new String[] { twoDigitPaddingFormatter.format(minSecond) });
+                mSecSpinner.setDisplayedValues(new String[]{twoDigitPaddingFormatter.format(minSecond)});
                 mSecSpinner.setEnabled(false);
                 second = minSecond;
             }
@@ -268,7 +255,7 @@ public class MultiFieldTimePickerDialog
     /**
      * Clear focus before retrieving so that values inserted with
      * keyboard are taken into account.
-    */
+     */
     private int getPickerValue(NumberPicker picker) {
         picker.clearFocus();
         return picker.getValue();

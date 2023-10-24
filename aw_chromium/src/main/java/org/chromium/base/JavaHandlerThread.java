@@ -1,4 +1,4 @@
-// Copyright 2013 The Chromium Authors. All rights reserved.
+// Copyright 2013 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -8,10 +8,9 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
 
-import org.chromium.base.annotations.CalledByNative;
-import org.chromium.base.annotations.JNINamespace;
-import org.chromium.base.annotations.MainDex;
-import org.chromium.base.annotations.NativeMethods;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
 
 import java.lang.Thread.UncaughtExceptionHandler;
 
@@ -19,7 +18,6 @@ import java.lang.Thread.UncaughtExceptionHandler;
  * Thread in Java with an Android Handler. This class is not thread safe.
  */
 @JNINamespace("base::android")
-@MainDex
 public class JavaHandlerThread {
     private final HandlerThread mThread;
 
@@ -115,6 +113,7 @@ public class JavaHandlerThread {
     @NativeMethods
     interface Natives {
         void initializeThread(long nativeJavaHandlerThread, long nativeEvent);
+
         void onLooperStopped(long nativeJavaHandlerThread);
     }
 }

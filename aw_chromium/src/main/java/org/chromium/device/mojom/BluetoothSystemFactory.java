@@ -17,15 +17,13 @@ package org.chromium.device.mojom;
 public interface BluetoothSystemFactory extends org.chromium.mojo.bindings.Interface {
 
 
-
     interface Proxy extends BluetoothSystemFactory, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<BluetoothSystemFactory, BluetoothSystemFactory.Proxy> MANAGER = BluetoothSystemFactory_Internal.MANAGER;
 
 
-    void create(
-org.chromium.mojo.bindings.InterfaceRequest<BluetoothSystem> system, BluetoothSystemClient systemClient);
+    void create(org.chromium.mojo.bindings.InterfaceRequest<BluetoothSystem> system, BluetoothSystemClient systemClient);
 
 
 }

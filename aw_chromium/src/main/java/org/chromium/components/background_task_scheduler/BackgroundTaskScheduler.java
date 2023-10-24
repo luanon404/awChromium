@@ -12,7 +12,7 @@ import androidx.annotation.MainThread;
  * A BackgroundTaskScheduler is used to schedule jobs that run in the background.
  * It is backed by system APIs ({@link android.app.job.JobScheduler}) on newer platforms
  * and by GCM ({@link com.google.android.gms.gcm.GcmNetworkManager}) on older platforms.
- *
+ * <p>
  * To get an instance of this class, use {@link BackgroundTaskSchedulerFactory#getScheduler()}.
  */
 public interface BackgroundTaskScheduler {
@@ -20,7 +20,7 @@ public interface BackgroundTaskScheduler {
      * Schedules a background task. See {@link TaskInfo} for information on what types of tasks that
      * can be scheduled.
      *
-     * @param context the current context.
+     * @param context  the current context.
      * @param taskInfo the information about the task to be scheduled.
      * @return true if the schedule operation succeeded, and false otherwise.
      * @see TaskInfo
@@ -32,7 +32,7 @@ public interface BackgroundTaskScheduler {
      * Cancels the task specified by the task ID.
      *
      * @param context the current context.
-     * @param taskId the ID of the task to cancel. See {@link TaskIds} for a list.
+     * @param taskId  the ID of the task to cancel. See {@link TaskIds} for a list.
      */
     @MainThread
     void cancel(Context context, int taskId);
@@ -41,7 +41,7 @@ public interface BackgroundTaskScheduler {
      * Checks if a task specified by the task ID is currently scheduled.
      *
      * @param context the current context.
-     * @param taskId the ID of the task to check. See {@link TaskIds} for a list.
+     * @param taskId  the ID of the task to check. See {@link TaskIds} for a list.
      */
     @MainThread
     boolean isScheduled(Context context, int taskId);
@@ -58,6 +58,7 @@ public interface BackgroundTaskScheduler {
 
     /**
      * Reschedules all the tasks currently scheduler through BackgroundTaskSheduler.
+     *
      * @param context the current context.
      */
     @MainThread

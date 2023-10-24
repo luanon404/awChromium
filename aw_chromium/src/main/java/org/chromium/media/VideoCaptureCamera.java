@@ -1,23 +1,21 @@
-// Copyright 2014 The Chromium Authors. All rights reserved.
+// Copyright 2014 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
 package org.chromium.media;
 
-import android.annotation.TargetApi;
 import android.graphics.ImageFormat;
 import android.graphics.Rect;
 import android.graphics.SurfaceTexture;
 import android.opengl.GLES20;
-import android.os.Build;
 import android.util.SparseArray;
 
 import org.chromium.base.Log;
-import org.chromium.base.annotations.JNINamespace;
+import org.jni_zero.JNINamespace;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -30,10 +28,7 @@ import java.util.concurrent.locks.ReentrantLock;
  **/
 @JNINamespace("media")
 @SuppressWarnings("deprecation")
-// TODO: is this class only used on ICS MR1 (or some later version) and above?
-@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
-public class VideoCaptureCamera
-        extends VideoCapture implements android.hardware.Camera.PreviewCallback {
+public class VideoCaptureCamera extends VideoCapture implements android.hardware.Camera.PreviewCallback {
     private static final String TAG = "VideoCapture";
     private static final int GL_TEXTURE_EXTERNAL_OES = 0x8D65;
     private static final int NUM_CAPTURE_BUFFERS = 3;
@@ -42,20 +37,15 @@ public class VideoCaptureCamera
     // values are a mixture of educated guesses and data from Android's Camera2 API. The
     // temperatures must be ordered increasingly.
     private static final SparseArray<String> COLOR_TEMPERATURES_MAP;
+
     static {
         COLOR_TEMPERATURES_MAP = new SparseArray<String>();
-        COLOR_TEMPERATURES_MAP.append(
-                2850, android.hardware.Camera.Parameters.WHITE_BALANCE_INCANDESCENT);
-        COLOR_TEMPERATURES_MAP.append(
-                2950, android.hardware.Camera.Parameters.WHITE_BALANCE_WARM_FLUORESCENT);
-        COLOR_TEMPERATURES_MAP.append(
-                4250, android.hardware.Camera.Parameters.WHITE_BALANCE_FLUORESCENT);
-        COLOR_TEMPERATURES_MAP.append(
-                4600, android.hardware.Camera.Parameters.WHITE_BALANCE_TWILIGHT);
-        COLOR_TEMPERATURES_MAP.append(
-                5500, android.hardware.Camera.Parameters.WHITE_BALANCE_DAYLIGHT);
-        COLOR_TEMPERATURES_MAP.append(
-                6000, android.hardware.Camera.Parameters.WHITE_BALANCE_CLOUDY_DAYLIGHT);
+        COLOR_TEMPERATURES_MAP.append(2850, android.hardware.Camera.Parameters.WHITE_BALANCE_INCANDESCENT);
+        COLOR_TEMPERATURES_MAP.append(2950, android.hardware.Camera.Parameters.WHITE_BALANCE_WARM_FLUORESCENT);
+        COLOR_TEMPERATURES_MAP.append(4250, android.hardware.Camera.Parameters.WHITE_BALANCE_FLUORESCENT);
+        COLOR_TEMPERATURES_MAP.append(4600, android.hardware.Camera.Parameters.WHITE_BALANCE_TWILIGHT);
+        COLOR_TEMPERATURES_MAP.append(5500, android.hardware.Camera.Parameters.WHITE_BALANCE_DAYLIGHT);
+        COLOR_TEMPERATURES_MAP.append(6000, android.hardware.Camera.Parameters.WHITE_BALANCE_CLOUDY_DAYLIGHT);
         COLOR_TEMPERATURES_MAP.append(7000, android.hardware.Camera.Parameters.WHITE_BALANCE_SHADE);
     }
 
@@ -63,11 +53,9 @@ public class VideoCaptureCamera
     // newer OS. To work around the issues on those devices, we have to request
     // NV21. This is supposed to be a temporary hack.
     private static class BuggyDeviceHack {
-        private static final String[] COLORSPACE_BUGGY_DEVICE_LIST = {
-                "SAMSUNG-SGH-I747", "ODROID-U2",
+        private static final String[] COLORSPACE_BUGGY_DEVICE_LIST = {"SAMSUNG-SGH-I747", "ODROID-U2",
                 // See https://crbug.com/577435 for more info.
-                "XT1092", "XT1095", "XT1096", "XT1097",
-        };
+                "XT1092", "XT1095", "XT1096", "XT1097",};
 
         static int getImageFormat() {
             for (String buggyDevice : COLORSPACE_BUGGY_DEVICE_LIST) {
@@ -93,7 +81,7 @@ public class VideoCaptureCamera
 
     private android.hardware.Camera mCamera;
     // Lock to mutually exclude execution of OnPreviewFrame() and {start/stop}Capture().
-    private final ReentrantLock mPreviewBufferLock = new ReentrantLock();
+    private ReentrantLock mPreviewBufferLock = new ReentrantLock();
     // True when native code has started capture.
     private boolean mIsRunning;
 
@@ -111,8 +99,7 @@ public class VideoCaptureCamera
         return cameraInfo;
     }
 
-    private static android.hardware.Camera.Parameters getCameraParameters(
-            android.hardware.Camera camera) {
+    private static android.hardware.Camera.Parameters getCameraParameters(android.hardware.Camera camera) {
         android.hardware.Camera.Parameters parameters;
         try {
             parameters = camera.getParameters();
@@ -124,8 +111,7 @@ public class VideoCaptureCamera
         return parameters;
     }
 
-    private String getClosestWhiteBalance(
-            int colorTemperature, List<String> supportedTemperatures) {
+    private String getClosestWhiteBalance(int colorTemperature, List<String> supportedTemperatures) {
         int minDiff = Integer.MAX_VALUE;
         String matchedTemperature = null;
 
@@ -142,9 +128,7 @@ public class VideoCaptureCamera
     private class CrErrorCallback implements android.hardware.Camera.ErrorCallback {
         @Override
         public void onError(int error, android.hardware.Camera camera) {
-            VideoCaptureJni.get().onError(mNativeVideoCaptureDeviceAndroid, VideoCaptureCamera.this,
-                    AndroidVideoCaptureError.ANDROID_API_1_CAMERA_ERROR_CALLBACK_RECEIVED,
-                    "Error id: " + error);
+            VideoCaptureCamera.this.onError(VideoCaptureCamera.this, AndroidVideoCaptureError.ANDROID_API_1_CAMERA_ERROR_CALLBACK_RECEIVED, "Error id: " + error);
 
             synchronized (mPhotoTakenCallbackLock) {
                 if (mPhotoTakenCallbackId == 0) return;
@@ -170,8 +154,7 @@ public class VideoCaptureCamera
             }
             synchronized (mPhotoTakenCallbackLock) {
                 if (mPhotoTakenCallbackId != 0) {
-                    VideoCaptureJni.get().onPhotoTaken(mNativeVideoCaptureDeviceAndroid,
-                            VideoCaptureCamera.this, mPhotoTakenCallbackId, data);
+                    onPhotoTaken(VideoCaptureCamera.this, mPhotoTakenCallbackId, data);
                 }
                 mPhotoTakenCallbackId = 0;
             }
@@ -227,10 +210,7 @@ public class VideoCaptureCamera
         android.hardware.Camera.CameraInfo cameraInfo = VideoCaptureCamera.getCameraInfo(id);
         if (cameraInfo == null) return null;
 
-        return "camera " + id + ", facing "
-                + (cameraInfo.facing == android.hardware.Camera.CameraInfo.CAMERA_FACING_FRONT
-                                  ? "front"
-                                  : "back");
+        return "camera " + id + ", facing " + (cameraInfo.facing == android.hardware.Camera.CameraInfo.CAMERA_FACING_FRONT ? "front" : "back");
     }
 
     static String getDeviceId(int id) {
@@ -285,11 +265,10 @@ public class VideoCaptureCamera
                 listFpsRange = new ArrayList<int[]>();
             }
             if (listFpsRange.size() == 0) {
-                listFpsRange.add(new int[] {0, 0});
+                listFpsRange.add(new int[]{0, 0});
             }
             for (int[] fpsRange : listFpsRange) {
-                List<android.hardware.Camera.Size> supportedSizes =
-                        parameters.getSupportedPreviewSizes();
+                List<android.hardware.Camera.Size> supportedSizes = parameters.getSupportedPreviewSizes();
                 if (supportedSizes == null) {
                     supportedSizes = new ArrayList<android.hardware.Camera.Size>();
                 }
@@ -297,8 +276,7 @@ public class VideoCaptureCamera
                     supportedSizes.add(camera.new Size(0, 0));
                 }
                 for (android.hardware.Camera.Size size : supportedSizes) {
-                    formatList.add(new VideoCaptureFormat(
-                            size.width, size.height, (fpsRange[1] + 999) / 1000, pixelFormat));
+                    formatList.add(new VideoCaptureFormat(size.width, size.height, (fpsRange[1] + 999) / 1000, pixelFormat));
                 }
             }
         }
@@ -328,10 +306,8 @@ public class VideoCaptureCamera
         }
         mCameraNativeOrientation = cameraInfo.orientation;
         // For Camera API, the readings of back-facing camera need to be inverted.
-        mInvertDeviceOrientationReadings =
-                (cameraInfo.facing == android.hardware.Camera.CameraInfo.CAMERA_FACING_BACK);
-        Log.d(TAG, "allocate: Rotation dev=%d, cam=%d, facing back? %s", getDeviceRotation(),
-                mCameraNativeOrientation, mInvertDeviceOrientationReadings);
+        mInvertDeviceOrientationReadings = (cameraInfo.facing == android.hardware.Camera.CameraInfo.CAMERA_FACING_BACK);
+        Log.d(TAG, "allocate: Rotation dev=%d, cam=%d, facing back? %s", getDeviceRotation(), mCameraNativeOrientation, mInvertDeviceOrientationReadings);
 
         android.hardware.Camera.Parameters parameters = getCameraParameters(mCamera);
         if (parameters == null) {
@@ -346,16 +322,14 @@ public class VideoCaptureCamera
             Log.e(TAG, "allocate: no fps range found");
             return false;
         }
-        final ArrayList<FramerateRange> framerateRanges =
-                new ArrayList<FramerateRange>(listFpsRange.size());
+        final ArrayList<FramerateRange> framerateRanges = new ArrayList<FramerateRange>(listFpsRange.size());
         for (int[] range : listFpsRange) {
             framerateRanges.add(new FramerateRange(range[0], range[1]));
         }
         // API fps ranges are scaled up x1000 to avoid floating point.
         int frameRateScaled = frameRate * 1000;
-        final FramerateRange chosenFramerateRange =
-                getClosestFramerateRange(framerateRanges, frameRateScaled);
-        final int[] chosenFpsRange = new int[] {chosenFramerateRange.min, chosenFramerateRange.max};
+        final FramerateRange chosenFramerateRange = getClosestFramerateRange(framerateRanges, frameRateScaled);
+        final int[] chosenFpsRange = new int[]{chosenFramerateRange.min, chosenFramerateRange.max};
         Log.d(TAG, "allocate: fps set to [%d-%d]", chosenFpsRange[0], chosenFpsRange[1]);
 
         // Calculate size.
@@ -383,22 +357,19 @@ public class VideoCaptureCamera
         Log.d(TAG, "allocate: matched (%d x %d)", matchedWidth, matchedHeight);
 
         if (parameters.isVideoStabilizationSupported()) {
-            Log.d(TAG, "Image stabilization supported, currently: "
-                            + parameters.getVideoStabilization() + ", setting it.");
+            Log.d(TAG, "Image stabilization supported, currently: " + parameters.getVideoStabilization() + ", setting it.");
             parameters.setVideoStabilization(true);
         } else {
             Log.d(TAG, "Image stabilization not supported.");
         }
 
-        if (parameters.getSupportedFocusModes().contains(
-                    android.hardware.Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO)) {
+        if (parameters.getSupportedFocusModes().contains(android.hardware.Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO)) {
             parameters.setFocusMode(android.hardware.Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);
         } else {
             Log.d(TAG, "Continuous focus mode not supported.");
         }
 
-        mCaptureFormat = new VideoCaptureFormat(matchedWidth, matchedHeight,
-                chosenFpsRange[1] / 1000, BuggyDeviceHack.getImageFormat());
+        mCaptureFormat = new VideoCaptureFormat(matchedWidth, matchedHeight, chosenFpsRange[1] / 1000, BuggyDeviceHack.getImageFormat());
         parameters.setPictureSize(matchedWidth, matchedHeight);
         parameters.setPreviewSize(matchedWidth, matchedHeight);
         parameters.setPreviewFpsRange(chosenFpsRange[0], chosenFpsRange[1]);
@@ -417,15 +388,11 @@ public class VideoCaptureCamera
         GLES20.glGenTextures(1, mGlTextures, 0);
         GLES20.glBindTexture(GL_TEXTURE_EXTERNAL_OES, mGlTextures[0]);
         // No mip-mapping with camera source.
-        GLES20.glTexParameterf(
-                GL_TEXTURE_EXTERNAL_OES, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_LINEAR);
-        GLES20.glTexParameterf(
-                GL_TEXTURE_EXTERNAL_OES, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR);
+        GLES20.glTexParameterf(GL_TEXTURE_EXTERNAL_OES, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_LINEAR);
+        GLES20.glTexParameterf(GL_TEXTURE_EXTERNAL_OES, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR);
         // Clamp to edge is only option.
-        GLES20.glTexParameteri(
-                GL_TEXTURE_EXTERNAL_OES, GLES20.GL_TEXTURE_WRAP_S, GLES20.GL_CLAMP_TO_EDGE);
-        GLES20.glTexParameteri(
-                GL_TEXTURE_EXTERNAL_OES, GLES20.GL_TEXTURE_WRAP_T, GLES20.GL_CLAMP_TO_EDGE);
+        GLES20.glTexParameteri(GL_TEXTURE_EXTERNAL_OES, GLES20.GL_TEXTURE_WRAP_S, GLES20.GL_CLAMP_TO_EDGE);
+        GLES20.glTexParameteri(GL_TEXTURE_EXTERNAL_OES, GLES20.GL_TEXTURE_WRAP_T, GLES20.GL_CLAMP_TO_EDGE);
 
         mSurfaceTexture = new SurfaceTexture(mGlTextures[0]);
         mSurfaceTexture.setOnFrameAvailableListener(null);
@@ -438,8 +405,7 @@ public class VideoCaptureCamera
 
         mCamera.setErrorCallback(new CrErrorCallback());
 
-        mExpectedFrameSize = mCaptureFormat.mWidth * mCaptureFormat.mHeight
-                * ImageFormat.getBitsPerPixel(mCaptureFormat.mPixelFormat) / 8;
+        mExpectedFrameSize = mCaptureFormat.mWidth * mCaptureFormat.mHeight * ImageFormat.getBitsPerPixel(mCaptureFormat.mPixelFormat) / 8;
         for (int i = 0; i < NUM_CAPTURE_BUFFERS; i++) {
             byte[] buffer = new byte[mExpectedFrameSize];
             mCamera.addCallbackBuffer(buffer);
@@ -473,8 +439,7 @@ public class VideoCaptureCamera
 
         mPreviewBufferLock.lock();
         try {
-            VideoCaptureJni.get().onStarted(
-                    mNativeVideoCaptureDeviceAndroid, VideoCaptureCamera.this);
+            onStarted(VideoCaptureCamera.this);
             mIsRunning = true;
         } finally {
             mPreviewBufferLock.unlock();
@@ -509,8 +474,7 @@ public class VideoCaptureCamera
         final android.hardware.Camera.Parameters parameters = getCameraParameters(mCamera);
         if (parameters == null) {
             mCamera = null;
-            VideoCaptureJni.get().onGetPhotoCapabilitiesReply(
-                    mNativeVideoCaptureDeviceAndroid, VideoCaptureCamera.this, callbackId, null);
+            onGetPhotoCapabilitiesReply(VideoCaptureCamera.this, callbackId, null);
             return;
         }
         PhotoCapabilities.Builder builder = new PhotoCapabilities.Builder();
@@ -519,10 +483,7 @@ public class VideoCaptureCamera
         // Before the Camera2 API there was no official way to retrieve the supported, if any, ISO
         // values from |parameters|; some platforms had "iso-values", others "iso-mode-values" etc.
         // Ignore them.
-        builder.setInt(PhotoCapabilityInt.MIN_ISO, 0)
-                .setInt(PhotoCapabilityInt.MAX_ISO, 0)
-                .setInt(PhotoCapabilityInt.CURRENT_ISO, 0)
-                .setInt(PhotoCapabilityInt.STEP_ISO, 0);
+        builder.setInt(PhotoCapabilityInt.MIN_ISO, 0).setInt(PhotoCapabilityInt.MAX_ISO, 0).setInt(PhotoCapabilityInt.CURRENT_ISO, 0).setInt(PhotoCapabilityInt.STEP_ISO, 0);
 
         List<android.hardware.Camera.Size> supportedSizes = parameters.getSupportedPictureSizes();
         int minWidth = Integer.MAX_VALUE;
@@ -536,14 +497,7 @@ public class VideoCaptureCamera
             if (size.height > maxHeight) maxHeight = size.height;
         }
         final android.hardware.Camera.Size currentSize = parameters.getPreviewSize();
-        builder.setInt(PhotoCapabilityInt.MIN_HEIGHT, minHeight)
-                .setInt(PhotoCapabilityInt.MAX_HEIGHT, maxHeight)
-                .setInt(PhotoCapabilityInt.STEP_HEIGHT, 1)
-                .setInt(PhotoCapabilityInt.CURRENT_HEIGHT, currentSize.height)
-                .setInt(PhotoCapabilityInt.MIN_WIDTH, minWidth)
-                .setInt(PhotoCapabilityInt.MAX_WIDTH, maxWidth)
-                .setInt(PhotoCapabilityInt.STEP_WIDTH, 1)
-                .setInt(PhotoCapabilityInt.CURRENT_WIDTH, currentSize.width);
+        builder.setInt(PhotoCapabilityInt.MIN_HEIGHT, minHeight).setInt(PhotoCapabilityInt.MAX_HEIGHT, maxHeight).setInt(PhotoCapabilityInt.STEP_HEIGHT, 1).setInt(PhotoCapabilityInt.CURRENT_HEIGHT, currentSize.height).setInt(PhotoCapabilityInt.MIN_WIDTH, minWidth).setInt(PhotoCapabilityInt.MAX_WIDTH, maxWidth).setInt(PhotoCapabilityInt.STEP_WIDTH, 1).setInt(PhotoCapabilityInt.CURRENT_WIDTH, currentSize.width);
 
         int maxZoom = 0;
         int currentZoom = 0;
@@ -557,46 +511,32 @@ public class VideoCaptureCamera
                 stepZoom = parameters.getZoomRatios().get(1) - parameters.getZoomRatios().get(0);
             }
         }
-        builder.setDouble(PhotoCapabilityDouble.MIN_ZOOM, minZoom)
-                .setDouble(PhotoCapabilityDouble.MAX_ZOOM, maxZoom)
-                .setDouble(PhotoCapabilityDouble.CURRENT_ZOOM, currentZoom)
-                .setDouble(PhotoCapabilityDouble.STEP_ZOOM, stepZoom);
+        builder.setDouble(PhotoCapabilityDouble.MIN_ZOOM, minZoom).setDouble(PhotoCapabilityDouble.MAX_ZOOM, maxZoom).setDouble(PhotoCapabilityDouble.CURRENT_ZOOM, currentZoom).setDouble(PhotoCapabilityDouble.STEP_ZOOM, stepZoom);
 
         // Classify the Focus capabilities and state. In CONTINUOUS and SINGLE_SHOT, we can call
         // autoFocus(AutoFocusCallback) to configure region(s) to focus onto.
         final List<String> focusModes = parameters.getSupportedFocusModes();
         assert focusModes != null : "getSupportedFocusModes() should never return null";
         ArrayList<Integer> jniFocusModes = new ArrayList<Integer>(3);
-        if (focusModes.contains(android.hardware.Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO)
-                || focusModes.contains(
-                           android.hardware.Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE)
-                || focusModes.contains(android.hardware.Camera.Parameters.FOCUS_MODE_EDOF)) {
+        if (focusModes.contains(android.hardware.Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO) || focusModes.contains(android.hardware.Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE) || focusModes.contains(android.hardware.Camera.Parameters.FOCUS_MODE_EDOF)) {
             jniFocusModes.add(Integer.valueOf(AndroidMeteringMode.CONTINUOUS));
         }
         // FOCUS_MODE_{AUTO,MACRO} do not imply continuously focusing: need autoFocus() trigger.
-        if (focusModes.contains(android.hardware.Camera.Parameters.FOCUS_MODE_AUTO)
-                || focusModes.contains(android.hardware.Camera.Parameters.FOCUS_MODE_MACRO)) {
+        if (focusModes.contains(android.hardware.Camera.Parameters.FOCUS_MODE_AUTO) || focusModes.contains(android.hardware.Camera.Parameters.FOCUS_MODE_MACRO)) {
             jniFocusModes.add(Integer.valueOf(AndroidMeteringMode.SINGLE_SHOT));
         }
-        if (focusModes.contains(android.hardware.Camera.Parameters.FOCUS_MODE_INFINITY)
-                || focusModes.contains(android.hardware.Camera.Parameters.FOCUS_MODE_FIXED)) {
+        if (focusModes.contains(android.hardware.Camera.Parameters.FOCUS_MODE_INFINITY) || focusModes.contains(android.hardware.Camera.Parameters.FOCUS_MODE_FIXED)) {
             jniFocusModes.add(Integer.valueOf(AndroidMeteringMode.FIXED));
         }
-        builder.setMeteringModeArray(
-                MeteringModeType.FOCUS, integerArrayListToArray(jniFocusModes));
+        builder.setMeteringModeArray(MeteringModeType.FOCUS, integerArrayListToArray(jniFocusModes));
 
         final String focusMode = parameters.getFocusMode();
         int jniFocusMode = AndroidMeteringMode.NONE;
-        if (focusMode.equals(android.hardware.Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO)
-                || focusMode.equals(
-                           android.hardware.Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE)
-                || focusMode.equals(android.hardware.Camera.Parameters.FOCUS_MODE_EDOF)) {
+        if (focusMode.equals(android.hardware.Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO) || focusMode.equals(android.hardware.Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE) || focusMode.equals(android.hardware.Camera.Parameters.FOCUS_MODE_EDOF)) {
             jniFocusMode = AndroidMeteringMode.CONTINUOUS;
-        } else if (focusMode.equals(android.hardware.Camera.Parameters.FOCUS_MODE_AUTO)
-                || focusMode.equals(android.hardware.Camera.Parameters.FOCUS_MODE_MACRO)) {
+        } else if (focusMode.equals(android.hardware.Camera.Parameters.FOCUS_MODE_AUTO) || focusMode.equals(android.hardware.Camera.Parameters.FOCUS_MODE_MACRO)) {
             jniFocusMode = AndroidMeteringMode.SINGLE_SHOT;
-        } else if (focusMode.equals(android.hardware.Camera.Parameters.FOCUS_MODE_INFINITY)
-                || focusMode.equals(android.hardware.Camera.Parameters.FOCUS_MODE_FIXED)) {
+        } else if (focusMode.equals(android.hardware.Camera.Parameters.FOCUS_MODE_INFINITY) || focusMode.equals(android.hardware.Camera.Parameters.FOCUS_MODE_FIXED)) {
             jniFocusMode = AndroidMeteringMode.FIXED;
         }
         builder.setMeteringMode(MeteringModeType.FOCUS, jniFocusMode);
@@ -608,8 +548,7 @@ public class VideoCaptureCamera
         if (parameters.isAutoExposureLockSupported()) {
             jniExposureModes.add(AndroidMeteringMode.FIXED);
         }
-        builder.setMeteringModeArray(
-                MeteringModeType.EXPOSURE, integerArrayListToArray(jniExposureModes));
+        builder.setMeteringModeArray(MeteringModeType.EXPOSURE, integerArrayListToArray(jniExposureModes));
 
         int jniExposureMode = AndroidMeteringMode.CONTINUOUS;
         if (parameters.isAutoExposureLockSupported() && parameters.getAutoExposureLock()) {
@@ -618,13 +557,7 @@ public class VideoCaptureCamera
         builder.setMeteringMode(MeteringModeType.EXPOSURE, jniExposureMode);
 
         final float step = parameters.getExposureCompensationStep();
-        builder.setDouble(PhotoCapabilityDouble.STEP_EXPOSURE_COMPENSATION, step)
-                .setDouble(PhotoCapabilityDouble.MIN_EXPOSURE_COMPENSATION,
-                        parameters.getMinExposureCompensation() * step)
-                .setDouble(PhotoCapabilityDouble.MAX_EXPOSURE_COMPENSATION,
-                        parameters.getMaxExposureCompensation() * step)
-                .setDouble(PhotoCapabilityDouble.CURRENT_EXPOSURE_COMPENSATION,
-                        parameters.getExposureCompensation() * step);
+        builder.setDouble(PhotoCapabilityDouble.STEP_EXPOSURE_COMPENSATION, step).setDouble(PhotoCapabilityDouble.MIN_EXPOSURE_COMPENSATION, parameters.getMinExposureCompensation() * step).setDouble(PhotoCapabilityDouble.MAX_EXPOSURE_COMPENSATION, parameters.getMaxExposureCompensation() * step).setDouble(PhotoCapabilityDouble.CURRENT_EXPOSURE_COMPENSATION, parameters.getExposureCompensation() * step);
 
         ArrayList<Integer> jniWhiteBalanceModes = new ArrayList<Integer>(2);
         List<String> whiteBalanceModes = parameters.getSupportedWhiteBalance();
@@ -638,8 +571,7 @@ public class VideoCaptureCamera
                 jniWhiteBalanceModes.add(AndroidMeteringMode.FIXED);
             }
         }
-        builder.setMeteringModeArray(
-                MeteringModeType.WHITE_BALANCE, integerArrayListToArray(jniWhiteBalanceModes));
+        builder.setMeteringModeArray(MeteringModeType.WHITE_BALANCE, integerArrayListToArray(jniWhiteBalanceModes));
 
         int jniWhiteBalanceMode = AndroidMeteringMode.CONTINUOUS;
         if (parameters.isAutoWhiteBalanceLockSupported() && parameters.getAutoWhiteBalanceLock()) {
@@ -647,28 +579,17 @@ public class VideoCaptureCamera
         }
         builder.setMeteringMode(MeteringModeType.WHITE_BALANCE, jniWhiteBalanceMode);
 
-        builder.setInt(PhotoCapabilityInt.MIN_COLOR_TEMPERATURE, COLOR_TEMPERATURES_MAP.keyAt(0))
-                .setInt(PhotoCapabilityInt.MAX_COLOR_TEMPERATURE,
-                        COLOR_TEMPERATURES_MAP.keyAt(COLOR_TEMPERATURES_MAP.size() - 1))
-                .setInt(PhotoCapabilityInt.STEP_COLOR_TEMPERATURE, 50);
+        builder.setInt(PhotoCapabilityInt.MIN_COLOR_TEMPERATURE, COLOR_TEMPERATURES_MAP.keyAt(0)).setInt(PhotoCapabilityInt.MAX_COLOR_TEMPERATURE, COLOR_TEMPERATURES_MAP.keyAt(COLOR_TEMPERATURES_MAP.size() - 1)).setInt(PhotoCapabilityInt.STEP_COLOR_TEMPERATURE, 50);
         if (jniWhiteBalanceMode == AndroidMeteringMode.FIXED) {
             final int index = COLOR_TEMPERATURES_MAP.indexOfValue(parameters.getWhiteBalance());
             if (index >= 0) {
-                builder.setInt(PhotoCapabilityInt.CURRENT_COLOR_TEMPERATURE,
-                        COLOR_TEMPERATURES_MAP.keyAt(index));
+                builder.setInt(PhotoCapabilityInt.CURRENT_COLOR_TEMPERATURE, COLOR_TEMPERATURES_MAP.keyAt(index));
             }
         }
 
         final List<String> flashModes = parameters.getSupportedFlashModes();
         if (flashModes != null) {
-            builder.setBool(PhotoCapabilityBool.SUPPORTS_TORCH,
-                           flashModes.contains(android.hardware.Camera.Parameters.FLASH_MODE_TORCH))
-                    .setBool(PhotoCapabilityBool.TORCH,
-                            android.hardware.Camera.Parameters.FLASH_MODE_TORCH.equals(
-                                    parameters.getFlashMode()))
-                    .setBool(PhotoCapabilityBool.RED_EYE_REDUCTION,
-                            flashModes.contains(
-                                    android.hardware.Camera.Parameters.FLASH_MODE_RED_EYE));
+            builder.setBool(PhotoCapabilityBool.SUPPORTS_TORCH, flashModes.contains(android.hardware.Camera.Parameters.FLASH_MODE_TORCH)).setBool(PhotoCapabilityBool.TORCH, android.hardware.Camera.Parameters.FLASH_MODE_TORCH.equals(parameters.getFlashMode())).setBool(PhotoCapabilityBool.RED_EYE_REDUCTION, flashModes.contains(android.hardware.Camera.Parameters.FLASH_MODE_RED_EYE));
 
             ArrayList<Integer> modes = new ArrayList<Integer>(0);
             if (flashModes.contains(android.hardware.Camera.Parameters.FLASH_MODE_OFF)) {
@@ -683,16 +604,11 @@ public class VideoCaptureCamera
             builder.setFillLightModeArray(integerArrayListToArray(modes));
         }
 
-        VideoCaptureJni.get().onGetPhotoCapabilitiesReply(mNativeVideoCaptureDeviceAndroid,
-                VideoCaptureCamera.this, callbackId, builder.build());
+        onGetPhotoCapabilitiesReply(VideoCaptureCamera.this, callbackId, builder.build());
     }
 
     @Override
-    public void setPhotoOptions(double zoom, int focusMode, double focusDistance, int exposureMode,
-            double width, double height, double[] pointsOfInterest2D,
-            boolean hasExposureCompensation, double exposureCompensation, double exposureTime,
-            int whiteBalanceMode, double iso, boolean hasRedEyeReduction, boolean redEyeReduction,
-            int fillLightMode, boolean hasTorch, boolean torch, double colorTemperature) {
+    public void setPhotoOptions(double zoom, int focusMode, double focusDistance, int exposureMode, double width, double height, double[] pointsOfInterest2D, boolean hasExposureCompensation, double exposureCompensation, double exposureTime, int whiteBalanceMode, double iso, boolean hasRedEyeReduction, boolean redEyeReduction, int fillLightMode, boolean hasTorch, boolean torch, double colorTemperature) {
         android.hardware.Camera.Parameters parameters = getCameraParameters(mCamera);
         if (parameters == null) {
             mCamera = null;
@@ -716,8 +632,7 @@ public class VideoCaptureCamera
         } else if (focusMode == AndroidMeteringMode.SINGLE_SHOT) {
             parameters.setFocusMode(android.hardware.Camera.Parameters.FOCUS_MODE_AUTO);
         } else if (focusMode == AndroidMeteringMode.CONTINUOUS) {
-            parameters.setFocusMode(
-                    android.hardware.Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
+            parameters.setFocusMode(android.hardware.Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
         }
 
         if (parameters.isAutoExposureLockSupported()) {
@@ -740,8 +655,7 @@ public class VideoCaptureCamera
         }
 
         // Update |mAreaOfInterest| if the camera supports and there are |pointsOfInterest2D|.
-        final boolean pointsOfInterestSupported =
-                parameters.getMaxNumMeteringAreas() > 0 || parameters.getMaxNumFocusAreas() > 0;
+        final boolean pointsOfInterestSupported = parameters.getMaxNumMeteringAreas() > 0 || parameters.getMaxNumFocusAreas() > 0;
         if (pointsOfInterestSupported && pointsOfInterest2D.length > 0) {
             assert pointsOfInterest2D.length == 2 : "Only 1 point of interest supported";
             assert pointsOfInterest2D[0] <= 1.0 && pointsOfInterest2D[0] >= 0.0;
@@ -754,22 +668,16 @@ public class VideoCaptureCamera
             final int regionHeight = 2000 / 8;
             final int weight = 1000;
 
-            mAreaOfInterest = new android.hardware.Camera.Area(
-                    new Rect(Math.max(-1000, centerX - regionWidth / 2),
-                            Math.max(-1000, centerY - regionHeight / 2),
-                            Math.min(1000, centerX + regionWidth / 2),
-                            Math.min(1000, centerY + regionHeight / 2)),
-                    weight);
+            mAreaOfInterest = new android.hardware.Camera.Area(new Rect(Math.max(-1000, centerX - regionWidth / 2), Math.max(-1000, centerY - regionHeight / 2), Math.min(1000, centerX + regionWidth / 2), Math.min(1000, centerY + regionHeight / 2)), weight);
             Log.d(TAG, "Area of interest %s", mAreaOfInterest.rect.toString());
         }
         if (mAreaOfInterest != null) {
-            parameters.setFocusAreas(Collections.singletonList(mAreaOfInterest));
-            parameters.setMeteringAreas(Collections.singletonList(mAreaOfInterest));
+            parameters.setFocusAreas(Arrays.asList(mAreaOfInterest));
+            parameters.setMeteringAreas(Arrays.asList(mAreaOfInterest));
         }
 
         if (hasExposureCompensation) {
-            final int unnormalizedExposureCompensation = (int) Math.round(
-                    exposureCompensation / parameters.getExposureCompensationStep());
+            final int unnormalizedExposureCompensation = (int) Math.round(exposureCompensation / parameters.getExposureCompensationStep());
             parameters.setExposureCompensation(unnormalizedExposureCompensation);
         }
 
@@ -777,17 +685,14 @@ public class VideoCaptureCamera
 
         // White Balance mode AndroidMeteringMode.SINGLE_SHOT is not supported.
         // TODO(mcasas): support FIXED mode, i.e. the scene mode.
-        if (whiteBalanceMode == AndroidMeteringMode.CONTINUOUS
-                && parameters.getSupportedWhiteBalance() != null) {
+        if (whiteBalanceMode == AndroidMeteringMode.CONTINUOUS && parameters.getSupportedWhiteBalance() != null) {
             // setWhiteBalance() will release the lock set with setAutoWhiteBalanceLock(), if any.
             parameters.setWhiteBalance(android.hardware.Camera.Parameters.WHITE_BALANCE_AUTO);
-        } else if (whiteBalanceMode == AndroidMeteringMode.FIXED
-                && parameters.isAutoWhiteBalanceLockSupported()) {
+        } else if (whiteBalanceMode == AndroidMeteringMode.FIXED && parameters.isAutoWhiteBalanceLockSupported()) {
             parameters.setAutoWhiteBalanceLock(true);
         }
         if (colorTemperature > 0.0) {
-            final String closestSetting = getClosestWhiteBalance(
-                    (int) colorTemperature, parameters.getSupportedWhiteBalance());
+            final String closestSetting = getClosestWhiteBalance((int) colorTemperature, parameters.getSupportedWhiteBalance());
             Log.d(TAG, " Color temperature (%f ==> %s)", colorTemperature, closestSetting);
             if (closestSetting != null) parameters.setWhiteBalance(closestSetting);
         }
@@ -801,9 +706,7 @@ public class VideoCaptureCamera
                         parameters.setFlashMode(android.hardware.Camera.Parameters.FLASH_MODE_OFF);
                         break;
                     case AndroidFillLightMode.AUTO:
-                        parameters.setFlashMode(hasRedEyeReduction && redEyeReduction
-                                        ? android.hardware.Camera.Parameters.FLASH_MODE_RED_EYE
-                                        : android.hardware.Camera.Parameters.FLASH_MODE_AUTO);
+                        parameters.setFlashMode(hasRedEyeReduction && redEyeReduction ? android.hardware.Camera.Parameters.FLASH_MODE_RED_EYE : android.hardware.Camera.Parameters.FLASH_MODE_AUTO);
                         break;
                     case AndroidFillLightMode.FLASH:
                         parameters.setFlashMode(android.hardware.Camera.Parameters.FLASH_MODE_ON);
@@ -861,21 +764,18 @@ public class VideoCaptureCamera
         photoParameters.setRotation(getCameraRotation());
 
         if (mPhotoWidth > 0 || mPhotoHeight > 0) {
-            final List<android.hardware.Camera.Size> supportedSizes =
-                    photoParameters.getSupportedPictureSizes();
+            final List<android.hardware.Camera.Size> supportedSizes = photoParameters.getSupportedPictureSizes();
             android.hardware.Camera.Size closestSize = null;
             int minDiff = Integer.MAX_VALUE;
             for (android.hardware.Camera.Size size : supportedSizes) {
-                final int diff = ((mPhotoWidth > 0) ? Math.abs(size.width - mPhotoWidth) : 0)
-                        + ((mPhotoHeight > 0) ? Math.abs(size.height - mPhotoHeight) : 0);
+                final int diff = ((mPhotoWidth > 0) ? Math.abs(size.width - mPhotoWidth) : 0) + ((mPhotoHeight > 0) ? Math.abs(size.height - mPhotoHeight) : 0);
                 if (diff < minDiff) {
                     minDiff = diff;
                     closestSize = size;
                 }
             }
             if (minDiff != Integer.MAX_VALUE) {
-                Log.d(TAG, "requested resolution: (%dx%d); matched (%dx%d)", mPhotoWidth,
-                        mPhotoHeight, closestSize.width, closestSize.height);
+                Log.d(TAG, "requested resolution: (%dx%d); matched (%dx%d)", mPhotoWidth, mPhotoHeight, closestSize.width, closestSize.height);
                 photoParameters.setPictureSize(closestSize.width, closestSize.height);
             }
         }
@@ -893,7 +793,7 @@ public class VideoCaptureCamera
     }
 
     @Override
-    public void deallocate() {
+    public void deallocateInternal() {
         if (mCamera == null) return;
 
         stopCaptureAndBlockUntilStopped();
@@ -905,6 +805,7 @@ public class VideoCaptureCamera
             mCamera = null;
         } catch (IOException ex) {
             Log.e(TAG, "deallocate: failed to deallocate camera, " + ex);
+            return;
         }
     }
 
@@ -919,17 +820,14 @@ public class VideoCaptureCamera
             if (!mIsRunning) {
                 return;
             }
-            if (data.length == mExpectedFrameSize) {
-                VideoCaptureJni.get().onFrameAvailable(mNativeVideoCaptureDeviceAndroid,
-                        VideoCaptureCamera.this, data, mExpectedFrameSize, getCameraRotation());
+            if (data != null && data.length == mExpectedFrameSize) {
+                onFrameAvailable(VideoCaptureCamera.this, data, mExpectedFrameSize, getCameraRotation());
             } else {
-                VideoCaptureJni.get().onFrameDropped(mNativeVideoCaptureDeviceAndroid,
-                        VideoCaptureCamera.this,
-                        AndroidVideoCaptureFrameDropReason.ANDROID_API_1_UNEXPECTED_DATA_LENGTH);
+                onFrameDropped(VideoCaptureCamera.this, AndroidVideoCaptureFrameDropReason.ANDROID_API_1_UNEXPECTED_DATA_LENGTH);
             }
         } finally {
             mPreviewBufferLock.unlock();
-            if (camera != null) {
+            if (camera != null && data != null) {
                 camera.addCallbackBuffer(data);
             }
         }

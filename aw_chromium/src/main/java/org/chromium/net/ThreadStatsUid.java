@@ -1,4 +1,4 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
+// Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -30,7 +30,9 @@ public class ThreadStatsUid {
         }
     }
 
-    /** Calls TrafficStats.setThreadStatsUid(uid) */
+    /**
+     * Calls TrafficStats.setThreadStatsUid(uid)
+     */
     public static void set(int uid) {
         try {
             sSetThreadStatsUid.invoke(null, uid); // Pass null for "this" as it's a static method.
@@ -41,7 +43,9 @@ public class ThreadStatsUid {
         }
     }
 
-    /** Calls TrafficStats.clearThreadStatsUid() */
+    /**
+     * Calls TrafficStats.clearThreadStatsUid()
+     */
     public static void clear() {
         try {
             sClearThreadStatsUid.invoke(null); // Pass null for "this" as it's a static method.

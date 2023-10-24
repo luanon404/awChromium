@@ -1,4 +1,4 @@
-// Copyright 2021 The Chromium Authors. All rights reserved.
+// Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -6,10 +6,10 @@ package org.chromium.content.browser.accessibility;
 
 import android.graphics.Rect;
 import android.view.View;
+import android.view.ViewStructure;
 
 import androidx.annotation.Nullable;
 
-import org.chromium.content_public.browser.AccessibilitySnapshotCallback;
 import org.chromium.content_public.browser.WebContents;
 
 /**
@@ -40,8 +40,10 @@ public interface AccessibilityDelegate {
 
     /**
      * Requests an accessibility snapshot of the content that is currently being shown.
+     * The ViewStructure starting with |root| will be populated and then |doneCallback| will
+     * be called.
      */
-    void requestAccessibilitySnapshot(AccessibilitySnapshotCallback callback);
+    void requestAccessibilitySnapshot(ViewStructure root, Runnable doneCallback);
 
     /**
      * @return Native pointer to the accessibility tree snapshot.
@@ -50,11 +52,13 @@ public interface AccessibilityDelegate {
         return 0;
     }
 
-    default void setOnScrollPositionChangedCallback(Runnable onScrollCallback) {}
+    default void setOnScrollPositionChangedCallback(Runnable onScrollCallback) {
+    }
 
     /**
      * This provides an opportunity to override the behavior when a click action occurs. If it
      * returns false, the click will be sent to WebContents.
+     *
      * @param nodeRect The Rect where the click action happened for.
      * @return Whether this event was handled.
      */
@@ -64,6 +68,7 @@ public interface AccessibilityDelegate {
 
     /**
      * Called when the content needs to be scrolled to make a region visible.
+     *
      * @param nodeRect The designated Rect that should become visible.
      * @return Whether this delegate performed the scroll. If false, the scroll request will be sent
      * to WebContents.

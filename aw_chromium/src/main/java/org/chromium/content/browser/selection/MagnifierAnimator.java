@@ -1,4 +1,4 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
+// Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -13,13 +13,13 @@ import org.chromium.base.Log;
  * MagnifierAnimator adds animation to MagnifierWrapper when there is a change in y direction.
  * MagnifierWrapper class isolated P APIs out so we could write test for MagnifierAnimator.
  */
-public class MagnifierAnimator implements SelectionInsertionHandleObserver {
+public class MagnifierAnimator {
     private static final boolean DEBUG = false;
     private static final String TAG = "Magnifier";
 
     private static final long DURATION_MS = 100;
 
-    private final MagnifierWrapper mMagnifier;
+    private MagnifierWrapper mMagnifier;
     private ValueAnimator mAnimator;
 
     private boolean mMagnifierIsShowing;
@@ -48,13 +48,10 @@ public class MagnifierAnimator implements SelectionInsertionHandleObserver {
         mTargetY = -1.0f;
     }
 
-    @Override
     public void handleDragStartedOrMoved(float x, float y) {
         if (!mMagnifier.isAvailable()) return;
         if (DEBUG) {
-            Log.i(TAG,
-                    "handleDragStartedOrMoved: "
-                            + "(" + x + ", " + y + ")");
+            Log.i(TAG, "handleDragStartedOrMoved: " + "(" + x + ", " + y + ")");
         }
         // We only do animation if this is not the first time to show magnifier and y coordinate
         // is different from last target.
@@ -88,11 +85,14 @@ public class MagnifierAnimator implements SelectionInsertionHandleObserver {
         mMagnifierIsShowing = true;
     }
 
-    @Override
     public void handleDragStopped() {
         mMagnifier.dismiss();
         mAnimator.cancel();
         mMagnifierIsShowing = false;
+    }
+
+    public void childLocalSurfaceIdChanged() {
+        mMagnifier.childLocalSurfaceIdChanged();
     }
 
     /* package */ ValueAnimator getValueAnimatorForTesting() {

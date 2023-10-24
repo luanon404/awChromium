@@ -19,8 +19,7 @@ import org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConst
 
 class BluetoothSystemClient_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<BluetoothSystemClient, BluetoothSystemClient.Proxy> MANAGER =
-            new org.chromium.mojo.bindings.Interface.Manager<BluetoothSystemClient, BluetoothSystemClient.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<BluetoothSystemClient, BluetoothSystemClient.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<BluetoothSystemClient, BluetoothSystemClient.Proxy>() {
 
         @Override
         public String getName() {
@@ -29,12 +28,11 @@ class BluetoothSystemClient_Internal {
 
         @Override
         public int getVersion() {
-          return 0;
+            return 0;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core,
-                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -45,7 +43,7 @@ class BluetoothSystemClient_Internal {
 
         @Override
         public BluetoothSystemClient[] buildArray(int size) {
-          return new BluetoothSystemClient[size];
+            return new BluetoothSystemClient[size];
         }
     };
 
@@ -57,42 +55,33 @@ class BluetoothSystemClient_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements BluetoothSystemClient.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core,
-              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void onStateChanged(
-int newState) {
+        public void onStateChanged(int newState) {
 
             BluetoothSystemClientOnStateChangedParams _message = new BluetoothSystemClientOnStateChangedParams();
 
             _message.newState = newState;
 
 
-            getProxyHandler().getMessageReceiver().accept(
-                    _message.serializeWithHeader(
-                            getProxyHandler().getCore(),
-                            new org.chromium.mojo.bindings.MessageHeader(ON_STATE_CHANGED_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_STATE_CHANGED_ORDINAL)));
 
         }
 
 
         @Override
-        public void onScanStateChanged(
-int newState) {
+        public void onScanStateChanged(int newState) {
 
             BluetoothSystemClientOnScanStateChangedParams _message = new BluetoothSystemClientOnScanStateChangedParams();
 
             _message.newState = newState;
 
 
-            getProxyHandler().getMessageReceiver().accept(
-                    _message.serializeWithHeader(
-                            getProxyHandler().getCore(),
-                            new org.chromium.mojo.bindings.MessageHeader(ON_SCAN_STATE_CHANGED_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_SCAN_STATE_CHANGED_ORDINAL)));
 
         }
 
@@ -108,8 +97,7 @@ int newState) {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
-                        message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -118,33 +106,24 @@ int newState) {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch(header.getType()) {
+                switch (header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
-                                BluetoothSystemClient_Internal.MANAGER, messageWithHeader);
-
-
-
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(BluetoothSystemClient_Internal.MANAGER, messageWithHeader);
 
 
                     case ON_STATE_CHANGED_ORDINAL: {
 
-                        BluetoothSystemClientOnStateChangedParams data =
-                                BluetoothSystemClientOnStateChangedParams.deserialize(messageWithHeader.getPayload());
+                        BluetoothSystemClientOnStateChangedParams data = BluetoothSystemClientOnStateChangedParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onStateChanged(data.newState);
                         return true;
                     }
 
 
-
-
-
                     case ON_SCAN_STATE_CHANGED_ORDINAL: {
 
-                        BluetoothSystemClientOnScanStateChangedParams data =
-                                BluetoothSystemClientOnScanStateChangedParams.deserialize(messageWithHeader.getPayload());
+                        BluetoothSystemClientOnScanStateChangedParams data = BluetoothSystemClientOnScanStateChangedParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onScanStateChanged(data.newState);
                         return true;
@@ -163,8 +142,7 @@ int newState) {
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
-                        message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -174,8 +152,7 @@ int newState) {
                     return false;
                 }
                 if (header.getType() == InterfaceControlMessagesConstants.RUN_MESSAGE_ID) {
-                    return InterfaceControlMessagesHelper.handleRun(
-                            getCore(), BluetoothSystemClient_Internal.MANAGER, messageWithHeader, receiver);
+                    return InterfaceControlMessagesHelper.handleRun(getCore(), BluetoothSystemClient_Internal.MANAGER, messageWithHeader, receiver);
                 }
                 return false;
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
@@ -186,11 +163,10 @@ int newState) {
     }
 
 
-    
     static final class BluetoothSystemClientOnStateChangedParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int newState;
 
@@ -212,8 +188,7 @@ int newState) {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static BluetoothSystemClientOnStateChangedParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(
-                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         public static BluetoothSystemClientOnStateChangedParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
@@ -226,12 +201,12 @@ int newState) {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new BluetoothSystemClientOnStateChangedParams(elementsOrVersion);
-                    {
-                        
+                {
+
                     result.newState = decoder0.readInt(8);
-                        BluetoothSystem.State.validate(result.newState);
-                        result.newState = BluetoothSystem.State.toKnownValue(result.newState);
-                    }
+                    BluetoothSystem.State.validate(result.newState);
+                    result.newState = BluetoothSystem.State.toKnownValue(result.newState);
+                }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -242,18 +217,16 @@ int newState) {
         @Override
         protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-            
+
             encoder0.encode(this.newState, 8);
         }
     }
 
 
-
-    
     static final class BluetoothSystemClientOnScanStateChangedParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int newState;
 
@@ -275,8 +248,7 @@ int newState) {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static BluetoothSystemClientOnScanStateChangedParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(
-                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         public static BluetoothSystemClientOnScanStateChangedParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
@@ -289,12 +261,12 @@ int newState) {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new BluetoothSystemClientOnScanStateChangedParams(elementsOrVersion);
-                    {
-                        
+                {
+
                     result.newState = decoder0.readInt(8);
-                        BluetoothSystem.ScanState.validate(result.newState);
-                        result.newState = BluetoothSystem.ScanState.toKnownValue(result.newState);
-                    }
+                    BluetoothSystem.ScanState.validate(result.newState);
+                    result.newState = BluetoothSystem.ScanState.toKnownValue(result.newState);
+                }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -305,11 +277,10 @@ int newState) {
         @Override
         protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-            
+
             encoder0.encode(this.newState, 8);
         }
     }
-
 
 
 }

@@ -1,4 +1,4 @@
-// Copyright 2015 The Chromium Authors. All rights reserved.
+// Copyright 2015 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -8,14 +8,13 @@ import android.os.Bundle;
 
 import androidx.annotation.VisibleForTesting;
 
+import org.chromium.base.Log;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import org.chromium.base.Log;
-import org.chromium.base.annotations.CalledByNative;
-import org.chromium.base.annotations.JNINamespace;
-import org.chromium.base.annotations.NativeMethods;
 
 import java.util.Arrays;
 import java.util.Set;
@@ -23,10 +22,10 @@ import java.util.Set;
 /**
  * Allows converting Java policies, contained as key/value pairs in {@link android.os.Bundle}s to
  * native {@code PolicyBundle}s.
- *
+ * <p>
  * This class is to be used to send key/value pairs to its native equivalent, that can then be used
  * to retrieve the native {@code PolicyBundle}.
- *
+ * <p>
  * It should be created by calling {@link #create(long)} from the native code, and sending it back
  * to Java.
  */
@@ -39,28 +38,26 @@ public class PolicyConverter {
         mNativePolicyConverter = nativePolicyConverter;
     }
 
-    /** Convert and send the key/value pair for a policy to the native {@code PolicyConverter}. */
+    /**
+     * Convert and send the key/value pair for a policy to the native {@code PolicyConverter}.
+     */
     public void setPolicy(String key, Object value) {
         assert mNativePolicyConverter != 0;
 
         if (value instanceof Boolean) {
-            PolicyConverterJni.get().setPolicyBoolean(
-                    mNativePolicyConverter, PolicyConverter.this, key, (Boolean) value);
+            PolicyConverterJni.get().setPolicyBoolean(mNativePolicyConverter, PolicyConverter.this, key, (Boolean) value);
             return;
         }
         if (value instanceof String) {
-            PolicyConverterJni.get().setPolicyString(
-                    mNativePolicyConverter, PolicyConverter.this, key, (String) value);
+            PolicyConverterJni.get().setPolicyString(mNativePolicyConverter, PolicyConverter.this, key, (String) value);
             return;
         }
         if (value instanceof Integer) {
-            PolicyConverterJni.get().setPolicyInteger(
-                    mNativePolicyConverter, PolicyConverter.this, key, (Integer) value);
+            PolicyConverterJni.get().setPolicyInteger(mNativePolicyConverter, PolicyConverter.this, key, (Integer) value);
             return;
         }
         if (value instanceof String[]) {
-            PolicyConverterJni.get().setPolicyStringArray(
-                    mNativePolicyConverter, PolicyConverter.this, key, (String[]) value);
+            PolicyConverterJni.get().setPolicyStringArray(mNativePolicyConverter, PolicyConverter.this, key, (String[]) value);
             return;
         }
         // App restrictions can only contain bundles and bundle arrays on Android M, but
@@ -70,14 +67,11 @@ public class PolicyConverter {
             // JNI can't take a Bundle argument without a lot of extra work, but the native code
             // already accepts arbitrary JSON strings, so convert to JSON.
             try {
-                PolicyConverterJni.get().setPolicyString(mNativePolicyConverter,
-                        PolicyConverter.this, key, convertBundleToJson(bundle).toString());
+                PolicyConverterJni.get().setPolicyString(mNativePolicyConverter, PolicyConverter.this, key, convertBundleToJson(bundle).toString());
             } catch (JSONException e) {
                 // Chrome requires all policies to be expressible as JSON, so this can't be a
                 // valid policy.
-                Log.w(TAG,
-                        "Invalid bundle in app restrictions " + bundle + " for key "
-                                + key);
+                Log.w(TAG, "Invalid bundle in app restrictions " + bundle + " for key " + key);
             }
             return;
         }
@@ -86,15 +80,11 @@ public class PolicyConverter {
             // JNI can't take a Bundle[] argument without a lot of extra work, but the native
             // code already accepts arbitrary JSON strings, so convert to JSON.
             try {
-                PolicyConverterJni.get().setPolicyString(mNativePolicyConverter,
-                        PolicyConverter.this, key,
-                        convertBundleArrayToJson(bundleArray).toString());
+                PolicyConverterJni.get().setPolicyString(mNativePolicyConverter, PolicyConverter.this, key, convertBundleArrayToJson(bundleArray).toString());
             } catch (JSONException e) {
                 // Chrome requires all policies to be expressible as JSON, so this can't be a
                 // valid policy.
-                Log.w(TAG,
-                        "Invalid bundle array in app restrictions " + Arrays.toString(bundleArray)
-                                + " for key " + key);
+                Log.w(TAG, "Invalid bundle array in app restrictions " + Arrays.toString(bundleArray) + " for key " + key);
             }
             return;
         }
@@ -134,13 +124,12 @@ public class PolicyConverter {
 
     @NativeMethods
     interface Natives {
-        void setPolicyBoolean(long nativePolicyConverter, PolicyConverter caller, String policyKey,
-                boolean value);
-        void setPolicyInteger(
-                long nativePolicyConverter, PolicyConverter caller, String policyKey, int value);
-        void setPolicyString(
-                long nativePolicyConverter, PolicyConverter caller, String policyKey, String value);
-        void setPolicyStringArray(long nativePolicyConverter, PolicyConverter caller,
-                String policyKey, String[] value);
+        void setPolicyBoolean(long nativePolicyConverter, PolicyConverter caller, String policyKey, boolean value);
+
+        void setPolicyInteger(long nativePolicyConverter, PolicyConverter caller, String policyKey, int value);
+
+        void setPolicyString(long nativePolicyConverter, PolicyConverter caller, String policyKey, String value);
+
+        void setPolicyStringArray(long nativePolicyConverter, PolicyConverter caller, String policyKey, String[] value);
     }
 }

@@ -1,4 +1,4 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
+// Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -22,6 +22,7 @@ public interface ViewEventSink {
      * All methods with the "super_" prefix should be routed to the parent of the
      * implementing container view.
      */
+    @SuppressWarnings("javadoc")
     interface InternalAccessDelegate {
         /**
          * @see View#onKeyUp(keyCode, KeyEvent)
@@ -68,12 +69,14 @@ public interface ViewEventSink {
 
     /**
      * Called when view-level focus for the container view has changed.
+     *
      * @param gainFocus {@code true} if the focus is gained, otherwise {@code false}.
      */
     void onViewFocusChanged(boolean gainFocus);
 
     /**
      * Sets whether the keyboard should be hidden when losing input focus.
+     *
      * @param hideKeyboardOnBlur {@code true} if we should hide soft keyboard when losing focus.
      */
     void setHideKeyboardOnBlur(boolean hideKeyboardOnBlur);
@@ -85,11 +88,13 @@ public interface ViewEventSink {
 
     /**
      * Set the Container view Internals.
+     *
      * @param internalDispatcher Handles dispatching all hidden or super methods to the
      *                           containerView.
      */
     void setAccessDelegate(InternalAccessDelegate internalDispatcher);
 
     void onPauseForTesting();
+
     void onResumeForTesting();
 }

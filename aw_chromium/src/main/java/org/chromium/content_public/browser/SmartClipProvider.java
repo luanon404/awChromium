@@ -1,4 +1,4 @@
-// Copyright 2014 The Chromium Authors. All rights reserved.
+// Copyright 2014 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -6,11 +6,11 @@ package org.chromium.content_public.browser;
 
 import android.os.Handler;
 
-import org.chromium.base.annotations.UsedByReflection;
+import org.chromium.build.annotations.UsedByReflection;
 
 /**
  * An interface to provide smart clip data when requested.
- *
+ * <p>
  * NOTE: Some platforms may call these functions to extract smart clip data.
  * Please make sure implementation of them is somewhere in the view
  * hierarchy.

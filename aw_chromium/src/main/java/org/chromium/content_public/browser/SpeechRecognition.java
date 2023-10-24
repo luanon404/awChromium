@@ -1,4 +1,4 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
+// Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -12,7 +12,8 @@ import org.chromium.content.browser.SpeechRecognitionImpl;
  * good local fallback when no data connection is available.
  */
 public final class SpeechRecognition {
-    private SpeechRecognition() {}
+    private SpeechRecognition() {
+    }
 
     /**
      * This method must be called before any instance of SpeechRecognition can be created. It will

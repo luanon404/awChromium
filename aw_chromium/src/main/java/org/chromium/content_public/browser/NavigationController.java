@@ -1,4 +1,4 @@
-// Copyright 2014 The Chromium Authors. All rights reserved.
+// Copyright 2014 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -30,12 +30,14 @@ public interface NavigationController {
     /**
      * Navigates to the specified offset from the "current entry". Does nothing if the offset is
      * out of bounds.
+     *
      * @param offset The offset into the navigation history.
      */
     void goToOffset(int offset);
 
     /**
      * Navigates to the specified index in the navigation entry for this page.
+     *
      * @param index The navigation index to navigate to.
      */
     void goToNavigationIndex(int index);
@@ -94,6 +96,7 @@ public interface NavigationController {
      * Load url without fixing up the url string. Consumers of NavigationController are
      * responsible for ensuring the URL passed in is properly formatted (i.e. the
      * scheme has been added if left off during user input).
+     *
      * @param params Parameters for this load.
      */
     void loadUrl(LoadUrlParams params);
@@ -106,18 +109,20 @@ public interface NavigationController {
 
     /**
      * Get a copy of the navigation history of NavigationController.
+     *
      * @return navigation history of NavigationController.
      */
     NavigationHistory getNavigationHistory();
 
     /**
-    * Get the navigation history of NavigationController from current navigation entry index
-    * with direction (forward/backward)
-    * @param isForward determines forward or backward from current index
-    * @param itemLimit maximum number of entries to be retrieved in specified
-    * diection.
-    * @return navigation history by keeping above constraints.
-    */
+     * Get the navigation history of NavigationController from current navigation entry index
+     * with direction (forward/backward)
+     *
+     * @param isForward determines forward or backward from current index
+     * @param itemLimit maximum number of entries to be retrieved in specified
+     *                  diection.
+     * @return navigation history by keeping above constraints.
+     */
     NavigationHistory getDirectedNavigationHistory(boolean isForward, int itemLimit);
 
     /**
@@ -127,19 +132,23 @@ public interface NavigationController {
 
     /**
      * Get whether or not we're using a desktop user agent for the currently loaded page.
+     *
      * @return true, if use a desktop user agent and false for a mobile one.
      */
     boolean getUseDesktopUserAgent();
 
     /**
      * Set whether or not we're using a desktop user agent for the currently loaded page.
-     * @param override If true, use a desktop user agent.  Use a mobile one otherwise.
+     *
+     * @param override       If true, use a desktop user agent.  Use a mobile one otherwise.
      * @param reloadOnChange Reload the page if the UA has changed.
+     * @param caller         The caller of this method.
      */
-    void setUseDesktopUserAgent(boolean override, boolean reloadOnChange);
+    void setUseDesktopUserAgent(boolean override, boolean reloadOnChange, int caller);
 
     /**
      * Return the NavigationEntry at the given index.
+     *
      * @param index Index to retrieve the NavigationEntry for.
      * @return Entry containing info about the navigation, null if the index is out of bounds.
      */
@@ -153,7 +162,7 @@ public interface NavigationController {
 
     /**
      * @return The pending {@link NavigationEntry} for this controller or {@code null} if none
-     *         exists.
+     * exists.
      */
     NavigationEntry getPendingEntry();
 
@@ -164,8 +173,9 @@ public interface NavigationController {
 
     /**
      * Removes the entry at the specified |index|.
+     *
      * @return false, if the index is the last committed index or the pending entry. Otherwise this
-     *         call discards any transient or pending entries.
+     * call discards any transient or pending entries.
      */
     boolean removeEntryAtIndex(int index);
 
@@ -177,16 +187,18 @@ public interface NavigationController {
 
     /**
      * Gets extra data on the {@link NavigationEntry} at {@code index}.
+     *
      * @param index The index of the navigation entry.
-     * @param key The data key.
+     * @param key   The data key.
      * @return The data value, or null if not found.
      */
     String getEntryExtraData(int index, String key);
 
     /**
      * Sets extra data on the {@link NavigationEntry} at {@code index}.
+     *
      * @param index The index of the navigation entry.
-     * @param key The data key.
+     * @param key   The data key.
      * @param value The data value.
      */
     void setEntryExtraData(int index, String key, String value);

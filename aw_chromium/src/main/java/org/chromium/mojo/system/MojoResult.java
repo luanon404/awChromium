@@ -1,4 +1,4 @@
-// Copyright 2014 The Chromium Authors. All rights reserved.
+// Copyright 2014 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -42,6 +42,8 @@ public final class MojoResult {
                 return "OK";
             case CANCELLED:
                 return "CANCELLED";
+            case UNKNOWN:
+                return "UNKNOWN";
             case INVALID_ARGUMENT:
                 return "INVALID_ARGUMENT";
             case DEADLINE_EXCEEDED:
@@ -72,7 +74,6 @@ public final class MojoResult {
                 return "BUSY";
             case SHOULD_WAIT:
                 return "SHOULD_WAIT";
-            case UNKNOWN:
             default:
                 return "UNKNOWN";
         }

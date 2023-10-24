@@ -1,4 +1,4 @@
-// Copyright 2016 The Chromium Authors. All rights reserved.
+// Copyright 2016 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -28,7 +28,7 @@ import org.chromium.shape_detection.mojom.BarcodeFormat;
 public class BarcodeDetectionImpl implements BarcodeDetection {
     private static final String TAG = "BarcodeDetectionImpl";
 
-    private final BarcodeDetector mBarcodeDetector;
+    private BarcodeDetector mBarcodeDetector;
 
     public BarcodeDetectionImpl(BarcodeDetectorOptions options) {
         int formats = Barcode.ALL_FORMATS;
@@ -69,13 +69,11 @@ public class BarcodeDetectionImpl implements BarcodeDetection {
                 }
             }
         }
-        mBarcodeDetector = new BarcodeDetector.Builder(ContextUtils.getApplicationContext())
-                                   .setBarcodeFormats(formats)
-                                   .build();
+        mBarcodeDetector = new BarcodeDetector.Builder(ContextUtils.getApplicationContext()).setBarcodeFormats(formats).build();
     }
 
     @Override
-    public void detect(org.chromium.skia.mojom.BitmapN32 bitmapData, DetectResponse callback) {
+    public void detect(org.chromium.skia.mojom.BitmapN32 bitmapData, Detect_Response callback) {
         // The vision library will be downloaded the first time the API is used
         // on the device; this happens "fast", but it might have not completed,
         // bail in this case. Also, the API was disabled between and v.9.0 and

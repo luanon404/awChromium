@@ -1,4 +1,4 @@
-// Copyright 2019 The Chromium Authors. All rights reserved.
+// Copyright 2019 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -9,9 +9,9 @@ import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 
-import org.chromium.base.annotations.CalledByNative;
-import org.chromium.base.annotations.JNINamespace;
 import org.chromium.url.GURL;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,7 +29,7 @@ public final class MediaImage {
     private String mType;
 
     @NonNull
-    private List<Rect> mSizes;
+    private List<Rect> mSizes = new ArrayList<Rect>();
 
     /**
      * Creates a new MediaImage.
@@ -89,8 +89,7 @@ public final class MediaImage {
         if (!(obj instanceof MediaImage)) return false;
 
         MediaImage other = (MediaImage) obj;
-        return mSrc.equals(other.mSrc) && TextUtils.equals(mType, other.mType)
-                && mSizes.equals(other.mSizes);
+        return mSrc.equals(other.mSrc) && TextUtils.equals(mType, other.mType) && mSizes.equals(other.mSizes);
     }
 
     /**
@@ -107,8 +106,9 @@ public final class MediaImage {
 
     /**
      * Create a new {@link MediaImage} from the C++ code.
-     * @param src The URL of the image.
-     * @param type The MIME type of the image.
+     *
+     * @param src   The URL of the image.
+     * @param type  The MIME type of the image.
      * @param sizes The array of image sizes.
      */
     @CalledByNative

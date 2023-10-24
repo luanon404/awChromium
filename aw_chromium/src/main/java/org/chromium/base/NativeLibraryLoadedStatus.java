@@ -15,6 +15,7 @@ public class NativeLibraryLoadedStatus {
      */
     public interface NativeLibraryLoadedStatusProvider {
         boolean areMainDexNativeMethodsReady();
+
         boolean areNativeMethodsReady();
     }
 
@@ -26,8 +27,7 @@ public class NativeLibraryLoadedStatus {
 
         if (sProvider == null) return;
 
-        boolean nativeMethodsReady = isMainDex ? sProvider.areMainDexNativeMethodsReady()
-                                               : sProvider.areNativeMethodsReady();
+        boolean nativeMethodsReady = isMainDex ? sProvider.areMainDexNativeMethodsReady() : sProvider.areNativeMethodsReady();
         if (!nativeMethodsReady) {
             throw new JniException("Native method called before the native library was ready.");
         }

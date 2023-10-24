@@ -1,4 +1,4 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
+// Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -24,7 +24,8 @@ public abstract class PropertyObservable<T> {
     public interface PropertyObserver<T> {
         /**
          * Notifies that the given {@code property} of the observed {@code source} has changed.
-         * @param source The object whose property has changed
+         *
+         * @param source      The object whose property has changed
          * @param propertyKey The key of the property that has changed.
          */
         void onPropertyChanged(PropertyObservable<T> source, @Nullable T propertyKey);
@@ -48,13 +49,13 @@ public abstract class PropertyObservable<T> {
 
     /**
      * @return A collection of all properties of this model that have been set. The returned
-     *         collection should not be modified.
+     * collection should not be modified.
      */
     public abstract Collection<T> getAllSetProperties();
 
     /**
      * @return A collection of all properties of this model. The returned collection should not be
-     *         modified.
+     * modified.
      */
     public abstract Collection<T> getAllProperties();
 

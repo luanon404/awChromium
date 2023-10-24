@@ -1,4 +1,4 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
+// Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -18,13 +18,15 @@ import org.chromium.ui.base.WindowAndroid;
  * Adapts and plumbs android IME service onto the chrome text input API.
  */
 public interface ImeAdapter {
-    /** Composition key code sent when user either hit a key or hit a selection. */
+    /**
+     * Composition key code sent when user either hit a key or hit a selection.
+     */
     int COMPOSITION_KEY_CODE = 229;
 
     /**
      * @param webContents {@link WebContents} object.
      * @return {@link ImeAdapter} object used for the give WebContents.
-     *         {@code null} if not available.
+     * {@code null} if not available.
      */
     static ImeAdapter fromWebContents(WebContents webContents) {
         return ImeAdapterImpl.fromWebContents(webContents);
@@ -34,10 +36,8 @@ public interface ImeAdapter {
      * @return the default {@link InputMethodManagerWrapper} that the ImeAdapter uses to
      * make calls to the InputMethodManager.
      */
-    static InputMethodManagerWrapper createDefaultInputMethodManagerWrapper(Context context,
-            WindowAndroid windowAndroid, InputMethodManagerWrapper.Delegate delegate) {
-        return ImeAdapterImpl.createDefaultInputMethodManagerWrapper(
-                context, windowAndroid, delegate);
+    static InputMethodManagerWrapper createDefaultInputMethodManagerWrapper(Context context, WindowAndroid windowAndroid, InputMethodManagerWrapper.Delegate delegate) {
+        return ImeAdapterImpl.createDefaultInputMethodManagerWrapper(context, windowAndroid, delegate);
     }
 
     /**
@@ -48,6 +48,7 @@ public interface ImeAdapter {
 
     /**
      * Add {@link ImeEventObserver} object to {@link ImeAdapter}.
+     *
      * @param observer imeEventObserver instance to add.
      */
     void addEventObserver(ImeEventObserver observer);
@@ -65,6 +66,7 @@ public interface ImeAdapter {
     /**
      * Overrides the InputMethodManagerWrapper that ImeAdapter uses to make calls to
      * InputMethodManager.
+     *
      * @param immw InputMethodManagerWrapper that should be used to call InputMethodManager.
      */
     void setInputMethodManagerWrapper(InputMethodManagerWrapper immw);
@@ -74,11 +76,11 @@ public interface ImeAdapter {
      *
      * @param focusType indicates whether to advance forward or backward direction.
      */
-    void advanceFocusInForm(int focusType);
+    void advanceFocusForIME(int focusType);
 
     /**
      * @return a newly instantiated {@link ResultReceiver} used to scroll to the editable
-     *     node at the right timing.
+     * node at the right timing.
      */
     @VisibleForTesting
     ResultReceiver getNewShowKeyboardReceiver();
@@ -86,31 +88,21 @@ public interface ImeAdapter {
     /**
      * Get the current input connection for testing purposes.
      */
-    @VisibleForTesting
     InputConnection getInputConnectionForTest();
 
     /**
      * Replace the currently composing text with the given text, and set the new cursor position.
-     * @param text The composing text.
+     *
+     * @param text              The composing text.
      * @param newCursorPosition The new cursor position around the text.
      */
-    @VisibleForTesting
     void setComposingTextForTest(final CharSequence text, final int newCursorPosition);
 
     /**
      * Call this when we get result from ResultReceiver passed in calling showSoftInput().
+     *
      * @param resultCode The result of showSoftInput() as defined in InputMethodManager.
      */
     @VisibleForTesting
     void onShowKeyboardReceiveResult(int resultCode);
-
-    /**
-     * Returns true if the overlaycontent flag is set in the JS, else false.
-     * This determines whether to fire geometrychange event to JS and also not
-     * resize the visual/layout viewports in response to keyboard visibility
-     * changes.
-     *
-     * @return Whether overlaycontent flag is set or not.
-     */
-    boolean shouldVirtualKeyboardOverlayContent();
 }

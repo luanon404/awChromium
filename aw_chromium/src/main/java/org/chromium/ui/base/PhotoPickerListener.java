@@ -1,4 +1,4 @@
-// Copyright 2017 The Chromium Authors. All rights reserved.
+// Copyright 2017 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -18,8 +18,7 @@ public interface PhotoPickerListener {
     /**
      * The action the user took in the picker.
      */
-    @IntDef({PhotoPickerAction.CANCEL, PhotoPickerAction.PHOTOS_SELECTED,
-            PhotoPickerAction.LAUNCH_CAMERA, PhotoPickerAction.LAUNCH_GALLERY})
+    @IntDef({PhotoPickerAction.CANCEL, PhotoPickerAction.PHOTOS_SELECTED, PhotoPickerAction.LAUNCH_CAMERA, PhotoPickerAction.LAUNCH_GALLERY})
     @Retention(RetentionPolicy.SOURCE)
     @interface PhotoPickerAction {
         int CANCEL = 0;
@@ -42,6 +41,8 @@ public interface PhotoPickerListener {
      */
     void onPhotoPickerUserAction(@PhotoPickerAction int action, Uri[] photos);
 
-    /** Called when the dialog has been dismissed. */
+    /**
+     * Called when the dialog has been dismissed.
+     */
     void onPhotoPickerDismissed();
 }

@@ -1,4 +1,4 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
+// Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -18,14 +18,14 @@ import java.lang.ref.WeakReference;
  * notifies {@link KeyboardVisibilityDelegate.KeyboardVisibilityListener} whenever the layout change
  * is suspected to be caused by a keyboard.
  */
-public class ActivityKeyboardVisibilityDelegate
-        extends KeyboardVisibilityDelegate implements View.OnLayoutChangeListener {
+public class ActivityKeyboardVisibilityDelegate extends KeyboardVisibilityDelegate implements View.OnLayoutChangeListener {
     private boolean mIsKeyboardShowing;
-    private final WeakReference<Activity> mActivity;
+    private WeakReference<Activity> mActivity;
 
     /**
      * Creates a new delegate listening to the given activity. If the activity is destroyed, it will
      * continue to work as a regular {@link KeyboardVisibilityDelegate}.
+     *
      * @param activity A {@link WeakReference} to an {@link Activity}.
      */
     public ActivityKeyboardVisibilityDelegate(WeakReference<Activity> activity) {
@@ -53,8 +53,7 @@ public class ActivityKeyboardVisibilityDelegate
     }
 
     @Override
-    public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft,
-            int oldTop, int oldRight, int oldBottom) {
+    public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
         Activity activity = getActivity();
         if (activity == null) return;
         boolean isShowing = isKeyboardShowing(activity, v);

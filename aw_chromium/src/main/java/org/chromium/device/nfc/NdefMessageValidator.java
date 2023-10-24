@@ -1,4 +1,4 @@
-// Copyright 2016 The Chromium Authors. All rights reserved.
+// Copyright 2016 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -36,10 +36,15 @@ public final class NdefMessageValidator {
         if (record == null) return false;
         if (record.recordType.equals(NdefMessageUtils.RECORD_TYPE_EMPTY)) return true;
         if (record.data == null) return false;
-        // Other types must not have mediaType.
         if (record.recordType.equals(NdefMessageUtils.RECORD_TYPE_MIME)) {
             // 'mime' type records must have mediaType.
-            return record.mediaType != null && !record.mediaType.isEmpty();
-        } else return record.mediaType == null;
+            if (record.mediaType == null || record.mediaType.isEmpty()) {
+                return false;
+            }
+        } else if (record.mediaType != null) {
+            // Other types must not have mediaType.
+            return false;
+        }
+        return true;
     }
 }

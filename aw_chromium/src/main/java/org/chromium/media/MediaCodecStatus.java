@@ -1,5 +1,4 @@
-
-// Copyright 2021 The Chromium Authors. All rights reserved.
+// Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -15,16 +14,13 @@ import androidx.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@IntDef({
-    MediaCodecStatus.OK, MediaCodecStatus.TRY_AGAIN_LATER, MediaCodecStatus.OUTPUT_BUFFERS_CHANGED,
-    MediaCodecStatus.OUTPUT_FORMAT_CHANGED, MediaCodecStatus.NO_KEY, MediaCodecStatus.ERROR
-})
+@IntDef({MediaCodecStatus.OK, MediaCodecStatus.TRY_AGAIN_LATER, MediaCodecStatus.OUTPUT_BUFFERS_CHANGED, MediaCodecStatus.OUTPUT_FORMAT_CHANGED, MediaCodecStatus.NO_KEY, MediaCodecStatus.ERROR})
 @Retention(RetentionPolicy.SOURCE)
 public @interface MediaCodecStatus {
-  int OK = 0;
-  int TRY_AGAIN_LATER = 1;
-  int OUTPUT_BUFFERS_CHANGED = 2;
-  int OUTPUT_FORMAT_CHANGED = 3;
-  int NO_KEY = 4;
-  int ERROR = 5;
+    int OK = 0;
+    int TRY_AGAIN_LATER = 1;
+    int OUTPUT_BUFFERS_CHANGED = 2;
+    int OUTPUT_FORMAT_CHANGED = 3;
+    int NO_KEY = 4;
+    int ERROR = 5;
 }

@@ -1,4 +1,4 @@
-// Copyright 2015 The Chromium Authors. All rights reserved.
+// Copyright 2015 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,9 +10,7 @@ import org.chromium.base.ApplicationStatus;
 /**
  * Regsitration policy which depends on the ApplicationState.
  */
-public class RegistrationPolicyApplicationStatus
-        extends NetworkChangeNotifierAutoDetect.RegistrationPolicy
-        implements ApplicationStatus.ApplicationStateListener {
+public class RegistrationPolicyApplicationStatus extends NetworkChangeNotifierAutoDetect.RegistrationPolicy implements ApplicationStatus.ApplicationStateListener {
     private boolean mDestroyed;
 
     @Override

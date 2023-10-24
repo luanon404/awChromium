@@ -1,24 +1,23 @@
-// Copyright 2014 The Chromium Authors. All rights reserved.
+// Copyright 2014 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
 package org.chromium.base;
 
-import org.chromium.base.annotations.MainDex;
-import org.chromium.base.annotations.NativeMethods;
+import org.jni_zero.NativeMethods;
 
 /**
  * Helper to get field trial information.
  */
-@MainDex
 public class FieldTrialList {
 
-    private FieldTrialList() {}
+    private FieldTrialList() {
+    }
 
     /**
      * @param trialName The name of the trial to get the group for.
      * @return The group name chosen for the named trial, or the empty string if the trial does
-     *         not exist.
+     * not exist.
      */
     public static String findFullName(String trialName) {
         return FieldTrialListJni.get().findFullName(trialName);
@@ -53,7 +52,7 @@ public class FieldTrialList {
      * @param trialName The name of the trial to create.
      * @param groupName The name of the group to set.
      * @return True on success, false if there was already a field trial of the same name but with a
-     *         different finalized {@code groupName}.
+     * different finalized {@code groupName}.
      */
     public static boolean createFieldTrial(String trialName, String groupName) {
         return FieldTrialListJni.get().createFieldTrial(trialName, groupName);
@@ -62,9 +61,13 @@ public class FieldTrialList {
     @NativeMethods
     interface Natives {
         String findFullName(String trialName);
+
         boolean trialExists(String trialName);
+
         String getVariationParameter(String trialName, String parameterKey);
+
         void logActiveTrials();
+
         boolean createFieldTrial(String trialName, String groupName);
     }
 }

@@ -19,8 +19,7 @@ import org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConst
 
 class BluetoothSystemFactory_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<BluetoothSystemFactory, BluetoothSystemFactory.Proxy> MANAGER =
-            new org.chromium.mojo.bindings.Interface.Manager<BluetoothSystemFactory, BluetoothSystemFactory.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<BluetoothSystemFactory, BluetoothSystemFactory.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<BluetoothSystemFactory, BluetoothSystemFactory.Proxy>() {
 
         @Override
         public String getName() {
@@ -29,12 +28,11 @@ class BluetoothSystemFactory_Internal {
 
         @Override
         public int getVersion() {
-          return 0;
+            return 0;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core,
-                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -45,7 +43,7 @@ class BluetoothSystemFactory_Internal {
 
         @Override
         public BluetoothSystemFactory[] buildArray(int size) {
-          return new BluetoothSystemFactory[size];
+            return new BluetoothSystemFactory[size];
         }
     };
 
@@ -55,15 +53,13 @@ class BluetoothSystemFactory_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements BluetoothSystemFactory.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core,
-              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void create(
-org.chromium.mojo.bindings.InterfaceRequest<BluetoothSystem> system, BluetoothSystemClient systemClient) {
+        public void create(org.chromium.mojo.bindings.InterfaceRequest<BluetoothSystem> system, BluetoothSystemClient systemClient) {
 
             BluetoothSystemFactoryCreateParams _message = new BluetoothSystemFactoryCreateParams();
 
@@ -72,10 +68,7 @@ org.chromium.mojo.bindings.InterfaceRequest<BluetoothSystem> system, BluetoothSy
             _message.systemClient = systemClient;
 
 
-            getProxyHandler().getMessageReceiver().accept(
-                    _message.serializeWithHeader(
-                            getProxyHandler().getCore(),
-                            new org.chromium.mojo.bindings.MessageHeader(CREATE_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(CREATE_ORDINAL)));
 
         }
 
@@ -91,8 +84,7 @@ org.chromium.mojo.bindings.InterfaceRequest<BluetoothSystem> system, BluetoothSy
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
-                        message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -101,20 +93,15 @@ org.chromium.mojo.bindings.InterfaceRequest<BluetoothSystem> system, BluetoothSy
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch(header.getType()) {
+                switch (header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
-                                BluetoothSystemFactory_Internal.MANAGER, messageWithHeader);
-
-
-
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(BluetoothSystemFactory_Internal.MANAGER, messageWithHeader);
 
 
                     case CREATE_ORDINAL: {
 
-                        BluetoothSystemFactoryCreateParams data =
-                                BluetoothSystemFactoryCreateParams.deserialize(messageWithHeader.getPayload());
+                        BluetoothSystemFactoryCreateParams data = BluetoothSystemFactoryCreateParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().create(data.system, data.systemClient);
                         return true;
@@ -133,8 +120,7 @@ org.chromium.mojo.bindings.InterfaceRequest<BluetoothSystem> system, BluetoothSy
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
-                        message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -144,8 +130,7 @@ org.chromium.mojo.bindings.InterfaceRequest<BluetoothSystem> system, BluetoothSy
                     return false;
                 }
                 if (header.getType() == InterfaceControlMessagesConstants.RUN_MESSAGE_ID) {
-                    return InterfaceControlMessagesHelper.handleRun(
-                            getCore(), BluetoothSystemFactory_Internal.MANAGER, messageWithHeader, receiver);
+                    return InterfaceControlMessagesHelper.handleRun(getCore(), BluetoothSystemFactory_Internal.MANAGER, messageWithHeader, receiver);
                 }
                 return false;
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
@@ -156,11 +141,10 @@ org.chromium.mojo.bindings.InterfaceRequest<BluetoothSystem> system, BluetoothSy
     }
 
 
-    
     static final class BluetoothSystemFactoryCreateParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.mojo.bindings.InterfaceRequest<BluetoothSystem> system;
         public BluetoothSystemClient systemClient;
@@ -183,8 +167,7 @@ org.chromium.mojo.bindings.InterfaceRequest<BluetoothSystem> system, BluetoothSy
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static BluetoothSystemFactoryCreateParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(
-                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         public static BluetoothSystemFactoryCreateParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
@@ -197,14 +180,14 @@ org.chromium.mojo.bindings.InterfaceRequest<BluetoothSystem> system, BluetoothSy
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new BluetoothSystemFactoryCreateParams(elementsOrVersion);
-                    {
-                        
+                {
+
                     result.system = decoder0.readInterfaceRequest(8, false);
-                    }
-                    {
-                        
+                }
+                {
+
                     result.systemClient = decoder0.readServiceInterface(12, false, BluetoothSystemClient.MANAGER);
-                    }
+                }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -215,13 +198,12 @@ org.chromium.mojo.bindings.InterfaceRequest<BluetoothSystem> system, BluetoothSy
         @Override
         protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-            
+
             encoder0.encode(this.system, 8, false);
-            
+
             encoder0.encode(this.systemClient, 12, false, BluetoothSystemClient.MANAGER);
         }
     }
-
 
 
 }

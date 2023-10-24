@@ -1,4 +1,4 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
+// Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -29,9 +29,7 @@ public interface ContactsPickerListener {
         public final List<ByteBuffer> serializedAddresses;
         public final List<ByteBuffer> serializedIcons;
 
-        public Contact(List<String> contactNames, List<String> contactEmails,
-                List<String> contactTel, List<PaymentAddress> contactAddresses,
-                List<ContactIconBlob> contactIcons) {
+        public Contact(List<String> contactNames, List<String> contactEmails, List<String> contactTel, List<PaymentAddress> contactAddresses, List<ContactIconBlob> contactIcons) {
             names = contactNames;
             emails = contactEmails;
             tel = contactTel;
@@ -59,8 +57,7 @@ public interface ContactsPickerListener {
     /**
      * The action the user took in the picker.
      */
-    @IntDef({ContactsPickerAction.CANCEL, ContactsPickerAction.CONTACTS_SELECTED,
-            ContactsPickerAction.SELECT_ALL, ContactsPickerAction.UNDO_SELECT_ALL})
+    @IntDef({ContactsPickerAction.CANCEL, ContactsPickerAction.CONTACTS_SELECTED, ContactsPickerAction.SELECT_ALL, ContactsPickerAction.UNDO_SELECT_ALL})
     @Retention(RetentionPolicy.SOURCE)
     @interface ContactsPickerAction {
         int CANCEL = 0;
@@ -73,12 +70,13 @@ public interface ContactsPickerListener {
     /**
      * Called when the user has selected an action. For possible actions see above.
      *
-     * @param contacts The list of contacts selected.
-     * @param percentageShared How big a percentage of the full contact list was shared (for metrics
-     *         purposes).
-     * @param propertiesRequested The properties requested by the website (names, emails,
-     *         telephones).
+     * @param contacts                The list of contacts selected.
+     * @param percentageShared        How big a percentage of the full contact list was shared (for metrics
+     *                                purposes).
+     * @param propertiesSiteRequested The properties requested by the website (bitmask of names,
+     *                                emails, telephones, etc).
+     * @param propertiesUserRejected  The properties rejected by the user (bitmask of names, emails,
+     *                                telephones, etc) when the sharing dialog is presented.
      */
-    void onContactsPickerUserAction(@ContactsPickerAction int action, List<Contact> contacts,
-            int percentageShared, int propertiesRequested);
+    void onContactsPickerUserAction(@ContactsPickerAction int action, List<Contact> contacts, int percentageShared, int propertiesSiteRequested, int propertiesUserRejected);
 }

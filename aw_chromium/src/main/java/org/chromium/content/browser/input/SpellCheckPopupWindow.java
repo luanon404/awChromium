@@ -1,4 +1,4 @@
-// Copyright 2017 The Chromium Authors. All rights reserved.
+// Copyright 2017 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -18,13 +18,12 @@ public class SpellCheckPopupWindow extends SuggestionsPopupWindow {
     private String[] mSuggestions = new String[0];
 
     /**
-     * @param context Android context to use.
+     * @param context            Android context to use.
      * @param textSuggestionHost TextSuggestionHost instance (used to communicate with Blink).
-     * @param windowAndroid The current WindowAndroid instance.
-     * @param parentView The view used to attach the PopupWindow.
+     * @param windowAndroid      The current WindowAndroid instance.
+     * @param parentView         The view used to attach the PopupWindow.
      */
-    public SpellCheckPopupWindow(Context context, TextSuggestionHost textSuggestionHost,
-            WindowAndroid windowAndroid, View parentView) {
+    public SpellCheckPopupWindow(Context context, TextSuggestionHost textSuggestionHost, WindowAndroid windowAndroid, View parentView) {
         super(context, textSuggestionHost, windowAndroid, parentView);
     }
 

@@ -1,4 +1,4 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
+// Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -15,9 +15,13 @@ import org.chromium.ui.base.WindowAndroid;
  * Wrapper around Android's InputMethodManager so that the implementation can be swapped out.
  */
 public interface InputMethodManagerWrapper {
-    /** An embedder may implement this for multi-display support. */
+    /**
+     * An embedder may implement this for multi-display support.
+     */
     interface Delegate {
-        /** Whether the delegate has established an input connection. */
+        /**
+         * Whether the delegate has established an input connection.
+         */
         boolean hasInputConnection();
     }
 
@@ -45,8 +49,7 @@ public interface InputMethodManagerWrapper {
     /**
      * @see android.view.inputmethod.InputMethodManager#updateSelection(View, int, int, int, int)
      */
-    void updateSelection(
-            View view, int selStart, int selEnd, int candidatesStart, int candidatesEnd);
+    void updateSelection(View view, int selStart, int selEnd, int candidatesStart, int candidatesEnd);
 
     /**
      * @see android.view.inputmethod.InputMethodManager#updateCursorAnchorInfo(View,
@@ -61,13 +64,8 @@ public interface InputMethodManagerWrapper {
     void updateExtractedText(View view, int token, android.view.inputmethod.ExtractedText text);
 
     /**
-     * Notify that a user took some action with the current input method. Without this call
-     * an input method app may wait longer when the user switches methods within the app.
-     */
-    void notifyUserAction();
-
-    /**
      * Call this when WindowAndroid object has changed.
+     *
      * @param newWindowAndroid The new WindowAndroid object.
      */
     void onWindowAndroidChanged(WindowAndroid newWindowAndroid);

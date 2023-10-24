@@ -1,4 +1,4 @@
-// Copyright 2020 The Chromium Authors. All rights reserved.
+// Copyright 2020 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -46,6 +46,15 @@ public final class BaseSwitches {
     // concerns about priority inversions.
     public static final String ENABLE_BACKGROUND_THREAD_POOL = "enable-background-thread-pool";
 
+    // Handle to the shared memory segment containing field trial state that is to
+    // be shared between processes. The argument to this switch is made of 4
+    // segments, separated by commas:
+    // 1. The platform-specific handle id for the shared memory as a string.
+    // 2. The high 64 bits of the shared memory block GUID.
+    // 3. The low 64 bits of the shared memory block GUID.
+    // 4. The size of the shared memory segment as a string.
+    public static final String FIELD_TRIAL_HANDLE = "field-trial-handle";
+
     // This option can be used to force field trials when testing changes locally.
     // The argument is a list of name and value pairs, separated by slashes. If a
     // trial name is prefixed with an asterisk, that trial will start activated.
@@ -91,11 +100,6 @@ public final class BaseSwitches {
     // to the test framework that the current process is a child process.
     public static final String TEST_CHILD_PROCESS = "test-child-process";
 
-    // When running certain tests that spawn child processes, this switch indicates
-    // to the test framework that the current process should not initialize ICU to
-    // avoid creating any scoped handles too early in startup.
-    public static final String TEST_DO_NOT_INITIALIZE_ICU = "test-do-not-initialize-icu";
-
     // Sends trace events from these categories to a file.
     // --trace-to-file on its own sends to default categories.
     public static final String TRACE_TO_FILE = "trace-to-file";
@@ -120,7 +124,7 @@ public final class BaseSwitches {
     // Disable high-resolution timer on Windows.
     public static final String DISABLE_HIGH_RES_TIMER = "disable-highres-timer";
 
-    // Disables the USB keyboard detection for blocking the OSK on Win8+.
+    // Disables the USB keyboard detection for blocking the OSK on Windows.
     public static final String DISABLE_USB_KEYBOARD_DETECT = "disable-usb-keyboard-detect";
 
     // The /dev/shm partition is too small in certain VM environments, causing
@@ -149,8 +153,34 @@ public final class BaseSwitches {
     // The field trial parameters and their values when testing changes locally.
     public static final String FORCE_FIELD_TRIAL_PARAMS = "force-fieldtrial-params";
 
-    // This flag requires the BPF sandbox to be disabled.
-    public static final String ENABLE_THREAD_INSTRUCTION_COUNT = "enable-thread-instruction-count";
+    // When we retrieve the package name within the SDK Runtime, we need to use
+    // a bit of a hack to do this by taking advantage of the fact that the pid
+    // is the same pid as the application's pid + 10000.
+    // see:
+    // https://cs.android.com/android/platform/superproject/main/+/main:frameworks/base/core/java/android/os/Process.java;l=292;drc=47fffdd53115a9af1820e3f89d8108745be4b55d
+    // When the render process is created however, it is just a regular isolated
+    // process with no particular association so we can't perform the same hack.
+    // When creating minidumps, the package name is retrieved from the process
+    // meaning the render process minidumps would end up reporting a generic
+    // process name not associated with the app.
+    // We work around this by feeding through the host package information to the
+    // render process when launching it.
+    public static final String HOST_PACKAGE_NAME = "host-package-name";
+
+
+    public static final String HOST_PACKAGE_LABEL = "host-package-label";
+
+
+    public static final String HOST_VERSION_CODE = "host-version-code";
+
+
+    public static final String PACKAGE_NAME = "package-name";
+
+
+    public static final String PACKAGE_VERSION_NAME = "package-version-name";
+
+
+    public static final String PACKAGE_VERSION_CODE = "package-version-code";
 
     // Override the default scheduling boosting value for urgent tasks.
     // This can be adjusted if a specific chromeos device shows better perf/power
@@ -168,5 +198,6 @@ public final class BaseSwitches {
     public static final String RENDERER_WAIT_FOR_JAVA_DEBUGGER = "renderer-wait-for-java-debugger";
 
     // Prevent instantiation.
-    private BaseSwitches() {}
+    private BaseSwitches() {
+    }
 }

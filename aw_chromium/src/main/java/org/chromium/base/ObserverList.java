@@ -1,4 +1,4 @@
-// Copyright 2013 The Chromium Authors. All rights reserved.
+// Copyright 2013 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -20,8 +20,8 @@ import javax.annotation.concurrent.NotThreadSafe;
  * <p/>
  * The implementation (and the interface) is heavily influenced by the C++ ObserverList.
  * Notable differences:
- *   - The iterator implements NOTIFY_EXISTING_ONLY.
- *   - The range-based for loop is left to the clients to implement in terms of iterator().
+ * - The iterator implements NOTIFY_EXISTING_ONLY.
+ * - The range-based for loop is left to the clients to implement in terms of iterator().
  * <p/>
  * This class is not threadsafe. Observers MUST be added, removed and will be notified on the same
  * thread this is created.
@@ -36,7 +36,7 @@ public class ObserverList<E> implements Iterable<E> {
     public interface RewindableIterator<E> extends Iterator<E> {
         /**
          * Rewind the iterator back to the beginning.
-         *
+         * <p>
          * If we need to iterate multiple times, we can avoid iterator object reallocation by using
          * this method.
          */
@@ -44,11 +44,23 @@ public class ObserverList<E> implements Iterable<E> {
     }
 
     public final List<E> mObservers = new ArrayList<E>();
+    private final ThreadUtils.ThreadChecker mThreadChecker;
     private int mIterationDepth;
     private int mCount;
     private boolean mNeedsCompact;
+    private boolean mEnableThreadAsserts = true;
 
-    public ObserverList() {}
+    public ObserverList() {
+        mThreadChecker = new ThreadUtils.ThreadChecker();
+    }
+
+    /**
+     * Disable thread assertions for this instance of ObserverList. In nearly all instances, using
+     * this API indicates a bug.
+     */
+    public void disableThreadAsserts() {
+        mEnableThreadAsserts = false;
+    }
 
     /**
      * Add an observer to the list.
@@ -59,6 +71,8 @@ public class ObserverList<E> implements Iterable<E> {
      * @return true if the observer list changed as a result of the call.
      */
     public boolean addObserver(E obs) {
+        if (mEnableThreadAsserts) mThreadChecker.assertOnValidThread();
+
         // Avoid adding null elements to the list as they may be removed on a compaction.
         if (obs == null || mObservers.contains(obs)) {
             return false;
@@ -79,6 +93,8 @@ public class ObserverList<E> implements Iterable<E> {
      * @return true if an element was removed as a result of this call.
      */
     public boolean removeObserver(E obs) {
+        if (mEnableThreadAsserts) mThreadChecker.assertOnValidThread();
+
         if (obs == null) {
             return false;
         }
@@ -102,10 +118,14 @@ public class ObserverList<E> implements Iterable<E> {
     }
 
     public boolean hasObserver(E obs) {
+        if (mEnableThreadAsserts) mThreadChecker.assertOnValidThread();
+
         return mObservers.contains(obs);
     }
 
     public void clear() {
+        if (mEnableThreadAsserts) mThreadChecker.assertOnValidThread();
+
         mCount = 0;
 
         if (mIterationDepth == 0) {
@@ -122,6 +142,8 @@ public class ObserverList<E> implements Iterable<E> {
 
     @Override
     public Iterator<E> iterator() {
+        if (mEnableThreadAsserts) mThreadChecker.assertOnValidThread();
+
         return new ObserverListIterator();
     }
 
@@ -131,6 +153,8 @@ public class ObserverList<E> implements Iterable<E> {
      * {@link RewindableIterator#rewind()}.
      */
     public RewindableIterator<E> rewindableIterator() {
+        if (mEnableThreadAsserts) mThreadChecker.assertOnValidThread();
+
         return new ObserverListIterator();
     }
 
@@ -139,6 +163,8 @@ public class ObserverList<E> implements Iterable<E> {
      * This is equivalent to the number of non-empty spaces in |mObservers|.
      */
     public int size() {
+        if (mEnableThreadAsserts) mThreadChecker.assertOnValidThread();
+
         return mCount;
     }
 
@@ -146,6 +172,8 @@ public class ObserverList<E> implements Iterable<E> {
      * Returns true if the ObserverList contains no observers.
      */
     public boolean isEmpty() {
+        if (mEnableThreadAsserts) mThreadChecker.assertOnValidThread();
+
         return mCount == 0;
     }
 
@@ -200,6 +228,8 @@ public class ObserverList<E> implements Iterable<E> {
 
         @Override
         public void rewind() {
+            if (mEnableThreadAsserts) mThreadChecker.assertOnValidThread();
+
             compactListIfNeeded();
             ObserverList.this.incrementIterationDepth();
             mListEndMarker = ObserverList.this.capacity();
@@ -209,9 +239,10 @@ public class ObserverList<E> implements Iterable<E> {
 
         @Override
         public boolean hasNext() {
+            if (mEnableThreadAsserts) mThreadChecker.assertOnValidThread();
+
             int lookupIndex = mIndex;
-            while (lookupIndex < mListEndMarker
-                    && ObserverList.this.getObserverAt(lookupIndex) == null) {
+            while (lookupIndex < mListEndMarker && ObserverList.this.getObserverAt(lookupIndex) == null) {
                 lookupIndex++;
             }
             if (lookupIndex < mListEndMarker) return true;
@@ -223,6 +254,8 @@ public class ObserverList<E> implements Iterable<E> {
 
         @Override
         public E next() {
+            if (mEnableThreadAsserts) mThreadChecker.assertOnValidThread();
+
             // Advance if the current element is null.
             while (mIndex < mListEndMarker && ObserverList.this.getObserverAt(mIndex) == null) {
                 mIndex++;

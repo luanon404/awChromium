@@ -1,33 +1,29 @@
-// Copyright 2012 The Chromium Authors. All rights reserved.
+// Copyright 2012 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
 package org.chromium.net;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.os.Build;
 
 import androidx.annotation.VisibleForTesting;
 
-import org.chromium.base.ContextUtils;
 import org.chromium.base.ObserverList;
-import org.chromium.base.annotations.CalledByNative;
-import org.chromium.base.annotations.JNINamespace;
-import org.chromium.base.annotations.NativeClassQualifiedName;
-import org.chromium.base.annotations.NativeMethods;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeClassQualifiedName;
+import org.jni_zero.NativeMethods;
 
 import java.util.ArrayList;
 
 /**
  * Triggers updates to the underlying network state in Chrome.
- *
+ * <p>
  * By default, connectivity is assumed and changes must be pushed from the embedder via the
  * forceConnectivityState function.
  * Embedders may choose to have this class auto-detect changes in network connectivity by invoking
  * the setAutoDetectConnectivityState function.
- *
+ * <p>
  * WARNING: This class is not thread-safe.
  */
 @JNINamespace("net")
@@ -42,10 +38,11 @@ public class NetworkChangeNotifier {
 
     private final ArrayList<Long> mNativeChangeNotifiers;
     private final ObserverList<ConnectionTypeObserver> mConnectionTypeObservers;
-    private final ConnectivityManager mConnectivityManager;
     private NetworkChangeNotifierAutoDetect mAutoDetector;
     // Last value broadcast via ConnectionTypeChange signal.
     private int mCurrentConnectionType = ConnectionType.CONNECTION_UNKNOWN;
+    // Last value broadcast via ConnectionCostChange signal.
+    private int mCurrentConnectionCost = ConnectionCost.UNKNOWN;
 
     @SuppressLint("StaticFieldLeak")
     private static NetworkChangeNotifier sInstance;
@@ -54,9 +51,6 @@ public class NetworkChangeNotifier {
     protected NetworkChangeNotifier() {
         mNativeChangeNotifiers = new ArrayList<Long>();
         mConnectionTypeObservers = new ObserverList<ConnectionTypeObserver>();
-        mConnectivityManager =
-                (ConnectivityManager) ContextUtils.getApplicationContext().getSystemService(
-                        Context.CONNECTIVITY_SERVICE);
     }
 
     /**
@@ -74,7 +68,10 @@ public class NetworkChangeNotifier {
         return sInstance != null;
     }
 
-    @VisibleForTesting
+    public static void resetInstanceForTests() {
+        sInstance = new NetworkChangeNotifier();
+    }
+
     public static void resetInstanceForTests(NetworkChangeNotifier notifier) {
         sInstance = notifier;
     }
@@ -86,15 +83,18 @@ public class NetworkChangeNotifier {
 
     @CalledByNative
     public int getCurrentConnectionSubtype() {
-        return mAutoDetector == null
-                ? ConnectionSubtype.SUBTYPE_UNKNOWN
-                : mAutoDetector.getCurrentNetworkState().getConnectionSubtype();
+        return mAutoDetector == null ? ConnectionSubtype.SUBTYPE_UNKNOWN : mAutoDetector.getCurrentNetworkState().getConnectionSubtype();
+    }
+
+    @CalledByNative
+    public int getCurrentConnectionCost() {
+        return mCurrentConnectionCost;
     }
 
     /**
      * Returns NetID of device's current default connected network used for
-     * communication. Only available on Lollipop and newer releases and when
-     * auto-detection has been enabled, returns NetId.INVALID otherwise.
+     * communication. Only available when auto-detection has been enabled,
+     * returns NetId.INVALID otherwise.
      */
     @CalledByNative
     public long getCurrentDefaultNetId() {
@@ -104,10 +104,9 @@ public class NetworkChangeNotifier {
     /**
      * Returns an array of all of the device's currently connected
      * networks and ConnectionTypes. Array elements are a repeated sequence of:
-     *   NetID of network
-     *   ConnectionType of network
-     * Only available on Lollipop and newer releases and when auto-detection has
-     * been enabled.
+     * NetID of network
+     * ConnectionType of network
+     * Only available when auto-detection has been enabled.
      */
     @CalledByNative
     public long[] getCurrentNetworksAndTypes() {
@@ -152,13 +151,14 @@ public class NetworkChangeNotifier {
      * Note that passing true here requires the embedding app have the platform ACCESS_NETWORK_STATE
      * permission. Also note that in this case the auto detection is enabled based on the status of
      * the application (@see ApplicationStatus).
+     * Declare @CalledByNative only for testing.
      *
      * @param shouldAutoDetect true if the NetworkChangeNotifier should listen for system changes in
-     *    network connectivity.
+     *                         network connectivity.
      */
+    @CalledByNative
     public static void setAutoDetectConnectivityState(boolean shouldAutoDetect) {
-        getInstance().setAutoDetectConnectivityStateInternal(
-                shouldAutoDetect, new RegistrationPolicyApplicationStatus());
+        getInstance().setAutoDetectConnectivityStateInternal(shouldAutoDetect, new RegistrationPolicyApplicationStatus());
     }
 
     /**
@@ -170,15 +170,13 @@ public class NetworkChangeNotifier {
      * might perform expensive work depending on the network connectivity.
      */
     public static void registerToReceiveNotificationsAlways() {
-        getInstance().setAutoDetectConnectivityStateInternal(
-                true, new RegistrationPolicyAlwaysRegister());
+        getInstance().setAutoDetectConnectivityStateInternal(true, new RegistrationPolicyAlwaysRegister());
     }
 
     /**
      * Registers to receive network change notification based on the provided registration policy.
      */
-    public static void setAutoDetectConnectivityState(
-            NetworkChangeNotifierAutoDetect.RegistrationPolicy policy) {
+    public static void setAutoDetectConnectivityState(NetworkChangeNotifierAutoDetect.RegistrationPolicy policy) {
         getInstance().setAutoDetectConnectivityStateInternal(true, policy);
     }
 
@@ -189,41 +187,48 @@ public class NetworkChangeNotifier {
         }
     }
 
-    private void setAutoDetectConnectivityStateInternal(
-            boolean shouldAutoDetect, NetworkChangeNotifierAutoDetect.RegistrationPolicy policy) {
+    private void setAutoDetectConnectivityStateInternal(boolean shouldAutoDetect, NetworkChangeNotifierAutoDetect.RegistrationPolicy policy) {
         if (shouldAutoDetect) {
             if (mAutoDetector == null) {
-                mAutoDetector = new NetworkChangeNotifierAutoDetect(
-                        new NetworkChangeNotifierAutoDetect.Observer() {
-                            @Override
-                            public void onConnectionTypeChanged(int newConnectionType) {
-                                updateCurrentConnectionType(newConnectionType);
-                            }
-                            @Override
-                            public void onConnectionSubtypeChanged(int newConnectionSubtype) {
-                                notifyObserversOfConnectionSubtypeChange(newConnectionSubtype);
-                            }
-                            @Override
-                            public void onNetworkConnect(long netId, int connectionType) {
-                                notifyObserversOfNetworkConnect(netId, connectionType);
-                            }
-                            @Override
-                            public void onNetworkSoonToDisconnect(long netId) {
-                                notifyObserversOfNetworkSoonToDisconnect(netId);
-                            }
-                            @Override
-                            public void onNetworkDisconnect(long netId) {
-                                notifyObserversOfNetworkDisconnect(netId);
-                            }
-                            @Override
-                            public void purgeActiveNetworkList(long[] activeNetIds) {
-                                notifyObserversToPurgeActiveNetworkList(activeNetIds);
-                            }
-                        },
-                        policy);
-                final NetworkChangeNotifierAutoDetect.NetworkState networkState =
-                        mAutoDetector.getCurrentNetworkState();
+                mAutoDetector = new NetworkChangeNotifierAutoDetect(new NetworkChangeNotifierAutoDetect.Observer() {
+                    @Override
+                    public void onConnectionTypeChanged(int newConnectionType) {
+                        updateCurrentConnectionType(newConnectionType);
+                    }
+
+                    @Override
+                    public void onConnectionCostChanged(int newConnectionCost) {
+                        notifyObserversOfConnectionCostChange(newConnectionCost);
+                    }
+
+                    @Override
+                    public void onConnectionSubtypeChanged(int newConnectionSubtype) {
+                        notifyObserversOfConnectionSubtypeChange(newConnectionSubtype);
+                    }
+
+                    @Override
+                    public void onNetworkConnect(long netId, int connectionType) {
+                        notifyObserversOfNetworkConnect(netId, connectionType);
+                    }
+
+                    @Override
+                    public void onNetworkSoonToDisconnect(long netId) {
+                        notifyObserversOfNetworkSoonToDisconnect(netId);
+                    }
+
+                    @Override
+                    public void onNetworkDisconnect(long netId) {
+                        notifyObserversOfNetworkDisconnect(netId);
+                    }
+
+                    @Override
+                    public void purgeActiveNetworkList(long[] activeNetIds) {
+                        notifyObserversToPurgeActiveNetworkList(activeNetIds);
+                    }
+                }, policy);
+                final NetworkChangeNotifierAutoDetect.NetworkState networkState = mAutoDetector.getCurrentNetworkState();
                 updateCurrentConnectionType(networkState.getConnectionType());
+                updateCurrentConnectionCost(networkState.getConnectionCost());
                 notifyObserversOfConnectionSubtypeChange(networkState.getConnectionSubtype());
             }
         } else {
@@ -236,7 +241,7 @@ public class NetworkChangeNotifier {
      * connectivity.
      *
      * @param networkAvailable True if the NetworkChangeNotifier should perceive a "connected"
-     *    state, false implies "disconnected".
+     *                         state, false implies "disconnected".
      */
     @CalledByNative
     public static void forceConnectivityState(boolean networkAvailable) {
@@ -245,13 +250,10 @@ public class NetworkChangeNotifier {
     }
 
     private void forceConnectivityStateInternal(boolean forceOnline) {
-        boolean connectionCurrentlyExists =
-                mCurrentConnectionType != ConnectionType.CONNECTION_NONE;
+        boolean connectionCurrentlyExists = mCurrentConnectionType != ConnectionType.CONNECTION_NONE;
         if (connectionCurrentlyExists != forceOnline) {
-            updateCurrentConnectionType(forceOnline ? ConnectionType.CONNECTION_UNKNOWN
-                                                    : ConnectionType.CONNECTION_NONE);
-            notifyObserversOfConnectionSubtypeChange(forceOnline ? ConnectionSubtype.SUBTYPE_UNKNOWN
-                                                                 : ConnectionSubtype.SUBTYPE_NONE);
+            updateCurrentConnectionType(forceOnline ? ConnectionType.CONNECTION_UNKNOWN : ConnectionType.CONNECTION_NONE);
+            notifyObserversOfConnectionSubtypeChange(forceOnline ? ConnectionSubtype.SUBTYPE_UNKNOWN : ConnectionSubtype.SUBTYPE_NONE);
         }
     }
 
@@ -290,6 +292,14 @@ public class NetworkChangeNotifier {
         getInstance().notifyObserversOfConnectionTypeChange(connectionType, netId);
     }
 
+    // For testing, pretend the connection cost has changed.
+    @CalledByNative
+    @VisibleForTesting
+    public static void fakeConnectionCostChanged(int connectionCost) {
+        setAutoDetectConnectivityState(false);
+        getInstance().notifyObserversOfConnectionCostChange(connectionCost);
+    }
+
     // For testing, pretend the connection subtype has changed.
     @CalledByNative
     public static void fakeConnectionSubtypeChanged(int connectionSubtype) {
@@ -311,11 +321,24 @@ public class NetworkChangeNotifier {
 
     private void notifyObserversOfConnectionTypeChange(int newConnectionType, long defaultNetId) {
         for (Long nativeChangeNotifier : mNativeChangeNotifiers) {
-            NetworkChangeNotifierJni.get().notifyConnectionTypeChanged(nativeChangeNotifier,
-                    NetworkChangeNotifier.this, newConnectionType, defaultNetId);
+            NetworkChangeNotifierJni.get().notifyConnectionTypeChanged(nativeChangeNotifier, NetworkChangeNotifier.this, newConnectionType, defaultNetId);
         }
         for (ConnectionTypeObserver observer : mConnectionTypeObservers) {
             observer.onConnectionTypeChanged(newConnectionType);
+        }
+    }
+
+    private void updateCurrentConnectionCost(int newConnectionCost) {
+        mCurrentConnectionCost = newConnectionCost;
+        notifyObserversOfConnectionCostChange(newConnectionCost);
+    }
+
+    /**
+     * Alerts all observers of a connection cost change.
+     */
+    void notifyObserversOfConnectionCostChange(int newConnectionCost) {
+        for (Long nativeChangeNotifier : mNativeChangeNotifiers) {
+            NetworkChangeNotifierJni.get().notifyConnectionCostChanged(nativeChangeNotifier, NetworkChangeNotifier.this, newConnectionCost);
         }
     }
 
@@ -324,8 +347,7 @@ public class NetworkChangeNotifier {
      */
     void notifyObserversOfConnectionSubtypeChange(int connectionSubtype) {
         for (Long nativeChangeNotifier : mNativeChangeNotifiers) {
-            NetworkChangeNotifierJni.get().notifyMaxBandwidthChanged(
-                    nativeChangeNotifier, NetworkChangeNotifier.this, connectionSubtype);
+            NetworkChangeNotifierJni.get().notifyMaxBandwidthChanged(nativeChangeNotifier, NetworkChangeNotifier.this, connectionSubtype);
         }
     }
 
@@ -334,8 +356,7 @@ public class NetworkChangeNotifier {
      */
     void notifyObserversOfNetworkConnect(long netId, int connectionType) {
         for (Long nativeChangeNotifier : mNativeChangeNotifiers) {
-            NetworkChangeNotifierJni.get().notifyOfNetworkConnect(
-                    nativeChangeNotifier, NetworkChangeNotifier.this, netId, connectionType);
+            NetworkChangeNotifierJni.get().notifyOfNetworkConnect(nativeChangeNotifier, NetworkChangeNotifier.this, netId, connectionType);
         }
     }
 
@@ -344,8 +365,7 @@ public class NetworkChangeNotifier {
      */
     void notifyObserversOfNetworkSoonToDisconnect(long netId) {
         for (Long nativeChangeNotifier : mNativeChangeNotifiers) {
-            NetworkChangeNotifierJni.get().notifyOfNetworkSoonToDisconnect(
-                    nativeChangeNotifier, NetworkChangeNotifier.this, netId);
+            NetworkChangeNotifierJni.get().notifyOfNetworkSoonToDisconnect(nativeChangeNotifier, NetworkChangeNotifier.this, netId);
         }
     }
 
@@ -354,8 +374,7 @@ public class NetworkChangeNotifier {
      */
     void notifyObserversOfNetworkDisconnect(long netId) {
         for (Long nativeChangeNotifier : mNativeChangeNotifiers) {
-            NetworkChangeNotifierJni.get().notifyOfNetworkDisconnect(
-                    nativeChangeNotifier, NetworkChangeNotifier.this, netId);
+            NetworkChangeNotifierJni.get().notifyOfNetworkDisconnect(nativeChangeNotifier, NetworkChangeNotifier.this, netId);
         }
     }
 
@@ -367,8 +386,7 @@ public class NetworkChangeNotifier {
      */
     void notifyObserversToPurgeActiveNetworkList(long[] activeNetIds) {
         for (Long nativeChangeNotifier : mNativeChangeNotifiers) {
-            NetworkChangeNotifierJni.get().notifyPurgeActiveNetworkList(
-                    nativeChangeNotifier, NetworkChangeNotifier.this, activeNetIds);
+            NetworkChangeNotifierJni.get().notifyPurgeActiveNetworkList(nativeChangeNotifier, NetworkChangeNotifier.this, activeNetIds);
         }
     }
 
@@ -394,21 +412,6 @@ public class NetworkChangeNotifier {
         mConnectionTypeObservers.removeObserver(observer);
     }
 
-    /**
-     * Is the process bound to a network?
-     */
-    private boolean isProcessBoundToNetworkInternal() {
-        return mConnectivityManager.getBoundNetworkForProcess() != null;
-    }
-
-    /**
-     * Is the process bound to a network?
-     */
-    @CalledByNative
-    public static boolean isProcessBoundToNetwork() {
-        return getInstance().isProcessBoundToNetworkInternal();
-    }
-
     // For testing only.
     public static NetworkChangeNotifierAutoDetect getAutoDetectorForTest() {
         return getInstance().mAutoDetector;
@@ -425,25 +428,24 @@ public class NetworkChangeNotifier {
     @NativeMethods
     interface Natives {
         @NativeClassQualifiedName("NetworkChangeNotifierDelegateAndroid")
-        void notifyConnectionTypeChanged(long nativePtr, NetworkChangeNotifier caller,
-                int newConnectionType, long defaultNetId);
+        void notifyConnectionTypeChanged(long nativePtr, NetworkChangeNotifier caller, int newConnectionType, long defaultNetId);
+
+        @NativeClassQualifiedName("NetworkChangeNotifierDelegateAndroid")
+        void notifyConnectionCostChanged(long nativePtr, NetworkChangeNotifier caller, int newConnectionCost);
 
         @NativeClassQualifiedName("NetworkChangeNotifierDelegateAndroid")
         void notifyMaxBandwidthChanged(long nativePtr, NetworkChangeNotifier caller, int subType);
 
         @NativeClassQualifiedName("NetworkChangeNotifierDelegateAndroid")
-        void notifyOfNetworkConnect(
-                long nativePtr, NetworkChangeNotifier caller, long netId, int connectionType);
+        void notifyOfNetworkConnect(long nativePtr, NetworkChangeNotifier caller, long netId, int connectionType);
 
         @NativeClassQualifiedName("NetworkChangeNotifierDelegateAndroid")
-        void notifyOfNetworkSoonToDisconnect(
-                long nativePtr, NetworkChangeNotifier caller, long netId);
+        void notifyOfNetworkSoonToDisconnect(long nativePtr, NetworkChangeNotifier caller, long netId);
 
         @NativeClassQualifiedName("NetworkChangeNotifierDelegateAndroid")
         void notifyOfNetworkDisconnect(long nativePtr, NetworkChangeNotifier caller, long netId);
 
         @NativeClassQualifiedName("NetworkChangeNotifierDelegateAndroid")
-        void notifyPurgeActiveNetworkList(
-                long nativePtr, NetworkChangeNotifier caller, long[] activeNetIds);
+        void notifyPurgeActiveNetworkList(long nativePtr, NetworkChangeNotifier caller, long[] activeNetIds);
     }
 }

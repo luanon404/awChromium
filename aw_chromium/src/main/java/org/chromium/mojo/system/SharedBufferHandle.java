@@ -1,4 +1,4 @@
-// Copyright 2014 The Chromium Authors. All rights reserved.
+// Copyright 2014 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -44,7 +44,7 @@ public interface SharedBufferHandle extends Handle {
      * Used to specify creation parameters for a shared buffer to |Core#createSharedBuffer()|.
      */
     class CreateOptions {
-        private final CreateFlags mFlags = CreateFlags.NONE;
+        private CreateFlags mFlags = CreateFlags.NONE;
 
         /**
          * @return the flags
@@ -89,7 +89,7 @@ public interface SharedBufferHandle extends Handle {
      * |SharedBufferHandle#duplicate|
      */
     class DuplicateOptions {
-        private final DuplicateFlags mFlags = DuplicateFlags.NONE;
+        private DuplicateFlags mFlags = DuplicateFlags.NONE;
 
         /**
          * @return the flags

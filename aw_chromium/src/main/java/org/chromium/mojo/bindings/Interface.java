@@ -1,4 +1,4 @@
-// Copyright 2014 The Chromium Authors. All rights reserved.
+// Copyright 2014 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -118,7 +118,7 @@ public interface Interface extends ConnectionErrorHandler, Closeable {
             /**
              * Constructor.
              *
-             * @param core the Core implementation used to create pipes and access the async waiter.
+             * @param core            the Core implementation used to create pipes and access the async waiter.
              * @param messageReceiver the message receiver to send message to.
              */
             protected HandlerImpl(Core core, MessageReceiverWithResponder messageReceiver) {
@@ -204,7 +204,7 @@ public interface Interface extends ConnectionErrorHandler, Closeable {
                             public void call(RunResponseMessageParams response) {
                                 if (response.output != null
                                         && response.output.which()
-                                                == RunOutput.Tag.QueryVersionResult) {
+                                        == RunOutput.Tag.QueryVersionResult) {
                                     mVersion = response.output.getQueryVersionResult().version;
                                 }
                                 callback.call(mVersion);
@@ -338,7 +338,7 @@ public interface Interface extends ConnectionErrorHandler, Closeable {
         /**
          * Constructor.
          *
-         * @param core the Core implementation used to create pipes and access the async waiter.
+         * @param core            the Core implementation used to create pipes and access the async waiter.
          * @param messageReceiver the message receiver to send message to.
          */
         public ThreadSafeForwarder(Core core, MessageReceiverWithResponder messageReceiver) {
@@ -453,7 +453,7 @@ public interface Interface extends ConnectionErrorHandler, Closeable {
          * Constructs a thread-safe Proxy forwarding the calls to the given message receiver.
          * All calls can be performed from any thread and are posted to the {@link Executor} that
          * is associated with the thread on which this method was called on.
-         *
+         * <p>
          * The original Proxy object is unbound.
          */
         public final P buildThreadSafeProxy(P proxy) {
@@ -466,7 +466,7 @@ public interface Interface extends ConnectionErrorHandler, Closeable {
             proxy.close();
 
             proxy = buildProxy(
-                core, new ThreadSafeForwarder(core, new AutoCloseableRouter(core, router)));
+                    core, new ThreadSafeForwarder(core, new AutoCloseableRouter(core, router)));
             DelegatingConnectionErrorHandler handlers = new DelegatingConnectionErrorHandler();
             handlers.addConnectionErrorHandler(proxy);
             router.setErrorHandler(handlers);

@@ -1,4 +1,4 @@
-// Copyright 2017 The Chromium Authors. All rights reserved.
+// Copyright 2017 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -12,23 +12,20 @@ import android.os.RemoteException;
 import android.util.SparseArray;
 import android.view.Surface;
 
-import org.chromium.base.JNIUtils;
 import org.chromium.base.Log;
+import org.chromium.base.ThreadUtils;
 import org.chromium.base.UnguessableToken;
-import org.chromium.base.annotations.CalledByNative;
-import org.chromium.base.annotations.JNINamespace;
-import org.chromium.base.annotations.MainDex;
-import org.chromium.base.annotations.NativeMethods;
 import org.chromium.base.library_loader.LibraryLoader;
 import org.chromium.base.memory.MemoryPressureUma;
 import org.chromium.base.process_launcher.ChildProcessServiceDelegate;
-import org.chromium.base.task.PostTask;
 import org.chromium.content.browser.ChildProcessCreationParamsImpl;
 import org.chromium.content.browser.ContentChildProcessConstants;
 import org.chromium.content.common.IGpuProcessCallback;
 import org.chromium.content.common.SurfaceWrapper;
-import org.chromium.content_public.browser.UiThreadTaskTraits;
 import org.chromium.content_public.common.ContentProcessInfo;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
 
 import java.util.List;
 
@@ -37,7 +34,6 @@ import java.util.List;
  * access to view surfaces.
  */
 @JNINamespace("content")
-@MainDex
 public class ContentChildProcessServiceDelegate implements ChildProcessServiceDelegate {
     private static final String TAG = "ContentCPSDelegate";
 
@@ -60,15 +56,12 @@ public class ContentChildProcessServiceDelegate implements ChildProcessServiceDe
     @Override
     public void onServiceBound(Intent intent) {
         LibraryLoader.getInstance().getMediator().takeLoadAddressFromBundle(intent.getExtras());
-        LibraryLoader.getInstance().setLibraryProcessType(
-                ChildProcessCreationParamsImpl.getLibraryProcessType(intent.getExtras()));
+        LibraryLoader.getInstance().setLibraryProcessType(ChildProcessCreationParamsImpl.getLibraryProcessType(intent.getExtras()));
     }
 
     @Override
     public void onConnectionSetup(Bundle connectionBundle, List<IBinder> clientInterfaces) {
-        mGpuCallback = clientInterfaces != null && !clientInterfaces.isEmpty()
-                ? IGpuProcessCallback.Stub.asInterface(clientInterfaces.get(0))
-                : null;
+        mGpuCallback = clientInterfaces != null && !clientInterfaces.isEmpty() ? IGpuProcessCallback.Stub.asInterface(clientInterfaces.get(0)) : null;
 
         mCpuCount = connectionBundle.getInt(ContentChildProcessConstants.EXTRA_CPU_COUNT);
         mCpuFeatures = connectionBundle.getLong(ContentChildProcessConstants.EXTRA_CPU_FEATURES);
@@ -92,12 +85,9 @@ public class ContentChildProcessServiceDelegate implements ChildProcessServiceDe
             return;
         }
 
-        JNIUtils.enableSelectiveJniRegistration();
-
         LibraryLoader libraryLoader = LibraryLoader.getInstance();
         libraryLoader.getMediator().initInChildProcess();
         libraryLoader.loadNowOverrideApplicationContext(hostContext);
-        libraryLoader.registerRendererProcessHistogram();
         initializeLibrary();
     }
 
@@ -107,8 +97,15 @@ public class ContentChildProcessServiceDelegate implements ChildProcessServiceDe
         // Now that the library is loaded, get the FD map,
         // TODO(jcivelli): can this be done in onBeforeMain? We would have to mode onBeforeMain
         // so it's called before FDs are registered.
-        ContentChildProcessServiceDelegateJni.get().retrieveFileDescriptorsIdsToKeys(
-                ContentChildProcessServiceDelegate.this);
+        ContentChildProcessServiceDelegateJni.get().retrieveFileDescriptorsIdsToKeys(ContentChildProcessServiceDelegate.this);
+    }
+
+    @Override
+    public void consumeRelroBundle(Bundle bundle) {
+        // Does not block, but may jank slightly. If the library has not been loaded yet, the bundle
+        // will be unpacked and saved for the future. If the library is loaded, the RELRO region
+        // will be replaced, which involves mmap(2) of shared memory and memcpy+memcmp of a few MB.
+        LibraryLoader.getInstance().getMediator().takeSharedRelrosFromBundle(bundle);
     }
 
     @Override
@@ -119,10 +116,11 @@ public class ContentChildProcessServiceDelegate implements ChildProcessServiceDe
 
     @Override
     public void onBeforeMain() {
-        ContentChildProcessServiceDelegateJni.get().initChildProcess(
-                ContentChildProcessServiceDelegate.this, mCpuCount, mCpuFeatures);
-        PostTask.postTask(
-                UiThreadTaskTraits.DEFAULT, () -> MemoryPressureUma.initializeForChildService());
+        ContentChildProcessServiceDelegateJni.get().initChildProcess(ContentChildProcessServiceDelegate.this, mCpuCount, mCpuFeatures);
+        ThreadUtils.getUiThreadHandler().post(() -> {
+            ContentChildProcessServiceDelegateJni.get().initMemoryPressureListener();
+            MemoryPressureUma.initializeForChildService();
+        });
     }
 
     @Override
@@ -152,6 +150,7 @@ public class ContentChildProcessServiceDelegate implements ChildProcessServiceDe
             mGpuCallback.forwardSurfaceForSurfaceRequest(requestToken, surface);
         } catch (RemoteException e) {
             Log.e(TAG, "Unable to call forwardSurfaceForSurfaceRequest: %s", e);
+            return;
         } finally {
             surface.release();
         }
@@ -179,11 +178,16 @@ public class ContentChildProcessServiceDelegate implements ChildProcessServiceDe
         /**
          * Initializes the native parts of the service.
          *
-         * @param cpuCount The number of CPUs.
+         * @param cpuCount    The number of CPUs.
          * @param cpuFeatures The CPU features.
          */
-        void initChildProcess(
-                ContentChildProcessServiceDelegate caller, int cpuCount, long cpuFeatures);
+        void initChildProcess(ContentChildProcessServiceDelegate caller, int cpuCount, long cpuFeatures);
+
+        /**
+         * Initializes the MemoryPressureListener on the same thread callbacks will be
+         * received on.
+         */
+        void initMemoryPressureListener();
 
         // Retrieves the FD IDs to keys map and set it by calling setFileDescriptorsIdsToKeys().
         void retrieveFileDescriptorsIdsToKeys(ContentChildProcessServiceDelegate caller);

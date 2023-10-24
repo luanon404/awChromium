@@ -1,4 +1,4 @@
-// Copyright 2020 The Chromium Authors. All rights reserved.
+// Copyright 2020 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,8 @@ import android.os.Looper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
+
+import org.chromium.base.lifetime.DestroyChecker;
 
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
@@ -147,6 +149,7 @@ public final class UnownedUserDataHost {
     }
 
     private final ThreadUtils.ThreadChecker mThreadChecker = new ThreadUtils.ThreadChecker();
+    private final DestroyChecker mDestroyChecker = new DestroyChecker();
 
     /**
      * Handler to use to post {@link UnownedUserData#onDetachedFromHost(UnownedUserDataHost)}
@@ -157,15 +160,14 @@ public final class UnownedUserDataHost {
     /**
      * The core data structure within this host.
      */
-    private HashMap<UnownedUserDataKey<?>, WeakReference<? extends UnownedUserData>>
-            mUnownedUserDataMap = new HashMap<>();
+    private HashMap<UnownedUserDataKey<?>, WeakReference<? extends UnownedUserData>> mUnownedUserDataMap = new HashMap<>();
 
     public UnownedUserDataHost() {
         this(new Handler(retrieveNonNullLooperOrThrow()));
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    /* package */ UnownedUserDataHost(Handler handler) {
+        /* package */ UnownedUserDataHost(Handler handler) {
         mHandler = handler;
     }
 
@@ -174,13 +176,12 @@ public final class UnownedUserDataHost {
      * <p>
      * If the key is already attached to a different host, it is detached from that host.
      *
-     * @param key    the key to use for the object.
+     * @param key      the key to use for the object.
      * @param newValue the object to store.
-     * @param <T>    the type of {@link UnownedUserData}.
+     * @param <T>      the type of {@link UnownedUserData}.
      */
-    /* package */<T extends UnownedUserData> void set(
-            @NonNull UnownedUserDataKey<T> key, @NonNull T newValue) {
-        mThreadChecker.assertOnValidThreadAndState();
+    /* package */<T extends UnownedUserData> void set(@NonNull UnownedUserDataKey<T> key, @NonNull T newValue) {
+        checkState();
 
         // If we already have data, we might want to detach that first.
         if (mUnownedUserDataMap.containsKey(key)) {
@@ -201,7 +202,7 @@ public final class UnownedUserDataHost {
      */
     @Nullable
     /* package */<T extends UnownedUserData> T get(@NonNull UnownedUserDataKey<T> key) {
-        mThreadChecker.assertOnValidThreadAndState();
+        checkState();
 
         WeakReference<? extends UnownedUserData> valueWeakRef = mUnownedUserDataMap.get(key);
         if (valueWeakRef == null) return null;
@@ -221,7 +222,7 @@ public final class UnownedUserDataHost {
      * @param <T> the type of {@link UnownedUserData}.
      */
     /* package */<T extends UnownedUserData> void remove(@NonNull UnownedUserDataKey<T> key) {
-        mThreadChecker.assertOnValidThreadAndState();
+        checkState();
 
         WeakReference<? extends UnownedUserData> valueWeakRef = mUnownedUserDataMap.remove(key);
         if (valueWeakRef == null) return;
@@ -248,10 +249,8 @@ public final class UnownedUserDataHost {
     public void destroy() {
         mThreadChecker.assertOnValidThread();
 
-        if (isDestroyed()) {
-            // Protect against potential races.
-            return;
-        }
+        // Protect against potential races.
+        if (mDestroyChecker.isDestroyed()) return;
 
         // Create a shallow copy of all keys to ensure each held object can safely remove itself
         // from the map while iterating over their keys.
@@ -263,17 +262,22 @@ public final class UnownedUserDataHost {
 
         // Need to wait until the end to destroy the ThreadChecker to ensure that the
         // detachFromHost(...) invocations above are allowed to invoke remove(...).
-        mThreadChecker.destroy();
+        mDestroyChecker.destroy();
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.NONE)
-    /* package */ int getMapSize() {
-        mThreadChecker.assertOnValidThreadAndState();
+        /* package */ int getMapSize() {
+        checkState();
 
         return mUnownedUserDataMap.size();
     }
 
     /* package */ boolean isDestroyed() {
-        return mUnownedUserDataMap == null;
+        return mDestroyChecker.isDestroyed();
+    }
+
+    private void checkState() {
+        mThreadChecker.assertOnValidThread();
+        mDestroyChecker.checkNotDestroyed();
     }
 }

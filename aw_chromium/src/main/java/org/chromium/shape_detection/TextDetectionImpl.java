@@ -1,4 +1,4 @@
-// Copyright 2017 The Chromium Authors. All rights reserved.
+// Copyright 2017 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -27,14 +27,14 @@ import org.chromium.shape_detection.mojom.TextDetectionResult;
 public class TextDetectionImpl implements TextDetection {
     private static final String TAG = "TextDetectionImpl";
 
-    private final TextRecognizer mTextRecognizer;
+    private TextRecognizer mTextRecognizer;
 
     public TextDetectionImpl() {
         mTextRecognizer = new TextRecognizer.Builder(ContextUtils.getApplicationContext()).build();
     }
 
     @Override
-    public void detect(org.chromium.skia.mojom.BitmapN32 bitmapData, DetectResponse callback) {
+    public void detect(org.chromium.skia.mojom.BitmapN32 bitmapData, Detect_Response callback) {
         // The vision library will be downloaded the first time the API is used
         // on the device; this happens "fast", but it might have not completed,
         // bail in this case. Also, the API was disabled between and v.9.0 and
@@ -87,8 +87,7 @@ public class TextDetectionImpl implements TextDetection {
     }
 
     public static TextDetection create() {
-        if (!ChromiumPlayServicesAvailability.isGooglePlayServicesAvailable(
-                    ContextUtils.getApplicationContext())) {
+        if (!ChromiumPlayServicesAvailability.isGooglePlayServicesAvailable(ContextUtils.getApplicationContext())) {
             Log.e(TAG, "Google Play Services not available");
             return null;
         }

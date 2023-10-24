@@ -1,4 +1,4 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
+// Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -29,9 +29,7 @@ class BitrateAdjuster {
             case Type.NO_ADJUSTMENT:
                 return bps;
             case Type.FRAMERATE_ADJUSTMENT:
-                return frameRate == 0
-                        ? bps
-                        : FRAMERATE_ADJUSTMENT_BITRATE_ADJUSTMENT_FPS * bps / frameRate;
+                return frameRate == 0 ? bps : FRAMERATE_ADJUSTMENT_BITRATE_ADJUSTMENT_FPS * bps / frameRate;
         }
         return 0;
     }

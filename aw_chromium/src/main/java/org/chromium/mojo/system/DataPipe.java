@@ -1,4 +1,4 @@
-// Copyright 2014 The Chromium Authors. All rights reserved.
+// Copyright 2014 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -50,7 +50,7 @@ public interface DataPipe {
         /**
          * Used to specify different modes of operation, see |DataPipe.CreateFlags|.
          */
-        private final CreateFlags mFlags = CreateFlags.none();
+        private CreateFlags mFlags = CreateFlags.none();
         /**
          * The size of an element, in bytes. All transactions and buffers will consist of an
          * integral number of elements. Must be nonzero.
@@ -282,13 +282,13 @@ public interface DataPipe {
         @Override
         ConsumerHandle pass();
 
-       /**
+        /**
          * Discards data on the data pie consumer. This method discards up to |numBytes| (which
          * again be a multiple of the element size) bytes of data, returning the amount actually
          * discarded. if |flags| has |allOrNone|, it will either discard exactly |numBytes| bytes of
          * data or none. In this case, |query| must not be set.
          */
-       int discardData(int numBytes, ReadFlags flags);
+        int discardData(int numBytes, ReadFlags flags);
 
         /**
          * Reads data from the data pipe consumer. May also be used to query the amount of data

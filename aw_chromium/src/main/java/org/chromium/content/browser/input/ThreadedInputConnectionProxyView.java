@@ -1,4 +1,4 @@
-// Copyright 2016 The Chromium Authors. All rights reserved.
+// Copyright 2016 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -13,7 +13,7 @@ import android.view.inputmethod.InputConnection;
 
 import org.chromium.base.Log;
 import org.chromium.base.task.PostTask;
-import org.chromium.content_public.browser.UiThreadTaskTraits;
+import org.chromium.base.task.TaskTraits;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
@@ -33,8 +33,7 @@ public class ThreadedInputConnectionProxyView extends View {
     private final AtomicReference<View> mRootView = new AtomicReference<>();
     private final ThreadedInputConnectionFactory mFactory;
 
-    ThreadedInputConnectionProxyView(Context context, Handler imeThreadHandler, View containerView,
-            ThreadedInputConnectionFactory factory) {
+    ThreadedInputConnectionProxyView(Context context, Handler imeThreadHandler, View containerView, ThreadedInputConnectionFactory factory) {
         super(context);
         mImeThreadHandler = imeThreadHandler;
         mContainerView = containerView;
@@ -91,7 +90,7 @@ public class ThreadedInputConnectionProxyView extends View {
     @Override
     public InputConnection onCreateInputConnection(final EditorInfo outAttrs) {
         if (DEBUG_LOGS) Log.w(TAG, "onCreateInputConnection");
-        return PostTask.runSynchronously(UiThreadTaskTraits.USER_BLOCKING, () -> {
+        return PostTask.runSynchronously(TaskTraits.UI_USER_BLOCKING, () -> {
             mFactory.setTriggerDelayedOnCreateInputConnection(false);
             InputConnection connection = mContainerView.onCreateInputConnection(outAttrs);
             mFactory.setTriggerDelayedOnCreateInputConnection(true);

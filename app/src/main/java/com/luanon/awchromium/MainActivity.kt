@@ -1,5 +1,6 @@
 package com.luanon.awchromium
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -11,6 +12,8 @@ import com.luanon.webview.AwChromiumClient
 import org.chromium.android_webview.JsPromptResultReceiver
 import org.chromium.android_webview.JsResultReceiver
 import org.chromium.android_webview.permission.AwPermissionRequest
+import java.net.MalformedURLException
+import java.net.URL
 
 class MainActivity : AppCompatActivity() {
     private lateinit var urlBar1: EditText
@@ -96,27 +99,36 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun handleJsAlert(
-                url: String?,
-                message: String?,
-                receiver: JsResultReceiver?
+                url: String?, message: String?, receiver: JsResultReceiver?
             ) {
                 receiver!!.confirm()
             }
 
             override fun handleJsBeforeUnload(
-                url: String?,
-                message: String?,
-                receiver: JsResultReceiver?
+                url: String?, message: String?, receiver: JsResultReceiver?
             ) {
                 receiver!!.confirm()
             }
 
             override fun handleJsConfirm(
-                url: String?,
-                message: String?,
-                receiver: JsResultReceiver?
+                url: String?, message: String?, receiver: JsResultReceiver
             ) {
-                receiver!!.confirm()
+                var title = "From "
+                try {
+                    val javaUrl = URL(url)
+                    title += javaUrl.protocol + "://" + javaUrl.host
+                    if (javaUrl.port != -1) {
+                        title += ":" + javaUrl.port
+                    }
+                } catch (e: MalformedURLException) {
+                    title += url
+                }
+                AlertDialog.Builder(applicationContext).setTitle(title).setMessage(message)
+                    .setPositiveButton(
+                        "OK"
+                    ) { _, _ -> receiver.confirm() }.setNegativeButton(
+                        "Cancel"
+                    ) { _, _ -> receiver.cancel() }.create().show()
             }
 
             override fun handleJsPrompt(

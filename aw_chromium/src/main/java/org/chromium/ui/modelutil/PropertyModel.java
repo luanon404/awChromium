@@ -1,4 +1,4 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
+// Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,7 +14,7 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.util.ObjectsCompat;
 
-import org.chromium.base.annotations.RemovableInRelease;
+import org.chromium.build.BuildConfig;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -43,7 +43,9 @@ public class PropertyModel extends PropertyObservable<PropertyKey> {
         }
     }
 
-    /** The key type for read-ony boolean model properties. */
+    /**
+     * The key type for read-ony boolean model properties.
+     */
     public static class ReadableBooleanPropertyKey extends NamedPropertyKey {
         /**
          * Constructs a new unnamed read-only boolean property key.
@@ -54,6 +56,7 @@ public class PropertyModel extends PropertyObservable<PropertyKey> {
 
         /**
          * Constructs a new named read-only boolean property key, e.g. for use in debugging.
+         *
          * @param name The optional name of the property.
          */
         public ReadableBooleanPropertyKey(@Nullable String name) {
@@ -61,7 +64,9 @@ public class PropertyModel extends PropertyObservable<PropertyKey> {
         }
     }
 
-    /** The key type for mutable boolean model properties. */
+    /**
+     * The key type for mutable boolean model properties.
+     */
     public static final class WritableBooleanPropertyKey extends ReadableBooleanPropertyKey {
         /**
          * Constructs a new unnamed writable boolean property key.
@@ -72,6 +77,7 @@ public class PropertyModel extends PropertyObservable<PropertyKey> {
 
         /**
          * Constructs a new named writable boolean property key, e.g. for use in debugging.
+         *
          * @param name The optional name of the property.
          */
         public WritableBooleanPropertyKey(@Nullable String name) {
@@ -79,7 +85,9 @@ public class PropertyModel extends PropertyObservable<PropertyKey> {
         }
     }
 
-    /** The key type for read-only float model properties. */
+    /**
+     * The key type for read-only float model properties.
+     */
     public static class ReadableFloatPropertyKey extends NamedPropertyKey {
         /**
          * Constructs a new unnamed read-only float property key.
@@ -90,6 +98,7 @@ public class PropertyModel extends PropertyObservable<PropertyKey> {
 
         /**
          * Constructs a new named read-only float property key, e.g. for use in debugging.
+         *
          * @param name The optional name of the property.
          */
         public ReadableFloatPropertyKey(@Nullable String name) {
@@ -97,7 +106,9 @@ public class PropertyModel extends PropertyObservable<PropertyKey> {
         }
     }
 
-    /** The key type for mutable float model properties. */
+    /**
+     * The key type for mutable float model properties.
+     */
     public static final class WritableFloatPropertyKey extends ReadableFloatPropertyKey {
         /**
          * Constructs a new unnamed writable float property key.
@@ -108,6 +119,7 @@ public class PropertyModel extends PropertyObservable<PropertyKey> {
 
         /**
          * Constructs a new named writable float property key, e.g. for use in debugging.
+         *
          * @param name The optional name of the property.
          */
         public WritableFloatPropertyKey(@Nullable String name) {
@@ -115,7 +127,9 @@ public class PropertyModel extends PropertyObservable<PropertyKey> {
         }
     }
 
-    /** The key type for read-only int model properties. */
+    /**
+     * The key type for read-only int model properties.
+     */
     public static class ReadableIntPropertyKey extends NamedPropertyKey {
         /**
          * Constructs a new unnamed read-only integer property key.
@@ -126,6 +140,7 @@ public class PropertyModel extends PropertyObservable<PropertyKey> {
 
         /**
          * Constructs a new named read-only integer property key, e.g. for use in debugging.
+         *
          * @param name The optional name of the property.
          */
         public ReadableIntPropertyKey(@Nullable String name) {
@@ -133,7 +148,9 @@ public class PropertyModel extends PropertyObservable<PropertyKey> {
         }
     }
 
-    /** The key type for mutable int model properties. */
+    /**
+     * The key type for mutable int model properties.
+     */
     public static final class WritableIntPropertyKey extends ReadableIntPropertyKey {
         /**
          * Constructs a new unnamed writable integer property key.
@@ -144,6 +161,7 @@ public class PropertyModel extends PropertyObservable<PropertyKey> {
 
         /**
          * Constructs a new named writable integer property key, e.g. for use in debugging.
+         *
          * @param name The optional name of the property.
          */
         public WritableIntPropertyKey(@Nullable String name) {
@@ -151,7 +169,9 @@ public class PropertyModel extends PropertyObservable<PropertyKey> {
         }
     }
 
-    /** The key type for read-only long model properties. */
+    /**
+     * The key type for read-only long model properties.
+     */
     public static class ReadableLongPropertyKey extends NamedPropertyKey {
         /**
          * Constructs a new unnamed read-only long property key.
@@ -162,6 +182,7 @@ public class PropertyModel extends PropertyObservable<PropertyKey> {
 
         /**
          * Constructs a new named read-only long property key, e.g. for use in debugging.
+         *
          * @param name The optional name of the property.
          */
         public ReadableLongPropertyKey(@Nullable String name) {
@@ -169,7 +190,9 @@ public class PropertyModel extends PropertyObservable<PropertyKey> {
         }
     }
 
-    /** The key type for mutable int model properties. */
+    /**
+     * The key type for mutable int model properties.
+     */
     public static final class WritableLongPropertyKey extends ReadableLongPropertyKey {
         /**
          * Constructs a new unnamed writable long property key.
@@ -180,6 +203,7 @@ public class PropertyModel extends PropertyObservable<PropertyKey> {
 
         /**
          * Constructs a new named writable long property key, e.g. for use in debugging.
+         *
          * @param name The optional name of the property.
          */
         public WritableLongPropertyKey(@Nullable String name) {
@@ -202,6 +226,7 @@ public class PropertyModel extends PropertyObservable<PropertyKey> {
 
         /**
          * Constructs a new named read-only object property key, e.g. for use in debugging.
+         *
          * @param name The optional name of the property.
          */
         public ReadableObjectPropertyKey(@Nullable String name) {
@@ -217,13 +242,16 @@ public class PropertyModel extends PropertyObservable<PropertyKey> {
     public static final class WritableObjectPropertyKey<T> extends ReadableObjectPropertyKey<T> {
         private final boolean mSkipEquality;
 
-        /** Default constructor for an unnamed writable object property. */
+        /**
+         * Default constructor for an unnamed writable object property.
+         */
         public WritableObjectPropertyKey() {
             this(false);
         }
 
         /**
          * Constructs a new unnamed writable object property.
+         *
          * @param skipEquality Whether the equality check should be bypassed for this key.
          */
         public WritableObjectPropertyKey(boolean skipEquality) {
@@ -232,6 +260,7 @@ public class PropertyModel extends PropertyObservable<PropertyKey> {
 
         /**
          * Constructs a new named writable object property key bypassing equality checks.
+         *
          * @param name The optional name of the property.
          */
         public WritableObjectPropertyKey(@Nullable String name) {
@@ -240,8 +269,9 @@ public class PropertyModel extends PropertyObservable<PropertyKey> {
 
         /**
          * Constructs a new writable, named object property.
+         *
          * @param skipEquality Whether the equality check should be bypassed for this key.
-         * @param name Name of the property -- used while debugging.
+         * @param name         Name of the property -- used while debugging.
          */
         public WritableObjectPropertyKey(boolean skipEquality, @Nullable String name) {
             super(name);
@@ -273,11 +303,13 @@ public class PropertyModel extends PropertyObservable<PropertyKey> {
         mData = startingValues;
     }
 
-    @RemovableInRelease
+    public boolean containsKey(PropertyKey key) {
+        return mData.containsKey(key);
+    }
+
     private void validateKey(PropertyKey key) {
-        if (!mData.containsKey(key)) {
-            throw new IllegalArgumentException(
-                    "Invalid key passed in: " + key + ". Current data is: " + mData);
+        if (BuildConfig.ENABLE_ASSERTS && !mData.containsKey(key)) {
+            throw new IllegalArgumentException("Invalid key passed in: " + key + ". Current data is: " + mData);
         }
     }
 
@@ -434,8 +466,9 @@ public class PropertyModel extends PropertyObservable<PropertyKey> {
     /**
      * Determines whether the value for the provided key is the same in this model and a different
      * model.
+     *
      * @param otherModel The other {@link PropertyModel} to check.
-     * @param key The {@link PropertyKey} to check.
+     * @param key        The {@link PropertyKey} to check.
      * @return Whether this model and {@code otherModel} have the same value set for {@code key}.
      */
     public boolean compareValue(PropertyModel otherModel, PropertyKey key) {
@@ -443,8 +476,7 @@ public class PropertyModel extends PropertyObservable<PropertyKey> {
         otherModel.validateKey(key);
         if (!mData.containsKey(key) || !otherModel.mData.containsKey(key)) return false;
 
-        if (key instanceof WritableObjectPropertyKey
-                && ((WritableObjectPropertyKey) key).mSkipEquality) {
+        if (key instanceof WritableObjectPropertyKey && ((WritableObjectPropertyKey) key).mSkipEquality) {
             return false;
         }
 
@@ -465,9 +497,8 @@ public class PropertyModel extends PropertyObservable<PropertyKey> {
             mData = values;
         }
 
-        @RemovableInRelease
         private void validateKey(PropertyKey key) {
-            if (!mData.containsKey(key)) {
+            if (BuildConfig.ENABLE_ASSERTS && !mData.containsKey(key)) {
                 throw new IllegalArgumentException("Invalid key passed in: " + key);
             }
         }
@@ -513,25 +544,23 @@ public class PropertyModel extends PropertyObservable<PropertyKey> {
         }
 
         /**
-         * @param key The key of the specified {@link ReadableObjectPropertyKey<String>}.
+         * @param key       The key of the specified {@link ReadableObjectPropertyKey<String>}.
          * @param resources The {@link Resources} for obtaining the specified string resource.
-         * @param resId The specified string resource id.
+         * @param resId     The specified string resource id.
          * @return The {@link Builder} with the specified key and string resource set.
          */
-        public Builder with(
-                ReadableObjectPropertyKey<String> key, Resources resources, @StringRes int resId) {
+        public Builder with(ReadableObjectPropertyKey<String> key, Resources resources, @StringRes int resId) {
             if (resId != 0) with(key, resources.getString(resId));
             return this;
         }
 
         /**
-         * @param key The key of the specified {@link ReadableObjectPropertyKey<Drawable>}.
+         * @param key     The key of the specified {@link ReadableObjectPropertyKey<Drawable>}.
          * @param context The {@link Context} for obtaining the specified drawable resource.
-         * @param resId The specified drawable resource id.
+         * @param resId   The specified drawable resource id.
          * @return The {@link Builder} with the specified key and drawable resource set.
          */
-        public Builder with(
-                ReadableObjectPropertyKey<Drawable> key, Context context, @DrawableRes int resId) {
+        public Builder with(ReadableObjectPropertyKey<Drawable> key, Context context, @DrawableRes int resId) {
             if (resId != 0) with(key, AppCompatResources.getDrawable(context, resId));
             return this;
         }
@@ -543,6 +572,7 @@ public class PropertyModel extends PropertyObservable<PropertyKey> {
 
     /**
      * Merge lists of property keys.
+     *
      * @param k1 The first list of keys.
      * @param k2 The second list of keys.
      * @return A concatenated list of property keys.
@@ -565,7 +595,9 @@ public class PropertyModel extends PropertyObservable<PropertyKey> {
         return data;
     }
 
-    private static class ValueContainer {}
+    private static class ValueContainer {
+    }
+
     private static class FloatContainer extends ValueContainer {
         public float value;
 
@@ -576,8 +608,7 @@ public class PropertyModel extends PropertyObservable<PropertyKey> {
 
         @Override
         public boolean equals(Object other) {
-            return other instanceof FloatContainer
-                    && ((FloatContainer) other).value == value;
+            return other != null && other instanceof FloatContainer && ((FloatContainer) other).value == value;
         }
     }
 
@@ -591,8 +622,7 @@ public class PropertyModel extends PropertyObservable<PropertyKey> {
 
         @Override
         public boolean equals(Object other) {
-            return other instanceof IntContainer
-                    && ((IntContainer) other).value == value;
+            return other != null && other instanceof IntContainer && ((IntContainer) other).value == value;
         }
     }
 
@@ -606,8 +636,7 @@ public class PropertyModel extends PropertyObservable<PropertyKey> {
 
         @Override
         public boolean equals(Object other) {
-            return other instanceof LongContainer
-                    && ((LongContainer) other).value == value;
+            return other != null && other instanceof LongContainer && ((LongContainer) other).value == value;
         }
     }
 
@@ -621,8 +650,7 @@ public class PropertyModel extends PropertyObservable<PropertyKey> {
 
         @Override
         public boolean equals(Object other) {
-            return other instanceof BooleanContainer
-                    && ((BooleanContainer) other).value == value;
+            return other != null && other instanceof BooleanContainer && ((BooleanContainer) other).value == value;
         }
     }
 
@@ -636,8 +664,7 @@ public class PropertyModel extends PropertyObservable<PropertyKey> {
 
         @Override
         public boolean equals(Object other) {
-            return other instanceof ObjectContainer
-                    && ObjectsCompat.equals(((ObjectContainer) other).value, value);
+            return other != null && other instanceof ObjectContainer && ObjectsCompat.equals(((ObjectContainer) other).value, value);
         }
     }
 }

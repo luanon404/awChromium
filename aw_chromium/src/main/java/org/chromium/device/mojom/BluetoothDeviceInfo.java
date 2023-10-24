@@ -19,17 +19,15 @@ import androidx.annotation.IntDef;
 public final class BluetoothDeviceInfo extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 48;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(48, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(48, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
 
     public static final class ConnectionState {
         private static final boolean IS_EXTENSIBLE = false;
-        @IntDef({
 
-            ConnectionState.NOT_CONNECTED,
-            ConnectionState.CONNECTING,
-            ConnectionState.CONNECTED})
-        public @interface EnumType {}
+        @IntDef({ConnectionState.NOT_CONNECTED, ConnectionState.CONNECTING, ConnectionState.CONNECTED})
+        public @interface EnumType {
+        }
 
         public static final int NOT_CONNECTED = 0;
         public static final int CONNECTING = 1;
@@ -47,31 +45,21 @@ public final class BluetoothDeviceInfo extends org.chromium.mojo.bindings.Struct
         }
 
         public static int toKnownValue(int value) {
-          return value;
+            return value;
         }
 
-        private ConnectionState() {}
+        private ConnectionState() {
+        }
     }
 
     public static final class DeviceType {
         private static final boolean IS_EXTENSIBLE = false;
+
         @IntDef({
 
-            DeviceType.UNKNOWN,
-            DeviceType.COMPUTER,
-            DeviceType.PHONE,
-            DeviceType.MODEM,
-            DeviceType.AUDIO,
-            DeviceType.CAR_AUDIO,
-            DeviceType.VIDEO,
-            DeviceType.PERIPHERAL,
-            DeviceType.JOYSTICK,
-            DeviceType.GAMEPAD,
-            DeviceType.KEYBOARD,
-            DeviceType.MOUSE,
-            DeviceType.TABLET,
-            DeviceType.KEYBOARD_MOUSE_COMBO})
-        public @interface EnumType {}
+                DeviceType.UNKNOWN, DeviceType.COMPUTER, DeviceType.PHONE, DeviceType.MODEM, DeviceType.AUDIO, DeviceType.CAR_AUDIO, DeviceType.VIDEO, DeviceType.PERIPHERAL, DeviceType.JOYSTICK, DeviceType.GAMEPAD, DeviceType.KEYBOARD, DeviceType.MOUSE, DeviceType.TABLET, DeviceType.KEYBOARD_MOUSE_COMBO})
+        public @interface EnumType {
+        }
 
         public static final int UNKNOWN = 0;
         public static final int COMPUTER = 1;
@@ -100,11 +88,13 @@ public final class BluetoothDeviceInfo extends org.chromium.mojo.bindings.Struct
         }
 
         public static int toKnownValue(int value) {
-          return value;
+            return value;
         }
 
-        private DeviceType() {}
+        private DeviceType() {
+        }
     }
+
     public BluetoothAddress address;
     public String name;
     public int connectionState;
@@ -130,8 +120,7 @@ public final class BluetoothDeviceInfo extends org.chromium.mojo.bindings.Struct
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static BluetoothDeviceInfo deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(
-                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     public static BluetoothDeviceInfo decode(org.chromium.mojo.bindings.Decoder decoder0) {
@@ -144,36 +133,36 @@ public final class BluetoothDeviceInfo extends org.chromium.mojo.bindings.Struct
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new BluetoothDeviceInfo(elementsOrVersion);
-                {
-                    
+            {
+
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                 result.address = BluetoothAddress.decode(decoder1);
-                }
-                {
-                    
+            }
+            {
+
                 result.name = decoder0.readString(16, true);
-                }
-                {
-                    
+            }
+            {
+
                 result.connectionState = decoder0.readInt(24);
-                    BluetoothDeviceInfo.ConnectionState.validate(result.connectionState);
-                    result.connectionState = BluetoothDeviceInfo.ConnectionState.toKnownValue(result.connectionState);
-                }
-                {
-                    
+                BluetoothDeviceInfo.ConnectionState.validate(result.connectionState);
+                result.connectionState = BluetoothDeviceInfo.ConnectionState.toKnownValue(result.connectionState);
+            }
+            {
+
                 result.isPaired = decoder0.readBoolean(28, 0);
-                }
-                {
-                    
+            }
+            {
+
                 result.deviceType = decoder0.readInt(32);
-                    BluetoothDeviceInfo.DeviceType.validate(result.deviceType);
-                    result.deviceType = BluetoothDeviceInfo.DeviceType.toKnownValue(result.deviceType);
-                }
-                {
-                    
+                BluetoothDeviceInfo.DeviceType.validate(result.deviceType);
+                result.deviceType = BluetoothDeviceInfo.DeviceType.toKnownValue(result.deviceType);
+            }
+            {
+
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(40, true);
                 result.batteryInfo = BluetoothDeviceBatteryInfo.decode(decoder1);
-                }
+            }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -184,17 +173,17 @@ public final class BluetoothDeviceInfo extends org.chromium.mojo.bindings.Struct
     @Override
     protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-        
+
         encoder0.encode(this.address, 8, false);
-        
+
         encoder0.encode(this.name, 16, true);
-        
+
         encoder0.encode(this.connectionState, 24);
-        
+
         encoder0.encode(this.isPaired, 28, 0);
-        
+
         encoder0.encode(this.deviceType, 32);
-        
+
         encoder0.encode(this.batteryInfo, 40, true);
     }
 }

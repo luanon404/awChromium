@@ -1,10 +1,10 @@
-// Copyright 2019 The Chromium Authors. All rights reserved.
+// Copyright 2019 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 package org.chromium.components.content_capture;
 
 import org.chromium.base.CommandLine;
-import org.chromium.base.annotations.NativeMethods;
+import org.jni_zero.NativeMethods;
 
 /**
  * The class to get if feature is enabled from native.
@@ -27,6 +27,7 @@ public class ContentCaptureFeatures {
     @NativeMethods
     interface Natives {
         boolean isEnabled();
+
         boolean shouldTriggerContentCaptureForExperiment();
     }
 }

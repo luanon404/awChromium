@@ -1,4 +1,4 @@
-// Copyright 2017 The Chromium Authors. All rights reserved.
+// Copyright 2017 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -13,10 +13,9 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 
-import androidx.annotation.VisibleForTesting;
-
 import org.chromium.base.ContextUtils;
 import org.chromium.base.Log;
+import org.chromium.base.ResettersForTesting;
 import org.chromium.base.ThreadUtils;
 
 import java.util.List;
@@ -25,7 +24,7 @@ import java.util.List;
  * This is a LocationProvider using Android APIs [1]. It is a separate class for clarity
  * so that it can manage all processing completely on the UI thread. The container class
  * ensures that the start/stop calls into this class are done on the UI thread.
- *
+ * <p>
  * [1] https://developer.android.com/reference/android/location/package-summary.html
  */
 public class LocationProviderAndroid implements LocationListener, LocationProvider {
@@ -34,7 +33,8 @@ public class LocationProviderAndroid implements LocationListener, LocationProvid
     private LocationManager mLocationManager;
     private boolean mIsRunning;
 
-    LocationProviderAndroid() {}
+    LocationProviderAndroid() {
+    }
 
     @Override
     public void start(boolean enableHighAccuracy) {
@@ -66,23 +66,26 @@ public class LocationProviderAndroid implements LocationListener, LocationProvid
     }
 
     @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {}
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+    }
 
     @Override
-    public void onProviderEnabled(String provider) {}
+    public void onProviderEnabled(String provider) {
+    }
 
     @Override
-    public void onProviderDisabled(String provider) {}
+    public void onProviderDisabled(String provider) {
+    }
 
-    @VisibleForTesting
     public void setLocationManagerForTesting(LocationManager manager) {
+        var oldValue = mLocationManager;
         mLocationManager = manager;
+        ResettersForTesting.register(() -> mLocationManager = oldValue);
     }
 
     private void createLocationManagerIfNeeded() {
         if (mLocationManager != null) return;
-        mLocationManager = (LocationManager) ContextUtils.getApplicationContext().getSystemService(
-                Context.LOCATION_SERVICE);
+        mLocationManager = (LocationManager) ContextUtils.getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
         if (mLocationManager == null) {
             Log.e(TAG, "Could not get location manager.");
         }
@@ -103,24 +106,16 @@ public class LocationProviderAndroid implements LocationListener, LocationProvid
         try {
             Criteria criteria = new Criteria();
             Context context = ContextUtils.getApplicationContext();
-            if (enableHighAccuracy
-                    && context.checkCallingOrSelfPermission(
-                               Manifest.permission.ACCESS_FINE_LOCATION)
-                            == PackageManager.PERMISSION_GRANTED) {
+            if (enableHighAccuracy && context.checkCallingOrSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 criteria.setAccuracy(Criteria.ACCURACY_FINE);
             }
-            mLocationManager.requestLocationUpdates(
-                    0, 0, criteria, this, ThreadUtils.getUiThreadLooper());
+            mLocationManager.requestLocationUpdates(0, 0, criteria, this, ThreadUtils.getUiThreadLooper());
         } catch (SecurityException e) {
-            Log.e(TAG,
-                    "Caught security exception while registering for location updates "
-                            + "from the system. The application does not have sufficient "
-                            + "geolocation permissions.");
+            Log.e(TAG, "Caught security exception while registering for location updates " + "from the system. The application does not have sufficient " + "geolocation permissions.");
             unregisterFromLocationUpdates();
             // Propagate an error to JavaScript, this can happen in case of WebView
             // when the embedding app does not have sufficient permissions.
-            LocationProviderAdapter.newErrorAvailable(
-                    "application does not have sufficient geolocation permissions.");
+            LocationProviderAdapter.newErrorAvailable("application does not have sufficient geolocation permissions.");
         } catch (IllegalArgumentException e) {
             Log.e(TAG, "Caught IllegalArgumentException registering for location updates.");
             unregisterFromLocationUpdates();
@@ -145,8 +140,7 @@ public class LocationProviderAndroid implements LocationListener, LocationProvid
         // Do not request a location update if the only available location provider is
         // the passive one. Make use of the last known location and call
         // onNewLocationAvailable directly.
-        final Location location =
-                mLocationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+        final Location location = mLocationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
         if (location != null) {
             ThreadUtils.assertOnUiThread();
             LocationProviderAdapter.onNewLocationAvailable(location);
@@ -160,7 +154,6 @@ public class LocationProviderAndroid implements LocationListener, LocationProvid
      */
     private boolean isOnlyPassiveLocationProviderEnabled() {
         final List<String> providers = mLocationManager.getProviders(true);
-        return providers != null && providers.size() == 1
-                && providers.get(0).equals(LocationManager.PASSIVE_PROVIDER);
+        return providers != null && providers.size() == 1 && providers.get(0).equals(LocationManager.PASSIVE_PROVIDER);
     }
 }

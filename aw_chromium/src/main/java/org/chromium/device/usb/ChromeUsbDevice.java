@@ -1,22 +1,20 @@
-// Copyright 2015 The Chromium Authors. All rights reserved.
+// Copyright 2015 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
 package org.chromium.device.usb;
 
-import android.annotation.TargetApi;
 import android.hardware.usb.UsbConfiguration;
 import android.hardware.usb.UsbDevice;
-import android.os.Build;
 
 import org.chromium.base.Log;
-import org.chromium.base.annotations.CalledByNative;
-import org.chromium.base.annotations.JNINamespace;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
 
 /**
  * Exposes android.hardware.usb.UsbDevice as necessary for C++
  * device::UsbDeviceAndroid.
- *
+ * <p>
  * Lifetime is controlled by device::UsbDeviceAndroid.
  */
 @JNINamespace("device")
@@ -69,7 +67,6 @@ final class ChromeUsbDevice {
         return mDevice.getProductId();
     }
 
-    @TargetApi(Build.VERSION_CODES.M)
     @CalledByNative
     private int getDeviceVersion() {
         // The Android framework generates this string with:

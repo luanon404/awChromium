@@ -1,4 +1,4 @@
-// Copyright 2013 The Chromium Authors. All rights reserved.
+// Copyright 2013 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -18,14 +18,14 @@ import androidx.annotation.VisibleForTesting;
 
 import org.chromium.base.Log;
 import org.chromium.base.task.PostTask;
+import org.chromium.base.task.TaskTraits;
+import org.chromium.content_public.browser.ContentFeatureList;
+import org.chromium.content_public.browser.ContentFeatureMap;
 import org.chromium.content_public.browser.InputMethodManagerWrapper;
-import org.chromium.content_public.browser.UiThreadTaskTraits;
 import org.chromium.ui.base.WindowAndroid;
 import org.chromium.ui.display.DisplayAndroid;
 
 import java.lang.ref.WeakReference;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 /**
  * Wrapper around Android's InputMethodManager
@@ -38,16 +38,18 @@ public class InputMethodManagerWrapperImpl implements InputMethodManagerWrapper 
 
     private WindowAndroid mWindowAndroid;
 
-    private final Delegate mDelegate;
+    private Delegate mDelegate;
 
     private Runnable mPendingRunnableOnInputConnection;
 
-    public InputMethodManagerWrapperImpl(
-            Context context, WindowAndroid windowAndroid, Delegate delegate) {
+    private boolean mOptimizeImmHideCalls;
+
+    public InputMethodManagerWrapperImpl(Context context, WindowAndroid windowAndroid, Delegate delegate) {
         if (DEBUG_LOGS) Log.i(TAG, "Constructor");
         mContext = context;
         mWindowAndroid = windowAndroid;
         mDelegate = delegate;
+        mOptimizeImmHideCalls = ContentFeatureMap.isEnabled(ContentFeatureList.OPTIMIZE_IMM_HIDE_CALLS);
     }
 
     @Override
@@ -103,10 +105,7 @@ public class InputMethodManagerWrapperImpl implements InputMethodManagerWrapper 
         int contextDisplayId = getDisplayId(context);
         int activityDisplayId = getDisplayId(activity);
         if (activityDisplayId != contextDisplayId) {
-            Log.w(TAG,
-                    "Activity's display ID(%d) does not match context's display ID(%d). "
-                            + "Using a workaround to show soft input on the correct display...",
-                    activityDisplayId, contextDisplayId);
+            Log.w(TAG, "Activity's display ID(%d) does not match context's display ID(%d). " + "Using a workaround to show soft input on the correct display...", activityDisplayId, contextDisplayId);
             return false;
         }
         return true;
@@ -163,26 +162,23 @@ public class InputMethodManagerWrapperImpl implements InputMethodManagerWrapper 
     }
 
     @Override
-    public boolean hideSoftInputFromWindow(
-            IBinder windowToken, int flags, ResultReceiver resultReceiver) {
+    public boolean hideSoftInputFromWindow(IBinder windowToken, int flags, ResultReceiver resultReceiver) {
         if (DEBUG_LOGS) Log.i(TAG, "hideSoftInputFromWindow");
         mPendingRunnableOnInputConnection = null;
+        InputMethodManager manager = getInputMethodManager();
+        if (manager == null || mOptimizeImmHideCalls && !manager.isAcceptingText()) return false;
         StrictMode.ThreadPolicy oldPolicy = StrictMode.allowThreadDiskWrites(); // crbug.com/616283
         try {
-            InputMethodManager manager = getInputMethodManager();
-            return manager != null
-                    && manager.hideSoftInputFromWindow(windowToken, flags, resultReceiver);
+            return manager.hideSoftInputFromWindow(windowToken, flags, resultReceiver);
         } finally {
             StrictMode.setThreadPolicy(oldPolicy);
         }
     }
 
     @Override
-    public void updateSelection(
-            View view, int selStart, int selEnd, int candidatesStart, int candidatesEnd) {
+    public void updateSelection(View view, int selStart, int selEnd, int candidatesStart, int candidatesEnd) {
         if (DEBUG_LOGS) {
-            Log.i(TAG, "updateSelection: SEL [%d, %d], COM [%d, %d]", selStart, selEnd,
-                    candidatesStart, candidatesEnd);
+            Log.i(TAG, "updateSelection: SEL [%d, %d], COM [%d, %d]", selStart, selEnd, candidatesStart, candidatesEnd);
         }
         InputMethodManager manager = getInputMethodManager();
         if (manager == null) return;
@@ -198,8 +194,7 @@ public class InputMethodManagerWrapperImpl implements InputMethodManagerWrapper 
     }
 
     @Override
-    public void updateExtractedText(
-            View view, int token, android.view.inputmethod.ExtractedText text) {
+    public void updateExtractedText(View view, int token, android.view.inputmethod.ExtractedText text) {
         if (DEBUG_LOGS) Log.d(TAG, "updateExtractedText");
         InputMethodManager manager = getInputMethodManager();
         if (manager == null) return;
@@ -207,26 +202,10 @@ public class InputMethodManagerWrapperImpl implements InputMethodManagerWrapper 
     }
 
     @Override
-    public void notifyUserAction() {
-        // On N and above, this is not needed.
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) return;
-        if (DEBUG_LOGS) Log.i(TAG, "notifyUserAction");
-        InputMethodManager manager = getInputMethodManager();
-        if (manager == null) return;
-        try {
-            Method method = InputMethodManager.class.getMethod("notifyUserAction");
-            method.invoke(manager);
-        } catch (NoSuchMethodException | IllegalAccessException | IllegalArgumentException
-                | InvocationTargetException e) {
-            if (DEBUG_LOGS) Log.i(TAG, "notifyUserAction failed");
-        }
-    }
-
-    @Override
     public void onInputConnectionCreated() {
         if (mPendingRunnableOnInputConnection == null) return;
         Runnable runnable = mPendingRunnableOnInputConnection;
         mPendingRunnableOnInputConnection = null;
-        PostTask.postTask(UiThreadTaskTraits.DEFAULT, runnable);
+        PostTask.postTask(TaskTraits.UI_DEFAULT, runnable);
     }
 }

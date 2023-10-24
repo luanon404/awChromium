@@ -1,4 +1,4 @@
-// Copyright 2021 The Chromium Authors. All rights reserved.
+// Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -16,8 +16,8 @@ import java.util.regex.Pattern;
  * is matched.
  */
 public class UrlAllowlist {
-    private final HashSet<String> mAllowedUrls;
-    private final List<Pattern> mAllowedRe;
+    private HashSet<String> mAllowedUrls;
+    private List<Pattern> mAllowedRe;
 
     /**
      * Nothing is allowed if both allowedUrls and allowedRes is null or empty.

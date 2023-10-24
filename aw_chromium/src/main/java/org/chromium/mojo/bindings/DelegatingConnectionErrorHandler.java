@@ -1,4 +1,4 @@
-// Copyright 2014 The Chromium Authors. All rights reserved.
+// Copyright 2014 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -20,8 +20,7 @@ public class DelegatingConnectionErrorHandler implements ConnectionErrorHandler 
      * The registered handlers. This uses a {@link WeakHashMap} so that it doesn't prevent the
      * handler from being garbage collected.
      */
-    private final Set<ConnectionErrorHandler> mHandlers =
-            Collections.newSetFromMap(new WeakHashMap<ConnectionErrorHandler, Boolean>());
+    private final Set<ConnectionErrorHandler> mHandlers = Collections.newSetFromMap(new WeakHashMap<ConnectionErrorHandler, Boolean>());
 
     /**
      * @see ConnectionErrorHandler#onConnectionError(MojoException)

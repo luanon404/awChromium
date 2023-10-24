@@ -1,4 +1,4 @@
-// Copyright 2019 The Chromium Authors. All rights reserved.
+// Copyright 2019 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -8,18 +8,17 @@ import android.graphics.Rect;
 
 import androidx.annotation.VisibleForTesting;
 
-import org.chromium.base.annotations.CalledByNative;
+import org.jni_zero.CalledByNative;
 
 /**
  * The class is Java's representative of components/content_capture/common/content_capture_data.h
  */
 public class ContentCaptureData extends ContentCaptureDataBase {
-    private final String mValue;
+    private String mValue;
 
     @CalledByNative
     @VisibleForTesting
-    public static ContentCaptureData createContentCaptureData(
-            Object parent, long id, String value, int x, int y, int width, int height) {
+    public static ContentCaptureData createContentCaptureData(Object parent, long id, String value, int x, int y, int width, int height) {
         ContentCaptureData data = new ContentCaptureData(id, value, x, y, width, height);
         if (parent != null) {
             ((ContentCaptureDataBase) parent).addChild(data);
@@ -38,9 +37,10 @@ public class ContentCaptureData extends ContentCaptureDataBase {
 
     @Override
     public String toString() {
-        String sb = super.toString() + " value:" +
-                mValue;
-        return sb;
+        StringBuilder sb = new StringBuilder(super.toString());
+        sb.append(" value:");
+        sb.append(mValue);
+        return sb.toString();
     }
 
     @Override

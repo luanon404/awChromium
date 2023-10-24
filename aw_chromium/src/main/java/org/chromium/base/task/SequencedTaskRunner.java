@@ -1,4 +1,4 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
+// Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -11,4 +11,5 @@ package org.chromium.base.task;
  * guarantees w.r.t. other SequencedTaskRunners. They have destroy() automatically called whenever
  * they go empty, so calling destroy() on them is not needed.
  */
-public interface SequencedTaskRunner extends TaskRunner {}
+public interface SequencedTaskRunner extends TaskRunner {
+}

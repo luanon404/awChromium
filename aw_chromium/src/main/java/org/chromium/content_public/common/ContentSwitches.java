@@ -1,4 +1,4 @@
-// Copyright 2013 The Chromium Authors. All rights reserved.
+// Copyright 2013 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -52,8 +52,7 @@ public final class ContentSwitches {
     public static final String SWITCH_GPU_PROCESS = "gpu-process";
 
     // Use fake device for Media Stream to replace actual camera and microphone.
-    public static final String USE_FAKE_DEVICE_FOR_MEDIA_STREAM =
-            "use-fake-device-for-media-stream";
+    public static final String USE_FAKE_DEVICE_FOR_MEDIA_STREAM = "use-fake-device-for-media-stream";
 
     // Native switch kHostResolverRules
     public static final String HOST_RESOLVER_RULES = "host-resolver-rules";
@@ -61,10 +60,7 @@ public final class ContentSwitches {
     // Native switch kServiceSandboxType
     public static final String SWITCH_SERVICE_SANDBOX_TYPE = "service-sandbox-type";
 
-    // Native switch value kNetworkSandbox
-    public static final String NETWORK_SANDBOX_TYPE = "network";
-
-    // Native switch kNoneSandbox, only honored on non-public Chromecast builds.
+    // "None" sandbox, meaning the process shouldn't be sandboxed.
     public static final String NONE_SANDBOX_TYPE = "none";
 
 
@@ -86,18 +82,18 @@ public final class ContentSwitches {
     // Allows loopback interface to be added in network list for peer connection.
     public static final String ALLOW_LOOPBACK_IN_PEER_CONNECTION = "allow-loopback-in-peer-connection";
 
-    // Allow a page to send synchronus XHR during its unloading.
-    // TODO(https://crbug.com/1003101): Remove this in Chrome 88.
-    public static final String ALLOW_SYNC_XHR_IN_PAGE_DISMISSAL = "allow-sync-xhr-in-page-dimissal";
+    // Allows plugins to be loaded in the command line for testing.
+    public static final String ALLOW_COMMAND_LINE_PLUGINS = "allow-command-line-plugins";
 
-    // Uses the android SkFontManager on linux. The specified directory should
-    // include the configuration xml file with the name "fonts.xml".
-    // This is used in blimp to emulate android fonts on linux.
-    public static final String ANDROID_FONTS_PATH = "android-fonts-path";
+    // Causes the Attribution Report API to run without delays or noise.
+    public static final String ATTRIBUTION_REPORTING_DEBUG_MODE = "attribution-reporting-debug-mode";
 
-    // Allows app cache to be forced on, even when gated by an origin trial.
-    // TODO(enne): remove this once app cache has been removed.
-    public static final String APP_CACHE_FORCE_ENABLED = "app-cache-force-enabled";
+    // Bypasses the dialog prompting the user for permission to capture
+    // cameras and microphones. Useful in automatic tests of video-conferencing
+    // Web applications.
+    // This is nearly identical to kUseFakeUIForMediaStream, with the exception
+    // being that this flag does NOT affect screen-capture.
+    public static final String AUTO_ACCEPT_CAMERA_AND_MICROPHONE_CAPTURE = "auto-accept-camera-and-microphone-capture";
 
     // Causes the browser process to crash on startup.
     public static final String BROWSER_CRASH_TEST = "crash-test";
@@ -113,8 +109,20 @@ public final class ContentSwitches {
     // flaky [like monitoring of memory pressure]).
     public static final String BROWSER_TEST = "browser-test";
 
-    // Causes the Conversion Measurement API to run without delays or noise.
-    public static final String CONVERSIONS_DEBUG_MODE = "conversions-debug-mode";
+    // After a zygote forks a new process, change the stack canary. This switch is
+    // useful so not all forked processes use the same canary (a secret value),
+    // which can be vulnerable to information leaks and brute force attacks. See
+    // https://crbug.com/1206626.
+    // This requires that all functions on the stack at the time
+    // content::RunZygote() is called be compiled without stack canaries.
+    // Valid values are "enable" or "disable".
+    public static final String CHANGE_STACK_GUARD_ON_FORK = "change-stack-guard-on-fork";
+
+
+    public static final String CHANGE_STACK_GUARD_ON_FORK_ENABLED = "enable";
+
+
+    public static final String CHANGE_STACK_GUARD_ON_FORK_DISABLED = "disable";
 
     // Disable antialiasing on 2d canvas.
     public static final String DISABLE2D_CANVAS_ANTIALIASING = "disable-canvas-aa";
@@ -131,8 +139,11 @@ public final class ContentSwitches {
     // Disable gpu-accelerated 2d canvas.
     public static final String DISABLE_ACCELERATED2D_CANVAS = "disable-accelerated-2d-canvas";
 
-    // Enable in-progress canvas 2d API features.
-    public static final String ENABLE_NEW_CANVAS2DAPI = "new-canvas-2d-api";
+    // Enable in-progress canvas 2d API methods BeginLayer and EndLayer.
+    public static final String ENABLE_CANVAS2D_LAYERS = "canvas-2d-layers";
+
+    // Disables hardware acceleration of video decode, where available.
+    public static final String DISABLE_ACCELERATED_VIDEO_DECODE = "disable-accelerated-video-decode";
 
     // Disables hardware acceleration of video encode, where available.
     public static final String DISABLE_ACCELERATED_VIDEO_ENCODE = "disable-accelerated-video-encode";
@@ -175,12 +186,6 @@ public final class ContentSwitches {
 
     // Disable FileSystem API.
     public static final String DISABLE_FILE_SYSTEM = "disable-file-system";
-
-    // Disable 3D inside of flapper.
-    public static final String DISABLE_FLASH3D = "disable-flash-3d";
-
-    // Disable Stage3D inside of flapper.
-    public static final String DISABLE_FLASH_STAGE3D = "disable-flash-stage3d";
 
     // Disable user gesture requirement for presentation.
     public static final String DISABLE_GESTURE_REQUIREMENT_FOR_PRESENTATION = "disable-gesture-requirement-for-presentation";
@@ -245,6 +250,9 @@ public final class ContentSwitches {
     // Disables using CODECAPI_AVLowLatencyMode when creating DXVA decoders.
     public static final String DISABLE_LOW_LATENCY_DXVA = "disable-low-latency-dxva";
 
+    // Disables Mojo broker capabilities in the browser during Mojo initialization.
+    public static final String DISABLE_MOJO_BROKER = "disable-mojo-broker";
+
     // Disables clearing the rendering output of a renderer when it didn't commit
     // new output for a while after a top-frame navigation.
     public static final String DISABLE_NEW_CONTENT_RENDERING_TIMEOUT = "disable-new-content-rendering-timeout";
@@ -257,9 +265,6 @@ public final class ContentSwitches {
 
     // Disables the Permissions API.
     public static final String DISABLE_PERMISSIONS_API = "disable-permissions-api";
-
-    // Disable Image Chromium for Pepper 3d.
-    public static final String DISABLE_PEPPER3D_IMAGE_CHROMIUM = "disable-pepper-3d-image-chromium";
 
     // Disables compositor-accelerated touch-screen pinch gestures.
     public static final String DISABLE_PINCH = "disable-pinch";
@@ -309,9 +314,6 @@ public final class ContentSwitches {
     // Disables the speech synthesis part of Web Speech API.
     public static final String DISABLE_SPEECH_SYNTHESIS_API = "disable-speech-synthesis-api";
 
-    // Disables adding the test certs in the network process.
-    public static final String DISABLE_TEST_CERTS = "disable-test-root-certs";
-
     // Disable multithreaded GPU compositing of web content.
     public static final String DISABLE_THREADED_COMPOSITING = "disable-threaded-compositing";
 
@@ -342,10 +344,6 @@ public final class ContentSwitches {
     // Has no effect unless GPU rasterization is enabled.
     public static final String DISABLE_YUV_IMAGE_DECODING = "disable-yuv-image-decoding";
 
-    // Logs Runtime Call Stats for Blink. --single-process also needs to be
-    // used along with this for the stats to be logged.
-    public static final String DUMP_BLINK_RUNTIME_CALL_STATS = "dump-blink-runtime-call-stats";
-
     // Enables LCD text.
     public static final String ENABLE_LCD_TEXT = "enable-lcd-text";
 
@@ -361,13 +359,10 @@ public final class ContentSwitches {
     public static final String ENABLE_CARET_BROWSING = "enable-caret-browsing";
 
     // At present this turns on:
-    //   net::features::kCookiesWithoutSameSiteMustBeSecure
-    //   net::features::kSameSiteByDefaultCookies
     //   net::features::kSameSiteDefaultChecksMethodRigorously
-    // It will soon also turn on:
-    //   content_settings::kImprovedCookieControls
-    //   content_settings::kImprovedCookieControlsForThirdPartyCookieBlocking
     //   net::features::kSchemefulSameSite
+    //   net::features::kCookieSameSiteConsidersRedirectChain
+    //   net::features::kPartitionedCookies
     public static final String ENABLE_EXPERIMENTAL_COOKIE_FEATURES = "enable-experimental-cookie-features";
 
     // Enables experimental WebAssembly features.
@@ -389,14 +384,19 @@ public final class ContentSwitches {
     // status:"experimental", which are enabled when running web tests.
     public static final String ENABLE_BLINK_TEST_FEATURES = "enable-blink-test-features";
 
-    // Enables support for FTP URLs. See https://crbug.com/333943.
-    public static final String ENABLE_FTP = "enable-ftp";
-
     // Disables all RuntimeEnabledFeatures that can be enabled via OriginTrials.
     public static final String DISABLE_ORIGIN_TRIAL_CONTROLLED_BLINK_FEATURES = "disable-origin-trial-controlled-blink-features";
 
     // Enable GpuMemoryBuffer backed VideoFrames.
     public static final String ENABLE_GPU_MEMORY_BUFFER_VIDEO_FRAMES = "enable-gpu-memory-buffer-video-frames";
+
+    // Enables Isolated Web Apps (IWAs) in a renderer process. There are two ways
+    // to enable the IWAs: by feature flag and by enterprise policy. If IWAs are
+    // enabled by any of the mentioned above ways then this flag is passed to
+    // the renderer process. This flag should not be used from command line.
+    // To enable IWAs from command line one should use kIsolatedWebApps feature
+    // flag.
+    public static final String ENABLE_ISOLATED_WEB_APPS_IN_RENDERER = "enable-isolated-web-apps-in-renderer";
 
     // Force logging to be enabled.  Logging is disabled by default in release
     // builds.
@@ -418,6 +418,10 @@ public final class ContentSwitches {
     // still available, but it is bucketized and updated less frequently. This flag
     // also applys to workers.
     public static final String ENABLE_PRECISE_MEMORY_INFO = "enable-precise-memory-info";
+
+    // Enables Privacy Sandbox APIs: Attribution Reporting, Fledge, Topics, Fenced
+    // Frames, Shared Storage, Private Aggregation, and their associated features.
+    public static final String ENABLE_PRIVACY_SANDBOX_ADS_APIS = "enable-privacy-sandbox-ads-apis";
 
     // Set options to cache V8 data. (none, code, or default)
     public static final String V8_CACHE_OPTIONS = "v8-cache-options";
@@ -444,9 +448,6 @@ public final class ContentSwitches {
     // for example) that we haven't yet deprecated for the web at large.
     public static final String ENABLE_STRICT_POWERFUL_FEATURE_RESTRICTIONS = "enable-strict-powerful-feature-restrictions";
 
-    // Enabled threaded compositing for web tests.
-    public static final String ENABLE_THREADED_COMPOSITING = "enable-threaded-compositing";
-
     // When specified along with a value in the range (0,1] will --enable-tracing
     // for (roughly) that percentage of tests being run. This is done in a stable
     // manner such that the same tests are chosen each run, and under the assumption
@@ -459,9 +460,6 @@ public final class ContentSwitches {
 
     // Enable screen capturing support for MediaStream API.
     public static final String ENABLE_USER_MEDIA_SCREEN_CAPTURING = "enable-usermedia-screen-capturing";
-
-    // Enable the mode that uses zooming to implment device scale factor behavior.
-    public static final String ENABLE_USE_ZOOM_FOR_DSF = "enable-use-zoom-for-dsf";
 
     // Enables the use of the @viewport CSS rule, which allows
     // pages to control aspects of their own layout. This also turns on touch-screen
@@ -477,33 +475,20 @@ public final class ContentSwitches {
     // Removal of this deprecated API is blocked on crbug.com/937369.
     public static final String ENABLE_WEB_AUTH_DEPRECATED_MOJO_TESTING_API = "enable-web-auth-deprecated-mojo-testing-api";
 
+    // Enables WebGL developer extensions which are not generally exposed
+    // to the web platform.
+    public static final String ENABLE_WEB_GL_DEVELOPER_EXTENSIONS = "enable-webgl-developer-extensions";
+
     // Enables WebGL extensions not yet approved by the community.
     public static final String ENABLE_WEB_GL_DRAFT_EXTENSIONS = "enable-webgl-draft-extensions";
 
     // Enables WebGL rendering into a scanout buffer for overlay support.
     public static final String ENABLE_WEB_GL_IMAGE_CHROMIUM = "enable-webgl-image-chromium";
 
-    // Handle to the shared memory segment containing field trial state that is to
-    // be shared between processes. The argument to this switch is the handle id
-    // (pointer on Windows) as a string, followed by a comma, then the size of the
-    // shared memory segment as a string.
-    public static final String FIELD_TRIAL_HANDLE = "field-trial-handle";
-
     // Define an alias root directory which is replaced with the replacement string
     // in file URLs. The format is "/alias=/replacement", which would turn
     // file:///alias/some/path.html into file:///replacement/some/path.html.
     public static final String FILE_URL_PATH_ALIAS = "file-url-path-alias";
-
-    // Disables OOP rasterization.  Takes precedence over the enable flag.
-    public static final String DISABLE_OOP_RASTERIZATION = "disable-oop-rasterization";
-
-    // Turns on out of process raster for the renderer whenever gpu raster
-    // would have been used.  Enables the chromium_raster_transport extension.
-    public static final String ENABLE_OOP_RASTERIZATION = "enable-oop-rasterization";
-
-    // Forces use of hardware overlay for fullscreen video playback. Useful for
-    // testing the Android overlay fullscreen functionality on other platforms.
-    public static final String FORCE_OVERLAY_FULLSCREEN_VIDEO = "force-overlay-fullscreen-video";
 
     // This forces pages to be loaded as presentation receivers.  Useful for testing
     // behavior specific to presentation receivers.
@@ -513,12 +498,12 @@ public final class ContentSwitches {
     // Force renderer accessibility to be on instead of enabling it on demand when
     // a screen reader is detected. The disable-renderer-accessibility switch
     // overrides this if present.
+    // This switch has an optional parameter that forces an AXMode bundle. The three
+    // available bundle settings are: 'basic', 'form-controls', and 'complete'. If
+    // the bundle argument is invalid, then the forced AXMode will default to
+    // 'complete'. If the bundle argument is missing, then the initial AXMode will
+    // default to complete but allow changes to the AXMode during execution.
     public static final String FORCE_RENDERER_ACCESSIBILITY = "force-renderer-accessibility";
-
-    // For development / testing only. When running content_browsertests,
-    // saves output of failing accessibility tests to their expectations files in
-    // content/test/data/accessibility/, overwriting existing file content.
-    public static final String GENERATE_ACCESSIBILITY_TEST_EXPECTATIONS = "generate-accessibility-test-expectations";
 
     // Extra command line options for launching the GPU process (normally used
     // for debugging). Use like renderer-cmd-prefix.
@@ -532,6 +517,10 @@ public final class ContentSwitches {
 
     // Causes the GPU process to display a dialog on launch.
     public static final String GPU_STARTUP_DIALOG = "gpu-startup-dialog";
+
+    // Prevents creating scrollbars for web content. Useful for taking consistent
+    // screenshots.
+    public static final String HIDE_SCROLLBARS = "hide-scrollbars";
 
     // Run the GPU process as a thread in the browser process.
     public static final String IN_PROCESS_GPU = "in-process-gpu";
@@ -554,16 +543,10 @@ public final class ContentSwitches {
     // Enables experimental Harmony (ECMAScript 6) features.
     public static final String JAVA_SCRIPT_HARMONY = "javascript-harmony";
 
-    // Enables unsafe fast JS calls between Blink and V8.
-    public static final String ENABLE_UNSAFE_FAST_JS_CALLS = "enable-unsafe-fast-js-calls";
-
-    // Specifies the flags passed to JS engine.
-    public static final String JAVA_SCRIPT_FLAGS = "js-flags";
-
     // Flag to launch tests in the browser process.
     public static final String LAUNCH_AS_BROWSER = "as-browser";
 
-    // Logs GPU control list decisions when enforcing blacklist rules.
+    // Logs GPU control list decisions when enforcing blocklist rules.
     public static final String LOG_GPU_CONTROL_LIST_DECISIONS = "log-gpu-control-list-decisions";
 
     // Sets the minimum log level. Valid values are from 0 to 3:
@@ -574,9 +557,8 @@ public final class ContentSwitches {
     // affect which events are logged).
     public static final String LOG_FILE = "log-file";
 
-    // Resizes of the main frame are caused by changing between landscape and
-    // portrait mode (i.e. Android) so the page should be rescaled to fit.
-    public static final String MAIN_FRAME_RESIZES_ARE_ORIENTATION_CHANGES = "main-frame-resizes-are-orientation-changes";
+    // Log an error whenever the unload timeout for a render frame is exceeded.
+    public static final String LOG_MISSING_UNLOAD_ACK = "log-missing-unload-ack";
 
     // Allows user to override maximum number of active WebGL contexts per
     // renderer process.
@@ -613,11 +595,12 @@ public final class ContentSwitches {
     // zygote to work.
     public static final String NO_ZYGOTE = "no-zygote";
 
-    // Disables V8 mitigations for executing untrusted code.
-    public static final String NO_V8_UNTRUSTED_CODE_MITIGATIONS = "no-v8-untrusted-code-mitigations";
+    // Overrides the language detection result determined based on the page
+    // contents.
+    public static final String OVERRIDE_LANGUAGE_DETECTION = "override-language-detection";
 
-    // Number of worker threads used to rasterize content.
-    public static final String NUM_RASTER_THREADS = "num-raster-threads";
+    // Renderer process that runs the non-PPAPI PDF plugin.
+    public static final String PDF_RENDERER = "pdf-renderer";
 
     // Runs PPAPI (Pepper) plugins in-process.
     public static final String PPAPI_IN_PROCESS = "ppapi-in-process";
@@ -633,6 +616,9 @@ public final class ContentSwitches {
     // Causes the PPAPI sub process to display a dialog on launch. Be sure to use
     // --no-sandbox as well or the sandbox won't allow the dialog to display.
     public static final String PPAPI_STARTUP_DIALOG = "ppapi-startup-dialog";
+
+    // Causes the Private Aggregation API to run without reporting delays.
+    public static final String PRIVATE_AGGREGATION_DEVELOPER_MODE = "private-aggregation-developer-mode";
 
     // IMPORTANT: This isn't to be confused with --site-per-process (which is about
     // isolation, not consolidation). You probably want the other one.
@@ -650,6 +636,11 @@ public final class ContentSwitches {
     // The value of this switch determines whether the process is started as a
     // renderer or plugin host.  If it's empty, it's the browser.
     public static final String PROCESS_TYPE = "type";
+
+    // Causes Protected Audiences Bidding and Auction API to supply the provided
+    // debugging key to the trusted auction server. This tells the server that it
+    // okay to log information about this user's auction to help with debugging.
+    public static final String PROTECTED_AUDIENCES_CONSENTED_DEBUG_TOKEN = "protected-audiences-consented-debug-token";
 
     // Uses a specified proxy server, overrides system settings. This switch only
     // affects HTTP and HTTPS requests. ARC-apps use only HTTP proxy server with the
@@ -671,16 +662,35 @@ public final class ContentSwitches {
     // the debounce mechanimsm.
     public static final String QUOTA_CHANGE_EVENT_INTERVAL = "quota-change-event-interval";
 
+    // Reduce the accept-language http header, and only send one language in the
+    // request header: https://github.com/Tanych/accept-language.
+    public static final String REDUCE_ACCEPT_LANGUAGE = "reduce-accept-language";
+
+    // Reduce the minor version number in the User-Agent string. This flag
+    // implements phase 4 of User-Agent reduction:
+    // https://blog.chromium.org/2021/09/user-agent-reduction-origin-trial-and-dates.html.
+    public static final String REDUCE_USER_AGENT_MINOR_VERSION = "reduce-user-agent-minor-version";
+
+    // Reduce the platform and oscpu in the desktop User-Agent string. This flag
+    // implements phase 5 of User-Agent reduction:
+    // https://blog.chromium.org/2021/09/user-agent-reduction-origin-trial-and-dates.html.
+    public static final String REDUCE_USER_AGENT_PLATFORM_OS_CPU = "reduce-user-agent-platform-oscpu";
+
     // Register Pepper plugins (see pepper_plugin_list.cc for its format).
     public static final String REGISTER_PEPPER_PLUGINS = "register-pepper-plugins";
 
-    // Enables remote debug over stdio pipes [in=3, out=4].
+    // Enables remote debug over stdio pipes [in=3, out=4] or over the remote pipes
+    // specified in the 'remote-debugging-io-pipes' switch.
     // Optionally, specifies the format for the protocol messages, can be either
     // "JSON" (the default) or "CBOR".
     public static final String REMOTE_DEBUGGING_PIPE = "remote-debugging-pipe";
 
     // Enables remote debug over HTTP on the specified port.
     public static final String REMOTE_DEBUGGING_PORT = "remote-debugging-port";
+
+    // Enables web socket connections from the specified origins only. '*' allows
+    // any origin.
+    public static final String REMOTE_ALLOW_ORIGINS = "remote-allow-origins";
 
 
     public static final String RENDERER_CLIENT_ID = "renderer-client-id";
@@ -691,6 +701,9 @@ public final class ContentSwitches {
 
     // Causes the process to run as renderer instead of as browser.
     public static final String RENDERER_PROCESS = "renderer";
+
+    // Time the browser launched the renderer process (in TimeTicks).
+    public static final String RENDERER_PROCESS_LAUNCH_TIME_TICKS = "launch-time-ticks";
 
     // Overrides the default/calculated limit to the number of renderer processes.
     // Very high values for this setting can lead to high memory/resource usage
@@ -752,7 +765,7 @@ public final class ContentSwitches {
     // exceeds this limit.
     public static final String SKIA_RESOURCE_CACHE_LIMIT_MB = "skia-resource-cache-limit-mb";
 
-    // Type of the current test harness ("browser" or "ui").
+    // Type of the current test harness ("browser" or "ui" or "gpu").
     public static final String TEST_TYPE = "test-type";
 
     // The time zone to use for testing. Passed to renderers and plugins on startup.
@@ -772,13 +785,19 @@ public final class ContentSwitches {
     //   disabled: touch events are disabled.
     public static final String TOUCH_EVENT_FEATURE_DETECTION_DISABLED = "disabled";
 
-    // Accepts specified file URL of a trustable WebBundle file. This flag
-    // should be used only for testing purpose.
-    public static final String TRUSTABLE_WEB_BUNDLE_FILE_URL = "trustable-web-bundles-file-url";
+    // Accepts a number representing the time-ticks value at the Unix epoch.
+    // Since different processes can produce a different value for this due to
+    // system clock changes, this allows synchronizing them to a single value.
+    public static final String TIME_TICKS_AT_UNIX_EPOCH = "time-ticks-at-unix-epoch";
 
     // Replaces the existing codecs supported in peer connection with a single fake
     // codec entry that create a fake video encoder and decoder.
     public static final String USE_FAKE_CODEC_FOR_PEER_CONNECTION = "use-fake-codec-for-peer-connection";
+
+    // Bypass the FedCM account selection dialog. If a value is provided for
+    // this switch, that account ID is selected, otherwise the first account
+    // is chosen.
+    public static final String USE_FAKE_UI_FOR_FED_CM = "use-fake-ui-for-fedcm";
 
     // Bypass the media stream infobar by selecting the default device for media
     // streams (e.g. WebRTC). Works with --use-fake-device-for-media-stream.
@@ -811,13 +830,27 @@ public final class ContentSwitches {
     // In debug builds, asserts that the stream of input events is valid.
     public static final String VALIDATE_INPUT_EVENT_STREAM = "validate-input-event-stream";
 
+    // Causes tests to attempt to verify pixel output.
+    public static final String VERIFY_PIXELS = "browser-ui-tests-verify-pixels";
+
     // Will add kWaitForDebugger to every child processes. If a value is passed, it
     // will be used as a filter to determine if the child process should have the
     // kWaitForDebugger flag passed on or not.
     public static final String WAIT_FOR_DEBUGGER_CHILDREN = "wait-for-debugger-children";
 
+    // On every navigation a message with the renderer's URL will be logged and the
+    // renderer will wait for a debugger to be attached or SIGUSR1 to be sent to
+    // continue execution.
+    public static final String WAIT_FOR_DEBUGGER_ON_NAVIGATION = "wait-for-debugger-on-navigation";
+
     // Flag used by WebUI test runners to wait for debugger to be attached.
     public static final String WAIT_FOR_DEBUGGER_WEB_UI = "wait-for-debugger-webui";
+
+    // Allows trusted remote desktop clients to make WebAuthn requests on behalf of
+    // other origins. This switch only controls availability of the
+    // `remoteDesktopClientOverride` extension but doesn't by itself enable any
+    // origin to use it.
+    public static final String WEB_AUTH_REMOTE_DESKTOP_SUPPORT = "webauthn-remote-desktop-support";
 
     // Set the antialiasing method used for webgl. (none, explicit, implicit)
     public static final String WEBGL_ANTIALIASING_MODE = "webgl-antialiasing-mode";
@@ -854,18 +887,11 @@ public final class ContentSwitches {
     // Disables HW encode acceleration for WebRTC.
     public static final String DISABLE_WEB_RTC_HW_ENCODING = "disable-webrtc-hw-encoding";
 
-    // Enables negotiation of GCM cipher suites from RFC 7714 for SRTP in WebRTC.
-    // See https://tools.ietf.org/html/rfc7714 for further information.
-    public static final String ENABLE_WEB_RTC_SRTP_AES_GCM = "enable-webrtc-srtp-aes-gcm";
-
     // Enables negotiation of encrypted header extensions from RFC 6904 for SRTP
     // in WebRTC.
     // See https://tools.ietf.org/html/rfc6904 for further information.
     // TODO(https://crbug.com/954201): Remove this.
     public static final String ENABLE_WEB_RTC_SRTP_ENCRYPTED_HEADERS = "enable-webrtc-srtp-encrypted-headers";
-
-    // Enables Origin header in Stun messages for WebRTC.
-    public static final String ENABLE_WEB_RTC_STUN_ORIGIN = "enable-webrtc-stun-origin";
 
     // Enforce IP Permission check. TODO(guoweis): Remove this once the feature is
     // not under finch and becomes the default.
@@ -878,11 +904,6 @@ public final class ContentSwitches {
     // Override the maximum framerate as can be specified in calls to getUserMedia.
     // This flag expects a value.  Example: --max-gum-fps=17.5
     public static final String WEB_RTC_MAX_CAPTURE_FRAMERATE = "max-gum-fps";
-
-    // Configure the maximum CPU time percentage of a single core that can be
-    // consumed for desktop capturing. Default is 50. Set 100 to disable the
-    // throttling of the capture.
-    public static final String WEB_RTC_MAX_CPU_CONSUMPTION_PERCENTAGE = "webrtc-max-cpu-consumption-percentage";
 
     // Enable capture and local storage of WebRTC event logs without visiting
     // chrome://webrtc-internals. This is useful for automated testing. It accepts
@@ -905,22 +926,16 @@ public final class ContentSwitches {
     public static final String WEB_XR_RUNTIME_ORIENTATION_SENSORS = "orientation-sensors";
 
     // The following are the runtimes that WebXr supports.
+    public static final String WEB_XR_RUNTIME_CARDBOARD = "cardboard";
+
+
+    public static final String WEB_XR_RUNTIME_GVR = "gvr";
+
+
     public static final String WEB_XR_RUNTIME_OPEN_XR = "openxr";
-
-
-    public static final String WEB_XR_RUNTIME_WMR = "windows-mixed-reality";
-
-    // Disables hardware acceleration of video decode, where available.
-    public static final String DISABLE_ACCELERATED_VIDEO_DECODE = "disable-accelerated-video-decode";
 
     // Disable Media Session API
     public static final String DISABLE_MEDIA_SESSION_API = "disable-media-session-api";
-
-    // Disable overscroll edge effects like those found in Android views.
-    public static final String DISABLE_OVERSCROLL_EDGE_EFFECT = "disable-overscroll-edge-effect";
-
-    // Disable the pull-to-refresh effect when vertically overscrolling content.
-    public static final String DISABLE_PULL_TO_REFRESH_EFFECT = "disable-pull-to-refresh-effect";
 
     // Disable the locking feature of the screen orientation API.
     public static final String DISABLE_SCREEN_ORIENTATION_LOCK = "disable-screen-orientation-lock";
@@ -953,9 +968,6 @@ public final class ContentSwitches {
     // Disables debug crash dumps for OOPR.
     public static final String DISABLE_OOPR_DEBUG_CRASH_DUMP = "disable-oopr-debug-crash-dump";
 
-    // Enable the experimental Accessibility Object Model APIs in development.
-    public static final String ENABLE_ACCESSIBILITY_OBJECT_MODEL = "enable-accessibility-object-model";
-
     // Enable the aggressive flushing of DOM Storage to minimize data loss.
     public static final String ENABLE_AGGRESSIVE_DOM_STORAGE_FLUSHING = "enable-aggressive-domstorage-flushing";
 
@@ -966,6 +978,10 @@ public final class ContentSwitches {
     // Linux speech service. Because it's buggy, the user must explicitly
     // enable it so that visiting a random webpage can't cause instability.
     public static final String ENABLE_SPEECH_DISPATCHER = "enable-speech-dispatcher";
+
+    // For lacros, we do not use environment variable to pass values. Instead we
+    // use a command line flag to pass the path to the device.
+    public static final String LLVM_PROFILE_FILE = "llvm-profile-file";
 
     // /prefetch:# arguments to use when launching various process types. It has
     // been observed that when file reads are consistent for 3 process launches with
@@ -1001,9 +1017,6 @@ public final class ContentSwitches {
     // Disable the Legacy Window which corresponds to the size of the WebContents.
     public static final String DISABLE_LEGACY_INTERMEDIATE_WINDOW = "disable-legacy-window";
 
-    // Enables H264 HW decode acceleration for WebRtc on Win 7.
-    public static final String ENABLE_WIN7_WEB_RTC_HWH264_DECODING = "enable-win7-webrtc-hw-h264-decoding";
-
     // DirectWrite FontCache is shared by browser to renderers using shared memory.
     // This switch allows us to pass the shared memory handle to the renderer.
     public static final String FONT_CACHE_SHARED_HANDLE = "font-cache-shared-handle";
@@ -1029,6 +1042,11 @@ public final class ContentSwitches {
     // Use high priority for the audio process.
     public static final String AUDIO_PROCESS_HIGH_PRIORITY = "audio-process-high-priority";
 
+    // Specifies pipe names for the incoming and outbound messages on the Windows
+    // platform. This is a comma separated list of two pipe handles serialized as
+    // unsigned integers, e.g. "--remote-debugging-io-pipes=3,4".
+    public static final String REMOTE_DEBUGGING_IO_PIPES = "remote-debugging-io-pipes";
+
     // Dumps IPC messages sent from renderer processes to the browser process to
     // the given directory. Used primarily to gather samples for IPC fuzzing.
     public static final String IPC_DUMP_DIRECTORY = "ipc-dump-directory";
@@ -1037,5 +1055,6 @@ public final class ContentSwitches {
     public static final String IPC_FUZZER_TESTCASE = "ipc-fuzzer-testcase";
 
     // Prevent instantiation.
-    private ContentSwitches() {}
+    private ContentSwitches() {
+    }
 }

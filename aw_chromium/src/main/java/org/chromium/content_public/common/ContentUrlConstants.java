@@ -1,4 +1,4 @@
-// Copyright 2017 The Chromium Authors. All rights reserved.
+// Copyright 2017 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -22,5 +22,6 @@ public final class ContentUrlConstants {
     public static final String HTTP_SCHEME = "http";
     public static final String HTTPS_SCHEME = "https";
 
-    private ContentUrlConstants() {}
+    private ContentUrlConstants() {
+    }
 }

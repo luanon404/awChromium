@@ -1,4 +1,4 @@
-// Copyright 2015 The Chromium Authors. All rights reserved.
+// Copyright 2015 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -11,7 +11,7 @@ import android.view.MotionEvent;
 
 import androidx.annotation.VisibleForTesting;
 
-import org.chromium.base.annotations.JNINamespace;
+import org.jni_zero.JNINamespace;
 
 import java.util.BitSet;
 
@@ -53,6 +53,11 @@ abstract class GamepadMappings {
     @VisibleForTesting
     static final int SNAKEBYTE_IDROIDCON_PRODUCT_ID = 0x8502;
 
+    @VisibleForTesting
+    static final int GOOGLE_VENDOR_ID = 0x18d1;
+    @VisibleForTesting
+    static final int STADIA_CONTROLLER_PRODUCT_ID = 0x9400;
+
     private static final float BUTTON_AXIS_DEADZONE = 0.01f;
 
     public static GamepadMappings getMappings(InputDevice device, int[] axes, BitSet buttons) {
@@ -69,9 +74,7 @@ abstract class GamepadMappings {
     @VisibleForTesting
     static GamepadMappings getMappings(int vendorId, int productId, int[] axes) {
         if (vendorId == SONY_VENDOR_ID) {
-            if (productId == PS_DUALSHOCK_4_PRODUCT_ID
-                    || productId == PS_DUALSHOCK_4_SLIM_PRODUCT_ID
-                    || productId == PS_DUALSHOCK_4_USB_RECEIVER_PRODUCT_ID) {
+            if (productId == PS_DUALSHOCK_4_PRODUCT_ID || productId == PS_DUALSHOCK_4_SLIM_PRODUCT_ID || productId == PS_DUALSHOCK_4_USB_RECEIVER_PRODUCT_ID) {
                 // Android 9 included improvements for PS3 and PS4 gamepads that changed the
                 // KeyEvent and MotionEvent codes for some buttons and axes. Use an alternate
                 // mapping for versions of Android that include these improvements.
@@ -104,13 +107,15 @@ abstract class GamepadMappings {
         if (vendorId == BROADCOM_VENDOR_ID && productId == SNAKEBYTE_IDROIDCON_PRODUCT_ID) {
             return new SnakebyteIDroidConMappings(axes);
         }
+        if (vendorId == GOOGLE_VENDOR_ID && productId == STADIA_CONTROLLER_PRODUCT_ID) {
+            return new StadiaControllerMappings();
+        }
         return null;
     }
 
     @VisibleForTesting
     static GamepadMappings getMappings(String deviceName) {
-        if (deviceName.startsWith(NVIDIA_SHIELD_DEVICE_NAME_PREFIX)
-                || deviceName.equals(MICROSOFT_XBOX_PAD_DEVICE_NAME)) {
+        if (deviceName.startsWith(NVIDIA_SHIELD_DEVICE_NAME_PREFIX) || deviceName.equals(MICROSOFT_XBOX_PAD_DEVICE_NAME)) {
             return new XboxCompatibleGamepadMappings();
         } else if (deviceName.equals(PS_DUALSHOCK_3_SIXAXIS_DEVICE_NAME)) {
             // Android 9 included improvements for Sony PlayStation gamepads that changed the
@@ -154,8 +159,7 @@ abstract class GamepadMappings {
      * Method implemented by subclasses to perform mapping from raw axes and buttons
      * to canonical axes and buttons.
      */
-    public abstract void mapToStandardGamepad(float[] mappedAxes, float[] mappedButtons,
-            float[] rawAxes, float[] rawButtons);
+    public abstract void mapToStandardGamepad(float[] mappedAxes, float[] mappedButtons, float[] rawAxes, float[] rawButtons);
 
     private static void mapCommonXYABButtons(float[] mappedButtons, float[] rawButtons) {
         float a = rawButtons[KeyEvent.KEYCODE_BUTTON_A];
@@ -190,8 +194,7 @@ abstract class GamepadMappings {
      * using this, as it can easily confuse the user. It is only really useful if
      * the controller completely lacks a second set of shoulder buttons.
      */
-    private static void mapUpperTriggerButtonsToBottomShoulder(float[] mappedButtons,
-            float[] rawButtons) {
+    private static void mapUpperTriggerButtonsToBottomShoulder(float[] mappedButtons, float[] rawButtons) {
         float l1 = rawButtons[KeyEvent.KEYCODE_BUTTON_L1];
         float r1 = rawButtons[KeyEvent.KEYCODE_BUTTON_R1];
         mappedButtons[CanonicalButtonIndex.LEFT_TRIGGER] = l1;
@@ -251,8 +254,7 @@ abstract class GamepadMappings {
         mappedButtons[CanonicalButtonIndex.RIGHT_TRIGGER] = -z > BUTTON_AXIS_DEADZONE ? -z : 0.0f;
     }
 
-    private static void mapLowerTriggerButtonsToBottomShoulder(float[] mappedButtons,
-            float[] rawButtons) {
+    private static void mapLowerTriggerButtonsToBottomShoulder(float[] mappedButtons, float[] rawButtons) {
         float l2 = rawButtons[KeyEvent.KEYCODE_BUTTON_L2];
         float r2 = rawButtons[KeyEvent.KEYCODE_BUTTON_R2];
         mappedButtons[CanonicalButtonIndex.LEFT_TRIGGER] = l2;
@@ -285,8 +287,7 @@ abstract class GamepadMappings {
          * to standard gamepad button and axes values.
          */
         @Override
-        public void mapToStandardGamepad(float[] mappedAxes, float[] mappedButtons,
-                float[] rawAxes, float[] rawButtons) {
+        public void mapToStandardGamepad(float[] mappedAxes, float[] mappedButtons, float[] rawAxes, float[] rawButtons) {
             mapCommonXYABButtons(mappedButtons, rawButtons);
             mapTriggerButtonsToTopShoulder(mappedButtons, rawButtons);
             mapCommonThumbstickButtons(mappedButtons, rawButtons);
@@ -306,8 +307,7 @@ abstract class GamepadMappings {
          * to standard gamepad button and axes values.
          */
         @Override
-        public void mapToStandardGamepad(float[] mappedAxes, float[] mappedButtons,
-                float[] rawAxes, float[] rawButtons) {
+        public void mapToStandardGamepad(float[] mappedAxes, float[] mappedButtons, float[] rawAxes, float[] rawButtons) {
             mapCommonXYABButtons(mappedButtons, rawButtons);
             mapTriggerButtonsToTopShoulder(mappedButtons, rawButtons);
             mapCommonThumbstickButtons(mappedButtons, rawButtons);
@@ -345,8 +345,7 @@ abstract class GamepadMappings {
         }
 
         @Override
-        public void mapToStandardGamepad(
-                float[] mappedAxes, float[] mappedButtons, float[] rawAxes, float[] rawButtons) {
+        public void mapToStandardGamepad(float[] mappedAxes, float[] mappedButtons, float[] rawAxes, float[] rawButtons) {
             mapCommonXYABButtons(mappedButtons, rawButtons);
             mapTriggerButtonsToTopShoulder(mappedButtons, rawButtons);
             mapCommonStartSelectMetaButtons(mappedButtons, rawButtons);
@@ -381,26 +380,20 @@ abstract class GamepadMappings {
          * standard gamepad button and axes values.
          */
         @Override
-        public void mapToStandardGamepad(
-                float[] mappedAxes, float[] mappedButtons, float[] rawAxes, float[] rawButtons) {
+        public void mapToStandardGamepad(float[] mappedAxes, float[] mappedButtons, float[] rawAxes, float[] rawButtons) {
             mappedButtons[CanonicalButtonIndex.PRIMARY] = rawButtons[KeyEvent.KEYCODE_BUTTON_A];
             mappedButtons[CanonicalButtonIndex.SECONDARY] = rawButtons[KeyEvent.KEYCODE_BUTTON_B];
             mappedButtons[CanonicalButtonIndex.TERTIARY] = rawButtons[KeyEvent.KEYCODE_BUTTON_C];
             mappedButtons[CanonicalButtonIndex.QUATERNARY] = rawButtons[KeyEvent.KEYCODE_BUTTON_X];
 
-            mappedButtons[CanonicalButtonIndex.LEFT_SHOULDER] =
-                    rawButtons[KeyEvent.KEYCODE_BUTTON_Y];
-            mappedButtons[CanonicalButtonIndex.RIGHT_SHOULDER] =
-                    rawButtons[KeyEvent.KEYCODE_BUTTON_Z];
+            mappedButtons[CanonicalButtonIndex.LEFT_SHOULDER] = rawButtons[KeyEvent.KEYCODE_BUTTON_Y];
+            mappedButtons[CanonicalButtonIndex.RIGHT_SHOULDER] = rawButtons[KeyEvent.KEYCODE_BUTTON_Z];
 
-            mappedButtons[CanonicalButtonIndex.BACK_SELECT] =
-                    rawButtons[KeyEvent.KEYCODE_BUTTON_L1];
+            mappedButtons[CanonicalButtonIndex.BACK_SELECT] = rawButtons[KeyEvent.KEYCODE_BUTTON_L1];
             mappedButtons[CanonicalButtonIndex.START] = rawButtons[KeyEvent.KEYCODE_BUTTON_R1];
 
-            mappedButtons[CanonicalButtonIndex.LEFT_THUMBSTICK] =
-                    rawButtons[KeyEvent.KEYCODE_BUTTON_L2];
-            mappedButtons[CanonicalButtonIndex.RIGHT_THUMBSTICK] =
-                    rawButtons[KeyEvent.KEYCODE_BUTTON_R2];
+            mappedButtons[CanonicalButtonIndex.LEFT_THUMBSTICK] = rawButtons[KeyEvent.KEYCODE_BUTTON_L2];
+            mappedButtons[CanonicalButtonIndex.RIGHT_THUMBSTICK] = rawButtons[KeyEvent.KEYCODE_BUTTON_R2];
 
             // The left and right triggers on the Xbox One S controller
             // are exposed as AXIS_Z and AXIS_RZ respectively. However,
@@ -416,14 +409,12 @@ abstract class GamepadMappings {
                 mRightTriggerActivated = true;
             }
             if (mLeftTriggerActivated) {
-                mappedButtons[CanonicalButtonIndex.LEFT_TRIGGER] =
-                        (rawAxes[MotionEvent.AXIS_Z] + 1) / 2;
+                mappedButtons[CanonicalButtonIndex.LEFT_TRIGGER] = (rawAxes[MotionEvent.AXIS_Z] + 1) / 2;
             } else {
                 mappedButtons[CanonicalButtonIndex.LEFT_TRIGGER] = 0.f;
             }
             if (mRightTriggerActivated) {
-                mappedButtons[CanonicalButtonIndex.RIGHT_TRIGGER] =
-                        (rawAxes[MotionEvent.AXIS_RZ] + 1) / 2;
+                mappedButtons[CanonicalButtonIndex.RIGHT_TRIGGER] = (rawAxes[MotionEvent.AXIS_RZ] + 1) / 2;
             } else {
                 mappedButtons[CanonicalButtonIndex.RIGHT_TRIGGER] = 0.f;
             }
@@ -448,8 +439,7 @@ abstract class GamepadMappings {
          * standard gamepad button and axes values.
          */
         @Override
-        public void mapToStandardGamepad(
-                float[] mappedAxes, float[] mappedButtons, float[] rawAxes, float[] rawButtons) {
+        public void mapToStandardGamepad(float[] mappedAxes, float[] mappedButtons, float[] rawAxes, float[] rawButtons) {
             mapCommonXYABButtons(mappedButtons, rawButtons);
             mapTriggerButtonsToTopShoulder(mappedButtons, rawButtons);
             mapCommonThumbstickButtons(mappedButtons, rawButtons);
@@ -474,8 +464,7 @@ abstract class GamepadMappings {
          * axis values. This mapping function should only be used on Android 8 and earlier.
          */
         @Override
-        public void mapToStandardGamepad(float[] mappedAxes, float[] mappedButtons,
-                float[] rawAxes, float[] rawButtons) {
+        public void mapToStandardGamepad(float[] mappedAxes, float[] mappedButtons, float[] rawAxes, float[] rawButtons) {
             // On DualShock 3 and SIXAXIS, X/Y has higher priority.
             float a = rawButtons[KeyEvent.KEYCODE_BUTTON_A];
             float b = rawButtons[KeyEvent.KEYCODE_BUTTON_B];
@@ -503,8 +492,7 @@ abstract class GamepadMappings {
          * axis values. This mapping function should only be used on Android 10+.
          */
         @Override
-        public void mapToStandardGamepad(
-                float[] mappedAxes, float[] mappedButtons, float[] rawAxes, float[] rawButtons) {
+        public void mapToStandardGamepad(float[] mappedAxes, float[] mappedButtons, float[] rawAxes, float[] rawButtons) {
             mapCommonXYABButtons(mappedButtons, rawButtons);
             mapTriggerButtonsToTopShoulder(mappedButtons, rawButtons);
             mapCommonThumbstickButtons(mappedButtons, rawButtons);
@@ -528,8 +516,7 @@ abstract class GamepadMappings {
          * and earlier and DualSense on Android 11 and earlier.
          */
         @Override
-        public void mapToStandardGamepad(
-                float[] mappedAxes, float[] mappedButtons, float[] rawAxes, float[] rawButtons) {
+        public void mapToStandardGamepad(float[] mappedAxes, float[] mappedButtons, float[] rawAxes, float[] rawButtons) {
             float a = rawButtons[KeyEvent.KEYCODE_BUTTON_A];
             float b = rawButtons[KeyEvent.KEYCODE_BUTTON_B];
             float c = rawButtons[KeyEvent.KEYCODE_BUTTON_C];
@@ -574,8 +561,7 @@ abstract class GamepadMappings {
          * to standard gamepad button and axes values.
          */
         @Override
-        public void mapToStandardGamepad(float[] mappedAxes, float[] mappedButtons,
-                float[] rawAxes, float[] rawButtons) {
+        public void mapToStandardGamepad(float[] mappedAxes, float[] mappedButtons, float[] rawAxes, float[] rawButtons) {
             mapCommonXYABButtons(mappedButtons, rawButtons);
             mapUpperTriggerButtonsToBottomShoulder(mappedButtons, rawButtons);
             mapCommonThumbstickButtons(mappedButtons, rawButtons);
@@ -584,6 +570,36 @@ abstract class GamepadMappings {
 
             mapXYAxes(mappedAxes, rawAxes);
             mapRXAndRYAxesToRightStick(mappedAxes, rawAxes);
+        }
+    }
+
+    private static class StadiaControllerMappings extends GamepadMappings {
+        private static final int BUTTON_INDEX_ASSISTANT = CanonicalButtonIndex.COUNT;
+        private static final int BUTTON_INDEX_CAPTURE = CanonicalButtonIndex.COUNT + 1;
+
+        /**
+         * Method for mapping Stadia Controller axis and button values to
+         * standard gamepad button and axes values.
+         */
+        @Override
+        public void mapToStandardGamepad(float[] mappedAxes, float[] mappedButtons, float[] rawAxes, float[] rawButtons) {
+            mapCommonXYABButtons(mappedButtons, rawButtons);
+            mapTriggerButtonsToTopShoulder(mappedButtons, rawButtons);
+            mapPedalAxesToBottomShoulder(mappedButtons, rawAxes);
+            mapCommonThumbstickButtons(mappedButtons, rawButtons);
+            mapCommonStartSelectMetaButtons(mappedButtons, rawButtons);
+            mapHatAxisToDpadButtons(mappedButtons, rawAxes);
+            mappedButtons[BUTTON_INDEX_ASSISTANT] = rawButtons[KeyEvent.KEYCODE_BUTTON_1];
+            mappedButtons[BUTTON_INDEX_CAPTURE] = rawButtons[KeyEvent.KEYCODE_BUTTON_2];
+
+            mapXYAxes(mappedAxes, rawAxes);
+            mapZAndRZAxesToRightStick(mappedAxes, rawAxes);
+        }
+
+        @Override
+        public int getButtonsLength() {
+            // Include the Assistant and Capture buttons.
+            return CanonicalButtonIndex.COUNT + 2;
         }
     }
 
@@ -620,6 +636,8 @@ abstract class GamepadMappings {
                         mRightStickYAxis = axis;
                         break;
                     case MotionEvent.AXIS_HAT_X:
+                        hatAxesFound++;
+                        break;
                     case MotionEvent.AXIS_HAT_Y:
                         hatAxesFound++;
                         break;
@@ -645,8 +663,7 @@ abstract class GamepadMappings {
         }
 
         @Override
-        public void mapToStandardGamepad(float[] mappedAxes, float[] mappedButtons,
-                float[] rawAxes, float[] rawButtons) {
+        public void mapToStandardGamepad(float[] mappedAxes, float[] mappedButtons, float[] rawAxes, float[] rawButtons) {
             // These are shared among all gamepads intended for use with Android
             // that we tested so far.
             mapCommonXYABButtons(mappedButtons, rawButtons);

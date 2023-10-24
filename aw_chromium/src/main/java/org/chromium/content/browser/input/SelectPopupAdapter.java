@@ -1,4 +1,4 @@
-// Copyright 2013 The Chromium Authors. All rights reserved.
+// Copyright 2013 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -21,19 +21,19 @@ import java.util.List;
  */
 public class SelectPopupAdapter extends ArrayAdapter<SelectPopupItem> {
     // Holds the items of the select popup alert dialog list.
-    private final List<SelectPopupItem> mItems;
+    private List<SelectPopupItem> mItems;
 
     // True if all items have type PopupItemType.ENABLED.
     private boolean mAreAllItemsEnabled;
 
     /**
      * Creates a new SelectPopupItem adapter for the select popup alert dialog list.
+     *
      * @param context        Application context.
      * @param layoutResource Layout resource used for the alert dialog list.
      * @param items          SelectPopupItem array list.
      */
-    public SelectPopupAdapter(Context context, int layoutResource,
-            List<SelectPopupItem> items) {
+    public SelectPopupAdapter(Context context, int layoutResource, List<SelectPopupItem> items) {
         super(context, layoutResource, items);
         mItems = new ArrayList<SelectPopupItem>(items);
 

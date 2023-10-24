@@ -146,5 +146,6 @@ public final class UiFeatures {
     public static final String UI_DEBUG_TOOLS = "ui-debug-tools";
 
     // Prevent instantiation.
-    private UiFeatures() {}
+    private UiFeatures() {
+    }
 }

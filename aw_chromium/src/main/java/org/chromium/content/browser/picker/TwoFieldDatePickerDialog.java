@@ -1,4 +1,4 @@
-// Copyright 2013 The Chromium Authors. All rights reserved.
+// Copyright 2013 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -15,8 +15,7 @@ import org.chromium.content.browser.picker.TwoFieldDatePicker.OnMonthOrWeekChang
 /**
  * A two-field data picker dialog.
  */
-public abstract class TwoFieldDatePickerDialog extends AlertDialog implements OnClickListener,
-        OnMonthOrWeekChangedListener {
+public abstract class TwoFieldDatePickerDialog extends AlertDialog implements OnClickListener, OnMonthOrWeekChangedListener {
 
     private static final String YEAR = "year";
     private static final String POSITION_IN_YEAR = "position_in_year";
@@ -30,49 +29,36 @@ public abstract class TwoFieldDatePickerDialog extends AlertDialog implements On
     public interface OnValueSetListener {
 
         /**
-         * @param year The year that was set.
+         * @param year           The year that was set.
          * @param positionInYear The position in the year that was set.
          */
         void onValueSet(int year, int positionInYear);
     }
 
     /**
-     * @param context The context the dialog is to run in.
-     * @param callBack How the parent is notified that the date is set.
-     * @param year The initial year of the dialog.
+     * @param context    The context the dialog is to run in.
+     * @param callBack   How the parent is notified that the date is set.
+     * @param year       The initial year of the dialog.
      * @param weekOfYear The initial week of the dialog.
      */
-    public TwoFieldDatePickerDialog(Context context,
-             OnValueSetListener callBack,
-            int year,
-            int positionInYear,
-            double minValue,
-            double maxValue) {
+    public TwoFieldDatePickerDialog(Context context, OnValueSetListener callBack, int year, int positionInYear, double minValue, double maxValue) {
         this(context, 0, callBack, year, positionInYear, minValue, maxValue);
     }
 
     /**
-     * @param context The context the dialog is to run in.
-     * @param theme the theme to apply to this dialog
-     * @param callBack How the parent is notified that the date is set.
-     * @param year The initial year of the dialog.
+     * @param context    The context the dialog is to run in.
+     * @param theme      the theme to apply to this dialog
+     * @param callBack   How the parent is notified that the date is set.
+     * @param year       The initial year of the dialog.
      * @param weekOfYear The initial week of the dialog.
      */
-    public TwoFieldDatePickerDialog(Context context,
-            int theme,
-             OnValueSetListener callBack,
-            int year,
-            int positionInYear,
-            double minValue,
-            double maxValue) {
+    public TwoFieldDatePickerDialog(Context context, int theme, OnValueSetListener callBack, int year, int positionInYear, double minValue, double maxValue) {
         super(context, theme);
 
         mCallBack = callBack;
 
-        setButton(BUTTON_POSITIVE, context.getText(
-                R.string.date_picker_dialog_set), this);
-        setButton(BUTTON_NEGATIVE, context.getText(android.R.string.cancel),
-                (OnClickListener) null);
+        setButton(BUTTON_POSITIVE, context.getText(R.string.date_picker_dialog_set), this);
+        setButton(BUTTON_NEGATIVE, context.getText(android.R.string.cancel), (OnClickListener) null);
         setIcon(0);
 
         mPicker = createPicker(context, minValue, maxValue);
@@ -107,7 +93,7 @@ public abstract class TwoFieldDatePickerDialog extends AlertDialog implements On
     /**
      * Sets the current date.
      *
-     * @param year The date week year.
+     * @param year       The date week year.
      * @param weekOfYear The date week.
      */
     public void updateDate(int year, int weekOfYear) {

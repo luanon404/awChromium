@@ -1,4 +1,4 @@
-// Copyright 2014 The Chromium Authors. All rights reserved.
+// Copyright 2014 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -94,8 +94,7 @@ public class Connector implements MessageReceiver, HandleOwner<MessagePipeHandle
     @Override
     public boolean accept(Message message) {
         try {
-            mMessagePipeHandle.writeMessage(message.getData(),
-                    message.getHandles(), MessagePipeHandle.WriteFlags.NONE);
+            mMessagePipeHandle.writeMessage(message.getData(), message.getHandles(), MessagePipeHandle.WriteFlags.NONE);
             return true;
         } catch (MojoException e) {
             onError(e);
@@ -194,10 +193,9 @@ public class Connector implements MessageReceiver, HandleOwner<MessagePipeHandle
      * |MessageReceiver| is null, the message is lost.
      *
      * @param receiver The {@link MessageReceiver} that will receive the read {@link Message}. Can
-     *            be <code>null</code>, in which case the message is discarded.
+     *                 be <code>null</code>, in which case the message is discarded.
      */
-    static ResultAnd<Boolean> readAndDispatchMessage(
-            MessagePipeHandle handle, MessageReceiver receiver) {
+    static ResultAnd<Boolean> readAndDispatchMessage(MessagePipeHandle handle, MessageReceiver receiver) {
         ResultAnd<ReadMessageResult> result = handle.readMessage(MessagePipeHandle.ReadFlags.NONE);
         if (result.getMojoResult() != MojoResult.OK) {
             return new ResultAnd<Boolean>(result.getMojoResult(), false);
@@ -207,13 +205,11 @@ public class Connector implements MessageReceiver, HandleOwner<MessagePipeHandle
         if (receiver != null) {
             boolean accepted;
             try {
-                accepted = receiver.accept(
-                        new Message(ByteBuffer.wrap(readResult.mData), readResult.mHandles));
+                accepted = receiver.accept(new Message(ByteBuffer.wrap(readResult.mData), readResult.mHandles));
             } catch (RuntimeException e) {
                 // The DefaultExceptionHandler will decide whether any uncaught exception will
                 // close the connection or not.
-                accepted =
-                        ExceptionHandler.DefaultExceptionHandler.getInstance().handleException(e);
+                accepted = ExceptionHandler.DefaultExceptionHandler.getInstance().handleException(e);
             }
             return new ResultAnd<Boolean>(result.getMojoResult(), accepted);
         }

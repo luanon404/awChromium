@@ -1,10 +1,9 @@
-// Copyright 2014 The Chromium Authors. All rights reserved.
+// Copyright 2014 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
 package org.chromium.base;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Build;
@@ -14,8 +13,7 @@ import android.text.TextUtils;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.VisibleForTesting;
 
-import org.chromium.base.annotations.CalledByNative;
-import org.chromium.base.annotations.VerifiesOnN;
+import org.jni_zero.CalledByNative;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -33,25 +31,28 @@ public class LocaleUtils {
     /**
      * Java keeps deprecated language codes for Hebrew, Yiddish and Indonesian but Chromium uses
      * updated ones. Similarly, Android uses "tl" while Chromium uses "fil" for Tagalog/Filipino.
-     * So apply a mapping here.
-     * See http://developer.android.com/reference/java/util/Locale.html
+     * The Translate settings use "gom", but Chrome uses "kok". Apply a mapping here. See
+     * http://developer.android.com/reference/java/util/Locale.html
+     *
      * @return a updated language code for Chromium with given language string.
      */
     public static String getUpdatedLanguageForChromium(String language) {
-        // IMPORTANT: Keep in sync with the mapping found in:
-        // build/android/gyp/util/resource_utils.py (Yiddish and Javanese are not possible Android
-        // languages but are possible Chromium languages, they do not need to be kept in sync).
+        // IMPORTANT: If adding a new Chrome UI language, update the mapping found in:
+        // build/android/gyp/util/resource_utils.py (Languages that are accept languages, but not
+        // Chrome Android UI languages do not need to be kept in sync).
         switch (language) {
+            case "gom":
+                return "kok"; // Konkani
+            case "in":
+                return "id"; // Indonesian
             case "iw":
                 return "he"; // Hebrew
             case "ji":
                 return "yi"; // Yiddish
-            case "in":
-                return "id"; // Indonesian
-            case "tl":
-                return "fil"; // Filipino
             case "jw":
                 return "jv"; // Javanese
+            case "tl":
+                return "fil"; // Filipino
             default:
                 return language;
         }
@@ -59,9 +60,8 @@ public class LocaleUtils {
 
     /**
      * @return a locale with updated language codes for Chromium, with translated modern language
-     *         codes used by Chromium.
+     * codes used by Chromium.
      */
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @VisibleForTesting
     public static Locale getUpdatedLocaleForChromium(Locale locale) {
         String language = locale.getLanguage();
@@ -76,6 +76,7 @@ public class LocaleUtils {
      * Android uses "tl" while Chromium uses "fil" for Tagalog/Filipino.
      * So apply a mapping here.
      * See http://developer.android.com/reference/java/util/Locale.html
+     *
      * @return a updated language code for Android with given language string.
      */
     public static String getUpdatedLanguageForAndroid(String language) {
@@ -93,9 +94,8 @@ public class LocaleUtils {
 
     /**
      * @return a locale with updated language codes for Android, from translated modern language
-     *         codes used by Chromium.
+     * codes used by Chromium.
      */
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @VisibleForTesting
     public static Locale getUpdatedLocaleForAndroid(Locale locale) {
         String language = locale.getLanguage();
@@ -108,52 +108,27 @@ public class LocaleUtils {
 
     /**
      * This function creates a Locale object from xx-XX style string where xx is language code
-     * and XX is a country code. This works for API level lower than 21.
-     * @return the locale that best represents the language tag.
-     */
-    public static Locale forLanguageTagCompat(String languageTag) {
-        String[] tag = languageTag.split("-");
-        if (tag.length == 0) {
-            return new Locale("");
-        }
-        String language = getUpdatedLanguageForAndroid(tag[0]);
-        if ((language.length() != 2 && language.length() != 3)) {
-            return new Locale("");
-        }
-        if (tag.length == 1) {
-            return new Locale(language);
-        }
-        String country = tag[1];
-        if (country.length() != 2 && country.length() != 3) {
-            return new Locale(language);
-        }
-        return new Locale(language, country);
-    }
-
-    /**
-     * This function creates a Locale object from xx-XX style string where xx is language code
      * and XX is a country code.
+     *
      * @return the locale that best represents the language tag.
      */
     public static Locale forLanguageTag(String languageTag) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Locale locale = Locale.forLanguageTag(languageTag);
-            return getUpdatedLocaleForAndroid(locale);
-        }
-        return forLanguageTagCompat(languageTag);
+        Locale locale = Locale.forLanguageTag(languageTag);
+        return getUpdatedLocaleForAndroid(locale);
     }
 
     /**
      * Converts Locale object to the BCP 47 compliant string format.
      * This works for API level lower than 24.
-     *
+     * <p>
      * Note that for Android M or before, we cannot use Locale.getLanguage() and
      * Locale.toLanguageTag() for this purpose. Since Locale.getLanguage() returns deprecated
      * language code even if the Locale object is constructed with updated language code. As for
      * Locale.toLanguageTag(), it does a special conversion from deprecated language code to updated
      * one, but it is only usable for Android N or after.
+     *
      * @return a well-formed IETF BCP 47 language tag with language and country code that
-     *         represents this locale.
+     * represents this locale.
      */
     public static String toLanguageTag(Locale locale) {
         String language = getUpdatedLanguageForChromium(locale.getLanguage());
@@ -168,9 +143,9 @@ public class LocaleUtils {
      * Converts LocaleList object to the comma separated BCP 47 compliant string format.
      *
      * @return a well-formed IETF BCP 47 language tag with language and country code that
-     *         represents this locale list.
+     * represents this locale list.
      */
-    @TargetApi(Build.VERSION_CODES.N)
+    @RequiresApi(Build.VERSION_CODES.N)
     public static String toLanguageTags(LocaleList localeList) {
         ArrayList<String> newLocaleList = new ArrayList<>();
         for (int i = 0; i < localeList.size(); i++) {
@@ -181,11 +156,12 @@ public class LocaleUtils {
     }
 
     /**
-     * Extracts language from a language tag.
+     * Extracts the base language from a BCP 47 language tag.
+     *
      * @param languageTag language tag of the form xx-XX or xx.
      * @return the xx part of the language tag.
      */
-    public static String toLanguage(String languageTag) {
+    public static String toBaseLanguage(String languageTag) {
         int pos = languageTag.indexOf('-');
         if (pos < 0) {
             return languageTag;
@@ -194,9 +170,18 @@ public class LocaleUtils {
     }
 
     /**
+     * @param first  A BCP 47 formated language tag.
+     * @param second A BCP 47 formated language tag.
+     * @return True if the base language (e.g. "en" for "en-AU") is the same for each tag.
+     */
+    public static boolean isBaseLanguageEqual(String first, String second) {
+        return TextUtils.equals(toBaseLanguage(first), toBaseLanguage(second));
+    }
+
+    /**
      * @return a language tag string that represents the default locale.
-     *         The language tag is well-formed IETF BCP 47 language tag with language and country
-     *         code.
+     * The language tag is well-formed IETF BCP 47 language tag with language and country
+     * code.
      */
     @CalledByNative
     public static String getDefaultLocaleString() {
@@ -205,8 +190,8 @@ public class LocaleUtils {
 
     /**
      * @return a comma separated language tags string that represents a default locale or locales.
-     *         Each language tag is well-formed IETF BCP 47 language tag with language and country
-     *         code.
+     * Each language tag is well-formed IETF BCP 47 language tag with language and country
+     * code.
      */
     @CalledByNative
     public static String getDefaultLocaleListString() {
@@ -222,13 +207,12 @@ public class LocaleUtils {
     @CalledByNative
     private static String getDefaultCountryCode() {
         CommandLine commandLine = CommandLine.getInstance();
-        return commandLine.hasSwitch(BaseSwitches.DEFAULT_COUNTRY_CODE_AT_INSTALL)
-                ? commandLine.getSwitchValue(BaseSwitches.DEFAULT_COUNTRY_CODE_AT_INSTALL)
-                : Locale.getDefault().getCountry();
+        return commandLine.hasSwitch(BaseSwitches.DEFAULT_COUNTRY_CODE_AT_INSTALL) ? commandLine.getSwitchValue(BaseSwitches.DEFAULT_COUNTRY_CODE_AT_INSTALL) : Locale.getDefault().getCountry();
     }
 
     /**
      * Return the language tag of the first language in Configuration.
+     *
      * @param config Configuration to get language for.
      * @return The BCP 47 tag representation of the configuration's first locale.
      * Configuration.locale is deprecated on N+. However, read only is equivalent to
@@ -242,6 +226,7 @@ public class LocaleUtils {
 
     /**
      * Return the language tag of the first language in the configuration
+     *
      * @param context Context to get language for.
      * @return The BCP 47 tag representation of the context's first locale.
      */
@@ -251,8 +236,9 @@ public class LocaleUtils {
 
     /**
      * Prepend languageTag to the default locales on config.
-     * @param base The Context to use for the base configuration.
-     * @param config The Configuration to update.
+     *
+     * @param base        The Context to use for the base configuration.
+     * @param config      The Configuration to update.
      * @param languageTag The language to prepend to default locales.
      */
     public static void updateConfig(Context base, Configuration config, String languageTag) {
@@ -265,6 +251,7 @@ public class LocaleUtils {
 
     /**
      * Updates the default Locale/LocaleList to those of config.
+     *
      * @param config
      */
     public static void setDefaultLocalesFromConfiguration(Configuration config) {
@@ -279,12 +266,10 @@ public class LocaleUtils {
      * Helper class for N only code that is not validated on pre-N devices.
      */
     @RequiresApi(Build.VERSION_CODES.N)
-    @VerifiesOnN
     @VisibleForTesting
     static class ApisN {
         static void setConfigLocales(Context base, Configuration config, String language) {
-            LocaleList updatedLocales = prependToLocaleList(
-                    language, base.getResources().getConfiguration().getLocales());
+            LocaleList updatedLocales = prependToLocaleList(language, base.getResources().getConfiguration().getLocales());
             config.setLocales(updatedLocales);
         }
 
@@ -295,8 +280,9 @@ public class LocaleUtils {
         /**
          * Create a new LocaleList with languageTag added to the front.
          * If languageTag is already in the list the existing tag is moved to the front.
+         *
          * @param languageTag String of language tag to prepend
-         * @param localeList LocaleList to prepend to.
+         * @param localeList  LocaleList to prepend to.
          * @return LocaleList
          */
         static LocaleList prependToLocaleList(String languageTag, LocaleList localeList) {
@@ -307,8 +293,7 @@ public class LocaleUtils {
             String pattern = String.format("(^|,)%1$s$|%1$s,", languageTag);
             languageList = languageList.replaceFirst(pattern, "");
 
-            return LocaleList.forLanguageTags(
-                    String.format("%1$s,%2$s", languageTag, languageList));
+            return LocaleList.forLanguageTags(String.format("%1$s,%2$s", languageTag, languageList));
         }
     }
 }

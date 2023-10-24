@@ -1,5 +1,4 @@
-
-// Copyright 2021 The Chromium Authors. All rights reserved.
+// Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -15,12 +14,10 @@ import androidx.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@IntDef({
-    TaskRunnerType.BASE, TaskRunnerType.SEQUENCED, TaskRunnerType.SINGLE_THREAD
-})
+@IntDef({TaskRunnerType.BASE, TaskRunnerType.SEQUENCED, TaskRunnerType.SINGLE_THREAD})
 @Retention(RetentionPolicy.SOURCE)
 public @interface TaskRunnerType {
-  int BASE = 0;
-  int SEQUENCED = 1;
-  int SINGLE_THREAD = 2;
+    int BASE = 0;
+    int SEQUENCED = 1;
+    int SINGLE_THREAD = 2;
 }

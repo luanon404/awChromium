@@ -1,10 +1,9 @@
-// Copyright 2017 The Chromium Authors. All rights reserved.
+// Copyright 2017 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
 package org.chromium.components.autofill;
 
-import android.annotation.TargetApi;
 import android.content.ComponentName;
 import android.content.Context;
 import android.graphics.Rect;
@@ -13,10 +12,12 @@ import android.view.View;
 import android.view.autofill.AutofillManager;
 import android.view.autofill.AutofillValue;
 
+import androidx.annotation.RequiresApi;
 import androidx.annotation.VisibleForTesting;
 
 import org.chromium.base.CollectionUtil;
 import org.chromium.base.Log;
+import org.chromium.build.annotations.DoNotStripLogs;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -24,21 +25,23 @@ import java.util.ArrayList;
 /**
  * The class to call Android's AutofillManager.
  */
-@TargetApi(Build.VERSION_CODES.O)
+@RequiresApi(Build.VERSION_CODES.O)
 public class AutofillManagerWrapper {
     // Don't change TAG, it is used for runtime log.
     // NOTE: As a result of the above, the tag below still references the name of this class from
     // when it was originally developed specifically for Android WebView.
     public static final String TAG = "AwAutofillManager";
-    private static final String AWG_COMPONENT_NAME =
-            "com.google.android.gms/com.google.android.gms.autofill.service.AutofillService";
+    private static final String AWG_COMPONENT_NAME = "com.google.android.gms/com.google.android.gms.autofill.service.AutofillService";
+
     /**
      * The observer of suggestion window.
      */
-    public interface InputUIObserver { void onInputUIShown(); }
+    public interface InputUIObserver {
+        void onInputUIShown();
+    }
 
     private static class AutofillInputUIMonitor extends AutofillManager.AutofillCallback {
-        private final WeakReference<AutofillManagerWrapper> mManager;
+        private WeakReference<AutofillManagerWrapper> mManager;
 
         public AutofillInputUIMonitor(AutofillManagerWrapper manager) {
             mManager = new WeakReference<AutofillManagerWrapper>(manager);
@@ -58,7 +61,7 @@ public class AutofillManagerWrapper {
     private boolean mIsAutofillInputUIShowing;
     private AutofillInputUIMonitor mMonitor;
     private boolean mDestroyed;
-    private final boolean mDisabled;
+    private boolean mDisabled;
     private ArrayList<WeakReference<InputUIObserver>> mInputUIObservers;
     // Indicates if AwG is the current Android autofill service.
     private final boolean mIsAwGCurrentAutofillService;
@@ -88,8 +91,8 @@ public class AutofillManagerWrapper {
                 Log.e(TAG, "getAutofillServiceComponentName", e);
             }
             if (componentName != null) {
-                mIsAwGCurrentAutofillService =
-                        AWG_COMPONENT_NAME.equals(componentName.flattenToString());
+                mIsAwGCurrentAutofillService = AWG_COMPONENT_NAME.equals(componentName.flattenToString());
+                AutofillProviderUMA.logCurrentProvider(componentName.getPackageName());
             } else {
                 mIsAwGCurrentAutofillService = false;
             }
@@ -135,6 +138,14 @@ public class AutofillManagerWrapper {
         mAutofillManager.notifyViewExited(parent, childId);
     }
 
+    public void notifyVirtualViewVisibilityChanged(View parent, int childId, boolean isVisible) {
+        // `notifyViewVisibilityChanged` was added in API level 27.
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O_MR1) return;
+        if (mDisabled || checkAndWarnIfDestroyed()) return;
+        if (isLoggable()) log("notifyVirtualViewVisibilityChanged");
+        mAutofillManager.notifyViewVisibilityChanged(parent, childId, isVisible);
+    }
+
     public void requestAutofill(View parent, int virtualId, Rect absBounds) {
         if (mDisabled || checkAndWarnIfDestroyed()) return;
         if (isLoggable()) log("requestAutofill");
@@ -171,6 +182,7 @@ public class AutofillManagerWrapper {
 
     /**
      * Only work for Android P and beyond. Always return false for Android O.
+     *
      * @return if the Autofill with Google is the current autofill service.
      */
     public boolean isAwGCurrentAutofillService() {
@@ -179,8 +191,7 @@ public class AutofillManagerWrapper {
 
     private boolean checkAndWarnIfDestroyed() {
         if (mDestroyed) {
-            Log.w(TAG, "Application attempted to call on a destroyed AutofillManagerWrapper",
-                    new Throwable());
+            Log.w(TAG, "Application attempted to call on a destroyed AutofillManagerWrapper", new Throwable());
         }
         return mDestroyed;
     }
@@ -221,6 +232,7 @@ public class AutofillManagerWrapper {
         return sIsLoggable;
     }
 
+    @DoNotStripLogs
     private static void updateLogStat() {
         // Use 'setprop log.tag.AwAutofillManager DEBUG' to enable the log at runtime.
         // NOTE: See the comment on TAG above for why this is still AwAutofillManager.

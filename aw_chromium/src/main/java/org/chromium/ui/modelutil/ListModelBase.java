@@ -1,4 +1,4 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
+// Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -17,6 +17,7 @@ import java.util.List;
  * sending partial change notifications. If the list item type does not support partial change
  * notifications, use the {@link ListModel} subclass.
  * It allows models to compose different ListObservables.
+ *
  * @param <T> The object type that this class manages in a list.
  * @param <P> The payload type for partial change notifications.
  */
@@ -25,6 +26,7 @@ public class ListModelBase<T, P> extends ListObservableImpl<P> implements Simple
 
     /**
      * Returns the item at the given position.
+     *
      * @param index The position to get the item from.
      * @return Returns the found item.
      */
@@ -47,6 +49,7 @@ public class ListModelBase<T, P> extends ListObservableImpl<P> implements Simple
     /**
      * Appends a given {@code item} to the last position of the held {@link List}.
      * Notifies observers about the inserted item.
+     *
      * @param item The item to be stored.
      */
     public void add(T item) {
@@ -57,8 +60,9 @@ public class ListModelBase<T, P> extends ListObservableImpl<P> implements Simple
     /**
      * Inserts a given {@code item} at position {@code position} of the held {@link List}.
      * Notifies observers about the inserted item.
+     *
      * @param position The position of the item to be inserted.
-     * @param item The item to be inserted.
+     * @param item     The item to be inserted.
      */
     public void add(int position, T item) {
         mItems.add(position, item);
@@ -68,6 +72,7 @@ public class ListModelBase<T, P> extends ListObservableImpl<P> implements Simple
     /**
      * Appends all given {@code items} to the last position of the held {@link List}.
      * Notifies observers about the inserted items.
+     *
      * @param items The items to be stored.
      */
     public void addAll(Collection<T> items) {
@@ -77,7 +82,8 @@ public class ListModelBase<T, P> extends ListObservableImpl<P> implements Simple
     /**
      * Adds all given {@code items} to the {@link List} at specific position.
      * Notifies observers about the inserted items.
-     * @param items The items to be stored.
+     *
+     * @param items          The items to be stored.
      * @param insertionIndex Position where items should be inserted.
      */
     public void addAll(Collection<? extends T> items, int insertionIndex) {
@@ -88,6 +94,7 @@ public class ListModelBase<T, P> extends ListObservableImpl<P> implements Simple
     /**
      * Appends all given {@code items} to the last position of the held {@link List}.
      * Notifies observers about the inserted items.
+     *
      * @param items The items to be stored.
      */
     public void addAll(SimpleList<T> items) {
@@ -97,7 +104,8 @@ public class ListModelBase<T, P> extends ListObservableImpl<P> implements Simple
     /**
      * Adds all given {@code items} to the {@link List} at specific position.
      * Notifies observers about the inserted items.
-     * @param items The items to be stored.
+     *
+     * @param items          The items to be stored.
      * @param insertionIndex Position where items should be inserted.
      */
     public void addAll(SimpleList<T> items, int insertionIndex) {
@@ -110,6 +118,7 @@ public class ListModelBase<T, P> extends ListObservableImpl<P> implements Simple
 
     /**
      * Removes a given item from the held {@link List}. Notifies observers about the removal.
+     *
      * @param item The item to be removed.
      */
     public void remove(T item) {
@@ -119,6 +128,7 @@ public class ListModelBase<T, P> extends ListObservableImpl<P> implements Simple
 
     /**
      * Removes an item by position from the held {@link List}. Notifies observers about the removal.
+     *
      * @param position The position of the item to be removed.
      * @return The item that has been removed.
      */
@@ -131,8 +141,9 @@ public class ListModelBase<T, P> extends ListObservableImpl<P> implements Simple
     /**
      * Removes a range of {@code count} consecutive items from the held {@link List}, starting at
      * {@code startPosition}. Notifies observers about the removal.
+     *
      * @param startPosition The start position of the range of items to be removed.
-     * @param count The number of items to be removed.
+     * @param count         The number of items to be removed.
      */
     public void removeRange(int startPosition, int count) {
         mItems.subList(startPosition, startPosition + count).clear();
@@ -141,6 +152,7 @@ public class ListModelBase<T, P> extends ListObservableImpl<P> implements Simple
 
     /**
      * Convenience method to replace all held items with the given array of items.
+     *
      * @param newItems The array of items that should replace all held items.
      * @see #set(Collection)
      */
@@ -151,6 +163,7 @@ public class ListModelBase<T, P> extends ListObservableImpl<P> implements Simple
     /**
      * Replaces all held items with the given collection of items, notifying observers about the
      * resulting insertions, deletions, changes, or combinations thereof.
+     *
      * @param newItems The collection of items that should replace all held items.
      */
     public void set(Collection<T> newItems) {
@@ -172,8 +185,9 @@ public class ListModelBase<T, P> extends ListObservableImpl<P> implements Simple
 
     /**
      * Replaces a single {@code item} at the given {@code index}.
+     *
      * @param index The index of the item to be replaced.
-     * @param item The item to be replaced.
+     * @param item  The item to be replaced.
      */
     public void update(int index, T item) {
         mItems.set(index, item);
@@ -189,6 +203,7 @@ public class ListModelBase<T, P> extends ListObservableImpl<P> implements Simple
 
     /**
      * Moves a single {@code item} from current {@code index} to new {@code index}.
+     *
      * @param curIndex The position of the item before move.
      * @param newIndex The position of the item after move.
      */
@@ -202,7 +217,9 @@ public class ListModelBase<T, P> extends ListObservableImpl<P> implements Simple
         notifyItemMoved(curIndex, newIndex);
     }
 
-    /** Clear all items from the list. */
+    /**
+     * Clear all items from the list.
+     */
     public void clear() {
         if (size() > 0) removeRange(0, size());
     }

@@ -1,4 +1,4 @@
-// Copyright 2014 The Chromium Authors. All rights reserved.
+// Copyright 2014 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -27,15 +27,13 @@ public class SelectPopupDropdown implements SelectPopup.Ui {
 
     private boolean mSelectionNotified;
 
-    public SelectPopupDropdown(Context context, Callback<int[]> selectionChangedCallback,
-            View anchorView, List<SelectPopupItem> items, int[] selected, boolean rightAligned,
-            WebContents webContents) {
+    public SelectPopupDropdown(Context context, Callback<int[]> selectionChangedCallback, View anchorView, List<SelectPopupItem> items, int[] selected, boolean rightAligned, WebContents webContents) {
         mSelectionChangedCallback = selectionChangedCallback;
         mDropdownPopupWindow = new DropdownPopupWindow(context, anchorView);
         mDropdownPopupWindow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                notifySelection(new int[] {position});
+                notifySelection(new int[]{position});
                 hide(false);
             }
         });
@@ -47,16 +45,15 @@ public class SelectPopupDropdown implements SelectPopup.Ui {
         mDropdownPopupWindow.setInitialSelection(initialSelection);
         mDropdownPopupWindow.setAdapter(new DropdownAdapter(context, items, null /* separators */));
         mDropdownPopupWindow.setRtl(rightAligned);
-        mDropdownPopupWindow.setOnDismissListener(
-                new PopupWindow.OnDismissListener() {
-                    @Override
-                    public void onDismiss() {
-                        notifySelection(null);
-                    }
-                });
+        mDropdownPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                notifySelection(null);
+            }
+        });
         GestureListenerManager.fromWebContents(webContents).addListener(new GestureStateListener() {
             @Override
-            public void onScrollStarted(int scrollOffsetY, int scrollExtentY) {
+            public void onScrollStarted(int scrollOffsetY, int scrollExtentY, boolean isDirectionUp) {
                 hide(true);
             }
         });

@@ -1,4 +1,4 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
+// Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
  * A class to canonically represent a HTTP or HTTPS web origin in Java. In comparison to
  * {@link org.chromium.net.GURLUtils#getOrigin} it can be used before native is loaded and lets us
  * ensure conversion to an origin has been done with the type system.
- *
+ * <p>
  * {@link #toString()} does <b>not</b> match {@link org.chromium.net.GURLUtils#getOrigin}. The
  * latter will return a String with a trailing "/". Not having a trailing slash matches RFC
  * behaviour (https://tools.ietf.org/html/rfc6454), it seems that
@@ -63,14 +63,7 @@ public class Origin {
         if (port != -1) authority += ":" + port;
 
         try {
-            return new Origin(uri.normalizeScheme()
-                                      .buildUpon()
-                                      .opaquePart("")
-                                      .fragment("")
-                                      .path("")
-                                      .encodedAuthority(authority)
-                                      .clearQuery()
-                                      .build());
+            return new Origin(uri.normalizeScheme().buildUpon().opaquePart("").fragment("").path("").encodedAuthority(authority).clearQuery().build());
         } catch (UnsupportedOperationException e) {
             return null;
         }

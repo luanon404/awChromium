@@ -1,4 +1,4 @@
-// Copyright 2015 The Chromium Authors. All rights reserved.
+// Copyright 2015 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -11,11 +11,13 @@ import android.os.Vibrator;
 
 import org.chromium.base.ContextUtils;
 import org.chromium.base.Log;
-import org.chromium.base.annotations.CalledByNative;
-import org.chromium.base.annotations.JNINamespace;
+import org.chromium.base.ResettersForTesting;
 import org.chromium.device.mojom.VibrationManager;
 import org.chromium.mojo.system.MojoException;
 import org.chromium.services.service_manager.InterfaceFactory;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.CalledByNativeForTesting;
+import org.jni_zero.JNINamespace;
 
 /**
  * Android implementation of the VibrationManager interface defined in
@@ -40,41 +42,40 @@ public class VibrationManagerImpl implements VibrationManager {
         mAudioManager = (AudioManager) appContext.getSystemService(Context.AUDIO_SERVICE);
         mVibrator = (Vibrator) appContext.getSystemService(Context.VIBRATOR_SERVICE);
         // TODO(mvanouwerkerk): What happens if permission is revoked? Handle this better.
-        mHasVibratePermission =
-                appContext.checkCallingOrSelfPermission(android.Manifest.permission.VIBRATE)
-                == PackageManager.PERMISSION_GRANTED;
+        mHasVibratePermission = appContext.checkCallingOrSelfPermission(android.Manifest.permission.VIBRATE) == PackageManager.PERMISSION_GRANTED;
         if (!mHasVibratePermission) {
             Log.w(TAG, "Failed to use vibrate API, requires VIBRATE permission.");
         }
     }
 
     @Override
-    public void close() {}
+    public void close() {
+    }
 
     @Override
-    public void onConnectionError(MojoException e) {}
+    public void onConnectionError(MojoException e) {
+    }
 
     @Override
-    public void vibrate(long milliseconds, VibrateResponse callback) {
+    public void vibrate(long milliseconds, Vibrate_Response callback) {
         // Though the Blink implementation already sanitizes vibration times, don't
         // trust any values passed from the client.
-        long sanitizedMilliseconds = Math.max(MINIMUM_VIBRATION_DURATION_MS,
-                Math.min(milliseconds, MAXIMUM_VIBRATION_DURATION_MS));
+        long sanitizedMilliseconds = Math.max(MINIMUM_VIBRATION_DURATION_MS, Math.min(milliseconds, MAXIMUM_VIBRATION_DURATION_MS));
 
-        if (mAudioManager.getRingerMode() != AudioManager.RINGER_MODE_SILENT
-                && mHasVibratePermission) {
+        if (mAudioManager.getRingerMode() != AudioManager.RINGER_MODE_SILENT && mHasVibratePermission) {
             mVibrator.vibrate(sanitizedMilliseconds);
         }
-        setVibrateMilliSecondsForTesting(sanitizedMilliseconds);
+        sVibrateMilliSecondsForTesting = sanitizedMilliseconds;
         callback.call();
     }
 
     @Override
-    public void cancel(CancelResponse callback) {
+    public void cancel(Cancel_Response callback) {
         if (mHasVibratePermission) {
             mVibrator.cancel();
         }
-        setVibrateCancelledForTesting(true);
+        sVibrateCancelledForTesting = true;
+        ResettersForTesting.register(() -> sVibrateCancelledForTesting = false);
         callback.call();
     }
 
@@ -82,7 +83,8 @@ public class VibrationManagerImpl implements VibrationManager {
      * A factory for implementations of the VibrationManager interface.
      */
     public static class Factory implements InterfaceFactory<VibrationManager> {
-        public Factory() {}
+        public Factory() {
+        }
 
         @Override
         public VibrationManager createImpl() {
@@ -90,20 +92,12 @@ public class VibrationManagerImpl implements VibrationManager {
         }
     }
 
-    static void setVibrateMilliSecondsForTesting(long milliseconds) {
-        sVibrateMilliSecondsForTesting = milliseconds;
-    }
-
-    static void setVibrateCancelledForTesting(boolean cancelled) {
-        sVibrateCancelledForTesting = cancelled;
-    }
-
     @CalledByNative
     static long getVibrateMilliSecondsForTesting() {
         return sVibrateMilliSecondsForTesting;
     }
 
-    @CalledByNative
+    @CalledByNativeForTesting
     static boolean getVibrateCancelledForTesting() {
         return sVibrateCancelledForTesting;
     }

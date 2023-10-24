@@ -17,11 +17,10 @@ import androidx.annotation.IntDef;
 
 public final class CopyMode {
     private static final boolean IS_EXTENSIBLE = false;
-    @IntDef({
 
-        CopyMode.COPY_TO_NEW_TEXTURE,
-        CopyMode.COPY_MAILBOXES_ONLY})
-    public @interface EnumType {}
+    @IntDef({CopyMode.COPY_TO_NEW_TEXTURE, CopyMode.COPY_MAILBOXES_ONLY})
+    public @interface EnumType {
+    }
 
     public static final int COPY_TO_NEW_TEXTURE = 0;
     public static final int COPY_MAILBOXES_ONLY = 1;
@@ -38,8 +37,9 @@ public final class CopyMode {
     }
 
     public static int toKnownValue(int value) {
-      return value;
+        return value;
     }
 
-    private CopyMode() {}
+    private CopyMode() {
+    }
 }

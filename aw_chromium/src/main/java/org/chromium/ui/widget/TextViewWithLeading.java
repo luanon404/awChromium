@@ -1,4 +1,4 @@
-// Copyright 2016 The Chromium Authors. All rights reserved.
+// Copyright 2016 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -7,7 +7,8 @@ package org.chromium.ui.widget;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.widget.TextView;
+
+import androidx.appcompat.widget.AppCompatTextView;
 
 import org.chromium.android_webview.R;
 
@@ -17,7 +18,7 @@ import org.chromium.android_webview.R;
  * rules on ruled paper). This class performs the calculation to setup leading correctly and allows
  * it to be set in XML. It overwrites android:lineSpacingExtra and android:lineSpacingMultiplier.
  */
-public class TextViewWithLeading extends TextView {
+public class TextViewWithLeading extends AppCompatTextView {
     /**
      * Constructing TextViewWithLeading programmatically without an {@link AttributeSet} will
      * render it functionally equivalent to a TextView - that is no leading will be applied. This
@@ -27,7 +28,9 @@ public class TextViewWithLeading extends TextView {
         super(context);
     }
 
-    /** Constructor for use from XML. */
+    /**
+     * Constructor for use from XML.
+     */
     public TextViewWithLeading(Context context, AttributeSet attrs) {
         super(context, attrs);
 

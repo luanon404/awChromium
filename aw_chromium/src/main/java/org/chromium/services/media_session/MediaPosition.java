@@ -1,4 +1,4 @@
-// Copyright 2019 The Chromium Authors. All rights reserved.
+// Copyright 2019 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -6,8 +6,8 @@ package org.chromium.services.media_session;
 
 import android.os.SystemClock;
 
-import org.chromium.base.annotations.CalledByNative;
-import org.chromium.base.annotations.JNINamespace;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
 
 /**
  * The MediaPosition class carries the position information.
@@ -15,13 +15,13 @@ import org.chromium.base.annotations.JNINamespace;
  */
 @JNINamespace("media_session")
 public final class MediaPosition {
-    private final Long mDuration;
+    private Long mDuration;
 
-    private final Long mPosition;
+    private Long mPosition;
 
-    private final Float mPlaybackRate;
+    private Float mPlaybackRate;
 
-    private final Long mLastUpdatedTime;
+    private Long mLastUpdatedTime;
 
     /**
      * Creates a new MediaPosition.
@@ -68,9 +68,7 @@ public final class MediaPosition {
         if (!(obj instanceof MediaPosition)) return false;
 
         MediaPosition other = (MediaPosition) obj;
-        return mDuration == other.getDuration() && mPosition == other.getPosition()
-                && mPlaybackRate == other.getPlaybackRate()
-                && mLastUpdatedTime == other.getLastUpdatedTime();
+        return mDuration == other.getDuration() && mPosition == other.getPosition() && mPlaybackRate == other.getPlaybackRate() && mLastUpdatedTime == other.getLastUpdatedTime();
     }
 
     @Override
@@ -84,20 +82,19 @@ public final class MediaPosition {
 
     @Override
     public String toString() {
-        return "duration=" + mDuration + ", position=" + mPosition + ", rate=" + mPlaybackRate
-                + ", updated=" + mLastUpdatedTime;
+        return "duration=" + mDuration + ", position=" + mPosition + ", rate=" + mPlaybackRate + ", updated=" + mLastUpdatedTime;
     }
 
     /**
      * Create a new {@link MediaPosition} from the C++ code.
-     * @param duration The duration of the media in ms.
-     * @param position The position of the media in ms.
-     * @param playbackRate The playback rate of the media as a coefficient.
+     *
+     * @param duration        The duration of the media in ms.
+     * @param position        The position of the media in ms.
+     * @param playbackRate    The playback rate of the media as a coefficient.
      * @param lastUpdatedTime The time the position was last updated in ms (epoch time).
      */
     @CalledByNative
-    private static MediaPosition create(
-            long duration, long position, float playbackRate, long lastUpdatedTime) {
+    private static MediaPosition create(long duration, long position, float playbackRate, long lastUpdatedTime) {
         long currentTime = System.currentTimeMillis();
         long elapsedRealtime = SystemClock.elapsedRealtime();
         long bootTime = currentTime - elapsedRealtime;

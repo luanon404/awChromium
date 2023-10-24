@@ -11,13 +11,13 @@
 //     components/autofill/core/common/mojom/autofill_types.mojom
 //
 
-package org.chromium.autofill.mojom;
+package org.chromium.components.autofill.mojom;
 
 
 public final class LocalFrameToken extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 16;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public org.chromium.mojo_base.mojom.UnguessableToken token;
 
@@ -39,8 +39,7 @@ public final class LocalFrameToken extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static LocalFrameToken deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(
-                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     public static LocalFrameToken decode(org.chromium.mojo.bindings.Decoder decoder0) {
@@ -53,11 +52,11 @@ public final class LocalFrameToken extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new LocalFrameToken(elementsOrVersion);
-                {
-                    
+            {
+
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                 result.token = org.chromium.mojo_base.mojom.UnguessableToken.decode(decoder1);
-                }
+            }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -68,7 +67,7 @@ public final class LocalFrameToken extends org.chromium.mojo.bindings.Struct {
     @Override
     protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-        
+
         encoder0.encode(this.token, 8, false);
     }
 }

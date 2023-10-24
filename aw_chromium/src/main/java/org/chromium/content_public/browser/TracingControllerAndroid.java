@@ -1,4 +1,4 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
+// Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -38,28 +38,27 @@ public interface TracingControllerAndroid {
     /**
      * Start recording a trace to the specified file (if not null) or to a new file in the Downloads
      * directory.
-     *
+     * <p>
      * Only one TracingControllerAndroid can be running at the same time. If another profiler is
      * running when this method is called, it will be cancelled. If this profiler is already
      * running, this method does nothing and returns false.
      *
-     * @param filename The name of the file to output the profile data to, or null.
-     * @param showToasts Whether or not we want to show toasts during this profiling session.
-     * When we are timing the profile run we might not want to incur extra draw overhead of showing
-     * notifications about the profiling system, or the embedder may want to show such notifications
-     * themselves.
-     * @param categories Which categories to trace. See TracingController::StartTracing()
-     * (in content/public/browser/tracing_controller.h) for the format.
+     * @param filename     The name of the file to output the profile data to, or null.
+     * @param showToasts   Whether or not we want to show toasts during this profiling session.
+     *                     When we are timing the profile run we might not want to incur extra draw overhead of showing
+     *                     notifications about the profiling system, or the embedder may want to show such notifications
+     *                     themselves.
+     * @param categories   Which categories to trace. See TracingController::StartTracing()
+     *                     (in content/public/browser/tracing_controller.h) for the format.
      * @param traceOptions Which trace options to use. See
-     * TraceOptions::TraceOptions(const std::string& options_string)
-     * (in base/trace_event/trace_event_impl.h) for the format.
+     *                     TraceOptions::TraceOptions(const std::string& options_string)
+     *                     (in base/trace_event/trace_event_impl.h) for the format.
      * @param compressFile Whether the trace file should be compressed (gzip).
-     * @param useProtobuf Whether to generate a binary protobuf trace or use
-     * the legacy JSON format.
+     * @param useProtobuf  Whether to generate a binary protobuf trace or use
+     *                     the legacy JSON format.
      * @return Whether tracing was started successfully.
      */
-    boolean startTracing(String filename, boolean showToasts, String categories,
-            String traceOptions, boolean compressFile, boolean useProtobuf);
+    boolean startTracing(String filename, boolean showToasts, String categories, String traceOptions, boolean compressFile, boolean useProtobuf);
 
     /**
      * Stop recording and run |callback| when stopped.
@@ -80,7 +79,7 @@ public interface TracingControllerAndroid {
      * Get the current estimated trace buffer usage and approximate total event count in the buffer.
      *
      * @param callback the callback that receives the result as a Pair of (percentage_full,
-     * approximate_event_count).
+     *                 approximate_event_count).
      * @return whether initiating the request was successful.
      */
     boolean getTraceBufferUsage(Callback<Pair<Float, Long>> callback);

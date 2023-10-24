@@ -44,17 +44,16 @@ public interface BackgroundTask {
      * {@link TaskFinishedCallback} is invoked, or the system calls {@link #onStopTask(Context,
      * TaskParameters)}.
      *
-     * @param context the current context.
+     * @param context        the current context.
      * @param taskParameters the data passed in as {@link TaskInfo} when the task was scheduled.
-     * @param callback if the task needs to continue processing after returning from the call to
-     *                 {@link #onStartTask(Context, TaskParameters, TaskFinishedCallback)}, this
-     *                 callback must be invoked when the processing has finished.
+     * @param callback       if the task needs to continue processing after returning from the call to
+     *                       {@link #onStartTask(Context, TaskParameters, TaskFinishedCallback)}, this
+     *                       callback must be invoked when the processing has finished.
      * @return true if the task needs to continue processing work. False if there is no more work.
      * @see TaskInfo
      */
     @MainThread
-    boolean onStartTask(
-            Context context, TaskParameters taskParameters, TaskFinishedCallback callback);
+    boolean onStartTask(Context context, TaskParameters taskParameters, TaskFinishedCallback callback);
 
     /**
      * Callback from {@link BackgroundTaskScheduler} when the system has determined that the
@@ -63,7 +62,7 @@ public interface BackgroundTask {
      * are no longer met. See {@link TaskInfo}. A wakelock is held by the system while this callback
      * is invoked, and immediately released after this method returns.
      *
-     * @param context the current context.
+     * @param context        the current context.
      * @param taskParameters the data passed in as {@link TaskInfo} when the task was scheduled.
      * @return true if the task needs to be rescheduled according to the rescheduling criteria
      * specified when the task was scheduled initially. False if the taskshould not be rescheduled.

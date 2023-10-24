@@ -1,4 +1,4 @@
-// Copyright 2015 The Chromium Authors. All rights reserved.
+// Copyright 2015 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -10,6 +10,8 @@ import android.view.View.OnClickListener;
 import android.view.textclassifier.TextClassification;
 import android.view.textclassifier.TextClassifier;
 import android.view.textclassifier.TextSelection;
+
+import androidx.annotation.Nullable;
 
 import org.chromium.content.browser.selection.SmartSelectionClient;
 import org.chromium.ui.touch_selection.SelectionEventType;
@@ -92,30 +94,32 @@ public interface SelectionClient {
 
     /**
      * Notification that the web content selection has changed, regardless of the causal action.
+     *
      * @param selection The newly established selection.
      */
     void onSelectionChanged(String selection);
 
     /**
      * Notification that a user-triggered selection or insertion-related event has occurred.
+     *
      * @param eventType The selection event type, see {@link SelectionEventType}.
-     * @param posXPix The x coordinate of the selection start handle.
-     * @param posYPix The y coordinate of the selection start handle.
+     * @param posXPix   The x coordinate of the selection start handle.
+     * @param posYPix   The y coordinate of the selection start handle.
      */
     void onSelectionEvent(@SelectionEventType int eventType, float posXPix, float posYPix);
 
     /**
-     * Acknowledges that a selectWordAroundCaret action has completed with the given result.
-     * @param didSelect Whether a word was actually selected or not.
-     * @param startAdjust The adjustment to the selection start offset needed to select the word.
-     *        This is typically a negative number (expressed in terms of number of characters).
-     * @param endAdjust The adjustment to the selection end offset needed to select the word.
-     *        This is typically a positive number (expressed in terms of number of characters).
+     * Acknowledges that a selectAroundCaret action has completed with the given result.
+     *
+     * @param result Information about the selection including selection state and offset
+     *               adjustments to determine the original or extended selection. {@code null} if the
+     *               selection couldn't be made.
      */
-    void selectWordAroundCaretAck(boolean didSelect, int startAdjust, int endAdjust);
+    void selectAroundCaretAck(@Nullable SelectAroundCaretResult result);
 
     /**
      * Notifies the SelectionClient that the selection menu has been requested.
+     *
      * @param shouldSuggest Whether SelectionClient should suggest and classify or just classify.
      * @return True if embedder should wait for a response before showing selection menu.
      */
@@ -137,10 +141,12 @@ public interface SelectionClient {
     /**
      * Sets the TextClassifier for the Smart Text Selection feature. Pass {@code null} to use the
      * system classifier.
+     *
      * @param textClassifier The custom {@link TextClassifier} to start using or {@code null} to
-     *        switch back to the system's classifier.
+     *                       switch back to the system's classifier.
      */
-    default void setTextClassifier(TextClassifier textClassifier) {}
+    default void setTextClassifier(TextClassifier textClassifier) {
+    }
 
     /**
      * Gets TextClassifier that is used for the Smart Text selection. If the custom classifier
@@ -158,10 +164,11 @@ public interface SelectionClient {
         return null;
     }
 
-    /** Creates a {@link SelectionClient} instance. */
+    /**
+     * Creates a {@link SelectionClient} instance.
+     */
     static SelectionClient createSmartSelectionClient(WebContents webContents) {
-        SelectionClient.ResultCallback callback =
-                SelectionPopupController.fromWebContents(webContents).getResultCallback();
+        SelectionClient.ResultCallback callback = SelectionPopupController.fromWebContents(webContents).getResultCallback();
         return SmartSelectionClient.create(callback, webContents);
     }
 }

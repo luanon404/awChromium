@@ -1,4 +1,4 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
+// Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -11,14 +11,14 @@ import java.util.concurrent.atomic.AtomicInteger;
  * native APIs are available.
  */
 public class SequencedTaskRunnerImpl extends TaskRunnerImpl implements SequencedTaskRunner {
-    private final AtomicInteger mPendingTasks = new AtomicInteger();
+    private AtomicInteger mPendingTasks = new AtomicInteger();
 
     private volatile boolean mReadyToCreateNativeTaskRunner;
 
     /**
      * @param traits The TaskTraits associated with this SequencedTaskRunnerImpl.
      */
-    SequencedTaskRunnerImpl(TaskTraits traits) {
+    SequencedTaskRunnerImpl(@TaskTraits int traits) {
         super(traits, "SequencedTaskRunnerImpl", TaskRunnerType.SEQUENCED);
     }
 

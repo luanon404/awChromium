@@ -1,4 +1,4 @@
-// Copyright 2016 The Chromium Authors. All rights reserved.
+// Copyright 2016 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -49,7 +49,8 @@ public class MaxAnticipatedResolutionEstimator {
         }
     }
 
-    private MaxAnticipatedResolutionEstimator() {}
+    private MaxAnticipatedResolutionEstimator() {
+    }
 
     public static Resolution getScreenResolution(MediaFormat format) {
         Resolution resolution = getNativeResolution();
@@ -59,8 +60,7 @@ public class MaxAnticipatedResolutionEstimator {
         }
 
         // Cap screen size at 1080p for non-4K codecs
-        if (!format.getString(MediaFormat.KEY_MIME).equals(MimeTypes.VIDEO_HEVC)
-                && !format.getString(MediaFormat.KEY_MIME).equals(MimeTypes.VIDEO_VP9)) {
+        if (!format.getString(MediaFormat.KEY_MIME).equals(MimeTypes.VIDEO_HEVC) && !format.getString(MediaFormat.KEY_MIME).equals(MimeTypes.VIDEO_VP9)) {
             resolution.mWidth = Math.min(resolution.mWidth, 1920);
             resolution.mHeight = Math.min(resolution.mHeight, 1080);
         }
@@ -77,8 +77,7 @@ public class MaxAnticipatedResolutionEstimator {
         // priv_app in their SELinux policy files. This means that for P devices
         // (except Nvidia Shield), we should continue to guess display size by
         // looking at the installed codecs.
-        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.P && !isNvidiaShield()
-                && is4kVpxSupported()) {
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.P && !isNvidiaShield() && is4kVpxSupported()) {
             Log.d(TAG, "Assuming 4K display capabilities because we can decode VP9 4K video.");
             return new Resolution(SCREEN_WIDTH_4K, SCREEN_HEIGHT_4K);
         }
@@ -86,11 +85,9 @@ public class MaxAnticipatedResolutionEstimator {
         // fall back on DisplayCompat.
 
         Context context = ContextUtils.getApplicationContext();
-        DisplayManager displayManager =
-                (DisplayManager) context.getSystemService(Context.DISPLAY_SERVICE);
+        DisplayManager displayManager = (DisplayManager) context.getSystemService(Context.DISPLAY_SERVICE);
 
-        DisplayCompat.ModeCompat[] supportedModes = DisplayCompat.getSupportedModes(
-                context, displayManager.getDisplay(Display.DEFAULT_DISPLAY));
+        DisplayCompat.ModeCompat[] supportedModes = DisplayCompat.getSupportedModes(context, displayManager.getDisplay(Display.DEFAULT_DISPLAY));
 
         // supportedModes always contain at least one native mode.
         // All native modes are equal in resolution (but differ in refresh rates).
@@ -109,7 +106,6 @@ public class MaxAnticipatedResolutionEstimator {
     }
 
     private static boolean is4kVpxSupported() {
-        return ScreenResolutionUtil.isResolutionSupportedForType(
-                "video/x-vnd.on2.vp9", new Size(SCREEN_WIDTH_4K, SCREEN_HEIGHT_4K));
+        return ScreenResolutionUtil.isResolutionSupportedForType("video/x-vnd.on2.vp9", new Size(SCREEN_WIDTH_4K, SCREEN_HEIGHT_4K));
     }
 }

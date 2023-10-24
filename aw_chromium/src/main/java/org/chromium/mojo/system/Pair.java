@@ -1,11 +1,9 @@
-// Copyright 2014 The Chromium Authors. All rights reserved.
+// Copyright 2014 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
 package org.chromium.mojo.system;
 
-
-import java.util.Objects;
 
 /**
  * A pair of object.
@@ -21,7 +19,7 @@ public class Pair<F, S> {
     /**
      * Dedicated constructor.
      *
-     * @param first the first element of the pair.
+     * @param first  the first element of the pair.
      * @param second the second element of the pair.
      */
     public Pair(F first, S second) {
@@ -33,7 +31,7 @@ public class Pair<F, S> {
      * equals() that handles null values.
      */
     private boolean equals(Object o1, Object o2) {
-        return Objects.equals(o1, o2);
+        return o1 == null ? o2 == null : o1.equals(o2);
     }
 
     /**

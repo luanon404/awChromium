@@ -14,7 +14,6 @@
     <color name="modern_blue_600_alpha_10" tools:ignore="UnusedResources">#191A73E8</color>
     <color name="modern_blue_600_alpha_12">#1F1A73E8</color>
     <color name="modern_blue_600_alpha_65" tools:ignore="UnusedResources">#6AA4F0</color>
-    <color name="modern_blue_700">#3367D6</color>
     <color name="modern_blue_800" tools:ignore="UnusedResources">#185ABC</color>
     <color name="modern_grey_50" tools:ignore="UnusedResources">#F8F9FA</color>
     <color name="modern_grey_100">#F1F3F4</color>
@@ -22,7 +21,6 @@
     <color name="modern_grey_200" tools:ignore="UnusedResources">#E8EAED</color>
     <color name="modern_grey_200_alpha_38" tools:ignore="UnusedResources">#61E8EAED</color>
     <color name="modern_grey_300">#DADCE0</color>
-    <color name="modern_grey_300_alpha_38">#61DADCE0</color>
     <color name="modern_grey_400" tools:ignore="UnusedResources">#BDC1C6</color>
     <color name="modern_grey_500" tools:ignore="UnusedResources">#9AA0A6</color>
     <color name="modern_grey_600">#80868B</color>
@@ -30,7 +28,6 @@
     <color name="modern_grey_800" tools:ignore="UnusedResources">#3C4043</color>
     <color name="modern_grey_800_alpha_38">#613C4043</color>
     <color name="modern_grey_900">#202124</color>
-    <color name="modern_grey_900_alpha_38">#61202124</color>
 
     <color name="modern_grey_900_with_grey_200_alpha_5">#292A2D</color>
     <color name="modern_grey_900_with_grey_200_alpha_8">#303134</color>
@@ -48,7 +45,6 @@
     <color name="white_alpha_24" tools:ignore="UnusedResources">#3DFFFFFF</color>
     <color name="white_alpha_32" tools:ignore="UnusedResources">#51FFFFFF</color>
     <color name="white_alpha_38" tools:ignore="UnusedResources">#61FFFFFF</color>
-    <color name="white_alpha_50">#80FFFFFF</color>
     <color name="white_alpha_70">#B3FFFFFF</color>
 
     <!-- Old color palette -->
@@ -61,4 +57,5 @@
     <!-- Only use for older versions of Android mimics UI. -->
     <color name="google_blue_grey_900" tools:ignore="UnusedResources">#263238</color>
     <color name="google_blue_50" tools:ignore="UnusedResources">#E3F2FD</color>
+    <color name="medium_text_color">#ff202124</color>
 </resources>

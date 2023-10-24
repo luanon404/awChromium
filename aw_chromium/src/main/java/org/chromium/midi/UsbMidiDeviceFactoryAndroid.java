@@ -1,4 +1,4 @@
-// Copyright 2014 The Chromium Authors. All rights reserved.
+// Copyright 2014 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -13,13 +13,12 @@ import android.hardware.usb.UsbConstants;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbInterface;
 import android.hardware.usb.UsbManager;
-import android.os.Parcelable;
 
 import org.chromium.base.ContextUtils;
 import org.chromium.base.IntentUtils;
-import org.chromium.base.annotations.CalledByNative;
-import org.chromium.base.annotations.JNINamespace;
-import org.chromium.base.annotations.NativeMethods;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -36,12 +35,17 @@ class UsbMidiDeviceFactoryAndroid {
     /**
      * The UsbManager of this system.
      */
-    private final UsbManager mUsbManager;
+    private UsbManager mUsbManager;
 
     /**
-     * A BroadcastReceiver for USB device events.
+     * BroadcastReceiver for USB device permission granted/denied responses from UsbManager.
      */
-    private final BroadcastReceiver mReceiver;
+    private BroadcastReceiver mPermissionReceiver;
+
+    /**
+     * BroadcastReceiver for USB device attached/detached events.
+     */
+    private BroadcastReceiver mDeviceChangeReceiver;
 
     /**
      * Accessible USB-MIDI devices got so far.
@@ -51,7 +55,7 @@ class UsbMidiDeviceFactoryAndroid {
     /**
      * Devices whose access permission requested but not resolved so far.
      */
-    private final Set<UsbDevice> mRequestedDevices;
+    private Set<UsbDevice> mRequestedDevices;
 
     /**
      * True when the enumeration is in progress.
@@ -67,37 +71,47 @@ class UsbMidiDeviceFactoryAndroid {
 
     /**
      * Constructs a UsbMidiDeviceAndroid.
+     *
      * @param nativePointer The native pointer to which the created factory is associated.
      */
     UsbMidiDeviceFactoryAndroid(long nativePointer) {
-        mUsbManager = (UsbManager) ContextUtils.getApplicationContext().getSystemService(
-                Context.USB_SERVICE);
+        mUsbManager = (UsbManager) ContextUtils.getApplicationContext().getSystemService(Context.USB_SERVICE);
         mNativePointer = nativePointer;
-        mReceiver = new BroadcastReceiver() {
+        mPermissionReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                Parcelable extra = intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
+                if (!IntentUtils.isTrustedIntentFromSelf(intent)) return;
+                assert ACTION_USB_PERMISSION.equals(intent.getAction());
+                onUsbDevicePermissionRequestDone(context, intent);
+            }
+        };
+        mDeviceChangeReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                UsbDevice device = intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
                 if (UsbManager.ACTION_USB_DEVICE_ATTACHED.equals(intent.getAction())) {
-                    requestDevicePermissionIfNecessary((UsbDevice) extra);
+                    requestDevicePermissionIfNecessary(device);
                 }
                 if (UsbManager.ACTION_USB_DEVICE_DETACHED.equals(intent.getAction())) {
-                    onUsbDeviceDetached((UsbDevice) extra);
-                }
-                if (ACTION_USB_PERMISSION.equals(intent.getAction())) {
-                    onUsbDevicePermissionRequestDone(context, intent);
+                    onUsbDeviceDetached(device);
                 }
             }
         };
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED);
-        filter.addAction(UsbManager.ACTION_USB_DEVICE_DETACHED);
-        filter.addAction(ACTION_USB_PERMISSION);
-        ContextUtils.getApplicationContext().registerReceiver(mReceiver, filter);
         mRequestedDevices = new HashSet<UsbDevice>();
+
+        Context context = ContextUtils.getApplicationContext();
+        IntentFilter permissionFilter = new IntentFilter();
+        permissionFilter.addAction(ACTION_USB_PERMISSION);
+        ContextUtils.registerNonExportedBroadcastReceiver(context, mPermissionReceiver, permissionFilter);
+        IntentFilter deviceChangeFilter = new IntentFilter();
+        deviceChangeFilter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED);
+        deviceChangeFilter.addAction(UsbManager.ACTION_USB_DEVICE_DETACHED);
+        ContextUtils.registerProtectedBroadcastReceiver(context, mDeviceChangeReceiver, deviceChangeFilter);
     }
 
     /**
      * Constructs a UsbMidiDeviceAndroid.
+     *
      * @param nativePointer The native pointer to which the created factory is associated.
      */
     @CalledByNative
@@ -111,8 +125,9 @@ class UsbMidiDeviceFactoryAndroid {
      * accessing the device to the user.
      * When the permission request is accepted or rejected,
      * UsbMidiDeviceFactoryAndroidJni.get().onUsbMidiDeviceRequestDone will be called.
-     *
+     * <p>
      * If there are no USB-MIDI interfaces, this function returns false.
+     *
      * @return true if some permission requests are in progress.
      */
     @CalledByNative
@@ -146,13 +161,13 @@ class UsbMidiDeviceFactoryAndroid {
 
         for (int i = 0; i < device.getInterfaceCount(); ++i) {
             UsbInterface iface = device.getInterface(i);
-            if (iface.getInterfaceClass() == UsbConstants.USB_CLASS_AUDIO
-                    && iface.getInterfaceSubclass() == UsbMidiDeviceAndroid.MIDI_SUBCLASS) {
+            if (iface.getInterfaceClass() == UsbConstants.USB_CLASS_AUDIO && iface.getInterfaceSubclass() == UsbMidiDeviceAndroid.MIDI_SUBCLASS) {
+                Context context = ContextUtils.getApplicationContext();
+                Intent intent = new Intent(ACTION_USB_PERMISSION);
+                intent.setPackage(context.getPackageName());
+                IntentUtils.addTrustedIntentExtras(intent);
                 // There is at least one interface supporting MIDI.
-                mUsbManager.requestPermission(device,
-                        PendingIntent.getBroadcast(ContextUtils.getApplicationContext(), 0,
-                                new Intent(ACTION_USB_PERMISSION),
-                                IntentUtils.getPendingIntentMutabilityFlag(true)));
+                mUsbManager.requestPermission(device, PendingIntent.getBroadcast(context, 0, intent, IntentUtils.getPendingIntentMutabilityFlag(true)));
                 mRequestedDevices.add(device);
                 break;
             }
@@ -202,7 +217,7 @@ class UsbMidiDeviceFactoryAndroid {
      * @param intent
      */
     private void onUsbDevicePermissionRequestDone(Context context, Intent intent) {
-        UsbDevice device = intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
+        UsbDevice device = (UsbDevice) intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
         UsbMidiDeviceAndroid midiDevice = null;
         if (mRequestedDevices.contains(device)) {
             mRequestedDevices.remove(device);
@@ -216,8 +231,7 @@ class UsbMidiDeviceFactoryAndroid {
 
         if (device != null) {
             for (UsbMidiDeviceAndroid registered : mDevices) {
-                if (!registered.isClosed()
-                        && registered.getUsbDevice().getDeviceId() == device.getDeviceId()) {
+                if (!registered.isClosed() && registered.getUsbDevice().getDeviceId() == device.getDeviceId()) {
                     // The device is already registered.
                     device = null;
                     break;
@@ -239,12 +253,10 @@ class UsbMidiDeviceFactoryAndroid {
         }
 
         if (mIsEnumeratingDevices) {
-            UsbMidiDeviceFactoryAndroidJni.get().onUsbMidiDeviceRequestDone(
-                    mNativePointer, mDevices.toArray());
+            UsbMidiDeviceFactoryAndroidJni.get().onUsbMidiDeviceRequestDone(mNativePointer, mDevices.toArray());
             mIsEnumeratingDevices = false;
         } else if (midiDevice != null) {
-            UsbMidiDeviceFactoryAndroidJni.get().onUsbMidiDeviceAttached(
-                    mNativePointer, midiDevice);
+            UsbMidiDeviceFactoryAndroidJni.get().onUsbMidiDeviceAttached(mNativePointer, midiDevice);
         }
     }
 
@@ -254,13 +266,16 @@ class UsbMidiDeviceFactoryAndroid {
     @CalledByNative
     void close() {
         mNativePointer = 0;
-        ContextUtils.getApplicationContext().unregisterReceiver(mReceiver);
+        ContextUtils.getApplicationContext().unregisterReceiver(mDeviceChangeReceiver);
+        ContextUtils.getApplicationContext().unregisterReceiver(mPermissionReceiver);
     }
 
     @NativeMethods
     interface Natives {
         void onUsbMidiDeviceRequestDone(long nativeUsbMidiDeviceFactoryAndroid, Object[] devices);
+
         void onUsbMidiDeviceAttached(long nativeUsbMidiDeviceFactoryAndroid, Object device);
+
         void onUsbMidiDeviceDetached(long nativeUsbMidiDeviceFactoryAndroid, int index);
     }
 }

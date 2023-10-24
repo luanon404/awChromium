@@ -1,4 +1,4 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
+// Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -12,7 +12,7 @@ public interface ExceptionHandler {
     /**
      * Receives a notification that an unhandled {@link RuntimeException} has been thrown in an
      * {@link Interface} implementation or one of the {@link Callbacks} internal classes.
-     *
+     * <p>
      * Normal implementations should either throw the exception or return whether the connection
      * should be kept alive or terminated.
      */
@@ -33,7 +33,8 @@ public interface ExceptionHandler {
             throw e;
         }
 
-        private DefaultExceptionHandler() {}
+        private DefaultExceptionHandler() {
+        }
 
         /**
          * Static class that implements the initialization-on-demand holder idiom.

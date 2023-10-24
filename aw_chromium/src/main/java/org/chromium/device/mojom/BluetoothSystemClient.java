@@ -17,20 +17,16 @@ package org.chromium.device.mojom;
 public interface BluetoothSystemClient extends org.chromium.mojo.bindings.Interface {
 
 
-
     interface Proxy extends BluetoothSystemClient, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<BluetoothSystemClient, BluetoothSystemClient.Proxy> MANAGER = BluetoothSystemClient_Internal.MANAGER;
 
 
-    void onStateChanged(
-int newState);
+    void onStateChanged(int newState);
 
 
-
-    void onScanStateChanged(
-int newState);
+    void onScanStateChanged(int newState);
 
 
 }

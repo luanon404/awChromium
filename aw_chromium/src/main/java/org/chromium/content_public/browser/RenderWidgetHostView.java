@@ -1,4 +1,4 @@
-// Copyright 2019 The Chromium Authors. All rights reserved.
+// Copyright 2019 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -28,14 +28,13 @@ public interface RenderWidgetHostView {
     /**
      * Requests an image snapshot of the content and stores it in the specified folder.
      *
-     * @param width The width of the resulting bitmap, or 0 for "auto."
-     * @param height The height of the resulting bitmap, or 0 for "auto."
-     * @param path The folder in which to store the screenshot.
+     * @param width    The width of the resulting bitmap, or 0 for "auto."
+     * @param height   The height of the resulting bitmap, or 0 for "auto."
+     * @param path     The folder in which to store the screenshot.
      * @param callback May be called synchronously, or at a later point, to deliver the bitmap
      *                 result (or a failure code).
      */
-    void writeContentBitmapToDiskAsync(
-            int width, int height, String path, Callback<String> callback);
+    void writeContentBitmapToDiskAsync(int width, int height, String path, Callback<String> callback);
 
     /**
      * Notifies that the Visual Viewport inset has changed its bottom value.

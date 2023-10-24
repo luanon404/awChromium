@@ -1,4 +1,4 @@
-// Copyright 2013 The Chromium Authors. All rights reserved.
+// Copyright 2013 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -7,8 +7,8 @@ package org.chromium.android_webview.gfx;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
-import org.chromium.base.annotations.CalledByNative;
-import org.chromium.base.annotations.JNINamespace;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
 
 /**
  * Provides auxiliary methods related to Picture objects and native SkPictures.
@@ -44,12 +44,12 @@ public class JavaBrowserViewRendererHelper {
      * Used for convenience from the native side and other static helper methods.
      */
     @CalledByNative
-    private static void drawBitmapIntoCanvas(
-            Bitmap bitmap, Canvas canvas, int scrollX, int scrollY) {
+    private static void drawBitmapIntoCanvas(Bitmap bitmap, Canvas canvas, int scrollX, int scrollY) {
         canvas.translate(scrollX, scrollY);
         canvas.drawBitmap(bitmap, 0, 0, null);
     }
 
     // Should never be instantiated.
-    private JavaBrowserViewRendererHelper() {}
+    private JavaBrowserViewRendererHelper() {
+    }
 }

@@ -1,4 +1,4 @@
-// Copyright 2020 The Chromium Authors. All rights reserved.
+// Copyright 2020 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,11 +14,11 @@ public class ExperimentContentCaptureConsumer implements ContentCaptureConsumer 
     private static final String TAG = "ContentCapture";
     private static boolean sDump;
 
-    public ExperimentContentCaptureConsumer() {}
+    public ExperimentContentCaptureConsumer() {
+    }
 
     @Override
-    public void onContentCaptured(
-            FrameSession parentFrame, ContentCaptureFrame contentCaptureFrame) {
+    public void onContentCaptured(FrameSession parentFrame, ContentCaptureFrame contentCaptureFrame) {
         if (sDump) Log.d(TAG, "onContentCaptured " + contentCaptureFrame.toString());
     }
 
@@ -33,14 +33,18 @@ public class ExperimentContentCaptureConsumer implements ContentCaptureConsumer 
     }
 
     @Override
-    public void onContentUpdated(
-            FrameSession parentFrame, ContentCaptureFrame contentCaptureFrame) {
+    public void onContentUpdated(FrameSession parentFrame, ContentCaptureFrame contentCaptureFrame) {
         if (sDump) Log.d(TAG, "onContentUpdated");
     }
 
     @Override
     public void onTitleUpdated(ContentCaptureFrame contentCaptureFrame) {
         if (sDump) Log.d(TAG, "onTitleUpdated");
+    }
+
+    @Override
+    public void onFaviconUpdated(ContentCaptureFrame mainFrame) {
+        if (sDump) Log.d(TAG, "onFaviconUpdated");
     }
 
     @Override

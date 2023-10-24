@@ -1,28 +1,30 @@
-// Copyright 2013 The Chromium Authors. All rights reserved.
+// Copyright 2013 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
 package org.chromium.android_webview;
 
-import android.annotation.SuppressLint;
 import android.os.CancellationSignal;
 import android.os.ParcelFileDescriptor;
 import android.print.PrintAttributes;
 import android.util.Log;
 import android.view.ViewGroup;
 
-import org.chromium.base.annotations.CalledByNative;
-import org.chromium.base.annotations.JNINamespace;
-import org.chromium.base.annotations.NativeMethods;
+import org.chromium.android_webview.common.Lifetime;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
 
 /**
  * Export the android webview as a PDF.
- * @TODO(sgurun) explain the ownership of this class and its native counterpart
+ * <p>
+ * Owned by Java-side AwContents. This object is lazy-instantiated when needed
+ * and receives a pointer to the native counterpart, which is owned by the
+ * native side of AwContents.
  */
-@SuppressLint("NewApi")  // Printing requires API level 19.
+@Lifetime.WebView
 @JNINamespace("android_webview")
 public class AwPdfExporter {
-
     private static final String TAG = "AwPdfExporter";
     private long mNativeAwPdfExporter;
     // TODO(sgurun) result callback should return an int/object indicating errors.
@@ -44,6 +46,7 @@ public class AwPdfExporter {
     public interface AwPdfExporterCallback {
         /**
          * Called by the native side when PDF generation is done.
+         *
          * @param pageCount How many pages native side wrote to PDF file descriptor. Non-positive
          *                  value indicates native side writing failed.
          */
@@ -58,8 +61,7 @@ public class AwPdfExporter {
         mContainerView = containerView;
     }
 
-    public void exportToPdf(final ParcelFileDescriptor fd, PrintAttributes attributes, int[] pages,
-            AwPdfExporterCallback resultCallback, CancellationSignal cancellationSignal) {
+    public void exportToPdf(final ParcelFileDescriptor fd, PrintAttributes attributes, int[] pages, AwPdfExporterCallback resultCallback, CancellationSignal cancellationSignal) {
         if (fd == null) {
             throw new IllegalArgumentException("fd cannot be null");
         }
@@ -70,7 +72,7 @@ public class AwPdfExporter {
             throw new IllegalStateException("printing is already pending");
         }
         if (attributes.getMediaSize() == null) {
-            throw new  IllegalArgumentException("attributes must specify a media size");
+            throw new IllegalArgumentException("attributes must specify a media size");
         }
         if (attributes.getResolution() == null) {
             throw new IllegalArgumentException("attributes must specify print resolution");
@@ -85,8 +87,7 @@ public class AwPdfExporter {
         mResultCallback = resultCallback;
         mAttributes = attributes;
         mFd = fd;
-        AwPdfExporterJni.get().exportToPdf(
-                mNativeAwPdfExporter, AwPdfExporter.this, mFd.getFd(), pages, cancellationSignal);
+        AwPdfExporterJni.get().exportToPdf(mNativeAwPdfExporter, AwPdfExporter.this, mFd.getFd(), pages, cancellationSignal);
     }
 
     @CalledByNative
@@ -111,8 +112,7 @@ public class AwPdfExporter {
         int horizontalDpi = attributes.getResolution().getHorizontalDpi();
         int verticalDpi = attributes.getResolution().getVerticalDpi();
         if (horizontalDpi != verticalDpi) {
-            Log.w(TAG, "Horizontal and vertical DPIs differ. Using horizontal DPI "
-                    + " hDpi=" + horizontalDpi + " vDPI=" + verticalDpi);
+            Log.w(TAG, "Horizontal and vertical DPIs differ. Using horizontal DPI " + " hDpi=" + horizontalDpi + " vDPI=" + verticalDpi);
         }
         return horizontalDpi;
     }
@@ -163,7 +163,6 @@ public class AwPdfExporter {
 
     @NativeMethods
     interface Natives {
-        void exportToPdf(long nativeAwPdfExporter, AwPdfExporter caller, int fd, int[] pages,
-                CancellationSignal cancellationSignal);
+        void exportToPdf(long nativeAwPdfExporter, AwPdfExporter caller, int fd, int[] pages, CancellationSignal cancellationSignal);
     }
 }

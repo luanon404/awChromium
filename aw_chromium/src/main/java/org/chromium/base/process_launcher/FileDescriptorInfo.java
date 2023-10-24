@@ -1,4 +1,4 @@
-// Copyright 2017 The Chromium Authors. All rights reserved.
+// Copyright 2017 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -8,8 +8,7 @@ import android.os.Parcel;
 import android.os.ParcelFileDescriptor;
 import android.os.Parcelable;
 
-import org.chromium.base.annotations.MainDex;
-import org.chromium.base.annotations.UsedByReflection;
+import org.chromium.build.annotations.UsedByReflection;
 
 import javax.annotation.concurrent.Immutable;
 
@@ -18,7 +17,6 @@ import javax.annotation.concurrent.Immutable;
  * be passed to child processes.
  */
 @Immutable
-@MainDex
 @UsedByReflection("child_process_launcher_helper_android.cc")
 public final class FileDescriptorInfo implements Parcelable {
     public final int id;
@@ -53,16 +51,15 @@ public final class FileDescriptorInfo implements Parcelable {
         dest.writeLong(size);
     }
 
-    public static final Parcelable.Creator<FileDescriptorInfo> CREATOR =
-            new Parcelable.Creator<FileDescriptorInfo>() {
-                @Override
-                public FileDescriptorInfo createFromParcel(Parcel in) {
-                    return new FileDescriptorInfo(in);
-                }
+    public static final Parcelable.Creator<FileDescriptorInfo> CREATOR = new Parcelable.Creator<FileDescriptorInfo>() {
+        @Override
+        public FileDescriptorInfo createFromParcel(Parcel in) {
+            return new FileDescriptorInfo(in);
+        }
 
-                @Override
-                public FileDescriptorInfo[] newArray(int size) {
-                    return new FileDescriptorInfo[size];
-                }
-            };
+        @Override
+        public FileDescriptorInfo[] newArray(int size) {
+            return new FileDescriptorInfo[size];
+        }
+    };
 }

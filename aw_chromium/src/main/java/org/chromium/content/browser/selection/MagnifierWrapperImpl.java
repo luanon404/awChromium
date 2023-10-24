@@ -1,4 +1,4 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
+// Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -19,7 +19,7 @@ public class MagnifierWrapperImpl implements MagnifierWrapper {
     private static final String TAG = "Magnifier";
 
     private Magnifier mMagnifier;
-    private final SelectionPopupControllerImpl.ReadbackViewCallback mCallback;
+    private SelectionPopupControllerImpl.ReadbackViewCallback mCallback;
 
     /**
      * Constructor.
@@ -49,5 +49,10 @@ public class MagnifierWrapperImpl implements MagnifierWrapper {
     @Override
     public boolean isAvailable() {
         return mCallback.getReadbackView() != null;
+    }
+
+    @Override
+    public void childLocalSurfaceIdChanged() {
+        // Intentional not implemented.
     }
 }

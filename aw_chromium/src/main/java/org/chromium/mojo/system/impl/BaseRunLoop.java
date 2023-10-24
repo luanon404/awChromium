@@ -1,13 +1,13 @@
-// Copyright 2015 The Chromium Authors. All rights reserved.
+// Copyright 2015 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
 package org.chromium.mojo.system.impl;
 
-import org.chromium.base.annotations.CalledByNative;
-import org.chromium.base.annotations.JNINamespace;
-import org.chromium.base.annotations.NativeMethods;
 import org.chromium.mojo.system.RunLoop;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
 
 /**
  * Implementation of {@link RunLoop} suitable for the base:: message loop implementation.
@@ -69,10 +69,15 @@ class BaseRunLoop implements RunLoop {
     @NativeMethods
     interface Natives {
         long createBaseRunLoop(BaseRunLoop caller);
+
         void run(BaseRunLoop caller);
+
         void runUntilIdle(BaseRunLoop caller);
+
         void quit(BaseRunLoop caller);
+
         void postDelayedTask(BaseRunLoop caller, long runLoopID, Runnable runnable, long delay);
+
         void deleteMessageLoop(BaseRunLoop caller, long runLoopID);
     }
 }

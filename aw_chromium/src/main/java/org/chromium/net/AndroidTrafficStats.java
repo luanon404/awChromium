@@ -1,4 +1,4 @@
-// Copyright 2015 The Chromium Authors. All rights reserved.
+// Copyright 2015 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -7,20 +7,21 @@ package org.chromium.net;
 import android.net.TrafficStats;
 import android.os.Process;
 
-import org.chromium.base.annotations.CalledByNative;
-import org.chromium.base.annotations.JNINamespace;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
 
 /**
  * This class interacts with TrafficStats API provided by Android.
  */
 @JNINamespace("net::android::traffic_stats")
 public class AndroidTrafficStats {
-    private AndroidTrafficStats() {}
+    private AndroidTrafficStats() {
+    }
 
     /**
      * @return Number of bytes transmitted since device boot. Counts packets across all network
-     *         interfaces, and always increases monotonically since device boot. Statistics are
-     *         measured at the network layer, so they include both TCP and UDP usage.
+     * interfaces, and always increases monotonically since device boot. Statistics are
+     * measured at the network layer, so they include both TCP and UDP usage.
      */
     @CalledByNative
     private static long getTotalTxBytes() {
@@ -30,8 +31,8 @@ public class AndroidTrafficStats {
 
     /**
      * @return Number of bytes received since device boot. Counts packets across all network
-     *         interfaces, and always increases monotonically since device boot. Statistics are
-     *         measured at the network layer, so they include both TCP and UDP usage.
+     * interfaces, and always increases monotonically since device boot. Statistics are
+     * measured at the network layer, so they include both TCP and UDP usage.
      */
     @CalledByNative
     private static long getTotalRxBytes() {
@@ -41,9 +42,9 @@ public class AndroidTrafficStats {
 
     /**
      * @return Number of bytes transmitted since device boot that were attributed to caller's UID.
-     *         Counts packets across all network interfaces, and always increases monotonically
-     *         since device boot. Statistics are measured at the network layer, so they include
-     *         both TCP and UDP usage.
+     * Counts packets across all network interfaces, and always increases monotonically
+     * since device boot. Statistics are measured at the network layer, so they include
+     * both TCP and UDP usage.
      */
     @CalledByNative
     private static long getCurrentUidTxBytes() {
@@ -53,9 +54,9 @@ public class AndroidTrafficStats {
 
     /**
      * @return Number of bytes received since device boot that were attributed to caller's UID.
-     *         Counts packets across all network interfaces, and always increases monotonically
-     *         since device boot. Statistics are measured at the network layer, so they include
-     *         both TCP and UDP usage.
+     * Counts packets across all network interfaces, and always increases monotonically
+     * since device boot. Statistics are measured at the network layer, so they include
+     * both TCP and UDP usage.
      */
     @CalledByNative
     private static long getCurrentUidRxBytes() {

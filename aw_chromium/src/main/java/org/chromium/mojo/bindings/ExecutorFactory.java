@@ -1,4 +1,4 @@
-// Copyright 2014 The Chromium Authors. All rights reserved.
+// Copyright 2014 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -68,8 +68,7 @@ public class ExecutorFactory {
             mWatcher = core.getWatcher();
             assert mWatcher != null;
             mLock = new Object();
-            Pair<MessagePipeHandle, MessagePipeHandle> handles = core.createMessagePipe(
-                    new MessagePipeHandle.CreateOptions());
+            Pair<MessagePipeHandle, MessagePipeHandle> handles = core.createMessagePipe(new MessagePipeHandle.CreateOptions());
             mReadHandle = handles.first;
             mWriteHandle = handles.second;
             mPendingActions = new ArrayList<Runnable>();
@@ -107,8 +106,7 @@ public class ExecutorFactory {
          */
         private boolean readNotifyBufferMessage() {
             try {
-                ResultAnd<ReadMessageResult> readMessageResult =
-                        mReadHandle.readMessage(MessagePipeHandle.ReadFlags.NONE);
+                ResultAnd<ReadMessageResult> readMessageResult = mReadHandle.readMessage(MessagePipeHandle.ReadFlags.NONE);
                 if (readMessageResult.getMojoResult() == MojoResult.OK) {
                     return true;
                 }
@@ -122,7 +120,7 @@ public class ExecutorFactory {
          * Run the next action in the |mPendingActions| queue.
          */
         private void runNextAction() {
-            Runnable toRun;
+            Runnable toRun = null;
             synchronized (mLock) {
                 toRun = mPendingActions.remove(0);
             }
@@ -140,8 +138,7 @@ public class ExecutorFactory {
             // from the executor's thread.
             synchronized (mLock) {
                 if (!mWriteHandle.isValid()) {
-                    throw new IllegalStateException(
-                            "Trying to execute an action on a closed executor.");
+                    throw new IllegalStateException("Trying to execute an action on a closed executor.");
                 }
                 mPendingActions.add(command);
                 mWriteHandle.writeMessage(NOTIFY_BUFFER, null, MessagePipeHandle.WriteFlags.NONE);

@@ -1,4 +1,4 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
+// Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -13,6 +13,7 @@ import org.chromium.content.browser.webcontents.WebContentsImpl.UserDataFactory;
 import org.chromium.content_public.browser.ViewEventSink;
 import org.chromium.content_public.browser.WebContents;
 import org.chromium.ui.base.ViewAndroidDelegate;
+import org.chromium.ui.base.ViewUtils;
 import org.chromium.ui.base.WindowAndroid.ActivityStateObserver;
 
 /**
@@ -40,8 +41,7 @@ public final class ViewEventSinkImpl implements ViewEventSink, ActivityStateObse
     }
 
     public static ViewEventSinkImpl from(WebContents webContents) {
-        return ((WebContentsImpl) webContents)
-                .getOrSetUserData(ViewEventSinkImpl.class, UserDataFactoryLazyHolder.INSTANCE);
+        return ((WebContentsImpl) webContents).getOrSetUserData(ViewEventSinkImpl.class, UserDataFactoryLazyHolder.INSTANCE);
     }
 
     public ViewEventSinkImpl(WebContents webContents) {
@@ -62,6 +62,13 @@ public final class ViewEventSinkImpl implements ViewEventSink, ActivityStateObse
     @Override
     public void onDetachedFromWindow() {
         WindowEventObserverManager.from(mWebContents).onDetachedFromWindow();
+        // Stylus Writing
+        if (mWebContents.getStylusWritingHandler() != null) {
+            ViewAndroidDelegate viewAndroidDelegate = mWebContents.getViewAndroidDelegate();
+            if (viewAndroidDelegate != null) {
+                mWebContents.getStylusWritingHandler().onDetachedFromWindow(viewAndroidDelegate.getContainerView().getContext());
+            }
+        }
     }
 
     @Override
@@ -74,6 +81,11 @@ public final class ViewEventSinkImpl implements ViewEventSink, ActivityStateObse
         if (mHasViewFocus != null && mHasViewFocus == gainFocus) return;
         mHasViewFocus = gainFocus;
         onFocusChanged();
+
+        // Stylus Writing
+        if (mWebContents.getStylusWritingHandler() != null) {
+            mWebContents.getStylusWritingHandler().onFocusChanged(gainFocus);
+        }
     }
 
     @Override
@@ -81,6 +93,7 @@ public final class ViewEventSinkImpl implements ViewEventSink, ActivityStateObse
         mHideKeyboardOnBlur = hideKeyboardOnBlur;
     }
 
+    @SuppressWarnings("javadoc")
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         try {
@@ -89,7 +102,9 @@ public final class ViewEventSinkImpl implements ViewEventSink, ActivityStateObse
             // To request layout has side effect, but it seems OK as it only happen in
             // onConfigurationChange and layout has to be changed in most case.
             ViewAndroidDelegate delegate = mWebContents.getViewAndroidDelegate();
-            if (delegate != null) delegate.getContainerView().requestLayout();
+            if (delegate != null) {
+                ViewUtils.requestLayout(delegate.getContainerView(), "ViewEventSinkImpl.onConfigurationChanged");
+            }
         } finally {
             TraceEvent.end("ViewEventSink.onConfigurationChanged");
         }
@@ -110,8 +125,7 @@ public final class ViewEventSinkImpl implements ViewEventSink, ActivityStateObse
             // any more. Simply return here.
             return;
         }
-        WindowEventObserverManager.from(mWebContents)
-                .onViewFocusChanged(mHasInputFocus, mHideKeyboardOnBlur);
+        WindowEventObserverManager.from(mWebContents).onViewFocusChanged(mHasInputFocus, mHideKeyboardOnBlur);
         mWebContents.setFocus(mHasInputFocus);
     }
 
@@ -139,7 +153,8 @@ public final class ViewEventSinkImpl implements ViewEventSink, ActivityStateObse
     }
 
     @Override
-    public void onActivityDestroyed() {}
+    public void onActivityDestroyed() {
+    }
 
     @Override
     public void onPauseForTesting() {

@@ -1,4 +1,4 @@
-// Copyright 2019 The Chromium Authors. All rights reserved.
+// Copyright 2019 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -8,22 +8,20 @@ import org.chromium.base.CommandLine;
 import org.chromium.base.ContextUtils;
 import org.chromium.base.SysUtils;
 import org.chromium.base.TraceEvent;
-import org.chromium.base.annotations.JNINamespace;
-import org.chromium.base.annotations.MainDex;
-import org.chromium.base.annotations.NativeMethods;
 import org.chromium.base.metrics.RecordHistogram;
 import org.chromium.base.task.PostTask;
 import org.chromium.base.task.TaskTraits;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Handles native library prefetch.
- *
+ * <p>
  * See also base/android/library_loader/library_prefetcher_hooks.cc, which contains
  * the native counterpart to this class.
  */
-@MainDex
 @JNINamespace("base::android")
 public class LibraryPrefetcher {
 
@@ -34,11 +32,11 @@ public class LibraryPrefetcher {
 
     /**
      * Prefetches the native libraries in a background thread.
-     *
+     * <p>
      * Launches a task that, through a short-lived forked process, reads a
      * part of each page of the native library.  This is done to warm up the
      * page cache, turning hard page faults into soft ones.
-     *
+     * <p>
      * This is done this way, as testing shows that fadvise(FADV_WILLNEED) is
      * detrimental to the startup time.
      */
@@ -58,16 +56,13 @@ public class LibraryPrefetcher {
 
         PostTask.postTask(TaskTraits.USER_BLOCKING, () -> {
             int percentage = LibraryPrefetcherJni.get().percentageOfResidentNativeLibraryCode();
-            try (TraceEvent e =
-                            TraceEvent.scoped("LibraryPrefetcher.asyncPrefetchLibrariesToMemory",
-                                    Integer.toString(percentage))) {
+            try (TraceEvent e = TraceEvent.scoped("LibraryPrefetcher.asyncPrefetchLibrariesToMemory", Integer.toString(percentage))) {
                 // Arbitrary percentage threshold. If most of the native library is already
                 // resident (likely with monochrome), don't bother creating a prefetch process.
                 boolean prefetch = coldStart && percentage < 90;
                 if (prefetch) LibraryPrefetcherJni.get().forkAndPrefetchNativeLibrary();
                 if (percentage != -1) {
-                    String histogram = "LibraryLoader.PercentageOfResidentCodeBeforePrefetch"
-                            + (coldStart ? ".ColdStartup" : ".WarmStartup");
+                    String histogram = "LibraryLoader.PercentageOfResidentCodeBeforePrefetch" + (coldStart ? ".ColdStartup" : ".WarmStartup");
                     RecordHistogram.recordPercentageHistogram(histogram, percentage);
                 }
             }

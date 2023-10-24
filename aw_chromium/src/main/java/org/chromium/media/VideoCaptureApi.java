@@ -1,5 +1,4 @@
-
-// Copyright 2021 The Chromium Authors. All rights reserved.
+// Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -15,27 +14,21 @@ import androidx.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@IntDef({
-    VideoCaptureApi.LINUX_V4L2_SINGLE_PLANE, VideoCaptureApi.WIN_MEDIA_FOUNDATION,
-    VideoCaptureApi.WIN_MEDIA_FOUNDATION_SENSOR, VideoCaptureApi.WIN_DIRECT_SHOW,
-    VideoCaptureApi.MACOSX_AVFOUNDATION, VideoCaptureApi.MACOSX_DECKLINK,
-    VideoCaptureApi.ANDROID_API1, VideoCaptureApi.ANDROID_API2_LEGACY,
-    VideoCaptureApi.ANDROID_API2_FULL, VideoCaptureApi.ANDROID_API2_LIMITED,
-    VideoCaptureApi.FUCHSIA_CAMERA3, VideoCaptureApi.VIRTUAL_DEVICE, VideoCaptureApi.UNKNOWN
-})
+@IntDef({VideoCaptureApi.UNKNOWN, VideoCaptureApi.LINUX_V4L2_SINGLE_PLANE, VideoCaptureApi.WIN_MEDIA_FOUNDATION, VideoCaptureApi.WIN_MEDIA_FOUNDATION_SENSOR, VideoCaptureApi.WIN_DIRECT_SHOW, VideoCaptureApi.MACOSX_AVFOUNDATION, VideoCaptureApi.MACOSX_DECKLINK, VideoCaptureApi.ANDROID_API1, VideoCaptureApi.ANDROID_API2_LEGACY, VideoCaptureApi.ANDROID_API2_FULL, VideoCaptureApi.ANDROID_API2_LIMITED, VideoCaptureApi.FUCHSIA_CAMERA3, VideoCaptureApi.VIRTUAL_DEVICE, VideoCaptureApi.MAX_VALUE})
 @Retention(RetentionPolicy.SOURCE)
 public @interface VideoCaptureApi {
-  int LINUX_V4L2_SINGLE_PLANE = 0;
-  int WIN_MEDIA_FOUNDATION = 1;
-  int WIN_MEDIA_FOUNDATION_SENSOR = 2;
-  int WIN_DIRECT_SHOW = 3;
-  int MACOSX_AVFOUNDATION = 4;
-  int MACOSX_DECKLINK = 5;
-  int ANDROID_API1 = 6;
-  int ANDROID_API2_LEGACY = 7;
-  int ANDROID_API2_FULL = 8;
-  int ANDROID_API2_LIMITED = 9;
-  int FUCHSIA_CAMERA3 = 10;
-  int VIRTUAL_DEVICE = 11;
-  int UNKNOWN = 12;
+    int UNKNOWN = 0;
+    int LINUX_V4L2_SINGLE_PLANE = 1;
+    int WIN_MEDIA_FOUNDATION = 2;
+    int WIN_MEDIA_FOUNDATION_SENSOR = 3;
+    int WIN_DIRECT_SHOW = 4;
+    int MACOSX_AVFOUNDATION = 5;
+    int MACOSX_DECKLINK = 6;
+    int ANDROID_API1 = 7;
+    int ANDROID_API2_LEGACY = 8;
+    int ANDROID_API2_FULL = 9;
+    int ANDROID_API2_LIMITED = 10;
+    int FUCHSIA_CAMERA3 = 11;
+    int VIRTUAL_DEVICE = 12;
+    int MAX_VALUE = VIRTUAL_DEVICE;
 }

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <fraction name="menu_animation_pivot_x">
+        <numerator>0.5</numerator>
+        <denominator>1</denominator>
+    </fraction>
+    <fraction name="menu_start_animation_pivot_x">
+        <numerator>0.5</numerator>
+        <denominator>1</denominator>
+    </fraction>
+</resources>

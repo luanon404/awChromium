@@ -1,4 +1,4 @@
-// Copyright 2013 The Chromium Authors. All rights reserved.
+// Copyright 2013 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -66,10 +66,8 @@ public class ColorPickerAdvanced extends LinearLayout implements OnSeekBarChange
         setOrientation(LinearLayout.VERTICAL);
 
         mHueDetails = createAndAddNewGradient(R.string.color_picker_hue, HUE_SEEK_BAR_MAX, this);
-        mSaturationDetails = createAndAddNewGradient(
-                R.string.color_picker_saturation, SATURATION_SEEK_BAR_MAX, this);
-        mValueDetails =
-                createAndAddNewGradient(R.string.color_picker_value, VALUE_SEEK_BAR_MAX, this);
+        mSaturationDetails = createAndAddNewGradient(R.string.color_picker_saturation, SATURATION_SEEK_BAR_MAX, this);
+        mValueDetails = createAndAddNewGradient(R.string.color_picker_value, VALUE_SEEK_BAR_MAX, this);
         refreshGradientComponents();
     }
 
@@ -77,21 +75,17 @@ public class ColorPickerAdvanced extends LinearLayout implements OnSeekBarChange
      * Creates a new GradientDetails object from the parameters provided, initializes it,
      * and adds it to this advanced view.
      *
-     * @param textResourceId The text to display for the label.
-     * @param seekBarMax The maximum value of the seek bar for the gradient.
+     * @param textResourceId  The text to display for the label.
+     * @param seekBarMax      The maximum value of the seek bar for the gradient.
      * @param seekBarListener Object listening to when the user changes the seek bar.
-     *
      * @return A new GradientDetails object initialized with the given parameters.
      */
-    public ColorPickerAdvancedComponent createAndAddNewGradient(
-            int textResourceId, int seekBarMax, OnSeekBarChangeListener seekBarListener) {
-        LayoutInflater inflater =
-                (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    public ColorPickerAdvancedComponent createAndAddNewGradient(int textResourceId, int seekBarMax, OnSeekBarChangeListener seekBarListener) {
+        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View newComponent = inflater.inflate(R.layout.color_picker_advanced_component, null);
         addView(newComponent);
 
-        return new ColorPickerAdvancedComponent(
-                newComponent, textResourceId, seekBarMax, seekBarListener);
+        return new ColorPickerAdvancedComponent(newComponent, textResourceId, seekBarMax, seekBarListener);
     }
 
     /**
@@ -133,10 +127,10 @@ public class ColorPickerAdvanced extends LinearLayout implements OnSeekBarChange
     /**
      * Callback for when a slider is updated on the advanced view.
      *
-     * @param seekBar The color slider that was updated.
+     * @param seekBar  The color slider that was updated.
      * @param progress The new value of the color slider.
      * @param fromUser Whether it was the user the changed the value, or whether
-     *            we were setting it up.
+     *                 we were setting it up.
      */
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {

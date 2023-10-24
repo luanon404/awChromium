@@ -1,4 +1,4 @@
-// Copyright 2016 The Chromium Authors. All rights reserved.
+// Copyright 2016 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -7,7 +7,6 @@ package org.chromium.content.browser.selection;
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
 import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
 import android.view.ActionMode;
@@ -21,7 +20,7 @@ import android.widget.PopupWindow;
 import org.chromium.base.Log;
 import org.chromium.base.PackageUtils;
 import org.chromium.base.task.PostTask;
-import org.chromium.content_public.browser.UiThreadTaskTraits;
+import org.chromium.base.task.TaskTraits;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -40,7 +39,8 @@ public final class LGEmailActionModeWorkaroundImpl {
     // This is the last broken version shipped on LG V20/NRD90M.
     public static final int LGEmailWorkaroundMaxVersion = 67502100;
 
-    private LGEmailActionModeWorkaroundImpl() {}
+    private LGEmailActionModeWorkaroundImpl() {
+    }
 
     public static boolean isSafeVersion(int versionCode) {
         return versionCode > LGEmailWorkaroundMaxVersion;
@@ -48,7 +48,8 @@ public final class LGEmailActionModeWorkaroundImpl {
 
     /**
      * Run this workaround only when it's applicable and absolutely necessary.
-     * @param context The context
+     *
+     * @param context    The context
      * @param actionMode The {@ActionMode} to apply the workaround to.
      */
     public static void runIfNecessary(Context context, ActionMode actionMode) {
@@ -59,12 +60,11 @@ public final class LGEmailActionModeWorkaroundImpl {
 
     private static boolean shouldAllowActionModeDestroyOnNonUiThread(Context context) {
         String appName = context.getPackageName();
-        int versionCode = PackageUtils.getPackageVersion(context, appName);
+        int versionCode = PackageUtils.getPackageVersion(appName);
         if (versionCode == -1) return false;
 
         int appTargetSdkVersion = context.getApplicationInfo().targetSdkVersion;
-        if (appTargetSdkVersion < Build.VERSION_CODES.M
-                || appTargetSdkVersion > Build.VERSION_CODES.N) {
+        if (appTargetSdkVersion < Build.VERSION_CODES.M || appTargetSdkVersion > Build.VERSION_CODES.N) {
             return false;
         }
 
@@ -72,13 +72,10 @@ public final class LGEmailActionModeWorkaroundImpl {
         if (!lgeMailPackageId.equals(appName)) return false;
         if (versionCode > LGEmailWorkaroundMaxVersion) return false;
 
-        Log.w(TAG, "Working around action mode LG Email bug in WebView (http://crbug.com/651706). "
-                + "APK name: " + lgeMailPackageId + ", versionCode: "
-                + versionCode);
+        Log.w(TAG, "Working around action mode LG Email bug in WebView (http://crbug.com/651706). " + "APK name: " + lgeMailPackageId + ", versionCode: " + versionCode);
         return true;
     }
 
-    @TargetApi(Build.VERSION_CODES.M)
     private static void allowActionModeDestroyOnNonUiThread(ActionMode actionMode) {
         // LG Email app dismisses ActionMode whenever InputConnection#setComposingText() or
         // InputConnection#commitText() occurs. But they do on ImeThread, not on UI thread and
@@ -104,7 +101,7 @@ public final class LGEmailActionModeWorkaroundImpl {
 
                 @Override
                 public void onDestroyActionMode(final ActionMode mode) {
-                    PostTask.postTask(UiThreadTaskTraits.DEFAULT, new Runnable() {
+                    PostTask.postTask(TaskTraits.UI_DEFAULT, new Runnable() {
                         @Override
                         public void run() {
                             c.onDestroyActionMode(mode);
@@ -118,40 +115,36 @@ public final class LGEmailActionModeWorkaroundImpl {
             final Object popup = getField(floatingToolbar, "mPopup");
             final ViewGroup contentContainer = (ViewGroup) getField(popup, "mContentContainer");
             final PopupWindow popupWindow = (PopupWindow) getField(popup, "mPopupWindow");
-            Method createExitAnimation = floatingToolbar.getClass().getDeclaredMethod(
-                    "createExitAnimation", View.class, int.class, AnimatorListener.class);
+            Method createExitAnimation = floatingToolbar.getClass().getDeclaredMethod("createExitAnimation", View.class, int.class, AnimatorListener.class);
             createExitAnimation.setAccessible(true);
-            Object newDismissAnimation = createExitAnimation.invoke(
-                    null, contentContainer, 150, new AnimatorListenerAdapter() {
+            Object newDismissAnimation = createExitAnimation.invoke(null, contentContainer, 150, new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    PostTask.postTask(TaskTraits.UI_DEFAULT, new Runnable() {
                         @Override
-                        public void onAnimationEnd(Animator animation) {
-                            PostTask.postTask(UiThreadTaskTraits.DEFAULT, new Runnable() {
-                                @Override
-                                public void run() {
-                                    popupWindow.dismiss();
-                                    contentContainer.removeAllViews();
-                                }
-                            });
+                        public void run() {
+                            popupWindow.dismiss();
+                            contentContainer.removeAllViews();
                         }
                     });
+                }
+            });
             setField(popup, "mDismissAnimation", newDismissAnimation);
-        } catch (NoSuchFieldException | IllegalAccessException | IllegalArgumentException
-                | NoSuchMethodException | InvocationTargetException e) {
+        } catch (NoSuchFieldException | IllegalAccessException | IllegalArgumentException |
+                 NoSuchMethodException | InvocationTargetException e) {
             // Ignore exception and just return.
         } catch (Exception e) {
             Log.w(TAG, "Error occurred during LGEmailActionModeWorkaround: ", e);
         }
     }
 
-    private static Object getField(Object obj, String fieldName)
-            throws NoSuchFieldException, IllegalAccessException, IllegalArgumentException {
+    private static Object getField(Object obj, String fieldName) throws NoSuchFieldException, IllegalAccessException, IllegalArgumentException {
         Field f = obj.getClass().getDeclaredField(fieldName);
         f.setAccessible(true);
         return f.get(obj);
     }
 
-    private static void setField(Object obj, String fieldName, Object value)
-            throws NoSuchFieldException, IllegalAccessException, IllegalArgumentException {
+    private static void setField(Object obj, String fieldName, Object value) throws NoSuchFieldException, IllegalAccessException, IllegalArgumentException {
         Field f = obj.getClass().getDeclaredField(fieldName);
         f.setAccessible(true);
         f.set(obj, value);

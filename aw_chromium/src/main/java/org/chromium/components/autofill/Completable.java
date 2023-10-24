@@ -1,4 +1,4 @@
-// Copyright 2016 The Chromium Authors. All rights reserved.
+// Copyright 2016 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -9,9 +9,13 @@ package org.chromium.components.autofill;
  * being edited by the user first.
  */
 public interface Completable {
-    /** @return Whether the data is complete and can be sent to the merchant as-is */
+    /**
+     * @return Whether the data is complete and can be sent to the merchant as-is
+     */
     boolean isComplete();
 
-    /** @return the completeness score of the data, used to sort multiple options */
+    /**
+     * @return the completeness score of the data, used to sort multiple options
+     */
     int getCompletenessScore();
 }

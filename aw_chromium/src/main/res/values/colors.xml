@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black_alpha_54">#8a000000</color>
-    <color name="black_alpha_87">#de000000</color>
     <color name="google_blue_500">#ff4285f4</color>
     <color name="insecure_context_payment_disabled_message_text">#ff646464</color>
 
     <!-- TODO(crbug.com/775198): update colors once UX spec available. -->
     <color name="color_picker_border_color">@color/hairline_stroke_color</color>
     <color name="color_picker_background_color">@color/default_bg_color</color>
+    <color name="default_text_color_baseline">#ff1f1f1f</color>
+    <color name="default_text_color_secondary_baseline">#ff444746</color>
+    <color name="menu_item_bg_color">@android:color/white</color>
+    <color name="drag_shadow_outline_color">#33e1e3e1</color>
+    <color name="baseline_neutral_variant_90_alpha_20">#33e1e3e1</color>
+    <color name="default_text_color_link_baseline">#ff0b57d0</color>
+    <color name="default_bg_color_baseline">@android:color/white</color>
+    <color name="delete_button">#ff000000</color>
+    <color name="toolbar_shadow_color">#1d000000</color>
+    <color name="default_primary_color">#fff2f2f2</color>
+    <color name="default_text_color_link_disabled_baseline">#611f1f1f</color>
 </resources>

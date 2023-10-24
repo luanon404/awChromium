@@ -1,4 +1,4 @@
-// Copyright 2017 The Chromium Authors. All rights reserved.
+// Copyright 2017 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -21,7 +21,7 @@ import org.chromium.media.mojom.AndroidOverlayConfig;
 /**
  * Core class for control of a single Dialog-based AndroidOverlay instance.  Everything runs on the
  * Browser UI thread.
- *
+ * <p>
  * Note that this does not implement AndroidOverlay; we just manage the android side of it.  The
  * mojo interface is implemented by DialogOverlayImpl.
  */
@@ -58,17 +58,18 @@ class DialogOverlayCore {
      * Construction may be called from a random thread, for simplicity.  Call initialize from the
      * proper thread before doing anything else.
      */
-    public DialogOverlayCore() {}
+    public DialogOverlayCore() {
+    }
 
     /**
      * Finish init on the proper thread.  We'll use this thread for the Dialog Looper thread.
-     * @param dialog the dialog, which uses our current thread as the UI thread.
-     * @param config initial config.
-     * @param host host interface, for sending messages that (probably) need to thread hop.
+     *
+     * @param dialog  the dialog, which uses our current thread as the UI thread.
+     * @param config  initial config.
+     * @param host    host interface, for sending messages that (probably) need to thread hop.
      * @param asPanel if true, then we'll be a panel.  This is intended for tests only.
      */
-    public void initialize(
-            Context context, AndroidOverlayConfig config, Host host, boolean asPanel) {
+    public void initialize(Context context, AndroidOverlayConfig config, Host host, boolean asPanel) {
         mHost = host;
         mAsPanel = asPanel;
 
@@ -99,8 +100,7 @@ class DialogOverlayCore {
      * matches the current params.
      */
     private boolean copyRectToLayoutParams(final Rect rect) {
-        if (mLayoutParams.x == rect.x && mLayoutParams.y == rect.y
-                && mLayoutParams.width == rect.width && mLayoutParams.height == rect.height) {
+        if (mLayoutParams.x == rect.x && mLayoutParams.y == rect.y && mLayoutParams.width == rect.width && mLayoutParams.height == rect.height) {
             return false;
         }
 
@@ -133,7 +133,8 @@ class DialogOverlayCore {
      */
     private class Callbacks implements SurfaceHolder.Callback2 {
         @Override
-        public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {}
+        public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+        }
 
         @Override
         public void surfaceCreated(SurfaceHolder holder) {
@@ -153,7 +154,8 @@ class DialogOverlayCore {
         }
 
         @Override
-        public void surfaceRedrawNeeded(SurfaceHolder holder) {}
+        public void surfaceRedrawNeeded(SurfaceHolder holder) {
+        }
     }
 
     public void onWindowToken(IBinder token) {
@@ -196,13 +198,9 @@ class DialogOverlayCore {
         // Use a media surface, which is what SurfaceView uses by default.  For
         // debugging overlay drawing, consider using TYPE_APPLICATION_PANEL to
         // move the dialog over the CompositorView.
-        layoutParams.type = mAsPanel ? WindowManager.LayoutParams.TYPE_APPLICATION_PANEL
-                                     : WindowManager.LayoutParams.TYPE_APPLICATION_MEDIA;
+        layoutParams.type = mAsPanel ? WindowManager.LayoutParams.TYPE_APPLICATION_PANEL : WindowManager.LayoutParams.TYPE_APPLICATION_MEDIA;
 
-        layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
-                | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-                | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-                | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS;
+        layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS;
 
         if (secure) {
             layoutParams.flags |= WindowManager.LayoutParams.FLAG_SECURE;
@@ -219,11 +217,8 @@ class DialogOverlayCore {
         // position to the next.  Ignore errors.
         // 0x40 is PRIVATE_FLAG_NO_MOVE_ANIMATION.
         try {
-            int currentFlags =
-                    (Integer) layoutParams.getClass().getField("privateFlags").get(layoutParams);
-            layoutParams.getClass()
-                    .getField("privateFlags")
-                    .set(layoutParams, currentFlags | 0x00000040);
+            int currentFlags = (Integer) layoutParams.getClass().getField("privateFlags").get(layoutParams);
+            layoutParams.getClass().getField("privateFlags").set(layoutParams, currentFlags | 0x00000040);
             // It would be nice to just catch Exception, but findbugs doesn't
             // allow it.  If we cannot set the flag, then that's okay too.
         } catch (NoSuchFieldException e) {

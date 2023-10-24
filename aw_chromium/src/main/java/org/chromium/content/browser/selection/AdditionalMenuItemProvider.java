@@ -19,12 +19,12 @@ import java.util.List;
 public interface AdditionalMenuItemProvider {
     /**
      * Add menu items to the menu passed in.
-     * @param context The context from app.
-     * @param menu Add menu items to this menu.
+     *
+     * @param context        The context from app.
+     * @param menu           Add menu items to this menu.
      * @param classification Providing info to generate menu items.
      */
-    void addMenuItems(
-            Context context, Menu menu, TextClassification classification, List<Drawable> icons);
+    void addMenuItems(Context context, Menu menu, TextClassification classification, List<Drawable> icons);
 
     /**
      * Call this to trigger internal cleanup.
@@ -33,6 +33,7 @@ public interface AdditionalMenuItemProvider {
 
     /**
      * Perform action for menu item.
+     *
      * @param item The clicked menu item.
      * @param view Perform action on this view.
      */

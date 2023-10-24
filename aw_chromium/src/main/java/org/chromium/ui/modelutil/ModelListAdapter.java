@@ -1,4 +1,4 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
+// Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -21,19 +21,19 @@ import java.util.Collection;
 
 /**
  * Adapter for providing data and views to a ListView.
- *
+ * <p>
  * To use, register a {@link PropertyModelChangeProcessor.ViewBinder} and {@link ViewBuilder}
  * for each view type in the list using
  * {@link #registerType(int, ViewBuilder, PropertyModelChangeProcessor.ViewBinder)}.
  * The constructor takes a {@link ListObservable} list in the form of a {@link ModelList}. Any
  * changes that occur in the list will be automatically updated in the view.
- *
+ * <p>
  * When creating a new view, ModelListAdapter will bind all set properties. When reusing/rebinding
  * a view, in addition to binding all properties set on the new model, properties that were
  * previously set on the old model but are not set on the new model will be bound to "reset" the
  * view. ViewBinders registered for this adapter may therefore need to handle bind calls for
  * properties that are not set on the model being bound.
- *
+ * <p>
  * Additionally, ModelListAdapter will hook up a {@link PropertyModelChangeProcessor} when binding
  * views to ensure that changes to the PropertyModel for that list item are bound to the view.
  */
@@ -56,8 +56,7 @@ public class ModelListAdapter extends BaseAdapter implements MVCListAdapter {
             }
 
             @Override
-            public void onItemRangeChanged(
-                    ListObservable<Void> source, int index, int count, @Nullable Void payload) {
+            public void onItemRangeChanged(ListObservable<Void> source, int index, int count, @Nullable Void payload) {
                 notifyDataSetChanged();
             }
 
@@ -85,15 +84,14 @@ public class ModelListAdapter extends BaseAdapter implements MVCListAdapter {
     }
 
     @Override
-    public <T extends View> void registerType(
-            int typeId, ViewBuilder<T> builder, ViewBinder<PropertyModel, T, PropertyKey> binder) {
+    public <T extends View> void registerType(int typeId, ViewBuilder<T> builder, ViewBinder<PropertyModel, T, PropertyKey> binder) {
         assert mViewBuilderMap.get(typeId) == null;
         mViewBuilderMap.put(typeId, new Pair<>(builder, binder));
     }
 
     @Override
     public int getItemViewType(int position) {
-        return mModelList.get(position).getType();
+        return mModelList.get(position).type;
     }
 
     @Override
@@ -103,21 +101,20 @@ public class ModelListAdapter extends BaseAdapter implements MVCListAdapter {
 
     /**
      * Make an attempt to convert view to desiredType.
-     *
+     * <p>
      * The basic implementation verifies whether the view can be re-used as is without any
      * modifications, assuming the current view type is same as the desired view type.
      * Subclasses should override this method if any specific changes can to be made in order
      * to convert views from one type to another.
      *
-     * @param view View to convert
+     * @param view        View to convert
      * @param desiredType Target type of the view to convert to.
      * @return Whether conversion was successful.
      */
     protected boolean canReuseView(View view, int desiredType) {
         // Check if view type changed. If not, we can re-use this view as is without any
         // modifications.
-        return view != null && view.getTag(R.id.view_type) != null
-                && (int) view.getTag(R.id.view_type) == desiredType;
+        return view != null && view.getTag(R.id.view_type) != null && (int) view.getTag(R.id.view_type) == desiredType;
     }
 
     /**
@@ -136,8 +133,7 @@ public class ModelListAdapter extends BaseAdapter implements MVCListAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         //  1. Destroy the old PropertyModelChangeProcessor if it exists.
         if (convertView != null && convertView.getTag(R.id.view_mcp) != null) {
-            PropertyModelChangeProcessor propertyModelChangeProcessor =
-                    (PropertyModelChangeProcessor) convertView.getTag(R.id.view_mcp);
+            PropertyModelChangeProcessor propertyModelChangeProcessor = (PropertyModelChangeProcessor) convertView.getTag(R.id.view_mcp);
             propertyModelChangeProcessor.destroy();
         }
 
@@ -156,15 +152,12 @@ public class ModelListAdapter extends BaseAdapter implements MVCListAdapter {
             oldModel = (PropertyModel) convertView.getTag(R.id.view_model);
         }
 
-        PropertyModel model = mModelList.get(position).getModel();
-        PropertyModelChangeProcessor.ViewBinder binder =
-                mViewBuilderMap.get(mModelList.get(position).getType()).second;
+        PropertyModel model = mModelList.get(position).model;
+        PropertyModelChangeProcessor.ViewBinder binder = mViewBuilderMap.get(mModelList.get(position).type).second;
 
         // 3. Attach a PropertyModelChangeProcessor and PropertyModel to the view (for #1/2 above
         //    when re-using a view).
-        convertView.setTag(R.id.view_mcp,
-                PropertyModelChangeProcessor.create(
-                        model, convertView, binder, /* performInitialBind = */ false));
+        convertView.setTag(R.id.view_mcp, PropertyModelChangeProcessor.create(model, convertView, binder, /* performInitialBind = */ false));
         convertView.setTag(R.id.view_model, model);
 
         // 4. Bind properties to the convertView.
@@ -182,25 +175,17 @@ public class ModelListAdapter extends BaseAdapter implements MVCListAdapter {
      *
      * @param newModel The new model to bind to {@code view}.
      * @param oldModel The old model previously bound to {@code view}. May be null.
-     * @param view The view to bind.
-     * @param binder The ViewBinder that will bind model properties to {@code view}.
+     * @param view     The view to bind.
+     * @param binder   The ViewBinder that will bind model properties to {@code view}.
      */
     @VisibleForTesting
-    static void bindNewModel(PropertyModel newModel, @Nullable PropertyModel oldModel, View view,
-            PropertyModelChangeProcessor.ViewBinder binder) {
+    static void bindNewModel(PropertyModel newModel, @Nullable PropertyModel oldModel, View view, PropertyModelChangeProcessor.ViewBinder binder) {
         Collection<PropertyKey> setProperties = newModel.getAllSetProperties();
         for (PropertyKey key : newModel.getAllProperties()) {
             if (oldModel != null) {
                 // Skip binding properties that haven't changed.
                 if (newModel.compareValue(oldModel, key)) {
                     continue;
-                } else {
-                    // When rebinding a view, if the value has changed it should be writable as
-                    // views reasonably may not expect read-only keys not to change or be rebound.
-                    assert key instanceof PropertyModel.WritableObjectPropertyKey
-                            || key instanceof PropertyModel.WritableIntPropertyKey
-                            || key instanceof PropertyModel.WritableBooleanPropertyKey
-                            || key instanceof PropertyModel.WritableFloatPropertyKey;
                 }
             } else if (!setProperties.contains(key)) {
                 // If there is no previous model, skip binding properties that haven't been set.

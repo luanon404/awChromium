@@ -1,4 +1,4 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
+// Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -11,8 +11,9 @@ import org.chromium.base.ObserverList;
 /**
  * Helper class for implementations of {@link ListObservable}, with some convenience methods for
  * sending notifications.
+ *
  * @param <P> The parameter type for the payload for partial updates. Use {@link Void} for
- *         implementations that don't support partial updates.
+ *            implementations that don't support partial updates.
  */
 public abstract class ListObservableImpl<P> implements ListObservable<P> {
     private final ObserverList<ListObserver<P>> mObservers = new ObserverList<>();
@@ -81,8 +82,8 @@ public abstract class ListObservableImpl<P> implements ListObservable<P> {
      * Notifies observers that {@code count} items starting at position {@code index} under the
      * {@code source} have changed, with an optional payload object.
      *
-     * @param index The starting position of the range of changed items.
-     * @param count The number of changed items.
+     * @param index   The starting position of the range of changed items.
+     * @param count   The number of changed items.
      * @param payload Optional parameter, use {@code null} to identify a "full" update.
      */
     protected void notifyItemRangeChanged(int index, int count, @Nullable P payload) {

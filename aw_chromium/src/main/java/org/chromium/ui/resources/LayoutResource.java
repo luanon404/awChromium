@@ -1,4 +1,4 @@
-// Copyright 2014 The Chromium Authors. All rights reserved.
+// Copyright 2014 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -27,19 +27,16 @@ public class LayoutResource {
         }
         Rect bitmapSize = resource.getBitmapSize();
 
-        mPadding = new RectF(padding.left * pxToDp, padding.top * pxToDp, padding.right * pxToDp,
-                padding.bottom * pxToDp);
+        mPadding = new RectF(padding.left * pxToDp, padding.top * pxToDp, padding.right * pxToDp, padding.bottom * pxToDp);
 
-        mBitmapSize = new RectF(bitmapSize.left * pxToDp, bitmapSize.top * pxToDp,
-                bitmapSize.right * pxToDp, bitmapSize.bottom * pxToDp);
+        mBitmapSize = new RectF(bitmapSize.left * pxToDp, bitmapSize.top * pxToDp, bitmapSize.right * pxToDp, bitmapSize.bottom * pxToDp);
 
-        mAperture = new RectF(aperture.left * pxToDp, aperture.top * pxToDp,
-                aperture.right * pxToDp, aperture.bottom * pxToDp);
+        mAperture = new RectF(aperture.left * pxToDp, aperture.top * pxToDp, aperture.right * pxToDp, aperture.bottom * pxToDp);
     }
 
     /**
      * @return The padded content area of this resource in dp.  For 9-patches this will represent
-     *         the valid content of the 9-patch. In all other cases, it will be an empty rect.
+     * the valid content of the 9-patch. In all other cases, it will be an empty rect.
      */
     public RectF getPadding() {
         return mPadding;
@@ -54,8 +51,8 @@ public class LayoutResource {
 
     /**
      * @return The aperture of this resource in dp.  For 9-patches this will represent the area of
-     *         the {@link Bitmap} that should not be stretched. In all other cases, it will be an
-     *         empty rect.
+     * the {@link Bitmap} that should not be stretched. In all other cases, it will be an
+     * empty rect.
      */
     public RectF getAperture() {
         return mAperture;

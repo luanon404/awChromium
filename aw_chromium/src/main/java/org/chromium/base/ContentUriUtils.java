@@ -1,4 +1,4 @@
-// Copyright 2013 The Chromium Authors. All rights reserved.
+// Copyright 2013 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -18,7 +18,7 @@ import android.webkit.MimeTypeMap;
 
 import androidx.annotation.Nullable;
 
-import org.chromium.base.annotations.CalledByNative;
+import org.jni_zero.CalledByNative;
 
 import java.io.File;
 import java.io.IOException;
@@ -47,7 +47,8 @@ public abstract class ContentUriUtils {
     }
 
     // Prevent instantiation.
-    private ContentUriUtils() {}
+    private ContentUriUtils() {
+    }
 
     public static void setFileProviderUtil(FileProviderUtil util) {
         synchronized (sLock) {
@@ -62,7 +63,7 @@ public abstract class ContentUriUtils {
      * @param file image capture file.
      * @return URI for |file|.
      * @throws IllegalArgumentException when the given File is outside the paths supported by the
-     *         provider.
+     *                                  provider.
      */
     public static Uri getContentUriFromFile(File file) {
         synchronized (sLock) {
@@ -145,8 +146,7 @@ public abstract class ContentUriUtils {
             if (isVirtualDocument(uri)) {
                 String[] streamTypes = resolver.getStreamTypes(uri, "*/*");
                 if (streamTypes != null && streamTypes.length > 0) {
-                    AssetFileDescriptor afd =
-                            resolver.openTypedAssetFileDescriptor(uri, streamTypes[0], null);
+                    AssetFileDescriptor afd = resolver.openTypedAssetFileDescriptor(uri, streamTypes[0], null);
                     if (afd != null && afd.getStartOffset() != 0) {
                         // Do not use StreamUtil.closeQuietly here, as AssetFileDescriptor
                         // does not implement Closeable until KitKat.
@@ -196,8 +196,7 @@ public abstract class ContentUriUtils {
                 if (hasVirtualFlag(cursor)) {
                     String[] mimeTypes = contentResolver.getStreamTypes(uri, "*/*");
                     if (mimeTypes != null && mimeTypes.length > 0) {
-                        String ext =
-                                MimeTypeMap.getSingleton().getExtensionFromMimeType(mimeTypes[0]);
+                        String ext = MimeTypeMap.getSingleton().getExtensionFromMimeType(mimeTypes[0]);
                         if (ext != null) {
                             // Just append, it's simpler and more secure than altering an
                             // existing extension.
@@ -227,8 +226,7 @@ public abstract class ContentUriUtils {
         Uri uri = Uri.parse(uriString);
 
         try {
-            String displayName = getDisplayName(uri, ContextUtils.getApplicationContext(),
-                    MediaStore.MediaColumns.DISPLAY_NAME);
+            String displayName = getDisplayName(uri, ContextUtils.getApplicationContext(), MediaStore.MediaColumns.DISPLAY_NAME);
             return TextUtils.isEmpty(displayName) ? null : displayName;
         } catch (Exception e) {
             // There are a few Exceptions we can hit here (e.g. SecurityException), but we don't
@@ -248,7 +246,6 @@ public abstract class ContentUriUtils {
      * @return True for virtual file, false for any other file.
      */
     private static boolean isVirtualDocument(Uri uri) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return false;
         if (uri == null) return false;
         if (!DocumentsContract.isDocumentUri(ContextUtils.getApplicationContext(), uri)) {
             return false;
@@ -269,7 +266,7 @@ public abstract class ContentUriUtils {
 
     /**
      * Checks whether the passed cursor for a document has a virtual document flag.
-     *
+     * <p>
      * The called must close the passed cursor.
      *
      * @param cursor Cursor with COLUMN_FLAGS.
@@ -278,8 +275,7 @@ public abstract class ContentUriUtils {
     private static boolean hasVirtualFlag(Cursor cursor) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) return false;
         int index = cursor.getColumnIndex(DocumentsContract.Document.COLUMN_FLAGS);
-        return index > -1
-                && (cursor.getLong(index) & DocumentsContract.Document.FLAG_VIRTUAL_DOCUMENT) != 0;
+        return index > -1 && (cursor.getLong(index) & DocumentsContract.Document.FLAG_VIRTUAL_DOCUMENT) != 0;
     }
 
     /**

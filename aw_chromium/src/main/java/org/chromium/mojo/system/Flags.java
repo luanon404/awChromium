@@ -1,4 +1,4 @@
-// Copyright 2014 The Chromium Authors. All rights reserved.
+// Copyright 2014 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -45,8 +45,7 @@ public abstract class Flags<F extends Flags<F>> {
         } else {
             mFlags &= ~flag;
         }
-        @SuppressWarnings("unchecked")
-        F f = (F) this;
+        @SuppressWarnings("unchecked") F f = (F) this;
         return f;
     }
 
@@ -55,8 +54,7 @@ public abstract class Flags<F extends Flags<F>> {
      */
     protected F immutable() {
         mImmutable = true;
-        @SuppressWarnings("unchecked")
-        F f = (F) this;
+        @SuppressWarnings("unchecked") F f = (F) this;
         return f;
     }
 
@@ -77,6 +75,7 @@ public abstract class Flags<F extends Flags<F>> {
         if (obj == null) return false;
         if (getClass() != obj.getClass()) return false;
         Flags<?> other = (Flags<?>) obj;
-        return mFlags == other.mFlags;
+        if (mFlags != other.mFlags) return false;
+        return true;
     }
 }

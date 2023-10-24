@@ -1,4 +1,4 @@
-// Copyright 2013 The Chromium Authors. All rights reserved.
+// Copyright 2013 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -6,8 +6,8 @@ package org.chromium.device.power_save_blocker;
 
 import android.view.View;
 
-import org.chromium.base.annotations.CalledByNative;
-import org.chromium.base.annotations.JNINamespace;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
 
 import java.lang.ref.WeakReference;
 import java.util.WeakHashMap;
@@ -26,7 +26,8 @@ class PowerSaveBlocker {
         return new PowerSaveBlocker();
     }
 
-    private PowerSaveBlocker() {}
+    private PowerSaveBlocker() {
+    }
 
     @CalledByNative
     private void applyBlock(View view) {
@@ -38,11 +39,11 @@ class PowerSaveBlocker {
         if (prev_counter == null) {
             sBlockViewCounter.put(view, 1);
         } else {
-            assert prev_counter.intValue() >= 0;
-            sBlockViewCounter.put(view, prev_counter.intValue() + 1);
+            assert prev_counter >= 0;
+            sBlockViewCounter.put(view, prev_counter + 1);
         }
 
-        if (prev_counter == null || prev_counter.intValue() == 0) view.setKeepScreenOn(true);
+        if (prev_counter == null || prev_counter == 0) view.setKeepScreenOn(true);
     }
 
     @CalledByNative
@@ -59,9 +60,9 @@ class PowerSaveBlocker {
 
         Integer prev_counter = sBlockViewCounter.get(view);
         assert prev_counter != null;
-        assert prev_counter.intValue() > 0;
-        sBlockViewCounter.put(view, prev_counter.intValue() - 1);
+        assert prev_counter > 0;
+        sBlockViewCounter.put(view, prev_counter - 1);
 
-        if (prev_counter.intValue() == 1) view.setKeepScreenOn(false);
+        if (prev_counter == 1) view.setKeepScreenOn(false);
     }
 }

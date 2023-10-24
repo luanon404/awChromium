@@ -1,4 +1,4 @@
-// Copyright 2014 The Chromium Authors. All rights reserved.
+// Copyright 2014 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -42,7 +42,7 @@ public abstract class Struct {
      * Returns the serialization of the struct. This method can close Handles.
      *
      * @param core the |Core| implementation used to generate handles. Only used if the data
-     *            structure being encoded contains interfaces, can be |null| otherwise.
+     *             structure being encoded contains interfaces, can be |null| otherwise.
      */
     public Message serialize(Core core) {
         Encoder encoder = new Encoder(core, mEncodedBaseSize);
@@ -54,15 +54,16 @@ public abstract class Struct {
      * Similar to the method above, but returns the serialization result as |ByteBuffer|.
      *
      * @throws UnsupportedOperationException if the struct contains interfaces or handles.
-     * @throws SerializationException on serialization failure.
+     * @throws SerializationException        on serialization failure.
      */
     public ByteBuffer serialize() {
         // If the struct contains interfaces which require a non-null |Core| instance, it will throw
         // UnsupportedOperationException.
         Message message = serialize(null);
 
-        if (!message.getHandles().isEmpty())
+        if (!message.getHandles().isEmpty()) {
             throw new UnsupportedOperationException("Handles are discarded.");
+        }
 
         return message.getData();
     }
@@ -71,8 +72,8 @@ public abstract class Struct {
      * Returns the serialization of the struct prepended with the given header.
      *
      * @param header the header to prepend to the returned message.
-     * @param core the |Core| implementation used to generate handles. Only used if the |Struct|
-     *            being encoded contains interfaces, can be |null| otherwise.
+     * @param core   the |Core| implementation used to generate handles. Only used if the |Struct|
+     *               being encoded contains interfaces, can be |null| otherwise.
      */
     public ServiceMessage serializeWithHeader(Core core, MessageHeader header) {
         Encoder encoder = new Encoder(core, mEncodedBaseSize + header.getSize());

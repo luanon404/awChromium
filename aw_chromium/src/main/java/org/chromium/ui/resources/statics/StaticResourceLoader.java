@@ -1,4 +1,4 @@
-// Copyright 2014 The Chromium Authors. All rights reserved.
+// Copyright 2014 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -15,13 +15,13 @@ import org.chromium.ui.resources.async.AsyncPreloadResourceLoader;
 public class StaticResourceLoader extends AsyncPreloadResourceLoader {
     /**
      * Creates a {@link StaticResourceLoader}.
+     *
      * @param resourceType The resource type this loader is responsible for loading.
      * @param callback     The {@link ResourceLoaderCallback} to notify when a {@link Resource} is
      *                     done loading.
      * @param resources    The {@link Resources} instance to load Android resources from.
      */
-    public StaticResourceLoader(int resourceType, ResourceLoaderCallback callback,
-            final Resources resources) {
+    public StaticResourceLoader(int resourceType, ResourceLoaderCallback callback, final Resources resources) {
         super(resourceType, callback, new ResourceCreator() {
             @Override
             public Resource create(int resId) {

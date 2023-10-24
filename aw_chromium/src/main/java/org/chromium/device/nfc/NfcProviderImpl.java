@@ -1,4 +1,4 @@
-// Copyright 2017 The Chromium Authors. All rights reserved.
+// Copyright 2017 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -15,7 +15,7 @@ import org.chromium.services.service_manager.InterfaceFactory;
  */
 public class NfcProviderImpl implements NfcProvider {
     private static final String TAG = "NfcProviderImpl";
-    private final NfcDelegate mDelegate;
+    private NfcDelegate mDelegate;
     private NfcImpl mNfcImpl;
 
     public NfcProviderImpl(NfcDelegate delegate) {
@@ -75,7 +75,7 @@ public class NfcProviderImpl implements NfcProvider {
      * A factory for implementations of the NfcProvider interface.
      */
     public static class Factory implements InterfaceFactory<NfcProvider> {
-        private final NfcDelegate mDelegate;
+        private NfcDelegate mDelegate;
 
         public Factory(NfcDelegate delegate) {
             mDelegate = delegate;

@@ -1,4 +1,4 @@
-// Copyright 2014 The Chromium Authors. All rights reserved.
+// Copyright 2014 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -22,10 +22,11 @@ public class NinePatchData {
     private final int[] mDivX;
     private final int[] mDivY;
 
-    private final Rect mAperture;
+    private Rect mAperture;
 
     /**
      * Creates a {@link NinePatchData} that stores 9-patch metadata.
+     *
      * @param width   The width of the underlying bitmap.
      * @param height  The height of the underlying bitmap.
      * @param padding The padding of the 9-patch for the content area.  This padding is a set of
@@ -39,8 +40,7 @@ public class NinePatchData {
     private NinePatchData(int width, int height, Rect padding, int[] divX, int[] divY) {
         mWidth = width;
         mHeight = height;
-        mPadding = new Rect(
-                padding.left, padding.top, mWidth - padding.right, mHeight - padding.bottom);
+        mPadding = new Rect(padding.left, padding.top, mWidth - padding.right, mHeight - padding.bottom);
 
         mDivX = new int[divX.length];
         mDivY = new int[divY.length];
@@ -60,8 +60,9 @@ public class NinePatchData {
 
     /**
      * This class only exposes one 9-patch stretch region.
+     *
      * @return The aperture of this 9-patch.  This specifies the center of the 9-patch, with the
-     *         surrounding areas being stretchable.
+     * surrounding areas being stretchable.
      */
     public Rect getAperture() {
         return mAperture;
@@ -69,10 +70,11 @@ public class NinePatchData {
 
     /**
      * Attempts to decode 9-patch data from a {@link Bitmap}.
+     *
      * @param bitmap The {@link Bitmap} to check.
-     * @return       An instance of {@link NinePatchData} representing the 9-patch information
-     *               encoded in {@code bitmap} or {@code null} if the {@link Bitmap} wasn't a
-     *               9-patch.
+     * @return An instance of {@link NinePatchData} representing the 9-patch information
+     * encoded in {@code bitmap} or {@code null} if the {@link Bitmap} wasn't a
+     * 9-patch.
      */
     public static NinePatchData create(Bitmap bitmap) {
         if (bitmap == null) return null;

@@ -1,4 +1,4 @@
-// Copyright 2015 The Chromium Authors. All rights reserved.
+// Copyright 2015 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -12,9 +12,8 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import androidx.annotation.VisibleForTesting;
-
-import org.chromium.ui.interpolators.BakedBezierInterpolator;
+import org.chromium.base.ResettersForTesting;
+import org.chromium.ui.interpolators.Interpolators;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +43,7 @@ public class LoadingView extends ProgressBar {
     }
 
     private long mStartTime = -1;
-    private boolean mDisableAnimationForTest;
+    private static boolean sDisableAnimationForTest;
 
     private final List<Observer> mObservers = new ArrayList<>();
 
@@ -74,20 +73,17 @@ public class LoadingView extends ProgressBar {
     private final Runnable mDelayedHide = new Runnable() {
         @Override
         public void run() {
-            if (mDisableAnimationForTest) {
+            if (sDisableAnimationForTest) {
                 onHideLoadingFinished();
                 return;
             }
 
-            animate()
-                    .alpha(0.0f)
-                    .setInterpolator(BakedBezierInterpolator.TRANSFORM_CURVE)
-                    .setListener(new AnimatorListenerAdapter() {
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                            onHideLoadingFinished();
-                        }
-                    });
+            animate().alpha(0.0f).setInterpolator(Interpolators.FAST_OUT_SLOW_IN_INTERPOLATOR).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    onHideLoadingFinished();
+                }
+            });
         }
     };
 
@@ -127,10 +123,7 @@ public class LoadingView extends ProgressBar {
         mShouldShow = false;
 
         if (getVisibility() == VISIBLE) {
-            postDelayed(mDelayedHide,
-                    Math.max(0,
-                            mStartTime + MINIMUM_ANIMATION_SHOW_TIME_MS
-                                    - SystemClock.elapsedRealtime()));
+            postDelayed(mDelayedHide, Math.max(0, mStartTime + MINIMUM_ANIMATION_SHOW_TIME_MS - SystemClock.elapsedRealtime()));
         } else {
             onHideLoadingFinished();
         }
@@ -148,8 +141,9 @@ public class LoadingView extends ProgressBar {
     /**
      * Add the listener that will be notified when the spinner is completely hidden with {@link
      * #hideLoadingUI()}.
+     *
      * @param listener {@link Observer} that will be notified when the spinner is
-     *         completely hidden with {@link #hideLoadingUI()}.
+     *                 completely hidden with {@link #hideLoadingUI()}.
      */
     public void addObserver(Observer listener) {
         mObservers.add(listener);
@@ -165,11 +159,21 @@ public class LoadingView extends ProgressBar {
     /**
      * Set disable the fading animation during {@link #hideLoadingUI()}.
      * This function is added as a work around for disable animation during unit tests.
+     *
      * @param disableAnimation Whether the fading animation should be disabled during {@link
-     *         #hideLoadingUI()}.
+     *                         #hideLoadingUI()}.
      */
-    @VisibleForTesting
-    public void setDisableAnimationForTest(boolean disableAnimation) {
-        mDisableAnimationForTest = disableAnimation;
+    public static void setDisableAnimationForTest(boolean disableAnimation) {
+        sDisableAnimationForTest = disableAnimation;
+        ResettersForTesting.register(() -> sDisableAnimationForTest = false);
+    }
+
+    /**
+     * Check if the Loading View Observer is empty or not.
+     *
+     * @return If the observers is empty then return true.
+     */
+    public boolean isObserverListEmpty() {
+        return mObservers.isEmpty();
     }
 }

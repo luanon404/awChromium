@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item type="id" name="dropdown_popup_window" />
-    <item type="id" name="gradient_border" />
     <item type="id" name="gradient" />
     <item type="id" name="seek_bar" />
     <item type="id" name="color_picker_advanced" />
     <item type="id" name="color_picker_simple" />
-    <item type="id" name="more_colors_button_border" />
     <item type="id" name="more_colors_button" />
     <item type="id" name="selected_color_view_border" />
     <item type="id" name="selected_color_view" />
@@ -27,8 +25,6 @@
     <item type="id" name="second_dot" />
     <item type="id" name="milli" />
     <item type="id" name="ampm" />
-    <item type="id" name="testshell_activity" />
-    <item type="id" name="toolbar" />
     <item type="id" name="url" />
     <item type="id" name="prev" />
     <item type="id" name="next" />
@@ -50,7 +46,6 @@
     <item type="id" name="select_action_menu_select_all" />
     <item type="id" name="select_action_menu_paste_as_plain_text" />
     <item type="id" name="select_action_menu_web_search" />
-    <item type="id" name="select_action_menu_text_processing_menus" />
 
     <!-- Model Utils -->
     <item type="id" name="view_model" />
@@ -59,4 +54,51 @@
 
     <!-- Widgets -->
     <item type="id" name="chip_cancel_btn" />
+    <item name="select_action_menu_text_processing_items" type="id" />
+    <item name="dropdown_secondary_label" type="id" />
+    <item name="dropdown_secondary_sublabel" type="id" />
+    <item name="components_list" type="id" />
+    <item name="fragment_components_list" type="id" />
+    <item name="components_summary_textview" type="id" />
+    <item name="on_demand_update" type="id" />
+    <item name="components_menu" type="id" />
+    <item name="options_menu_update" type="id" />
+    <item name="crashes_summary_textview" type="id" />
+    <item name="crashes_list" type="id" />
+    <item name="fragment_crashes_list" type="id" />
+    <item name="crash_package_icon" type="id" />
+    <item name="crash_header" type="id" />
+    <item name="upload_status" type="id" />
+    <item name="crash_report_button" type="id" />
+    <item name="crash_upload_button" type="id" />
+    <item name="crash_hide_button" type="id" />
+    <item name="options_menu_refresh" type="id" />
+    <item name="crashes_menu" type="id" />
+    <item name="modal_dialog_scroll_view" type="id" />
+    <item name="title_container" type="id" />
+    <item name="title_icon" type="id" />
+    <item name="message_paragraph_1" type="id" />
+    <item name="message_paragraph_2" type="id" />
+    <item name="custom_button_bar" type="id" />
+    <item name="button_bar" type="id" />
+    <item name="positive_button" type="id" />
+    <item name="negative_button" type="id" />
+    <item name="footer" type="id" />
+    <item name="footer_message" type="id" />
+    <item name="scrollable_title_container" type="id" />
+    <item name="empty_view" type="id" />
+    <item name="empty_view_wrapper" type="id" />
+    <item name="loading_view" type="id" />
+    <item name="action_bar_stub" type="id" />
+    <item name="selectable_list_recycler_view" type="id" />
+    <item name="list_content" type="id" />
+    <item name="shadow" type="id" />
+    <item name="empty_state_view_stub" type="id" />
+    <item name="empty_state_text_title" type="id" />
+    <item name="empty_state_text_description" type="id" />
+    <item name="empty_state_icon" type="id" />
+    <item name="empty_state_container" type="id" />
+    <item name="action_bar_bg" type="id" />
+    <item name="testshell_activity" type="id" />
+    <item name="toolbar" type="id" />
 </resources>

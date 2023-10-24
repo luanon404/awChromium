@@ -1,4 +1,4 @@
-// Copyright 2014 The Chromium Authors. All rights reserved.
+// Copyright 2014 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -39,10 +39,8 @@ public interface Core {
          * Immutable signals.
          */
         public static final HandleSignals NONE = HandleSignals.none().immutable();
-        public static final HandleSignals READABLE =
-                HandleSignals.none().setReadable(true).immutable();
-        public static final HandleSignals WRITABLE =
-                HandleSignals.none().setWritable(true).immutable();
+        public static final HandleSignals READABLE = HandleSignals.none().setReadable(true).immutable();
+        public static final HandleSignals WRITABLE = HandleSignals.none().setWritable(true).immutable();
 
         /**
          * Change the readable bit of this signal.
@@ -107,8 +105,7 @@ public interface Core {
         /**
          * Constructor.
          */
-        public HandleSignalsState(
-                HandleSignals satisfiedSignals, HandleSignals satisfiableSignals) {
+        public HandleSignalsState(HandleSignals satisfiedSignals, HandleSignals satisfiableSignals) {
             mSatisfiedSignals = satisfiedSignals;
             mSatisfiableSignals = satisfiableSignals;
         }
@@ -134,8 +131,7 @@ public interface Core {
      *
      * @return the set of handles for the two endpoints (ports) of the message pipe.
      */
-    Pair<MessagePipeHandle, MessagePipeHandle> createMessagePipe(
-            MessagePipeHandle.CreateOptions options);
+    Pair<MessagePipeHandle, MessagePipeHandle> createMessagePipe(MessagePipeHandle.CreateOptions options);
 
     /**
      * Creates a data pipe, which is a unidirectional communication channel for unframed data, with
@@ -147,8 +143,7 @@ public interface Core {
      *
      * @return the set of handles for the two endpoints of the data pipe.
      */
-    Pair<DataPipe.ProducerHandle, DataPipe.ConsumerHandle> createDataPipe(
-            DataPipe.CreateOptions options);
+    Pair<DataPipe.ProducerHandle, DataPipe.ConsumerHandle> createDataPipe(DataPipe.CreateOptions options);
 
     /**
      * Creates a buffer that can be shared between applications (by duplicating the handle -- see
@@ -157,8 +152,7 @@ public interface Core {
      *
      * @return the new |SharedBufferHandle|.
      */
-    SharedBufferHandle createSharedBuffer(SharedBufferHandle.CreateOptions options,
-            long numBytes);
+    SharedBufferHandle createSharedBuffer(SharedBufferHandle.CreateOptions options, long numBytes);
 
     /**
      * Acquires a handle from the native side. The handle will be owned by the returned object and
@@ -166,7 +160,7 @@ public interface Core {
      *
      * @return a new {@link UntypedHandle} representing the native handle.
      */
-    UntypedHandle acquireNativeHandle(int handle);
+    UntypedHandle acquireNativeHandle(long handle);
 
     /**
      * Creates and acquires a handle from the native side. The handle will be owned by the returned

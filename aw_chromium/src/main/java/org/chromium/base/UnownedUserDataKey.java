@@ -1,4 +1,4 @@
-// Copyright 2020 The Chromium Authors. All rights reserved.
+// Copyright 2020 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -65,8 +65,7 @@ public final class UnownedUserDataKey<T extends UnownedUserData> {
     @NonNull
     private final Class<T> mClazz;
     // A Set that uses WeakReference<UnownedUserDataHost> internally.
-    private final Set<UnownedUserDataHost> mWeakHostAttachments =
-            Collections.newSetFromMap(new WeakHashMap<>());
+    private final Set<UnownedUserDataHost> mWeakHostAttachments = Collections.newSetFromMap(new WeakHashMap<>());
 
     /**
      * Constructs a key to use for attaching to a particular {@link UnownedUserDataHost}.
@@ -78,7 +77,7 @@ public final class UnownedUserDataKey<T extends UnownedUserData> {
     }
 
     @NonNull
-    /* package */ Class<T> getValueClass() {
+    /* package */ final Class<T> getValueClass() {
         return mClazz;
     }
 
@@ -89,7 +88,7 @@ public final class UnownedUserDataKey<T extends UnownedUserData> {
      * @param host   The host to attach the {@code object} to.
      * @param object The object to attach.
      */
-    public void attachToHost(@NonNull UnownedUserDataHost host, @NonNull T object) {
+    public final void attachToHost(@NonNull UnownedUserDataHost host, @NonNull T object) {
         Objects.requireNonNull(object);
         // Setting a new value might lead to detachment of previously attached data, including
         // re-entry to this key, to happen before we update the {@link #mHostAttachments}.
@@ -110,7 +109,7 @@ public final class UnownedUserDataKey<T extends UnownedUserData> {
      * @return The current {@link UnownedUserData} stored in the {@code host}, or {@code null}.
      */
     @Nullable
-    public T retrieveDataFromHost(@NonNull UnownedUserDataHost host) {
+    public final T retrieveDataFromHost(@NonNull UnownedUserDataHost host) {
         assertNoDestroyedAttachments();
         for (UnownedUserDataHost attachedHost : mWeakHostAttachments) {
             if (host.equals(attachedHost)) {
@@ -126,7 +125,7 @@ public final class UnownedUserDataKey<T extends UnownedUserData> {
      *
      * @param host The host to detach from.
      */
-    public void detachFromHost(@NonNull UnownedUserDataHost host) {
+    public final void detachFromHost(@NonNull UnownedUserDataHost host) {
         assertNoDestroyedAttachments();
         for (UnownedUserDataHost attachedHost : new ArrayList<>(mWeakHostAttachments)) {
             if (host.equals(attachedHost)) {
@@ -141,7 +140,7 @@ public final class UnownedUserDataKey<T extends UnownedUserData> {
      *
      * @param object The object to detach from all hosts.
      */
-    public void detachFromAllHosts(@NonNull T object) {
+    public final void detachFromAllHosts(@NonNull T object) {
         assertNoDestroyedAttachments();
         for (UnownedUserDataHost attachedHost : new ArrayList<>(mWeakHostAttachments)) {
             if (object.equals(attachedHost.get(this))) {
@@ -156,7 +155,7 @@ public final class UnownedUserDataKey<T extends UnownedUserData> {
      * @param host The host to check if the {@link UnownedUserData} is attached to.
      * @return true if currently attached, false otherwise.
      */
-    public boolean isAttachedToHost(@NonNull UnownedUserDataHost host) {
+    public final boolean isAttachedToHost(@NonNull UnownedUserDataHost host) {
         T t = retrieveDataFromHost(host);
         return t != null;
     }
@@ -164,12 +163,12 @@ public final class UnownedUserDataKey<T extends UnownedUserData> {
     /**
      * @return Whether the {@link UnownedUserData} is currently attached to any hosts with this key.
      */
-    public boolean isAttachedToAnyHost(@NonNull T object) {
+    public final boolean isAttachedToAnyHost(@NonNull T object) {
         return getHostAttachmentCount(object) > 0;
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    /* package */ int getHostAttachmentCount(@NonNull T object) {
+        /* package */ int getHostAttachmentCount(@NonNull T object) {
         assertNoDestroyedAttachments();
         int ret = 0;
         for (UnownedUserDataHost attachedHost : mWeakHostAttachments) {

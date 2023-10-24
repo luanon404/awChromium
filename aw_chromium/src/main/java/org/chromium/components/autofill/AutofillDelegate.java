@@ -1,4 +1,4 @@
-// Copyright 2015 The Chromium Authors. All rights reserved.
+// Copyright 2015 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -16,12 +16,14 @@ public interface AutofillDelegate {
     /**
      * Handles the selection of an Autofill suggestion from an AutofillPopup or
      * AutofillKeyboardAccessory.
+     *
      * @param listIndex The index of the selected Autofill suggestion.
      */
     void suggestionSelected(int listIndex);
 
     /**
      * Initiates the deletion process for an item. (A confirm dialog should be shown.)
+     *
      * @param listIndex The index of the suggestion to delete.
      */
     void deleteSuggestion(int listIndex);

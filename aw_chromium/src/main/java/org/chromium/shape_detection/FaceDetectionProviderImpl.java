@@ -1,4 +1,4 @@
-// Copyright 2016 The Chromium Authors. All rights reserved.
+// Copyright 2016 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -16,14 +16,12 @@ import org.chromium.shape_detection.mojom.FaceDetectorOptions;
  * Service provider to create FaceDetection services
  */
 public class FaceDetectionProviderImpl implements FaceDetectionProvider {
-    public FaceDetectionProviderImpl() {}
+    public FaceDetectionProviderImpl() {
+    }
 
     @Override
-    public void createFaceDetection(
-            InterfaceRequest<FaceDetection> request, FaceDetectorOptions options) {
-        final boolean isGmsCoreSupported =
-                ChromiumPlayServicesAvailability.isGooglePlayServicesAvailable(
-                        ContextUtils.getApplicationContext());
+    public void createFaceDetection(InterfaceRequest<FaceDetection> request, FaceDetectorOptions options) {
+        final boolean isGmsCoreSupported = ChromiumPlayServicesAvailability.isGooglePlayServicesAvailable(ContextUtils.getApplicationContext());
 
         if (isGmsCoreSupported) {
             FaceDetection.MANAGER.bind(new FaceDetectionImplGmsCore(options), request);
@@ -33,8 +31,10 @@ public class FaceDetectionProviderImpl implements FaceDetectionProvider {
     }
 
     @Override
-    public void close() {}
+    public void close() {
+    }
 
     @Override
-    public void onConnectionError(MojoException e) {}
+    public void onConnectionError(MojoException e) {
+    }
 }

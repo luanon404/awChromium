@@ -1,4 +1,4 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
+// Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -52,6 +52,7 @@ import java.util.HashMap;
  *
  * </code>
  */
+
 public final class UserDataHost {
     private final long mThreadId = Process.myTid();
 
@@ -59,8 +60,7 @@ public final class UserDataHost {
 
     private static void checkArgument(boolean condition) {
         if (!condition) {
-            throw new IllegalArgumentException(
-                    "Neither key nor object of UserDataHost can be null.");
+            throw new IllegalArgumentException("Neither key nor object of UserDataHost can be null.");
         }
     }
 
@@ -75,7 +75,8 @@ public final class UserDataHost {
 
     /**
      * Associates the specified object with the specified key.
-     * @param key Type token with which the specified object is to be associated.
+     *
+     * @param key    Type token with which the specified object is to be associated.
      * @param object Object to be associated with the specified key.
      * @return the object just stored, or {@code null} if storing the object failed.
      */
@@ -90,9 +91,10 @@ public final class UserDataHost {
     /**
      * Returns the value to which the specified key is mapped, or null if this map
      * contains no mapping for the key.
+     *
      * @param key Type token for which the specified object is to be returned.
      * @return the value to which the specified key is mapped, or null if this map
-     *         contains no mapping for {@code key}.
+     * contains no mapping for {@code key}.
      */
     public <T extends UserData> T getUserData(Class<T> key) {
         checkThreadAndState();
@@ -104,6 +106,7 @@ public final class UserDataHost {
     /**
      * Removes the mapping for a key from this map. Exception will be thrown if
      * the given key has no mapping.
+     *
      * @param key Type token for which the specified object is to be removed.
      * @return The previous value associated with {@code key}.
      */

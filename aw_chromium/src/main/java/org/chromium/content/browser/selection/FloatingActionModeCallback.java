@@ -22,8 +22,7 @@ public class FloatingActionModeCallback extends ActionMode.Callback2 {
     private final ActionModeCallbackHelper mHelper;
     private final ActionMode.Callback mCallback;
 
-    public FloatingActionModeCallback(ActionModeCallbackHelper helper,
-            ActionMode.Callback callback) {
+    public FloatingActionModeCallback(ActionModeCallbackHelper helper, ActionMode.Callback callback) {
         mHelper = helper;
         mCallback = callback;
     }

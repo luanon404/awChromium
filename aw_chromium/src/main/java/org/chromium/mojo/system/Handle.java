@@ -1,4 +1,4 @@
-// Copyright 2014 The Chromium Authors. All rights reserved.
+// Copyright 2014 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -31,7 +31,7 @@ public interface Handle extends Closeable {
 
     /**
      * @return whether the handle is valid. A handle is valid until it has been explicitly closed or
-     *         send through a message pipe via |MessagePipeHandle.writeMessage|.
+     * send through a message pipe via |MessagePipeHandle.writeMessage|.
      */
     boolean isValid();
 
@@ -56,6 +56,5 @@ public interface Handle extends Closeable {
      * Releases the native handle backed by this {@link Handle}. The caller owns the handle and must
      * close it.
      */
-    int releaseNativeHandle();
-
+    long releaseNativeHandle();
 }

@@ -1,4 +1,4 @@
-// Copyright 2017 The Chromium Authors. All rights reserved.
+// Copyright 2017 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -17,6 +17,8 @@ import android.view.ViewGroup;
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 
+import org.chromium.base.TraceEvent;
+
 /**
  * A utility class that has helper methods for Android view.
  */
@@ -24,7 +26,8 @@ public final class ViewUtils {
     private static final int[] sLocationTmp = new int[2];
 
     // Prevent instantiation.
-    private ViewUtils() {}
+    private ViewUtils() {
+    }
 
     /**
      * @return {@code true} if the given view has a focus.
@@ -92,6 +95,7 @@ public final class ViewUtils {
      * Return the position of {@code childView} relative to {@code rootView}.  {@code childView}
      * must be a child of {@code rootView}.  This returns the relative layout position, which does
      * not include translations.
+     *
      * @param rootView    The parent of {@code childView} to calculate the position relative to.
      * @param childView   The {@link View} to calculate the position of.
      * @param outPosition The resulting position with the format [x, y].
@@ -113,6 +117,7 @@ public final class ViewUtils {
      * Return the position of {@code childView} relative to {@code rootView}.  {@code childView}
      * must be a child of {@code rootView}.  This returns the relative draw position, which includes
      * translations.
+     *
      * @param rootView    The parent of {@code childView} to calculate the position relative to.
      * @param childView   The {@link View} to calculate the position of.
      * @param outPosition The resulting position with the format [x, y].
@@ -138,28 +143,26 @@ public final class ViewUtils {
      */
     public static void gatherTransparentRegionsForOpaqueView(View view, Region region) {
         view.getLocationInWindow(sLocationTmp);
-        region.op(sLocationTmp[0], sLocationTmp[1],
-                sLocationTmp[0] + view.getRight() - view.getLeft(),
-                sLocationTmp[1] + view.getBottom() - view.getTop(), Region.Op.DIFFERENCE);
+        region.op(sLocationTmp[0], sLocationTmp[1], sLocationTmp[0] + view.getRight() - view.getLeft(), sLocationTmp[1] + view.getBottom() - view.getTop(), Region.Op.DIFFERENCE);
     }
 
     /**
-     *  Converts density-independent pixels (dp) to pixels on the screen (px).
+     * Converts density-independent pixels (dp) to pixels on the screen (px).
      *
-     *  @param dp Density-independent pixels are based on the physical density of the screen.
-     *  @return   The physical pixels on the screen which correspond to this many
-     *            density-independent pixels for this screen.
+     * @param dp Density-independent pixels are based on the physical density of the screen.
+     * @return The physical pixels on the screen which correspond to this many
+     * density-independent pixels for this screen.
      */
     public static int dpToPx(Context context, float dp) {
         return dpToPx(context.getResources().getDisplayMetrics(), dp);
     }
 
     /**
-     *  Converts density-independent pixels (dp) to pixels on the screen (px).
+     * Converts density-independent pixels (dp) to pixels on the screen (px).
      *
-     *  @param dp Density-independent pixels are based on the physical density of the screen.
-     *  @return   The physical pixels on the screen which correspond to this many
-     *            density-independent pixels for this screen.
+     * @param dp Density-independent pixels are based on the physical density of the screen.
+     * @return The physical pixels on the screen which correspond to this many
+     * density-independent pixels for this screen.
      */
     public static int dpToPx(DisplayMetrics metrics, float dp) {
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, metrics));
@@ -167,6 +170,7 @@ public final class ViewUtils {
 
     /**
      * Sets clip children for the provided ViewGroup and all of its ancestors.
+     *
      * @param view The ViewGroup whose children should (not) be clipped.
      * @param clip Whether to clip children to the parent bounds.
      */
@@ -182,13 +186,13 @@ public final class ViewUtils {
 
     /**
      * Creates a {@link RoundedBitmapDrawable} using the provided {@link Bitmap} and cornerRadius.
-     * @param resources The {@link Resources}.
-     * @param icon The {@link Bitmap} to round.
+     *
+     * @param resources    The {@link Resources}.
+     * @param icon         The {@link Bitmap} to round.
      * @param cornerRadius The corner radius.
      * @return A {@link RoundedBitmapDrawable} for the provided {@link Bitmap}.
      */
-    public static RoundedBitmapDrawable createRoundedBitmapDrawable(
-            Resources resources, Bitmap icon, int cornerRadius) {
+    public static RoundedBitmapDrawable createRoundedBitmapDrawable(Resources resources, Bitmap icon, int cornerRadius) {
         RoundedBitmapDrawable roundedIcon = RoundedBitmapDrawableFactory.create(resources, icon);
         roundedIcon.setCornerRadius(cornerRadius);
         return roundedIcon;
@@ -197,14 +201,12 @@ public final class ViewUtils {
     /**
      * Translates the canvas to ensure the specified view's coordinates are at 0, 0.
      *
-     * @param from The view the canvas is currently translated to.
-     * @param to The view to translate to.
+     * @param from   The view the canvas is currently translated to.
+     * @param to     The view to translate to.
      * @param canvas The canvas to be translated.
-     *
      * @throws IllegalArgumentException if {@code from} is not an ancestor of {@code to}.
      */
-    public static void translateCanvasToView(View from, View to, Canvas canvas)
-            throws IllegalArgumentException {
+    public static void translateCanvasToView(View from, View to, Canvas canvas) throws IllegalArgumentException {
         assert from != null;
         assert to != null;
         while (to != from) {
@@ -214,5 +216,33 @@ public final class ViewUtils {
             }
             to = (View) to.getParent();
         }
+    }
+
+    /**
+     * A wrapper that calls android.view.requestLayout() immediately after emitting an instant trace
+     * event with information about the caller. This helps jank investigations, as there are traces
+     * with lots of re-layouts, but we don't know where these layouts are coming from.
+     * <p>
+     * Do not include any identifying information in {@code caller}! Only constant string literals
+     * about code execution should be included.
+     * <p>
+     * Examples of useful {@code caller} values:
+     * "MyClass.myMethod" when requestLayout is called in myMethod in MyClass.
+     * "MyClass.MyInnerClass.myMethod" when requestLayout is called in an inner class.
+     * "MyClass.myMethod.MyInnerClass.innerMethod" when requestLayout is called in an inner class
+     * defined in a method.
+     * "MyClass.myMethod other_helpful_information" when requestLayout is called more than once in
+     * the same method.
+     * "MyClass.myMethod Runnable" when requestLayout is posted somewhere to be executed later.
+     *
+     * @param view   The view to call requestLayout on.
+     * @param caller Some queryable information about the caller.
+     */
+    // The trace event name is always a method/class name literal.
+    @SuppressWarnings("NoDynamicStringsInTraceEventCheck")
+    public static void requestLayout(View view, String caller) {
+        assert view != null;
+        TraceEvent.instant("requestLayout caller: " + caller);
+        view.requestLayout();
     }
 }

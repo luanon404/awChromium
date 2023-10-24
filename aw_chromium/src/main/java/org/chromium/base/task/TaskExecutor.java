@@ -1,4 +1,4 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
+// Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -12,32 +12,32 @@ package org.chromium.base.task;
 public interface TaskExecutor {
     /**
      * @param traits The TaskTraits that describe the desired TaskRunner.
-     * @param task The task to be run with the specified traits.
-     * @param delay The delay in milliseconds before the task can be run.
+     * @param task   The task to be run with the specified traits.
+     * @param delay  The delay in milliseconds before the task can be run.
      */
-    void postDelayedTask(TaskTraits traits, Runnable task, long delay);
+    void postDelayedTask(@TaskTraits int traits, Runnable task, long delay);
 
     /**
      * @param traits The TaskTraits that describe the desired TaskRunner.
      * @return The TaskRunner for the specified TaskTraits.
      */
-    TaskRunner createTaskRunner(TaskTraits traits);
+    TaskRunner createTaskRunner(@TaskTraits int traits);
 
     /**
      * @param traits The TaskTraits that describe the desired TaskRunner.
      * @return The TaskRunner for the specified TaskTraits.
      */
-    SequencedTaskRunner createSequencedTaskRunner(TaskTraits traits);
+    SequencedTaskRunner createSequencedTaskRunner(@TaskTraits int traits);
 
     /**
      * @param traits The TaskTraits that describe the desired TaskRunner.
      * @return The TaskRunner for the specified TaskTraits.
      */
-    SingleThreadTaskRunner createSingleThreadTaskRunner(TaskTraits traits);
+    SingleThreadTaskRunner createSingleThreadTaskRunner(@TaskTraits int traits);
 
     /**
      * @return true iff the executor for these traits is backed by a SingleThreadTaskRunner
      * associated with the current thread.
      */
-    boolean canRunTaskImmediately(TaskTraits traits);
+    boolean canRunTaskImmediately(@TaskTraits int traits);
 }

@@ -1,10 +1,9 @@
-// Copyright 2019 The Chromium Authors. All rights reserved.
+// Copyright 2019 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
 package org.chromium.components.content_capture;
 
-import android.annotation.TargetApi;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.LocusId;
@@ -13,11 +12,11 @@ import android.view.contentcapture.ContentCaptureCondition;
 import android.view.contentcapture.ContentCaptureManager;
 import android.view.contentcapture.DataRemovalRequest;
 
+import androidx.annotation.RequiresApi;
 import androidx.annotation.VisibleForTesting;
 
 import org.chromium.base.BuildInfo;
 import org.chromium.base.Log;
-import org.chromium.base.annotations.VerifiesOnQ;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -28,8 +27,7 @@ import java.util.regex.Pattern;
  * The class talks to the COntentCaptureManager to verify ContentCaptureService is Aiai and provide
  * the methods to check if the given urls shall be captured and delete the ContentCapture history.
  */
-@VerifiesOnQ
-@TargetApi(Build.VERSION_CODES.Q)
+@RequiresApi(Build.VERSION_CODES.Q)
 public class PlatformContentCaptureController {
     private static final String TAG = "ContentCapture";
     private static final String AIAI_PACKAGE_NAME = "com.google.android.as";
@@ -39,7 +37,7 @@ public class PlatformContentCaptureController {
     private boolean mShouldStartCapture;
     private boolean mIsAiai;
     private UrlAllowlist mAllowlist;
-    private final ContentCaptureManager mContentCaptureManager;
+    private ContentCaptureManager mContentCaptureManager;
 
     public static void init(Context context) {
         sContentCaptureController = new PlatformContentCaptureController(context);
@@ -65,7 +63,12 @@ public class PlatformContentCaptureController {
             return;
         }
 
-        ComponentName componentName = mContentCaptureManager.getServiceComponentName();
+        ComponentName componentName = null;
+        try {
+            componentName = mContentCaptureManager.getServiceComponentName();
+        } catch (RuntimeException e) {
+            Log.e(TAG, "Error to get component name", e);
+        }
         if (componentName == null) {
             log("Service isn't available.");
             return;
@@ -73,8 +76,7 @@ public class PlatformContentCaptureController {
 
         mIsAiai = AIAI_PACKAGE_NAME.equals(componentName.getPackageName());
         if (!mIsAiai) {
-            log("Package doesn't match, current one is "
-                    + mContentCaptureManager.getServiceComponentName().getPackageName());
+            log("Package doesn't match, current one is " + mContentCaptureManager.getServiceComponentName().getPackageName());
             // Disable the ContentCapture if there is no testing flag.
             if (!BuildInfo.isDebugAndroid() && !ContentCaptureFeatures.isDumpForTestingEnabled()) {
                 return;
@@ -93,8 +95,7 @@ public class PlatformContentCaptureController {
             mAllowlist = new UrlAllowlist(null, null);
             return;
         }
-        Set<ContentCaptureCondition> conditions =
-                mContentCaptureManager.getContentCaptureConditions();
+        Set<ContentCaptureCondition> conditions = mContentCaptureManager.getContentCaptureConditions();
         if (conditions == null) return;
 
         HashSet<String> allowedUrls = null;
@@ -127,14 +128,13 @@ public class PlatformContentCaptureController {
 
         DataRemovalRequest.Builder builder = new DataRemovalRequest.Builder();
         for (String url : urlsToDelete) {
-            builder = builder.addLocusId(
-                    new LocusId(url), /* Signals that we aren't using extra flags */ 0);
+            builder = builder.addLocusId(new LocusId(url), /* Signals that we aren't using extra flags */ 0);
         }
         mContentCaptureManager.removeData(builder.build());
     }
 
     /**
-     * @return  @return if any of the given allows to be captured.
+     * @return @return if any of the given allows to be captured.
      */
     public boolean shouldCapture(String[] urls) {
         if (mAllowlist == null) return true;

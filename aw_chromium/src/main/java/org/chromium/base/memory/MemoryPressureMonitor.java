@@ -1,4 +1,4 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
+// Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -7,74 +7,69 @@ package org.chromium.base.memory;
 import android.app.ActivityManager;
 import android.content.ComponentCallbacks2;
 import android.content.res.Configuration;
-import android.os.SystemClock;
 
 import androidx.annotation.VisibleForTesting;
 
 import org.chromium.base.ContextUtils;
 import org.chromium.base.MemoryPressureLevel;
 import org.chromium.base.MemoryPressureListener;
+import org.chromium.base.ResettersForTesting;
 import org.chromium.base.ThreadUtils;
-import org.chromium.base.annotations.MainDex;
-import org.chromium.base.metrics.RecordHistogram;
 import org.chromium.base.supplier.Supplier;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * This class monitors memory pressure and reports it to the native side.
  * Even though there can be other callbacks besides MemoryPressureListener (which reports
  * pressure to the native side, and is added implicitly), the class is designed to suite
  * needs of native MemoryPressureListeners.
- *
+ * <p>
  * There are two groups of MemoryPressureListeners:
- *
+ * <p>
  * 1. Stateless, i.e. ones that simply free memory (caches, etc.) in response to memory
- *    pressure. These listeners need to be called periodically (to have effect), but not
- *    too frequently (to avoid regressing performance too much).
- *
+ * pressure. These listeners need to be called periodically (to have effect), but not
+ * too frequently (to avoid regressing performance too much).
+ * <p>
  * 2. Stateful, i.e. ones that change their behavior based on the last received memory
- *    pressure (in addition to freeing memory). These listeners need to know when the
- *    pressure subsides, i.e. they need to be notified about CRITICAL->MODERATE changes.
- *
+ * pressure (in addition to freeing memory). These listeners need to know when the
+ * pressure subsides, i.e. they need to be notified about CRITICAL->MODERATE changes.
+ * <p>
  * Android notifies about memory pressure through onTrimMemory() / onLowMemory() callbacks
  * from ComponentCallbacks2, but these are unreliable (e.g. called too early, called just
  * once, not called when memory pressure subsides, etc., see https://crbug.com/813909 for
  * more examples).
- *
+ * <p>
  * There is also ActivityManager.getMyMemoryState() API which returns current pressure for
  * the calling process. It has its caveats, for example it can't be called from isolated
  * processes (renderers). Plus we don't want to poll getMyMemoryState() unnecessarily, for
  * example there is no reason to poll it when Chrome is in the background.
- *
+ * <p>
  * This class implements the following principles:
- *
+ * <p>
  * 1. Throttle pressure signals sent to callbacks.
- *    Callbacks are called at most once during throttling interval. If same pressure is
- *    reported several times during the interval, all reports except the first one are
- *    ignored.
- *
+ * Callbacks are called at most once during throttling interval. If same pressure is
+ * reported several times during the interval, all reports except the first one are
+ * ignored.
+ * <p>
  * 2. Always report changes in pressure.
- *    If pressure changes during the interval, the change is not ignored, but delayed
- *    until the end of the interval.
- *
+ * If pressure changes during the interval, the change is not ignored, but delayed
+ * until the end of the interval.
+ * <p>
  * 3. Poll on CRITICAL memory pressure.
- *    Once CRITICAL pressure is reported, getMyMemoryState API is used to periodically
- *    query pressure until it subsides (becomes non-CRITICAL).
- *
+ * Once CRITICAL pressure is reported, getMyMemoryState API is used to periodically
+ * query pressure until it subsides (becomes non-CRITICAL).
+ * <p>
  * Zooming out, the class is used as follows:
- *
+ * <p>
  * 1. Only the browser process / WebView process poll, and it only polls when it makes
- *    sense to do so (when Chrome is in the foreground / there are WebView instances
- *    around).
- *
+ * sense to do so (when Chrome is in the foreground / there are WebView instances
+ * around).
+ * <p>
  * 2. Services (GPU, renderers) don't poll, instead they get additional pressure signals
- *    from the main process.
- *
+ * from the main process.
+ * <p>
  * NOTE: This class should only be used on UiThread as defined by ThreadUtils (which is
- *       Android main thread for Chrome, but can be some other thread for WebView).
+ * Android main thread for Chrome, but can be some other thread for WebView).
  */
-@MainDex
 public class MemoryPressureMonitor {
     private static final int DEFAULT_THROTTLING_INTERVAL_MS = 60 * 1000;
 
@@ -92,19 +87,13 @@ public class MemoryPressureMonitor {
 
     private boolean mPollingEnabled;
 
-    // Changed by tests.
-    private Supplier<Integer> mCurrentPressureSupplier =
-            MemoryPressureMonitor::getCurrentMemoryPressure;
+    private Supplier<Integer> mCurrentPressureSupplierForTesting;
+    private MemoryPressureCallback mReportingCallbackForTesting;
 
-    // Changed by tests.
-    private MemoryPressureCallback mReportingCallback =
-            MemoryPressureListener::notifyMemoryPressure;
-
-    private final Runnable mThrottlingIntervalTask = this ::onThrottlingIntervalFinished;
+    private final Runnable mThrottlingIntervalTask = this::onThrottlingIntervalFinished;
 
     // The only instance.
-    public static final MemoryPressureMonitor INSTANCE =
-            new MemoryPressureMonitor(DEFAULT_THROTTLING_INTERVAL_MS);
+    public static final MemoryPressureMonitor INSTANCE = new MemoryPressureMonitor(DEFAULT_THROTTLING_INTERVAL_MS);
 
     @VisibleForTesting
     protected MemoryPressureMonitor(int throttlingIntervalMs) {
@@ -132,7 +121,8 @@ public class MemoryPressureMonitor {
             }
 
             @Override
-            public void onConfigurationChanged(Configuration configuration) {}
+            public void onConfigurationChanged(Configuration configuration) {
+            }
         });
     }
 
@@ -194,7 +184,11 @@ public class MemoryPressureMonitor {
         startThrottlingInterval();
 
         mLastReportedPressure = pressure;
-        mReportingCallback.onPressure(pressure);
+        if (mReportingCallbackForTesting != null) {
+            mReportingCallbackForTesting.onPressure(pressure);
+        } else {
+            MemoryPressureListener.notifyMemoryPressure(pressure);
+        }
     }
 
     private void onThrottlingIntervalFinished() {
@@ -216,7 +210,7 @@ public class MemoryPressureMonitor {
     }
 
     private void reportCurrentPressure() {
-        Integer pressure = mCurrentPressureSupplier.get();
+        Integer pressure = mCurrentPressureSupplierForTesting != null ? mCurrentPressureSupplierForTesting.get() : MemoryPressureMonitor.getCurrentMemoryPressure();
         if (pressure != null) {
             reportPressure(pressure);
         }
@@ -227,14 +221,14 @@ public class MemoryPressureMonitor {
         mIsInsideThrottlingInterval = true;
     }
 
-    @VisibleForTesting
     public void setCurrentPressureSupplierForTesting(Supplier<Integer> supplier) {
-        mCurrentPressureSupplier = supplier;
+        mCurrentPressureSupplierForTesting = supplier;
+        ResettersForTesting.register(() -> mCurrentPressureSupplierForTesting = null);
     }
 
-    @VisibleForTesting
     public void setReportingCallbackForTesting(MemoryPressureCallback callback) {
-        mReportingCallback = callback;
+        mReportingCallbackForTesting = callback;
+        ResettersForTesting.register(() -> mReportingCallbackForTesting = null);
     }
 
     /**
@@ -242,33 +236,17 @@ public class MemoryPressureMonitor {
      * Returns null if the pressure couldn't be determined.
      */
     private static @MemoryPressureLevel Integer getCurrentMemoryPressure() {
-        long startNanos = SystemClock.elapsedRealtimeNanos();
+        // We used to have a histogram here to measure the duration of each successful 
+        // ActivityManager.getMyMemoryState() call called 
+        // Android.MemoryPressureMonitor.GetMyMemoryState.Succeeded.Time. 50th percentile was 0.8ms.
         try {
-            ActivityManager.RunningAppProcessInfo processInfo =
-                    new ActivityManager.RunningAppProcessInfo();
+            ActivityManager.RunningAppProcessInfo processInfo = new ActivityManager.RunningAppProcessInfo();
             ActivityManager.getMyMemoryState(processInfo);
-            // ActivityManager.getMyMemoryState() time histograms, recorded by
-            // getCurrentMemoryPressure(). Using recordCustomCountHistogram because
-            // recordTimesHistogram doesn't support microsecond precision.
-            RecordHistogram.recordCustomCountHistogram(
-                    "Android.MemoryPressureMonitor.GetMyMemoryState.Succeeded.Time",
-                    elapsedDurationSample(startNanos), 1, 1_000_000, 50);
             return memoryPressureFromTrimLevel(processInfo.lastTrimLevel);
         } catch (Exception e) {
             // Defensively catch all exceptions, just in case.
-            RecordHistogram.recordCustomCountHistogram(
-                    "Android.MemoryPressureMonitor.GetMyMemoryState.Failed.Time",
-                    elapsedDurationSample(startNanos), 1, 1_000_000, 50);
             return null;
         }
-    }
-
-    private static int elapsedDurationSample(long startNanos) {
-        // We're using Count1MHistogram, so we need to calculate duration in microseconds
-        long durationUs =
-                TimeUnit.NANOSECONDS.toMicros(SystemClock.elapsedRealtimeNanos() - startNanos);
-        // record() takes int, so we need to clamp.
-        return (int) Math.min(durationUs, Integer.MAX_VALUE);
     }
 
     /**
@@ -277,8 +255,7 @@ public class MemoryPressureMonitor {
      */
     @VisibleForTesting
     public static @MemoryPressureLevel Integer memoryPressureFromTrimLevel(int level) {
-        if (level >= ComponentCallbacks2.TRIM_MEMORY_COMPLETE
-                || level == ComponentCallbacks2.TRIM_MEMORY_RUNNING_CRITICAL) {
+        if (level >= ComponentCallbacks2.TRIM_MEMORY_COMPLETE || level == ComponentCallbacks2.TRIM_MEMORY_RUNNING_CRITICAL) {
             return MemoryPressureLevel.CRITICAL;
         } else if (level >= ComponentCallbacks2.TRIM_MEMORY_BACKGROUND) {
             // Don't notify on TRIM_MEMORY_UI_HIDDEN, since this class only

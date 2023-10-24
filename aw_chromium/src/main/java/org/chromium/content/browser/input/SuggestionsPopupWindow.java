@@ -1,4 +1,4 @@
-// Copyright 2017 The Chromium Authors. All rights reserved.
+// Copyright 2017 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -23,8 +23,6 @@ import android.widget.PopupWindow;
 import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
 
-import androidx.annotation.VisibleForTesting;
-
 import org.chromium.android_webview.R;
 import org.chromium.base.ApiCompatibilityUtils;
 import org.chromium.ui.UiUtils;
@@ -33,10 +31,8 @@ import org.chromium.ui.base.WindowAndroid;
 /**
  * Popup window that displays a menu for viewing and applying text replacement suggestions.
  */
-public abstract class SuggestionsPopupWindow
-        implements OnItemClickListener, OnDismissListener, View.OnClickListener {
-    private static final String ACTION_USER_DICTIONARY_INSERT =
-            "com.android.settings.USER_DICTIONARY_INSERT";
+public abstract class SuggestionsPopupWindow implements OnItemClickListener, OnDismissListener, View.OnClickListener {
+    private static final String ACTION_USER_DICTIONARY_INSERT = "com.android.settings.USER_DICTIONARY_INSERT";
     private static final String USER_DICTIONARY_EXTRA_WORD = "word";
 
     private final Context mContext;
@@ -59,14 +55,14 @@ public abstract class SuggestionsPopupWindow
     private int mPopupVerticalMargin;
 
     private boolean mDismissedByItemTap;
+
     /**
-     * @param context Android context to use.
+     * @param context            Android context to use.
      * @param textSuggestionHost TextSuggestionHost instance (used to communicate with Blink).
-     * @param windowAndroid The current WindowAndroid instance.
-     * @param parentView The view used to attach the PopupWindow.
+     * @param windowAndroid      The current WindowAndroid instance.
+     * @param parentView         The view used to attach the PopupWindow.
      */
-    public SuggestionsPopupWindow(Context context, TextSuggestionHost textSuggestionHost,
-            WindowAndroid windowAndroid, View parentView) {
+    public SuggestionsPopupWindow(Context context, TextSuggestionHost textSuggestionHost, WindowAndroid windowAndroid, View parentView) {
         mContext = context;
         mTextSuggestionHost = textSuggestionHost;
         mWindowAndroid = windowAndroid;
@@ -115,10 +111,8 @@ public abstract class SuggestionsPopupWindow
         // Set the background on the PopupWindow instead of on mContentView (where we set it for
         // pre-Lollipop) since the popup will not properly dismiss on pre-Marshmallow unless it
         // has a background set.
-        mPopupWindow.setBackgroundDrawable(ApiCompatibilityUtils.getDrawable(
-                mContext.getResources(), R.drawable.floating_popup_background_light));
-        mPopupWindow.setElevation(mContext.getResources().getDimensionPixelSize(
-                R.dimen.text_suggestion_popup_elevation));
+        mPopupWindow.setBackgroundDrawable(ApiCompatibilityUtils.getDrawable(mContext.getResources(), R.drawable.floating_popup_background));
+        mPopupWindow.setElevation(mContext.getResources().getDimensionPixelSize(R.dimen.text_suggestion_popup_elevation));
 
         mPopupWindow.setInputMethodMode(PopupWindow.INPUT_METHOD_NOT_NEEDED);
         mPopupWindow.setFocusable(true);
@@ -127,23 +121,19 @@ public abstract class SuggestionsPopupWindow
     }
 
     private void initContentView() {
-        final LayoutInflater inflater =
-                (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mContentView =
-                (LinearLayout) inflater.inflate(R.layout.text_edit_suggestion_container, null);
+        final LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        mContentView = (LinearLayout) inflater.inflate(R.layout.text_edit_suggestion_container, null);
 
         // mPopupVerticalMargin is the minimum amount of space we want to have between the popup
         // and the top or bottom of the window.
-        mPopupVerticalMargin = mContext.getResources().getDimensionPixelSize(
-                R.dimen.text_suggestion_popup_vertical_margin);
+        mPopupVerticalMargin = mContext.getResources().getDimensionPixelSize(R.dimen.text_suggestion_popup_vertical_margin);
 
-        mSuggestionListView = mContentView.findViewById(R.id.suggestionContainer);
+        mSuggestionListView = (ListView) mContentView.findViewById(R.id.suggestionContainer);
         // android:divider="@null" in the XML file crashes on Android N and O
         // when running as a WebView (b/38346876).
         mSuggestionListView.setDivider(null);
 
-        mListFooter =
-                (LinearLayout) inflater.inflate(R.layout.text_edit_suggestion_list_footer, null);
+        mListFooter = (LinearLayout) inflater.inflate(R.layout.text_edit_suggestion_list_footer, null);
         mSuggestionListView.addFooterView(mListFooter, null, false);
 
         mSuggestionListView.setAdapter(new SuggestionAdapter());
@@ -151,10 +141,10 @@ public abstract class SuggestionsPopupWindow
 
         mDivider = mContentView.findViewById(R.id.divider);
 
-        mAddToDictionaryButton = mContentView.findViewById(R.id.addToDictionaryButton);
+        mAddToDictionaryButton = (TextView) mContentView.findViewById(R.id.addToDictionaryButton);
         mAddToDictionaryButton.setOnClickListener(this);
 
-        mDeleteButton = mContentView.findViewById(R.id.deleteButton);
+        mDeleteButton = (TextView) mContentView.findViewById(R.id.deleteButton);
         mDeleteButton.setOnClickListener(this);
     }
 
@@ -190,8 +180,7 @@ public abstract class SuggestionsPopupWindow
     }
 
     private class SuggestionAdapter extends BaseAdapter {
-        private final LayoutInflater mInflater =
-                (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        private LayoutInflater mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         @Override
         public int getCount() {
@@ -212,8 +201,7 @@ public abstract class SuggestionsPopupWindow
         public View getView(int position, View convertView, ViewGroup parent) {
             TextView textView = (TextView) convertView;
             if (textView == null) {
-                textView = (TextView) mInflater.inflate(
-                        R.layout.text_edit_suggestion_item, parent, false);
+                textView = (TextView) mInflater.inflate(R.layout.text_edit_suggestion_item, parent, false);
             }
 
             textView.setText(getSuggestionText(position));
@@ -223,13 +211,11 @@ public abstract class SuggestionsPopupWindow
 
     private void measureContent() {
         // Make the menu wide enough to fit its widest item.
-        int width = UiUtils.INSTANCE.computeMaxWidthOfListAdapterItems(mSuggestionListView.getAdapter());
+        int width = UiUtils.computeMaxWidthOfListAdapterItems(mSuggestionListView.getAdapter(), null);
         width += mContentView.getPaddingLeft() + mContentView.getPaddingRight();
 
-        final int verticalMeasure = View.MeasureSpec.makeMeasureSpec(
-                mDisplayMetrics.heightPixels, View.MeasureSpec.AT_MOST);
-        mContentView.measure(
-                View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY), verticalMeasure);
+        final int verticalMeasure = View.MeasureSpec.makeMeasureSpec(mDisplayMetrics.heightPixels, View.MeasureSpec.AT_MOST);
+        mContentView.measure(View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY), verticalMeasure);
         mPopupWindow.setWidth(width);
     }
 
@@ -288,17 +274,11 @@ public abstract class SuggestionsPopupWindow
         // We determine the maximum number of suggestions we can show by taking the available
         // height in the window, subtracting the height of the list footer (divider, add to
         // dictionary button, delete button), and dividing by the height of a suggestion item.
-        mListFooter.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
-                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+        mListFooter.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
 
-        final int verticalSpaceAvailableForSuggestions = mDisplayMetrics.heightPixels
-                - statusBarHeight - mListFooter.getMeasuredHeight() - 2 * mPopupVerticalMargin
-                - mContentView.getPaddingTop() - mContentView.getPaddingBottom();
-        final int itemHeight = mContext.getResources().getDimensionPixelSize(
-                R.dimen.text_edit_suggestion_item_layout_height);
-        final int maxItemsToShow = verticalSpaceAvailableForSuggestions > 0
-                ? verticalSpaceAvailableForSuggestions / itemHeight
-                : 0;
+        final int verticalSpaceAvailableForSuggestions = mDisplayMetrics.heightPixels - statusBarHeight - mListFooter.getMeasuredHeight() - 2 * mPopupVerticalMargin - mContentView.getPaddingTop() - mContentView.getPaddingBottom();
+        final int itemHeight = mContext.getResources().getDimensionPixelSize(R.dimen.text_edit_suggestion_item_layout_height);
+        final int maxItemsToShow = verticalSpaceAvailableForSuggestions > 0 ? verticalSpaceAvailableForSuggestions / itemHeight : 0;
 
         mNumberOfSuggestionsToUse = Math.min(mNumberOfSuggestionsToUse, maxItemsToShow);
         // If we're not showing any suggestions, hide the divider before "Add to dictionary" and
@@ -330,16 +310,13 @@ public abstract class SuggestionsPopupWindow
 
         // Horizontal clipping: if part of the menu (except the shadow) would fall off the left
         // or right edge of the screen, shift the menu to keep it on-screen.
-        final int menuAtRightEdgeOfWindowPositionX =
-                mDisplayMetrics.widthPixels - width + mContentView.getPaddingRight();
+        final int menuAtRightEdgeOfWindowPositionX = mDisplayMetrics.widthPixels - width + mContentView.getPaddingRight();
         positionX = Math.min(menuAtRightEdgeOfWindowPositionX, positionX);
         positionX = Math.max(-mContentView.getPaddingLeft(), positionX);
 
         // Vertical clipping: if part of the menu or its bottom margin would fall off the bottom of
         // the screen, shift it up to keep it on-screen.
-        positionY = Math.min(positionY,
-                mDisplayMetrics.heightPixels - height - mContentView.getPaddingTop()
-                        - mPopupVerticalMargin);
+        positionY = Math.min(positionY, mDisplayMetrics.heightPixels - height - mContentView.getPaddingTop() - mPopupVerticalMargin);
 
         mPopupWindow.showAtLocation(mParentView, Gravity.NO_GRAVITY, positionX, positionY);
     }
@@ -380,7 +357,6 @@ public abstract class SuggestionsPopupWindow
     /**
      * @return The popup's content view.
      */
-    @VisibleForTesting
     public View getContentViewForTesting() {
         return mContentView;
     }

@@ -1,4 +1,4 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
+// Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -13,16 +13,16 @@ import java.lang.ref.WeakReference;
 
 /**
  * Exposes limited access to a set of Java objects over a Mojo interface.
- *
+ * <p>
  * This object is split in two due to the need to ensure that the Mojo watcher does not keep the
  * WebView alive through strong references. It is expected that the WebView be destroyed when it is
  * collected by the runtime.
- *
+ * <p>
  * To achieve this, all fields which might transitively point to the WebView are stored in a
  * separate object, RemoteObjectRegistry, held weakly. It is held alive via a retaining set which is
  * owned by the WebView. If the registry is collected, it means that the WebView is gone, and any
  * further access to the Mojo interface should fail.
- *
+ * <p>
  * {@link RemoteObjectImpl} similarly holds its target weakly; it is held alive via the map held in
  * Internals.
  */
@@ -41,8 +41,7 @@ class RemoteObjectHostImpl implements RemoteObjectHost {
 
     private boolean mAllowInspection;
 
-    RemoteObjectHostImpl(RemoteObjectImpl.Auditor auditor, RemoteObjectRegistry registry,
-            boolean allowInspection) {
+    RemoteObjectHostImpl(RemoteObjectImpl.Auditor auditor, RemoteObjectRegistry registry, boolean allowInspection) {
         mAuditor = auditor;
         mRegistry = new WeakReference<>(registry);
         mAllowInspection = allowInspection;
@@ -63,8 +62,7 @@ class RemoteObjectHostImpl implements RemoteObjectHost {
             if (target == null) {
                 return;
             }
-            RemoteObjectImpl impl = new RemoteObjectImpl(target,
-                    registry.getSafeAnnotationClass(target), mAuditor, registry, mAllowInspection);
+            RemoteObjectImpl impl = new RemoteObjectImpl(target, registry.getSafeAnnotationClass(target), mAuditor, registry, mAllowInspection);
             RemoteObject.MANAGER.bind(impl, request);
         }
     }

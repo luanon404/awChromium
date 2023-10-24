@@ -1,23 +1,26 @@
-# AWChromium (THIS PROJECT STILL REMAKING)
-
-Android WebView separated from Chromium source code.
+<div align="center">
+    <kbd><img src="./assets/logo.png" width="256" height="256"></kbd>
+    <br>
+    “Logo created by <a href="https://openai.com/dall-e-3">Dall·E-3</a>”
+    <br>
+    <strong>Android WebDriver</strong> based on <strong>Chromium</strong>
+    <br>
+    <strong>Moe Moe</strong> <em>- The next-generation of Seledroid</em>
+    <br>
+    “I have no idea why I named it <strong>Moe Moe</strong>”
+</div>
 
 # Note
 
-- This project name will change into LNWebDriver in future.
-- This project will become a part of LNWebDriver in future.
-- This project wont open as public library because this is for my automation app.
-- PLease use android.webkit.WebView instead of this project.
-- Current WebView version: **_92.0.4515.115_**.
-- Do not convert Java classes to Kotlin with '@JNINamespace' annotation (maybe that annotation only see Java class but Kotlin not).
-- Do not remove functions with '@CalledByNative' annotation.
+- Current WebView version: [120.0.6076.4](https://chromium.googlesource.com/chromium/src.git/+/refs/tags/120.0.6076.4).
+- Do not modify classes or functions with the `@JNINamespace` or `@CalledByNative` annotations.
 
-# Goal
+# Updating Instructions
 
-- Convert all Java code to Kotlin for easier processing.
+- Each version will include at least 3 releases:
 
-# Why Kotlin?
-
-- Google create Kotlin for prevent null exception.
-- Android Studio changed to compile Kotlin better (Kotlin > Java).
-- So debug or doing something maybe easier than Java (but Java still is the best).
+| Release | To-Do                                              |
+|---------|----------------------------------------------------|
+| CP      | Copy and paste the new source into the old source. |
+| 3R      | Review, reformat, and remove unused resources.     |
+| TR      | Testing and release.                               |

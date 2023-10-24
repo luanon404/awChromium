@@ -1,5 +1,4 @@
-
-// Copyright 2021 The Chromium Authors. All rights reserved.
+// Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -15,16 +14,13 @@ import androidx.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@IntDef({
-    AndroidMeteringMode.NOT_SET, AndroidMeteringMode.NONE, AndroidMeteringMode.FIXED,
-    AndroidMeteringMode.SINGLE_SHOT, AndroidMeteringMode.CONTINUOUS
-})
+@IntDef({AndroidMeteringMode.NOT_SET, AndroidMeteringMode.NONE, AndroidMeteringMode.FIXED, AndroidMeteringMode.SINGLE_SHOT, AndroidMeteringMode.CONTINUOUS})
 @Retention(RetentionPolicy.SOURCE)
 public @interface AndroidMeteringMode {
-  int NOT_SET = 0;
-  int NONE = 1;
-  int FIXED = 2;
-  int SINGLE_SHOT = 3;
-  int CONTINUOUS = 4;
-  int NUM_ENTRIES = 5;
+    int NOT_SET = 0;
+    int NONE = 1;
+    int FIXED = 2;
+    int SINGLE_SHOT = 3;
+    int CONTINUOUS = 4;
+    int NUM_ENTRIES = 5;
 }

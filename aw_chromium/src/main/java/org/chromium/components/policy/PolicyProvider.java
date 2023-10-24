@@ -1,4 +1,4 @@
-// Copyright 2015 The Chromium Authors. All rights reserved.
+// Copyright 2015 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -6,19 +6,24 @@ package org.chromium.components.policy;
 
 import android.os.Bundle;
 
+import org.chromium.base.Log;
 import org.chromium.base.ThreadUtils;
 
 /**
  * Base class for Policy providers.
  */
 public abstract class PolicyProvider {
+    private static final String TAG = "PolicyProvider";
+
     private CombinedPolicyProvider mCombinedPolicyProvider;
     private int mSource = -1;
 
-    protected PolicyProvider() {}
+    protected PolicyProvider() {
+    }
 
     public void notifySettingsAvailable(Bundle settings) {
         ThreadUtils.assertOnUiThread();
+        Log.i(TAG, "#notifySettingsAvailable() " + mSource);
         mCombinedPolicyProvider.onSettingsAvailable(mSource, settings);
     }
 
@@ -35,14 +40,15 @@ public abstract class PolicyProvider {
     /**
      * Register the PolicyProvider for receiving policy changes.
      */
-    protected void startListeningForPolicyChanges() {}
+    protected void startListeningForPolicyChanges() {
+    }
 
     /**
      * Called by the {@link CombinedPolicyProvider} to correctly hook it with the Policy system.
      *
      * @param combinedPolicyProvider reference to the CombinedPolicyProvider to be used like a
-     *            delegate.
-     * @param source tags the PolicyProvider with a source.
+     *                               delegate.
+     * @param source                 tags the PolicyProvider with a source.
      */
     final void setManagerAndSource(CombinedPolicyProvider combinedPolicyProvider, int source) {
         assert mSource < 0;
@@ -51,8 +57,12 @@ public abstract class PolicyProvider {
         assert mCombinedPolicyProvider == null;
         mCombinedPolicyProvider = combinedPolicyProvider;
         startListeningForPolicyChanges();
+        Log.i(TAG, "#setManagerAndSource() " + mSource);
     }
 
-    /** Called when the provider is unregistered */
-    public void destroy() {}
+    /**
+     * Called when the provider is unregistered
+     */
+    public void destroy() {
+    }
 }

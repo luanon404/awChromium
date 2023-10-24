@@ -41,16 +41,14 @@ public class AccessibilitySnapshotNode {
     // HTML attributes: array of [lowercase HTML attribute name, value].
     public String[][] htmlAttributes;
 
-    public ArrayList<AccessibilitySnapshotNode> children =
-            new ArrayList<AccessibilitySnapshotNode>();
+    public ArrayList<AccessibilitySnapshotNode> children = new ArrayList<AccessibilitySnapshotNode>();
 
     public AccessibilitySnapshotNode(String text, String className) {
         this.text = text;
         this.className = className;
     }
 
-    public void setStyle(int color, int bgcolor, float textSize, boolean bold, boolean italic,
-            boolean underline, boolean lineThrough) {
+    public void setStyle(int color, int bgcolor, float textSize, boolean bold, boolean italic, boolean underline, boolean lineThrough) {
         this.color = color;
         this.bgcolor = bgcolor;
         this.textSize = textSize;

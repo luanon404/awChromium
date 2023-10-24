@@ -1,4 +1,4 @@
-// Copyright 2014 The Chromium Authors. All rights reserved.
+// Copyright 2014 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -12,7 +12,7 @@ import org.chromium.mojo.system.Pair;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.nio.charset.StandardCharsets;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,16 +49,15 @@ public class Encoder {
         public int dataEnd;
 
         /**
-         * @param core the |Core| implementation used to generate handles. Only used if the data
-         *            structure being encoded contains interfaces, can be |null| otherwise.
+         * @param core       the |Core| implementation used to generate handles. Only used if the data
+         *                   structure being encoded contains interfaces, can be |null| otherwise.
          * @param bufferSize A hint on the size of the message. Used to build the initial byte
-         *            buffer.
+         *                   buffer.
          */
         private EncoderState(Core core, int bufferSize) {
             assert bufferSize % BindingsHelper.ALIGNMENT == 0;
             this.core = core;
-            byteBuffer = ByteBuffer.allocateDirect(
-                    bufferSize > 0 ? bufferSize : INITIAL_BUFFER_SIZE);
+            byteBuffer = ByteBuffer.allocateDirect(bufferSize > 0 ? bufferSize : INITIAL_BUFFER_SIZE);
             byteBuffer.order(ByteOrder.LITTLE_ENDIAN);
             dataEnd = 0;
         }
@@ -99,7 +98,7 @@ public class Encoder {
     /**
      * Base offset in the byte buffer for writing.
      */
-    private final int mBaseOffset;
+    private int mBaseOffset;
 
     /**
      * The encoder state shared by the main encoder and all its sub-encoder.
@@ -118,8 +117,8 @@ public class Encoder {
     /**
      * Constructor.
      *
-     * @param core the |Core| implementation used to generate handles. Only used if the data
-     *            structure being encoded contains interfaces, can be |null| otherwise.
+     * @param core     the |Core| implementation used to generate handles. Only used if the data
+     *                 structure being encoded contains interfaces, can be |null| otherwise.
      * @param sizeHint A hint on the size of the message. Used to build the initial byte buffer.
      */
     public Encoder(Core core, int sizeHint) {
@@ -223,8 +222,7 @@ public class Encoder {
      */
     public void encode(Union v, int offset, boolean nullable) {
         if (v == null && !nullable) {
-            throw new SerializationException(
-                    "Trying to encode a null pointer for a non-nullable type.");
+            throw new SerializationException("Trying to encode a null pointer for a non-nullable type.");
         }
         if (v == null) {
             encode(0L, offset);
@@ -242,10 +240,8 @@ public class Encoder {
             encodeNullPointer(offset, nullable);
             return;
         }
-        final int arrayNullability = nullable
-                ? BindingsHelper.ARRAY_NULLABLE : BindingsHelper.NOTHING_NULLABLE;
-        encode(v.getBytes(StandardCharsets.UTF_8), offset, arrayNullability,
-                BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
+        final int arrayNullability = nullable ? BindingsHelper.ARRAY_NULLABLE : BindingsHelper.NOTHING_NULLABLE;
+        encode(v.getBytes(Charset.forName("utf8")), offset, arrayNullability, BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
     }
 
     /**
@@ -263,16 +259,14 @@ public class Encoder {
     /**
      * Encode an {@link Interface}.
      */
-    public <T extends Interface> void encode(T v, int offset, boolean nullable,
-            Interface.Manager<T, ?> manager) {
+    public <T extends Interface> void encode(T v, int offset, boolean nullable, Interface.Manager<T, ?> manager) {
         if (v == null) {
             encodeInvalidHandle(offset, nullable);
             encode(0, offset + BindingsHelper.SERIALIZED_HANDLE_SIZE);
             return;
         }
         if (mEncoderState.core == null) {
-            throw new UnsupportedOperationException(
-                    "The encoder has been created without a Core. It can't encode an interface.");
+            throw new UnsupportedOperationException("The encoder has been created without a Core. It can't encode an interface.");
         }
         // If the instance is a proxy, pass the proxy's handle instead of creating a new stub.
         if (v instanceof Interface.Proxy) {
@@ -281,8 +275,7 @@ public class Encoder {
             encode(handler.getVersion(), offset + BindingsHelper.SERIALIZED_HANDLE_SIZE);
             return;
         }
-        Pair<MessagePipeHandle, MessagePipeHandle> handles =
-                mEncoderState.core.createMessagePipe(null);
+        Pair<MessagePipeHandle, MessagePipeHandle> handles = mEncoderState.core.createMessagePipe(null);
         manager.bind(v, handles.first);
         encode(handles.second, offset, nullable);
         encode(manager.getVersion(), offset + BindingsHelper.SERIALIZED_HANDLE_SIZE);
@@ -297,8 +290,7 @@ public class Encoder {
             return;
         }
         if (mEncoderState.core == null) {
-            throw new UnsupportedOperationException(
-                    "The encoder has been created without a Core. It can't encode an interface.");
+            throw new UnsupportedOperationException("The encoder has been created without a Core. It can't encode an interface.");
         }
         encode(v.passHandle(), offset, nullable);
     }
@@ -337,8 +329,7 @@ public class Encoder {
             encodeNullPointer(offset, BindingsHelper.isArrayNullable(arrayNullability));
             return;
         }
-        if (expectedLength != BindingsHelper.UNSPECIFIED_ARRAY_LENGTH
-                && expectedLength != v.length) {
+        if (expectedLength != BindingsHelper.UNSPECIFIED_ARRAY_LENGTH && expectedLength != v.length) {
             throw new SerializationException("Trying to encode a fixed array of incorrect length.");
         }
         byte[] bytes = new byte[(v.length + 7) / BindingsHelper.ALIGNMENT];
@@ -361,8 +352,7 @@ public class Encoder {
             encodeNullPointer(offset, BindingsHelper.isArrayNullable(arrayNullability));
             return;
         }
-        if (expectedLength != BindingsHelper.UNSPECIFIED_ARRAY_LENGTH
-                && expectedLength != v.length) {
+        if (expectedLength != BindingsHelper.UNSPECIFIED_ARRAY_LENGTH && expectedLength != v.length) {
             throw new SerializationException("Trying to encode a fixed array of incorrect length.");
         }
         encodeByteArray(v, v.length, offset);
@@ -431,28 +421,23 @@ public class Encoder {
             encodeNullPointer(offset, BindingsHelper.isArrayNullable(arrayNullability));
             return;
         }
-        Encoder e = encoderForArray(
-                BindingsHelper.SERIALIZED_HANDLE_SIZE, v.length, offset, expectedLength);
+        Encoder e = encoderForArray(BindingsHelper.SERIALIZED_HANDLE_SIZE, v.length, offset, expectedLength);
         for (int i = 0; i < v.length; ++i) {
-            e.encode(v[i], DataHeader.HEADER_SIZE + BindingsHelper.SERIALIZED_HANDLE_SIZE * i,
-                    BindingsHelper.isElementNullable(arrayNullability));
+            e.encode(v[i], DataHeader.HEADER_SIZE + BindingsHelper.SERIALIZED_HANDLE_SIZE * i, BindingsHelper.isElementNullable(arrayNullability));
         }
     }
 
     /**
      * Encodes an array of {@link Interface}.
      */
-    public <T extends Interface> void encode(T[] v, int offset, int arrayNullability,
-            int expectedLength, Interface.Manager<T, ?> manager) {
+    public <T extends Interface> void encode(T[] v, int offset, int arrayNullability, int expectedLength, Interface.Manager<T, ?> manager) {
         if (v == null) {
             encodeNullPointer(offset, BindingsHelper.isArrayNullable(arrayNullability));
             return;
         }
-        Encoder e = encoderForArray(
-                BindingsHelper.SERIALIZED_INTERFACE_SIZE, v.length, offset, expectedLength);
+        Encoder e = encoderForArray(BindingsHelper.SERIALIZED_INTERFACE_SIZE, v.length, offset, expectedLength);
         for (int i = 0; i < v.length; ++i) {
-            e.encode(v[i], DataHeader.HEADER_SIZE + BindingsHelper.SERIALIZED_INTERFACE_SIZE * i,
-                    BindingsHelper.isElementNullable(arrayNullability), manager);
+            e.encode(v[i], DataHeader.HEADER_SIZE + BindingsHelper.SERIALIZED_INTERFACE_SIZE * i, BindingsHelper.isElementNullable(arrayNullability), manager);
         }
     }
 
@@ -475,31 +460,28 @@ public class Encoder {
     /**
      * Encodes an array of {@link InterfaceRequest}.
      */
-    public <I extends Interface> void encode(InterfaceRequest<I>[] v, int offset,
-            int arrayNullability, int expectedLength) {
+    public <I extends Interface> void encode(InterfaceRequest<I>[] v, int offset, int arrayNullability, int expectedLength) {
         if (v == null) {
             encodeNullPointer(offset, BindingsHelper.isArrayNullable(arrayNullability));
             return;
         }
-        Encoder e = encoderForArray(
-                BindingsHelper.SERIALIZED_HANDLE_SIZE, v.length, offset, expectedLength);
+        Encoder e = encoderForArray(BindingsHelper.SERIALIZED_HANDLE_SIZE, v.length, offset, expectedLength);
         for (int i = 0; i < v.length; ++i) {
-            e.encode(v[i], DataHeader.HEADER_SIZE + BindingsHelper.SERIALIZED_HANDLE_SIZE * i,
-                    BindingsHelper.isElementNullable(arrayNullability));
+            e.encode(v[i], DataHeader.HEADER_SIZE + BindingsHelper.SERIALIZED_HANDLE_SIZE * i, BindingsHelper.isElementNullable(arrayNullability));
         }
     }
 
     /**
      * Encodes an array of associated interfaces. Not yet supported.
      */
-    public void encode(AssociatedInterfaceNotSupported[] v, int offset, int arrayNullability,
-            int expectedLength) {}
+    public void encode(AssociatedInterfaceNotSupported[] v, int offset, int arrayNullability, int expectedLength) {
+    }
 
     /**
      * Encodes an array of associated interface requests. Not yet supported.
      */
-    public void encode(AssociatedInterfaceRequestNotSupported[] v, int offset, int arrayNullability,
-            int expectedLength) {}
+    public void encode(AssociatedInterfaceRequestNotSupported[] v, int offset, int arrayNullability, int expectedLength) {
+    }
 
     /**
      * Encodes a <code>null</code> pointer iff the object is nullable, raises an exception
@@ -507,8 +489,7 @@ public class Encoder {
      */
     public void encodeNullPointer(int offset, boolean nullable) {
         if (!nullable) {
-            throw new SerializationException(
-                    "Trying to encode a null pointer for a non-nullable type.");
+            throw new SerializationException("Trying to encode a null pointer for a non-nullable type.");
         }
         mEncoderState.byteBuffer.putLong(mBaseOffset + offset, 0);
     }
@@ -518,8 +499,7 @@ public class Encoder {
      */
     public void encodeInvalidHandle(int offset, boolean nullable) {
         if (!nullable) {
-            throw new SerializationException(
-                    "Trying to encode an invalid handle for a non-nullable type.");
+            throw new SerializationException("Trying to encode an invalid handle for a non-nullable type.");
         }
         mEncoderState.byteBuffer.putInt(mBaseOffset + offset, -1);
     }
@@ -535,10 +515,8 @@ public class Encoder {
         encode((long) mEncoderState.dataEnd - (mBaseOffset + offset), offset);
     }
 
-    private Encoder encoderForArray(
-            int elementSizeInByte, int length, int offset, int expectedLength) {
-        if (expectedLength != BindingsHelper.UNSPECIFIED_ARRAY_LENGTH
-                && expectedLength != length) {
+    private Encoder encoderForArray(int elementSizeInByte, int length, int offset, int expectedLength) {
+        if (expectedLength != BindingsHelper.UNSPECIFIED_ARRAY_LENGTH && expectedLength != length) {
             throw new SerializationException("Trying to encode a fixed array of incorrect length.");
         }
         return encoderForArrayByTotalSize(length * elementSizeInByte, length, offset);
@@ -546,8 +524,7 @@ public class Encoder {
 
     private Encoder encoderForArrayByTotalSize(int byteSize, int length, int offset) {
         encodePointerToNextUnclaimedData(offset);
-        return getEncoderAtDataOffset(
-                new DataHeader(DataHeader.HEADER_SIZE + byteSize, length));
+        return getEncoderAtDataOffset(new DataHeader(DataHeader.HEADER_SIZE + byteSize, length));
     }
 
     private void encodeByteArray(byte[] bytes, int length, int offset) {

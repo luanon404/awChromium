@@ -1,4 +1,4 @@
-// Copyright 2015 The Chromium Authors. All rights reserved.
+// Copyright 2015 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -8,13 +8,15 @@ import android.os.Bundle;
 
 import androidx.annotation.VisibleForTesting;
 
+import org.chromium.base.Log;
+import org.chromium.base.ResettersForTesting;
 import org.chromium.base.ThreadUtils;
-import org.chromium.base.annotations.CalledByNative;
-import org.chromium.base.annotations.JNINamespace;
-import org.chromium.base.annotations.NativeMethods;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -23,6 +25,8 @@ import java.util.List;
  */
 @JNINamespace("policy::android")
 public class CombinedPolicyProvider {
+    private static final String TAG = "CombinedPProvider";
+
     private static CombinedPolicyProvider sInstance;
 
     private long mNativeCombinedPolicyProvider;
@@ -40,13 +44,14 @@ public class CombinedPolicyProvider {
         return sInstance;
     }
 
-    private void linkNativeInternal(
-            long nativeCombinedPolicyProvider, PolicyConverter policyConverter) {
+    private void linkNativeInternal(long nativeCombinedPolicyProvider, PolicyConverter policyConverter) {
         mNativeCombinedPolicyProvider = nativeCombinedPolicyProvider;
         mPolicyConverter = policyConverter;
         if (nativeCombinedPolicyProvider == 0) {
             return;
         }
+
+        Log.i(TAG, "#linkNativeInternal() " + mPolicyProviders.size());
 
         if (mPolicyProviders.isEmpty()) {
             mPolicyCacheProvider = new PolicyCacheProvider();
@@ -56,8 +61,7 @@ public class CombinedPolicyProvider {
     }
 
     @CalledByNative
-    public static CombinedPolicyProvider linkNative(
-            long nativeCombinedPolicyProvider, PolicyConverter policyConverter) {
+    public static CombinedPolicyProvider linkNative(long nativeCombinedPolicyProvider, PolicyConverter policyConverter) {
         ThreadUtils.assertOnUiThread();
         get().linkNativeInternal(nativeCombinedPolicyProvider, policyConverter);
         return get();
@@ -69,6 +73,7 @@ public class CombinedPolicyProvider {
      * disambiguating updates.
      */
     public void registerProvider(PolicyProvider provider) {
+        Log.i(TAG, "#registerProvider() provider:" + provider + " isPolicyCacheEnabled:" + isPolicyCacheEnabled() + " policyProvidersSize:" + mPolicyProviders.size());
         if (isPolicyCacheEnabled()) {
             mPolicyCacheProvider = null;
         }
@@ -91,11 +96,12 @@ public class CombinedPolicyProvider {
     }
 
     void onSettingsAvailable(int source, Bundle newSettings) {
+        Log.i(TAG, "#onSettingsAvailable() " + source);
         if (mNativeCombinedPolicyProvider == 0) return;
 
         List<Bundle> policies;
         if (isPolicyCacheEnabled()) {
-            policies = Collections.singletonList(newSettings);
+            policies = Arrays.asList(newSettings);
         } else {
             mCachedPolicies.set(source, newSettings);
             // Check if we have policies from all the providers before applying them.
@@ -107,9 +113,11 @@ public class CombinedPolicyProvider {
         }
         for (Bundle settings : policies) {
             for (String key : settings.keySet()) {
+                Log.i(TAG, "#setPolicy() " + key + " -> " + settings.get(key));
                 mPolicyConverter.setPolicy(key, settings.get(key));
             }
         }
+        Log.i(TAG, "#flushPolicies()");
         CombinedPolicyProviderJni.get().flushPolicies(mNativeCombinedPolicyProvider, get());
     }
 
@@ -145,7 +153,6 @@ public class CombinedPolicyProvider {
         }
     }
 
-    @VisibleForTesting
     List<PolicyProvider> getPolicyProvidersForTesting() {
         return mPolicyProviders;
     }
@@ -154,6 +161,7 @@ public class CombinedPolicyProvider {
     boolean isPolicyCacheEnabled() {
         return mPolicyCacheProvider != null;
     }
+
     /**
      * Interface to handle actions related with policy changes.
      */
@@ -165,7 +173,9 @@ public class CombinedPolicyProvider {
     }
 
     static void setForTesting(CombinedPolicyProvider p) {
+        var oldValue = sInstance;
         sInstance = p;
+        ResettersForTesting.register(() -> sInstance = oldValue);
     }
 
     @NativeMethods

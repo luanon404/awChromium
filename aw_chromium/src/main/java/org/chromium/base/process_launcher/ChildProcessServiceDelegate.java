@@ -1,4 +1,4 @@
-// Copyright 2017 The Chromium Authors. All rights reserved.
+// Copyright 2017 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -16,17 +16,21 @@ import java.util.List;
  * The interface that embedders should implement to specialize child service creation.
  */
 public interface ChildProcessServiceDelegate {
-    /** Invoked when the service was created. This is the first method invoked on the delegate. */
+    /**
+     * Invoked when the service was created. This is the first method invoked on the delegate.
+     */
     void onServiceCreated();
 
     /**
      * Called when the service is bound. Invoked on a background thread.
+     *
      * @param intent the intent that started the service.
      */
     void onServiceBound(Intent intent);
 
     /**
      * Called once the connection has been setup. Invoked on a background thread.
+     *
      * @param connectionBundle the bundle pass to the setupConnection call
      * @param clientInterfaces the IBinders interfaces provided by the client
      */
@@ -34,6 +38,7 @@ public interface ChildProcessServiceDelegate {
 
     /**
      * Called when the delegate should load the native library.
+     *
      * @param hostContext The host context the library should be loaded with (i.e. Chrome).
      */
     void loadNativeLibrary(Context hostContext);
@@ -41,11 +46,21 @@ public interface ChildProcessServiceDelegate {
     /**
      * Called when the delegate should preload the native library.
      * Preloading is automatically done during library loading, but can also be called explicitly
-     * to speed up the loading. See {@link LibraryLoader.preloadNow}.
+     * to speed up the loading. See {@link LibraryLoader#preloadNow()}.
+     *
      * @param packageName The package name the library should be preloaded with (i.e.
-     * org.chromium.chrome).
+     *                    org.chromium.chrome).
      */
     void preloadNativeLibrary(String packageName);
+
+    /**
+     * Takes the shared memory region containing read-only relocations, to save memory after loading
+     * the native library in the child process.
+     *
+     * @param bundle potentially holds the description of the shared memory region transferred
+     *               between processes from one {@link org.chromium.base.library_loader.Linker} to another.
+     */
+    void consumeRelroBundle(Bundle bundle);
 
     /**
      * Should return a map that associatesfile descriptors' IDs to keys.
@@ -57,7 +72,9 @@ public interface ChildProcessServiceDelegate {
      */
     SparseArray<String> getFileDescriptorsIdsToKeys();
 
-    /** Called before the main method is invoked. */
+    /**
+     * Called before the main method is invoked.
+     */
     void onBeforeMain();
 
     /**

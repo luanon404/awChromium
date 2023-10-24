@@ -1,4 +1,4 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
+// Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -20,7 +20,7 @@ public final class BigBufferUtil {
 
     /**
      * A mapping to a BigBuffer.
-     *
+     * <p>
      * If it is backed by shared memory, this will be a direct mapping which must be closed and will
      * be invalid thereafter. The simplest way to do this is by using try-with-resources.
      */
@@ -52,8 +52,7 @@ public final class BigBufferUtil {
             return buffer.getBytes();
         } else {
             BigBufferSharedMemoryRegion region = buffer.getSharedMemory();
-            ByteBuffer byteBuffer =
-                    region.bufferHandle.map(0, region.size, SharedBufferHandle.MapFlags.NONE);
+            ByteBuffer byteBuffer = region.bufferHandle.map(0, region.size, SharedBufferHandle.MapFlags.NONE);
             byte[] bytes = new byte[region.size];
             byteBuffer.get(bytes);
             region.bufferHandle.unmap(byteBuffer);
@@ -69,8 +68,7 @@ public final class BigBufferUtil {
             return new Mapping(null, ByteBuffer.wrap(buffer.getBytes()));
         } else {
             BigBufferSharedMemoryRegion region = buffer.getSharedMemory();
-            ByteBuffer byteBuffer =
-                    region.bufferHandle.map(0, region.size, SharedBufferHandle.MapFlags.NONE);
+            ByteBuffer byteBuffer = region.bufferHandle.map(0, region.size, SharedBufferHandle.MapFlags.NONE);
             return new Mapping(region.bufferHandle, byteBuffer);
         }
     }
@@ -85,11 +83,9 @@ public final class BigBufferUtil {
         }
         Core core = CoreImpl.getInstance();
         BigBufferSharedMemoryRegion region = new BigBufferSharedMemoryRegion();
-        region.bufferHandle =
-                core.createSharedBuffer(new SharedBufferHandle.CreateOptions(), bytes.length);
+        region.bufferHandle = core.createSharedBuffer(new SharedBufferHandle.CreateOptions(), bytes.length);
         region.size = bytes.length;
-        ByteBuffer mappedRegion =
-                region.bufferHandle.map(0, bytes.length, SharedBufferHandle.MapFlags.NONE);
+        ByteBuffer mappedRegion = region.bufferHandle.map(0, bytes.length, SharedBufferHandle.MapFlags.NONE);
         mappedRegion.put(bytes);
         region.bufferHandle.unmap(mappedRegion);
         buffer.setSharedMemory(region);

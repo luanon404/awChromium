@@ -1,11 +1,11 @@
-// Copyright 2014 The Chromium Authors. All rights reserved.
+// Copyright 2014 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
 package org.chromium.net;
 
-import org.chromium.base.annotations.CalledByNative;
-import org.chromium.base.annotations.JNINamespace;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
 
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.X509Certificate;
@@ -34,9 +34,7 @@ public class AndroidCertVerifyResult {
      */
     private final List<X509Certificate> mCertificateChain;
 
-    public AndroidCertVerifyResult(int status,
-                                   boolean isIssuedByKnownRoot,
-                                   List<X509Certificate> certificateChain) {
+    public AndroidCertVerifyResult(int status, boolean isIssuedByKnownRoot, List<X509Certificate> certificateChain) {
         mStatus = status;
         mIsIssuedByKnownRoot = isIssuedByKnownRoot;
         mCertificateChain = new ArrayList<X509Certificate>(certificateChain);
@@ -45,7 +43,7 @@ public class AndroidCertVerifyResult {
     public AndroidCertVerifyResult(int status) {
         mStatus = status;
         mIsIssuedByKnownRoot = false;
-        mCertificateChain = Collections.emptyList();
+        mCertificateChain = Collections.<X509Certificate>emptyList();
     }
 
     @CalledByNative
