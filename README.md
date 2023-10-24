@@ -5,7 +5,7 @@
     <br>
     <strong>Android WebDriver</strong> based on <strong>Chromium</strong>
     <br>
-    <strong>Moe Moe</strong> <em>- The next-generation of Seledroid</em>
+    <strong>Moe Moe</strong> <em>- The next-generation of <a href="https://github.com/luanon404/Seledroid">Seledroid</a></em>
     <br>
     “I have no idea why I named it <strong>Moe Moe</strong>”
 </div>
