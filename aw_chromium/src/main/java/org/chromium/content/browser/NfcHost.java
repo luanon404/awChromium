@@ -1,4 +1,4 @@
-// Copyright 2016 The Chromium Authors. All rights reserved.
+// Copyright 2016 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -8,11 +8,12 @@ import android.app.Activity;
 import android.util.SparseArray;
 
 import org.chromium.base.Callback;
-import org.chromium.base.annotations.CalledByNative;
 import org.chromium.content_public.browser.WebContents;
 import org.chromium.ui.base.WindowAndroid;
+import org.jni_zero.CalledByNative;
 
-/** Tracks the Activiy for a given WebContents on behalf of a NFC instance that cannot talk
+/**
+ * Tracks the Activiy for a given WebContents on behalf of a NFC instance that cannot talk
  * directly to WebContents.
  */
 class NfcHost implements WindowEventObserver {
@@ -48,7 +49,8 @@ class NfcHost implements WindowEventObserver {
         sContextHostsMap.put(mContextId, this);
     }
 
-    /** Called by the NFC implementation (via ContentNfcDelegate) to allow that implementation to
+    /**
+     * Called by the NFC implementation (via ContentNfcDelegate) to allow that implementation to
      * track changes to the Activity associated with its context ID (i.e., the activity associated
      * with |mWebContents|).
      */

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape android:shape="rectangle"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <stroke android:width="@dimen/drag_shadow_border_size" android:color="@color/baseline_neutral_variant_90_alpha_20" />
+    <corners android:topLeftRadius="@dimen/drag_shadow_border_corner_radius" android:topRightRadius="@dimen/drag_shadow_border_corner_radius" android:bottomLeftRadius="@dimen/drag_shadow_border_corner_radius" android:bottomRightRadius="@dimen/drag_shadow_border_corner_radius" />
+</shape>

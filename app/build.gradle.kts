@@ -9,7 +9,7 @@ android {
     buildToolsVersion = "34.0.0"
 
     defaultConfig {
-        applicationId = "com.luanon.awchromium"
+        applicationId = "com.luanon.webdriver"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

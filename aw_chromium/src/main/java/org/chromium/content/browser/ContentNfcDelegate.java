@@ -1,4 +1,4 @@
-// Copyright 2017 The Chromium Authors. All rights reserved.
+// Copyright 2017 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -7,8 +7,8 @@ package org.chromium.content.browser;
 import android.app.Activity;
 
 import org.chromium.base.Callback;
-import org.chromium.base.annotations.CalledByNative;
 import org.chromium.device.nfc.NfcDelegate;
+import org.jni_zero.CalledByNative;
 
 /**
  * A //content-specific implementation of the NfcDelegate interface. Maps NFC host IDs to their

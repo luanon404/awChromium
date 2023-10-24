@@ -60,7 +60,7 @@ dependencies {
     implementation("androidx.privacysandbox.ads:ads-adservices-java:1.1.0-beta02")
     implementation("androidx.privacysandbox.ads:ads-adservices:1.1.0-beta02")
     implementation("com.google.android.material:material:1.10.0")
-    implementation("com.google.errorprone:error_prone_annotations:2.22.0")
-    implementation("com.google.guava:guava:32.1.3-android")
+    implementation("com.google.errorprone:error_prone_annotations:2.23.0")
+    implementation("com.google.guava:guava:32.1.3-jre")
     implementation("androidx.concurrent:concurrent-futures:1.1.0")
 }
