@@ -3,7 +3,7 @@
     <br>
     “Logo created by <a href="https://www.bing.com/create">Dall·E-3</a>”
     <br>
-    <strong>Android WebDriver</strong> based on <strong>Chromium</strong>
+    First <strong>Android WebDriver</strong> based on <strong>Chromium</strong>
     <br>
     <strong>Moe Moe</strong> <em>- The next-generation of <a href="https://github.com/luanon404/Seledroid">Seledroid</a></em>
     <br>
