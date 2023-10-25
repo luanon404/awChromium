@@ -7,7 +7,7 @@
     <br>
     <strong>Moe Moe</strong> <em>- The next-generation of <a href="https://github.com/luanon404/Seledroid">Seledroid</a></em>
     <br>
-    “I have no idea why I named it <strong>Moe Moe</strong>”
+    “I have no idea why I named it <strong>🐾Moe Moe🐾</strong>”
 </div>
 
 # Note
@@ -18,6 +18,8 @@
 # Goal
 
 - Create `important.json` that includes only the necessary files.
+- I'm trying to remove as many unnecessary files as possible.
+- That will minimize errors that I cannot fix it🫣.
 
 # Update Instructions
 
