@@ -27,10 +27,6 @@ public final class BundledCompositorFrame extends org.chromium.mojo.bindings.Str
         super(STRUCT_SIZE, version);
     }
 
-    public BundledCompositorFrame() {
-        this(0);
-    }
-
     public static BundledCompositorFrame deserialize(org.chromium.mojo.bindings.Message message) {
         return decode(new org.chromium.mojo.bindings.Decoder(message));
     }
@@ -41,10 +37,9 @@ public final class BundledCompositorFrame extends org.chromium.mojo.bindings.Str
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static BundledCompositorFrame deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<>()));
     }
 
-    @SuppressWarnings("unchecked")
     public static BundledCompositorFrame decode(org.chromium.mojo.bindings.Decoder decoder0) {
         if (decoder0 == null) {
             return null;
@@ -81,9 +76,8 @@ public final class BundledCompositorFrame extends org.chromium.mojo.bindings.Str
         return result;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
-    protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
+    protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
 
         encoder0.encode(this.localSurfaceId, 8, false);

@@ -16,13 +16,9 @@ import java.nio.ByteOrder;
  * A helper class to decode and expose relevant 9-patch data from a Bitmap.
  */
 public class NinePatchData {
-    private final int mWidth;
-    private final int mHeight;
     private final Rect mPadding;
-    private final int[] mDivX;
-    private final int[] mDivY;
 
-    private Rect mAperture;
+    private final Rect mAperture;
 
     /**
      * Creates a {@link NinePatchData} that stores 9-patch metadata.
@@ -38,12 +34,10 @@ public class NinePatchData {
      *                regions will go from 0 -> divY[0] - 1, divY[0] -> divY[1] - 1, etc..
      */
     private NinePatchData(int width, int height, Rect padding, int[] divX, int[] divY) {
-        mWidth = width;
-        mHeight = height;
-        mPadding = new Rect(padding.left, padding.top, mWidth - padding.right, mHeight - padding.bottom);
+        mPadding = new Rect(padding.left, padding.top, width - padding.right, height - padding.bottom);
 
-        mDivX = new int[divX.length];
-        mDivY = new int[divY.length];
+        int[] mDivX = new int[divX.length];
+        int[] mDivY = new int[divY.length];
 
         System.arraycopy(divX, 0, mDivX, 0, divX.length);
         System.arraycopy(divY, 0, mDivY, 0, divY.length);

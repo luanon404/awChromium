@@ -24,13 +24,6 @@ public class Origin {
     private final long mTokenLowBits;
 
     /**
-     * Constructs an opaque origin.
-     */
-    public static Origin createOpaqueOrigin() {
-        return OriginJni.get().createOpaque();
-    }
-
-    /**
      * See origin.h for many warnings about this method.
      * <p>
      * Constructs an Origin from a GURL.
@@ -44,8 +37,6 @@ public class Origin {
      * <p>
      * `org.chromium.url.internal.mojom.Origin`s, are provided by Mojo-generated code but not
      * intended for direct use (see crbug.com/1156866).
-     *
-     * @return A Java equivalent of the c++ Origin represented by the provided mojo Origin.
      */
     public Origin(org.chromium.url.internal.mojom.Origin mojoOrigin) {
         mScheme = mojoOrigin.scheme;
@@ -107,10 +98,6 @@ public class Origin {
 
     @NativeMethods
     interface Natives {
-        /**
-         * Constructs a new Opaque origin.
-         */
-        Origin createOpaque();
 
         /**
          * Constructs an Origin from a GURL.

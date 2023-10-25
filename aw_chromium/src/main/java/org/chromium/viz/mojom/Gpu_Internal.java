@@ -15,7 +15,7 @@ package org.chromium.viz.mojom;
 
 class Gpu_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<Gpu, Gpu.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<Gpu, Gpu.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<Gpu, Gpu.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<>() {
 
         @Override
         public String getName() {
@@ -237,10 +237,9 @@ class Gpu_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static GpuCreateGpuMemoryBufferFactoryParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static GpuCreateGpuMemoryBufferFactoryParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -262,9 +261,8 @@ class Gpu_Internal {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
-        protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
+        protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
 
             encoder0.encode(this.receiver, 8, false);
@@ -297,10 +295,9 @@ class Gpu_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static GpuCreateClientGpuMemoryBufferFactoryParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static GpuCreateClientGpuMemoryBufferFactoryParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -322,9 +319,8 @@ class Gpu_Internal {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
-        protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
+        protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
 
             encoder0.encode(this.receiver, 8, false);
@@ -356,10 +352,9 @@ class Gpu_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static GpuEstablishGpuChannelParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static GpuEstablishGpuChannelParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -377,9 +372,8 @@ class Gpu_Internal {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
-        protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
+        protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
         }
     }
@@ -415,10 +409,9 @@ class Gpu_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static GpuEstablishGpuChannelResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static GpuEstablishGpuChannelResponseParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -459,9 +452,8 @@ class Gpu_Internal {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
-        protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
+        protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
 
             encoder0.encode(this.clientId, 8);
@@ -559,10 +551,9 @@ class Gpu_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static GpuCreateVideoEncodeAcceleratorProviderParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static GpuCreateVideoEncodeAcceleratorProviderParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -584,9 +575,8 @@ class Gpu_Internal {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
-        protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
+        protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
 
             encoder0.encode(this.veaProvider, 8, false);

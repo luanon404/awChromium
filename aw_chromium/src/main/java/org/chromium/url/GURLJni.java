@@ -12,7 +12,7 @@ import org.jni_zero.NativeLibraryLoadedStatus;
 class GURLJni implements GURL.Natives {
     private static GURL.Natives testInstance;
 
-    public static final JniStaticTestMocker<GURL.Natives> TEST_HOOKS = new JniStaticTestMocker<GURL.Natives>() {
+    public static final JniStaticTestMocker<GURL.Natives> TEST_HOOKS = new JniStaticTestMocker<>() {
         @Override
         public void setInstanceForTesting(GURL.Natives instance) {
             if (!GEN_JNI.TESTING_ENABLED) {
@@ -21,16 +21,6 @@ class GURLJni implements GURL.Natives {
             testInstance = instance;
         }
     };
-
-    @Override
-    public long createNative(String spec, boolean isValid, long nativeParsed) {
-        return (long) GEN_JNI.org_chromium_url_GURL_createNative(spec, isValid, nativeParsed);
-    }
-
-    @Override
-    public boolean domainIs(String spec, boolean isValid, long nativeParsed, String domain) {
-        return (boolean) GEN_JNI.org_chromium_url_GURL_domainIs(spec, isValid, nativeParsed, domain);
-    }
 
     @Override
     public void getOrigin(String spec, boolean isValid, long nativeParsed, GURL target) {

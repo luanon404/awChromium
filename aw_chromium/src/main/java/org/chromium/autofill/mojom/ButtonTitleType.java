@@ -18,7 +18,6 @@ import androidx.annotation.IntDef;
 public final class ButtonTitleType {
     private static final boolean IS_EXTENSIBLE = false;
     @IntDef({
-
         ButtonTitleType.NONE,
         ButtonTitleType.BUTTON_ELEMENT_SUBMIT_TYPE,
         ButtonTitleType.BUTTON_ELEMENT_BUTTON_TYPE,

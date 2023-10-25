@@ -15,6 +15,10 @@
 - Current WebView version: [120.0.6076.4](https://chromium.googlesource.com/chromium/src.git/+/refs/tags/120.0.6076.4).
 - Do not modify classes or functions with the `@JNINamespace` or `@CalledByNative` annotations.
 
+# Goal
+
+- Create `important.json` that includes only the necessary files.
+
 # Update Instructions
 
 - Each version will include at least 3 releases:

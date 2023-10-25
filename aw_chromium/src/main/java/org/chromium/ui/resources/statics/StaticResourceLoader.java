@@ -22,11 +22,6 @@ public class StaticResourceLoader extends AsyncPreloadResourceLoader {
      * @param resources    The {@link Resources} instance to load Android resources from.
      */
     public StaticResourceLoader(int resourceType, ResourceLoaderCallback callback, final Resources resources) {
-        super(resourceType, callback, new ResourceCreator() {
-            @Override
-            public Resource create(int resId) {
-                return StaticResource.create(resources, resId, 0, 0);
-            }
-        });
+        super(resourceType, callback, resId -> StaticResource.create(resources, resId, 0, 0));
     }
 }

@@ -143,12 +143,6 @@ public class AutofillSuggestion extends DropdownItemBase {
 
     @Override
     @Nullable
-    public GURL getCustomIconUrl() {
-        return mCustomIconUrl;
-    }
-
-    @Override
-    @Nullable
     public Drawable getIconDrawable() {
         return mIconDrawable;
     }

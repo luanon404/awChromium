@@ -85,13 +85,4 @@ public abstract class ResourceLoader {
         if (mCallback != null) mCallback.onResourceLoaded(getResourceType(), resId, resource);
     }
 
-    /**
-     * A helper method for subclasses to notify the manager that a {@link Resource} is no longer
-     * being used.
-     *
-     * @param resId The id of the {@link Resource} being unloaded.
-     */
-    protected void notifyResourceUnregistered(int resId) {
-        if (mCallback != null) mCallback.onResourceUnregistered(getResourceType(), resId);
-    }
 }

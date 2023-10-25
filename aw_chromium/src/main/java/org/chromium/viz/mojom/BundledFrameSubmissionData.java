@@ -35,29 +35,9 @@ public final class BundledFrameSubmissionData extends org.chromium.mojo.bindings
         return this.mFrame;
     }
 
-    public void setDidNotProduceFrame(BeginFrameAck didNotProduceFrame) {
-        this.mTag = Tag.DidNotProduceFrame;
-        this.mDidNotProduceFrame = didNotProduceFrame;
-    }
-
-    public BeginFrameAck getDidNotProduceFrame() {
-        assert this.mTag == Tag.DidNotProduceFrame;
-        return this.mDidNotProduceFrame;
-    }
-
-    public void setDidDeleteSharedBitmap(org.chromium.gpu.mojom.Mailbox didDeleteSharedBitmap) {
-        this.mTag = Tag.DidDeleteSharedBitmap;
-        this.mDidDeleteSharedBitmap = didDeleteSharedBitmap;
-    }
-
-    public org.chromium.gpu.mojom.Mailbox getDidDeleteSharedBitmap() {
-        assert this.mTag == Tag.DidDeleteSharedBitmap;
-        return this.mDidDeleteSharedBitmap;
-    }
-
 
     @Override
-    protected final void encode(org.chromium.mojo.bindings.Encoder encoder0, int offset) {
+    protected void encode(org.chromium.mojo.bindings.Encoder encoder0, int offset) {
         encoder0.encode(org.chromium.mojo.bindings.BindingsHelper.UNION_SIZE, offset);
         encoder0.encode(this.mTag, offset + 4);
         switch (mTag) {
@@ -86,7 +66,7 @@ public final class BundledFrameSubmissionData extends org.chromium.mojo.bindings
         return decode(new org.chromium.mojo.bindings.Decoder(message).decoderForSerializedUnion(), 0);
     }
 
-    public static final BundledFrameSubmissionData decode(org.chromium.mojo.bindings.Decoder decoder0, int offset) {
+    public static BundledFrameSubmissionData decode(org.chromium.mojo.bindings.Decoder decoder0, int offset) {
         org.chromium.mojo.bindings.DataHeader dataHeader = decoder0.readDataHeaderForUnion(offset);
         if (dataHeader.size == 0) {
             return null;

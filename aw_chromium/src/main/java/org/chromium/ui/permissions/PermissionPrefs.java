@@ -111,15 +111,6 @@ public class PermissionPrefs {
     }
 
     /**
-     * @return The timestamp when the notification permission request was shown last.
-     */
-    public static long getAndroidNotificationPermissionRequestTimestamp() {
-        String prefName = ANDROID_PERMISSION_REQUEST_TIMESTAMP_KEY_PREFIX + PermissionPrefs.normalizePermissionName(Manifest.permission.POST_NOTIFICATIONS);
-        SharedPreferences prefs = ContextUtils.getAppSharedPreferences();
-        return prefs.getLong(prefName, 0);
-    }
-
-    /**
      * Called when the android permission prompt was shown.
      */
     static void onAndroidPermissionRequestUiShown(String[] permissions) {
@@ -132,7 +123,10 @@ public class PermissionPrefs {
         }
         if (!isNotification) return;
 
-        String prefName = ANDROID_PERMISSION_REQUEST_TIMESTAMP_KEY_PREFIX + PermissionPrefs.normalizePermissionName(Manifest.permission.POST_NOTIFICATIONS);
+        String prefName = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+            prefName = ANDROID_PERMISSION_REQUEST_TIMESTAMP_KEY_PREFIX + PermissionPrefs.normalizePermissionName(Manifest.permission.POST_NOTIFICATIONS);
+        }
         SharedPreferences prefs = ContextUtils.getAppSharedPreferences();
         prefs.edit().putLong(prefName, TimeUtils.currentTimeMillis()).apply();
     }

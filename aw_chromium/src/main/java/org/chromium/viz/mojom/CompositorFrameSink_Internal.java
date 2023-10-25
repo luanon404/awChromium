@@ -15,7 +15,7 @@ package org.chromium.viz.mojom;
 
 class CompositorFrameSink_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<CompositorFrameSink, CompositorFrameSink.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<CompositorFrameSink, CompositorFrameSink.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<CompositorFrameSink, CompositorFrameSink.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<>() {
 
         @Override
         public String getName() {
@@ -437,10 +437,9 @@ class CompositorFrameSink_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static CompositorFrameSinkSetNeedsBeginFrameParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static CompositorFrameSinkSetNeedsBeginFrameParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -462,9 +461,8 @@ class CompositorFrameSink_Internal {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
-        protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
+        protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
 
             encoder0.encode(this.needsBeginFrame, 8, 0);
@@ -496,10 +494,9 @@ class CompositorFrameSink_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static CompositorFrameSinkSetWantsAnimateOnlyBeginFramesParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static CompositorFrameSinkSetWantsAnimateOnlyBeginFramesParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -517,9 +514,8 @@ class CompositorFrameSink_Internal {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
-        protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
+        protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
         }
     }
@@ -549,10 +545,9 @@ class CompositorFrameSink_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static CompositorFrameSinkSetWantsBeginFrameAcksParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static CompositorFrameSinkSetWantsBeginFrameAcksParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -570,9 +565,8 @@ class CompositorFrameSink_Internal {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
-        protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
+        protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
         }
     }
@@ -602,10 +596,9 @@ class CompositorFrameSink_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static CompositorFrameSinkSetAutoNeedsBeginFrameParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static CompositorFrameSinkSetAutoNeedsBeginFrameParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -623,9 +616,8 @@ class CompositorFrameSink_Internal {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
-        protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
+        protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
         }
     }
@@ -659,10 +651,9 @@ class CompositorFrameSink_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static CompositorFrameSinkSubmitCompositorFrameParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static CompositorFrameSinkSubmitCompositorFrameParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -699,9 +690,8 @@ class CompositorFrameSink_Internal {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
-        protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
+        protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
 
             encoder0.encode(this.localSurfaceId, 8, false);
@@ -743,10 +733,9 @@ class CompositorFrameSink_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static CompositorFrameSinkSubmitCompositorFrameSyncParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static CompositorFrameSinkSubmitCompositorFrameSyncParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -783,9 +772,8 @@ class CompositorFrameSink_Internal {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
-        protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
+        protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
 
             encoder0.encode(this.localSurfaceId, 8, false);
@@ -824,10 +812,9 @@ class CompositorFrameSink_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static CompositorFrameSinkSubmitCompositorFrameSyncResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static CompositorFrameSinkSubmitCompositorFrameSyncResponseParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -858,9 +845,8 @@ class CompositorFrameSink_Internal {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
-        protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
+        protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
 
             if (this.resources == null) {
@@ -950,10 +936,9 @@ class CompositorFrameSink_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static CompositorFrameSinkDidNotProduceFrameParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static CompositorFrameSinkDidNotProduceFrameParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -976,9 +961,8 @@ class CompositorFrameSink_Internal {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
-        protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
+        protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
 
             encoder0.encode(this.ack, 8, false);
@@ -1012,10 +996,9 @@ class CompositorFrameSink_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static CompositorFrameSinkDidAllocateSharedBitmapParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static CompositorFrameSinkDidAllocateSharedBitmapParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -1043,9 +1026,8 @@ class CompositorFrameSink_Internal {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
-        protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
+        protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
 
             encoder0.encode(this.region, 8, false);
@@ -1080,10 +1062,9 @@ class CompositorFrameSink_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static CompositorFrameSinkDidDeleteSharedBitmapParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static CompositorFrameSinkDidDeleteSharedBitmapParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -1106,9 +1087,8 @@ class CompositorFrameSink_Internal {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
-        protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
+        protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
 
             encoder0.encode(this.id, 8, false);
@@ -1141,10 +1121,9 @@ class CompositorFrameSink_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static CompositorFrameSinkInitializeCompositorFrameSinkTypeParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static CompositorFrameSinkInitializeCompositorFrameSinkTypeParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -1159,7 +1138,6 @@ class CompositorFrameSink_Internal {
 
                     result.type = decoder0.readInt(8);
                     CompositorFrameSinkType.validate(result.type);
-                    result.type = CompositorFrameSinkType.toKnownValue(result.type);
                 }
 
             } finally {
@@ -1168,9 +1146,8 @@ class CompositorFrameSink_Internal {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
-        protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
+        protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
 
             encoder0.encode(this.type, 8);
@@ -1203,10 +1180,9 @@ class CompositorFrameSink_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static CompositorFrameSinkBindLayerContextParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static CompositorFrameSinkBindLayerContextParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -1229,9 +1205,8 @@ class CompositorFrameSink_Internal {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
-        protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
+        protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
 
             encoder0.encode(this.context, 8, false);
@@ -1264,10 +1239,9 @@ class CompositorFrameSink_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static CompositorFrameSinkSetThreadIdsParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static CompositorFrameSinkSetThreadIdsParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -1289,9 +1263,8 @@ class CompositorFrameSink_Internal {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
-        protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
+        protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
 
             encoder0.encode(this.threadIds, 8, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);

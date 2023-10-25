@@ -14,7 +14,7 @@ import org.jni_zero.NativeLibraryLoadedStatus;
 class ResourceManagerJni implements ResourceManager.Natives {
     private static ResourceManager.Natives testInstance;
 
-    public static final JniStaticTestMocker<ResourceManager.Natives> TEST_HOOKS = new JniStaticTestMocker<ResourceManager.Natives>() {
+    public static final JniStaticTestMocker<ResourceManager.Natives> TEST_HOOKS = new JniStaticTestMocker<>() {
         @Override
         public void setInstanceForTesting(ResourceManager.Natives instance) {
             if (!GEN_JNI.TESTING_ENABLED) {

@@ -23,21 +23,16 @@ public class DynamicResourceLoader extends ResourceLoader {
      */
     private static class DynamicResourceHolder {
         private final DynamicResource mDynamicResource;
-        private final Callback<Resource> mCallback;
 
         public DynamicResourceHolder(DynamicResource dynamicResource, Callback<Resource> callback) {
             mDynamicResource = dynamicResource;
-            mCallback = callback;
-            mDynamicResource.addOnResourceReadyCallback(mCallback);
+            mDynamicResource.addOnResourceReadyCallback(callback);
         }
 
         DynamicResource getDynamicResource() {
             return mDynamicResource;
         }
 
-        void destroy() {
-            mDynamicResource.removeOnResourceReadyCallback(mCallback);
-        }
     }
 
     private final SparseArray<DynamicResourceHolder> mDynamicResourceHolders = new SparseArray<>();
@@ -52,31 +47,6 @@ public class DynamicResourceLoader extends ResourceLoader {
      */
     public DynamicResourceLoader(int resourceType, ResourceLoaderCallback callback) {
         super(resourceType, callback);
-    }
-
-    /**
-     * Registers a {@link DynamicResource} to be tracked and exposed by this class.
-     *
-     * @param resId                The Android id to use.  This should be an actual Android id (R.id.some_id).
-     * @param asyncDynamicResource The {@link DynamicResource} to track and expose.
-     */
-    public void registerResource(int resId, DynamicResource asyncDynamicResource) {
-        assert mDynamicResourceHolders.get(resId) == null;
-        DynamicResourceHolder dynamicResourceHolder = new DynamicResourceHolder(asyncDynamicResource, (resource) -> notifyLoadFinished(resId, resource));
-        mDynamicResourceHolders.put(resId, dynamicResourceHolder);
-    }
-
-    /**
-     * Unregisters a {@link DynamicResource} specified by {@code resId}.
-     *
-     * @param resId The Android id representing the {@link DynamicResource}.
-     */
-    public void unregisterResource(int resId) {
-        DynamicResourceHolder dynamicResourceHolder = mDynamicResourceHolders.get(resId);
-        if (dynamicResourceHolder == null) return;
-        mDynamicResourceHolders.remove(resId);
-        dynamicResourceHolder.destroy();
-        notifyResourceUnregistered(resId);
     }
 
     /**

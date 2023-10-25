@@ -27,7 +27,7 @@ public final class CopyOutputResultFormat {
     public static final int MAX_VALUE = 0;
 
     public static boolean isKnownValue(int value) {
-        return value >= 0 && value <= 0;
+        return value == 0;
     }
 
     public static void validate(int value) {

@@ -26,8 +26,8 @@ import org.jni_zero.NativeMethods;
  */
 @JNINamespace("ui")
 public class ResourceManager implements ResourceLoaderCallback {
-    private final SparseArray<ResourceLoader> mResourceLoaders = new SparseArray<ResourceLoader>();
-    private final SparseArray<SparseArray<LayoutResource>> mLoadedResources = new SparseArray<SparseArray<LayoutResource>>();
+    private final SparseArray<ResourceLoader> mResourceLoaders = new SparseArray<>();
+    private final SparseArray<SparseArray<LayoutResource>> mLoadedResources = new SparseArray<>();
 
     private final float mPxToDp;
 
@@ -159,7 +159,7 @@ public class ResourceManager implements ResourceLoaderCallback {
     private void saveMetadataForLoadedResource(@AndroidResourceType int resType, int resId, Resource resource) {
         SparseArray<LayoutResource> bucket = mLoadedResources.get(resType);
         if (bucket == null) {
-            bucket = new SparseArray<LayoutResource>();
+            bucket = new SparseArray<>();
             mLoadedResources.put(resType, bucket);
         }
         bucket.put(resId, new LayoutResource(mPxToDp, resource));

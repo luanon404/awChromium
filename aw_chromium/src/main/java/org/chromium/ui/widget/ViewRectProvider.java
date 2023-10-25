@@ -8,6 +8,7 @@ import android.graphics.Rect;
 import android.view.View;
 import android.view.ViewTreeObserver;
 
+import androidx.annotation.NonNull;
 import androidx.core.view.ViewCompat;
 
 /**
@@ -119,11 +120,11 @@ public class ViewRectProvider extends RectProvider implements ViewTreeObserver.O
 
     // View.OnAttachStateChangedObserver implementation.
     @Override
-    public void onViewAttachedToWindow(View v) {
+    public void onViewAttachedToWindow(@NonNull View v) {
     }
 
     @Override
-    public void onViewDetachedFromWindow(View v) {
+    public void onViewDetachedFromWindow(@NonNull View v) {
         notifyRectHidden();
     }
 

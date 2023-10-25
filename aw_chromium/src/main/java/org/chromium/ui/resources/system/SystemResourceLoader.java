@@ -31,20 +31,14 @@ public class SystemResourceLoader extends AsyncPreloadResourceLoader {
      * @param minScreenSideLengthPx The length (in pixels) of the smallest side of the screen.
      */
     public SystemResourceLoader(int resourceType, ResourceLoaderCallback callback, final int minScreenSideLengthPx) {
-        super(resourceType, callback, new ResourceCreator() {
-            @Override
-            public Resource create(int resId) {
-                return createResource(minScreenSideLengthPx, resId);
-            }
-        });
+        super(resourceType, callback, resId -> createResource(minScreenSideLengthPx, resId));
     }
 
     private static Resource createResource(int minScreenSideLengthPx, int resId) {
-        switch (resId) {
-            case SystemUIResourceType.OVERSCROLL_GLOW:
-                return createOverscrollGlowBitmap(minScreenSideLengthPx);
-            default:
-                assert false;
+        if (resId == SystemUIResourceType.OVERSCROLL_GLOW) {
+            return createOverscrollGlowBitmap(minScreenSideLengthPx);
+        } else {
+            assert false;
         }
         return null;
     }

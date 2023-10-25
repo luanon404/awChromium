@@ -12,7 +12,6 @@ import android.view.View.OnLayoutChangeListener;
 import android.view.ViewGroup;
 
 import androidx.annotation.CallSuper;
-import androidx.annotation.VisibleForTesting;
 
 import org.chromium.base.Callback;
 import org.chromium.base.ObserverList;
@@ -44,11 +43,6 @@ public class ViewResourceAdapter implements DynamicResource, OnLayoutChangeListe
         }
 
         /**
-         * Called to drop any cached bitmaps to free up memory.
-         */
-        void dropCachedBitmap();
-
-        /**
          * Called to trigger the actual bitmap capture.
          *
          * @param view            The view being captured.
@@ -66,7 +60,7 @@ public class ViewResourceAdapter implements DynamicResource, OnLayoutChangeListe
     private final Rect mViewSize = new Rect();
     private final ThreadUtils.ThreadChecker mThreadChecker = new ThreadUtils.ThreadChecker();
     private final CaptureMechanism mCaptureMechanism;
-    private float mScale = 1;
+    private final float mScale = 1;
 
     private final ObserverList<Callback<Resource>> mOnResourceReadyObservers = new ObserverList<>();
 
@@ -98,22 +92,13 @@ public class ViewResourceAdapter implements DynamicResource, OnLayoutChangeListe
     }
 
     /**
-     * Builds a {@link ViewResourceAdapter} instance around {@code view}.
-     *
-     * @param view The {@link View} to expose as a {@link Resource}.
-     */
-    public ViewResourceAdapter(View view) {
-        this(view, false);
-    }
-
-    /**
      * Triggers a bitmap capture ignoring whether the view is dirty. Depending on this mechanism,
      * it may do some or all of the work, and may be sync or async.
      */
     @SuppressWarnings("NewApi")
     public void triggerBitmapCapture() {
         mThreadChecker.assertOnValidThread();
-        try (TraceEvent e = TraceEvent.scoped("ViewResourceAdapter:getBitmap")) {
+        try (TraceEvent ignored = TraceEvent.scoped("ViewResourceAdapter:getBitmap")) {
             if (mCaptureMechanism.startBitmapCapture(mView, new Rect(mDirtyRect), mScale, this, this::onCapture)) {
                 mDirtyRect.setEmpty();
             }
@@ -124,19 +109,6 @@ public class ViewResourceAdapter implements DynamicResource, OnLayoutChangeListe
         mThreadChecker.assertOnValidThread();
         Resource resource = new DynamicResourceSnapshot(bitmap, mCaptureMechanism.shouldRemoveResourceOnNullBitmap(), mViewSize, createNativeResource());
         for (Callback<Resource> observer : mOnResourceReadyObservers) observer.onResult(resource);
-    }
-
-    /**
-     * Set the downsampling scale. The rendered size is not affected.
-     *
-     * @param scale The scale to use. <1 means the Bitmap is smaller than the View.
-     */
-    public void setDownsamplingScale(float scale) {
-        assert scale <= 1;
-        if (mScale != scale) {
-            invalidate(null);
-        }
-        mScale = scale;
     }
 
     /**
@@ -203,25 +175,4 @@ public class ViewResourceAdapter implements DynamicResource, OnLayoutChangeListe
         }
     }
 
-    /**
-     * Drops the cached bitmap to free up memory.
-     */
-    public void dropCachedBitmap() {
-        mCaptureMechanism.dropCachedBitmap();
-    }
-
-    /**
-     * Returns the dirty rect that will be drawn on capture.
-     */
-    @VisibleForTesting
-    public Rect getDirtyRect() {
-        return mDirtyRect;
-    }
-
-    /**
-     * Clears the contents of the current dirty rect.
-     */
-    protected void setDirtyRectEmpty() {
-        mDirtyRect.setEmpty();
-    }
 }

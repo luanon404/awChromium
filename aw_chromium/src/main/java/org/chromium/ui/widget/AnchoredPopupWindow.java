@@ -155,7 +155,6 @@ public class AnchoredPopupWindow implements OnTouchListener, RectProvider.Observ
     // Spec of last shown popup window, or place holder value if the popup hasn't been shown yet.
     private PopupSpec mPopupSpec;
 
-    private final Context mContext;
     private final Handler mHandler;
     private final View mRootView;
     private final RectProvider mViewportRectProvider;
@@ -177,24 +176,11 @@ public class AnchoredPopupWindow implements OnTouchListener, RectProvider.Observ
         }
     };
 
-    private final OnDismissListener mDismissListener = new OnDismissListener() {
-        @Override
-        public void onDismiss() {
-            if (mIgnoreDismissal) return;
-
-            mHandler.removeCallbacks(mDismissRunnable);
-            for (OnDismissListener listener : mDismissListeners) listener.onDismiss();
-
-            mRectProvider.stopObserving();
-            mViewportRectProvider.stopObserving();
-        }
-    };
-
     private boolean mDismissOnTouchInteraction;
 
     // Pass through for the internal PopupWindow.  This class needs to intercept these for API
     // purposes, but they are still useful to callers.
-    private ObserverList<OnDismissListener> mDismissListeners = new ObserverList<>();
+    private final ObserverList<OnDismissListener> mDismissListeners = new ObserverList<>();
     private OnTouchListener mTouchListener;
     private LayoutObserver mLayoutObserver;
 
@@ -254,10 +240,9 @@ public class AnchoredPopupWindow implements OnTouchListener, RectProvider.Observ
      *                             visible viewpoint. If null, the window coordinates of the root view will be used.
      */
     public AnchoredPopupWindow(Context context, View rootView, Drawable background, View contentView, RectProvider anchorRectProvider, @Nullable RectProvider viewportRectProvider) {
-        mContext = context;
         mRootView = rootView.getRootView();
         mViewportRectProvider = viewportRectProvider != null ? viewportRectProvider : new RootViewRectProvider(mRootView);
-        mPopupWindow = UiWidgetFactory.getInstance().createPopupWindow(mContext);
+        mPopupWindow = UiWidgetFactory.getInstance().createPopupWindow(context);
         mHandler = new Handler();
         mRectProvider = anchorRectProvider;
         mPopupSpec = new PopupSpec(new Rect(), false, false);
@@ -268,6 +253,15 @@ public class AnchoredPopupWindow implements OnTouchListener, RectProvider.Observ
         mPopupWindow.setContentView(contentView);
 
         mPopupWindow.setTouchInterceptor(this);
+        OnDismissListener mDismissListener = () -> {
+            if (mIgnoreDismissal) return;
+
+            mHandler.removeCallbacks(mDismissRunnable);
+            for (OnDismissListener listener : mDismissListeners) listener.onDismiss();
+
+            mRectProvider.stopObserving();
+            mViewportRectProvider.stopObserving();
+        };
         mPopupWindow.setOnDismissListener(mDismissListener);
     }
 
@@ -774,8 +768,8 @@ public class AnchoredPopupWindow implements OnTouchListener, RectProvider.Observ
     }
 
     private static int clamp(int value, int a, int b) {
-        int min = (a > b) ? b : a;
-        int max = (a > b) ? a : b;
+        int min = Math.min(a, b);
+        int max = Math.max(a, b);
         if (value < min) {
             value = min;
         } else if (value > max) {

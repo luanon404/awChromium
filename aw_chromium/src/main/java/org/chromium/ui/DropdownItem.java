@@ -8,8 +8,6 @@ import android.graphics.drawable.Drawable;
 
 import androidx.annotation.Nullable;
 
-import org.chromium.url.GURL;
-
 /**
  * Dropdown item interface used to access all the information needed to show the item.
  */
@@ -50,12 +48,6 @@ public interface DropdownItem {
      * by getIconId().
      */
     int getIconId();
-
-    /**
-     * Returns the url for the icon to be downloaded. If present, the downloaded icon should be
-     * preferred over the resource id returned by getIconId().
-     */
-    GURL getCustomIconUrl();
 
     /**
      * Returns the drawable for the icon. It is either the custom card art if available, or the

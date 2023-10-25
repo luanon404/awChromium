@@ -69,7 +69,7 @@ public class AsyncViewProvider<T extends View> implements Callback<View>, ViewPr
     public static <E extends View> AsyncViewProvider<E> of(View root, int viewStubResId, int viewResId) {
         ThreadUtils.assertOnUiThread();
         View viewStub = root.findViewById(viewStubResId);
-        if (viewStub != null && viewStub instanceof AsyncViewStub) {
+        if (viewStub instanceof AsyncViewStub) {
             // view stub not yet inflated
             return of((AsyncViewStub) viewStub, viewResId);
         }
@@ -90,20 +90,6 @@ public class AsyncViewProvider<T extends View> implements Callback<View>, ViewPr
     @Nullable
     public T get() {
         return mView;
-    }
-
-    /**
-     * @param resId resource id of the {@link View} that the returned provider would
-     *              encapsulate.
-     * @param <E>   type of the {@link View} that the returned provider would encapsulate
-     * @return a provider for a {@link View} with resource id {@param resId} that is in the view
-     * hierarchy of the {@link View} encapsulated by this provider.
-     */
-    public <E extends View> AsyncViewProvider<E> getChildProvider(int resId) {
-        if (mView != null) {
-            return new AsyncViewProvider<>(mView.findViewById(resId));
-        }
-        return of(mViewStub, resId);
     }
 
     @Override
@@ -146,9 +132,7 @@ public class AsyncViewProvider<T extends View> implements Callback<View>, ViewPr
             mView = null;
         }
         if (mViewStub != null) {
-            mViewStub.addOnInflateListener((View view) -> {
-                destroyCallback.onResult(mView);
-            });
+            mViewStub.addOnInflateListener((View view) -> destroyCallback.onResult(mView));
             mViewStub = null;
         }
     }

@@ -3,6 +3,8 @@
  */
 package android.widget.directwriting;
 
+import androidx.annotation.NonNull;
+
 /**
  * Direct writing service Interface definition for Samsung Platform's stylus handwriting recognition
  * service. These are the service APIs exposed to use the platform's handwriting recognition service
@@ -17,7 +19,7 @@ public interface IDirectWritingService extends android.os.IInterface {
         /**
          * Gets version of Aidl
          *
-         * @returns version IDirectWritingService.VERSION
+         * @return version IDirectWritingService.VERSION
          */
         @Override
         public int getVersion() throws android.os.RemoteException {
@@ -29,10 +31,10 @@ public interface IDirectWritingService extends android.os.IInterface {
          *
          * @param callback    is IDirectWritingServiceCallback
          * @param packageName is Package name of bounded context
-         * @returns true if success
+         * @return true if success
          */
         @Override
-        public boolean registerCallback(android.widget.directwriting.IDirectWritingServiceCallback callback, java.lang.String packageName) throws android.os.RemoteException {
+        public boolean registerCallback(android.widget.directwriting.IDirectWritingServiceCallback callback, java.lang.String packageName) {
             return false;
         }
 
@@ -40,17 +42,17 @@ public interface IDirectWritingService extends android.os.IInterface {
          * Unregisters callback for service
          *
          * @param callback is IDirectWritingServiceCallback
-         * @returns true if success
+         * @return true if success
          */
         @Override
-        public boolean unregisterCallback(android.widget.directwriting.IDirectWritingServiceCallback callback) throws android.os.RemoteException {
+        public boolean unregisterCallback(android.widget.directwriting.IDirectWritingServiceCallback callback) {
             return false;
         }
 
         /**
          * Gets package name of bounded process
          *
-         * @returns package name of bounded process
+         * @return package name of bounded process
          */
         @Override
         public java.lang.String getPackageName() throws android.os.RemoteException {
@@ -63,10 +65,10 @@ public interface IDirectWritingService extends android.os.IInterface {
          *
          * @param bundle is KEY_BUNDLE_EVENT, KEY_BUNDLE_EDIT_RECT, KEY_BUNDLE_ROOT_VIEW_RECT
          *               KEY_BUNDLE_SERVICE_HOST_SOURCE for browser
-         * @returns true if recognition is started
+         * @return true if recognition is started
          */
         @Override
-        public boolean onStartRecognition(android.os.Bundle bundle) throws android.os.RemoteException {
+        public boolean onStartRecognition(android.os.Bundle bundle) {
             return false;
         }
 
@@ -77,10 +79,10 @@ public interface IDirectWritingService extends android.os.IInterface {
          *
          * @param bundle is KEY_BUNDLE_EVENT, KEY_BUNDLE_EDIT_RECT, KEY_BUNDLE_ROOT_VIEW_RECT
          *               KEY_BUNDLE_SERVICE_HOST_SOURCE for browser
-         * @returns true if recognition is stopped
+         * @return true if recognition is stopped
          */
         @Override
-        public boolean onStopRecognition(android.os.Bundle bundle) throws android.os.RemoteException {
+        public boolean onStopRecognition(android.os.Bundle bundle) {
             return false;
         }
 
@@ -89,10 +91,10 @@ public interface IDirectWritingService extends android.os.IInterface {
          *
          * @param bundle is KEY_BUNDLE_EDIT_RECT, KEY_BUNDLE_ROOT_VIEW_RECT
          *               KEY_BUNDLE_SERVICE_HOST_SOURCE for browser
-         * @returns true if onBoundedEditTextChanged successful
+         * @return true if onBoundedEditTextChanged successful
          */
         @Override
-        public boolean onBoundedEditTextChanged(android.os.Bundle bundle) throws android.os.RemoteException {
+        public boolean onBoundedEditTextChanged(android.os.Bundle bundle) {
             return false;
         }
 
@@ -102,7 +104,7 @@ public interface IDirectWritingService extends android.os.IInterface {
          * @param packageName which is currently bound to service.
          */
         @Override
-        public void onWindowFocusLost(java.lang.String packageName) throws android.os.RemoteException {
+        public void onWindowFocusLost(java.lang.String packageName) {
         }
 
         /**
@@ -111,7 +113,7 @@ public interface IDirectWritingService extends android.os.IInterface {
          * @param bundle is KEY_BUNDLE_EVENT, KEY_BUNDLE_ROOT_VIEW_RECT
          */
         @Override
-        public void onDispatchEvent(android.os.Bundle bundle) throws android.os.RemoteException {
+        public void onDispatchEvent(android.os.Bundle bundle) {
         }
 
         /**
@@ -123,7 +125,7 @@ public interface IDirectWritingService extends android.os.IInterface {
          * @param bundle is KEY_BUNDLE_SERVICE_HOST_SOURCE for browser
          */
         @Override
-        public void onEditTextActionModeStarted(android.os.Bundle bundle) throws android.os.RemoteException {
+        public void onEditTextActionModeStarted(android.os.Bundle bundle) {
         }
 
         /**
@@ -146,9 +148,8 @@ public interface IDirectWritingService extends android.os.IInterface {
          * @param imeOptions is ImeOptions
          */
         @Override
-        public void onUpdateImeOptions(int imeOptions) throws android.os.RemoteException {
+        public void onUpdateImeOptions(int imeOptions) {
         }
-        // { Common Extra
 
         /**
          * Extra Command for future use.
@@ -158,10 +159,8 @@ public interface IDirectWritingService extends android.os.IInterface {
          * @param bundle is for future use
          */
         @Override
-        public void onExtraCommand(java.lang.String action, android.os.Bundle bundle) throws android.os.RemoteException {
+        public void onExtraCommand(java.lang.String action, android.os.Bundle bundle) {
         }
-        // Common Extra }
-        // { TextView
 
         /**
          * TextView Extra Command for future use.
@@ -171,7 +170,7 @@ public interface IDirectWritingService extends android.os.IInterface {
          * @param bundle is for future use
          */
         @Override
-        public void onTextViewExtraCommand(java.lang.String action, android.os.Bundle bundle) throws android.os.RemoteException {
+        public void onTextViewExtraCommand(java.lang.String action, android.os.Bundle bundle) {
         }
 
         @Override
@@ -196,11 +195,11 @@ public interface IDirectWritingService extends android.os.IInterface {
          * generating a proxy if needed.
          */
         public static android.widget.directwriting.IDirectWritingService asInterface(android.os.IBinder obj) {
-            if ((obj == null)) {
+            if (obj == null) {
                 return null;
             }
             android.os.IInterface iin = obj.queryLocalInterface(DESCRIPTOR);
-            if (((iin != null) && (iin instanceof android.widget.directwriting.IDirectWritingService))) {
+            if (iin instanceof IDirectWritingService) {
                 return ((android.widget.directwriting.IDirectWritingService) iin);
             }
             return new android.widget.directwriting.IDirectWritingService.Stub.Proxy(obj);
@@ -212,16 +211,14 @@ public interface IDirectWritingService extends android.os.IInterface {
         }
 
         @Override
-        public boolean onTransact(int code, android.os.Parcel data, android.os.Parcel reply, int flags) throws android.os.RemoteException {
+        public boolean onTransact(int code, @NonNull android.os.Parcel data, android.os.Parcel reply, int flags) throws android.os.RemoteException {
             java.lang.String descriptor = DESCRIPTOR;
             if (code >= android.os.IBinder.FIRST_CALL_TRANSACTION && code <= android.os.IBinder.LAST_CALL_TRANSACTION) {
                 data.enforceInterface(descriptor);
             }
-            switch (code) {
-                case INTERFACE_TRANSACTION: {
-                    reply.writeString(descriptor);
-                    return true;
-                }
+            if (code == INTERFACE_TRANSACTION) {
+                reply.writeString(descriptor);
+                return true;
             }
             switch (code) {
                 case TRANSACTION_getVersion: {
@@ -342,7 +339,7 @@ public interface IDirectWritingService extends android.os.IInterface {
         }
 
         private static class Proxy implements android.widget.directwriting.IDirectWritingService {
-            private android.os.IBinder mRemote;
+            private final android.os.IBinder mRemote;
 
             Proxy(android.os.IBinder remote) {
                 mRemote = remote;
@@ -360,7 +357,7 @@ public interface IDirectWritingService extends android.os.IInterface {
             /**
              * Gets version of Aidl
              *
-             * @returns version IDirectWritingService.VERSION
+             * @return version IDirectWritingService.VERSION
              */
             @Override
             public int getVersion() throws android.os.RemoteException {
@@ -369,7 +366,7 @@ public interface IDirectWritingService extends android.os.IInterface {
                 int _result;
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_getVersion, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_getVersion, _data, _reply, 0);
                     _reply.readException();
                     _result = _reply.readInt();
                 } finally {
@@ -384,7 +381,7 @@ public interface IDirectWritingService extends android.os.IInterface {
              *
              * @param callback    is IDirectWritingServiceCallback
              * @param packageName is Package name of bounded context
-             * @returns true if success
+             * @return true if success
              */
             @Override
             public boolean registerCallback(android.widget.directwriting.IDirectWritingServiceCallback callback, java.lang.String packageName) throws android.os.RemoteException {
@@ -395,7 +392,7 @@ public interface IDirectWritingService extends android.os.IInterface {
                     _data.writeInterfaceToken(DESCRIPTOR);
                     _data.writeStrongInterface(callback);
                     _data.writeString(packageName);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_registerCallback, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_registerCallback, _data, _reply, 0);
                     _reply.readException();
                     _result = (0 != _reply.readInt());
                 } finally {
@@ -409,7 +406,7 @@ public interface IDirectWritingService extends android.os.IInterface {
              * Unregisters callback for service
              *
              * @param callback is IDirectWritingServiceCallback
-             * @returns true if success
+             * @return true if success
              */
             @Override
             public boolean unregisterCallback(android.widget.directwriting.IDirectWritingServiceCallback callback) throws android.os.RemoteException {
@@ -419,7 +416,7 @@ public interface IDirectWritingService extends android.os.IInterface {
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
                     _data.writeStrongInterface(callback);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_unregisterCallback, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_unregisterCallback, _data, _reply, 0);
                     _reply.readException();
                     _result = (0 != _reply.readInt());
                 } finally {
@@ -432,7 +429,7 @@ public interface IDirectWritingService extends android.os.IInterface {
             /**
              * Gets package name of bounded process
              *
-             * @returns package name of bounded process
+             * @return package name of bounded process
              */
             @Override
             public java.lang.String getPackageName() throws android.os.RemoteException {
@@ -441,7 +438,7 @@ public interface IDirectWritingService extends android.os.IInterface {
                 java.lang.String _result;
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_getPackageName, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_getPackageName, _data, _reply, 0);
                     _reply.readException();
                     _result = _reply.readString();
                 } finally {
@@ -457,7 +454,7 @@ public interface IDirectWritingService extends android.os.IInterface {
              *
              * @param bundle is KEY_BUNDLE_EVENT, KEY_BUNDLE_EDIT_RECT, KEY_BUNDLE_ROOT_VIEW_RECT
              *               KEY_BUNDLE_SERVICE_HOST_SOURCE for browser
-             * @returns true if recognition is started
+             * @return true if recognition is started
              */
             @Override
             public boolean onStartRecognition(android.os.Bundle bundle) throws android.os.RemoteException {
@@ -467,7 +464,7 @@ public interface IDirectWritingService extends android.os.IInterface {
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
                     _Parcel.writeTypedObject(_data, bundle, 0);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_onStartRecognition, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_onStartRecognition, _data, _reply, 0);
                     _reply.readException();
                     _result = (0 != _reply.readInt());
                 } finally {
@@ -484,7 +481,7 @@ public interface IDirectWritingService extends android.os.IInterface {
              *
              * @param bundle is KEY_BUNDLE_EVENT, KEY_BUNDLE_EDIT_RECT, KEY_BUNDLE_ROOT_VIEW_RECT
              *               KEY_BUNDLE_SERVICE_HOST_SOURCE for browser
-             * @returns true if recognition is stopped
+             * @return true if recognition is stopped
              */
             @Override
             public boolean onStopRecognition(android.os.Bundle bundle) throws android.os.RemoteException {
@@ -494,7 +491,7 @@ public interface IDirectWritingService extends android.os.IInterface {
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
                     _Parcel.writeTypedObject(_data, bundle, 0);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_onStopRecognition, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_onStopRecognition, _data, _reply, 0);
                     _reply.readException();
                     _result = (0 != _reply.readInt());
                 } finally {
@@ -509,7 +506,7 @@ public interface IDirectWritingService extends android.os.IInterface {
              *
              * @param bundle is KEY_BUNDLE_EDIT_RECT, KEY_BUNDLE_ROOT_VIEW_RECT
              *               KEY_BUNDLE_SERVICE_HOST_SOURCE for browser
-             * @returns true if onBoundedEditTextChanged successful
+             * @return true if onBoundedEditTextChanged successful
              */
             @Override
             public boolean onBoundedEditTextChanged(android.os.Bundle bundle) throws android.os.RemoteException {
@@ -519,7 +516,7 @@ public interface IDirectWritingService extends android.os.IInterface {
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
                     _Parcel.writeTypedObject(_data, bundle, 0);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_onBoundedEditTextChanged, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_onBoundedEditTextChanged, _data, _reply, 0);
                     _reply.readException();
                     _result = (0 != _reply.readInt());
                 } finally {
@@ -541,7 +538,7 @@ public interface IDirectWritingService extends android.os.IInterface {
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
                     _data.writeString(packageName);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_onWindowFocusLost, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_onWindowFocusLost, _data, _reply, 0);
                     _reply.readException();
                 } finally {
                     _reply.recycle();
@@ -561,7 +558,7 @@ public interface IDirectWritingService extends android.os.IInterface {
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
                     _Parcel.writeTypedObject(_data, bundle, 0);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_onDispatchEvent, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_onDispatchEvent, _data, _reply, 0);
                     _reply.readException();
                 } finally {
                     _reply.recycle();
@@ -584,7 +581,7 @@ public interface IDirectWritingService extends android.os.IInterface {
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
                     _Parcel.writeTypedObject(_data, bundle, 0);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_onEditTextActionModeStarted, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_onEditTextActionModeStarted, _data, _reply, 0);
                     _reply.readException();
                 } finally {
                     _reply.recycle();
@@ -609,7 +606,7 @@ public interface IDirectWritingService extends android.os.IInterface {
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
                     _Parcel.writeTypedObject(_data, bundle, 0);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_getConfiguration, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_getConfiguration, _data, _reply, 0);
                     _reply.readException();
                     if ((0 != _reply.readInt())) {
                         bundle.readFromParcel(_reply);
@@ -632,14 +629,13 @@ public interface IDirectWritingService extends android.os.IInterface {
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
                     _data.writeInt(imeOptions);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_onUpdateImeOptions, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_onUpdateImeOptions, _data, _reply, 0);
                     _reply.readException();
                 } finally {
                     _reply.recycle();
                     _data.recycle();
                 }
             }
-            // { Common Extra
 
             /**
              * Extra Command for future use.
@@ -656,7 +652,7 @@ public interface IDirectWritingService extends android.os.IInterface {
                     _data.writeInterfaceToken(DESCRIPTOR);
                     _data.writeString(action);
                     _Parcel.writeTypedObject(_data, bundle, 0);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_onExtraCommand, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_onExtraCommand, _data, _reply, 0);
                     _reply.readException();
                     if ((0 != _reply.readInt())) {
                         bundle.readFromParcel(_reply);
@@ -666,8 +662,6 @@ public interface IDirectWritingService extends android.os.IInterface {
                     _data.recycle();
                 }
             }
-            // Common Extra }
-            // { TextView
 
             /**
              * TextView Extra Command for future use.
@@ -684,7 +678,7 @@ public interface IDirectWritingService extends android.os.IInterface {
                     _data.writeInterfaceToken(DESCRIPTOR);
                     _data.writeString(action);
                     _Parcel.writeTypedObject(_data, bundle, 0);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_onTextViewExtraCommand, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_onTextViewExtraCommand, _data, _reply, 0);
                     _reply.readException();
                     if ((0 != _reply.readInt())) {
                         bundle.readFromParcel(_reply);
@@ -696,7 +690,7 @@ public interface IDirectWritingService extends android.os.IInterface {
             }
         }
 
-        static final int TRANSACTION_getVersion = (android.os.IBinder.FIRST_CALL_TRANSACTION + 0);
+        static final int TRANSACTION_getVersion = android.os.IBinder.FIRST_CALL_TRANSACTION;
         static final int TRANSACTION_registerCallback = (android.os.IBinder.FIRST_CALL_TRANSACTION + 1);
         static final int TRANSACTION_unregisterCallback = (android.os.IBinder.FIRST_CALL_TRANSACTION + 2);
         static final int TRANSACTION_getPackageName = (android.os.IBinder.FIRST_CALL_TRANSACTION + 3);
@@ -723,14 +717,6 @@ public interface IDirectWritingService extends android.os.IInterface {
      */
     String KEY_BUNDLE_EDIT_RECT = "editRect";
     /**
-     * Key for bundle parameter Flag if only edit field bounds have changed.
-     */
-    String KEY_BUNDLE_EDIT_RECT_RELOCATED = "onlyRectChanged";
-    /**
-     * Key for bundle parameter Flag if check only EditText bindable
-     */
-    String KEY_BUNDLE_CHECK_CAN_BIND = "onlyCheckCanBind";
-    /**
      * Key for bundle parameter Rect of RootView
      */
     String KEY_BUNDLE_ROOT_VIEW_RECT = "rootViewRect";
@@ -738,16 +724,7 @@ public interface IDirectWritingService extends android.os.IInterface {
      * Key for bundle parameter Service host source
      */
     String KEY_BUNDLE_SERVICE_HOST_SOURCE = "hostSource";
-    /**
-     * Value for bundle parameter Service host source : samsunginternet, webview, viewroot
-     */
-    String VALUE_BUNDLE_SERVICE_HOST_SOURCE_SAMSUNG_INTERNET = "samsunginternet";
     String VALUE_BUNDLE_SERVICE_HOST_SOURCE_WEBVIEW = "webview";
-    String VALUE_BUNDLE_SERVICE_HOST_SOURCE_VIEWROOT = "viewroot";
-    /**
-     * Value for registerCallback packageName suffix to distinguish Samsung Internet or web view
-     */
-    String VALUE_SERVICE_HOST_SOURCE_INTERNET = "|samsunginternet";
     String VALUE_SERVICE_HOST_SOURCE_WEBVIEW = "|webview";
     /**
      * Key hide delay for bundle parameter of getConfiguration()
@@ -758,10 +735,6 @@ public interface IDirectWritingService extends android.os.IInterface {
      */
     String KEY_BUNDLE_CONFIG_KEEP_WRITING_DELAY = "keepWritingDelay";
     /**
-     * Key max distance for bundle parameter of getConfiguration()
-     */
-    String KEY_BUNDLE_CONFIG_MAX_DISTANCE = "maxDistance";
-    /**
      * Key trigger vertical space for bundle parameter of getConfiguration()
      */
     String KEY_BUNDLE_CONFIG_TRIGGER_VERTICAL_SPACE = "triggerVerticalSpace";
@@ -769,21 +742,11 @@ public interface IDirectWritingService extends android.os.IInterface {
      * Key trigger horizontal space for bundle parameter of getConfiguration()
      */
     String KEY_BUNDLE_CONFIG_TRIGGER_HORIZONTAL_SPACE_DEFAULT = "triggerHorizontalSpace";
-    /**
-     * Key trigger to show keyboard with app privae command exceptionally when pen used
-     * for bundle parameter of getConfiguration()
-     */
-    String KEY_BUNDLE_CONFIG_FORCE_SHOW_SIP_APP_PRIVATE_COMMAND_LIST = "forceShowSipAppPrivateCommandList";
-    /**
-     * Key rejection distance to show transient bar during writing
-     * for bundle parameter of getConfiguration()
-     */
-    String KEY_BUNDLE_CONFIG_TRANSIENT_BAR_REJECT_DISTANCE = "transientBarRejectDistance";
 
     /**
      * Gets version of Aidl
      *
-     * @returns version IDirectWritingService.VERSION
+     * @return version IDirectWritingService.VERSION
      */
     int getVersion() throws android.os.RemoteException;
 
@@ -792,7 +755,7 @@ public interface IDirectWritingService extends android.os.IInterface {
      *
      * @param callback    is IDirectWritingServiceCallback
      * @param packageName is Package name of bounded context
-     * @returns true if success
+     * @return true if success
      */
     boolean registerCallback(android.widget.directwriting.IDirectWritingServiceCallback callback, java.lang.String packageName) throws android.os.RemoteException;
 
@@ -800,14 +763,14 @@ public interface IDirectWritingService extends android.os.IInterface {
      * Unregisters callback for service
      *
      * @param callback is IDirectWritingServiceCallback
-     * @returns true if success
+     * @return true if success
      */
     boolean unregisterCallback(android.widget.directwriting.IDirectWritingServiceCallback callback) throws android.os.RemoteException;
 
     /**
      * Gets package name of bounded process
      *
-     * @returns package name of bounded process
+     * @return package name of bounded process
      */
     java.lang.String getPackageName() throws android.os.RemoteException;
 
@@ -817,7 +780,7 @@ public interface IDirectWritingService extends android.os.IInterface {
      *
      * @param bundle is KEY_BUNDLE_EVENT, KEY_BUNDLE_EDIT_RECT, KEY_BUNDLE_ROOT_VIEW_RECT
      *               KEY_BUNDLE_SERVICE_HOST_SOURCE for browser
-     * @returns true if recognition is started
+     * @return true if recognition is started
      */
     boolean onStartRecognition(android.os.Bundle bundle) throws android.os.RemoteException;
 
@@ -828,7 +791,7 @@ public interface IDirectWritingService extends android.os.IInterface {
      *
      * @param bundle is KEY_BUNDLE_EVENT, KEY_BUNDLE_EDIT_RECT, KEY_BUNDLE_ROOT_VIEW_RECT
      *               KEY_BUNDLE_SERVICE_HOST_SOURCE for browser
-     * @returns true if recognition is stopped
+     * @return true if recognition is stopped
      */
     boolean onStopRecognition(android.os.Bundle bundle) throws android.os.RemoteException;
 
@@ -837,7 +800,7 @@ public interface IDirectWritingService extends android.os.IInterface {
      *
      * @param bundle is KEY_BUNDLE_EDIT_RECT, KEY_BUNDLE_ROOT_VIEW_RECT
      *               KEY_BUNDLE_SERVICE_HOST_SOURCE for browser
-     * @returns true if onBoundedEditTextChanged successful
+     * @return true if onBoundedEditTextChanged successful
      */
     boolean onBoundedEditTextChanged(android.os.Bundle bundle) throws android.os.RemoteException;
 
@@ -883,7 +846,6 @@ public interface IDirectWritingService extends android.os.IInterface {
      * @param imeOptions is ImeOptions
      */
     void onUpdateImeOptions(int imeOptions) throws android.os.RemoteException;
-    // { Common Extra
 
     /**
      * Extra Command for future use.
@@ -893,8 +855,6 @@ public interface IDirectWritingService extends android.os.IInterface {
      * @param bundle is for future use
      */
     void onExtraCommand(java.lang.String action, android.os.Bundle bundle) throws android.os.RemoteException;
-    // Common Extra }
-    // { TextView
 
     /**
      * TextView Extra Command for future use.

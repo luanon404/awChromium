@@ -12,7 +12,7 @@ import org.jni_zero.NativeLibraryLoadedStatus;
 class ParsedJni implements Parsed.Natives {
     private static Parsed.Natives testInstance;
 
-    public static final JniStaticTestMocker<Parsed.Natives> TEST_HOOKS = new JniStaticTestMocker<Parsed.Natives>() {
+    public static final JniStaticTestMocker<Parsed.Natives> TEST_HOOKS = new JniStaticTestMocker<>() {
         @Override
         public void setInstanceForTesting(Parsed.Natives instance) {
             if (!GEN_JNI.TESTING_ENABLED) {

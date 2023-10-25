@@ -4,6 +4,8 @@
 
 package org.jni_zero;
 
+import androidx.annotation.Keep;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -18,6 +20,7 @@ import java.lang.annotation.Target;
  * exception, we recommend refactoring to catch exceptions and indicate errors with special return
  * values instead. If this is not possible, see {@link CalledByNativeUnchecked} instead.
  */
+@Keep
 @Target({ElementType.CONSTRUCTOR, ElementType.METHOD})
 @Retention(RetentionPolicy.CLASS)
 public @interface CalledByNative {

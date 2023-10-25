@@ -23,29 +23,8 @@ public final class GestureDataDetails extends org.chromium.mojo.bindings.Union {
     private GesturePinchData mPinch;
     private GestureSwipeData mSwipe;
 
-    public void setPinch(GesturePinchData pinch) {
-        this.mTag = Tag.Pinch;
-        this.mPinch = pinch;
-    }
-
-    public GesturePinchData getPinch() {
-        assert this.mTag == Tag.Pinch;
-        return this.mPinch;
-    }
-
-    public void setSwipe(GestureSwipeData swipe) {
-        this.mTag = Tag.Swipe;
-        this.mSwipe = swipe;
-    }
-
-    public GestureSwipeData getSwipe() {
-        assert this.mTag == Tag.Swipe;
-        return this.mSwipe;
-    }
-
-
     @Override
-    protected final void encode(org.chromium.mojo.bindings.Encoder encoder0, int offset) {
+    protected void encode(org.chromium.mojo.bindings.Encoder encoder0, int offset) {
         encoder0.encode(org.chromium.mojo.bindings.BindingsHelper.UNION_SIZE, offset);
         encoder0.encode(this.mTag, offset + 4);
         switch (mTag) {
@@ -69,7 +48,7 @@ public final class GestureDataDetails extends org.chromium.mojo.bindings.Union {
         return decode(new org.chromium.mojo.bindings.Decoder(message).decoderForSerializedUnion(), 0);
     }
 
-    public static final GestureDataDetails decode(org.chromium.mojo.bindings.Decoder decoder0, int offset) {
+    public static GestureDataDetails decode(org.chromium.mojo.bindings.Decoder decoder0, int offset) {
         org.chromium.mojo.bindings.DataHeader dataHeader = decoder0.readDataHeaderForUnion(offset);
         if (dataHeader.size == 0) {
             return null;

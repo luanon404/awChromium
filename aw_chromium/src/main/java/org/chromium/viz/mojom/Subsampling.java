@@ -18,9 +18,7 @@ import androidx.annotation.IntDef;
 public final class Subsampling {
     private static final boolean IS_EXTENSIBLE = false;
 
-    @IntDef({
-
-            Subsampling.K420})
+    @IntDef({Subsampling.K420})
     public @interface EnumType {
     }
 
@@ -29,7 +27,7 @@ public final class Subsampling {
     public static final int MAX_VALUE = 0;
 
     public static boolean isKnownValue(int value) {
-        return value >= 0 && value <= 0;
+        return value == 0;
     }
 
     public static void validate(int value) {

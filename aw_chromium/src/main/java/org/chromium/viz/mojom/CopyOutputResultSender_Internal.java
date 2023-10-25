@@ -13,9 +13,12 @@
 
 package org.chromium.viz.mojom;
 
+import org.chromium.mojo.bindings.InterfaceControlMessagesHelper;
+import org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants;
+
 class CopyOutputResultSender_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<CopyOutputResultSender, CopyOutputResultSender.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<CopyOutputResultSender, CopyOutputResultSender.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<CopyOutputResultSender, CopyOutputResultSender.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<>() {
 
         @Override
         public String getName() {
@@ -123,15 +126,10 @@ class CopyOutputResultSender_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
-
-                    case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), CopyOutputResultSender_Internal.MANAGER, messageWithHeader, receiver);
-
-
-                    default:
-                        return false;
+                if (header.getType() == InterfaceControlMessagesConstants.RUN_MESSAGE_ID) {
+                    return InterfaceControlMessagesHelper.handleRun(getCore(), CopyOutputResultSender_Internal.MANAGER, messageWithHeader, receiver);
                 }
+                return false;
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
                 System.err.println(e);
                 return false;
@@ -165,10 +163,9 @@ class CopyOutputResultSender_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static CopyOutputResultSenderSendResultParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static CopyOutputResultSenderSendResultParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -191,9 +188,8 @@ class CopyOutputResultSender_Internal {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
-        protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
+        protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
 
             encoder0.encode(this.result, 8, false);

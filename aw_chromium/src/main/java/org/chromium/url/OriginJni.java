@@ -12,7 +12,7 @@ import org.jni_zero.NativeLibraryLoadedStatus;
 class OriginJni implements Origin.Natives {
     private static Origin.Natives testInstance;
 
-    public static final JniStaticTestMocker<Origin.Natives> TEST_HOOKS = new JniStaticTestMocker<Origin.Natives>() {
+    public static final JniStaticTestMocker<Origin.Natives> TEST_HOOKS = new JniStaticTestMocker<>() {
         @Override
         public void setInstanceForTesting(Origin.Natives instance) {
             if (!GEN_JNI.TESTING_ENABLED) {
@@ -30,11 +30,6 @@ class OriginJni implements Origin.Natives {
     @Override
     public long createNative(String scheme, String host, short port, boolean isOpaque, long tokenHighBits, long tokenLowBits) {
         return (long) GEN_JNI.org_chromium_url_Origin_createNative(scheme, host, port, isOpaque, tokenHighBits, tokenLowBits);
-    }
-
-    @Override
-    public Origin createOpaque() {
-        return (Origin) GEN_JNI.org_chromium_url_Origin_createOpaque();
     }
 
     public static Origin.Natives get() {

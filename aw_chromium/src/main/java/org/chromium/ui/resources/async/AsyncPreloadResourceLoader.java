@@ -36,7 +36,7 @@ public class AsyncPreloadResourceLoader extends ResourceLoader {
         Resource create(int resId);
     }
 
-    private final SparseArray<AsyncLoadTask> mOutstandingLoads = new SparseArray<AsyncLoadTask>();
+    private final SparseArray<AsyncLoadTask> mOutstandingLoads = new SparseArray<>();
     private final ResourceCreator mCreator;
     // USER_BLOCKING since we eventually .get() this.
     private final TaskRunner mTaskQueue = PostTask.createSequencedTaskRunner(TaskTraits.USER_BLOCKING_MAY_BLOCK);
@@ -71,9 +71,7 @@ public class AsyncPreloadResourceLoader extends ResourceLoader {
             if (!task.cancel(false)) {
                 try {
                     registerResource(task.get(), resId);
-                } catch (InterruptedException e) {
-                    notifyLoadFinished(resId, null);
-                } catch (ExecutionException e) {
+                } catch (InterruptedException | ExecutionException e) {
                     notifyLoadFinished(resId, null);
                 }
                 return;

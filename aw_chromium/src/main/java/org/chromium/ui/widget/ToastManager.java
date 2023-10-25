@@ -13,6 +13,7 @@ import androidx.annotation.VisibleForTesting;
 
 import org.jni_zero.JNINamespace;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.PriorityQueue;
 
@@ -34,7 +35,7 @@ public class ToastManager {
     private static ToastManager sInstance;
 
     // A queue for toasts waiting to be shown.
-    private final PriorityQueue<Toast> mToastQueue = new PriorityQueue<>((toast1, toast2) -> toast1.getPriority() - toast2.getPriority());
+    private final PriorityQueue<Toast> mToastQueue = new PriorityQueue<>(Comparator.comparingInt(Toast::getPriority));
 
     // Handles toast events per SDK version.
     private interface ToastEvent {
@@ -83,7 +84,7 @@ public class ToastManager {
         if (toast == getCurrentToast()) {
             cancelAndShowNextToast();
         } else {
-            Iterator it = mToastQueue.iterator();
+            Iterator<Toast> it = mToastQueue.iterator();
             Toast toastToRemove = null;
             while (it.hasNext()) {
                 Toast t = (Toast) it.next();
@@ -96,7 +97,7 @@ public class ToastManager {
         }
     }
 
-    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    @VisibleForTesting()
     Toast getCurrentToast() {
         return mToast;
     }
@@ -112,9 +113,7 @@ public class ToastManager {
         }
 
         CharSequence text = toast.getText();
-        Iterator it = mToastQueue.iterator();
-        while (it.hasNext()) {
-            Toast t = (Toast) it.next();
+        for (Toast t : mToastQueue) {
             if (t == toast || TextUtils.equals(t.getText(), toast.getText())) {
                 return true;
             }
@@ -159,7 +158,7 @@ public class ToastManager {
     }
 
     @RequiresApi(Build.VERSION_CODES.R)
-    private class ToastEventR implements ToastEvent {
+    private static class ToastEventR implements ToastEvent {
         private final android.widget.Toast.Callback mToastCallback;
 
         ToastEventR(Runnable finishRunnable) {

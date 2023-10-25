@@ -13,9 +13,12 @@
 
 package org.chromium.webshare.mojom;
 
+import org.chromium.mojo.bindings.InterfaceControlMessagesHelper;
+import org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants;
+
 class ShareService_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<ShareService, ShareService.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<ShareService, ShareService.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<ShareService, ShareService.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<>() {
 
         @Override
         public String getName() {
@@ -93,15 +96,10 @@ class ShareService_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
-
-                    case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(ShareService_Internal.MANAGER, messageWithHeader);
-
-
-                    default:
-                        return false;
+                if (header.getType() == InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID) {
+                    return InterfaceControlMessagesHelper.handleRunOrClosePipe(ShareService_Internal.MANAGER, messageWithHeader);
                 }
+                return false;
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
                 System.err.println(e);
                 return false;
@@ -168,16 +166,6 @@ class ShareService_Internal {
             return decode(new org.chromium.mojo.bindings.Decoder(message));
         }
 
-        /**
-         * Similar to the method above, but deserializes from a |ByteBuffer| instance.
-         *
-         * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
-         */
-        public static ShareServiceShareParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
-        }
-
-        @SuppressWarnings("unchecked")
         public static ShareServiceShareParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -221,9 +209,8 @@ class ShareService_Internal {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
-        protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
+        protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
 
             encoder0.encode(this.title, 8, false);
@@ -264,16 +251,6 @@ class ShareService_Internal {
             return decode(new org.chromium.mojo.bindings.Decoder(message));
         }
 
-        /**
-         * Similar to the method above, but deserializes from a |ByteBuffer| instance.
-         *
-         * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
-         */
-        public static ShareServiceShareResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
-        }
-
-        @SuppressWarnings("unchecked")
         public static ShareServiceShareResponseParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -286,9 +263,9 @@ class ShareService_Internal {
                 result = new ShareServiceShareResponseParams(elementsOrVersion);
                 {
 
-                    result.error = decoder0.readInt(8);
-                    ShareError.validate(result.error);
-                    result.error = ShareError.toKnownValue(result.error);
+                    int error = decoder0.readInt(8);
+                    ShareError.validate(error);
+                    result.error = ShareError.toKnownValue(error);
                 }
 
             } finally {
@@ -297,9 +274,8 @@ class ShareService_Internal {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
-        protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
+        protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
 
             encoder0.encode(this.error, 8);

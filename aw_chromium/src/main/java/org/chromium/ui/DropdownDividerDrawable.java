@@ -11,6 +11,8 @@ import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 
+import androidx.annotation.NonNull;
+
 /**
  * A drawable divider to be used by dropdown adapters.
  */
@@ -32,7 +34,7 @@ public class DropdownDividerDrawable extends Drawable {
     }
 
     @Override
-    public void draw(Canvas canvas) {
+    public void draw(@NonNull Canvas canvas) {
         if (mBackgroundColor != null) canvas.drawColor(mBackgroundColor);
         canvas.drawRect(mDividerRect, mPaint);
     }

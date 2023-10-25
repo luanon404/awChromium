@@ -12,7 +12,7 @@ import org.jni_zero.NativeLibraryLoadedStatus;
 public class ResourceFactoryJni implements ResourceFactory.Natives {
     private static ResourceFactory.Natives testInstance;
 
-    public static final JniStaticTestMocker<ResourceFactory.Natives> TEST_HOOKS = new JniStaticTestMocker<ResourceFactory.Natives>() {
+    public static final JniStaticTestMocker<ResourceFactory.Natives> TEST_HOOKS = new JniStaticTestMocker<>() {
         @Override
         public void setInstanceForTesting(ResourceFactory.Natives instance) {
             if (!GEN_JNI.TESTING_ENABLED) {
@@ -24,12 +24,12 @@ public class ResourceFactoryJni implements ResourceFactory.Natives {
 
     @Override
     public long createBitmapResource() {
-        return (long) GEN_JNI.org_chromium_ui_resources_ResourceFactory_createBitmapResource();
+        return GEN_JNI.org_chromium_ui_resources_ResourceFactory_createBitmapResource();
     }
 
     @Override
     public long createNinePatchBitmapResource(int paddingLeft, int paddingTop, int paddingRight, int paddingBottom, int apertureLeft, int apertureTop, int apertureRight, int apertureBottom) {
-        return (long) GEN_JNI.org_chromium_ui_resources_ResourceFactory_createNinePatchBitmapResource(paddingLeft, paddingTop, paddingRight, paddingBottom, apertureLeft, apertureTop, apertureRight, apertureBottom);
+        return GEN_JNI.org_chromium_ui_resources_ResourceFactory_createNinePatchBitmapResource(paddingLeft, paddingTop, paddingRight, paddingBottom, apertureLeft, apertureTop, apertureRight, apertureBottom);
     }
 
     public static ResourceFactory.Natives get() {

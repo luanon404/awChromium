@@ -31,10 +31,6 @@ public final class CopyOutputRequest extends org.chromium.mojo.bindings.Struct {
         super(STRUCT_SIZE, version);
     }
 
-    public CopyOutputRequest() {
-        this(0);
-    }
-
     public static CopyOutputRequest deserialize(org.chromium.mojo.bindings.Message message) {
         return decode(new org.chromium.mojo.bindings.Decoder(message));
     }
@@ -45,10 +41,9 @@ public final class CopyOutputRequest extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static CopyOutputRequest deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<>()));
     }
 
-    @SuppressWarnings("unchecked")
     public static CopyOutputRequest decode(org.chromium.mojo.bindings.Decoder decoder0) {
         if (decoder0 == null) {
             return null;
@@ -63,13 +58,11 @@ public final class CopyOutputRequest extends org.chromium.mojo.bindings.Struct {
 
                 result.resultFormat = decoder0.readInt(8);
                 CopyOutputResultFormat.validate(result.resultFormat);
-                result.resultFormat = CopyOutputResultFormat.toKnownValue(result.resultFormat);
             }
             {
 
                 result.resultDestination = decoder0.readInt(12);
                 CopyOutputResultDestination.validate(result.resultDestination);
-                result.resultDestination = CopyOutputResultDestination.toKnownValue(result.resultDestination);
             }
             {
 
@@ -107,9 +100,8 @@ public final class CopyOutputRequest extends org.chromium.mojo.bindings.Struct {
         return result;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
-    protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
+    protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
 
         encoder0.encode(this.resultFormat, 8);

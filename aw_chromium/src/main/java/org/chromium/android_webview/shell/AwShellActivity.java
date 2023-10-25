@@ -24,8 +24,6 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.window.OnBackInvokedCallback;
-import android.window.OnBackInvokedDispatcher;
 
 import org.chromium.android_webview.AwBrowserContext;
 import org.chromium.android_webview.AwBrowserProcess;
@@ -38,12 +36,9 @@ import org.chromium.android_webview.JsResultReceiver;
 import org.chromium.android_webview.R;
 import org.chromium.android_webview.test.AwTestContainerView;
 import org.chromium.android_webview.test.NullContentsClient;
-import org.chromium.base.CommandLine;
-import org.chromium.base.Log;
 import org.chromium.base.TraceEvent;
 import org.chromium.content_public.browser.NavigationController;
 import org.chromium.content_public.browser.WebContents;
-import org.chromium.content_public.browser.WebContentsObserver;
 import org.chromium.content_public.common.ContentUrlConstants;
 
 import java.net.MalformedURLException;
@@ -66,10 +61,6 @@ public class AwShellActivity extends Activity {
     private EditText mUrlTextView;
     private ImageButton mPrevButton;
     private ImageButton mNextButton;
-    private final OnBackInvokedCallback mOnBackInvokedCallback =
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU ? ()
-            -> mNavigationController.goBack()
-            : null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -88,8 +79,7 @@ public class AwShellActivity extends Activity {
         mWebContents = mAwTestContainerView.getWebContents();
         mNavigationController = mWebContents.getNavigationController();
         LinearLayout contentContainer = (LinearLayout) findViewById(R.id.content_container);
-        mAwTestContainerView.setLayoutParams(new LinearLayout.LayoutParams(
-                LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, 1f));
+        mAwTestContainerView.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, 1f));
         contentContainer.addView(mAwTestContainerView);
         mAwTestContainerView.requestFocus();
 
@@ -104,23 +94,6 @@ public class AwShellActivity extends Activity {
         mAwTestContainerView.getAwContents().loadUrl(startupUrl);
         AwContents.setShouldDownloadFavicons();
         mUrlTextView.setText(startupUrl);
-
-        mWebContents.addObserver(new WebContentsObserver() {
-            @Override
-            public void navigationEntriesChanged() {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    if (mNavigationController.canGoBack()) {
-                        AwShellActivity.this.getOnBackInvokedDispatcher()
-                                .registerOnBackInvokedCallback(
-                                        OnBackInvokedDispatcher.PRIORITY_DEFAULT,
-                                        mOnBackInvokedCallback);
-                    } else if (!mNavigationController.canGoBack()) {
-                        AwShellActivity.this.getOnBackInvokedDispatcher()
-                                .unregisterOnBackInvokedCallback(mOnBackInvokedCallback);
-                    }
-                }
-            }
-        });
     }
 
     @Override
@@ -133,10 +106,7 @@ public class AwShellActivity extends Activity {
     }
 
     private AwTestContainerView createAwTestContainerView() {
-        final String supportedModels[] = {
-                "Pixel 6",
-                "Pixel 6 Pro",
-        };
+        final String supportedModels[] = {"Pixel 6", "Pixel 6 Pro",};
         boolean useVulkan = Arrays.asList(supportedModels).contains(Build.MODEL);
         AwTestContainerView.installDrawFnFunctionTable(useVulkan);
         AwBrowserProcess.start();
@@ -157,25 +127,17 @@ public class AwShellActivity extends Activity {
                     title += url;
                 }
 
-                new AlertDialog.Builder(testContainerView.getContext())
-                        .setTitle(title)
-                        .setMessage(message)
-                        .setPositiveButton("OK",
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        receiver.confirm();
-                                    }
-                                })
-                        .setNegativeButton("Cancel",
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        receiver.cancel();
-                                    }
-                                })
-                        .create()
-                        .show();
+                new AlertDialog.Builder(testContainerView.getContext()).setTitle(title).setMessage(message).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        receiver.confirm();
+                    }
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        receiver.cancel();
+                    }
+                }).create().show();
             }
 
             @Override
@@ -187,15 +149,9 @@ public class AwShellActivity extends Activity {
 
             @Override
             public void onShowCustomView(View view, AwContentsClient.CustomViewCallback callback) {
-                getWindow().setFlags(
-                        WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                        WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-                getWindow().addContentView(view,
-                        new FrameLayout.LayoutParams(
-                                ViewGroup.LayoutParams.MATCH_PARENT,
-                                ViewGroup.LayoutParams.MATCH_PARENT,
-                                Gravity.CENTER));
+                getWindow().addContentView(view, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, Gravity.CENTER));
                 mCustomView = view;
             }
 
@@ -216,21 +172,15 @@ public class AwShellActivity extends Activity {
             }
 
             @Override
-            public void onGeolocationPermissionsShowPrompt(
-                    String origin, AwGeolocationPermissions.Callback callback) {
+            public void onGeolocationPermissionsShowPrompt(String origin, AwGeolocationPermissions.Callback callback) {
                 callback.invoke(origin, false, false);
             }
         };
 
         if (mBrowserContext == null) {
-            mBrowserContext = new AwBrowserContext(
-                    AwBrowserContext.getDefault().getNativeBrowserContextPointer());
+            mBrowserContext = new AwBrowserContext(AwBrowserContext.getDefault().getNativeBrowserContextPointer());
         }
-        final AwSettings awSettings =
-                new AwSettings(this /* context */, false /* isAccessFromFileURLsGrantedByDefault */,
-                        false /* supportsLegacyQuirks */, false /* allowEmptyDocumentPersistence */,
-                        true /* allowGeolocationOnInsecureOrigins */,
-                        false /* doNotUpdateSelectionOnMutatingSelectionRange */);
+        final AwSettings awSettings = new AwSettings(this /* context */, false /* isAccessFromFileURLsGrantedByDefault */, false /* supportsLegacyQuirks */, false /* allowEmptyDocumentPersistence */, true /* allowGeolocationOnInsecureOrigins */, false /* doNotUpdateSelectionOnMutatingSelectionRange */);
         // Required for WebGL conformance tests.
         awSettings.setMediaPlaybackRequiresUserGesture(false);
         // Allow zoom and fit contents to screen
@@ -240,9 +190,7 @@ public class AwShellActivity extends Activity {
         awSettings.setLoadWithOverviewMode(true);
         awSettings.setLayoutAlgorithm(AwSettings.LAYOUT_ALGORITHM_TEXT_AUTOSIZING);
 
-        testContainerView.initialize(new AwContents(mBrowserContext, testContainerView,
-                testContainerView.getContext(), testContainerView.getInternalAccessDelegate(),
-                testContainerView.getNativeDrawFunctorFactory(), awContentsClient, awSettings));
+        testContainerView.initialize(new AwContents(mBrowserContext, testContainerView, testContainerView.getContext(), testContainerView.getInternalAccessDelegate(), testContainerView.getNativeDrawFunctorFactory(), awContentsClient, awSettings));
         testContainerView.getAwContents().getSettings().setJavaScriptEnabled(true);
         if (mDevToolsServer == null) {
             mDevToolsServer = new AwDevToolsServer();
@@ -256,8 +204,7 @@ public class AwShellActivity extends Activity {
     }
 
     private void setKeyboardVisibilityForUrl(boolean visible) {
-        InputMethodManager imm = (InputMethodManager) getSystemService(
-                Context.INPUT_METHOD_SERVICE);
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         if (visible) {
             imm.showSoftInput(mUrlTextView, InputMethodManager.SHOW_IMPLICIT);
         } else {
@@ -268,9 +215,7 @@ public class AwShellActivity extends Activity {
     private void initializeUrlField() {
         mUrlTextView = (EditText) findViewById(R.id.url);
         mUrlTextView.setOnEditorActionListener((v, actionId, event) -> {
-            if ((actionId != EditorInfo.IME_ACTION_GO) && (event == null
-                    || event.getKeyCode() != KeyEvent.KEYCODE_ENTER
-                    || event.getAction() != KeyEvent.ACTION_DOWN)) {
+            if ((actionId != EditorInfo.IME_ACTION_GO) && (event == null || event.getKeyCode() != KeyEvent.KEYCODE_ENTER || event.getAction() != KeyEvent.ACTION_DOWN)) {
                 return false;
             }
 

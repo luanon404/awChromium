@@ -4,6 +4,8 @@
 
 package org.jni_zero;
 
+import androidx.annotation.Keep;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -19,6 +21,7 @@ import java.lang.annotation.Target;
  * <p>Usage of this annotation should be very rare; due to the complexity of correctly handling
  * exceptions in C++, prefer using {@link CalledByNative}.
  */
+@Keep
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.CLASS)
 public @interface CalledByNativeUnchecked {

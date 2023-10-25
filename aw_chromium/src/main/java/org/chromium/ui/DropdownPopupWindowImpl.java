@@ -32,18 +32,14 @@ class DropdownPopupWindowImpl implements AnchoredPopupWindow.LayoutObserver, Dro
     private final View mAnchorView;
     private boolean mRtl;
     private int mInitialSelection = -1;
-    private OnLayoutChangeListener mLayoutChangeListener;
+    private final OnLayoutChangeListener mLayoutChangeListener;
     private CharSequence mDescription;
-    private AnchoredPopupWindow mAnchoredPopupWindow;
+    private final AnchoredPopupWindow mAnchoredPopupWindow;
     ListAdapter mAdapter;
 
     private final ListView mListView;
-    private Drawable mBackground;
-    private int mHorizontalPadding;
-
-    public DropdownPopupWindowImpl(Context context, View anchorView) {
-        this(context, anchorView, null);
-    }
+    private final Drawable mBackground;
+    private final int mHorizontalPadding;
 
     /**
      * Creates an DropdownPopupWindowImpl with specified parameters.
@@ -60,11 +56,8 @@ class DropdownPopupWindowImpl implements AnchoredPopupWindow.LayoutObserver, Dro
         mAnchorView.setId(R.id.dropdown_popup_window);
         mAnchorView.setTag(this);
 
-        mLayoutChangeListener = new OnLayoutChangeListener() {
-            @Override
-            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                if (v == mAnchorView) DropdownPopupWindowImpl.this.show();
-            }
+        mLayoutChangeListener = (v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
+            if (v == mAnchorView) DropdownPopupWindowImpl.this.show();
         };
         mAnchorView.addOnLayoutChangeListener(mLayoutChangeListener);
 
@@ -87,6 +80,7 @@ class DropdownPopupWindowImpl implements AnchoredPopupWindow.LayoutObserver, Dro
         mAnchoredPopupWindow.setLayoutObserver(this);
         mAnchoredPopupWindow.setElevation(context.getResources().getDimensionPixelSize(R.dimen.dropdown_elevation));
         Rect paddingRect = new Rect();
+        assert mBackground != null;
         mBackground.getPadding(paddingRect);
         rectProvider.setInsetPx(0, /* top= */ paddingRect.bottom, 0, /* bottom= */ paddingRect.top);
         mHorizontalPadding = paddingRect.right + paddingRect.left;

@@ -13,9 +13,12 @@
 
 package org.chromium.viz.mojom;
 
+import org.chromium.mojo.bindings.InterfaceControlMessagesHelper;
+import org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants;
+
 class LayerContext_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<LayerContext, LayerContext.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<LayerContext, LayerContext.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<LayerContext, LayerContext.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<>() {
 
         @Override
         public String getName() {
@@ -171,15 +174,10 @@ class LayerContext_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
-
-                    case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), LayerContext_Internal.MANAGER, messageWithHeader, receiver);
-
-
-                    default:
-                        return false;
+                if (header.getType() == InterfaceControlMessagesConstants.RUN_MESSAGE_ID) {
+                    return InterfaceControlMessagesHelper.handleRun(getCore(), LayerContext_Internal.MANAGER, messageWithHeader, receiver);
                 }
+                return false;
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
                 System.err.println(e);
                 return false;
@@ -213,10 +211,9 @@ class LayerContext_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static LayerContextSetTargetLocalSurfaceIdParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static LayerContextSetTargetLocalSurfaceIdParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -239,9 +236,8 @@ class LayerContext_Internal {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
-        protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
+        protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
 
             encoder0.encode(this.id, 8, false);
@@ -274,10 +270,9 @@ class LayerContext_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static LayerContextSetVisibleParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static LayerContextSetVisibleParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -299,9 +294,8 @@ class LayerContext_Internal {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
-        protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
+        protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
 
             encoder0.encode(this.visible, 8, 0);
@@ -334,10 +328,9 @@ class LayerContext_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static LayerContextCommitParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<>()));
         }
 
-        @SuppressWarnings("unchecked")
         public static LayerContextCommitParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -360,9 +353,8 @@ class LayerContext_Internal {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
-        protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
+        protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
 
             encoder0.encode(this.update, 8, false);

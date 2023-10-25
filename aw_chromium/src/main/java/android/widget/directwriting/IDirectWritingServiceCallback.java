@@ -3,6 +3,8 @@
  */
 package android.widget.directwriting;
 
+import androidx.annotation.NonNull;
+
 /**
  * Direct writing service callback API for providing functionality of service callback operations,
  * mainly committing recognized and handling detected gestures. These APIs are to be implemented by
@@ -21,22 +23,19 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
         /**
          * Gets version of Aidl
          *
-         * @returns version IDirectWritingServiceCallback.VERSION
+         * @return version IDirectWritingServiceCallback.VERSION
          */
         @Override
         public int getVersion() throws android.os.RemoteException {
             return 0;
         }
-        // { Life Cycle
 
         /**
          * Calls When finish writing from service
          */
         @Override
-        public void onFinishRecognition() throws android.os.RemoteException {
+        public void onFinishRecognition() {
         }
-        // Life Cycle}
-        // { Bound EditText
 
         /**
          * Calls When Touch Up event happens outside of bounded edit text
@@ -44,7 +43,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
          * Should run on main looper
          */
         @Override
-        public void bindEditIn(float x, float y) throws android.os.RemoteException {
+        public void bindEditIn(float x, float y) {
         }
 
         /**
@@ -55,10 +54,8 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
          * Should run on main looper.
          */
         @Override
-        public void updateBoundedEditTextRect() throws android.os.RemoteException {
+        public void updateBoundedEditTextRect() {
         }
-        // Bound EditText }
-        // { EditText Text and Selection Setter
 
         /**
          * Sets text and cursor in bounded edit text
@@ -68,7 +65,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
          * @param index to set cursor position in edit text
          */
         @Override
-        public void setTextSelection(java.lang.CharSequence text, int index) throws android.os.RemoteException {
+        public void setTextSelection(java.lang.CharSequence text, int index) {
         }
 
         /**
@@ -84,16 +81,14 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
          * Should run on main looper
          */
         @Override
-        public void setSelection(int selection) throws android.os.RemoteException {
+        public void setSelection(int selection) {
         }
-        // EditText Text and Selection Setter }
-        // { EditText Text and Selection Getter
 
         /**
          * Same method with EditText
          */
         @Override
-        public int getSelectionStart() throws android.os.RemoteException {
+        public int getSelectionStart() {
             return 0;
         }
 
@@ -101,7 +96,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
          * Same method with EditText
          */
         @Override
-        public int getSelectionEnd() throws android.os.RemoteException {
+        public int getSelectionEnd() {
             return 0;
         }
 
@@ -109,7 +104,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
          * Same method with EditText
          */
         @Override
-        public int getOffsetForPosition(float x, float y) throws android.os.RemoteException {
+        public int getOffsetForPosition(float x, float y) {
             return 0;
         }
 
@@ -128,8 +123,6 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
         public int length() throws android.os.RemoteException {
             return 0;
         }
-        // EditText Text and Selection Getter }
-        // EditText Rect and Size, Position Getter }
 
         /**
          * Same method with EditText
@@ -159,7 +152,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
          * Same method with EditText
          */
         @Override
-        public int getPaddingStart() throws android.os.RemoteException {
+        public int getPaddingStart() {
             return 0;
         }
 
@@ -167,7 +160,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
          * Same method with EditText
          */
         @Override
-        public int getPaddingTop() throws android.os.RemoteException {
+        public int getPaddingTop() {
             return 0;
         }
 
@@ -175,7 +168,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
          * Same method with EditText
          */
         @Override
-        public int getPaddingBottom() throws android.os.RemoteException {
+        public int getPaddingBottom() {
             return 0;
         }
 
@@ -183,7 +176,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
          * Same method with EditText
          */
         @Override
-        public int getPaddingEnd() throws android.os.RemoteException {
+        public int getPaddingEnd() {
             return 0;
         }
 
@@ -191,7 +184,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
          * Same method with EditText
          */
         @Override
-        public int getRight() throws android.os.RemoteException {
+        public int getRight() {
             return 0;
         }
 
@@ -199,7 +192,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
          * Same method with EditText
          */
         @Override
-        public int getLeft() throws android.os.RemoteException {
+        public int getLeft() {
             return 0;
         }
 
@@ -207,7 +200,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
          * Same method with EditText
          */
         @Override
-        public int getTop() throws android.os.RemoteException {
+        public int getTop() {
             return 0;
         }
 
@@ -215,7 +208,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
          * Same method with EditText
          */
         @Override
-        public int getBottom() throws android.os.RemoteException {
+        public int getBottom() {
             return 0;
         }
 
@@ -223,7 +216,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
          * Same method with EditText
          */
         @Override
-        public int getLineHeight() throws android.os.RemoteException {
+        public int getLineHeight() {
             return 0;
         }
 
@@ -231,7 +224,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
          * Same method with EditText
          */
         @Override
-        public int getLineCount() throws android.os.RemoteException {
+        public int getLineCount() {
             return 0;
         }
 
@@ -239,17 +232,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
          * Same method with EditText
          */
         @Override
-        public int getBaseLine() throws android.os.RemoteException {
-            return 0;
-        }
-        // EditText Rect and Size, Position Getter }
-        // { EditText layout Getter
-
-        /**
-         * Same method with EditText.getLayout()
-         */
-        @Override
-        public int getParagraphDirection(int line) throws android.os.RemoteException {
+        public int getBaseLine() {
             return 0;
         }
 
@@ -257,7 +240,15 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
          * Same method with EditText.getLayout()
          */
         @Override
-        public float getPrimaryHorizontal(int offset) throws android.os.RemoteException {
+        public int getParagraphDirection(int line) {
+            return 0;
+        }
+
+        /**
+         * Same method with EditText.getLayout()
+         */
+        @Override
+        public float getPrimaryHorizontal(int offset) {
             return 0.0f;
         }
 
@@ -265,7 +256,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
          * Same method with EditText.getLayout()
          */
         @Override
-        public float getLineMax(int i) throws android.os.RemoteException {
+        public float getLineMax(int i) {
             return 0.0f;
         }
 
@@ -273,7 +264,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
          * Same method with EditText.getLayout()
          */
         @Override
-        public int getLineForOffset(int offset) throws android.os.RemoteException {
+        public int getLineForOffset(int offset) {
             return 0;
         }
 
@@ -281,7 +272,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
          * Same method with EditText.getLayout()
          */
         @Override
-        public int getLineStart(int line) throws android.os.RemoteException {
+        public int getLineStart(int line) {
             return 0;
         }
 
@@ -289,7 +280,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
          * Same method with EditText.getLayout()
          */
         @Override
-        public int getLineEnd(int line) throws android.os.RemoteException {
+        public int getLineEnd(int line) {
             return 0;
         }
 
@@ -297,7 +288,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
          * Same method with EditText.getLayout()
          */
         @Override
-        public int getLineTop(int line) throws android.os.RemoteException {
+        public int getLineTop(int line) {
             return 0;
         }
 
@@ -305,7 +296,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
          * Same method with EditText.getLayout()
          */
         @Override
-        public int getLineBottom(int line) throws android.os.RemoteException {
+        public int getLineBottom(int line) {
             return 0;
         }
 
@@ -313,7 +304,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
          * Same method with EditText.getLayout()
          */
         @Override
-        public int getLineVisibleEnd(int line) throws android.os.RemoteException {
+        public int getLineVisibleEnd(int line) {
             return 0;
         }
 
@@ -321,7 +312,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
          * Same method with EditText.getLayout()
          */
         @Override
-        public int getLineBaseline(int line) throws android.os.RemoteException {
+        public int getLineBaseline(int line) {
             return 0;
         }
 
@@ -329,7 +320,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
          * Get line height by line index
          */
         @Override
-        public int getLineHeightByIndex(int line) throws android.os.RemoteException {
+        public int getLineHeightByIndex(int line) {
             return 0;
         }
 
@@ -337,7 +328,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
          * Get line max inclues start padding of editText
          */
         @Override
-        public int getLineMaxIncludePadding(int line) throws android.os.RemoteException {
+        public int getLineMaxIncludePadding(int line) {
             return 0;
         }
 
@@ -345,7 +336,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
          * Same method with EditText.getLayout()
          */
         @Override
-        public int getLineAscent(int line) throws android.os.RemoteException {
+        public int getLineAscent(int line) {
             return 0;
         }
 
@@ -353,7 +344,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
          * Same method with EditText.getLayout()
          */
         @Override
-        public int getLineDescent(int line) throws android.os.RemoteException {
+        public int getLineDescent(int line) {
             return 0;
         }
 
@@ -361,27 +352,15 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
          * Get text area by line index
          */
         @Override
-        public android.graphics.Rect getTextAreaRect(int line) throws android.os.RemoteException {
+        public android.graphics.Rect getTextAreaRect(int line) {
             return null;
         }
-        // EditText layout Getter }
-        // { VI
 
         /**
          * Gets location of cursor for VI
          */
         @Override
-        public android.graphics.PointF getCursorLocation(int selectionStart) throws android.os.RemoteException {
-            return null;
-        }
-        // VI }
-        // { EditText EditInfo Getter
-
-        /**
-         * Same method with EditText
-         */
-        @Override
-        public java.lang.String getPrivateImeOptions() throws android.os.RemoteException {
+        public android.graphics.PointF getCursorLocation(int selectionStart) {
             return null;
         }
 
@@ -389,7 +368,15 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
          * Same method with EditText
          */
         @Override
-        public int getImeOptions() throws android.os.RemoteException {
+        public java.lang.String getPrivateImeOptions() {
+            return null;
+        }
+
+        /**
+         * Same method with EditText
+         */
+        @Override
+        public int getImeOptions() {
             return 0;
         }
 
@@ -400,15 +387,13 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
         public int getInputType() throws android.os.RemoteException {
             return 0;
         }
-        // EditText EditInfo Getter }
-        // { InputMethod
 
         /**
          * Same method with EditText
          * Should run on main looper
          */
         @Override
-        public void onEditorAction(int actionCode) throws android.os.RemoteException {
+        public void onEditorAction(int actionCode) {
         }
 
         /**
@@ -418,17 +403,15 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
          * @param bundle to send to keyboard
          */
         @Override
-        public void onAppPrivateCommand(java.lang.String action, android.os.Bundle bundle) throws android.os.RemoteException {
+        public void onAppPrivateCommand(java.lang.String action, android.os.Bundle bundle) {
         }
 
         /**
          * Hides keyboard forcely if it is showing for current input.
          */
         @Override
-        public void semForceHideSoftInput() throws android.os.RemoteException {
+        public void semForceHideSoftInput() {
         }
-        // InputMethod }
-        // { Common Extra
 
         /**
          * Extra Command for future use
@@ -437,10 +420,8 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
          * @param bundle is for future use
          */
         @Override
-        public void onExtraCommand(java.lang.String action, android.os.Bundle bundle) throws android.os.RemoteException {
+        public void onExtraCommand(java.lang.String action, android.os.Bundle bundle) {
         }
-        // Common Extra }
-        // { TextView
 
         /**
          * TextView Extra Command for future use.
@@ -452,9 +433,8 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
          * @param bundle is for future use
          */
         @Override
-        public void onTextViewExtraCommand(java.lang.String action, android.os.Bundle bundle) throws android.os.RemoteException {
+        public void onTextViewExtraCommand(java.lang.String action, android.os.Bundle bundle) {
         }
-        // TextView }
 
         /**
          * Direct writing service may be stopped to save memory when unused for a while. This method is
@@ -463,7 +443,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
          * @return true if the stylus handwriting hover icon is currently being shown, false otherwise.
          */
         @Override
-        public boolean isHoverIconShowing() throws android.os.RemoteException {
+        public boolean isHoverIconShowing() {
             return false;
         }
 
@@ -489,11 +469,11 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
          * generating a proxy if needed.
          */
         public static android.widget.directwriting.IDirectWritingServiceCallback asInterface(android.os.IBinder obj) {
-            if ((obj == null)) {
+            if (obj == null) {
                 return null;
             }
             android.os.IInterface iin = obj.queryLocalInterface(DESCRIPTOR);
-            if (((iin != null) && (iin instanceof android.widget.directwriting.IDirectWritingServiceCallback))) {
+            if (iin instanceof IDirectWritingServiceCallback) {
                 return ((android.widget.directwriting.IDirectWritingServiceCallback) iin);
             }
             return new android.widget.directwriting.IDirectWritingServiceCallback.Stub.Proxy(obj);
@@ -505,16 +485,14 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
         }
 
         @Override
-        public boolean onTransact(int code, android.os.Parcel data, android.os.Parcel reply, int flags) throws android.os.RemoteException {
+        public boolean onTransact(int code, @NonNull android.os.Parcel data, android.os.Parcel reply, int flags) throws android.os.RemoteException {
             java.lang.String descriptor = DESCRIPTOR;
             if (code >= android.os.IBinder.FIRST_CALL_TRANSACTION && code <= android.os.IBinder.LAST_CALL_TRANSACTION) {
                 data.enforceInterface(descriptor);
             }
-            switch (code) {
-                case INTERFACE_TRANSACTION: {
-                    reply.writeString(descriptor);
-                    return true;
-                }
+            if (code == INTERFACE_TRANSACTION) {
+                reply.writeString(descriptor);
+                return true;
             }
             switch (code) {
                 case TRANSACTION_getVersion: {
@@ -889,7 +867,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
         }
 
         private static class Proxy implements android.widget.directwriting.IDirectWritingServiceCallback {
-            private android.os.IBinder mRemote;
+            private final android.os.IBinder mRemote;
 
             Proxy(android.os.IBinder remote) {
                 mRemote = remote;
@@ -907,7 +885,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
             /**
              * Gets version of Aidl
              *
-             * @returns version IDirectWritingServiceCallback.VERSION
+             * @return version IDirectWritingServiceCallback.VERSION
              */
             @Override
             public int getVersion() throws android.os.RemoteException {
@@ -916,7 +894,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                 int _result;
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_getVersion, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_getVersion, _data, _reply, 0);
                     _reply.readException();
                     _result = _reply.readInt();
                 } finally {
@@ -925,7 +903,6 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                 }
                 return _result;
             }
-            // { Life Cycle
 
             /**
              * Calls When finish writing from service
@@ -936,15 +913,13 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                 android.os.Parcel _reply = android.os.Parcel.obtain();
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_onFinishRecognition, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_onFinishRecognition, _data, _reply, 0);
                     _reply.readException();
                 } finally {
                     _reply.recycle();
                     _data.recycle();
                 }
             }
-            // Life Cycle}
-            // { Bound EditText
 
             /**
              * Calls When Touch Up event happens outside of bounded edit text
@@ -959,7 +934,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                     _data.writeInterfaceToken(DESCRIPTOR);
                     _data.writeFloat(x);
                     _data.writeFloat(y);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_bindEditIn, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_bindEditIn, _data, _reply, 0);
                     _reply.readException();
                 } finally {
                     _reply.recycle();
@@ -980,15 +955,13 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                 android.os.Parcel _reply = android.os.Parcel.obtain();
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_updateBoundedEditTextRect, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_updateBoundedEditTextRect, _data, _reply, 0);
                     _reply.readException();
                 } finally {
                     _reply.recycle();
                     _data.recycle();
                 }
             }
-            // Bound EditText }
-            // { EditText Text and Selection Setter
 
             /**
              * Sets text and cursor in bounded edit text
@@ -1010,7 +983,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                         _data.writeInt(0);
                     }
                     _data.writeInt(index);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_setTextSelection, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_setTextSelection, _data, _reply, 0);
                     _reply.readException();
                 } finally {
                     _reply.recycle();
@@ -1034,7 +1007,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                     } else {
                         _data.writeInt(0);
                     }
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_setText, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_setText, _data, _reply, 0);
                     _reply.readException();
                 } finally {
                     _reply.recycle();
@@ -1053,15 +1026,13 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
                     _data.writeInt(selection);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_setSelection, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_setSelection, _data, _reply, 0);
                     _reply.readException();
                 } finally {
                     _reply.recycle();
                     _data.recycle();
                 }
             }
-            // EditText Text and Selection Setter }
-            // { EditText Text and Selection Getter
 
             /**
              * Same method with EditText
@@ -1073,7 +1044,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                 int _result;
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_getSelectionStart, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_getSelectionStart, _data, _reply, 0);
                     _reply.readException();
                     _result = _reply.readInt();
                 } finally {
@@ -1093,7 +1064,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                 int _result;
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_getSelectionEnd, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_getSelectionEnd, _data, _reply, 0);
                     _reply.readException();
                     _result = _reply.readInt();
                 } finally {
@@ -1115,7 +1086,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                     _data.writeInterfaceToken(DESCRIPTOR);
                     _data.writeFloat(x);
                     _data.writeFloat(y);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_getOffsetForPosition, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_getOffsetForPosition, _data, _reply, 0);
                     _reply.readException();
                     _result = _reply.readInt();
                 } finally {
@@ -1135,7 +1106,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                 java.lang.CharSequence _result;
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_getText, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_getText, _data, _reply, 0);
                     _reply.readException();
                     _result = _Parcel.readTypedObject(_reply, android.text.TextUtils.CHAR_SEQUENCE_CREATOR);
                 } finally {
@@ -1155,7 +1126,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                 int _result;
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_length, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_length, _data, _reply, 0);
                     _reply.readException();
                     _result = _reply.readInt();
                 } finally {
@@ -1164,8 +1135,6 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                 }
                 return _result;
             }
-            // EditText Text and Selection Getter }
-            // EditText Rect and Size, Position Getter }
 
             /**
              * Same method with EditText
@@ -1177,7 +1146,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                 int _result;
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_getHeight, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_getHeight, _data, _reply, 0);
                     _reply.readException();
                     _result = _reply.readInt();
                 } finally {
@@ -1197,7 +1166,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                 int _result;
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_getWidth, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_getWidth, _data, _reply, 0);
                     _reply.readException();
                     _result = _reply.readInt();
                 } finally {
@@ -1217,7 +1186,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                 int _result;
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_getScrollY, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_getScrollY, _data, _reply, 0);
                     _reply.readException();
                     _result = _reply.readInt();
                 } finally {
@@ -1237,7 +1206,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                 int _result;
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_getPaddingStart, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_getPaddingStart, _data, _reply, 0);
                     _reply.readException();
                     _result = _reply.readInt();
                 } finally {
@@ -1257,7 +1226,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                 int _result;
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_getPaddingTop, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_getPaddingTop, _data, _reply, 0);
                     _reply.readException();
                     _result = _reply.readInt();
                 } finally {
@@ -1277,7 +1246,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                 int _result;
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_getPaddingBottom, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_getPaddingBottom, _data, _reply, 0);
                     _reply.readException();
                     _result = _reply.readInt();
                 } finally {
@@ -1297,7 +1266,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                 int _result;
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_getPaddingEnd, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_getPaddingEnd, _data, _reply, 0);
                     _reply.readException();
                     _result = _reply.readInt();
                 } finally {
@@ -1317,7 +1286,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                 int _result;
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_getRight, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_getRight, _data, _reply, 0);
                     _reply.readException();
                     _result = _reply.readInt();
                 } finally {
@@ -1337,7 +1306,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                 int _result;
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_getLeft, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_getLeft, _data, _reply, 0);
                     _reply.readException();
                     _result = _reply.readInt();
                 } finally {
@@ -1357,7 +1326,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                 int _result;
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_getTop, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_getTop, _data, _reply, 0);
                     _reply.readException();
                     _result = _reply.readInt();
                 } finally {
@@ -1377,7 +1346,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                 int _result;
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_getBottom, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_getBottom, _data, _reply, 0);
                     _reply.readException();
                     _result = _reply.readInt();
                 } finally {
@@ -1397,7 +1366,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                 int _result;
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_getLineHeight, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_getLineHeight, _data, _reply, 0);
                     _reply.readException();
                     _result = _reply.readInt();
                 } finally {
@@ -1417,7 +1386,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                 int _result;
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_getLineCount, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_getLineCount, _data, _reply, 0);
                     _reply.readException();
                     _result = _reply.readInt();
                 } finally {
@@ -1437,7 +1406,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                 int _result;
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_getBaseLine, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_getBaseLine, _data, _reply, 0);
                     _reply.readException();
                     _result = _reply.readInt();
                 } finally {
@@ -1446,8 +1415,6 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                 }
                 return _result;
             }
-            // EditText Rect and Size, Position Getter }
-            // { EditText layout Getter
 
             /**
              * Same method with EditText.getLayout()
@@ -1460,7 +1427,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
                     _data.writeInt(line);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_getParagraphDirection, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_getParagraphDirection, _data, _reply, 0);
                     _reply.readException();
                     _result = _reply.readInt();
                 } finally {
@@ -1481,7 +1448,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
                     _data.writeInt(offset);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_getPrimaryHorizontal, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_getPrimaryHorizontal, _data, _reply, 0);
                     _reply.readException();
                     _result = _reply.readFloat();
                 } finally {
@@ -1502,7 +1469,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
                     _data.writeInt(i);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_getLineMax, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_getLineMax, _data, _reply, 0);
                     _reply.readException();
                     _result = _reply.readFloat();
                 } finally {
@@ -1523,7 +1490,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
                     _data.writeInt(offset);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_getLineForOffset, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_getLineForOffset, _data, _reply, 0);
                     _reply.readException();
                     _result = _reply.readInt();
                 } finally {
@@ -1544,7 +1511,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
                     _data.writeInt(line);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_getLineStart, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_getLineStart, _data, _reply, 0);
                     _reply.readException();
                     _result = _reply.readInt();
                 } finally {
@@ -1565,7 +1532,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
                     _data.writeInt(line);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_getLineEnd, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_getLineEnd, _data, _reply, 0);
                     _reply.readException();
                     _result = _reply.readInt();
                 } finally {
@@ -1586,7 +1553,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
                     _data.writeInt(line);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_getLineTop, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_getLineTop, _data, _reply, 0);
                     _reply.readException();
                     _result = _reply.readInt();
                 } finally {
@@ -1607,7 +1574,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
                     _data.writeInt(line);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_getLineBottom, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_getLineBottom, _data, _reply, 0);
                     _reply.readException();
                     _result = _reply.readInt();
                 } finally {
@@ -1628,7 +1595,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
                     _data.writeInt(line);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_getLineVisibleEnd, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_getLineVisibleEnd, _data, _reply, 0);
                     _reply.readException();
                     _result = _reply.readInt();
                 } finally {
@@ -1649,7 +1616,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
                     _data.writeInt(line);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_getLineBaseline, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_getLineBaseline, _data, _reply, 0);
                     _reply.readException();
                     _result = _reply.readInt();
                 } finally {
@@ -1670,7 +1637,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
                     _data.writeInt(line);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_getLineHeightByIndex, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_getLineHeightByIndex, _data, _reply, 0);
                     _reply.readException();
                     _result = _reply.readInt();
                 } finally {
@@ -1691,7 +1658,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
                     _data.writeInt(line);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_getLineMaxIncludePadding, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_getLineMaxIncludePadding, _data, _reply, 0);
                     _reply.readException();
                     _result = _reply.readInt();
                 } finally {
@@ -1712,7 +1679,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
                     _data.writeInt(line);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_getLineAscent, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_getLineAscent, _data, _reply, 0);
                     _reply.readException();
                     _result = _reply.readInt();
                 } finally {
@@ -1733,7 +1700,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
                     _data.writeInt(line);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_getLineDescent, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_getLineDescent, _data, _reply, 0);
                     _reply.readException();
                     _result = _reply.readInt();
                 } finally {
@@ -1754,7 +1721,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
                     _data.writeInt(line);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_getTextAreaRect, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_getTextAreaRect, _data, _reply, 0);
                     _reply.readException();
                     _result = _Parcel.readTypedObject(_reply, android.graphics.Rect.CREATOR);
                 } finally {
@@ -1763,8 +1730,6 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                 }
                 return _result;
             }
-            // EditText layout Getter }
-            // { VI
 
             /**
              * Gets location of cursor for VI
@@ -1777,7 +1742,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
                     _data.writeInt(selectionStart);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_getCursorLocation, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_getCursorLocation, _data, _reply, 0);
                     _reply.readException();
                     _result = _Parcel.readTypedObject(_reply, android.graphics.PointF.CREATOR);
                 } finally {
@@ -1799,7 +1764,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                 java.lang.String _result;
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_getPrivateImeOptions, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_getPrivateImeOptions, _data, _reply, 0);
                     _reply.readException();
                     _result = _reply.readString();
                 } finally {
@@ -1819,7 +1784,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                 int _result;
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_getImeOptions, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_getImeOptions, _data, _reply, 0);
                     _reply.readException();
                     _result = _reply.readInt();
                 } finally {
@@ -1839,7 +1804,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                 int _result;
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_getInputType, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_getInputType, _data, _reply, 0);
                     _reply.readException();
                     _result = _reply.readInt();
                 } finally {
@@ -1848,8 +1813,6 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                 }
                 return _result;
             }
-            // EditText EditInfo Getter }
-            // { InputMethod
 
             /**
              * Same method with EditText
@@ -1862,7 +1825,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
                     _data.writeInt(actionCode);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_onEditorAction, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_onEditorAction, _data, _reply, 0);
                     _reply.readException();
                 } finally {
                     _reply.recycle();
@@ -1884,7 +1847,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                     _data.writeInterfaceToken(DESCRIPTOR);
                     _data.writeString(action);
                     _Parcel.writeTypedObject(_data, bundle, 0);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_onAppPrivateCommand, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_onAppPrivateCommand, _data, _reply, 0);
                     _reply.readException();
                 } finally {
                     _reply.recycle();
@@ -1901,15 +1864,13 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                 android.os.Parcel _reply = android.os.Parcel.obtain();
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_semForceHideSoftInput, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_semForceHideSoftInput, _data, _reply, 0);
                     _reply.readException();
                 } finally {
                     _reply.recycle();
                     _data.recycle();
                 }
             }
-            // InputMethod }
-            // { Common Extra
 
             /**
              * Extra Command for future use
@@ -1925,7 +1886,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                     _data.writeInterfaceToken(DESCRIPTOR);
                     _data.writeString(action);
                     _Parcel.writeTypedObject(_data, bundle, 0);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_onExtraCommand, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_onExtraCommand, _data, _reply, 0);
                     _reply.readException();
                     if ((0 != _reply.readInt())) {
                         bundle.readFromParcel(_reply);
@@ -1935,8 +1896,6 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                     _data.recycle();
                 }
             }
-            // Common Extra }
-            // { TextView
 
             /**
              * TextView Extra Command for future use.
@@ -1955,7 +1914,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                     _data.writeInterfaceToken(DESCRIPTOR);
                     _data.writeString(action);
                     _Parcel.writeTypedObject(_data, bundle, 0);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_onTextViewExtraCommand, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_onTextViewExtraCommand, _data, _reply, 0);
                     _reply.readException();
                     if ((0 != _reply.readInt())) {
                         bundle.readFromParcel(_reply);
@@ -1965,7 +1924,6 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                     _data.recycle();
                 }
             }
-            // TextView }
 
             /**
              * Direct writing service may be stopped to save memory when unused for a while. This method is
@@ -1980,7 +1938,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
                 boolean _result;
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
-                    boolean _status = mRemote.transact(Stub.TRANSACTION_isHoverIconShowing, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_isHoverIconShowing, _data, _reply, 0);
                     _reply.readException();
                     _result = (0 != _reply.readInt());
                 } finally {
@@ -1991,7 +1949,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
             }
         }
 
-        static final int TRANSACTION_getVersion = (android.os.IBinder.FIRST_CALL_TRANSACTION + 0);
+        static final int TRANSACTION_getVersion = android.os.IBinder.FIRST_CALL_TRANSACTION;
         static final int TRANSACTION_onFinishRecognition = (android.os.IBinder.FIRST_CALL_TRANSACTION + 1);
         static final int TRANSACTION_bindEditIn = (android.os.IBinder.FIRST_CALL_TRANSACTION + 10);
         static final int TRANSACTION_updateBoundedEditTextRect = (android.os.IBinder.FIRST_CALL_TRANSACTION + 11);
@@ -2050,17 +2008,14 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
     /**
      * Gets version of Aidl
      *
-     * @returns version IDirectWritingServiceCallback.VERSION
+     * @return version IDirectWritingServiceCallback.VERSION
      */
     int getVersion() throws android.os.RemoteException;
-    // { Life Cycle
 
     /**
      * Calls When finish writing from service
      */
     void onFinishRecognition() throws android.os.RemoteException;
-    // Life Cycle}
-    // { Bound EditText
 
     /**
      * Calls When Touch Up event happens outside of bounded edit text
@@ -2077,8 +2032,6 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
      * Should run on main looper.
      */
     void updateBoundedEditTextRect() throws android.os.RemoteException;
-    // Bound EditText }
-    // { EditText Text and Selection Setter
 
     /**
      * Sets text and cursor in bounded edit text
@@ -2100,8 +2053,6 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
      * Should run on main looper
      */
     void setSelection(int selection) throws android.os.RemoteException;
-    // EditText Text and Selection Setter }
-    // { EditText Text and Selection Getter
 
     /**
      * Same method with EditText
@@ -2127,8 +2078,6 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
      * Same method with EditText
      */
     int length() throws android.os.RemoteException;
-    // EditText Text and Selection Getter }
-    // EditText Rect and Size, Position Getter }
 
     /**
      * Same method with EditText
@@ -2199,8 +2148,6 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
      * Same method with EditText
      */
     int getBaseLine() throws android.os.RemoteException;
-    // EditText Rect and Size, Position Getter }
-    // { EditText layout Getter
 
     /**
      * Same method with EditText.getLayout()
@@ -2276,15 +2223,11 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
      * Get text area by line index
      */
     android.graphics.Rect getTextAreaRect(int line) throws android.os.RemoteException;
-    // EditText layout Getter }
-    // { VI
 
     /**
      * Gets location of cursor for VI
      */
     android.graphics.PointF getCursorLocation(int selectionStart) throws android.os.RemoteException;
-    // VI }
-    // { EditText EditInfo Getter
 
     /**
      * Same method with EditText
@@ -2300,8 +2243,6 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
      * Same method with EditText
      */
     int getInputType() throws android.os.RemoteException;
-    // EditText EditInfo Getter }
-    // { InputMethod
 
     /**
      * Same method with EditText
@@ -2321,8 +2262,6 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
      * Hides keyboard forcely if it is showing for current input.
      */
     void semForceHideSoftInput() throws android.os.RemoteException;
-    // InputMethod }
-    // { Common Extra
 
     /**
      * Extra Command for future use
@@ -2331,8 +2270,6 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
      * @param bundle is for future use
      */
     void onExtraCommand(java.lang.String action, android.os.Bundle bundle) throws android.os.RemoteException;
-    // Common Extra }
-    // { TextView
 
     /**
      * TextView Extra Command for future use.

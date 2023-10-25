@@ -56,7 +56,7 @@ public class Toast {
         int NORMAL = 1;
     }
 
-    private android.widget.Toast mToast;
+    private final android.widget.Toast mToast;
     private ViewGroup mSWLayout;
     private @ToastPriority int mPriority;
     private CharSequence mText;
@@ -298,6 +298,7 @@ public class Toast {
 
         private TextView inflateTextView() {
             LayoutInflater inflater = LayoutInflater.from(mContext);
+            @SuppressLint("InflateParams")
             TextView textView = (TextView) inflater.inflate(R.layout.custom_toast_layout, null);
             if (mText != null) {
                 textView.setText(mText);

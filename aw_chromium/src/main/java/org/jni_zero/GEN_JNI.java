@@ -24,6 +24,7 @@ public class GEN_JNI {
     public static String org_chromium_android_1webview_AndroidProtocolHandler_getWellKnownMimeType(String path) {
         return J.N.MFP_K5qZ(path);
     }
+
     public static void org_chromium_android_1webview_AwAutofillClient_dismissed(long nativeAwAutofillClient, Object caller) {
         J.N.M2z_jbiy(nativeAwAutofillClient, caller);
     }
@@ -31,6 +32,7 @@ public class GEN_JNI {
     public static void org_chromium_android_1webview_AwAutofillClient_suggestionSelected(long nativeAwAutofillClient, Object caller, int position) {
         J.N.Mg2XGOMM(nativeAwAutofillClient, caller, position);
     }
+
     public static boolean org_chromium_android_1webview_AwBrowserContext_checkNamedContextExists(String name) {
         return J.N.M5wkLZns(name);
     }
@@ -90,6 +92,7 @@ public class GEN_JNI {
     public static String[] org_chromium_android_1webview_AwBrowserContext_updateServiceWorkerXRequestedWithAllowListOriginMatcher(long nativeAwBrowserContext, String[] rules) {
         return J.N.MbJe3hIS(nativeAwBrowserContext, rules);
     }
+
     public static Object[] org_chromium_android_1webview_AwBrowserProcess_getComponentLoaderPolicies() {
         return J.N.MAV2AOV0();
     }
@@ -97,6 +100,7 @@ public class GEN_JNI {
     public static void org_chromium_android_1webview_AwBrowserProcess_setProcessNameCrashKey(String processName) {
         J.N.MgHPT6uL(processName);
     }
+
     public static int org_chromium_android_1webview_AwContents_addDocumentStartJavaScript(long nativeAwContents, String script, String[] allowedOriginRules) {
         return J.N.MrxnMTWN(nativeAwContents, script, allowedOriginRules);
     }
@@ -372,6 +376,7 @@ public class GEN_JNI {
     public static void org_chromium_android_1webview_AwContents_zoomBy(long nativeAwContents, float delta) {
         J.N.MuRWIe$h(nativeAwContents, delta);
     }
+
     public static void org_chromium_android_1webview_AwContentsClientBridge_cancelJsResult(long nativeAwContentsClientBridge, Object caller, int id) {
         J.N.MXWyhv9x(nativeAwContentsClientBridge, caller, id);
     }
@@ -391,6 +396,7 @@ public class GEN_JNI {
     public static void org_chromium_android_1webview_AwContentsClientBridge_takeSafeBrowsingAction(long nativeAwContentsClientBridge, Object caller, int action, boolean reporting, int requestId) {
         J.N.MXMPzQYm(nativeAwContentsClientBridge, caller, action, reporting, requestId);
     }
+
     public static void org_chromium_android_1webview_AwContentsStatics_clearClientCertPreferences(Object callback) {
         J.N.Ml71D$Ud(callback);
     }
@@ -430,6 +436,7 @@ public class GEN_JNI {
     public static void org_chromium_android_1webview_AwContentsStatics_setSafeBrowsingAllowlist(String[] urls, Object callback) {
         J.N.MXyUVZLW(urls, callback);
     }
+
     public static void org_chromium_android_1webview_AwCookieManager_flushCookieStore(long nativeCookieManager, Object caller) {
         J.N.MgWRfeHz(nativeCookieManager, caller);
     }
@@ -497,6 +504,7 @@ public class GEN_JNI {
     public static void org_chromium_android_1webview_AwCookieManager_setWorkaroundHttpSecureCookiesForTesting(long nativeCookieManager, Object caller, boolean allow) {
         J.N.MEu0P4_Z_ForTesting(nativeCookieManager, caller, allow);
     }
+
     public static void org_chromium_android_1webview_AwDarkMode_detachFromJavaObject(long nativeAwDarkMode, Object caller) {
         J.N.MAUt3lR$(nativeAwDarkMode, caller);
     }
@@ -508,6 +516,7 @@ public class GEN_JNI {
     public static long org_chromium_android_1webview_AwDarkMode_init(Object caller, Object webContents) {
         return J.N.MMJkB5Gn(caller, webContents);
     }
+
     public static void org_chromium_android_1webview_AwDevToolsServer_destroyRemoteDebugging(Object caller, long devToolsServer) {
         J.N.MQr9muLU(caller, devToolsServer);
     }
@@ -519,9 +528,11 @@ public class GEN_JNI {
     public static void org_chromium_android_1webview_AwDevToolsServer_setRemoteDebuggingEnabled(Object caller, long devToolsServer, boolean enabled) {
         J.N.MQE$FZ2u(caller, devToolsServer, enabled);
     }
+
     public static long org_chromium_android_1webview_AwFeatureMap_getNativeMap() {
         return J.N.MDLMFMDS();
     }
+
     public static void org_chromium_android_1webview_AwHttpAuthHandler_cancel(long nativeAwHttpAuthHandler, Object caller) {
         J.N.MylO8zte(nativeAwHttpAuthHandler, caller);
     }
@@ -529,6 +540,7 @@ public class GEN_JNI {
     public static void org_chromium_android_1webview_AwHttpAuthHandler_proceed(long nativeAwHttpAuthHandler, Object caller, String username, String password) {
         J.N.MWR2vWXA(nativeAwHttpAuthHandler, caller, username, password);
     }
+
     public static long org_chromium_android_1webview_AwPacProcessor_createNativePacProcessor() {
         return J.N.M1XOiRvG();
     }
@@ -552,9 +564,11 @@ public class GEN_JNI {
     public static boolean org_chromium_android_1webview_AwPacProcessor_setProxyScript(long nativeAwPacProcessor, Object caller, String script) {
         return J.N.MEjwJwuS(nativeAwPacProcessor, caller, script);
     }
+
     public static void org_chromium_android_1webview_AwPdfExporter_exportToPdf(long nativeAwPdfExporter, Object caller, int fd, int[] pages, Object cancellationSignal) {
         J.N.Mp2j15Oh(nativeAwPdfExporter, caller, fd, pages, cancellationSignal);
     }
+
     public static void org_chromium_android_1webview_AwProxyController_clearProxyOverride(Object caller, Object listener, Object executor) {
         J.N.Mx5cEreM(caller, listener, executor);
     }
@@ -562,6 +576,7 @@ public class GEN_JNI {
     public static String org_chromium_android_1webview_AwProxyController_setProxyOverride(Object caller, String[] urlSchemes, String[] proxyUrls, String[] bypassRules, Object listener, Object executor, boolean reverseBypass) {
         return J.N.M8RBhX3H(caller, urlSchemes, proxyUrls, bypassRules, listener, executor, reverseBypass);
     }
+
     public static void org_chromium_android_1webview_AwQuotaManagerBridge_deleteAllData(long nativeAwQuotaManagerBridge, Object caller) {
         J.N.MMBD8oze(nativeAwQuotaManagerBridge, caller);
     }
@@ -581,6 +596,7 @@ public class GEN_JNI {
     public static void org_chromium_android_1webview_AwQuotaManagerBridge_init(long nativeAwQuotaManagerBridge, Object caller) {
         J.N.MIrzsg_q(nativeAwQuotaManagerBridge, caller);
     }
+
     public static boolean org_chromium_android_1webview_AwRenderProcess_isProcessLockedToSiteForTesting(long nativeAwRenderProcess, Object caller) {
         return J.N.MPsgpP_t_ForTesting(nativeAwRenderProcess, caller);
     }
@@ -588,6 +604,7 @@ public class GEN_JNI {
     public static boolean org_chromium_android_1webview_AwRenderProcess_terminateChildProcess(long nativeAwRenderProcess, Object caller) {
         return J.N.MjS72mtS(nativeAwRenderProcess, caller);
     }
+
     public static void org_chromium_android_1webview_AwSettings_destroy(long nativeAwSettings, Object caller) {
         J.N.MtdU4vpL(nativeAwSettings, caller);
     }
@@ -671,6 +688,7 @@ public class GEN_JNI {
     public static String[] org_chromium_android_1webview_AwSettings_updateXRequestedWithAllowListOriginMatcher(long nativeAwSettings, String[] rules) {
         return J.N.M59gebaD(nativeAwSettings, rules);
     }
+
     public static long org_chromium_android_1webview_AwTracingController_init(Object caller) {
         return J.N.MJiQrQ3Z(caller);
     }
@@ -686,15 +704,19 @@ public class GEN_JNI {
     public static boolean org_chromium_android_1webview_AwTracingController_stopAndFlush(long nativeAwTracingController, Object caller) {
         return J.N.MVnr_0Jw(nativeAwTracingController, caller);
     }
+
     public static void org_chromium_android_1webview_AwWebContentsDelegate_filesSelectedInChooser(int processId, int renderId, int modeFlags, String[] filePath, String[] displayName) {
         J.N.MB5V$olG(processId, renderId, modeFlags, filePath, displayName);
     }
+
     public static void org_chromium_android_1webview_JsReplyProxy_postMessage(long nativeJsReplyProxy, Object payload) {
         J.N.MayS5i9E(nativeJsReplyProxy, payload);
     }
+
     public static long org_chromium_android_1webview_PopupTouchHandleDrawable_init(Object caller, float horizontalPaddingRatio) {
         return J.N.MQ7e2Y0w(caller, horizontalPaddingRatio);
     }
+
     public static long org_chromium_android_1webview_gfx_AwDrawFnImpl_create() {
         return J.N.M_e6WGre();
     }
@@ -714,6 +736,7 @@ public class GEN_JNI {
     public static void org_chromium_android_1webview_gfx_AwDrawFnImpl_setDrawFnFunctionTable(long functionTablePointer) {
         J.N.Muf_UBRy(functionTablePointer);
     }
+
     public static long org_chromium_android_1webview_gfx_AwGLFunctor_create(Object javaProxy) {
         return J.N.Me9QwrxV(javaProxy);
     }
@@ -741,6 +764,7 @@ public class GEN_JNI {
     public static void org_chromium_android_1webview_gfx_AwGLFunctor_removeFromCompositorFrameProducer(long nativeAwGLFunctor, Object caller) {
         J.N.MOiMYd0I(nativeAwGLFunctor, caller);
     }
+
     public static void org_chromium_android_1webview_gfx_AwPicture_destroy(long nativeAwPicture) {
         J.N.Mt$FsvYN(nativeAwPicture);
     }
@@ -756,9 +780,11 @@ public class GEN_JNI {
     public static int org_chromium_android_1webview_gfx_AwPicture_getWidth(long nativeAwPicture, Object caller) {
         return J.N.MxvjfQIM(nativeAwPicture, caller);
     }
+
     public static void org_chromium_android_1webview_gfx_RootBeginFrameSourceWebView_onUpdateRefreshRate(long nativeRootBeginFrameSourceWebView, Object caller, float refreshRate) {
         J.N.MsBIPWH$(nativeRootBeginFrameSourceWebView, caller, refreshRate);
     }
+
     public static long org_chromium_android_1webview_js_1sandbox_service_JsSandboxIsolate_createNativeJsSandboxIsolateWrapper(Object jsSandboxIsolate, long maxHeapSizeBytes) {
         return J.N.MfqaABM$(jsSandboxIsolate, maxHeapSizeBytes);
     }
@@ -786,6 +812,7 @@ public class GEN_JNI {
     public static void org_chromium_android_1webview_js_1sandbox_service_JsSandboxIsolate_setConsoleEnabled(long nativeJsSandboxIsolate, Object caller, boolean enable) {
         J.N.M7$JOU2v(nativeJsSandboxIsolate, caller, enable);
     }
+
     public static void org_chromium_android_1webview_metrics_AwMetricsServiceClient_setFastStartupForTesting(boolean fastStartupForTesting) {
         J.N.M3qPS3Ay_ForTesting(fastStartupForTesting);
     }
@@ -801,9 +828,11 @@ public class GEN_JNI {
     public static void org_chromium_android_1webview_metrics_AwMetricsServiceClient_setUploadIntervalForTesting(long uploadIntervalMs) {
         J.N.Mo7ROkjk_ForTesting(uploadIntervalMs);
     }
+
     public static void org_chromium_android_1webview_nonembedded_AwComponentUpdateService_startComponentUpdateService(Object finishedCallback, boolean onDemandUpdate) {
         J.N.MQYwkO0M(finishedCallback, onDemandUpdate);
     }
+
     public static void org_chromium_android_1webview_nonembedded_NetworkFetcherTask_callDownloadToFileCompleteCallback(long weakPtr, long taskRunner, int networkError, long contentSize) {
         J.N.MfTomTpD(weakPtr, taskRunner, networkError, contentSize);
     }
@@ -819,9 +848,11 @@ public class GEN_JNI {
     public static void org_chromium_android_1webview_nonembedded_NetworkFetcherTask_callResponseStartedCallback(long weakPtr, long taskRunner, int responseCode, long contentLength) {
         J.N.MnAOQsKq(weakPtr, taskRunner, responseCode, contentLength);
     }
+
     public static void org_chromium_android_1webview_nonembedded_WebViewApkApplication_initializeGlobalsAndResources() {
         J.N.MOJaWKa6();
     }
+
     public static void org_chromium_android_1webview_permission_AwPermissionRequest_destroy(long nativeAwPermissionRequest) {
         J.N.MhKumtZE(nativeAwPermissionRequest);
     }
@@ -829,6 +860,7 @@ public class GEN_JNI {
     public static void org_chromium_android_1webview_permission_AwPermissionRequest_onAccept(long nativeAwPermissionRequest, Object caller, boolean allowed) {
         J.N.Mk3Msvx7(nativeAwPermissionRequest, caller, allowed);
     }
+
     public static int[] org_chromium_android_1webview_shell_ContextManager_draw(long nativeContextManager, int width, int height, int scrollX, int scrollY, boolean readbackQuadrants) {
         return J.N.M$yMtP6E(nativeContextManager, width, height, scrollX, scrollY, readbackQuadrants);
     }
@@ -856,9 +888,11 @@ public class GEN_JNI {
     public static void org_chromium_android_1webview_shell_ContextManager_sync(long nativeContextManager, int functor, boolean applyForceDark) {
         J.N.M21rX5QR(nativeContextManager, functor, applyForceDark);
     }
+
     public static void org_chromium_android_1webview_supervised_1user_AwSupervisedUserUrlClassifier_onShouldBlockUrlResult(long callbackPtr, boolean shouldBlock) {
         J.N.MN3xGBpi(callbackPtr, shouldBlock);
     }
+
     public static boolean org_chromium_android_1webview_test_util_DisableOriginTrialsSafeModeTestUtils_doesPolicyExist() {
         return J.N.MQ$3v0TG();
     }
@@ -874,18 +908,23 @@ public class GEN_JNI {
     public static boolean org_chromium_android_1webview_test_util_DisableOriginTrialsSafeModeTestUtils_isNonDeprecationTrialDisabled() {
         return J.N.M$9LkQIK();
     }
+
     public static Object[] org_chromium_android_1webview_test_util_EmbeddedComponentLoaderFactory_getComponentLoaderPolicies() {
         return J.N.Mgp8$QqO();
     }
+
     public static boolean org_chromium_android_1webview_test_util_MemoryMetricsLoggerUtils_forceRecordHistograms() {
         return J.N.MESZdotC();
     }
+
     public static void org_chromium_android_1webview_test_util_RendererProcessMetricsProviderUtils_forceRecordHistograms() {
         J.N.MOfxa29Q();
     }
+
     public static void org_chromium_android_1webview_test_util_VariationsTestUtils_disableSignatureVerificationForTesting() {
         J.N.MEJdC_Ny_ForTesting();
     }
+
     public static long org_chromium_android_1webview_variations_VariationsSeedLoader_getSavedSeedDate() {
         return J.N.MDwAh$S2();
     }
@@ -897,12 +936,15 @@ public class GEN_JNI {
     public static boolean org_chromium_android_1webview_variations_VariationsSeedLoader_parseAndSaveSeedProtoFromByteArray(byte[] seedAsByteArray) {
         return J.N.MID0YoVc(seedAsByteArray);
     }
+
     public static void org_chromium_base_ApplicationStatus_onApplicationStateChange(int newState) {
         J.N.MiAkQ_SU(newState);
     }
+
     public static long org_chromium_base_BaseFeatureMap_getNativeMap() {
         return J.N.MshdYEWu();
     }
+
     public static void org_chromium_base_CommandLine_appendSwitch(String switchString) {
         J.N.M5K_ewhl(switchString);
     }
@@ -934,6 +976,7 @@ public class GEN_JNI {
     public static void org_chromium_base_CommandLine_removeSwitch(String switchString) {
         J.N.M1cMYXGO(switchString);
     }
+
     public static int org_chromium_base_CpuFeatures_getCoreCount() {
         return J.N.MOiBJ1qS();
     }
@@ -941,6 +984,7 @@ public class GEN_JNI {
     public static long org_chromium_base_CpuFeatures_getCpuFeatures() {
         return J.N.ML0T8q1U();
     }
+
     public static void org_chromium_base_EarlyTraceEvent_recordEarlyAsyncBeginEvent(String name, long id, long timeNanos) {
         J.N.M_Gv8TwM(name, id, timeNanos);
     }
@@ -964,9 +1008,11 @@ public class GEN_JNI {
     public static void org_chromium_base_EarlyTraceEvent_recordEarlyToplevelEndEvent(String name, long timeNanos, int threadId, long threadMillis) {
         J.N.MRlw2LEn(name, timeNanos, threadId, threadMillis);
     }
+
     public static boolean org_chromium_base_FeatureList_isInitialized() {
         return J.N.MFTJCvBh();
     }
+
     public static String org_chromium_base_FeatureMap_getFieldTrialParamByFeature(long featureMap, String featureName, String paramName) {
         return J.N.MkEZDArf(featureMap, featureName, paramName);
     }
@@ -990,6 +1036,7 @@ public class GEN_JNI {
     public static boolean org_chromium_base_FeatureMap_isEnabled(long featureMap, String featureName) {
         return J.N.M2evocmp(featureMap, featureName);
     }
+
     public static boolean org_chromium_base_Features_getFieldTrialParamByFeatureAsBoolean(long featurePointer, String paramName, boolean defaultValue) {
         return J.N.M8R55Xut(featurePointer, paramName, defaultValue);
     }
@@ -1001,6 +1048,7 @@ public class GEN_JNI {
     public static boolean org_chromium_base_Features_isEnabled(long featurePointer) {
         return J.N.MRiRQ_Ey(featurePointer);
     }
+
     public static boolean org_chromium_base_FieldTrialList_createFieldTrial(String trialName, String groupName) {
         return J.N.MGqzwlIM(trialName, groupName);
     }
@@ -1020,12 +1068,15 @@ public class GEN_JNI {
     public static boolean org_chromium_base_FieldTrialList_trialExists(String trialName) {
         return J.N.Mmqqda9c(trialName);
     }
+
     public static String org_chromium_base_FileUtils_getAbsoluteFilePath(String filePath) {
         return J.N.MWck3aif(filePath);
     }
+
     public static boolean org_chromium_base_ImportantFileWriterAndroid_writeFileAtomically(String fileName, byte[] data) {
         return J.N.MsOKBrZ5(fileName, data);
     }
+
     public static void org_chromium_base_JavaExceptionReporter_reportJavaException(boolean crashAfterReport, Throwable e) {
         J.N.MLlibBXh(crashAfterReport, e);
     }
@@ -1033,6 +1084,7 @@ public class GEN_JNI {
     public static void org_chromium_base_JavaExceptionReporter_reportJavaStackTrace(String stackTrace) {
         J.N.MmS4zlEt(stackTrace);
     }
+
     public static void org_chromium_base_JavaHandlerThread_initializeThread(long nativeJavaHandlerThread, long nativeEvent) {
         J.N.MJcct7gJ(nativeJavaHandlerThread, nativeEvent);
     }
@@ -1040,12 +1092,15 @@ public class GEN_JNI {
     public static void org_chromium_base_JavaHandlerThread_onLooperStopped(long nativeJavaHandlerThread) {
         J.N.MYwg$x8E(nativeJavaHandlerThread);
     }
+
     public static void org_chromium_base_MemoryPressureListener_onMemoryPressure(int pressure) {
         J.N.MZJzyjAa(pressure);
     }
+
     public static void org_chromium_base_PathService_override(int what, String path) {
         J.N.M6H_IiaF(what, path);
     }
+
     public static void org_chromium_base_PowerMonitor_onBatteryChargingChanged() {
         J.N.MCImhGql();
     }
@@ -1053,9 +1108,11 @@ public class GEN_JNI {
     public static void org_chromium_base_PowerMonitor_onThermalStatusChanged(int thermalStatus) {
         J.N.MQNVaF2F(thermalStatus);
     }
+
     public static void org_chromium_base_SysUtils_logPageFaultCountToTracing() {
         J.N.MOXOasS5();
     }
+
     public static void org_chromium_base_TraceEvent_addViewDump(int id, int parentId, boolean isShown, boolean isDirty, String className, String resourceName, long activityProtoPtr) {
         J.N.MmnP6i1r(id, parentId, isShown, isDirty, className, resourceName, activityProtoPtr);
     }
@@ -1127,12 +1184,15 @@ public class GEN_JNI {
     public static void org_chromium_base_TraceEvent_webViewStartupTotalFactoryInit(long startTimeMs, long durationMs) {
         J.N.MsUcOjxl(startTimeMs, durationMs);
     }
+
     public static void org_chromium_base_jank_1tracker_JankMetricUMARecorder_recordJankMetrics(long[] durationsNs, boolean[] jankStatus, long reportingIntervalStartTime, long reportingIntervalDuration, int scenario) {
         J.N.MJ46uzUz(durationsNs, jankStatus, reportingIntervalStartTime, reportingIntervalDuration, scenario);
     }
+
     public static boolean org_chromium_base_library_1loader_LibraryLoader_libraryLoaded(int processType) {
         return J.N.M81WqFvs(processType);
     }
+
     public static void org_chromium_base_library_1loader_LibraryPrefetcher_forkAndPrefetchNativeLibrary() {
         J.N.MUjpxN8d();
     }
@@ -1144,6 +1204,7 @@ public class GEN_JNI {
     public static void org_chromium_base_library_1loader_LibraryPrefetcher_periodicallyCollectResidency() {
         J.N.MLXZo1U6();
     }
+
     public static long org_chromium_base_metrics_NativeUmaRecorder_addActionCallbackForTesting(Object callback) {
         return J.N.MEfoV$c9_ForTesting(callback);
     }
@@ -1191,9 +1252,11 @@ public class GEN_JNI {
     public static void org_chromium_base_metrics_NativeUmaRecorder_removeActionCallbackForTesting(long callbackId) {
         J.N.MUBbgum1_ForTesting(callbackId);
     }
+
     public static String org_chromium_base_metrics_StatisticsRecorderAndroid_toJson(int verbosityLevel) {
         return J.N.MvO$oy3r(verbosityLevel);
     }
+
     public static void org_chromium_base_process_1launcher_ChildProcessService_dumpProcessStack() {
         J.N.M6Y7Jzgj();
     }
@@ -1205,6 +1268,7 @@ public class GEN_JNI {
     public static void org_chromium_base_process_1launcher_ChildProcessService_registerFileDescriptors(String[] keys, int[] id, int[] fd, long[] offset, long[] size) {
         J.N.Ma6rsNQO(keys, id, fd, offset, size);
     }
+
     public static boolean org_chromium_base_task_TaskRunnerImpl_belongsToCurrentThread(long nativeTaskRunnerAndroid) {
         return J.N.MdFi6sVQ(nativeTaskRunnerAndroid);
     }
@@ -1220,6 +1284,7 @@ public class GEN_JNI {
     public static void org_chromium_base_task_TaskRunnerImpl_postDelayedTask(long nativeTaskRunnerAndroid, Object task, long delay, String runnableClassName) {
         J.N.MGnQU$47(nativeTaskRunnerAndroid, task, delay, runnableClassName);
     }
+
     public static boolean org_chromium_base_test_ReachedCodeProfiler_isReachedCodeProfilerEnabled() {
         return J.N.MAvd5yDU();
     }
@@ -1227,6 +1292,7 @@ public class GEN_JNI {
     public static boolean org_chromium_base_test_ReachedCodeProfiler_isReachedCodeProfilerSupported() {
         return J.N.MbYaLxm7();
     }
+
     public static void org_chromium_base_test_task_ThreadPoolTestHelpers_disableThreadPoolExecutionForTesting() {
         J.N.MBDE8BZX_ForTesting();
     }
@@ -1234,9 +1300,11 @@ public class GEN_JNI {
     public static void org_chromium_base_test_task_ThreadPoolTestHelpers_enableThreadPoolExecutionForTesting() {
         J.N.Mf8BmU2z_ForTesting();
     }
+
     public static void org_chromium_components_aboutui_CreditUtils_writeCreditsHtml(int fd) {
         J.N.MjdhoRtd(fd);
     }
+
     public static void org_chromium_components_autofill_AddressNormalizer_loadRulesForAddressNormalization(long nativeAddressNormalizerImpl, String regionCode) {
         J.N.MEGAZdbc(nativeAddressNormalizerImpl, regionCode);
     }
@@ -1244,9 +1312,11 @@ public class GEN_JNI {
     public static void org_chromium_components_autofill_AddressNormalizer_startAddressNormalization(long nativeAddressNormalizerImpl, Object profile, int timeoutSeconds, Object delegate) {
         J.N.MzmcZJBR(nativeAddressNormalizerImpl, profile, timeoutSeconds, delegate);
     }
+
     public static long org_chromium_components_autofill_AndroidAutofillFeatures_getFeature(int ordinal) {
         return J.N.MjuxYr4W(ordinal);
     }
+
     public static void org_chromium_components_autofill_AutofillProvider_detachFromJavaAutofillProvider(long nativeAutofillProviderAndroidBridgeImpl) {
         J.N.M5T72OHd(nativeAutofillProviderAndroidBridgeImpl);
     }
@@ -1266,6 +1336,7 @@ public class GEN_JNI {
     public static void org_chromium_components_autofill_AutofillProvider_setAnchorViewRect(long nativeAutofillProviderAndroidBridgeImpl, Object caller, Object anchorView, float x, float y, float width, float height) {
         J.N.M3yksvyh(nativeAutofillProviderAndroidBridgeImpl, caller, anchorView, x, y, width, height);
     }
+
     public static void org_chromium_components_autofill_AutofillProviderTestHelper_disableDownloadServerForTesting() {
         J.N.M_WtmnSd_ForTesting();
     }
@@ -1281,6 +1352,7 @@ public class GEN_JNI {
     public static boolean org_chromium_components_autofill_AutofillProviderTestHelper_simulateMainFramePredictionsAutofillServerResponseForTesting(Object webContents, String[] fieldIds, int[][] fieldTypes) {
         return J.N.MdA0W9re_ForTesting(webContents, fieldIds, fieldTypes);
     }
+
     public static void org_chromium_components_autofill_SubKeyRequester_cancelPendingGetSubKeys(long nativeSubKeyRequester) {
         J.N.MLS5NMcF(nativeSubKeyRequester);
     }
@@ -1292,6 +1364,7 @@ public class GEN_JNI {
     public static void org_chromium_components_autofill_SubKeyRequester_startRegionSubKeysRequest(long nativeSubKeyRequester, String regionCode, int timeoutSeconds, Object delegate) {
         J.N.MXT1nVsJ(nativeSubKeyRequester, regionCode, timeoutSeconds, delegate);
     }
+
     public static void org_chromium_components_component_1updater_ComponentLoaderPolicyBridge_componentLoadFailed(long nativeAndroidComponentLoaderPolicy, int errorCode) {
         J.N.MP48r$4B(nativeAndroidComponentLoaderPolicy, errorCode);
     }
@@ -1303,6 +1376,7 @@ public class GEN_JNI {
     public static String org_chromium_components_component_1updater_ComponentLoaderPolicyBridge_getComponentId(long nativeAndroidComponentLoaderPolicy) {
         return J.N.MOjWGc7y(nativeAndroidComponentLoaderPolicy);
     }
+
     public static boolean org_chromium_components_content_1capture_ContentCaptureFeatures_isEnabled() {
         return J.N.MRrWU$ia();
     }
@@ -1310,6 +1384,7 @@ public class GEN_JNI {
     public static boolean org_chromium_components_content_1capture_ContentCaptureFeatures_shouldTriggerContentCaptureForExperiment() {
         return J.N.MxGt0EOk();
     }
+
     public static void org_chromium_components_content_1capture_ContentCaptureTestSupport_disableGetFaviconFromWebContents() {
         J.N.M7y1jp5G();
     }
@@ -1317,6 +1392,7 @@ public class GEN_JNI {
     public static void org_chromium_components_content_1capture_ContentCaptureTestSupport_simulateDidUpdateFaviconURL(Object webContents, String faviconJson) {
         J.N.MsI1hz8B(webContents, faviconJson);
     }
+
     public static void org_chromium_components_content_1capture_OnscreenContentProvider_destroy(long nativeOnscreenContentProviderAndroid) {
         J.N.Mcvkj$M_(nativeOnscreenContentProviderAndroid);
     }
@@ -1328,15 +1404,19 @@ public class GEN_JNI {
     public static void org_chromium_components_content_1capture_OnscreenContentProvider_onWebContentsChanged(long nativeOnscreenContentProviderAndroid, Object webContents) {
         J.N.Mljy_ZmC(nativeOnscreenContentProviderAndroid, webContents);
     }
+
     public static void org_chromium_components_crash_CrashKeys_set(Object caller, int key, String value) {
         J.N.Mk$gnuuz(caller, key, value);
     }
+
     public static String org_chromium_components_crash_anr_AnrCollector_getSharedLibraryBuildId() {
         return J.N.MqpkjiSK();
     }
+
     public static void org_chromium_components_crash_browser_CrashpadMain_crashpadMain(String[] argv) {
         J.N.MT6tcXz3(argv);
     }
+
     public static void org_chromium_components_dom_1distiller_core_DistilledPagePrefs_addObserver(long nativeDistilledPagePrefsAndroid, Object caller, long nativeObserverPtr) {
         J.N.MznRD745(nativeDistilledPagePrefsAndroid, caller, nativeObserverPtr);
     }
@@ -1380,9 +1460,11 @@ public class GEN_JNI {
     public static void org_chromium_components_dom_1distiller_core_DistilledPagePrefs_setTheme(long nativeDistilledPagePrefsAndroid, Object caller, int theme) {
         J.N.MJBehZGI(nativeDistilledPagePrefsAndroid, caller, theme);
     }
+
     public static long org_chromium_components_dom_1distiller_core_DomDistillerService_getDistilledPagePrefsPtr(long nativeDomDistillerServiceAndroid) {
         return J.N.MzVEzhvu(nativeDomDistillerServiceAndroid);
     }
+
     public static String org_chromium_components_dom_1distiller_core_DomDistillerUrlUtils_getDistillerViewUrlFromUrl(String scheme, String url, String title) {
         return J.N.MhGk9eKu(scheme, url, title);
     }
@@ -1398,9 +1480,11 @@ public class GEN_JNI {
     public static boolean org_chromium_components_dom_1distiller_core_DomDistillerUrlUtils_isDistilledPage(String url) {
         return J.N.Me1sexxj(url);
     }
+
     public static int org_chromium_components_download_DownloadCollectionBridge_getExpirationDurationInDays() {
         return J.N.M7rZ5uJE();
     }
+
     public static void org_chromium_components_download_NetworkStatusListenerAndroid_notifyNetworkChange(long nativeNetworkStatusListenerAndroid, Object caller, int connectionType) {
         J.N.M9CWqWuv(nativeNetworkStatusListenerAndroid, caller, connectionType);
     }
@@ -1408,9 +1492,11 @@ public class GEN_JNI {
     public static void org_chromium_components_download_NetworkStatusListenerAndroid_onNetworkStatusReady(long nativeNetworkStatusListenerAndroid, Object caller, int connectionType) {
         J.N.MtmFml6u(nativeNetworkStatusListenerAndroid, caller, connectionType);
     }
+
     public static void org_chromium_components_embedder_1support_delegate_ColorChooserAndroid_onColorChosen(long nativeColorChooserAndroid, Object caller, int color) {
         J.N.M2zph6xH(nativeColorChooserAndroid, caller, color);
     }
+
     public static Object org_chromium_components_embedder_1support_util_UrlUtilities_clearPort(Object url) {
         return J.N.MGM8OMf9(url);
     }
@@ -1458,6 +1544,7 @@ public class GEN_JNI {
     public static boolean org_chromium_components_embedder_1support_util_UrlUtilities_urlsMatchIgnoringFragments(String url, String url2) {
         return J.N.Ml0jhLAz(url, url2);
     }
+
     public static void org_chromium_components_environment_1integrity_IntegrityServiceBridge_onCreateHandleResult(long callbackId, int responseCode, long handle, String errorMsg) {
         J.N.M57r_7IX(callbackId, responseCode, handle, errorMsg);
     }
@@ -1465,6 +1552,7 @@ public class GEN_JNI {
     public static void org_chromium_components_environment_1integrity_IntegrityServiceBridge_onGetIntegrityTokenResult(long callbackId, int responseCode, byte[] token, String errorMsg) {
         J.N.MNzDDUhR(callbackId, responseCode, token, errorMsg);
     }
+
     public static Object org_chromium_components_feature_1engagement_internal_TrackerImpl_acquireDisplayLock(long nativeTrackerImplAndroid, Object caller) {
         return J.N.MdqbDqzZ(nativeTrackerImplAndroid, caller);
     }
@@ -1528,6 +1616,7 @@ public class GEN_JNI {
     public static boolean org_chromium_components_feature_1engagement_internal_TrackerImpl_wouldTriggerHelpUI(long nativeTrackerImplAndroid, Object caller, String feature) {
         return J.N.ME$bTNVi(nativeTrackerImplAndroid, caller, feature);
     }
+
     public static void org_chromium_components_gcm_1driver_GCMDriver_onMessageReceived(long nativeGCMDriverAndroid, Object caller, String appId, String senderId, String messageId, String collapseKey, byte[] rawData, String[] dataKeysAndValues) {
         J.N.M6eL4wmM(nativeGCMDriverAndroid, caller, appId, senderId, messageId, collapseKey, rawData, dataKeysAndValues);
     }
@@ -1539,6 +1628,7 @@ public class GEN_JNI {
     public static void org_chromium_components_gcm_1driver_GCMDriver_onUnregisterFinished(long nativeGCMDriverAndroid, Object caller, String appId, boolean success) {
         J.N.MDziew73(nativeGCMDriverAndroid, caller, appId, success);
     }
+
     public static void org_chromium_components_gcm_1driver_instance_1id_InstanceIDBridge_didDeleteID(long nativeInstanceIDAndroid, Object caller, int requestId, boolean success) {
         J.N.MB$4Dsst(nativeInstanceIDAndroid, caller, requestId, success);
     }
@@ -1558,9 +1648,11 @@ public class GEN_JNI {
     public static void org_chromium_components_gcm_1driver_instance_1id_InstanceIDBridge_didGetToken(long nativeInstanceIDAndroid, Object caller, int requestId, String token) {
         J.N.MgpbhGOm(nativeInstanceIDAndroid, caller, requestId, token);
     }
+
     public static long org_chromium_components_gwp_1asan_GwpAsanFeatureMap_getNativeMap() {
         return J.N.McJ2e2zq();
     }
+
     public static void org_chromium_components_heap_1profiling_multi_1process_HeapProfilingTestShim_destroy(long nativeHeapProfilingTestShim) {
         J.N.M9WOBzwI(nativeHeapProfilingTestShim);
     }
@@ -1572,12 +1664,15 @@ public class GEN_JNI {
     public static boolean org_chromium_components_heap_1profiling_multi_1process_HeapProfilingTestShim_runTestForMode(long nativeHeapProfilingTestShim, String mode, boolean dynamicallyStartProfiling, String stackMode, boolean shouldSample, boolean sampleEverything) {
         return J.N.MrUomN9e(nativeHeapProfilingTestShim, mode, dynamicallyStartProfiling, stackMode, shouldSample, sampleEverything);
     }
+
     public static void org_chromium_components_location_LocationSettings_onLocationSettingsDialogOutcome(long callback, int result) {
         J.N.MeFOXp9F(callback, result);
     }
+
     public static long org_chromium_components_messages_MessageFeatureMap_getNativeMap() {
         return J.N.MnVX5bh3();
     }
+
     public static void org_chromium_components_messages_MessageWrapper_handleActionClick(long nativeMessageWrapper) {
         J.N.MVTCdx$k(nativeMessageWrapper);
     }
@@ -1593,6 +1688,7 @@ public class GEN_JNI {
     public static void org_chromium_components_messages_MessageWrapper_handleSecondaryMenuItemSelected(long nativeMessageWrapper, int itemId) {
         J.N.MSwKRLAp(nativeMessageWrapper, itemId);
     }
+
     public static void org_chromium_components_minidump_1uploader_CrashReportMimeWriter_rewriteAnrsAsMIMEs(String[] anrs, String destDir) {
         J.N.MNo6KdOk(anrs, destDir);
     }
@@ -1604,9 +1700,11 @@ public class GEN_JNI {
     public static String[] org_chromium_components_minidump_1uploader_CrashReportMimeWriter_rewriteMinidumpsAsMIMEsAndGetCrashKeys(String srcDir, String destDir) {
         return J.N.MdQEl6jg(srcDir, destDir);
     }
+
     public static void org_chromium_components_omnibox_AutocompleteMatch_updateWithClipboardContent(long nativeAutocompleteMatch, Object callback) {
         J.N.MrcKeMB9(nativeAutocompleteMatch, callback);
     }
+
     public static void org_chromium_components_omnibox_AutocompleteResult_groupSuggestionsBySearchVsURL(long nativeAutocompleteResult, int firstIndex, int lastIndex) {
         J.N.Mc_qvuuv(nativeAutocompleteResult, firstIndex, lastIndex);
     }
@@ -1614,15 +1712,19 @@ public class GEN_JNI {
     public static boolean org_chromium_components_omnibox_AutocompleteResult_verifyCoherency(long nativeAutocompleteResult, long[] matches, long suggestionIndex, int origin) {
         return J.N.M__nk0t1(nativeAutocompleteResult, matches, suggestionIndex, origin);
     }
+
     public static int[] org_chromium_components_omnibox_OmniboxUrlEmphasizer_parseForEmphasizeComponents(String text, Object autocompleteSchemeClassifier) {
         return J.N.M8aH4n_l(text, autocompleteSchemeClassifier);
     }
+
     public static void org_chromium_components_omnibox_action_OmniboxAction_recordActionShown(long nativeOmniboxAction, int position, boolean executed) {
         J.N.Mzc$6KJ_(nativeOmniboxAction, position, executed);
     }
+
     public static void org_chromium_components_omnibox_action_OmniboxActionFactory_setFactory(Object javaFactory) {
         J.N.M7Th6LLt(javaFactory);
     }
+
     public static void org_chromium_components_permissions_BluetoothChooserDialog_onDialogFinished(long nativeBluetoothChooserAndroid, int eventType, String deviceId) {
         J.N.Mv9CbWE_(nativeBluetoothChooserAndroid, eventType, deviceId);
     }
@@ -1642,9 +1744,11 @@ public class GEN_JNI {
     public static void org_chromium_components_permissions_BluetoothChooserDialog_showNeedLocationPermissionLink(long nativeBluetoothChooserAndroid) {
         J.N.M7w2qGR3(nativeBluetoothChooserAndroid);
     }
+
     public static void org_chromium_components_permissions_BluetoothScanningPermissionDialog_onDialogFinished(long nativeBluetoothScanningPromptAndroid, int eventType) {
         J.N.MdX25cA2(nativeBluetoothScanningPromptAndroid, eventType);
     }
+
     public static void org_chromium_components_permissions_PermissionDialogDelegate_accept(long nativePermissionDialogDelegate, Object caller) {
         J.N.MoC5mife(nativePermissionDialogDelegate, caller);
     }
@@ -1664,15 +1768,19 @@ public class GEN_JNI {
     public static int org_chromium_components_permissions_PermissionDialogDelegate_getRequestTypeEnumSize() {
         return J.N.MS2qn6y8();
     }
+
     public static long org_chromium_components_permissions_PermissionsAndroidFeatureMap_getNativeMap() {
         return J.N.MoCt2aB7();
     }
+
     public static void org_chromium_components_permissions_nfc_NfcSystemLevelSetting_onNfcSystemLevelPromptCompleted(long callback) {
         J.N.M4qSX4lZ(callback);
     }
+
     public static void org_chromium_components_policy_CombinedPolicyProvider_flushPolicies(long nativeAndroidCombinedPolicyProvider, Object caller) {
         J.N.M81oD3lB(nativeAndroidCombinedPolicyProvider, caller);
     }
+
     public static void org_chromium_components_policy_PolicyConverter_setPolicyBoolean(long nativePolicyConverter, Object caller, String policyKey, boolean value) {
         J.N.MNcVehwq(nativePolicyConverter, caller, policyKey, value);
     }
@@ -1688,6 +1796,7 @@ public class GEN_JNI {
     public static void org_chromium_components_policy_PolicyConverter_setPolicyStringArray(long nativePolicyConverter, Object caller, String policyKey, String[] value) {
         J.N.MLFU3fY7(nativePolicyConverter, caller, policyKey, value);
     }
+
     public static boolean org_chromium_components_policy_PolicyMap_equals(long nativePolicyMap, Object caller, long nativeOtherPolicyMap) {
         return J.N.MiO$KcSn(nativePolicyMap, caller, nativeOtherPolicyMap);
     }
@@ -1715,6 +1824,7 @@ public class GEN_JNI {
     public static boolean org_chromium_components_policy_PolicyMap_hasValue(long nativePolicyMap, Object caller, String policy) {
         return J.N.MImr1kgV(nativePolicyMap, caller, policy);
     }
+
     public static void org_chromium_components_policy_PolicyService_addObserver(long nativePolicyService, Object caller) {
         J.N.M4YsjnbO(nativePolicyService, caller);
     }
@@ -1730,6 +1840,7 @@ public class GEN_JNI {
     public static void org_chromium_components_policy_PolicyService_removeObserver(long nativePolicyService, Object caller) {
         J.N.MU0pXsSP(nativePolicyService, caller);
     }
+
     public static void org_chromium_components_prefs_PrefService_clearPref(long nativePrefServiceAndroid, String preference) {
         J.N.MRGBEdxZ(nativePrefServiceAndroid, preference);
     }
@@ -1769,6 +1880,7 @@ public class GEN_JNI {
     public static void org_chromium_components_prefs_PrefService_setString(long nativePrefServiceAndroid, String preference, String value) {
         J.N.MY13p7Sp(nativePrefServiceAndroid, preference, value);
     }
+
     public static void org_chromium_components_query_1tiles_bridges_TileProviderBridge_getQueryTiles(long nativeTileProviderBridge, Object caller, String tileId, Object callback) {
         J.N.Mq1q5_mC(nativeTileProviderBridge, caller, tileId, callback);
     }
@@ -1776,6 +1888,7 @@ public class GEN_JNI {
     public static void org_chromium_components_query_1tiles_bridges_TileProviderBridge_onTileClicked(long nativeTileProviderBridge, String tileId) {
         J.N.MgiexKaR(nativeTileProviderBridge, tileId);
     }
+
     public static void org_chromium_components_safe_1browsing_SafeBrowsingApiBridge_onUrlCheckDoneBySafeBrowsingApi(long callbackId, int lookupResult, int threatType, int[] threatAttributes, int responseStatus, long checkDelta) {
         J.N.MSkFYnu9(callbackId, lookupResult, threatType, threatAttributes, responseStatus, checkDelta);
     }
@@ -1783,6 +1896,7 @@ public class GEN_JNI {
     public static void org_chromium_components_safe_1browsing_SafeBrowsingApiBridge_onUrlCheckDoneBySafetyNetApi(long callbackId, int resultStatus, String metadata, long checkDelta) {
         J.N.MgM_O2Uq(callbackId, resultStatus, metadata, checkDelta);
     }
+
     public static String org_chromium_components_search_1engines_TemplateUrl_getKeyword(long templateUrlPtr) {
         return J.N.M74Ymq6T(templateUrlPtr);
     }
@@ -1810,6 +1924,7 @@ public class GEN_JNI {
     public static boolean org_chromium_components_search_1engines_TemplateUrl_isPrepopulatedOrCreatedByPolicy(long templateUrlPtr) {
         return J.N.M_Gh_h3K(templateUrlPtr);
     }
+
     public static String org_chromium_components_search_1engines_TemplateUrlService_addSearchEngineForTesting(long nativeTemplateUrlServiceAndroid, Object caller, String keyword, int offset) {
         return J.N.M6WGq1yo_ForTesting(nativeTemplateUrlServiceAndroid, caller, keyword, offset);
     }
@@ -1885,6 +2000,7 @@ public class GEN_JNI {
     public static void org_chromium_components_search_1engines_TemplateUrlService_setUserSelectedDefaultSearchProvider(long nativeTemplateUrlServiceAndroid, Object caller, String selectedKeyword) {
         J.N.MxknP4iP(nativeTemplateUrlServiceAndroid, caller, selectedKeyword);
     }
+
     public static void org_chromium_components_security_1interstitials_CaptivePortalHelper_setCaptivePortalCertificateForTesting(String spkiHash) {
         J.N.MZW64TXU_ForTesting(spkiHash);
     }
@@ -1892,15 +2008,19 @@ public class GEN_JNI {
     public static void org_chromium_components_security_1interstitials_CaptivePortalHelper_setOSReportsCaptivePortalForTesting(boolean osReportsCaptivePortal) {
         J.N.MVYBH9Mh_ForTesting(osReportsCaptivePortal);
     }
+
     public static void org_chromium_components_signin_AccountCapabilitiesFetcher_onCapabilitiesFetchComplete(Object accountCapabilities, long nativeCallback) {
         J.N.M8lmDXtQ(accountCapabilities, nativeCallback);
     }
+
     public static void org_chromium_components_signin_ChildAccountInfoFetcher_setIsChildAccount(long accountFetcherServicePtr, Object accountId, boolean isChildAccount) {
         J.N.MBZpZMbr(accountFetcherServicePtr, accountId, isChildAccount);
     }
+
     public static void org_chromium_components_signin_identitymanager_AccountTrackerService_legacySeedAccountsInfo(long nativeAccountTrackerService, Object[] coreAccountInfos) {
         J.N.MK1rUGiL(nativeAccountTrackerService, coreAccountInfos);
     }
+
     public static Object org_chromium_components_signin_identitymanager_IdentityManager_findExtendedAccountInfoByEmailAddress(long nativeIdentityManager, String email) {
         return J.N.MAwvRw4K(nativeIdentityManager, email);
     }
@@ -1920,6 +2040,7 @@ public class GEN_JNI {
     public static void org_chromium_components_signin_identitymanager_IdentityManager_refreshAccountInfoIfStale(long nativeIdentityManager, Object coreAccountId) {
         J.N.MxkwHIGI(nativeIdentityManager, coreAccountId);
     }
+
     public static boolean org_chromium_components_signin_identitymanager_IdentityMutator_clearPrimaryAccount(long nativeJniIdentityMutator, int sourceMetric, int deleteMetric) {
         return J.N.Mw3X2cb0(nativeJniIdentityMutator, sourceMetric, deleteMetric);
     }
@@ -1935,6 +2056,7 @@ public class GEN_JNI {
     public static int org_chromium_components_signin_identitymanager_IdentityMutator_setPrimaryAccount(long nativeJniIdentityMutator, Object accountId, int consentLevel, int accessPoint) {
         return J.N.MASdubqY(nativeJniIdentityMutator, accountId, consentLevel, accessPoint);
     }
+
     public static void org_chromium_components_signin_identitymanager_ProfileOAuth2TokenServiceDelegate_onOAuth2TokenFetched(String authToken, long expirationTimeSecs, boolean isTransientError, long nativeCallback) {
         J.N.MTN9MD0o(authToken, expirationTimeSecs, isTransientError, nativeCallback);
     }
@@ -1942,6 +2064,7 @@ public class GEN_JNI {
     public static void org_chromium_components_signin_identitymanager_ProfileOAuth2TokenServiceDelegate_reloadAllAccountsWithPrimaryAccountAfterSeeding(long nativeProfileOAuth2TokenServiceDelegateAndroid, String accountId, String[] deviceAccountEmails) {
         J.N.M0SOBbHG(nativeProfileOAuth2TokenServiceDelegateAndroid, accountId, deviceAccountEmails);
     }
+
     public static double org_chromium_components_site_1engagement_SiteEngagementService_getScore(long nativeSiteEngagementServiceAndroid, Object caller, String url) {
         return J.N.MVTED07I(nativeSiteEngagementServiceAndroid, caller, url);
     }
@@ -1957,9 +2080,11 @@ public class GEN_JNI {
     public static Object org_chromium_components_site_1engagement_SiteEngagementService_siteEngagementServiceForBrowserContext(Object browserContext) {
         return J.N.Ml4trBg9(browserContext);
     }
+
     public static void org_chromium_components_spellcheck_SpellCheckerSessionBridge_processSpellCheckResults(long nativeSpellCheckerSessionBridge, Object caller, int[] offsets, int[] lengths, String[][] suggestions) {
         J.N.M3JV9hBl(nativeSpellCheckerSessionBridge, caller, offsets, lengths, suggestions);
     }
+
     public static boolean org_chromium_components_sync_SyncServiceImpl_canSyncFeatureStart(long nativeSyncServiceAndroidBridge) {
         return J.N.Mz5GLn3O(nativeSyncServiceAndroidBridge);
     }
@@ -2111,6 +2236,7 @@ public class GEN_JNI {
     public static void org_chromium_components_sync_SyncServiceImpl_triggerRefresh(long nativeSyncServiceAndroidBridge) {
         J.N.MHKG6P5B(nativeSyncServiceAndroidBridge);
     }
+
     public static Object org_chromium_components_url_1formatter_UrlFormatter_fixupUrl(String url) {
         return J.N.Ml2KxI$W(url);
     }
@@ -2150,6 +2276,7 @@ public class GEN_JNI {
     public static String org_chromium_components_url_1formatter_UrlFormatter_formatUrlForSecurityDisplay(Object url, int schemeDisplay) {
         return J.N.MN7bz_Mm(url, schemeDisplay);
     }
+
     public static String org_chromium_components_variations_VariationsAssociatedData_getFeedbackVariations() {
         return J.N.Mkq2qJev();
     }
@@ -2161,9 +2288,11 @@ public class GEN_JNI {
     public static String org_chromium_components_variations_VariationsAssociatedData_getVariationParamValue(String trialName, String paramName) {
         return J.N.MOVY9QtZ(trialName, paramName);
     }
+
     public static void org_chromium_components_viz_service_frame_1sinks_ExternalBeginFrameSourceAndroid_onVSync(long nativeExternalBeginFrameSourceAndroid, Object caller, long vsyncTimeMicros, long vsyncPeriodMicros) {
         J.N.Mhc_M_H$(nativeExternalBeginFrameSourceAndroid, caller, vsyncTimeMicros, vsyncPeriodMicros);
     }
+
     public static byte[] org_chromium_components_webauthn_Fido2Api_getDevicePublicKeyFromAuthenticatorData(byte[] authenticatorData) {
         return J.N.M0vWBsHI(authenticatorData);
     }
@@ -2171,6 +2300,7 @@ public class GEN_JNI {
     public static boolean org_chromium_components_webauthn_Fido2Api_parseAttestationObject(byte[] attestationObject, boolean attestationAcceptable, Object result) {
         return J.N.MhXU5dNj(attestationObject, attestationAcceptable, result);
     }
+
     public static String org_chromium_components_webauthn_Fido2CredentialRequest_createOptionsToJson(Object serializedOptions) {
         return J.N.M6B2k76c(serializedOptions);
     }
@@ -2186,6 +2316,7 @@ public class GEN_JNI {
     public static byte[] org_chromium_components_webauthn_Fido2CredentialRequest_makeCredentialResponseFromJson(String json) {
         return J.N.MPFEczot(json);
     }
+
     public static void org_chromium_components_webauthn_InternalAuthenticator_invokeGetAssertionResponse(long nativeInternalAuthenticatorAndroid, int status, Object byteBuffer) {
         J.N.MHORk0l8(nativeInternalAuthenticatorAndroid, status, byteBuffer);
     }
@@ -2201,6 +2332,7 @@ public class GEN_JNI {
     public static void org_chromium_components_webauthn_InternalAuthenticator_invokeMakeCredentialResponse(long nativeInternalAuthenticatorAndroid, int status, Object byteBuffer) {
         J.N.MpeuI$e6(nativeInternalAuthenticatorAndroid, status, byteBuffer);
     }
+
     public static void org_chromium_components_webauthn_WebAuthnBrowserBridge_cleanupCredManRequest(long nativeWebAuthnBrowserBridge, Object frameHost) {
         J.N.M5NXEhl9(nativeWebAuthnBrowserBridge, frameHost);
     }
@@ -2232,6 +2364,7 @@ public class GEN_JNI {
     public static void org_chromium_components_webauthn_WebAuthnBrowserBridge_onPasswordCredentialReceived(long nativeWebAuthnBrowserBridge, Object frameHost, String username, String password) {
         J.N.MAE445a0(nativeWebAuthnBrowserBridge, frameHost, username, password);
     }
+
     public static void org_chromium_content_app_ContentChildProcessServiceDelegate_initChildProcess(Object caller, int cpuCount, long cpuFeatures) {
         J.N.MBlO3kR9(caller, cpuCount, cpuFeatures);
     }
@@ -2243,9 +2376,11 @@ public class GEN_JNI {
     public static void org_chromium_content_app_ContentChildProcessServiceDelegate_retrieveFileDescriptorsIdsToKeys(Object caller) {
         J.N.M0zXFFiu(caller);
     }
+
     public static int org_chromium_content_app_ContentMain_start(boolean startMinimalBrowser) {
         return J.N.M1Y_XVCN(startMinimalBrowser);
     }
+
     public static void org_chromium_content_browser_AppWebMessagePort_closeAndDestroy(long nativeAppWebMessagePort) {
         J.N.MJ$gNv5y(nativeAppWebMessagePort);
     }
@@ -2261,6 +2396,7 @@ public class GEN_JNI {
     public static void org_chromium_content_browser_AppWebMessagePort_setShouldReceiveMessages(long nativeAppWebMessagePort, boolean shouldReceiveMessage) {
         J.N.MIRFl3$f(nativeAppWebMessagePort, shouldReceiveMessage);
     }
+
     public static void org_chromium_content_browser_AttributionOsLevelManager_onDataDeletionCompleted(long nativeAttributionOsLevelManagerAndroid, int requestId) {
         J.N.MyRg_lPt(nativeAttributionOsLevelManagerAndroid, requestId);
     }
@@ -2272,6 +2408,7 @@ public class GEN_JNI {
     public static void org_chromium_content_browser_AttributionOsLevelManager_onRegistrationCompleted(long nativeAttributionOsLevelManagerAndroid, int requestId, boolean success) {
         J.N.MEghf3b7(nativeAttributionOsLevelManagerAndroid, requestId, success);
     }
+
     public static void org_chromium_content_browser_AudioFocusDelegate_onResume(long nativeAudioFocusDelegateAndroid, Object caller) {
         J.N.MqbF3KiE(nativeAudioFocusDelegateAndroid, caller);
     }
@@ -2291,9 +2428,11 @@ public class GEN_JNI {
     public static void org_chromium_content_browser_AudioFocusDelegate_recordSessionDuck(long nativeAudioFocusDelegateAndroid, Object caller) {
         J.N.Mn3dG6eh(nativeAudioFocusDelegateAndroid, caller);
     }
+
     public static void org_chromium_content_browser_BackgroundSyncNetworkObserver_notifyConnectionTypeChanged(long nativePtr, Object caller, int newConnectionType) {
         J.N.MJIG3QvD(nativePtr, caller, newConnectionType);
     }
+
     public static void org_chromium_content_browser_BrowserStartupControllerImpl_flushStartupTasks() {
         J.N.M9iLjy6T();
     }
@@ -2301,6 +2440,7 @@ public class GEN_JNI {
     public static void org_chromium_content_browser_BrowserStartupControllerImpl_setCommandLineFlags(boolean singleProcess) {
         J.N.MwoPtAzD(singleProcess);
     }
+
     public static void org_chromium_content_browser_ChildProcessLauncherHelperImpl_onChildProcessStarted(long nativeChildProcessLauncherHelper, int pid) {
         J.N.MXR$KaDS(nativeChildProcessLauncherHelper, pid);
     }
@@ -2312,9 +2452,11 @@ public class GEN_JNI {
     public static void org_chromium_content_browser_ChildProcessLauncherHelperImpl_setTerminationInfo(long termiantionInfoPtr, int bindingState, boolean killedByUs, boolean cleanExit, boolean exceptionDuringInit) {
         J.N.MJcoZ9pW(termiantionInfoPtr, bindingState, killedByUs, cleanExit, exceptionDuringInit);
     }
+
     public static String org_chromium_content_browser_ClientDataJsonImpl_buildClientDataJson(int clientDataRequestType, String callerOrigin, byte[] challenge, boolean isCrossOrigin, Object optionsByteBuffer, String relyingPartyId, Object topOrigin) {
         return J.N.M_2Rd_$Y(clientDataRequestType, callerOrigin, challenge, isCrossOrigin, optionsByteBuffer, relyingPartyId, topOrigin);
     }
+
     public static void org_chromium_content_browser_ContactsDialogHost_addContact(long nativeContactsProviderAndroid, String[] names, String[] emails, String[] tel, Object[] addresses, Object[] icons) {
         J.N.MS9BZrW0(nativeContactsProviderAndroid, names, emails, tel, addresses, icons);
     }
@@ -2326,6 +2468,7 @@ public class GEN_JNI {
     public static void org_chromium_content_browser_ContactsDialogHost_endWithPermissionDenied(long nativeContactsProviderAndroid) {
         J.N.MOM50EIZ(nativeContactsProviderAndroid);
     }
+
     public static void org_chromium_content_browser_ContentUiEventHandler_cancelFling(long nativeContentUiEventHandler, Object caller, long timeMs) {
         J.N.MW$k83qi(nativeContentUiEventHandler, caller, timeMs);
     }
@@ -2345,9 +2488,11 @@ public class GEN_JNI {
     public static void org_chromium_content_browser_ContentUiEventHandler_sendScrollEvent(long nativeContentUiEventHandler, Object caller, long timeMs, float deltaX, float deltaY) {
         J.N.M_1sgTVt(nativeContentUiEventHandler, caller, timeMs, deltaX, deltaY);
     }
+
     public static void org_chromium_content_browser_ContentViewStaticsImpl_setWebKitSharedTimersSuspended(boolean suspend) {
         J.N.M556jcRe(suspend);
     }
+
     public static long org_chromium_content_browser_GestureListenerManagerImpl_init(Object caller, Object webContents) {
         return J.N.MefCIE9S(caller, webContents);
     }
@@ -2367,6 +2512,7 @@ public class GEN_JNI {
     public static void org_chromium_content_browser_GestureListenerManagerImpl_setRootScrollOffsetUpdateFrequency(long nativeGestureListenerManager, int frequency) {
         J.N.MZSUpd4B(nativeGestureListenerManager, frequency);
     }
+
     public static void org_chromium_content_browser_GpuProcessCallback_completeScopedSurfaceRequest(Object requestToken, Object surface) {
         J.N.M$O7xE3y(requestToken, surface);
     }
@@ -2374,6 +2520,7 @@ public class GEN_JNI {
     public static Object org_chromium_content_browser_GpuProcessCallback_getViewSurface(int surfaceId) {
         return J.N.Mm9rCM0m(surfaceId);
     }
+
     public static Object[] org_chromium_content_browser_HostZoomMapImpl_getAllHostZoomLevels(Object context) {
         return J.N.MZV6nIgn(context);
     }
@@ -2401,6 +2548,7 @@ public class GEN_JNI {
     public static void org_chromium_content_browser_HostZoomMapImpl_setZoomLevelForHost(Object context, String host, double level) {
         J.N.MvtzH5Ni(context, host, level);
     }
+
     public static void org_chromium_content_browser_JavascriptInjectorImpl_addInterface(long nativeJavascriptInjector, Object caller, Object object, String name, Class requiredAnnotation) {
         J.N.Mpa5DCUY(nativeJavascriptInjector, caller, object, name, requiredAnnotation);
     }
@@ -2416,6 +2564,7 @@ public class GEN_JNI {
     public static void org_chromium_content_browser_JavascriptInjectorImpl_setAllowInspection(long nativeJavascriptInjector, Object caller, boolean allow) {
         J.N.M9VsdpoI(nativeJavascriptInjector, caller, allow);
     }
+
     public static void org_chromium_content_browser_MediaSessionImpl_didReceiveAction(long nativeMediaSessionAndroid, Object caller, int action) {
         J.N.MAqRqyJa(nativeMediaSessionAndroid, caller, action);
     }
@@ -2447,6 +2596,7 @@ public class GEN_JNI {
     public static void org_chromium_content_browser_MediaSessionImpl_suspend(long nativeMediaSessionAndroid, Object caller) {
         J.N.M5LC9gX$(nativeMediaSessionAndroid, caller);
     }
+
     public static void org_chromium_content_browser_RenderWidgetHostViewImpl_dismissTextHandles(long nativeRenderWidgetHostViewAndroid, Object caller) {
         J.N.MQWja$xA(nativeRenderWidgetHostViewAndroid, caller);
     }
@@ -2470,6 +2620,7 @@ public class GEN_JNI {
     public static void org_chromium_content_browser_RenderWidgetHostViewImpl_writeContentBitmapToDiskAsync(long nativeRenderWidgetHostViewAndroid, Object caller, int width, int height, String path, Object callback) {
         J.N.Mjmv7RJS(nativeRenderWidgetHostViewAndroid, caller, width, height, path, callback);
     }
+
     public static void org_chromium_content_browser_SpeechRecognitionImpl_onAudioEnd(long nativeSpeechRecognizerImplAndroid, Object caller) {
         J.N.M2TRi32V(nativeSpeechRecognizerImplAndroid, caller);
     }
@@ -2497,6 +2648,7 @@ public class GEN_JNI {
     public static void org_chromium_content_browser_SpeechRecognitionImpl_onSoundStart(long nativeSpeechRecognizerImplAndroid, Object caller) {
         J.N.M2Nl8ID9(nativeSpeechRecognizerImplAndroid, caller);
     }
+
     public static void org_chromium_content_browser_TracingControllerAndroidImpl_destroy(long nativeTracingControllerAndroid, Object caller) {
         J.N.MLYQdwUF(nativeTracingControllerAndroid, caller);
     }
@@ -2524,6 +2676,7 @@ public class GEN_JNI {
     public static void org_chromium_content_browser_TracingControllerAndroidImpl_stopTracing(long nativeTracingControllerAndroid, Object caller, String filename, boolean compressFile, boolean useProtobuf, Object callback) {
         J.N.M$HKWu8q(nativeTracingControllerAndroid, caller, filename, compressFile, useProtobuf, callback);
     }
+
     public static void org_chromium_content_browser_TtsPlatformImpl_onEndEvent(long nativeTtsPlatformImplAndroid, int utteranceId) {
         J.N.M47GdBO5(nativeTtsPlatformImplAndroid, utteranceId);
     }
@@ -2539,6 +2692,7 @@ public class GEN_JNI {
     public static void org_chromium_content_browser_TtsPlatformImpl_voicesChanged(long nativeTtsPlatformImplAndroid) {
         J.N.MpJkwIUo(nativeTtsPlatformImplAndroid);
     }
+
     public static void org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_addSpellingErrorForTesting(long nativeWebContentsAccessibilityAndroid, int id, int startOffset, int endOffset) {
         J.N.MzygGmQh_ForTesting(nativeWebContentsAccessibilityAndroid, id, startOffset, endOffset);
     }
@@ -2738,6 +2892,7 @@ public class GEN_JNI {
     public static boolean org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_updateCachedAccessibilityNodeInfo(long nativeWebContentsAccessibilityAndroid, Object info, int id) {
         return J.N.MZ7sDynr(nativeWebContentsAccessibilityAndroid, info, id);
     }
+
     public static long org_chromium_content_browser_accessibility_captioning_CaptioningController_init(Object caller, Object webContents) {
         return J.N.MX95jWaj(caller, webContents);
     }
@@ -2745,6 +2900,7 @@ public class GEN_JNI {
     public static void org_chromium_content_browser_accessibility_captioning_CaptioningController_setTextTrackSettings(long nativeCaptioningController, Object caller, boolean textTracksEnabled, String textTrackBackgroundColor, String textTrackFontFamily, String textTrackFontStyle, String textTrackFontVariant, String textTrackTextColor, String textTrackTextShadow, String textTrackTextSize) {
         J.N.MM3_AH7F(nativeCaptioningController, caller, textTracksEnabled, textTrackBackgroundColor, textTrackFontFamily, textTrackFontStyle, textTrackFontVariant, textTrackTextColor, textTrackTextShadow, textTrackTextSize);
     }
+
     public static void org_chromium_content_browser_androidoverlay_DialogOverlayImpl_completeInit(long nativeDialogOverlayImpl, Object caller) {
         J.N.MQAm7B7f(nativeDialogOverlayImpl, caller);
     }
@@ -2776,6 +2932,7 @@ public class GEN_JNI {
     public static void org_chromium_content_browser_androidoverlay_DialogOverlayImpl_unregisterSurface(int surfaceId) {
         J.N.M1e4GdYZ(surfaceId);
     }
+
     public static boolean org_chromium_content_browser_framehost_NavigationControllerImpl_canGoBack(long nativeNavigationControllerAndroid, Object caller) {
         return J.N.MgAw5sIR(nativeNavigationControllerAndroid, caller);
     }
@@ -2899,6 +3056,7 @@ public class GEN_JNI {
     public static void org_chromium_content_browser_framehost_NavigationControllerImpl_setUseDesktopUserAgent(long nativeNavigationControllerAndroid, Object caller, boolean override, boolean reloadOnChange, int source) {
         J.N.MrilyCK6(nativeNavigationControllerAndroid, caller, override, reloadOnChange, source);
     }
+
     public static void org_chromium_content_browser_framehost_RenderFrameHostImpl_executeJavaScriptInIsolatedWorld(long nativeRenderFrameHostAndroid, String stript, int isolatedWorldId, Object callback) {
         J.N.MXy0ANEL(nativeRenderFrameHostAndroid, stript, isolatedWorldId, callback);
     }
@@ -2974,6 +3132,7 @@ public class GEN_JNI {
     public static void org_chromium_content_browser_framehost_RenderFrameHostImpl_terminateRendererDueToBadMessage(long nativeRenderFrameHostAndroid, Object caller, int reason) {
         J.N.MnlCu9CQ(nativeRenderFrameHostAndroid, caller, reason);
     }
+
     public static void org_chromium_content_browser_input_DateTimeChooserAndroid_cancelDialog(long nativeDateTimeChooserAndroid, Object caller) {
         J.N.MCtaZNwj(nativeDateTimeChooserAndroid, caller);
     }
@@ -2981,6 +3140,7 @@ public class GEN_JNI {
     public static void org_chromium_content_browser_input_DateTimeChooserAndroid_replaceDateTime(long nativeDateTimeChooserAndroid, Object caller, double dialogValue) {
         J.N.MgUhdCLo(nativeDateTimeChooserAndroid, caller, dialogValue);
     }
+
     public static void org_chromium_content_browser_input_ImeAdapterImpl_advanceFocusForIME(long nativeImeAdapterAndroid, Object caller, int focusType) {
         J.N.MrkJlyAt(nativeImeAdapterAndroid, caller, focusType);
     }
@@ -3048,9 +3208,11 @@ public class GEN_JNI {
     public static void org_chromium_content_browser_input_ImeAdapterImpl_setEditableSelectionOffsets(long nativeImeAdapterAndroid, Object caller, int start, int end) {
         J.N.MmtjCblb(nativeImeAdapterAndroid, caller, start, end);
     }
+
     public static void org_chromium_content_browser_input_SelectPopup_selectMenuItems(long nativeSelectPopup, Object caller, long nativeSelectPopupSourceFrame, int[] indices) {
         J.N.ME0LgXse(nativeSelectPopup, caller, nativeSelectPopupSourceFrame, indices);
     }
+
     public static void org_chromium_content_browser_input_TextSuggestionHost_applySpellCheckSuggestion(long nativeTextSuggestionHostAndroid, Object caller, String suggestion) {
         J.N.M7RnYR2r(nativeTextSuggestionHostAndroid, caller, suggestion);
     }
@@ -3070,6 +3232,7 @@ public class GEN_JNI {
     public static void org_chromium_content_browser_input_TextSuggestionHost_onSuggestionMenuClosed(long nativeTextSuggestionHostAndroid, Object caller) {
         J.N.MnvYa0QF(nativeTextSuggestionHostAndroid, caller);
     }
+
     public static void org_chromium_content_browser_selection_MagnifierSurfaceControl_childLocalSurfaceIdChanged(long nativeMagnifierSurfaceControl) {
         J.N.MSMhJ61i(nativeMagnifierSurfaceControl);
     }
@@ -3085,6 +3248,7 @@ public class GEN_JNI {
     public static void org_chromium_content_browser_selection_MagnifierSurfaceControl_setReadbackOrigin(long nativeMagnifierSurfaceControl, float x, float y) {
         J.N.MKpQUZC1(nativeMagnifierSurfaceControl, x, y);
     }
+
     public static long org_chromium_content_browser_selection_SelectionPopupControllerImpl_init(Object caller, Object webContents) {
         return J.N.MJHXNa8U(caller, webContents);
     }
@@ -3100,6 +3264,7 @@ public class GEN_JNI {
     public static void org_chromium_content_browser_selection_SelectionPopupControllerImpl_setTextHandlesTemporarilyHidden(long nativeSelectionPopupController, Object caller, boolean hidden) {
         J.N.M01adZlM(nativeSelectionPopupController, caller, hidden);
     }
+
     public static void org_chromium_content_browser_selection_SmartSelectionClient_cancelAllRequests(long nativeSmartSelectionClient, Object caller) {
         J.N.MVHq2mA2(nativeSmartSelectionClient, caller);
     }
@@ -3111,6 +3276,7 @@ public class GEN_JNI {
     public static void org_chromium_content_browser_selection_SmartSelectionClient_requestSurroundingText(long nativeSmartSelectionClient, Object caller, int numExtraCharacters, int callbackData) {
         J.N.M2GZ6ZNR(nativeSmartSelectionClient, caller, numExtraCharacters, callbackData);
     }
+
     public static void org_chromium_content_browser_sms_SmsProviderGms_onCancel(long nativeSmsProviderGms) {
         J.N.MqHdTL15(nativeSmsProviderGms);
     }
@@ -3126,6 +3292,7 @@ public class GEN_JNI {
     public static void org_chromium_content_browser_sms_SmsProviderGms_onTimeout(long nativeSmsProviderGms) {
         J.N.Mz9c1Rem(nativeSmsProviderGms);
     }
+
     public static void org_chromium_content_browser_webcontents_WebContentsImpl_addMessageToDevToolsConsole(long nativeWebContentsAndroid, int level, String message) {
         J.N.MseJ7A4a(nativeWebContentsAndroid, level, message);
     }
@@ -3417,6 +3584,7 @@ public class GEN_JNI {
     public static void org_chromium_content_browser_webcontents_WebContentsImpl_updateWebContentsVisibility(long nativeWebContentsAndroid, int visibility) {
         J.N.MGletlCv(nativeWebContentsAndroid, visibility);
     }
+
     public static void org_chromium_content_browser_webcontents_WebContentsObserverProxy_destroy(long nativeWebContentsObserverProxy, Object caller) {
         J.N.M7giG0Ri(nativeWebContentsObserverProxy, caller);
     }
@@ -3424,6 +3592,7 @@ public class GEN_JNI {
     public static long org_chromium_content_browser_webcontents_WebContentsObserverProxy_init(Object caller, Object webContents) {
         return J.N.MTpUzW91(caller, webContents);
     }
+
     public static void org_chromium_content_browser_webid_DigitalCredentialProvider_onError(long nativeDigitalCredentialProviderAndroid) {
         J.N.Mcsb38VO(nativeDigitalCredentialProviderAndroid);
     }
@@ -3431,12 +3600,15 @@ public class GEN_JNI {
     public static void org_chromium_content_browser_webid_DigitalCredentialProvider_onReceive(long nativeDigitalCredentialProviderAndroid, String dc) {
         J.N.MV7IpVvW(nativeDigitalCredentialProviderAndroid, dc);
     }
+
     public static long org_chromium_content_1public_browser_ContentFeatureMap_getNativeMap() {
         return J.N.M8VcAwxi();
     }
+
     public static boolean org_chromium_content_1public_browser_LoadUrlParams_isDataScheme(String url) {
         return J.N.MWH2gOYe(url);
     }
+
     public static Object org_chromium_content_1public_browser_WebAuthenticationDelegate_getIntentSender(long delegatePtr, Object webContents) {
         return J.N.MOw11ALs(delegatePtr, webContents);
     }
@@ -3444,6 +3616,7 @@ public class GEN_JNI {
     public static long org_chromium_content_1public_browser_WebAuthenticationDelegate_getNativeDelegate() {
         return J.N.M6q_dnW6();
     }
+
     public static void org_chromium_content_1public_browser_test_RenderFrameHostTestExt_executeJavaScript(long nativeRenderFrameHostTestExt, String script, Object callback, boolean withUserGesture) {
         J.N.MXIo3IOQ(nativeRenderFrameHostTestExt, script, callback, withUserGesture);
     }
@@ -3459,9 +3632,11 @@ public class GEN_JNI {
     public static void org_chromium_content_1public_browser_test_RenderFrameHostTestExt_updateVisualState(long nativeRenderFrameHostTestExt, Object callback) {
         J.N.MQK_uA$I(nativeRenderFrameHostTestExt, callback);
     }
+
     public static int org_chromium_content_1public_browser_test_util_DOMUtils_getTopControlsShrinkBlinkHeight(Object webContents) {
         return J.N.MKn82N9y(webContents);
     }
+
     public static int org_chromium_content_1public_browser_test_util_FencedFrameUtils_getCount(Object frame) {
         return J.N.M8TmyCoE(frame);
     }
@@ -3469,12 +3644,15 @@ public class GEN_JNI {
     public static Object org_chromium_content_1public_browser_test_util_FencedFrameUtils_getLastFencedFrame(Object frame, String url) {
         return J.N.M1E6FE1Q(frame, url);
     }
+
     public static int org_chromium_content_1public_browser_test_util_RenderProcessHostUtils_getCurrentRenderProcessCount() {
         return J.N.MArDj4tC();
     }
+
     public static void org_chromium_content_1public_browser_test_util_UiThreadSchedulerTestUtils_postBrowserMainLoopStartupTasks(boolean enabled) {
         J.N.MYfap35_(enabled);
     }
+
     public static void org_chromium_content_1public_browser_test_util_WebContentsUtils_crashTab(Object webContents) {
         J.N.M1I$3Qfr(webContents);
     }
@@ -3490,9 +3668,11 @@ public class GEN_JNI {
     public static void org_chromium_content_1public_browser_test_util_WebContentsUtils_reportAllFrameSubmissions(Object webContents, boolean enabled) {
         J.N.Ma0s9sc3(webContents, enabled);
     }
+
     public static byte[] org_chromium_content_1public_common_ResourceRequestBody_createResourceRequestBodyFromBytes(byte[] httpBody) {
         return J.N.MugoAW_d(httpBody);
     }
+
     public static void org_chromium_device_bluetooth_ChromeBluetoothAdapter_createOrUpdateDeviceOnScan(long nativeBluetoothAdapterAndroid, Object caller, String address, Object deviceWrapper, String localName, int rssi, String[] advertisedUuids, int txPower, String[] serviceDataKeys, Object[] serviceDataValues, int[] manufacturerDataKeys, Object[] manufacturerDataValues, int advertiseFlags) {
         J.N.MOuw3NGo(nativeBluetoothAdapterAndroid, caller, address, deviceWrapper, localName, rssi, advertisedUuids, txPower, serviceDataKeys, serviceDataValues, manufacturerDataKeys, manufacturerDataValues, advertiseFlags);
     }
@@ -3504,6 +3684,7 @@ public class GEN_JNI {
     public static void org_chromium_device_bluetooth_ChromeBluetoothAdapter_onScanFailed(long nativeBluetoothAdapterAndroid, Object caller) {
         J.N.Mq3WoOFf(nativeBluetoothAdapterAndroid, caller);
     }
+
     public static void org_chromium_device_bluetooth_ChromeBluetoothDevice_createGattRemoteService(long nativeBluetoothDeviceAndroid, Object caller, String instanceId, Object serviceWrapper) {
         J.N.MAoRk69U(nativeBluetoothDeviceAndroid, caller, instanceId, serviceWrapper);
     }
@@ -3515,6 +3696,7 @@ public class GEN_JNI {
     public static void org_chromium_device_bluetooth_ChromeBluetoothDevice_onGattServicesDiscovered(long nativeBluetoothDeviceAndroid, Object caller) {
         J.N.M9HSgyay(nativeBluetoothDeviceAndroid, caller);
     }
+
     public static void org_chromium_device_bluetooth_ChromeBluetoothRemoteGattCharacteristic_createGattRemoteDescriptor(long nativeBluetoothRemoteGattCharacteristicAndroid, Object caller, String instanceId, Object descriptorWrapper, Object chromeBluetoothDevice) {
         J.N.MkqvrLoV(nativeBluetoothRemoteGattCharacteristicAndroid, caller, instanceId, descriptorWrapper, chromeBluetoothDevice);
     }
@@ -3530,6 +3712,7 @@ public class GEN_JNI {
     public static void org_chromium_device_bluetooth_ChromeBluetoothRemoteGattCharacteristic_onWrite(long nativeBluetoothRemoteGattCharacteristicAndroid, Object caller, int status) {
         J.N.M3TCxDs5(nativeBluetoothRemoteGattCharacteristicAndroid, caller, status);
     }
+
     public static void org_chromium_device_bluetooth_ChromeBluetoothRemoteGattDescriptor_onRead(long nativeBluetoothRemoteGattDescriptorAndroid, Object caller, int status, byte[] value) {
         J.N.MaKNZo8k(nativeBluetoothRemoteGattDescriptorAndroid, caller, status, value);
     }
@@ -3537,12 +3720,15 @@ public class GEN_JNI {
     public static void org_chromium_device_bluetooth_ChromeBluetoothRemoteGattDescriptor_onWrite(long nativeBluetoothRemoteGattDescriptorAndroid, Object caller, int status) {
         J.N.M4SmPJiR(nativeBluetoothRemoteGattDescriptorAndroid, caller, status);
     }
+
     public static void org_chromium_device_bluetooth_ChromeBluetoothRemoteGattService_createGattRemoteCharacteristic(long nativeBluetoothRemoteGattServiceAndroid, Object caller, String instanceId, Object characteristicWrapper, Object chromeBluetoothDevice) {
         J.N.MM2CqKoK(nativeBluetoothRemoteGattServiceAndroid, caller, instanceId, characteristicWrapper, chromeBluetoothDevice);
     }
+
     public static void org_chromium_device_gamepad_GamepadList_setGamepadData(Object caller, long webGamepadsPtr, int index, boolean mapping, boolean connected, String devicename, int vendorId, int productId, long timestamp, float[] axes, float[] buttons, int buttonsLength, boolean supportsDualRumble) {
         J.N.MOkngxPY(caller, webGamepadsPtr, index, mapping, connected, devicename, vendorId, productId, timestamp, axes, buttons, buttonsLength, supportsDualRumble);
     }
+
     public static void org_chromium_device_geolocation_LocationProviderAdapter_newErrorAvailable(String message) {
         J.N.M8Iz7Ptw(message);
     }
@@ -3550,6 +3736,7 @@ public class GEN_JNI {
     public static void org_chromium_device_geolocation_LocationProviderAdapter_newLocationAvailable(double latitude, double longitude, double timeStamp, boolean hasAltitude, double altitude, boolean hasAccuracy, double accuracy, boolean hasHeading, double heading, boolean hasSpeed, double speed) {
         J.N.MvJnRjJi(latitude, longitude, timeStamp, hasAltitude, altitude, hasAccuracy, accuracy, hasHeading, heading, hasSpeed, speed);
     }
+
     public static void org_chromium_device_sensors_PlatformSensor_notifyPlatformSensorError(long nativePlatformSensorAndroid, Object caller) {
         J.N.MrHXg7he(nativePlatformSensorAndroid, caller);
     }
@@ -3557,9 +3744,11 @@ public class GEN_JNI {
     public static void org_chromium_device_sensors_PlatformSensor_updatePlatformSensorReading(long nativePlatformSensorAndroid, Object caller, double timestamp, double value1, double value2, double value3, double value4) {
         J.N.Mb4JvlL7(nativePlatformSensorAndroid, caller, timestamp, value1, value2, value3, value4);
     }
+
     public static void org_chromium_device_time_1zone_1monitor_TimeZoneMonitor_timeZoneChangedFromJava(long nativeTimeZoneMonitorAndroid, Object caller) {
         J.N.MjxIGcDd(nativeTimeZoneMonitorAndroid, caller);
     }
+
     public static void org_chromium_device_usb_ChromeUsbService_deviceAttached(long nativeUsbServiceAndroid, Object caller, Object device) {
         J.N.MNmyS$Xi(nativeUsbServiceAndroid, caller, device);
     }
@@ -3571,9 +3760,11 @@ public class GEN_JNI {
     public static void org_chromium_device_usb_ChromeUsbService_devicePermissionRequestComplete(long nativeUsbServiceAndroid, Object caller, int deviceId, boolean granted) {
         J.N.MDvFAfgT(nativeUsbServiceAndroid, caller, deviceId, granted);
     }
+
     public static void org_chromium_media_AudioManagerAndroid_setMute(long nativeAudioManagerAndroid, Object caller, boolean muted) {
         J.N.MCgftn_d(nativeAudioManagerAndroid, caller, muted);
     }
+
     public static long org_chromium_media_AudioTrackOutputStream_getAddress(long nativeAudioTrackOutputStream, Object caller, Object byteBuffer) {
         return J.N.MMQ1O_vA(nativeAudioTrackOutputStream, caller, byteBuffer);
     }
@@ -3585,6 +3776,7 @@ public class GEN_JNI {
     public static Object org_chromium_media_AudioTrackOutputStream_onMoreData(long nativeAudioTrackOutputStream, Object caller, Object audioData, long delayInFrames) {
         return J.N.MEPH2V3G(nativeAudioTrackOutputStream, caller, audioData, delayInFrames);
     }
+
     public static int org_chromium_media_HdrMetadata_colorTransfer(long nativeJniHdrMetadata, Object caller) {
         return J.N.Myx2EYmS(nativeJniHdrMetadata, caller);
     }
@@ -3644,9 +3836,11 @@ public class GEN_JNI {
     public static float org_chromium_media_HdrMetadata_whitePointChromaticityY(long nativeJniHdrMetadata, Object caller) {
         return J.N.MXbY07SE(nativeJniHdrMetadata, caller);
     }
+
     public static void org_chromium_media_MediaCodecBridge_onBuffersAvailable(long nativeMediaCodecBridge, Object caller) {
         J.N.MNqjfk23(nativeMediaCodecBridge, caller);
     }
+
     public static void org_chromium_media_MediaDrmBridge_onMediaCryptoReady(long nativeMediaDrmBridge, Object caller, Object mediaCrypto) {
         J.N.MV9yuwVC(nativeMediaDrmBridge, caller, mediaCrypto);
     }
@@ -3686,6 +3880,7 @@ public class GEN_JNI {
     public static void org_chromium_media_MediaDrmBridge_onSessionMessage(long nativeMediaDrmBridge, Object caller, byte[] emeSessionId, int requestType, byte[] message) {
         J.N.Mf7HZHqV(nativeMediaDrmBridge, caller, emeSessionId, requestType, message);
     }
+
     public static void org_chromium_media_MediaDrmStorageBridge_onClearInfo(long nativeMediaDrmStorageBridge, Object caller, byte[] sessionId, Object cb) {
         J.N.MYa_y6Dg(nativeMediaDrmStorageBridge, caller, sessionId, cb);
     }
@@ -3701,9 +3896,11 @@ public class GEN_JNI {
     public static void org_chromium_media_MediaDrmStorageBridge_onSaveInfo(long nativeMediaDrmStorageBridge, Object caller, Object info, Object cb) {
         J.N.MeALR1v2(nativeMediaDrmStorageBridge, caller, info, cb);
     }
+
     public static void org_chromium_media_MediaPlayerBridge_onDidSetDataUriDataSource(long nativeMediaPlayerBridge, Object caller, boolean success) {
         J.N.Mo4Rd8TE(nativeMediaPlayerBridge, caller, success);
     }
+
     public static void org_chromium_media_MediaPlayerListener_onMediaError(long nativeMediaPlayerListener, Object caller, int errorType) {
         J.N.Myj2LnkZ(nativeMediaPlayerListener, caller, errorType);
     }
@@ -3719,9 +3916,11 @@ public class GEN_JNI {
     public static void org_chromium_media_MediaPlayerListener_onVideoSizeChanged(long nativeMediaPlayerListener, Object caller, int width, int height) {
         J.N.Mfq$ZJpW(nativeMediaPlayerListener, caller, width, height);
     }
+
     public static void org_chromium_media_MediaServerCrashListener_onMediaServerCrashDetected(long nativeMediaServerCrashListener, Object caller, boolean watchdogNeedsRelease) {
         J.N.Mm$QSrAo(nativeMediaServerCrashListener, caller, watchdogNeedsRelease);
     }
+
     public static void org_chromium_media_VideoCapture_dCheckCurrentlyOnIncomingTaskRunner(long nativeVideoCaptureDeviceAndroid, Object caller) {
         J.N.Mqw5545M(nativeVideoCaptureDeviceAndroid, caller);
     }
@@ -3753,9 +3952,11 @@ public class GEN_JNI {
     public static void org_chromium_media_VideoCapture_onStarted(long nativeVideoCaptureDeviceAndroid, Object caller) {
         J.N.MPaf3s5k(nativeVideoCaptureDeviceAndroid, caller);
     }
+
     public static void org_chromium_midi_MidiInputPortAndroid_onData(long nativeMidiInputPortAndroid, byte[] bs, int offset, int count, long timestamp) {
         J.N.MzDIdqgH(nativeMidiInputPortAndroid, bs, offset, count, timestamp);
     }
+
     public static void org_chromium_midi_MidiManagerAndroid_onAttached(long nativeMidiManagerAndroid, Object device) {
         J.N.MEOWUhL5(nativeMidiManagerAndroid, device);
     }
@@ -3771,9 +3972,11 @@ public class GEN_JNI {
     public static void org_chromium_midi_MidiManagerAndroid_onInitialized(long nativeMidiManagerAndroid, Object[] devices) {
         J.N.M3znzcE9(nativeMidiManagerAndroid, devices);
     }
+
     public static void org_chromium_midi_UsbMidiDeviceAndroid_onData(long nativeUsbMidiDeviceAndroid, int endpointNumber, byte[] data) {
         J.N.MNGB4bj1(nativeUsbMidiDeviceAndroid, endpointNumber, data);
     }
+
     public static void org_chromium_midi_UsbMidiDeviceFactoryAndroid_onUsbMidiDeviceAttached(long nativeUsbMidiDeviceFactoryAndroid, Object device) {
         J.N.MGbhHafy(nativeUsbMidiDeviceFactoryAndroid, device);
     }
@@ -3785,6 +3988,7 @@ public class GEN_JNI {
     public static void org_chromium_midi_UsbMidiDeviceFactoryAndroid_onUsbMidiDeviceRequestDone(long nativeUsbMidiDeviceFactoryAndroid, Object[] devices) {
         J.N.MrVQrlMA(nativeUsbMidiDeviceFactoryAndroid, devices);
     }
+
     public static long org_chromium_mojo_system_impl_BaseRunLoop_createBaseRunLoop(Object caller) {
         return J.N.MOJ55i7J(caller);
     }
@@ -3808,6 +4012,7 @@ public class GEN_JNI {
     public static void org_chromium_mojo_system_impl_BaseRunLoop_runUntilIdle(Object caller) {
         J.N.MeWGVAnX(caller);
     }
+
     public static Object org_chromium_mojo_system_impl_CoreImpl_beginReadData(Object caller, long mojoHandle, int numBytes, int flags) {
         return J.N.M_DxS0Vi(caller, mojoHandle, numBytes, flags);
     }
@@ -3883,6 +4088,7 @@ public class GEN_JNI {
     public static int org_chromium_mojo_system_impl_CoreImpl_writeMessage(Object caller, long mojoHandle, Object bytes, int numBytes, Object handlesBuffer, int flags) {
         return J.N.Mkun8eIV(caller, mojoHandle, bytes, numBytes, handlesBuffer, flags);
     }
+
     public static void org_chromium_mojo_system_impl_WatcherImpl_cancel(Object caller, long implPtr) {
         J.N.MPTT407x(caller, implPtr);
     }
@@ -3898,27 +4104,35 @@ public class GEN_JNI {
     public static int org_chromium_mojo_system_impl_WatcherImpl_start(Object caller, long implPtr, long mojoHandle, int flags) {
         return J.N.MOmBVeTt(caller, implPtr, mojoHandle, flags);
     }
+
     public static int org_chromium_native_1test_MainRunner_runMain(String[] commandLine) {
         return J.N.MlYgrkOl(commandLine);
     }
+
     public static void org_chromium_native_1test_NativeBrowserTest_javaStartupTasksCompleteForBrowserTests() {
         J.N.MwBfEiSj();
     }
+
     public static void org_chromium_native_1test_NativeTest_runTests(String commandLineFlags, String commandLineFilePath, String stdoutFilePath, Object appContext, String testDataDir) {
         J.N.Mbp_MRf0(commandLineFlags, commandLineFilePath, stdoutFilePath, appContext, testDataDir);
     }
+
     public static String org_chromium_net_GURLUtils_getOrigin(String url) {
         return J.N.MpCt7siL(url);
     }
+
     public static void org_chromium_net_HttpNegotiateAuthenticator_setResult(long nativeJavaNegotiateResultWrapper, Object caller, int status, String authToken) {
         J.N.M0s8NeYn(nativeJavaNegotiateResultWrapper, caller, status, authToken);
     }
+
     public static boolean org_chromium_net_HttpUtil_isAllowedHeader(String headerName, String headerValue) {
         return J.N.MorcXgQd(headerName, headerValue);
     }
+
     public static void org_chromium_net_NetworkActiveNotifier_notifyOfDefaultNetworkActive(long nativePtr) {
         J.N.MSZPA7qE(nativePtr);
     }
+
     public static void org_chromium_net_NetworkChangeNotifier_notifyConnectionCostChanged(long nativePtr, Object caller, int newConnectionCost) {
         J.N.Mg0W7eRL(nativePtr, caller, newConnectionCost);
     }
@@ -3946,6 +4160,7 @@ public class GEN_JNI {
     public static void org_chromium_net_NetworkChangeNotifier_notifyPurgeActiveNetworkList(long nativePtr, Object caller, long[] activeNetIds) {
         J.N.MpF$179U(nativePtr, caller, activeNetIds);
     }
+
     public static void org_chromium_net_ProxyChangeListener_proxySettingsChanged(long nativePtr, Object caller) {
         J.N.MCIk73GZ(nativePtr, caller);
     }
@@ -3953,6 +4168,7 @@ public class GEN_JNI {
     public static void org_chromium_net_ProxyChangeListener_proxySettingsChangedTo(long nativePtr, Object caller, String host, int port, String pacUrl, String[] exclusionList) {
         J.N.MyoFZt$2(nativePtr, caller, host, port, pacUrl, exclusionList);
     }
+
     public static void org_chromium_net_X509Util_notifyClientCertStoreChanged() {
         J.N.MJdorYDE();
     }
@@ -3960,6 +4176,7 @@ public class GEN_JNI {
     public static void org_chromium_net_X509Util_notifyTrustStoreChanged() {
         J.N.M6C2IQIc();
     }
+
     public static void org_chromium_printing_PrintingContext_askUserForSettingsReply(long nativePrintingContextAndroid, Object caller, boolean success) {
         J.N.M8HtOhJl(nativePrintingContextAndroid, caller, success);
     }
@@ -3967,6 +4184,7 @@ public class GEN_JNI {
     public static void org_chromium_printing_PrintingContext_showSystemDialogDone(long nativePrintingContextAndroid, Object caller) {
         J.N.Mmq2M8tt(nativePrintingContextAndroid, caller);
     }
+
     public static void org_chromium_services_data_1decoder_JsonSanitizer_onError(long id, String error) {
         J.N.MOkhqs8N(id, error);
     }
@@ -3974,6 +4192,7 @@ public class GEN_JNI {
     public static void org_chromium_services_data_1decoder_JsonSanitizer_onSuccess(long id, String json) {
         J.N.MkUGEqr$(id, json);
     }
+
     public static void org_chromium_ui_accessibility_AccessibilityState_onAnimatorDurationScaleChanged() {
         J.N.Mp$Ilbw7();
     }
@@ -3989,6 +4208,7 @@ public class GEN_JNI {
     public static void org_chromium_ui_accessibility_AccessibilityState_recordAccessibilityServiceInfoHistograms() {
         J.N.M79vOuoR();
     }
+
     public static void org_chromium_ui_base_Clipboard_cleanupForTesting() {
         J.N.MgQ_6aq8_ForTesting();
     }
@@ -4004,6 +4224,7 @@ public class GEN_JNI {
     public static void org_chromium_ui_base_Clipboard_onPrimaryClipTimestampInvalidated(long nativeClipboardAndroid, Object caller, long timestamp) {
         J.N.MWrNP8sy(nativeClipboardAndroid, caller, timestamp);
     }
+
     public static boolean org_chromium_ui_base_ClipboardAndroidTestSupport_nativeClipboardContains(String text) {
         return J.N.MCg7yj0y(text);
     }
@@ -4011,6 +4232,7 @@ public class GEN_JNI {
     public static boolean org_chromium_ui_base_ClipboardAndroidTestSupport_nativeWriteHtml(String htmlText) {
         return J.N.McMy0mRi(htmlText);
     }
+
     public static void org_chromium_ui_base_EventForwarder_cancelFling(long nativeEventForwarder, Object caller, long timeMs, boolean preventBoosting) {
         J.N.MSvJWvYj(nativeEventForwarder, caller, timeMs, preventBoosting);
     }
@@ -4062,6 +4284,7 @@ public class GEN_JNI {
     public static void org_chromium_ui_base_EventForwarder_startFling(long nativeEventForwarder, Object caller, long timeMs, float velocityX, float velocityY, boolean syntheticScroll, boolean preventBoosting) {
         J.N.MT1C98PL(nativeEventForwarder, caller, timeMs, velocityX, velocityY, syntheticScroll, preventBoosting);
     }
+
     public static int org_chromium_ui_base_LocalizationUtils_getFirstStrongCharacterDirection(String string) {
         return J.N.MKiziH$q(string);
     }
@@ -4069,6 +4292,7 @@ public class GEN_JNI {
     public static String org_chromium_ui_base_LocalizationUtils_getNativeUiLocale() {
         return J.N.MqGtfAYA();
     }
+
     public static void org_chromium_ui_base_SelectFileDialog_onContactsSelected(long nativeSelectFileDialogImpl, Object caller, String contacts) {
         J.N.MXucAq1Y(nativeSelectFileDialogImpl, caller, contacts);
     }
@@ -4084,9 +4308,11 @@ public class GEN_JNI {
     public static void org_chromium_ui_base_SelectFileDialog_onMultipleFilesSelected(long nativeSelectFileDialogImpl, Object caller, String[] filePathArray, String[] displayNameArray) {
         J.N.Mx1807vz(nativeSelectFileDialogImpl, caller, filePathArray, displayNameArray);
     }
+
     public static long org_chromium_ui_base_UiAndroidFeatureMap_getNativeMap() {
         return J.N.MrGiPMK4();
     }
+
     public static void org_chromium_ui_base_WindowAndroid_destroy(long nativeWindowAndroid, Object caller) {
         J.N.MV00Qksi(nativeWindowAndroid, caller);
     }
@@ -4126,6 +4352,7 @@ public class GEN_JNI {
     public static void org_chromium_ui_base_WindowAndroid_setVSyncPaused(long nativeWindowAndroid, Object caller, boolean paused) {
         J.N.MotttR54(nativeWindowAndroid, caller, paused);
     }
+
     public static void org_chromium_ui_display_DisplayAndroidManager_removeDisplay(long nativeDisplayAndroidManager, Object caller, int sdkDisplayId) {
         J.N.MyzQIqd_(nativeDisplayAndroidManager, caller, sdkDisplayId);
     }
@@ -4137,12 +4364,15 @@ public class GEN_JNI {
     public static void org_chromium_ui_display_DisplayAndroidManager_updateDisplay(long nativeDisplayAndroidManager, Object caller, int sdkDisplayId, int width, int height, float dipScale, int rotationDegrees, int bitsPerPixel, int bitsPerComponent, boolean isWideColorGamut, boolean isHdr, float hdrMaxLuminanceRatio) {
         J.N.M2$ANfTC(nativeDisplayAndroidManager, caller, sdkDisplayId, width, height, dipScale, rotationDegrees, bitsPerPixel, bitsPerComponent, isWideColorGamut, isHdr, hdrMaxLuminanceRatio);
     }
+
     public static void org_chromium_ui_events_devices_InputDeviceObserver_inputConfigurationChanged(Object caller) {
         J.N.MGCvz8lp(caller);
     }
+
     public static void org_chromium_ui_gfx_ViewConfigurationHelper_updateSharedViewConfiguration(Object caller, float maximumFlingVelocity, float minimumFlingVelocity, float touchSlop, float doubleTapSlop, float minScalingSpan) {
         J.N.MtrEpb2R(caller, maximumFlingVelocity, minimumFlingVelocity, touchSlop, doubleTapSlop, minScalingSpan);
     }
+
     public static void org_chromium_ui_gl_SurfaceTextureListener_destroy(long nativeSurfaceTextureListener, Object caller) {
         J.N.MUH2vhAN(nativeSurfaceTextureListener, caller);
     }
@@ -4150,6 +4380,7 @@ public class GEN_JNI {
     public static void org_chromium_ui_gl_SurfaceTextureListener_frameAvailable(long nativeSurfaceTextureListener, Object caller) {
         J.N.MRbPfCZQ(nativeSurfaceTextureListener, caller);
     }
+
     public static long org_chromium_ui_resources_ResourceFactory_createBitmapResource() {
         return J.N.MKzrMxwv();
     }
@@ -4157,6 +4388,7 @@ public class GEN_JNI {
     public static long org_chromium_ui_resources_ResourceFactory_createNinePatchBitmapResource(int paddingLeft, int paddingTop, int paddingRight, int paddingBottom, int apertureLeft, int apertureTop, int apertureRight, int apertureBottom) {
         return J.N.MNZCYawX(paddingLeft, paddingTop, paddingRight, paddingBottom, apertureLeft, apertureTop, apertureRight, apertureBottom);
     }
+
     public static void org_chromium_ui_resources_ResourceManager_clearTintedResourceCache(long nativeResourceManagerImpl, Object caller) {
         J.N.MnAVuP1v(nativeResourceManagerImpl, caller);
     }
@@ -4168,6 +4400,7 @@ public class GEN_JNI {
     public static void org_chromium_ui_resources_ResourceManager_removeResource(long nativeResourceManagerImpl, Object caller, int resType, int resId) {
         J.N.MxwZmAzJ(nativeResourceManagerImpl, caller, resType, resId);
     }
+
     public static long org_chromium_url_GURL_createNative(String spec, boolean isValid, long nativeParsed) {
         return J.N.MnPIH$$1(spec, isValid, nativeParsed);
     }
@@ -4183,6 +4416,7 @@ public class GEN_JNI {
     public static void org_chromium_url_GURL_init(String uri, Object target) {
         J.N.MWBVWQ0I(uri, target);
     }
+
     public static Object org_chromium_url_Origin_createFromGURL(Object gurl) {
         return J.N.Me$8dlre(gurl);
     }
@@ -4194,6 +4428,7 @@ public class GEN_JNI {
     public static Object org_chromium_url_Origin_createOpaque() {
         return J.N.MWkeKQbk();
     }
+
     public static long org_chromium_url_Parsed_createNative(int schemeBegin, int schemeLength, int usernameBegin, int usernameLength, int passwordBegin, int passwordLength, int hostBegin, int hostLength, int portBegin, int portLength, int pathBegin, int pathLength, int queryBegin, int queryLength, int refBegin, int refLength, boolean potentiallyDanglingMarkup, long innerUrl) {
         return J.N.MsTyiXfW(schemeBegin, schemeLength, usernameBegin, usernameLength, passwordBegin, passwordLength, hostBegin, hostLength, portBegin, portLength, pathBegin, pathLength, queryBegin, queryLength, refBegin, refLength, potentiallyDanglingMarkup, innerUrl);
     }

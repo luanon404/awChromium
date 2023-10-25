@@ -26,7 +26,4 @@ public class LengthLimitExceededException extends Exception {
         super(error);
     }
 
-    public LengthLimitExceededException() {
-        super();
-    }
 }

@@ -29,13 +29,8 @@ public class SoftwareDraw implements ViewResourceAdapter.CaptureMechanism {
     }
 
     @Override
-    public void dropCachedBitmap() {
-        mBitmap = null;
-    }
-
-    @Override
     public boolean startBitmapCapture(View view, Rect dirtyRect, float scale, CaptureObserver observer, Callback<Bitmap> onBitmapCapture) {
-        try (TraceEvent e = TraceEvent.scoped("SoftwareDraw:syncCaptureBitmap")) {
+        try (TraceEvent ignored = TraceEvent.scoped("SoftwareDraw:syncCaptureBitmap")) {
             int scaledWidth = (int) (view.getWidth() * scale);
             int scaledHeight = (int) (view.getHeight() * scale);
 

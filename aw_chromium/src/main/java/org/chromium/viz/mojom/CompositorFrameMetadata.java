@@ -49,10 +49,6 @@ public final class CompositorFrameMetadata extends org.chromium.mojo.bindings.St
         super(STRUCT_SIZE, version);
     }
 
-    public CompositorFrameMetadata() {
-        this(0);
-    }
-
     public static CompositorFrameMetadata deserialize(org.chromium.mojo.bindings.Message message) {
         return decode(new org.chromium.mojo.bindings.Decoder(message));
     }
@@ -63,10 +59,9 @@ public final class CompositorFrameMetadata extends org.chromium.mojo.bindings.St
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static CompositorFrameMetadata deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<>()));
     }
 
-    @SuppressWarnings("unchecked")
     public static CompositorFrameMetadata decode(org.chromium.mojo.bindings.Decoder decoder0) {
         if (decoder0 == null) {
             return null;
@@ -99,7 +94,6 @@ public final class CompositorFrameMetadata extends org.chromium.mojo.bindings.St
 
                 result.contentColorUsage = decoder0.readInt(32);
                 org.chromium.gfx.mojom.ContentColorUsage.validate(result.contentColorUsage);
-                result.contentColorUsage = org.chromium.gfx.mojom.ContentColorUsage.toKnownValue(result.contentColorUsage);
             }
             {
 
@@ -199,7 +193,6 @@ public final class CompositorFrameMetadata extends org.chromium.mojo.bindings.St
 
                 result.displayTransformHint = decoder0.readInt(100);
                 org.chromium.gfx.mojom.OverlayTransform.validate(result.displayTransformHint);
-                result.displayTransformHint = org.chromium.gfx.mojom.OverlayTransform.toKnownValue(result.displayTransformHint);
             }
             {
 
@@ -236,9 +229,8 @@ public final class CompositorFrameMetadata extends org.chromium.mojo.bindings.St
         return result;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
-    protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
+    protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
 
         encoder0.encode(this.deviceScaleFactor, 8);

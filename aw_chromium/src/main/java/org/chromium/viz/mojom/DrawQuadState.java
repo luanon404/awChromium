@@ -37,99 +37,9 @@ public final class DrawQuadState extends org.chromium.mojo.bindings.Union {
     private VideoHoleQuadState mVideoHoleQuadState;
     private SharedElementQuadState mSharedElementQuadState;
 
-    public void setDebugBorderQuadState(DebugBorderQuadState debugBorderQuadState) {
-        this.mTag = Tag.DebugBorderQuadState;
-        this.mDebugBorderQuadState = debugBorderQuadState;
-    }
-
-    public DebugBorderQuadState getDebugBorderQuadState() {
-        assert this.mTag == Tag.DebugBorderQuadState;
-        return this.mDebugBorderQuadState;
-    }
-
-    public void setRenderPassQuadState(CompositorRenderPassQuadState renderPassQuadState) {
-        this.mTag = Tag.RenderPassQuadState;
-        this.mRenderPassQuadState = renderPassQuadState;
-    }
-
-    public CompositorRenderPassQuadState getRenderPassQuadState() {
-        assert this.mTag == Tag.RenderPassQuadState;
-        return this.mRenderPassQuadState;
-    }
-
-    public void setSolidColorQuadState(SolidColorQuadState solidColorQuadState) {
-        this.mTag = Tag.SolidColorQuadState;
-        this.mSolidColorQuadState = solidColorQuadState;
-    }
-
-    public SolidColorQuadState getSolidColorQuadState() {
-        assert this.mTag == Tag.SolidColorQuadState;
-        return this.mSolidColorQuadState;
-    }
-
-    public void setSurfaceQuadState(SurfaceQuadState surfaceQuadState) {
-        this.mTag = Tag.SurfaceQuadState;
-        this.mSurfaceQuadState = surfaceQuadState;
-    }
-
-    public SurfaceQuadState getSurfaceQuadState() {
-        assert this.mTag == Tag.SurfaceQuadState;
-        return this.mSurfaceQuadState;
-    }
-
-    public void setTextureQuadState(TextureQuadState textureQuadState) {
-        this.mTag = Tag.TextureQuadState;
-        this.mTextureQuadState = textureQuadState;
-    }
-
-    public TextureQuadState getTextureQuadState() {
-        assert this.mTag == Tag.TextureQuadState;
-        return this.mTextureQuadState;
-    }
-
-    public void setTileQuadState(TileQuadState tileQuadState) {
-        this.mTag = Tag.TileQuadState;
-        this.mTileQuadState = tileQuadState;
-    }
-
-    public TileQuadState getTileQuadState() {
-        assert this.mTag == Tag.TileQuadState;
-        return this.mTileQuadState;
-    }
-
-    public void setYuvVideoQuadState(YuvVideoQuadState yuvVideoQuadState) {
-        this.mTag = Tag.YuvVideoQuadState;
-        this.mYuvVideoQuadState = yuvVideoQuadState;
-    }
-
-    public YuvVideoQuadState getYuvVideoQuadState() {
-        assert this.mTag == Tag.YuvVideoQuadState;
-        return this.mYuvVideoQuadState;
-    }
-
-    public void setVideoHoleQuadState(VideoHoleQuadState videoHoleQuadState) {
-        this.mTag = Tag.VideoHoleQuadState;
-        this.mVideoHoleQuadState = videoHoleQuadState;
-    }
-
-    public VideoHoleQuadState getVideoHoleQuadState() {
-        assert this.mTag == Tag.VideoHoleQuadState;
-        return this.mVideoHoleQuadState;
-    }
-
-    public void setSharedElementQuadState(SharedElementQuadState sharedElementQuadState) {
-        this.mTag = Tag.SharedElementQuadState;
-        this.mSharedElementQuadState = sharedElementQuadState;
-    }
-
-    public SharedElementQuadState getSharedElementQuadState() {
-        assert this.mTag == Tag.SharedElementQuadState;
-        return this.mSharedElementQuadState;
-    }
-
 
     @Override
-    protected final void encode(org.chromium.mojo.bindings.Encoder encoder0, int offset) {
+    protected void encode(org.chromium.mojo.bindings.Encoder encoder0, int offset) {
         encoder0.encode(org.chromium.mojo.bindings.BindingsHelper.UNION_SIZE, offset);
         encoder0.encode(this.mTag, offset + 4);
         switch (mTag) {
@@ -188,7 +98,7 @@ public final class DrawQuadState extends org.chromium.mojo.bindings.Union {
         return decode(new org.chromium.mojo.bindings.Decoder(message).decoderForSerializedUnion(), 0);
     }
 
-    public static final DrawQuadState decode(org.chromium.mojo.bindings.Decoder decoder0, int offset) {
+    public static DrawQuadState decode(org.chromium.mojo.bindings.Decoder decoder0, int offset) {
         org.chromium.mojo.bindings.DataHeader dataHeader = decoder0.readDataHeaderForUnion(offset);
         if (dataHeader.size == 0) {
             return null;

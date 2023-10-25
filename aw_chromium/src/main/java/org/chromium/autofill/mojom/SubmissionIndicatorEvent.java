@@ -18,7 +18,6 @@ import androidx.annotation.IntDef;
 public final class SubmissionIndicatorEvent {
     private static final boolean IS_EXTENSIBLE = false;
     @IntDef({
-
         SubmissionIndicatorEvent.NONE,
         SubmissionIndicatorEvent.HTML_FORM_SUBMISSION,
         SubmissionIndicatorEvent.SAME_DOCUMENT_NAVIGATION,

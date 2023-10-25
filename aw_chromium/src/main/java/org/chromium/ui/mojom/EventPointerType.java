@@ -18,7 +18,7 @@ import androidx.annotation.IntDef;
 public final class EventPointerType {
     private static final boolean IS_EXTENSIBLE = false;
 
-    @IntDef({})
+    @IntDef()
     public @interface EnumType {
     }
 

@@ -37,26 +37,10 @@ public class ActivityKeyboardVisibilityDelegate extends KeyboardVisibilityDelega
     }
 
     @Override
-    public void registerKeyboardVisibilityCallbacks() {
-        Activity activity = getActivity();
-        if (activity == null) return;
-        View content = activity.findViewById(android.R.id.content);
-        mIsKeyboardShowing = isKeyboardShowing(activity, content);
-        content.addOnLayoutChangeListener(this);
-    }
-
-    @Override
-    public void unregisterKeyboardVisibilityCallbacks() {
-        Activity activity = getActivity();
-        if (activity == null) return;
-        activity.findViewById(android.R.id.content).removeOnLayoutChangeListener(this);
-    }
-
-    @Override
     public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
         Activity activity = getActivity();
         if (activity == null) return;
-        boolean isShowing = isKeyboardShowing(activity, v);
+        boolean isShowing = isKeyboardShowing(v);
         if (mIsKeyboardShowing == isShowing) return;
         mIsKeyboardShowing = isShowing;
         notifyListeners(isShowing);

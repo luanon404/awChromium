@@ -18,7 +18,6 @@ import androidx.annotation.IntDef;
 public final class SubmissionSource {
     private static final boolean IS_EXTENSIBLE = false;
     @IntDef({
-
         SubmissionSource.NONE,
         SubmissionSource.SAME_DOCUMENT_NAVIGATION,
         SubmissionSource.XHR_SUCCEEDED,

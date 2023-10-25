@@ -28,13 +28,12 @@ import org.chromium.base.TraceEvent;
  * called on the UI thread.
  */
 public class AsyncViewStub extends View implements AsyncLayoutInflater.OnInflateFinishedListener {
-    private int mLayoutResource;
+    private final int mLayoutResource;
     private View mInflatedView;
 
     private static AsyncLayoutInflater sAsyncLayoutInflater;
 
     private final ObserverList<Callback<View>> mListeners = new ObserverList<>();
-    private boolean mOnBackground;
 
     public AsyncViewStub(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -50,16 +49,6 @@ public class AsyncViewStub extends View implements AsyncLayoutInflater.OnInflate
         }
     }
 
-    /**
-     * Specifies the layout resource to inflate when {@link #inflate()} is invoked. The View
-     * created by inflating the layout resource is used to replace this AsyncViewStub in its parent.
-     *
-     * @param layoutResource A valid layout resource identifier (different from 0.)
-     */
-    public void setLayoutResource(int layoutResource) {
-        mLayoutResource = layoutResource;
-    }
-
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         setMeasuredDimension(0, 0);
@@ -67,18 +56,18 @@ public class AsyncViewStub extends View implements AsyncLayoutInflater.OnInflate
 
     @SuppressLint("MissingSuperCall")
     @Override
-    public void draw(Canvas canvas) {
+    public void draw(@NonNull Canvas canvas) {
     }
 
     @Override
-    protected void dispatchDraw(Canvas canvas) {
+    protected void dispatchDraw(@NonNull Canvas canvas) {
     }
 
     @Override
     public void onInflateFinished(@NonNull View view, int resId, ViewGroup parent) {
         mInflatedView = view;
         replaceSelfWithView(view, parent);
-        callListeners(view, resId, parent);
+        callListeners(view);
     }
 
     /**
@@ -86,26 +75,19 @@ public class AsyncViewStub extends View implements AsyncLayoutInflater.OnInflate
      * (ie have a parent) before you call inflate on it. Must be called on the UI thread.
      */
     public void inflate() {
-        try (TraceEvent te = TraceEvent.scoped("AsyncViewStub.inflate")) {
+        try (TraceEvent ignored = TraceEvent.scoped("AsyncViewStub.inflate")) {
             ThreadUtils.assertOnUiThread();
             final ViewParent viewParent = getParent();
             assert viewParent != null;
             assert viewParent instanceof ViewGroup;
             assert mLayoutResource != 0;
-            if (mOnBackground) {
-                // AsyncLayoutInflater uses its own thread and cannot inflate <merge> elements. It
-                // might be a good idea to write our own version to use our scheduling primitives
-                // and to handle <merge> inflations.
-                sAsyncLayoutInflater.inflate(mLayoutResource, (ViewGroup) viewParent, this);
-            } else {
-                ViewGroup inflatedView = (ViewGroup) LayoutInflater.from(getContext()).inflate(mLayoutResource, (ViewGroup) viewParent, false);
-                onInflateFinished(inflatedView, mLayoutResource, (ViewGroup) viewParent);
-            }
+            ViewGroup inflatedView = (ViewGroup) LayoutInflater.from(getContext()).inflate(mLayoutResource, (ViewGroup) viewParent, false);
+            onInflateFinished(inflatedView, mLayoutResource, (ViewGroup) viewParent);
         }
     }
 
-    private void callListeners(View view, int resId, ViewGroup parent) {
-        try (TraceEvent te = TraceEvent.scoped("AsyncViewStub.callListeners")) {
+    private void callListeners(View view) {
+        try (TraceEvent ignored = TraceEvent.scoped("AsyncViewStub.callListeners")) {
             ThreadUtils.assertOnUiThread();
             for (Callback<View> listener : mListeners) {
                 listener.onResult(view);
@@ -140,7 +122,7 @@ public class AsyncViewStub extends View implements AsyncLayoutInflater.OnInflate
     }
 
     private void replaceSelfWithView(View view, ViewGroup parent) {
-        try (TraceEvent te = TraceEvent.scoped("AsyncViewStub.replaceSelfWithView")) {
+        try (TraceEvent ignored = TraceEvent.scoped("AsyncViewStub.replaceSelfWithView")) {
             int index = parent.indexOfChild(this);
             parent.removeViewInLayout(this);
             final ViewGroup.LayoutParams layoutParams = getLayoutParams();
@@ -152,15 +134,4 @@ public class AsyncViewStub extends View implements AsyncLayoutInflater.OnInflate
         }
     }
 
-    /**
-     * Sets whether the view should be inflated on a background thread or the UI thread (the
-     * default). This method should not be called after the view has been inflated.
-     *
-     * @param shouldInflateOnBackgroundThread True if the view should be inflated on a background
-     *                                        thread, false otherwise.
-     */
-    public void setShouldInflateOnBackgroundThread(boolean shouldInflateOnBackgroundThread) {
-        assert mInflatedView == null;
-        mOnBackground = shouldInflateOnBackgroundThread;
-    }
 }

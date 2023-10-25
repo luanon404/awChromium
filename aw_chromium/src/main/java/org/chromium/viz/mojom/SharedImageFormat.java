@@ -23,29 +23,9 @@ public final class SharedImageFormat extends org.chromium.mojo.bindings.Union {
     private int mSingleplanarFormat;
     private MultiplanarFormat mMultiplanarFormat;
 
-    public void setSingleplanarFormat(int singleplanarFormat) {
-        this.mTag = Tag.SingleplanarFormat;
-        this.mSingleplanarFormat = singleplanarFormat;
-    }
-
-    public int getSingleplanarFormat() {
-        assert this.mTag == Tag.SingleplanarFormat;
-        return this.mSingleplanarFormat;
-    }
-
-    public void setMultiplanarFormat(MultiplanarFormat multiplanarFormat) {
-        this.mTag = Tag.MultiplanarFormat;
-        this.mMultiplanarFormat = multiplanarFormat;
-    }
-
-    public MultiplanarFormat getMultiplanarFormat() {
-        assert this.mTag == Tag.MultiplanarFormat;
-        return this.mMultiplanarFormat;
-    }
-
 
     @Override
-    protected final void encode(org.chromium.mojo.bindings.Encoder encoder0, int offset) {
+    protected void encode(org.chromium.mojo.bindings.Encoder encoder0, int offset) {
         encoder0.encode(org.chromium.mojo.bindings.BindingsHelper.UNION_SIZE, offset);
         encoder0.encode(this.mTag, offset + 4);
         switch (mTag) {
@@ -69,7 +49,7 @@ public final class SharedImageFormat extends org.chromium.mojo.bindings.Union {
         return decode(new org.chromium.mojo.bindings.Decoder(message).decoderForSerializedUnion(), 0);
     }
 
-    public static final SharedImageFormat decode(org.chromium.mojo.bindings.Decoder decoder0, int offset) {
+    public static SharedImageFormat decode(org.chromium.mojo.bindings.Decoder decoder0, int offset) {
         org.chromium.mojo.bindings.DataHeader dataHeader = decoder0.readDataHeaderForUnion(offset);
         if (dataHeader.size == 0) {
             return null;
@@ -80,7 +60,6 @@ public final class SharedImageFormat extends org.chromium.mojo.bindings.Union {
 
                 result.mSingleplanarFormat = decoder0.readInt(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE);
                 SingleplanarFormat.validate(result.mSingleplanarFormat);
-                result.mSingleplanarFormat = SingleplanarFormat.toKnownValue(result.mSingleplanarFormat);
                 result.mTag = Tag.SingleplanarFormat;
                 break;
             }

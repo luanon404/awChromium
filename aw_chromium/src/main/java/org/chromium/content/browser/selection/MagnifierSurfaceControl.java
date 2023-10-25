@@ -6,7 +6,7 @@ package org.chromium.content.browser.selection;
 
 import android.graphics.Rect;
 import android.os.Build;
-import android.view.AttachedSurfaceControl;
+import com.fix.error.AttachedSurfaceControl;
 import android.view.SurfaceControl;
 import android.view.View;
 import android.widget.Magnifier;
@@ -102,7 +102,7 @@ public class MagnifierSurfaceControl implements MagnifierWrapper {
     private void createNativeIfNeeded() {
         if (mNativeMagnifierSurfaceControl != 0) return;
         if (getView() == null) return;
-        AttachedSurfaceControl attachedSurfaceControl = getView().getRootSurfaceControl();
+        AttachedSurfaceControl attachedSurfaceControl = (AttachedSurfaceControl) getView().getRootSurfaceControl();
         if (attachedSurfaceControl == null) return;
 
         SurfaceControl surfaceControl = new SurfaceControl.Builder().setName("cr_magnifier").build();

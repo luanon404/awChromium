@@ -47,10 +47,9 @@ public final class Event extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static Event deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<>()));
     }
 
-    @SuppressWarnings("unchecked")
     public static Event decode(org.chromium.mojo.bindings.Decoder decoder0) {
         if (decoder0 == null) {
             return null;
@@ -63,9 +62,9 @@ public final class Event extends org.chromium.mojo.bindings.Struct {
             result = new Event(elementsOrVersion);
             {
 
-                result.action = decoder0.readInt(8);
-                EventType.validate(result.action);
-                result.action = EventType.toKnownValue(result.action);
+                int action = decoder0.readInt(8);
+                EventType.validate(action);
+                result.action = EventType.toKnownValue(action);
             }
             {
 
@@ -139,7 +138,7 @@ public final class Event extends org.chromium.mojo.bindings.Struct {
                             }
                         }
                     }
-                    result.properties = new java.util.HashMap<String, byte[]>();
+                    result.properties = new java.util.HashMap<>();
                     for (int index0 = 0; index0 < keys0.length; ++index0) {
                         result.properties.put(keys0[index0], values0[index0]);
                     }
@@ -152,9 +151,8 @@ public final class Event extends org.chromium.mojo.bindings.Struct {
         return result;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
-    protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
+    protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
 
         encoder0.encode(this.action, 8);

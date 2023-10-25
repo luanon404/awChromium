@@ -24,10 +24,6 @@ public final class GesturePinchData extends org.chromium.mojo.bindings.Struct {
         super(STRUCT_SIZE, version);
     }
 
-    public GesturePinchData() {
-        this(0);
-    }
-
     public static GesturePinchData deserialize(org.chromium.mojo.bindings.Message message) {
         return decode(new org.chromium.mojo.bindings.Decoder(message));
     }
