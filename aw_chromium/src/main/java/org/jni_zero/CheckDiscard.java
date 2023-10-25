@@ -4,8 +4,6 @@
 
 package org.jni_zero;
 
-import androidx.annotation.Keep;
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -15,7 +13,6 @@ import java.lang.annotation.Target;
  * Causes build to assert that annotated classes / methods / fields are optimized away in release
  * builds (when using checkdiscard_proguard.flags).
  */
-@Keep
 @Target({ElementType.CONSTRUCTOR, ElementType.FIELD, ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.CLASS)
 public @interface CheckDiscard {

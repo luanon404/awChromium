@@ -4,8 +4,6 @@
 
 package org.jni_zero;
 
-import androidx.annotation.Keep;
-
 /**
  * Implemented by the TEST_HOOKS field in JNI wrapper classes that are generated
  * by the JNI annotation processor. Used in tests for setting the mock
@@ -13,7 +11,6 @@ import androidx.annotation.Keep;
  *
  * @param <T> The interface annotated with {@link org.chromium.base.annotations.NativeMethods}
  */
-@Keep
 public interface JniStaticTestMocker<T> {
     void setInstanceForTesting(T instance);
 }

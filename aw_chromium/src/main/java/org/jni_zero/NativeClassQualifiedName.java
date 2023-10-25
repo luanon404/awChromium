@@ -4,8 +4,6 @@
 
 package org.jni_zero;
 
-import androidx.annotation.Keep;
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -15,7 +13,6 @@ import java.lang.annotation.Target;
  * @NativeClassQualifiedName is used by the JNI generator to create the necessary JNI bindings to
  * call into the specified native class name.
  */
-@Keep
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface NativeClassQualifiedName {

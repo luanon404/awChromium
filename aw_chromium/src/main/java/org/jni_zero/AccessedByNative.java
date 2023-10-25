@@ -4,8 +4,6 @@
 
 package org.jni_zero;
 
-import androidx.annotation.Keep;
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -14,7 +12,6 @@ import java.lang.annotation.Target;
 /**
  * Applied to fields that are accessed from native via JNI. Causes R8 to not rename them.
  */
-@Keep
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.CLASS)
 public @interface AccessedByNative {

@@ -4,8 +4,6 @@
 
 package org.jni_zero;
 
-import androidx.annotation.Keep;
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -18,7 +16,6 @@ import java.lang.annotation.Target;
  * <p>Any method annotated by this will be kept around for tests only. If you wish to call your
  * method from non-test code, see {@link CalledByNative} instead.
  */
-@Keep
 @Target({ElementType.CONSTRUCTOR, ElementType.METHOD})
 @Retention(RetentionPolicy.CLASS)
 public @interface CalledByNativeForTesting {
