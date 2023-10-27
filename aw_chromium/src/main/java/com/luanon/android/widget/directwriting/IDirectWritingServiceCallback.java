@@ -1,7 +1,7 @@
 /*
  * This file is auto-generated.  DO NOT MODIFY.
  */
-package android.widget.directwriting;
+package com.luanon.android.widget.directwriting;
 
 import androidx.annotation.NonNull;
 
@@ -19,7 +19,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
     /**
      * Default implementation for IDirectWritingServiceCallback.
      */
-    class Default implements android.widget.directwriting.IDirectWritingServiceCallback {
+    class Default implements com.luanon.android.widget.directwriting.IDirectWritingServiceCallback {
         /**
          * Gets version of Aidl
          *
@@ -456,7 +456,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
     /**
      * Local-side IPC implementation stub class.
      */
-    abstract class Stub extends android.os.Binder implements android.widget.directwriting.IDirectWritingServiceCallback {
+    abstract class Stub extends android.os.Binder implements com.luanon.android.widget.directwriting.IDirectWritingServiceCallback {
         /**
          * Construct the stub at attach it to the interface.
          */
@@ -465,18 +465,18 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
         }
 
         /**
-         * Cast an IBinder object into an android.widget.directwriting.IDirectWritingServiceCallback interface,
+         * Cast an IBinder object into an com.luanon.android.widget.directwriting.IDirectWritingServiceCallback interface,
          * generating a proxy if needed.
          */
-        public static android.widget.directwriting.IDirectWritingServiceCallback asInterface(android.os.IBinder obj) {
+        public static com.luanon.android.widget.directwriting.IDirectWritingServiceCallback asInterface(android.os.IBinder obj) {
             if (obj == null) {
                 return null;
             }
             android.os.IInterface iin = obj.queryLocalInterface(DESCRIPTOR);
             if (iin instanceof IDirectWritingServiceCallback) {
-                return ((android.widget.directwriting.IDirectWritingServiceCallback) iin);
+                return ((com.luanon.android.widget.directwriting.IDirectWritingServiceCallback) iin);
             }
-            return new android.widget.directwriting.IDirectWritingServiceCallback.Stub.Proxy(obj);
+            return new com.luanon.android.widget.directwriting.IDirectWritingServiceCallback.Stub.Proxy(obj);
         }
 
         @Override
@@ -866,7 +866,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
             return true;
         }
 
-        private static class Proxy implements android.widget.directwriting.IDirectWritingServiceCallback {
+        private static class Proxy implements com.luanon.android.widget.directwriting.IDirectWritingServiceCallback {
             private final android.os.IBinder mRemote;
 
             Proxy(android.os.IBinder remote) {
@@ -2002,7 +2002,7 @@ public interface IDirectWritingServiceCallback extends android.os.IInterface {
         static final int TRANSACTION_isHoverIconShowing = (android.os.IBinder.FIRST_CALL_TRANSACTION + 902);
     }
 
-    java.lang.String DESCRIPTOR = "android.widget.directwriting.IDirectWritingServiceCallback";
+    java.lang.String DESCRIPTOR = "com.luanon.android.widget.directwriting.IDirectWritingServiceCallback";
     int VERSION = 3;
 
     /**

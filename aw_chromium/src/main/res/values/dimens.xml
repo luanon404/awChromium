@@ -4,20 +4,8 @@
     <dimen name="text_size_large">16sp</dimen>
     <dimen name="text_size_small">12sp</dimen>
 
-    <dimen name="headline_size_leading" tools:ignore="UnusedResources">28sp</dimen>
-    <dimen name="text_size_large_leading" tools:ignore="UnusedResources">24sp</dimen>
-    <dimen name="text_size_medium_leading" tools:ignore="UnusedResources">20sp</dimen>
-    <dimen name="text_size_small_leading" tools:ignore="UnusedResources">16sp</dimen>
-
     <!-- Common alpha values -->
     <item name="default_disabled_alpha" format="float" type="dimen">0.38</item>
-    <item name="default_pressed_alpha" format="float" type="dimen">0.06</item>
-    <item name="default_focused_hovered_alpha" format="float" type="dimen">0.06</item>
-    <item name="default_focused_alpha" format="float" type="dimen">0.06</item>
-    <item name="default_hovered_alpha" format="float" type="dimen">0.04</item>
-    <item name="default_icon_pressed_alpha" format="float" type="dimen" tools:ignore="UnusedResources">
-        0.50
-    </item>
 
     <!-- Minimum height/width for a touchable item -->
     <dimen name="min_touch_target_size">48dp</dimen>
@@ -25,28 +13,6 @@
     <!-- Button default measures -->
 
     <!-- Chips default measures -->
-    <item name="chip_background_selected_alpha_light" format="float" type="dimen">0.06</item>
-    <item name="chip_background_selected_alpha_dark" format="float" type="dimen">1</item>
-
-    <dimen name="chip_solid_border_width">0dp</dimen>
-    <dimen name="chip_border_width">1dp</dimen>
-    <dimen name="chip_corner_radius">8dp</dimen>
-    <dimen name="chip_default_height">32dp</dimen>
-    <dimen name="chip_end_padding">16dp</dimen>
-    <dimen name="chip_reduced_end_padding">12dp</dimen>
-    <dimen name="chip_element_leading_padding">8dp</dimen>
-    <dimen name="chip_element_extended_leading_padding">16dp</dimen>
-    <dimen name="chip_bg_vertical_inset">8dp</dimen>
-    <dimen name="chip_background_selected_alpha">@dimen/chip_background_selected_alpha_light</dimen>
-    <dimen name="chip_icon_size">20dp</dimen>
-    <dimen name="chip_loading_view_size">12dp</dimen>
-    <dimen name="chip_end_icon_margin_start">8dp</dimen>
-    <dimen name="chip_end_icon_extended_margin_start">16dp</dimen>
-    <dimen name="chip_end_padding_with_end_icon">6dp</dimen>
-    <dimen name="chip_extended_end_padding_with_end_icon">16dp</dimen>
-    <dimen name="chip_text_multiline_vertical_padding">12dp</dimen>
-    <dimen name="chip_text_reduced_leading_padding">4dp</dimen>
-    <!-- ( listPreferredItemHeightSmall(40dp) - text size(12sp) - top and bottom padding(8dp) ) / 2 -->
 
     <!-- Dropdown default measures -->
     <dimen name="dropdown_item_height">50dp</dimen>
@@ -55,19 +21,10 @@
     <dimen name="dropdown_icon_margin">8dp</dimen>
     <dimen name="dropdown_elevation">2dp</dimen>
 
-    <dimen name="chrome_bullet_gap">12dp</dimen>
-    <dimen name="chrome_bullet_leading_offset">1dp</dimen>
-
-    <!-- Divider Dimensions -->
-    <dimen name="divider_height">1dp</dimen>
-
-    <!-- Misc -->
-    <dimen name="default_ripple_background_border_size">0dp</dimen>
-
     <!--
-         Fallback values if the corresponding com.android.internal.R dimensions
-         cannot be retrieved by name.
-         Note: Constants taken directly from Android's core/res/values/config.xml.
+        Fallback values if the corresponding com.android.internal.R dimensions
+        cannot be retrieved by name.
+        Note: Constants taken directly from Android's core/res/values/config.xml.
     -->
     <!-- TODO(crbug.com/900912): Fix and remove lint ignore -->
     <dimen name="config_min_scaling_span" tools:ignore="InOrMmUsage">12.0mm</dimen>
@@ -81,10 +38,8 @@
     <dimen name="autofill_dropdown_icon_margin">8dp</dimen>
 
     <!-- Dimens for refresh UI -->
-    <dimen name="autofill_dropdown_refresh_item_height">48dp</dimen>
     <dimen name="autofill_dropdown_refresh_footer_item_height">40dp</dimen>
 
-    <dimen name="autofill_dropdown_refresh_icon_height">16dp</dimen>
     <dimen name="autofill_dropdown_refresh_icon_width">38dp</dimen>
     <dimen name="autofill_dropdown_refresh_footer_icon_height">14dp</dimen>
 
@@ -108,20 +63,7 @@
     <item name="drag_shadow_max_size_to_window_ratio" type="dimen">0.35</item>
     <dimen name="drag_shadow_min_size">48.0dip</dimen>
     <dimen name="menu_negative_software_vertical_offset">0.0dip</dimen>
-    <dimen name="default_elevation_1">1.0dip</dimen>
-    <dimen name="modal_dialog_button_with_icon_text_padding">8.0dip</dimen>
-    <dimen name="modal_dialog_button_with_icon_start_padding">12.0dip</dimen>
-    <dimen name="selectable_list_toolbar_height">56.0dip</dimen>
-    <dimen name="card_padding">16.0dip</dimen>
-    <dimen name="card_rounded_corner_radius">16.0dip</dimen>
-    <dimen name="default_list_row_padding">16.0dip</dimen>
-    <dimen name="action_bar_shadow_height">10.0dip</dimen>
     <dimen name="text_size_medium">14.0sp</dimen>
-    <dimen name="headline2_size">18.0sp</dimen>
-    <dimen name="headline2_size_leading">24.0sp</dimen>
     <dimen name="button_min_width">88.0dip</dimen>
     <dimen name="button_bg_vertical_inset">4.0dip</dimen>
-    <dimen name="empty_state_text_width">341.0dip</dimen>
-    <dimen name="empty_state_heading_padding_top">18.0dip</dimen>
-    <dimen name="empty_state_subheading_padding_top">8.0dip</dimen>
 </resources>

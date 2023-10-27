@@ -4,11 +4,11 @@
 
 package org.chromium.components.stylus_handwriting;
 
-import static android.widget.directwriting.IDirectWritingService.KEY_BUNDLE_EDIT_RECT;
-import static android.widget.directwriting.IDirectWritingService.KEY_BUNDLE_EVENT;
-import static android.widget.directwriting.IDirectWritingService.KEY_BUNDLE_ROOT_VIEW_RECT;
-import static android.widget.directwriting.IDirectWritingService.KEY_BUNDLE_SERVICE_HOST_SOURCE;
-import static android.widget.directwriting.IDirectWritingService.VALUE_BUNDLE_SERVICE_HOST_SOURCE_WEBVIEW;
+import static com.luanon.android.widget.directwriting.IDirectWritingService.KEY_BUNDLE_EDIT_RECT;
+import static com.luanon.android.widget.directwriting.IDirectWritingService.KEY_BUNDLE_EVENT;
+import static com.luanon.android.widget.directwriting.IDirectWritingService.KEY_BUNDLE_ROOT_VIEW_RECT;
+import static com.luanon.android.widget.directwriting.IDirectWritingService.KEY_BUNDLE_SERVICE_HOST_SOURCE;
+import static com.luanon.android.widget.directwriting.IDirectWritingService.VALUE_BUNDLE_SERVICE_HOST_SOURCE_WEBVIEW;
 
 import android.graphics.Rect;
 import android.os.Bundle;

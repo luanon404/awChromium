@@ -17,7 +17,7 @@
 
 # Goal
 
-- Create `important.json` that includes only the necessary files.
+- Create `structure.py` that includes only the necessary files.
 - I'm trying to remove as many unnecessary files as possible.
 - That will minimize errors that I cannot fix it🫣.
 - “~~If there are somethings that u cant fix it, just delete it~~”

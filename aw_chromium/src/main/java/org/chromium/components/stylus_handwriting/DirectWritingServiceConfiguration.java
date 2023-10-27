@@ -4,10 +4,10 @@
 
 package org.chromium.components.stylus_handwriting;
 
-import static android.widget.directwriting.IDirectWritingService.KEY_BUNDLE_CONFIG_HIDE_DELAY;
-import static android.widget.directwriting.IDirectWritingService.KEY_BUNDLE_CONFIG_KEEP_WRITING_DELAY;
-import static android.widget.directwriting.IDirectWritingService.KEY_BUNDLE_CONFIG_TRIGGER_HORIZONTAL_SPACE_DEFAULT;
-import static android.widget.directwriting.IDirectWritingService.KEY_BUNDLE_CONFIG_TRIGGER_VERTICAL_SPACE;
+import static com.luanon.android.widget.directwriting.IDirectWritingService.KEY_BUNDLE_CONFIG_HIDE_DELAY;
+import static com.luanon.android.widget.directwriting.IDirectWritingService.KEY_BUNDLE_CONFIG_KEEP_WRITING_DELAY;
+import static com.luanon.android.widget.directwriting.IDirectWritingService.KEY_BUNDLE_CONFIG_TRIGGER_HORIZONTAL_SPACE_DEFAULT;
+import static com.luanon.android.widget.directwriting.IDirectWritingService.KEY_BUNDLE_CONFIG_TRIGGER_VERTICAL_SPACE;
 
 import android.os.Bundle;
 

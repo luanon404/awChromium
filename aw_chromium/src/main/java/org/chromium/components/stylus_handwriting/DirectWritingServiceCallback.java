@@ -33,7 +33,7 @@ import org.chromium.mojo_base.mojom.String16;
  * writable element position, cursor position and the text input state to be provided to the service
  * when requested on the {@link BinderThread}.
  */
-class DirectWritingServiceCallback extends android.widget.directwriting.IDirectWritingServiceCallback.Stub {
+class DirectWritingServiceCallback extends com.luanon.android.widget.directwriting.IDirectWritingServiceCallback.Stub {
     static final String BUNDLE_KEY_SHOW_KEYBOARD = "showKeyboard";
     private static final String TAG = "DWCallbackImpl";
 

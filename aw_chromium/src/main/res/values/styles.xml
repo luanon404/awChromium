@@ -10,48 +10,54 @@
         <item name="select_dialog_multichoice">@android:layout/select_dialog_multichoice</item>
         <item name="select_dialog_singlechoice">@android:layout/select_dialog_singlechoice</item>
     </style>
+
     <style name="TextAppearance" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
     </style>
+
     <style name="TextAppearance.SuggestionPrefixOrSuffix">
         <item name="android:textColor">?android:attr/textColorSecondary</item>
     </style>
+
     <style name="TextAppearance.TextMedium" parent="@style/TextAppearance">
         <item name="android:textSize">@dimen/text_size_medium</item>
     </style>
+
     <style name="TextAppearance.TextMedium.Secondary" parent="@style/TextAppearance.TextMedium">
         <item name="android:textColor">@color/default_text_color_secondary_list</item>
     </style>
+
     <style name="TextAppearance.TextSmall.Primary" parent="@style/TextAppearance.TextSmall">
         <item name="android:textColor">@color/default_text_color_list</item>
     </style>
+
     <style name="TextAppearance.RobotoMediumStyle" parent="@style/TextAppearance">
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
+
     <style name="TextAppearance.AccentMediumStyle" parent="@style/TextAppearance.RobotoMediumStyle" />
-    <style name="TextAppearance.Headline2Thick" parent="@style/TextAppearance.AccentMediumStyle">
-        <item name="android:textSize">@dimen/headline2_size</item>
+
+    <style name="ButtonCompatBase">
+        <item name="android:gravity">center</item>
+        <item name="android:paddingTop">5.0dip</item>
+        <item name="android:paddingBottom">5.0dip</item>
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+        <item name="android:minWidth">@dimen/button_min_width</item>
+        <item name="android:minHeight">@dimen/min_touch_target_size</item>
+        <item name="android:paddingStart">20.0dip</item>
+        <item name="android:paddingEnd">20.0dip</item>
+        <item name="verticalInset">@dimen/button_bg_vertical_inset</item>
     </style>
-    <style name="TextAppearance.Headline2Thick.Secondary" parent="@style/TextAppearance.Headline2Thick">
-        <item name="android:textColor">@color/default_text_color_secondary_list</item>
-    </style><style name="ButtonCompatBase">
-    <item name="android:gravity">center</item>
-    <item name="android:paddingTop">5.0dip</item>
-    <item name="android:paddingBottom">5.0dip</item>
-    <item name="android:focusable">true</item>
-    <item name="android:clickable">true</item>
-    <item name="android:minWidth">@dimen/button_min_width</item>
-    <item name="android:minHeight">@dimen/min_touch_target_size</item>
-    <item name="android:paddingStart">20.0dip</item>
-    <item name="android:paddingEnd">20.0dip</item>
-    <item name="verticalInset">@dimen/button_bg_vertical_inset</item>
-</style>
+
     <style name="TextAppearance.TextAccentMediumThick" parent="@style/TextAppearance.AccentMediumStyle">
         <item name="android:textSize">@dimen/text_size_medium</item>
     </style>
+
     <style name="TextAppearance.Button.Text.Blue" parent="@style/TextAppearance.TextAccentMediumThick">
         <item name="android:textColor">@color/blue_when_enabled_list</item>
     </style>
+
     <style name="TextButton" parent="@style/ButtonCompatBase">
         <item name="android:textAppearance">@style/TextAppearance.Button.Text.Blue</item>
         <item name="android:paddingStart">8.0dip</item>
@@ -59,24 +65,27 @@
         <item name="buttonColor">@android:color/transparent</item>
         <item name="buttonRaised">false</item>
     </style>
+
     <style name="TextAppearance.TextSmall.Primary.Dark" parent="@style/TextAppearance.TextSmall.Primary">
         <item name="android:textColor">@color/default_text_color_dark</item>
     </style>
+
     <style name="TextAppearance.TextLarge" parent="@style/TextAppearance">
         <item name="android:textSize">@dimen/text_size_large</item>
     </style>
+
     <style name="TextAppearance.TextLarge.Primary" parent="@style/TextAppearance.TextLarge">
         <item name="android:textColor">@color/default_text_color_list</item>
     </style>
-    <style name="TextAppearance.TextMedium.Primary" parent="@style/TextAppearance.TextMedium">
-        <item name="android:textColor">@color/default_text_color_list</item>
-    </style>
+
     <style name="TextAppearance.TextSmall.Secondary" parent="@style/TextAppearance.TextSmall">
         <item name="android:textColor">@color/default_text_color_secondary_list</item>
     </style>
+
     <style name="TextAppearance.TextSmall" parent="@style/TextAppearance">
         <item name="android:textSize">@dimen/text_size_small</item>
     </style>
+
     <style name="TextSuggestionButton" parent="@style/RobotoMediumStyle">
         <item name="android:textSize">14.0sp</item>
         <item name="android:textColor">@color/google_blue_500</item>
@@ -92,31 +101,27 @@
         <item name="android:drawablePadding">8.0dip</item>
         <item name="android:textAllCaps">true</item>
     </style>
+
     <style name="AnchoredPopupAnimEndTop">
         <item name="android:windowEnterAnimation">@anim/menu_enter</item>
         <item name="android:windowExitAnimation">@anim/menu_exit</item>
     </style>
+
     <style name="AnchoredPopupAnimEndBottom">
         <item name="android:windowEnterAnimation">@anim/menu_enter_from_bottom</item>
         <item name="android:windowExitAnimation">@anim/menu_exit_from_bottom</item>
     </style>
+
     <style name="AnchoredPopupAnimStartBottom">
         <item name="android:windowEnterAnimation">@anim/menu_enter_from_bottom_left</item>
         <item name="android:windowExitAnimation">@anim/menu_exit_from_bottom_left</item>
     </style>
+
     <style name="AnchoredPopupAnimStartTop">
         <item name="android:windowEnterAnimation">@anim/menu_enter_from_top_left</item>
         <item name="android:windowExitAnimation">@anim/menu_exit_from_top_left</item>
     </style>
-    <style name="ThemeOverlay_UI_SelectionHandle" parent="ThemeOverlay.AppCompat">
-    </style>
-    <style name="MediumText" parent="@android:style/TextAppearance.Medium">
-        <item name="android:textColor">@color/medium_text_color</item>
-    </style>
-    <style name="MaterialCardStyle">
-        <item name="cardElevation">?cardElevation</item>
-        <item name="cornerRadius">@dimen/card_rounded_corner_radius</item>
-    </style>
 
-    <color name="default_text_color_dark">#ff1f1f1f</color>
+    <style name="ThemeOverlay_UI_SelectionHandle" parent="ThemeOverlay.AppCompat"></style>
+
 </resources>

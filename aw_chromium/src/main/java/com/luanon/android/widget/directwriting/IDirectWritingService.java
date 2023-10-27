@@ -1,7 +1,7 @@
 /*
  * This file is auto-generated.  DO NOT MODIFY.
  */
-package android.widget.directwriting;
+package com.luanon.android.widget.directwriting;
 
 import androidx.annotation.NonNull;
 
@@ -15,7 +15,7 @@ public interface IDirectWritingService extends android.os.IInterface {
     /**
      * Default implementation for IDirectWritingService.
      */
-    class Default implements android.widget.directwriting.IDirectWritingService {
+    class Default implements com.luanon.android.widget.directwriting.IDirectWritingService {
         /**
          * Gets version of Aidl
          *
@@ -34,7 +34,7 @@ public interface IDirectWritingService extends android.os.IInterface {
          * @return true if success
          */
         @Override
-        public boolean registerCallback(android.widget.directwriting.IDirectWritingServiceCallback callback, java.lang.String packageName) {
+        public boolean registerCallback(com.luanon.android.widget.directwriting.IDirectWritingServiceCallback callback, java.lang.String packageName) {
             return false;
         }
 
@@ -45,7 +45,7 @@ public interface IDirectWritingService extends android.os.IInterface {
          * @return true if success
          */
         @Override
-        public boolean unregisterCallback(android.widget.directwriting.IDirectWritingServiceCallback callback) {
+        public boolean unregisterCallback(com.luanon.android.widget.directwriting.IDirectWritingServiceCallback callback) {
             return false;
         }
 
@@ -182,7 +182,7 @@ public interface IDirectWritingService extends android.os.IInterface {
     /**
      * Local-side IPC implementation stub class.
      */
-    abstract class Stub extends android.os.Binder implements android.widget.directwriting.IDirectWritingService {
+    abstract class Stub extends android.os.Binder implements com.luanon.android.widget.directwriting.IDirectWritingService {
         /**
          * Construct the stub at attach it to the interface.
          */
@@ -191,18 +191,18 @@ public interface IDirectWritingService extends android.os.IInterface {
         }
 
         /**
-         * Cast an IBinder object into an android.widget.directwriting.IDirectWritingService interface,
+         * Cast an IBinder object into an com.luanon.android.widget.directwriting.IDirectWritingService interface,
          * generating a proxy if needed.
          */
-        public static android.widget.directwriting.IDirectWritingService asInterface(android.os.IBinder obj) {
+        public static com.luanon.android.widget.directwriting.IDirectWritingService asInterface(android.os.IBinder obj) {
             if (obj == null) {
                 return null;
             }
             android.os.IInterface iin = obj.queryLocalInterface(DESCRIPTOR);
             if (iin instanceof IDirectWritingService) {
-                return ((android.widget.directwriting.IDirectWritingService) iin);
+                return ((com.luanon.android.widget.directwriting.IDirectWritingService) iin);
             }
-            return new android.widget.directwriting.IDirectWritingService.Stub.Proxy(obj);
+            return new com.luanon.android.widget.directwriting.IDirectWritingService.Stub.Proxy(obj);
         }
 
         @Override
@@ -228,8 +228,8 @@ public interface IDirectWritingService extends android.os.IInterface {
                     break;
                 }
                 case TRANSACTION_registerCallback: {
-                    android.widget.directwriting.IDirectWritingServiceCallback _arg0;
-                    _arg0 = android.widget.directwriting.IDirectWritingServiceCallback.Stub.asInterface(data.readStrongBinder());
+                    com.luanon.android.widget.directwriting.IDirectWritingServiceCallback _arg0;
+                    _arg0 = com.luanon.android.widget.directwriting.IDirectWritingServiceCallback.Stub.asInterface(data.readStrongBinder());
                     java.lang.String _arg1;
                     _arg1 = data.readString();
                     boolean _result = this.registerCallback(_arg0, _arg1);
@@ -238,8 +238,8 @@ public interface IDirectWritingService extends android.os.IInterface {
                     break;
                 }
                 case TRANSACTION_unregisterCallback: {
-                    android.widget.directwriting.IDirectWritingServiceCallback _arg0;
-                    _arg0 = android.widget.directwriting.IDirectWritingServiceCallback.Stub.asInterface(data.readStrongBinder());
+                    com.luanon.android.widget.directwriting.IDirectWritingServiceCallback _arg0;
+                    _arg0 = com.luanon.android.widget.directwriting.IDirectWritingServiceCallback.Stub.asInterface(data.readStrongBinder());
                     boolean _result = this.unregisterCallback(_arg0);
                     reply.writeNoException();
                     reply.writeInt(((_result) ? (1) : (0)));
@@ -338,7 +338,7 @@ public interface IDirectWritingService extends android.os.IInterface {
             return true;
         }
 
-        private static class Proxy implements android.widget.directwriting.IDirectWritingService {
+        private static class Proxy implements com.luanon.android.widget.directwriting.IDirectWritingService {
             private final android.os.IBinder mRemote;
 
             Proxy(android.os.IBinder remote) {
@@ -384,7 +384,7 @@ public interface IDirectWritingService extends android.os.IInterface {
              * @return true if success
              */
             @Override
-            public boolean registerCallback(android.widget.directwriting.IDirectWritingServiceCallback callback, java.lang.String packageName) throws android.os.RemoteException {
+            public boolean registerCallback(com.luanon.android.widget.directwriting.IDirectWritingServiceCallback callback, java.lang.String packageName) throws android.os.RemoteException {
                 android.os.Parcel _data = android.os.Parcel.obtain();
                 android.os.Parcel _reply = android.os.Parcel.obtain();
                 boolean _result;
@@ -409,7 +409,7 @@ public interface IDirectWritingService extends android.os.IInterface {
              * @return true if success
              */
             @Override
-            public boolean unregisterCallback(android.widget.directwriting.IDirectWritingServiceCallback callback) throws android.os.RemoteException {
+            public boolean unregisterCallback(com.luanon.android.widget.directwriting.IDirectWritingServiceCallback callback) throws android.os.RemoteException {
                 android.os.Parcel _data = android.os.Parcel.obtain();
                 android.os.Parcel _reply = android.os.Parcel.obtain();
                 boolean _result;
@@ -706,7 +706,7 @@ public interface IDirectWritingService extends android.os.IInterface {
         static final int TRANSACTION_onTextViewExtraCommand = (android.os.IBinder.FIRST_CALL_TRANSACTION + 901);
     }
 
-    java.lang.String DESCRIPTOR = "android.widget.directwriting.IDirectWritingService";
+    java.lang.String DESCRIPTOR = "com.luanon.android.widget.directwriting.IDirectWritingService";
     int VERSION = 1;
     /**
      * Key for bundle parameter MotionEvent
@@ -757,7 +757,7 @@ public interface IDirectWritingService extends android.os.IInterface {
      * @param packageName is Package name of bounded context
      * @return true if success
      */
-    boolean registerCallback(android.widget.directwriting.IDirectWritingServiceCallback callback, java.lang.String packageName) throws android.os.RemoteException;
+    boolean registerCallback(com.luanon.android.widget.directwriting.IDirectWritingServiceCallback callback, java.lang.String packageName) throws android.os.RemoteException;
 
     /**
      * Unregisters callback for service
@@ -765,7 +765,7 @@ public interface IDirectWritingService extends android.os.IInterface {
      * @param callback is IDirectWritingServiceCallback
      * @return true if success
      */
-    boolean unregisterCallback(android.widget.directwriting.IDirectWritingServiceCallback callback) throws android.os.RemoteException;
+    boolean unregisterCallback(com.luanon.android.widget.directwriting.IDirectWritingServiceCallback callback) throws android.os.RemoteException;
 
     /**
      * Gets package name of bounded process

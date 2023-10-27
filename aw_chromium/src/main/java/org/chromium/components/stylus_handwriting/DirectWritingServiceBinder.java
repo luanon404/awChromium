@@ -17,9 +17,11 @@ import android.os.IBinder;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.directwriting.IDirectWritingService;
 
 import androidx.annotation.VisibleForTesting;
+
+import com.luanon.android.widget.directwriting.IDirectWritingService;
+import com.luanon.android.widget.directwriting.IDirectWritingServiceCallback;
 
 import org.chromium.base.Log;
 import org.chromium.base.PackageUtils;
