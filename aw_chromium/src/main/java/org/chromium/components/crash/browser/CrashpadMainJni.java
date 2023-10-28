@@ -4,39 +4,48 @@
 package org.chromium.components.crash.browser;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.build.NativeLibraries;
+import org.chromium.build.annotations.DoNotInline;
+import org.chromium.build.annotations.UsedByReflection;
 
 @CheckDiscard("crbug.com/993421")
 class CrashpadMainJni implements CrashpadMain.Natives {
-    private static CrashpadMain.Natives testInstance;
+  private static CrashpadMain.Natives testInstance;
 
-    public static final JniStaticTestMocker<CrashpadMain.Natives> TEST_HOOKS = new JniStaticTestMocker<CrashpadMain.Natives>() {
-        @Override
-        public void setInstanceForTesting(CrashpadMain.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<CrashpadMain.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<CrashpadMain.Natives>() {
     @Override
-    public void crashpadMain(String[] argv) {
-        GEN_JNI.org_chromium_components_crash_browser_CrashpadMain_crashpadMain(argv);
+    public void setInstanceForTesting(CrashpadMain.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    public static CrashpadMain.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of CrashpadMain.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new CrashpadMainJni();
+  @Override
+  public void crashpadMain(String[] argv) {
+    GEN_JNI.org_chromium_components_crash_browser_CrashpadMain_crashpadMain(argv);
+  }
+
+  public static CrashpadMain.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of CrashpadMain.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new CrashpadMainJni();
+  }
 }

@@ -13,6 +13,8 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 class ServiceWorkerStreamCallback_Internal {
 
@@ -146,7 +148,7 @@ class ServiceWorkerStreamCallback_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -179,7 +181,7 @@ class ServiceWorkerStreamCallback_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }

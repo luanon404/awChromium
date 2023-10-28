@@ -17,10 +17,13 @@ import androidx.annotation.IntDef;
 
 public final class TrustTokenProtocolVersion {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({TrustTokenProtocolVersion.TRUST_TOKEN_V3_PMB, TrustTokenProtocolVersion.TRUST_TOKEN_V3_VOPRF, TrustTokenProtocolVersion.PRIVATE_STATE_TOKEN_V1_PMB, TrustTokenProtocolVersion.PRIVATE_STATE_TOKEN_V1_VOPRF})
-    public @interface EnumType {
-    }
+        TrustTokenProtocolVersion.TRUST_TOKEN_V3_PMB,
+        TrustTokenProtocolVersion.TRUST_TOKEN_V3_VOPRF,
+        TrustTokenProtocolVersion.PRIVATE_STATE_TOKEN_V1_PMB,
+        TrustTokenProtocolVersion.PRIVATE_STATE_TOKEN_V1_VOPRF})
+    public @interface EnumType {}
 
     public static final int TRUST_TOKEN_V3_PMB = 0;
     public static final int TRUST_TOKEN_V3_VOPRF = 1;
@@ -39,9 +42,8 @@ public final class TrustTokenProtocolVersion {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private TrustTokenProtocolVersion() {
-    }
+    private TrustTokenProtocolVersion() {}
 }

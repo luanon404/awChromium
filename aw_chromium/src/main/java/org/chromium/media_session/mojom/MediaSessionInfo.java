@@ -19,15 +19,18 @@ import androidx.annotation.IntDef;
 public final class MediaSessionInfo extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 64;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0), new org.chromium.mojo.bindings.DataHeader(24, 1), new org.chromium.mojo.bindings.DataHeader(24, 2), new org.chromium.mojo.bindings.DataHeader(24, 4), new org.chromium.mojo.bindings.DataHeader(24, 6), new org.chromium.mojo.bindings.DataHeader(24, 7), new org.chromium.mojo.bindings.DataHeader(32, 8), new org.chromium.mojo.bindings.DataHeader(40, 9), new org.chromium.mojo.bindings.DataHeader(48, 10), new org.chromium.mojo.bindings.DataHeader(56, 11), new org.chromium.mojo.bindings.DataHeader(56, 12), new org.chromium.mojo.bindings.DataHeader(56, 14), new org.chromium.mojo.bindings.DataHeader(64, 15), new org.chromium.mojo.bindings.DataHeader(64, 16)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0),new org.chromium.mojo.bindings.DataHeader(24, 1),new org.chromium.mojo.bindings.DataHeader(24, 2),new org.chromium.mojo.bindings.DataHeader(24, 4),new org.chromium.mojo.bindings.DataHeader(24, 6),new org.chromium.mojo.bindings.DataHeader(24, 7),new org.chromium.mojo.bindings.DataHeader(32, 8),new org.chromium.mojo.bindings.DataHeader(40, 9),new org.chromium.mojo.bindings.DataHeader(48, 10),new org.chromium.mojo.bindings.DataHeader(56, 11),new org.chromium.mojo.bindings.DataHeader(56, 12),new org.chromium.mojo.bindings.DataHeader(56, 14),new org.chromium.mojo.bindings.DataHeader(64, 15),new org.chromium.mojo.bindings.DataHeader(64, 16)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[13];
 
     public static final class SessionState {
         private static final boolean IS_EXTENSIBLE = true;
+        @IntDef({
 
-        @IntDef({SessionState.ACTIVE, SessionState.DUCKING, SessionState.SUSPENDED, SessionState.INACTIVE})
-        public @interface EnumType {
-        }
+            SessionState.ACTIVE,
+            SessionState.DUCKING,
+            SessionState.SUSPENDED,
+            SessionState.INACTIVE})
+        public @interface EnumType {}
 
         public static final int ACTIVE = 0;
         public static final int DUCKING = 1;
@@ -46,13 +49,11 @@ public final class MediaSessionInfo extends org.chromium.mojo.bindings.Struct {
         }
 
         public static int toKnownValue(int value) {
-            return value;
+          return value;
         }
 
-        private SessionState() {
-        }
+        private SessionState() {}
     }
-
     public int state;
     public boolean forceDuck;
     public int playbackState;
@@ -88,7 +89,8 @@ public final class MediaSessionInfo extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static MediaSessionInfo deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -102,114 +104,114 @@ public final class MediaSessionInfo extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new MediaSessionInfo(elementsOrVersion);
-            {
-
+                {
+                    
                 result.state = decoder0.readInt(8);
-                MediaSessionInfo.SessionState.validate(result.state);
-                result.state = MediaSessionInfo.SessionState.toKnownValue(result.state);
-            }
-            {
-
+                    MediaSessionInfo.SessionState.validate(result.state);
+                    result.state = MediaSessionInfo.SessionState.toKnownValue(result.state);
+                }
+                {
+                    
                 result.forceDuck = decoder0.readBoolean(12, 0);
-            }
+                }
             if (elementsOrVersion >= 2) {
                 {
-
-                    result.isControllable = decoder0.readBoolean(12, 1);
+                    
+                result.isControllable = decoder0.readBoolean(12, 1);
                 }
             }
             if (elementsOrVersion >= 4) {
                 {
-
-                    result.preferStopForGainFocusLoss = decoder0.readBoolean(12, 2);
+                    
+                result.preferStopForGainFocusLoss = decoder0.readBoolean(12, 2);
                 }
             }
             if (elementsOrVersion >= 6) {
                 {
-
-                    result.isSensitive = decoder0.readBoolean(12, 3);
+                    
+                result.isSensitive = decoder0.readBoolean(12, 3);
                 }
             }
             if (elementsOrVersion >= 12) {
                 {
-
-                    result.muted = decoder0.readBoolean(12, 4);
+                    
+                result.muted = decoder0.readBoolean(12, 4);
                 }
             }
             if (elementsOrVersion >= 14) {
                 {
-
-                    result.hasPresentation = decoder0.readBoolean(12, 5);
+                    
+                result.hasPresentation = decoder0.readBoolean(12, 5);
                 }
             }
             if (elementsOrVersion >= 16) {
                 {
-
-                    result.hideMetadata = decoder0.readBoolean(12, 6);
+                    
+                result.hideMetadata = decoder0.readBoolean(12, 6);
                 }
             }
             if (elementsOrVersion >= 1) {
                 {
-
-                    result.playbackState = decoder0.readInt(16);
+                    
+                result.playbackState = decoder0.readInt(16);
                     MediaPlaybackState.validate(result.playbackState);
                     result.playbackState = MediaPlaybackState.toKnownValue(result.playbackState);
                 }
             }
             if (elementsOrVersion >= 7) {
                 {
-
-                    result.pictureInPictureState = decoder0.readInt(20);
+                    
+                result.pictureInPictureState = decoder0.readInt(20);
                     MediaPictureInPictureState.validate(result.pictureInPictureState);
                     result.pictureInPictureState = MediaPictureInPictureState.toKnownValue(result.pictureInPictureState);
                 }
             }
             if (elementsOrVersion >= 8) {
                 {
-
-                    result.deprecatedAudioVideoState = decoder0.readInt(24);
+                    
+                result.deprecatedAudioVideoState = decoder0.readInt(24);
                     MediaAudioVideoState.validate(result.deprecatedAudioVideoState);
                     result.deprecatedAudioVideoState = MediaAudioVideoState.toKnownValue(result.deprecatedAudioVideoState);
                 }
             }
             if (elementsOrVersion >= 11) {
                 {
-
-                    result.microphoneState = decoder0.readInt(28);
+                    
+                result.microphoneState = decoder0.readInt(28);
                     MicrophoneState.validate(result.microphoneState);
                     result.microphoneState = MicrophoneState.toKnownValue(result.microphoneState);
                 }
             }
             if (elementsOrVersion >= 9) {
                 {
-
-                    result.audioSinkId = decoder0.readString(32, true);
+                    
+                result.audioSinkId = decoder0.readString(32, true);
                 }
             }
             if (elementsOrVersion >= 10) {
                 {
-
-                    result.audioVideoStates = decoder0.readInts(40, org.chromium.mojo.bindings.BindingsHelper.ARRAY_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
-                    if (result.audioVideoStates != null) {
-                        for (int i1 = 0; i1 < result.audioVideoStates.length; ++i1) {
-                            MediaAudioVideoState.validate(result.audioVideoStates[i1]);
-                        }
+                    
+                result.audioVideoStates = decoder0.readInts(40, org.chromium.mojo.bindings.BindingsHelper.ARRAY_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
+                if (result.audioVideoStates != null) {
+                    for (int i1 = 0; i1 < result.audioVideoStates.length; ++i1) {
+                        MediaAudioVideoState.validate(result.audioVideoStates[i1]);
                     }
+                }
                 }
             }
             if (elementsOrVersion >= 11) {
                 {
-
-                    result.cameraState = decoder0.readInt(48);
+                    
+                result.cameraState = decoder0.readInt(48);
                     CameraState.validate(result.cameraState);
                     result.cameraState = CameraState.toKnownValue(result.cameraState);
                 }
             }
             if (elementsOrVersion >= 15) {
                 {
-
-                    org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(56, true);
-                    result.remotePlaybackMetadata = RemotePlaybackMetadata.decode(decoder1);
+                    
+                org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(56, true);
+                result.remotePlaybackMetadata = RemotePlaybackMetadata.decode(decoder1);
                 }
             }
 
@@ -223,37 +225,37 @@ public final class MediaSessionInfo extends org.chromium.mojo.bindings.Struct {
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.state, 8);
-
+        
         encoder0.encode(this.forceDuck, 12, 0);
-
+        
         encoder0.encode(this.isControllable, 12, 1);
-
+        
         encoder0.encode(this.preferStopForGainFocusLoss, 12, 2);
-
+        
         encoder0.encode(this.isSensitive, 12, 3);
-
+        
         encoder0.encode(this.muted, 12, 4);
-
+        
         encoder0.encode(this.hasPresentation, 12, 5);
-
+        
         encoder0.encode(this.hideMetadata, 12, 6);
-
+        
         encoder0.encode(this.playbackState, 16);
-
+        
         encoder0.encode(this.pictureInPictureState, 20);
-
+        
         encoder0.encode(this.deprecatedAudioVideoState, 24);
-
+        
         encoder0.encode(this.microphoneState, 28);
-
+        
         encoder0.encode(this.audioSinkId, 32, true);
-
+        
         encoder0.encode(this.audioVideoStates, 40, org.chromium.mojo.bindings.BindingsHelper.ARRAY_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
-
+        
         encoder0.encode(this.cameraState, 48);
-
+        
         encoder0.encode(this.remotePlaybackMetadata, 56, true);
     }
 }

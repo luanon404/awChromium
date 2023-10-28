@@ -49,7 +49,7 @@ public final class SPenSupport {
      * Convert SPen event action into normal event action.
      *
      * @param eventActionMasked Input event action. It is assumed that it is masked as the values
-     *                          cannot be ORed.
+                                cannot be ORed.
      * @return Event action after the conversion.
      */
     public static int convertSPenEventAction(int eventActionMasked) {

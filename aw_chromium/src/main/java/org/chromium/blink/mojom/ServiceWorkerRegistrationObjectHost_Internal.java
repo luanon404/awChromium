@@ -13,6 +13,8 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 class ServiceWorkerRegistrationObjectHost_Internal {
 
@@ -214,7 +216,7 @@ SetNavigationPreloadHeader_Response callback) {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -316,7 +318,7 @@ SetNavigationPreloadHeader_Response callback) {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }

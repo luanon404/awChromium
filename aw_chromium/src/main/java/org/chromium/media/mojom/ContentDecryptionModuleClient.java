@@ -13,24 +13,32 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface ContentDecryptionModuleClient extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends ContentDecryptionModuleClient, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends ContentDecryptionModuleClient, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<ContentDecryptionModuleClient, ContentDecryptionModuleClient.Proxy> MANAGER = ContentDecryptionModuleClient_Internal.MANAGER;
 
-    void onSessionMessage(String sessionId, int messageType, byte[] message);
+    void onSessionMessage(
+String sessionId, int messageType, byte[] message);
 
 
-    void onSessionClosed(String sessionId, int reason);
+    void onSessionClosed(
+String sessionId, int reason);
 
 
-    void onSessionKeysChange(String sessionId, boolean hasAdditionalUsableKey, CdmKeyInformation[] keysInfo);
+    void onSessionKeysChange(
+String sessionId, boolean hasAdditionalUsableKey, CdmKeyInformation[] keysInfo);
 
 
-    void onSessionExpirationUpdate(String sessionId, double newExpiryTimeSec);
+    void onSessionExpirationUpdate(
+String sessionId, double newExpiryTimeSec);
 
 
 }

@@ -4,31 +4,20 @@
 
 package org.chromium.base.metrics;
 
-/**
- * Holds the {@link CachingUmaRecorder} used by {@link RecordHistogram}.
- */
+/** Holds the {@link CachingUmaRecorder} used by {@link RecordHistogram}. */
 public class UmaRecorderHolder {
-    private UmaRecorderHolder() {
-    }
+    private UmaRecorderHolder() {}
 
-    /**
-     * The instance held by this class.
-     */
+    /** The instance held by this class. */
     private static CachingUmaRecorder sRecorder = new CachingUmaRecorder();
 
-    /**
-     * Set up native UMA Recorder
-     */
+    /** Set up native UMA Recorder */
     private static boolean sSetUpNativeUmaRecorder = true;
 
-    /**
-     * Whether onLibraryLoaded() was called.
-     */
+    /** Whether onLibraryLoaded() was called. */
     private static boolean sNativeInitialized;
 
-    /**
-     * Returns the held {@link UmaRecorder}.
-     */
+    /** Returns the held {@link UmaRecorder}. */
     public static UmaRecorder get() {
         return sRecorder;
     }
@@ -44,14 +33,14 @@ public class UmaRecorderHolder {
      */
     public static void setNonNativeDelegate(UmaRecorder recorder) {
         UmaRecorder previous = sRecorder.setDelegate(recorder);
-        assert !(previous instanceof NativeUmaRecorder) : "A NativeUmaRecorder has already been set";
+        assert !(previous instanceof NativeUmaRecorder)
+            : "A NativeUmaRecorder has already been set";
     }
 
     /**
      * Whether a native UMA Recorder should be set up.
-     *
      * @param setUpNativeUmaRecorder indicates whether a native UMA recorder should be set up.
-     *                               Defaults to true if unset.
+     * Defaults to true if unset.
      */
     public static void setUpNativeUmaRecorder(boolean setUpNativeUmaRecorder) {
         sSetUpNativeUmaRecorder = setUpNativeUmaRecorder;

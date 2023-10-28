@@ -1,3 +1,4 @@
+
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -14,13 +15,15 @@ import androidx.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@IntDef({ChildProcessImportance.NORMAL, ChildProcessImportance.MODERATE, ChildProcessImportance.IMPORTANT})
+@IntDef({
+    ChildProcessImportance.NORMAL, ChildProcessImportance.MODERATE, ChildProcessImportance.IMPORTANT
+})
 @Retention(RetentionPolicy.SOURCE)
 public @interface ChildProcessImportance {
-    /**
-     * NORMAL is the default value.
-     */
-    int NORMAL = 0;
-    int MODERATE = 1;
-    int IMPORTANT = 2;
+  /**
+   * NORMAL is the default value.
+   */
+  int NORMAL = 0;
+  int MODERATE = 1;
+  int IMPORTANT = 2;
 }

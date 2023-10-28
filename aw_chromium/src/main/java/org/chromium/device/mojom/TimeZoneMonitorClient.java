@@ -13,15 +13,20 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface TimeZoneMonitorClient extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends TimeZoneMonitorClient, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends TimeZoneMonitorClient, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<TimeZoneMonitorClient, TimeZoneMonitorClient.Proxy> MANAGER = TimeZoneMonitorClient_Internal.MANAGER;
 
-    void onTimeZoneChange(String tzInfo);
+    void onTimeZoneChange(
+String tzInfo);
 
 
 }

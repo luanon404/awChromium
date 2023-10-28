@@ -17,10 +17,13 @@ import androidx.annotation.IntDef;
 
 public final class UsbSynchronizationType {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({UsbSynchronizationType.NONE, UsbSynchronizationType.ASYNCHRONOUS, UsbSynchronizationType.ADAPTIVE, UsbSynchronizationType.SYNCHRONOUS})
-    public @interface EnumType {
-    }
+        UsbSynchronizationType.NONE,
+        UsbSynchronizationType.ASYNCHRONOUS,
+        UsbSynchronizationType.ADAPTIVE,
+        UsbSynchronizationType.SYNCHRONOUS})
+    public @interface EnumType {}
 
     public static final int NONE = 0;
     public static final int ASYNCHRONOUS = 1;
@@ -39,9 +42,8 @@ public final class UsbSynchronizationType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private UsbSynchronizationType() {
-    }
+    private UsbSynchronizationType() {}
 }

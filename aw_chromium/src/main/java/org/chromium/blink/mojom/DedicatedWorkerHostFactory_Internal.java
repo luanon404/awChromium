@@ -13,6 +13,8 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 class DedicatedWorkerHostFactory_Internal {
 
@@ -162,7 +164,7 @@ DedicatedWorkerToken token, org.chromium.url.mojom.Url scriptUrl, int credential
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -208,7 +210,7 @@ DedicatedWorkerToken token, org.chromium.url.mojom.Url scriptUrl, int credential
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }

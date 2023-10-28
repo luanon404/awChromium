@@ -13,9 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 class AcceptChFrameObserver_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<AcceptChFrameObserver, AcceptChFrameObserver.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<AcceptChFrameObserver, AcceptChFrameObserver.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<AcceptChFrameObserver, AcceptChFrameObserver.Proxy> MANAGER =
+            new org.chromium.mojo.bindings.Interface.Manager<AcceptChFrameObserver, AcceptChFrameObserver.Proxy>() {
 
         @Override
         public String getName() {
@@ -24,11 +28,12 @@ class AcceptChFrameObserver_Internal {
 
         @Override
         public int getVersion() {
-            return 0;
+          return 0;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -39,7 +44,7 @@ class AcceptChFrameObserver_Internal {
 
         @Override
         public AcceptChFrameObserver[] buildArray(int size) {
-            return new AcceptChFrameObserver[size];
+          return new AcceptChFrameObserver[size];
         }
     };
 
@@ -51,13 +56,16 @@ class AcceptChFrameObserver_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements AcceptChFrameObserver.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core,
+              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void onAcceptChFrameReceived(org.chromium.url.internal.mojom.Origin origin, int[] acceptChFrame, OnAcceptChFrameReceived_Response callback) {
+        public void onAcceptChFrameReceived(
+org.chromium.url.internal.mojom.Origin origin, int[] acceptChFrame, 
+OnAcceptChFrameReceived_Response callback) {
 
             AcceptChFrameObserverOnAcceptChFrameReceivedParams _message = new AcceptChFrameObserverOnAcceptChFrameReceivedParams();
 
@@ -66,20 +74,31 @@ class AcceptChFrameObserver_Internal {
             _message.acceptChFrame = acceptChFrame;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_ACCEPT_CH_FRAME_RECEIVED_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new AcceptChFrameObserverOnAcceptChFrameReceivedResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    ON_ACCEPT_CH_FRAME_RECEIVED_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new AcceptChFrameObserverOnAcceptChFrameReceivedResponseParamsForwardToCallback(callback));
 
         }
 
 
         @Override
-        public void clone(org.chromium.mojo.bindings.InterfaceRequest<AcceptChFrameObserver> listener) {
+        public void clone(
+org.chromium.mojo.bindings.InterfaceRequest<AcceptChFrameObserver> listener) {
 
             AcceptChFrameObserverCloneParams _message = new AcceptChFrameObserverCloneParams();
 
             _message.listener = listener;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(CLONE_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(CLONE_ORDINAL)));
 
         }
 
@@ -95,7 +114,8 @@ class AcceptChFrameObserver_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -104,15 +124,22 @@ class AcceptChFrameObserver_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(AcceptChFrameObserver_Internal.MANAGER, messageWithHeader);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
+                                AcceptChFrameObserver_Internal.MANAGER, messageWithHeader);
+
+
+
+
+
 
 
                     case CLONE_ORDINAL: {
 
-                        AcceptChFrameObserverCloneParams data = AcceptChFrameObserverCloneParams.deserialize(messageWithHeader.getPayload());
+                        AcceptChFrameObserverCloneParams data =
+                                AcceptChFrameObserverCloneParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().clone(data.listener);
                         return true;
@@ -123,7 +150,7 @@ class AcceptChFrameObserver_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -131,7 +158,8 @@ class AcceptChFrameObserver_Internal {
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -140,36 +168,46 @@ class AcceptChFrameObserver_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), AcceptChFrameObserver_Internal.MANAGER, messageWithHeader, receiver);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
+                                getCore(), AcceptChFrameObserver_Internal.MANAGER, messageWithHeader, receiver);
+
+
+
+
+
 
 
                     case ON_ACCEPT_CH_FRAME_RECEIVED_ORDINAL: {
 
-                        AcceptChFrameObserverOnAcceptChFrameReceivedParams data = AcceptChFrameObserverOnAcceptChFrameReceivedParams.deserialize(messageWithHeader.getPayload());
+                        AcceptChFrameObserverOnAcceptChFrameReceivedParams data =
+                                AcceptChFrameObserverOnAcceptChFrameReceivedParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onAcceptChFrameReceived(data.origin, data.acceptChFrame, new AcceptChFrameObserverOnAcceptChFrameReceivedResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
                     }
 
 
+
+
                     default:
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class AcceptChFrameObserverOnAcceptChFrameReceivedParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.url.internal.mojom.Origin origin;
         public int[] acceptChFrame;
@@ -192,7 +230,8 @@ class AcceptChFrameObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static AcceptChFrameObserverOnAcceptChFrameReceivedParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -206,20 +245,20 @@ class AcceptChFrameObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new AcceptChFrameObserverOnAcceptChFrameReceivedParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.origin = org.chromium.url.internal.mojom.Origin.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.acceptChFrame = decoder0.readInts(16, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                     {
                         for (int i1 = 0; i1 < result.acceptChFrame.length; ++i1) {
                             WebClientHintsType.validate(result.acceptChFrame[i1]);
                         }
                     }
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -231,18 +270,20 @@ class AcceptChFrameObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.origin, 8, false);
-
+            
             encoder0.encode(this.acceptChFrame, 16, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
         }
     }
 
 
+
+    
     static final class AcceptChFrameObserverOnAcceptChFrameReceivedResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int status;
 
@@ -264,7 +305,8 @@ class AcceptChFrameObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static AcceptChFrameObserverOnAcceptChFrameReceivedResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -278,10 +320,10 @@ class AcceptChFrameObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new AcceptChFrameObserverOnAcceptChFrameReceivedResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.status = decoder0.readInt(8);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -293,12 +335,13 @@ class AcceptChFrameObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.status, 8);
         }
     }
 
-    static class AcceptChFrameObserverOnAcceptChFrameReceivedResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class AcceptChFrameObserverOnAcceptChFrameReceivedResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final AcceptChFrameObserver.OnAcceptChFrameReceived_Response mCallback;
 
         AcceptChFrameObserverOnAcceptChFrameReceivedResponseParamsForwardToCallback(AcceptChFrameObserver.OnAcceptChFrameReceived_Response callback) {
@@ -308,9 +351,11 @@ class AcceptChFrameObserver_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(ON_ACCEPT_CH_FRAME_RECEIVED_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(ON_ACCEPT_CH_FRAME_RECEIVED_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -330,7 +375,10 @@ class AcceptChFrameObserver_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        AcceptChFrameObserverOnAcceptChFrameReceivedResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        AcceptChFrameObserverOnAcceptChFrameReceivedResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -342,16 +390,24 @@ class AcceptChFrameObserver_Internal {
 
             _response.status = status;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(ON_ACCEPT_CH_FRAME_RECEIVED_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    ON_ACCEPT_CH_FRAME_RECEIVED_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
 
 
+
+    
     static final class AcceptChFrameObserverCloneParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.mojo.bindings.InterfaceRequest<AcceptChFrameObserver> listener;
 
@@ -373,7 +429,8 @@ class AcceptChFrameObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static AcceptChFrameObserverCloneParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -387,10 +444,10 @@ class AcceptChFrameObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new AcceptChFrameObserverCloneParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.listener = decoder0.readInterfaceRequest(8, false);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -402,10 +459,11 @@ class AcceptChFrameObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.listener, 8, false);
         }
     }
+
 
 
 }

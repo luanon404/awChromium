@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class OverlayPriority {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({OverlayPriority.LOW, OverlayPriority.REGULAR, OverlayPriority.REQUIRED})
-    public @interface EnumType {
-    }
+        OverlayPriority.LOW,
+        OverlayPriority.REGULAR,
+        OverlayPriority.REQUIRED})
+    public @interface EnumType {}
 
     public static final int LOW = 0;
     public static final int REGULAR = 1;
@@ -38,9 +40,8 @@ public final class OverlayPriority {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private OverlayPriority() {
-    }
+    private OverlayPriority() {}
 }

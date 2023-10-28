@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class ContentColorUsage {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({ContentColorUsage.SRGB, ContentColorUsage.WIDE_COLOR_GAMUT, ContentColorUsage.HDR})
-    public @interface EnumType {
-    }
+        ContentColorUsage.SRGB,
+        ContentColorUsage.WIDE_COLOR_GAMUT,
+        ContentColorUsage.HDR})
+    public @interface EnumType {}
 
     public static final int SRGB = 0;
     public static final int WIDE_COLOR_GAMUT = 1;
@@ -38,9 +40,8 @@ public final class ContentColorUsage {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private ContentColorUsage() {
-    }
+    private ContentColorUsage() {}
 }

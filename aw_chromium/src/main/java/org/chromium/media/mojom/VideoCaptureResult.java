@@ -13,13 +13,15 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class VideoCaptureResult extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
         public static final int State = 0;
         public static final int ErrorCode = 1;
-    }
-
+    };
     private int mState;
     private int mErrorCode;
 
@@ -50,12 +52,12 @@ public final class VideoCaptureResult extends org.chromium.mojo.bindings.Union {
         encoder0.encode(this.mTag, offset + 4);
         switch (mTag) {
             case Tag.State: {
-
+                
                 encoder0.encode(this.mState, offset + 8);
                 break;
             }
             case Tag.ErrorCode: {
-
+                
                 encoder0.encode(this.mErrorCode, offset + 8);
                 break;
             }
@@ -77,18 +79,18 @@ public final class VideoCaptureResult extends org.chromium.mojo.bindings.Union {
         VideoCaptureResult result = new VideoCaptureResult();
         switch (dataHeader.elementsOrVersion) {
             case Tag.State: {
-
+                
                 result.mState = decoder0.readInt(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE);
-                VideoCaptureState.validate(result.mState);
-                result.mState = VideoCaptureState.toKnownValue(result.mState);
+                    VideoCaptureState.validate(result.mState);
+                    result.mState = VideoCaptureState.toKnownValue(result.mState);
                 result.mTag = Tag.State;
                 break;
             }
             case Tag.ErrorCode: {
-
+                
                 result.mErrorCode = decoder0.readInt(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE);
-                VideoCaptureError.validate(result.mErrorCode);
-                result.mErrorCode = VideoCaptureError.toKnownValue(result.mErrorCode);
+                    VideoCaptureError.validate(result.mErrorCode);
+                    result.mErrorCode = VideoCaptureError.toKnownValue(result.mErrorCode);
                 result.mTag = Tag.ErrorCode;
                 break;
             }

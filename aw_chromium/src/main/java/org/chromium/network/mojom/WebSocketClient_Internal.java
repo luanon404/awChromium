@@ -13,9 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 class WebSocketClient_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<WebSocketClient, WebSocketClient.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<WebSocketClient, WebSocketClient.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<WebSocketClient, WebSocketClient.Proxy> MANAGER =
+            new org.chromium.mojo.bindings.Interface.Manager<WebSocketClient, WebSocketClient.Proxy>() {
 
         @Override
         public String getName() {
@@ -24,11 +28,12 @@ class WebSocketClient_Internal {
 
         @Override
         public int getVersion() {
-            return 0;
+          return 0;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -39,7 +44,7 @@ class WebSocketClient_Internal {
 
         @Override
         public WebSocketClient[] buildArray(int size) {
-            return new WebSocketClient[size];
+          return new WebSocketClient[size];
         }
     };
 
@@ -53,13 +58,15 @@ class WebSocketClient_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements WebSocketClient.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core,
+              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void onDataFrame(boolean fin, int type, long dataLength) {
+        public void onDataFrame(
+boolean fin, int type, long dataLength) {
 
             WebSocketClientOnDataFrameParams _message = new WebSocketClientOnDataFrameParams();
 
@@ -70,13 +77,17 @@ class WebSocketClient_Internal {
             _message.dataLength = dataLength;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_DATA_FRAME_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_DATA_FRAME_ORDINAL)));
 
         }
 
 
         @Override
-        public void onDropChannel(boolean wasClean, short code, String reason) {
+        public void onDropChannel(
+boolean wasClean, short code, String reason) {
 
             WebSocketClientOnDropChannelParams _message = new WebSocketClientOnDropChannelParams();
 
@@ -87,18 +98,25 @@ class WebSocketClient_Internal {
             _message.reason = reason;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_DROP_CHANNEL_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_DROP_CHANNEL_ORDINAL)));
 
         }
 
 
         @Override
-        public void onClosingHandshake() {
+        public void onClosingHandshake(
+) {
 
             WebSocketClientOnClosingHandshakeParams _message = new WebSocketClientOnClosingHandshakeParams();
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_CLOSING_HANDSHAKE_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_CLOSING_HANDSHAKE_ORDINAL)));
 
         }
 
@@ -114,7 +132,8 @@ class WebSocketClient_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -123,28 +142,40 @@ class WebSocketClient_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(WebSocketClient_Internal.MANAGER, messageWithHeader);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
+                                WebSocketClient_Internal.MANAGER, messageWithHeader);
+
+
+
 
 
                     case ON_DATA_FRAME_ORDINAL: {
 
-                        WebSocketClientOnDataFrameParams data = WebSocketClientOnDataFrameParams.deserialize(messageWithHeader.getPayload());
+                        WebSocketClientOnDataFrameParams data =
+                                WebSocketClientOnDataFrameParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onDataFrame(data.fin, data.type, data.dataLength);
                         return true;
                     }
 
 
+
+
+
                     case ON_DROP_CHANNEL_ORDINAL: {
 
-                        WebSocketClientOnDropChannelParams data = WebSocketClientOnDropChannelParams.deserialize(messageWithHeader.getPayload());
+                        WebSocketClientOnDropChannelParams data =
+                                WebSocketClientOnDropChannelParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onDropChannel(data.wasClean, data.code, data.reason);
                         return true;
                     }
+
+
+
 
 
                     case ON_CLOSING_HANDSHAKE_ORDINAL: {
@@ -160,7 +191,7 @@ class WebSocketClient_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -168,7 +199,8 @@ class WebSocketClient_Internal {
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -177,27 +209,35 @@ class WebSocketClient_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), WebSocketClient_Internal.MANAGER, messageWithHeader, receiver);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
+                                getCore(), WebSocketClient_Internal.MANAGER, messageWithHeader, receiver);
+
+
+
+
+
+
 
 
                     default:
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class WebSocketClientOnDataFrameParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public boolean fin;
         public int type;
@@ -221,7 +261,8 @@ class WebSocketClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static WebSocketClientOnDataFrameParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -235,20 +276,20 @@ class WebSocketClient_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new WebSocketClientOnDataFrameParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.fin = decoder0.readBoolean(8, 0);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.type = decoder0.readInt(12);
-                    WebSocketMessageType.validate(result.type);
-                    result.type = WebSocketMessageType.toKnownValue(result.type);
-                }
-                {
-
+                        WebSocketMessageType.validate(result.type);
+                        result.type = WebSocketMessageType.toKnownValue(result.type);
+                    }
+                    {
+                        
                     result.dataLength = decoder0.readLong(16);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -260,20 +301,22 @@ class WebSocketClient_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.fin, 8, 0);
-
+            
             encoder0.encode(this.type, 12);
-
+            
             encoder0.encode(this.dataLength, 16);
         }
     }
 
 
+
+    
     static final class WebSocketClientOnDropChannelParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public boolean wasClean;
         public short code;
@@ -297,7 +340,8 @@ class WebSocketClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static WebSocketClientOnDropChannelParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -311,18 +355,18 @@ class WebSocketClient_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new WebSocketClientOnDropChannelParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.wasClean = decoder0.readBoolean(8, 0);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.code = decoder0.readShort(10);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.reason = decoder0.readString(16, false);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -334,20 +378,22 @@ class WebSocketClient_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.wasClean, 8, 0);
-
+            
             encoder0.encode(this.code, 10);
-
+            
             encoder0.encode(this.reason, 16, false);
         }
     }
 
 
+
+    
     static final class WebSocketClientOnClosingHandshakeParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 8;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(8, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(8, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
 
         private WebSocketClientOnClosingHandshakeParams(int version) {
@@ -368,7 +414,8 @@ class WebSocketClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static WebSocketClientOnClosingHandshakeParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -395,6 +442,7 @@ class WebSocketClient_Internal {
             encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
         }
     }
+
 
 
 }

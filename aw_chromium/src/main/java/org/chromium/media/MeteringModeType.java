@@ -1,3 +1,4 @@
+
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -14,11 +15,13 @@ import androidx.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@IntDef({MeteringModeType.FOCUS, MeteringModeType.EXPOSURE, MeteringModeType.WHITE_BALANCE})
+@IntDef({
+    MeteringModeType.FOCUS, MeteringModeType.EXPOSURE, MeteringModeType.WHITE_BALANCE
+})
 @Retention(RetentionPolicy.SOURCE)
 public @interface MeteringModeType {
-    int FOCUS = 0;
-    int EXPOSURE = 1;
-    int WHITE_BALANCE = 2;
-    int NUM_ENTRIES = 3;
+  int FOCUS = 0;
+  int EXPOSURE = 1;
+  int WHITE_BALANCE = 2;
+  int NUM_ENTRIES = 3;
 }

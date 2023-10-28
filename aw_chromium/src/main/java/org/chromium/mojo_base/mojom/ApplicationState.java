@@ -17,10 +17,14 @@ import androidx.annotation.IntDef;
 
 public final class ApplicationState {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({ApplicationState.UNKNOWN, ApplicationState.HAS_RUNNING_ACTIVITIES, ApplicationState.HAS_PAUSED_ACTIVITIES, ApplicationState.HAS_STOPPED_ACTIVITIES, ApplicationState.HAS_DESTROYED_ACTIVITIES})
-    public @interface EnumType {
-    }
+        ApplicationState.UNKNOWN,
+        ApplicationState.HAS_RUNNING_ACTIVITIES,
+        ApplicationState.HAS_PAUSED_ACTIVITIES,
+        ApplicationState.HAS_STOPPED_ACTIVITIES,
+        ApplicationState.HAS_DESTROYED_ACTIVITIES})
+    public @interface EnumType {}
 
     public static final int UNKNOWN = 0;
     public static final int HAS_RUNNING_ACTIVITIES = 1;
@@ -40,9 +44,8 @@ public final class ApplicationState {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private ApplicationState() {
-    }
+    private ApplicationState() {}
 }

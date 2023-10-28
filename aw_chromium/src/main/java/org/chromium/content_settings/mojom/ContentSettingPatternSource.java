@@ -13,10 +13,13 @@
 
 package org.chromium.content_settings.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class ContentSettingPatternSource extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 64;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(64, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(64, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public ContentSettingsPattern primaryPattern;
     public ContentSettingsPattern secondaryPattern;
@@ -43,7 +46,8 @@ public final class ContentSettingPatternSource extends org.chromium.mojo.binding
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static ContentSettingPatternSource deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -57,33 +61,33 @@ public final class ContentSettingPatternSource extends org.chromium.mojo.binding
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new ContentSettingPatternSource(elementsOrVersion);
-            {
-
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                 result.primaryPattern = ContentSettingsPattern.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                 result.secondaryPattern = ContentSettingsPattern.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.settingValue = org.chromium.mojo_base.mojom.Value.decode(decoder0, 24);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(40, false);
                 result.metadata = RuleMetaData.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.source = decoder0.readString(48, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.incognito = decoder0.readBoolean(56, 0);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -95,17 +99,17 @@ public final class ContentSettingPatternSource extends org.chromium.mojo.binding
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.primaryPattern, 8, false);
-
+        
         encoder0.encode(this.secondaryPattern, 16, false);
-
+        
         encoder0.encode(this.settingValue, 24, false);
-
+        
         encoder0.encode(this.metadata, 40, false);
-
+        
         encoder0.encode(this.source, 48, false);
-
+        
         encoder0.encode(this.incognito, 56, 0);
     }
 }

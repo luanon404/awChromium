@@ -12,7 +12,7 @@ import org.jni_zero.NativeMethods;
  * A java wrapper for Parsed, GURL's internal parsed URI representation.
  */
 @JNINamespace("url")
-        /* package */ class Parsed {
+/* package */ class Parsed {
     /* package */ final int mSchemeBegin;
     /* package */ final int mSchemeLength;
     /* package */ final int mUsernameBegin;
@@ -32,13 +32,15 @@ import org.jni_zero.NativeMethods;
     private final Parsed mInnerUrl;
     private final boolean mPotentiallyDanglingMarkup;
 
-    /* package */
-    static Parsed createEmpty() {
+    /* package */ static Parsed createEmpty() {
         return new Parsed(0, -1, 0, -1, 0, -1, 0, -1, 0, -1, 0, -1, 0, -1, 0, -1, false, null);
     }
 
     @CalledByNative
-    private Parsed(int schemeBegin, int schemeLength, int usernameBegin, int usernameLength, int passwordBegin, int passwordLength, int hostBegin, int hostLength, int portBegin, int portLength, int pathBegin, int pathLength, int queryBegin, int queryLength, int refBegin, int refLength, boolean potentiallyDanglingMarkup, Parsed innerUrl) {
+    private Parsed(int schemeBegin, int schemeLength, int usernameBegin, int usernameLength,
+            int passwordBegin, int passwordLength, int hostBegin, int hostLength, int portBegin,
+            int portLength, int pathBegin, int pathLength, int queryBegin, int queryLength,
+            int refBegin, int refLength, boolean potentiallyDanglingMarkup, Parsed innerUrl) {
         mSchemeBegin = schemeBegin;
         mSchemeLength = schemeLength;
         mUsernameBegin = usernameBegin;
@@ -64,7 +66,10 @@ import org.jni_zero.NativeMethods;
         if (mInnerUrl != null) {
             inner = mInnerUrl.toNativeParsed();
         }
-        return ParsedJni.get().createNative(mSchemeBegin, mSchemeLength, mUsernameBegin, mUsernameLength, mPasswordBegin, mPasswordLength, mHostBegin, mHostLength, mPortBegin, mPortLength, mPathBegin, mPathLength, mQueryBegin, mQueryLength, mRefBegin, mRefLength, mPotentiallyDanglingMarkup, inner);
+        return ParsedJni.get().createNative(mSchemeBegin, mSchemeLength, mUsernameBegin,
+                mUsernameLength, mPasswordBegin, mPasswordLength, mHostBegin, mHostLength,
+                mPortBegin, mPortLength, mPathBegin, mPathLength, mQueryBegin, mQueryLength,
+                mRefBegin, mRefLength, mPotentiallyDanglingMarkup, inner);
     }
 
     /* package */ String serialize() {
@@ -93,8 +98,7 @@ import org.jni_zero.NativeMethods;
         return builder.toString();
     }
 
-    /* package */
-    static Parsed deserialize(String[] tokens, int startIndex) {
+    /* package */ static Parsed deserialize(String[] tokens, int startIndex) {
         int schemeBegin = Integer.parseInt(tokens[startIndex++]);
         int schemeLength = Integer.parseInt(tokens[startIndex++]);
         int usernameBegin = Integer.parseInt(tokens[startIndex++]);
@@ -116,7 +120,10 @@ import org.jni_zero.NativeMethods;
         if (Boolean.parseBoolean(tokens[startIndex++])) {
             innerParsed = Parsed.deserialize(tokens, startIndex);
         }
-        return new Parsed(schemeBegin, schemeLength, usernameBegin, usernameLength, passwordBegin, passwordLength, hostBegin, hostLength, portBegin, portLength, pathBegin, pathLength, queryBegin, queryLength, refBegin, refLength, potentiallyDanglingMarkup, innerParsed);
+        return new Parsed(schemeBegin, schemeLength, usernameBegin, usernameLength, passwordBegin,
+                passwordLength, hostBegin, hostLength, portBegin, portLength, pathBegin, pathLength,
+                queryBegin, queryLength, refBegin, refLength, potentiallyDanglingMarkup,
+                innerParsed);
     }
 
     @NativeMethods
@@ -124,6 +131,9 @@ import org.jni_zero.NativeMethods;
         /**
          * Create and return the pointer to a native Parsed.
          */
-        long createNative(int schemeBegin, int schemeLength, int usernameBegin, int usernameLength, int passwordBegin, int passwordLength, int hostBegin, int hostLength, int portBegin, int portLength, int pathBegin, int pathLength, int queryBegin, int queryLength, int refBegin, int refLength, boolean potentiallyDanglingMarkup, long innerUrl);
+        long createNative(int schemeBegin, int schemeLength, int usernameBegin, int usernameLength,
+                int passwordBegin, int passwordLength, int hostBegin, int hostLength, int portBegin,
+                int portLength, int pathBegin, int pathLength, int queryBegin, int queryLength,
+                int refBegin, int refLength, boolean potentiallyDanglingMarkup, long innerUrl);
     }
 }

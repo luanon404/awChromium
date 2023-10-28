@@ -13,9 +13,13 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 class GeolocationContext_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<GeolocationContext, GeolocationContext.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<GeolocationContext, GeolocationContext.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<GeolocationContext, GeolocationContext.Proxy> MANAGER =
+            new org.chromium.mojo.bindings.Interface.Manager<GeolocationContext, GeolocationContext.Proxy>() {
 
         @Override
         public String getName() {
@@ -24,11 +28,12 @@ class GeolocationContext_Internal {
 
         @Override
         public int getVersion() {
-            return 0;
+          return 0;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -39,7 +44,7 @@ class GeolocationContext_Internal {
 
         @Override
         public GeolocationContext[] buildArray(int size) {
-            return new GeolocationContext[size];
+          return new GeolocationContext[size];
         }
     };
 
@@ -55,13 +60,15 @@ class GeolocationContext_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements GeolocationContext.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core,
+              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void bindGeolocation(org.chromium.mojo.bindings.InterfaceRequest<Geolocation> receiver, org.chromium.url.mojom.Url requestingUrl) {
+        public void bindGeolocation(
+org.chromium.mojo.bindings.InterfaceRequest<Geolocation> receiver, org.chromium.url.mojom.Url requestingUrl) {
 
             GeolocationContextBindGeolocationParams _message = new GeolocationContextBindGeolocationParams();
 
@@ -70,44 +77,59 @@ class GeolocationContext_Internal {
             _message.requestingUrl = requestingUrl;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(BIND_GEOLOCATION_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(BIND_GEOLOCATION_ORDINAL)));
 
         }
 
 
         @Override
-        public void onPermissionRevoked(org.chromium.url.internal.mojom.Origin origin) {
+        public void onPermissionRevoked(
+org.chromium.url.internal.mojom.Origin origin) {
 
             GeolocationContextOnPermissionRevokedParams _message = new GeolocationContextOnPermissionRevokedParams();
 
             _message.origin = origin;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_PERMISSION_REVOKED_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_PERMISSION_REVOKED_ORDINAL)));
 
         }
 
 
         @Override
-        public void setOverride(GeopositionResult result) {
+        public void setOverride(
+GeopositionResult result) {
 
             GeolocationContextSetOverrideParams _message = new GeolocationContextSetOverrideParams();
 
             _message.result = result;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(SET_OVERRIDE_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(SET_OVERRIDE_ORDINAL)));
 
         }
 
 
         @Override
-        public void clearOverride() {
+        public void clearOverride(
+) {
 
             GeolocationContextClearOverrideParams _message = new GeolocationContextClearOverrideParams();
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(CLEAR_OVERRIDE_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(CLEAR_OVERRIDE_ORDINAL)));
 
         }
 
@@ -123,7 +145,8 @@ class GeolocationContext_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -132,37 +155,53 @@ class GeolocationContext_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(GeolocationContext_Internal.MANAGER, messageWithHeader);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
+                                GeolocationContext_Internal.MANAGER, messageWithHeader);
+
+
+
 
 
                     case BIND_GEOLOCATION_ORDINAL: {
 
-                        GeolocationContextBindGeolocationParams data = GeolocationContextBindGeolocationParams.deserialize(messageWithHeader.getPayload());
+                        GeolocationContextBindGeolocationParams data =
+                                GeolocationContextBindGeolocationParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().bindGeolocation(data.receiver, data.requestingUrl);
                         return true;
                     }
 
 
+
+
+
                     case ON_PERMISSION_REVOKED_ORDINAL: {
 
-                        GeolocationContextOnPermissionRevokedParams data = GeolocationContextOnPermissionRevokedParams.deserialize(messageWithHeader.getPayload());
+                        GeolocationContextOnPermissionRevokedParams data =
+                                GeolocationContextOnPermissionRevokedParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onPermissionRevoked(data.origin);
                         return true;
                     }
 
 
+
+
+
                     case SET_OVERRIDE_ORDINAL: {
 
-                        GeolocationContextSetOverrideParams data = GeolocationContextSetOverrideParams.deserialize(messageWithHeader.getPayload());
+                        GeolocationContextSetOverrideParams data =
+                                GeolocationContextSetOverrideParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().setOverride(data.result);
                         return true;
                     }
+
+
+
 
 
                     case CLEAR_OVERRIDE_ORDINAL: {
@@ -178,7 +217,7 @@ class GeolocationContext_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -186,7 +225,8 @@ class GeolocationContext_Internal {
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -195,27 +235,37 @@ class GeolocationContext_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), GeolocationContext_Internal.MANAGER, messageWithHeader, receiver);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
+                                getCore(), GeolocationContext_Internal.MANAGER, messageWithHeader, receiver);
+
+
+
+
+
+
+
+
 
 
                     default:
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class GeolocationContextBindGeolocationParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.mojo.bindings.InterfaceRequest<Geolocation> receiver;
         public org.chromium.url.mojom.Url requestingUrl;
@@ -238,7 +288,8 @@ class GeolocationContext_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static GeolocationContextBindGeolocationParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -252,15 +303,15 @@ class GeolocationContext_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new GeolocationContextBindGeolocationParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.receiver = decoder0.readInterfaceRequest(8, false);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                     result.requestingUrl = org.chromium.url.mojom.Url.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -272,18 +323,20 @@ class GeolocationContext_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.receiver, 8, false);
-
+            
             encoder0.encode(this.requestingUrl, 16, false);
         }
     }
 
 
+
+    
     static final class GeolocationContextOnPermissionRevokedParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.url.internal.mojom.Origin origin;
 
@@ -305,7 +358,8 @@ class GeolocationContext_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static GeolocationContextOnPermissionRevokedParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -319,11 +373,11 @@ class GeolocationContext_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new GeolocationContextOnPermissionRevokedParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.origin = org.chromium.url.internal.mojom.Origin.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -335,16 +389,18 @@ class GeolocationContext_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.origin, 8, false);
         }
     }
 
 
+
+    
     static final class GeolocationContextSetOverrideParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public GeopositionResult result;
 
@@ -366,7 +422,8 @@ class GeolocationContext_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static GeolocationContextSetOverrideParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -380,10 +437,10 @@ class GeolocationContext_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new GeolocationContextSetOverrideParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.result = GeopositionResult.decode(decoder0, 8);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -395,16 +452,18 @@ class GeolocationContext_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.result, 8, false);
         }
     }
 
 
+
+    
     static final class GeolocationContextClearOverrideParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 8;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(8, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(8, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
 
         private GeolocationContextClearOverrideParams(int version) {
@@ -425,7 +484,8 @@ class GeolocationContext_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static GeolocationContextClearOverrideParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -452,6 +512,7 @@ class GeolocationContext_Internal {
             encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
         }
     }
+
 
 
 }

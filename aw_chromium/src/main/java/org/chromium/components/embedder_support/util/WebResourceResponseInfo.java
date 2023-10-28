@@ -30,7 +30,8 @@ public class WebResourceResponseInfo {
         mData = data;
     }
 
-    public WebResourceResponseInfo(String mimeType, String encoding, InputStream data, int statusCode, String reasonPhrase, Map<String, String> responseHeaders) {
+    public WebResourceResponseInfo(String mimeType, String encoding, InputStream data,
+            int statusCode, String reasonPhrase, Map<String, String> responseHeaders) {
         this(mimeType, encoding, data);
 
         mStatusCode = statusCode;

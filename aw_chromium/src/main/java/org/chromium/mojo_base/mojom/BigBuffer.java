@@ -13,14 +13,16 @@
 
 package org.chromium.mojo_base.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class BigBuffer extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
         public static final int Bytes = 0;
         public static final int SharedMemory = 1;
         public static final int InvalidBuffer = 2;
-    }
-
+    };
     private byte[] mBytes;
     private BigBufferSharedMemoryRegion mSharedMemory;
     private boolean mInvalidBuffer;
@@ -62,17 +64,17 @@ public final class BigBuffer extends org.chromium.mojo.bindings.Union {
         encoder0.encode(this.mTag, offset + 4);
         switch (mTag) {
             case Tag.Bytes: {
-
+                
                 encoder0.encode(this.mBytes, offset + 8, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                 break;
             }
             case Tag.SharedMemory: {
-
+                
                 encoder0.encode(this.mSharedMemory, offset + 8, false);
                 break;
             }
             case Tag.InvalidBuffer: {
-
+                
                 encoder0.encode(this.mInvalidBuffer, offset + 8, 0);
                 break;
             }
@@ -94,20 +96,20 @@ public final class BigBuffer extends org.chromium.mojo.bindings.Union {
         BigBuffer result = new BigBuffer();
         switch (dataHeader.elementsOrVersion) {
             case Tag.Bytes: {
-
+                
                 result.mBytes = decoder0.readBytes(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                 result.mTag = Tag.Bytes;
                 break;
             }
             case Tag.SharedMemory: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mSharedMemory = BigBufferSharedMemoryRegion.decode(decoder1);
                 result.mTag = Tag.SharedMemory;
                 break;
             }
             case Tag.InvalidBuffer: {
-
+                
                 result.mInvalidBuffer = decoder0.readBoolean(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, 0);
                 result.mTag = Tag.InvalidBuffer;
                 break;

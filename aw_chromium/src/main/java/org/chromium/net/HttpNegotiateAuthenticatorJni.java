@@ -4,39 +4,69 @@
 package org.chromium.net;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.Manifest;
+import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.accounts.AccountManagerCallback;
+import android.accounts.AccountManagerFuture;
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
+import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Process;
+import androidx.annotation.VisibleForTesting;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.ApplicationStatus;
+import org.chromium.base.ContextUtils;
+import org.chromium.base.Log;
+import org.chromium.base.ThreadUtils;
+import java.io.IOException;
 
 @CheckDiscard("crbug.com/993421")
 class HttpNegotiateAuthenticatorJni implements HttpNegotiateAuthenticator.Natives {
-    private static HttpNegotiateAuthenticator.Natives testInstance;
+  private static HttpNegotiateAuthenticator.Natives testInstance;
 
-    public static final JniStaticTestMocker<HttpNegotiateAuthenticator.Natives> TEST_HOOKS = new JniStaticTestMocker<HttpNegotiateAuthenticator.Natives>() {
-        @Override
-        public void setInstanceForTesting(HttpNegotiateAuthenticator.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<HttpNegotiateAuthenticator.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<HttpNegotiateAuthenticator.Natives>() {
     @Override
-    public void setResult(long nativeJavaNegotiateResultWrapper, HttpNegotiateAuthenticator caller, int status, String authToken) {
-        GEN_JNI.org_chromium_net_HttpNegotiateAuthenticator_setResult(nativeJavaNegotiateResultWrapper, caller, status, authToken);
+    public void setInstanceForTesting(HttpNegotiateAuthenticator.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    public static HttpNegotiateAuthenticator.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of HttpNegotiateAuthenticator.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new HttpNegotiateAuthenticatorJni();
+  @Override
+  public void setResult(long nativeJavaNegotiateResultWrapper, HttpNegotiateAuthenticator caller, int status, String authToken) {
+    GEN_JNI.org_chromium_net_HttpNegotiateAuthenticator_setResult(nativeJavaNegotiateResultWrapper, caller, status, authToken);
+  }
+
+  public static HttpNegotiateAuthenticator.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of HttpNegotiateAuthenticator.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new HttpNegotiateAuthenticatorJni();
+  }
 }

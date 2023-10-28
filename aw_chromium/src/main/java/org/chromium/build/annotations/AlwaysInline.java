@@ -14,5 +14,4 @@ import java.lang.annotation.Target;
  */
 @Target({ElementType.CONSTRUCTOR, ElementType.METHOD})
 @Retention(RetentionPolicy.CLASS)
-public @interface AlwaysInline {
-}
+public @interface AlwaysInline {}

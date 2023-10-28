@@ -4,69 +4,81 @@
 package org.chromium.android_webview.gfx;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.graphics.Canvas;
+import android.view.ViewGroup;
+import androidx.annotation.VisibleForTesting;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.android_webview.AwContents;
+import org.chromium.android_webview.common.Lifetime;
 
 @CheckDiscard("crbug.com/993421")
 class AwGLFunctorJni implements AwGLFunctor.Natives {
-    private static AwGLFunctor.Natives testInstance;
+  private static AwGLFunctor.Natives testInstance;
 
-    public static final JniStaticTestMocker<AwGLFunctor.Natives> TEST_HOOKS = new JniStaticTestMocker<AwGLFunctor.Natives>() {
-        @Override
-        public void setInstanceForTesting(AwGLFunctor.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<AwGLFunctor.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<AwGLFunctor.Natives>() {
     @Override
-    public long create(AwGLFunctor javaProxy) {
-        return (long) GEN_JNI.org_chromium_android_1webview_gfx_AwGLFunctor_create(javaProxy);
+    public void setInstanceForTesting(AwGLFunctor.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public void deleteHardwareRenderer(long nativeAwGLFunctor, AwGLFunctor caller) {
-        GEN_JNI.org_chromium_android_1webview_gfx_AwGLFunctor_deleteHardwareRenderer(nativeAwGLFunctor, caller);
-    }
+  @Override
+  public long create(AwGLFunctor javaProxy) {
+    return (long) GEN_JNI.org_chromium_android_1webview_gfx_AwGLFunctor_create(javaProxy);
+  }
 
-    @Override
-    public void destroy(long nativeAwGLFunctor) {
-        GEN_JNI.org_chromium_android_1webview_gfx_AwGLFunctor_destroy(nativeAwGLFunctor);
-    }
+  @Override
+  public void deleteHardwareRenderer(long nativeAwGLFunctor, AwGLFunctor caller) {
+    GEN_JNI.org_chromium_android_1webview_gfx_AwGLFunctor_deleteHardwareRenderer(nativeAwGLFunctor, caller);
+  }
 
-    @Override
-    public long getAwDrawGLFunction() {
-        return (long) GEN_JNI.org_chromium_android_1webview_gfx_AwGLFunctor_getAwDrawGLFunction();
-    }
+  @Override
+  public void destroy(long nativeAwGLFunctor) {
+    GEN_JNI.org_chromium_android_1webview_gfx_AwGLFunctor_destroy(nativeAwGLFunctor);
+  }
 
-    @Override
-    public long getCompositorFrameConsumer(long nativeAwGLFunctor, AwGLFunctor caller) {
-        return (long) GEN_JNI.org_chromium_android_1webview_gfx_AwGLFunctor_getCompositorFrameConsumer(nativeAwGLFunctor, caller);
-    }
+  @Override
+  public long getAwDrawGLFunction() {
+    return (long) GEN_JNI.org_chromium_android_1webview_gfx_AwGLFunctor_getAwDrawGLFunction();
+  }
 
-    @Override
-    public int getNativeInstanceCount() {
-        return (int) GEN_JNI.org_chromium_android_1webview_gfx_AwGLFunctor_getNativeInstanceCount();
-    }
+  @Override
+  public long getCompositorFrameConsumer(long nativeAwGLFunctor, AwGLFunctor caller) {
+    return (long) GEN_JNI.org_chromium_android_1webview_gfx_AwGLFunctor_getCompositorFrameConsumer(nativeAwGLFunctor, caller);
+  }
 
-    @Override
-    public void removeFromCompositorFrameProducer(long nativeAwGLFunctor, AwGLFunctor caller) {
-        GEN_JNI.org_chromium_android_1webview_gfx_AwGLFunctor_removeFromCompositorFrameProducer(nativeAwGLFunctor, caller);
-    }
+  @Override
+  public int getNativeInstanceCount() {
+    return (int) GEN_JNI.org_chromium_android_1webview_gfx_AwGLFunctor_getNativeInstanceCount();
+  }
 
-    public static AwGLFunctor.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of AwGLFunctor.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new AwGLFunctorJni();
+  @Override
+  public void removeFromCompositorFrameProducer(long nativeAwGLFunctor, AwGLFunctor caller) {
+    GEN_JNI.org_chromium_android_1webview_gfx_AwGLFunctor_removeFromCompositorFrameProducer(nativeAwGLFunctor, caller);
+  }
+
+  public static AwGLFunctor.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of AwGLFunctor.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new AwGLFunctorJni();
+  }
 }

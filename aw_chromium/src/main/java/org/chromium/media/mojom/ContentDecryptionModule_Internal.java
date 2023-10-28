@@ -13,9 +13,13 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 class ContentDecryptionModule_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<ContentDecryptionModule, ContentDecryptionModule.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<ContentDecryptionModule, ContentDecryptionModule.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<ContentDecryptionModule, ContentDecryptionModule.Proxy> MANAGER =
+            new org.chromium.mojo.bindings.Interface.Manager<ContentDecryptionModule, ContentDecryptionModule.Proxy>() {
 
         @Override
         public String getName() {
@@ -24,11 +28,12 @@ class ContentDecryptionModule_Internal {
 
         @Override
         public int getVersion() {
-            return 0;
+          return 0;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -39,7 +44,7 @@ class ContentDecryptionModule_Internal {
 
         @Override
         public ContentDecryptionModule[] buildArray(int size) {
-            return new ContentDecryptionModule[size];
+          return new ContentDecryptionModule[size];
         }
     };
 
@@ -63,52 +68,77 @@ class ContentDecryptionModule_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements ContentDecryptionModule.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core,
+              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void setClient(org.chromium.mojo.bindings.AssociatedInterfaceNotSupported client) {
+        public void setClient(
+org.chromium.mojo.bindings.AssociatedInterfaceNotSupported client) {
 
             ContentDecryptionModuleSetClientParams _message = new ContentDecryptionModuleSetClientParams();
 
             _message.client = client;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(SET_CLIENT_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(SET_CLIENT_ORDINAL)));
 
         }
 
 
         @Override
-        public void setServerCertificate(byte[] certificateData, SetServerCertificate_Response callback) {
+        public void setServerCertificate(
+byte[] certificateData, 
+SetServerCertificate_Response callback) {
 
             ContentDecryptionModuleSetServerCertificateParams _message = new ContentDecryptionModuleSetServerCertificateParams();
 
             _message.certificateData = certificateData;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(SET_SERVER_CERTIFICATE_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new ContentDecryptionModuleSetServerCertificateResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    SET_SERVER_CERTIFICATE_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new ContentDecryptionModuleSetServerCertificateResponseParamsForwardToCallback(callback));
 
         }
 
 
         @Override
-        public void getStatusForPolicy(int minHdcpVersion, GetStatusForPolicy_Response callback) {
+        public void getStatusForPolicy(
+int minHdcpVersion, 
+GetStatusForPolicy_Response callback) {
 
             ContentDecryptionModuleGetStatusForPolicyParams _message = new ContentDecryptionModuleGetStatusForPolicyParams();
 
             _message.minHdcpVersion = minHdcpVersion;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(GET_STATUS_FOR_POLICY_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new ContentDecryptionModuleGetStatusForPolicyResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    GET_STATUS_FOR_POLICY_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new ContentDecryptionModuleGetStatusForPolicyResponseParamsForwardToCallback(callback));
 
         }
 
 
         @Override
-        public void createSessionAndGenerateRequest(int sessionType, int initDataType, byte[] initData, CreateSessionAndGenerateRequest_Response callback) {
+        public void createSessionAndGenerateRequest(
+int sessionType, int initDataType, byte[] initData, 
+CreateSessionAndGenerateRequest_Response callback) {
 
             ContentDecryptionModuleCreateSessionAndGenerateRequestParams _message = new ContentDecryptionModuleCreateSessionAndGenerateRequestParams();
 
@@ -119,13 +149,22 @@ class ContentDecryptionModule_Internal {
             _message.initData = initData;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(CREATE_SESSION_AND_GENERATE_REQUEST_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new ContentDecryptionModuleCreateSessionAndGenerateRequestResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    CREATE_SESSION_AND_GENERATE_REQUEST_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new ContentDecryptionModuleCreateSessionAndGenerateRequestResponseParamsForwardToCallback(callback));
 
         }
 
 
         @Override
-        public void loadSession(int sessionType, String sessionId, LoadSession_Response callback) {
+        public void loadSession(
+int sessionType, String sessionId, 
+LoadSession_Response callback) {
 
             ContentDecryptionModuleLoadSessionParams _message = new ContentDecryptionModuleLoadSessionParams();
 
@@ -134,13 +173,22 @@ class ContentDecryptionModule_Internal {
             _message.sessionId = sessionId;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(LOAD_SESSION_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new ContentDecryptionModuleLoadSessionResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    LOAD_SESSION_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new ContentDecryptionModuleLoadSessionResponseParamsForwardToCallback(callback));
 
         }
 
 
         @Override
-        public void updateSession(String sessionId, byte[] response, UpdateSession_Response callback) {
+        public void updateSession(
+String sessionId, byte[] response, 
+UpdateSession_Response callback) {
 
             ContentDecryptionModuleUpdateSessionParams _message = new ContentDecryptionModuleUpdateSessionParams();
 
@@ -149,33 +197,58 @@ class ContentDecryptionModule_Internal {
             _message.response = response;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(UPDATE_SESSION_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new ContentDecryptionModuleUpdateSessionResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    UPDATE_SESSION_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new ContentDecryptionModuleUpdateSessionResponseParamsForwardToCallback(callback));
 
         }
 
 
         @Override
-        public void closeSession(String sessionId, CloseSession_Response callback) {
+        public void closeSession(
+String sessionId, 
+CloseSession_Response callback) {
 
             ContentDecryptionModuleCloseSessionParams _message = new ContentDecryptionModuleCloseSessionParams();
 
             _message.sessionId = sessionId;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(CLOSE_SESSION_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new ContentDecryptionModuleCloseSessionResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    CLOSE_SESSION_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new ContentDecryptionModuleCloseSessionResponseParamsForwardToCallback(callback));
 
         }
 
 
         @Override
-        public void removeSession(String sessionId, RemoveSession_Response callback) {
+        public void removeSession(
+String sessionId, 
+RemoveSession_Response callback) {
 
             ContentDecryptionModuleRemoveSessionParams _message = new ContentDecryptionModuleRemoveSessionParams();
 
             _message.sessionId = sessionId;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(REMOVE_SESSION_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new ContentDecryptionModuleRemoveSessionResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    REMOVE_SESSION_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new ContentDecryptionModuleRemoveSessionResponseParamsForwardToCallback(callback));
 
         }
 
@@ -191,7 +264,8 @@ class ContentDecryptionModule_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -200,26 +274,45 @@ class ContentDecryptionModule_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(ContentDecryptionModule_Internal.MANAGER, messageWithHeader);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
+                                ContentDecryptionModule_Internal.MANAGER, messageWithHeader);
+
+
+
 
 
                     case SET_CLIENT_ORDINAL: {
 
-                        ContentDecryptionModuleSetClientParams data = ContentDecryptionModuleSetClientParams.deserialize(messageWithHeader.getPayload());
+                        ContentDecryptionModuleSetClientParams data =
+                                ContentDecryptionModuleSetClientParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().setClient(data.client);
                         return true;
                     }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                     default:
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -227,7 +320,8 @@ class ContentDecryptionModule_Internal {
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -236,69 +330,114 @@ class ContentDecryptionModule_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), ContentDecryptionModule_Internal.MANAGER, messageWithHeader, receiver);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
+                                getCore(), ContentDecryptionModule_Internal.MANAGER, messageWithHeader, receiver);
+
+
+
+
+
+
+
 
 
                     case SET_SERVER_CERTIFICATE_ORDINAL: {
 
-                        ContentDecryptionModuleSetServerCertificateParams data = ContentDecryptionModuleSetServerCertificateParams.deserialize(messageWithHeader.getPayload());
+                        ContentDecryptionModuleSetServerCertificateParams data =
+                                ContentDecryptionModuleSetServerCertificateParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().setServerCertificate(data.certificateData, new ContentDecryptionModuleSetServerCertificateResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
                     }
 
 
+
+
+
+
+
                     case GET_STATUS_FOR_POLICY_ORDINAL: {
 
-                        ContentDecryptionModuleGetStatusForPolicyParams data = ContentDecryptionModuleGetStatusForPolicyParams.deserialize(messageWithHeader.getPayload());
+                        ContentDecryptionModuleGetStatusForPolicyParams data =
+                                ContentDecryptionModuleGetStatusForPolicyParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().getStatusForPolicy(data.minHdcpVersion, new ContentDecryptionModuleGetStatusForPolicyResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
                     }
 
 
+
+
+
+
+
                     case CREATE_SESSION_AND_GENERATE_REQUEST_ORDINAL: {
 
-                        ContentDecryptionModuleCreateSessionAndGenerateRequestParams data = ContentDecryptionModuleCreateSessionAndGenerateRequestParams.deserialize(messageWithHeader.getPayload());
+                        ContentDecryptionModuleCreateSessionAndGenerateRequestParams data =
+                                ContentDecryptionModuleCreateSessionAndGenerateRequestParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().createSessionAndGenerateRequest(data.sessionType, data.initDataType, data.initData, new ContentDecryptionModuleCreateSessionAndGenerateRequestResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
                     }
 
 
+
+
+
+
+
                     case LOAD_SESSION_ORDINAL: {
 
-                        ContentDecryptionModuleLoadSessionParams data = ContentDecryptionModuleLoadSessionParams.deserialize(messageWithHeader.getPayload());
+                        ContentDecryptionModuleLoadSessionParams data =
+                                ContentDecryptionModuleLoadSessionParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().loadSession(data.sessionType, data.sessionId, new ContentDecryptionModuleLoadSessionResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
                     }
 
 
+
+
+
+
+
                     case UPDATE_SESSION_ORDINAL: {
 
-                        ContentDecryptionModuleUpdateSessionParams data = ContentDecryptionModuleUpdateSessionParams.deserialize(messageWithHeader.getPayload());
+                        ContentDecryptionModuleUpdateSessionParams data =
+                                ContentDecryptionModuleUpdateSessionParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().updateSession(data.sessionId, data.response, new ContentDecryptionModuleUpdateSessionResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
                     }
 
 
+
+
+
+
+
                     case CLOSE_SESSION_ORDINAL: {
 
-                        ContentDecryptionModuleCloseSessionParams data = ContentDecryptionModuleCloseSessionParams.deserialize(messageWithHeader.getPayload());
+                        ContentDecryptionModuleCloseSessionParams data =
+                                ContentDecryptionModuleCloseSessionParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().closeSession(data.sessionId, new ContentDecryptionModuleCloseSessionResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
                     }
 
 
+
+
+
+
+
                     case REMOVE_SESSION_ORDINAL: {
 
-                        ContentDecryptionModuleRemoveSessionParams data = ContentDecryptionModuleRemoveSessionParams.deserialize(messageWithHeader.getPayload());
+                        ContentDecryptionModuleRemoveSessionParams data =
+                                ContentDecryptionModuleRemoveSessionParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().removeSession(data.sessionId, new ContentDecryptionModuleRemoveSessionResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
@@ -309,17 +448,18 @@ class ContentDecryptionModule_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class ContentDecryptionModuleSetClientParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.mojo.bindings.AssociatedInterfaceNotSupported client;
 
@@ -341,7 +481,8 @@ class ContentDecryptionModule_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static ContentDecryptionModuleSetClientParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -355,10 +496,10 @@ class ContentDecryptionModule_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new ContentDecryptionModuleSetClientParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.client = decoder0.readAssociatedServiceInterfaceNotSupported(8, false);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -370,16 +511,18 @@ class ContentDecryptionModule_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.client, 8, false);
         }
     }
 
 
+
+    
     static final class ContentDecryptionModuleSetServerCertificateParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public byte[] certificateData;
 
@@ -401,7 +544,8 @@ class ContentDecryptionModule_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static ContentDecryptionModuleSetServerCertificateParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -415,10 +559,10 @@ class ContentDecryptionModule_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new ContentDecryptionModuleSetServerCertificateParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.certificateData = decoder0.readBytes(8, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -430,16 +574,18 @@ class ContentDecryptionModule_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.certificateData, 8, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
         }
     }
 
 
+
+    
     static final class ContentDecryptionModuleSetServerCertificateResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public CdmPromiseResult result;
 
@@ -461,7 +607,8 @@ class ContentDecryptionModule_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static ContentDecryptionModuleSetServerCertificateResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -475,11 +622,11 @@ class ContentDecryptionModule_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new ContentDecryptionModuleSetServerCertificateResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.result = CdmPromiseResult.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -491,12 +638,13 @@ class ContentDecryptionModule_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.result, 8, false);
         }
     }
 
-    static class ContentDecryptionModuleSetServerCertificateResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class ContentDecryptionModuleSetServerCertificateResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final ContentDecryptionModule.SetServerCertificate_Response mCallback;
 
         ContentDecryptionModuleSetServerCertificateResponseParamsForwardToCallback(ContentDecryptionModule.SetServerCertificate_Response callback) {
@@ -506,9 +654,11 @@ class ContentDecryptionModule_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(SET_SERVER_CERTIFICATE_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(SET_SERVER_CERTIFICATE_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -528,7 +678,10 @@ class ContentDecryptionModule_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        ContentDecryptionModuleSetServerCertificateResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        ContentDecryptionModuleSetServerCertificateResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -540,16 +693,24 @@ class ContentDecryptionModule_Internal {
 
             _response.result = result;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(SET_SERVER_CERTIFICATE_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    SET_SERVER_CERTIFICATE_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
 
 
+
+    
     static final class ContentDecryptionModuleGetStatusForPolicyParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int minHdcpVersion;
 
@@ -571,7 +732,8 @@ class ContentDecryptionModule_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static ContentDecryptionModuleGetStatusForPolicyParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -585,12 +747,12 @@ class ContentDecryptionModule_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new ContentDecryptionModuleGetStatusForPolicyParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.minHdcpVersion = decoder0.readInt(8);
-                    HdcpVersion.validate(result.minHdcpVersion);
-                    result.minHdcpVersion = HdcpVersion.toKnownValue(result.minHdcpVersion);
-                }
+                        HdcpVersion.validate(result.minHdcpVersion);
+                        result.minHdcpVersion = HdcpVersion.toKnownValue(result.minHdcpVersion);
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -602,16 +764,18 @@ class ContentDecryptionModule_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.minHdcpVersion, 8);
         }
     }
 
 
+
+    
     static final class ContentDecryptionModuleGetStatusForPolicyResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public CdmPromiseResult result;
         public int keyStatus;
@@ -634,7 +798,8 @@ class ContentDecryptionModule_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static ContentDecryptionModuleGetStatusForPolicyResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -648,17 +813,17 @@ class ContentDecryptionModule_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new ContentDecryptionModuleGetStatusForPolicyResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.result = CdmPromiseResult.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.keyStatus = decoder0.readInt(16);
-                    CdmKeyStatus.validate(result.keyStatus);
-                    result.keyStatus = CdmKeyStatus.toKnownValue(result.keyStatus);
-                }
+                        CdmKeyStatus.validate(result.keyStatus);
+                        result.keyStatus = CdmKeyStatus.toKnownValue(result.keyStatus);
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -670,14 +835,15 @@ class ContentDecryptionModule_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.result, 8, false);
-
+            
             encoder0.encode(this.keyStatus, 16);
         }
     }
 
-    static class ContentDecryptionModuleGetStatusForPolicyResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class ContentDecryptionModuleGetStatusForPolicyResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final ContentDecryptionModule.GetStatusForPolicy_Response mCallback;
 
         ContentDecryptionModuleGetStatusForPolicyResponseParamsForwardToCallback(ContentDecryptionModule.GetStatusForPolicy_Response callback) {
@@ -687,9 +853,11 @@ class ContentDecryptionModule_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(GET_STATUS_FOR_POLICY_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(GET_STATUS_FOR_POLICY_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -709,7 +877,10 @@ class ContentDecryptionModule_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        ContentDecryptionModuleGetStatusForPolicyResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        ContentDecryptionModuleGetStatusForPolicyResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -723,16 +894,24 @@ class ContentDecryptionModule_Internal {
 
             _response.keyStatus = keyStatus;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(GET_STATUS_FOR_POLICY_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    GET_STATUS_FOR_POLICY_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
 
 
+
+    
     static final class ContentDecryptionModuleCreateSessionAndGenerateRequestParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int sessionType;
         public int initDataType;
@@ -756,7 +935,8 @@ class ContentDecryptionModule_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static ContentDecryptionModuleCreateSessionAndGenerateRequestParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -770,22 +950,22 @@ class ContentDecryptionModule_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new ContentDecryptionModuleCreateSessionAndGenerateRequestParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.sessionType = decoder0.readInt(8);
-                    CdmSessionType.validate(result.sessionType);
-                    result.sessionType = CdmSessionType.toKnownValue(result.sessionType);
-                }
-                {
-
+                        CdmSessionType.validate(result.sessionType);
+                        result.sessionType = CdmSessionType.toKnownValue(result.sessionType);
+                    }
+                    {
+                        
                     result.initDataType = decoder0.readInt(12);
-                    EmeInitDataType.validate(result.initDataType);
-                    result.initDataType = EmeInitDataType.toKnownValue(result.initDataType);
-                }
-                {
-
+                        EmeInitDataType.validate(result.initDataType);
+                        result.initDataType = EmeInitDataType.toKnownValue(result.initDataType);
+                    }
+                    {
+                        
                     result.initData = decoder0.readBytes(16, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -797,20 +977,22 @@ class ContentDecryptionModule_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.sessionType, 8);
-
+            
             encoder0.encode(this.initDataType, 12);
-
+            
             encoder0.encode(this.initData, 16, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
         }
     }
 
 
+
+    
     static final class ContentDecryptionModuleCreateSessionAndGenerateRequestResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public CdmPromiseResult result;
         public String sessionId;
@@ -833,7 +1015,8 @@ class ContentDecryptionModule_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static ContentDecryptionModuleCreateSessionAndGenerateRequestResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -847,15 +1030,15 @@ class ContentDecryptionModule_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new ContentDecryptionModuleCreateSessionAndGenerateRequestResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.result = CdmPromiseResult.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.sessionId = decoder0.readString(16, false);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -867,14 +1050,15 @@ class ContentDecryptionModule_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.result, 8, false);
-
+            
             encoder0.encode(this.sessionId, 16, false);
         }
     }
 
-    static class ContentDecryptionModuleCreateSessionAndGenerateRequestResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class ContentDecryptionModuleCreateSessionAndGenerateRequestResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final ContentDecryptionModule.CreateSessionAndGenerateRequest_Response mCallback;
 
         ContentDecryptionModuleCreateSessionAndGenerateRequestResponseParamsForwardToCallback(ContentDecryptionModule.CreateSessionAndGenerateRequest_Response callback) {
@@ -884,9 +1068,11 @@ class ContentDecryptionModule_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(CREATE_SESSION_AND_GENERATE_REQUEST_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(CREATE_SESSION_AND_GENERATE_REQUEST_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -906,7 +1092,10 @@ class ContentDecryptionModule_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        ContentDecryptionModuleCreateSessionAndGenerateRequestResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        ContentDecryptionModuleCreateSessionAndGenerateRequestResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -920,16 +1109,24 @@ class ContentDecryptionModule_Internal {
 
             _response.sessionId = sessionId;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(CREATE_SESSION_AND_GENERATE_REQUEST_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    CREATE_SESSION_AND_GENERATE_REQUEST_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
 
 
+
+    
     static final class ContentDecryptionModuleLoadSessionParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int sessionType;
         public String sessionId;
@@ -952,7 +1149,8 @@ class ContentDecryptionModule_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static ContentDecryptionModuleLoadSessionParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -966,16 +1164,16 @@ class ContentDecryptionModule_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new ContentDecryptionModuleLoadSessionParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.sessionType = decoder0.readInt(8);
-                    CdmSessionType.validate(result.sessionType);
-                    result.sessionType = CdmSessionType.toKnownValue(result.sessionType);
-                }
-                {
-
+                        CdmSessionType.validate(result.sessionType);
+                        result.sessionType = CdmSessionType.toKnownValue(result.sessionType);
+                    }
+                    {
+                        
                     result.sessionId = decoder0.readString(16, false);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -987,18 +1185,20 @@ class ContentDecryptionModule_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.sessionType, 8);
-
+            
             encoder0.encode(this.sessionId, 16, false);
         }
     }
 
 
+
+    
     static final class ContentDecryptionModuleLoadSessionResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public CdmPromiseResult result;
         public String sessionId;
@@ -1021,7 +1221,8 @@ class ContentDecryptionModule_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static ContentDecryptionModuleLoadSessionResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1035,15 +1236,15 @@ class ContentDecryptionModule_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new ContentDecryptionModuleLoadSessionResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.result = CdmPromiseResult.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.sessionId = decoder0.readString(16, false);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1055,14 +1256,15 @@ class ContentDecryptionModule_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.result, 8, false);
-
+            
             encoder0.encode(this.sessionId, 16, false);
         }
     }
 
-    static class ContentDecryptionModuleLoadSessionResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class ContentDecryptionModuleLoadSessionResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final ContentDecryptionModule.LoadSession_Response mCallback;
 
         ContentDecryptionModuleLoadSessionResponseParamsForwardToCallback(ContentDecryptionModule.LoadSession_Response callback) {
@@ -1072,9 +1274,11 @@ class ContentDecryptionModule_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(LOAD_SESSION_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(LOAD_SESSION_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -1094,7 +1298,10 @@ class ContentDecryptionModule_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        ContentDecryptionModuleLoadSessionResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        ContentDecryptionModuleLoadSessionResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -1108,16 +1315,24 @@ class ContentDecryptionModule_Internal {
 
             _response.sessionId = sessionId;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(LOAD_SESSION_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    LOAD_SESSION_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
 
 
+
+    
     static final class ContentDecryptionModuleUpdateSessionParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public String sessionId;
         public byte[] response;
@@ -1140,7 +1355,8 @@ class ContentDecryptionModule_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static ContentDecryptionModuleUpdateSessionParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1154,14 +1370,14 @@ class ContentDecryptionModule_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new ContentDecryptionModuleUpdateSessionParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.sessionId = decoder0.readString(8, false);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.response = decoder0.readBytes(16, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1173,18 +1389,20 @@ class ContentDecryptionModule_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.sessionId, 8, false);
-
+            
             encoder0.encode(this.response, 16, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
         }
     }
 
 
+
+    
     static final class ContentDecryptionModuleUpdateSessionResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public CdmPromiseResult result;
 
@@ -1206,7 +1424,8 @@ class ContentDecryptionModule_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static ContentDecryptionModuleUpdateSessionResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1220,11 +1439,11 @@ class ContentDecryptionModule_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new ContentDecryptionModuleUpdateSessionResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.result = CdmPromiseResult.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1236,12 +1455,13 @@ class ContentDecryptionModule_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.result, 8, false);
         }
     }
 
-    static class ContentDecryptionModuleUpdateSessionResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class ContentDecryptionModuleUpdateSessionResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final ContentDecryptionModule.UpdateSession_Response mCallback;
 
         ContentDecryptionModuleUpdateSessionResponseParamsForwardToCallback(ContentDecryptionModule.UpdateSession_Response callback) {
@@ -1251,9 +1471,11 @@ class ContentDecryptionModule_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(UPDATE_SESSION_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(UPDATE_SESSION_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -1273,7 +1495,10 @@ class ContentDecryptionModule_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        ContentDecryptionModuleUpdateSessionResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        ContentDecryptionModuleUpdateSessionResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -1285,16 +1510,24 @@ class ContentDecryptionModule_Internal {
 
             _response.result = result;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(UPDATE_SESSION_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    UPDATE_SESSION_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
 
 
+
+    
     static final class ContentDecryptionModuleCloseSessionParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public String sessionId;
 
@@ -1316,7 +1549,8 @@ class ContentDecryptionModule_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static ContentDecryptionModuleCloseSessionParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1330,10 +1564,10 @@ class ContentDecryptionModule_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new ContentDecryptionModuleCloseSessionParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.sessionId = decoder0.readString(8, false);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1345,16 +1579,18 @@ class ContentDecryptionModule_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.sessionId, 8, false);
         }
     }
 
 
+
+    
     static final class ContentDecryptionModuleCloseSessionResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public CdmPromiseResult result;
 
@@ -1376,7 +1612,8 @@ class ContentDecryptionModule_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static ContentDecryptionModuleCloseSessionResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1390,11 +1627,11 @@ class ContentDecryptionModule_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new ContentDecryptionModuleCloseSessionResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.result = CdmPromiseResult.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1406,12 +1643,13 @@ class ContentDecryptionModule_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.result, 8, false);
         }
     }
 
-    static class ContentDecryptionModuleCloseSessionResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class ContentDecryptionModuleCloseSessionResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final ContentDecryptionModule.CloseSession_Response mCallback;
 
         ContentDecryptionModuleCloseSessionResponseParamsForwardToCallback(ContentDecryptionModule.CloseSession_Response callback) {
@@ -1421,9 +1659,11 @@ class ContentDecryptionModule_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(CLOSE_SESSION_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(CLOSE_SESSION_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -1443,7 +1683,10 @@ class ContentDecryptionModule_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        ContentDecryptionModuleCloseSessionResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        ContentDecryptionModuleCloseSessionResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -1455,16 +1698,24 @@ class ContentDecryptionModule_Internal {
 
             _response.result = result;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(CLOSE_SESSION_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    CLOSE_SESSION_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
 
 
+
+    
     static final class ContentDecryptionModuleRemoveSessionParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public String sessionId;
 
@@ -1486,7 +1737,8 @@ class ContentDecryptionModule_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static ContentDecryptionModuleRemoveSessionParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1500,10 +1752,10 @@ class ContentDecryptionModule_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new ContentDecryptionModuleRemoveSessionParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.sessionId = decoder0.readString(8, false);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1515,16 +1767,18 @@ class ContentDecryptionModule_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.sessionId, 8, false);
         }
     }
 
 
+
+    
     static final class ContentDecryptionModuleRemoveSessionResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public CdmPromiseResult result;
 
@@ -1546,7 +1800,8 @@ class ContentDecryptionModule_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static ContentDecryptionModuleRemoveSessionResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1560,11 +1815,11 @@ class ContentDecryptionModule_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new ContentDecryptionModuleRemoveSessionResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.result = CdmPromiseResult.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1576,12 +1831,13 @@ class ContentDecryptionModule_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.result, 8, false);
         }
     }
 
-    static class ContentDecryptionModuleRemoveSessionResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class ContentDecryptionModuleRemoveSessionResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final ContentDecryptionModule.RemoveSession_Response mCallback;
 
         ContentDecryptionModuleRemoveSessionResponseParamsForwardToCallback(ContentDecryptionModule.RemoveSession_Response callback) {
@@ -1591,9 +1847,11 @@ class ContentDecryptionModule_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(REMOVE_SESSION_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(REMOVE_SESSION_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -1613,7 +1871,10 @@ class ContentDecryptionModule_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        ContentDecryptionModuleRemoveSessionResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        ContentDecryptionModuleRemoveSessionResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -1625,10 +1886,17 @@ class ContentDecryptionModule_Internal {
 
             _response.result = result;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(REMOVE_SESSION_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    REMOVE_SESSION_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
+
 
 
 }

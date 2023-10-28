@@ -13,40 +13,44 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface SmartCardContext extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends SmartCardContext, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends SmartCardContext, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<SmartCardContext, SmartCardContext.Proxy> MANAGER = SmartCardContext_Internal.MANAGER;
 
     void listReaders(
 
-            ListReaders_Response callback);
+ListReaders_Response callback);
 
-    interface ListReaders_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<SmartCardListReadersResult> {
-    }
+    interface ListReaders_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<SmartCardListReadersResult> { }
 
 
-    void getStatusChange(org.chromium.mojo_base.mojom.TimeDelta timeout, SmartCardReaderStateIn[] readerStates, GetStatusChange_Response callback);
+    void getStatusChange(
+org.chromium.mojo_base.mojom.TimeDelta timeout, SmartCardReaderStateIn[] readerStates, 
+GetStatusChange_Response callback);
 
-    interface GetStatusChange_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<SmartCardStatusChangeResult> {
-    }
+    interface GetStatusChange_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<SmartCardStatusChangeResult> { }
 
 
     void cancel(
 
-            Cancel_Response callback);
+Cancel_Response callback);
 
-    interface Cancel_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<SmartCardResult> {
-    }
+    interface Cancel_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<SmartCardResult> { }
 
 
-    void connect(String reader, int shareMode, SmartCardProtocols preferredProtocols, Connect_Response callback);
+    void connect(
+String reader, int shareMode, SmartCardProtocols preferredProtocols, 
+Connect_Response callback);
 
-    interface Connect_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<SmartCardConnectResult> {
-    }
+    interface Connect_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<SmartCardConnectResult> { }
 
 
 }

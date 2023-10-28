@@ -13,10 +13,13 @@
 
 package org.chromium.gfx.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class GpuMemoryBufferHandle extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 40;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(40, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(40, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public GpuMemoryBufferId id;
     public int offset;
@@ -41,7 +44,8 @@ public final class GpuMemoryBufferHandle extends org.chromium.mojo.bindings.Stru
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static GpuMemoryBufferHandle deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -55,23 +59,23 @@ public final class GpuMemoryBufferHandle extends org.chromium.mojo.bindings.Stru
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new GpuMemoryBufferHandle(elementsOrVersion);
-            {
-
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                 result.id = GpuMemoryBufferId.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.offset = decoder0.readInt(16);
-            }
-            {
-
+                }
+                {
+                    
                 result.stride = decoder0.readInt(20);
-            }
-            {
-
+                }
+                {
+                    
                 result.platformHandle = GpuMemoryBufferPlatformHandle.decode(decoder0, 24);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -83,13 +87,13 @@ public final class GpuMemoryBufferHandle extends org.chromium.mojo.bindings.Stru
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.id, 8, false);
-
+        
         encoder0.encode(this.offset, 16);
-
+        
         encoder0.encode(this.stride, 20);
-
+        
         encoder0.encode(this.platformHandle, 24, true);
     }
 }

@@ -3,52 +3,68 @@
 //
 package org.chromium.ui.resources;
 
-import android.graphics.Bitmap;
-
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.util.SparseArray;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.ui.base.WindowAndroid;
+import org.chromium.ui.display.DisplayAndroid;
+import org.chromium.ui.resources.ResourceLoader.ResourceLoaderCallback;
+import org.chromium.ui.resources.dynamics.BitmapDynamicResource;
+import org.chromium.ui.resources.dynamics.DynamicResourceLoader;
+import org.chromium.ui.resources.statics.StaticResourceLoader;
+import org.chromium.ui.resources.system.SystemResourceLoader;
 
 @CheckDiscard("crbug.com/993421")
 class ResourceManagerJni implements ResourceManager.Natives {
-    private static ResourceManager.Natives testInstance;
+  private static ResourceManager.Natives testInstance;
 
-    public static final JniStaticTestMocker<ResourceManager.Natives> TEST_HOOKS = new JniStaticTestMocker<>() {
-        @Override
-        public void setInstanceForTesting(ResourceManager.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<ResourceManager.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<ResourceManager.Natives>() {
     @Override
-    public void clearTintedResourceCache(long nativeResourceManagerImpl, ResourceManager caller) {
-        GEN_JNI.org_chromium_ui_resources_ResourceManager_clearTintedResourceCache(nativeResourceManagerImpl, caller);
+    public void setInstanceForTesting(ResourceManager.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public void onResourceReady(long nativeResourceManagerImpl, ResourceManager caller, int resType, int resId, Bitmap bitmap, int width, int height, long nativeResource) {
-        GEN_JNI.org_chromium_ui_resources_ResourceManager_onResourceReady(nativeResourceManagerImpl, caller, resType, resId, bitmap, width, height, nativeResource);
-    }
+  @Override
+  public void clearTintedResourceCache(long nativeResourceManagerImpl, ResourceManager caller) {
+    GEN_JNI.org_chromium_ui_resources_ResourceManager_clearTintedResourceCache(nativeResourceManagerImpl, caller);
+  }
 
-    @Override
-    public void removeResource(long nativeResourceManagerImpl, ResourceManager caller, int resType, int resId) {
-        GEN_JNI.org_chromium_ui_resources_ResourceManager_removeResource(nativeResourceManagerImpl, caller, resType, resId);
-    }
+  @Override
+  public void onResourceReady(long nativeResourceManagerImpl, ResourceManager caller, int resType, int resId, Bitmap bitmap, int width, int height, long nativeResource) {
+    GEN_JNI.org_chromium_ui_resources_ResourceManager_onResourceReady(nativeResourceManagerImpl, caller, resType, resId, bitmap, width, height, nativeResource);
+  }
 
-    public static ResourceManager.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of ResourceManager.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new ResourceManagerJni();
+  @Override
+  public void removeResource(long nativeResourceManagerImpl, ResourceManager caller, int resType, int resId) {
+    GEN_JNI.org_chromium_ui_resources_ResourceManager_removeResource(nativeResourceManagerImpl, caller, resType, resId);
+  }
+
+  public static ResourceManager.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of ResourceManager.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new ResourceManagerJni();
+  }
 }

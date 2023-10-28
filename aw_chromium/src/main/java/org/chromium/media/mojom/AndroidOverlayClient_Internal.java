@@ -13,9 +13,13 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 class AndroidOverlayClient_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<AndroidOverlayClient, AndroidOverlayClient.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<AndroidOverlayClient, AndroidOverlayClient.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<AndroidOverlayClient, AndroidOverlayClient.Proxy> MANAGER =
+            new org.chromium.mojo.bindings.Interface.Manager<AndroidOverlayClient, AndroidOverlayClient.Proxy>() {
 
         @Override
         public String getName() {
@@ -24,11 +28,12 @@ class AndroidOverlayClient_Internal {
 
         @Override
         public int getVersion() {
-            return 0;
+          return 0;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -39,7 +44,7 @@ class AndroidOverlayClient_Internal {
 
         @Override
         public AndroidOverlayClient[] buildArray(int size) {
-            return new AndroidOverlayClient[size];
+          return new AndroidOverlayClient[size];
         }
     };
 
@@ -55,31 +60,40 @@ class AndroidOverlayClient_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements AndroidOverlayClient.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core,
+              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void onSurfaceReady(long surfaceKey) {
+        public void onSurfaceReady(
+long surfaceKey) {
 
             AndroidOverlayClientOnSurfaceReadyParams _message = new AndroidOverlayClientOnSurfaceReadyParams();
 
             _message.surfaceKey = surfaceKey;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_SURFACE_READY_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_SURFACE_READY_ORDINAL)));
 
         }
 
 
         @Override
-        public void onDestroyed() {
+        public void onDestroyed(
+) {
 
             AndroidOverlayClientOnDestroyedParams _message = new AndroidOverlayClientOnDestroyedParams();
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_DESTROYED_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_DESTROYED_ORDINAL)));
 
         }
 
@@ -87,25 +101,36 @@ class AndroidOverlayClient_Internal {
         @Override
         public void onSynchronouslyDestroyed(
 
-                OnSynchronouslyDestroyed_Response callback) {
+OnSynchronouslyDestroyed_Response callback) {
 
             AndroidOverlayClientOnSynchronouslyDestroyedParams _message = new AndroidOverlayClientOnSynchronouslyDestroyedParams();
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_SYNCHRONOUSLY_DESTROYED_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new AndroidOverlayClientOnSynchronouslyDestroyedResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    ON_SYNCHRONOUSLY_DESTROYED_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new AndroidOverlayClientOnSynchronouslyDestroyedResponseParamsForwardToCallback(callback));
 
         }
 
 
         @Override
-        public void onPowerEfficientState(boolean isPowerEfficient) {
+        public void onPowerEfficientState(
+boolean isPowerEfficient) {
 
             AndroidOverlayClientOnPowerEfficientStateParams _message = new AndroidOverlayClientOnPowerEfficientStateParams();
 
             _message.isPowerEfficient = isPowerEfficient;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_POWER_EFFICIENT_STATE_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_POWER_EFFICIENT_STATE_ORDINAL)));
 
         }
 
@@ -121,7 +146,8 @@ class AndroidOverlayClient_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -130,19 +156,27 @@ class AndroidOverlayClient_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(AndroidOverlayClient_Internal.MANAGER, messageWithHeader);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
+                                AndroidOverlayClient_Internal.MANAGER, messageWithHeader);
+
+
+
 
 
                     case ON_SURFACE_READY_ORDINAL: {
 
-                        AndroidOverlayClientOnSurfaceReadyParams data = AndroidOverlayClientOnSurfaceReadyParams.deserialize(messageWithHeader.getPayload());
+                        AndroidOverlayClientOnSurfaceReadyParams data =
+                                AndroidOverlayClientOnSurfaceReadyParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onSurfaceReady(data.surfaceKey);
                         return true;
                     }
+
+
+
 
 
                     case ON_DESTROYED_ORDINAL: {
@@ -154,9 +188,15 @@ class AndroidOverlayClient_Internal {
                     }
 
 
+
+
+
+
+
                     case ON_POWER_EFFICIENT_STATE_ORDINAL: {
 
-                        AndroidOverlayClientOnPowerEfficientStateParams data = AndroidOverlayClientOnPowerEfficientStateParams.deserialize(messageWithHeader.getPayload());
+                        AndroidOverlayClientOnPowerEfficientStateParams data =
+                                AndroidOverlayClientOnPowerEfficientStateParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onPowerEfficientState(data.isPowerEfficient);
                         return true;
@@ -167,7 +207,7 @@ class AndroidOverlayClient_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -175,7 +215,8 @@ class AndroidOverlayClient_Internal {
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -184,10 +225,20 @@ class AndroidOverlayClient_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), AndroidOverlayClient_Internal.MANAGER, messageWithHeader, receiver);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
+                                getCore(), AndroidOverlayClient_Internal.MANAGER, messageWithHeader, receiver);
+
+
+
+
+
+
+
+
+
 
 
                     case ON_SYNCHRONOUSLY_DESTROYED_ORDINAL: {
@@ -199,21 +250,24 @@ class AndroidOverlayClient_Internal {
                     }
 
 
+
+
                     default:
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class AndroidOverlayClientOnSurfaceReadyParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public long surfaceKey;
 
@@ -235,7 +289,8 @@ class AndroidOverlayClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static AndroidOverlayClientOnSurfaceReadyParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -249,10 +304,10 @@ class AndroidOverlayClient_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new AndroidOverlayClientOnSurfaceReadyParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.surfaceKey = decoder0.readLong(8);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -264,16 +319,18 @@ class AndroidOverlayClient_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.surfaceKey, 8);
         }
     }
 
 
+
+    
     static final class AndroidOverlayClientOnDestroyedParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 8;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(8, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(8, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
 
         private AndroidOverlayClientOnDestroyedParams(int version) {
@@ -294,7 +351,8 @@ class AndroidOverlayClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static AndroidOverlayClientOnDestroyedParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -323,10 +381,12 @@ class AndroidOverlayClient_Internal {
     }
 
 
+
+    
     static final class AndroidOverlayClientOnSynchronouslyDestroyedParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 8;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(8, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(8, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
 
         private AndroidOverlayClientOnSynchronouslyDestroyedParams(int version) {
@@ -347,7 +407,8 @@ class AndroidOverlayClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static AndroidOverlayClientOnSynchronouslyDestroyedParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -376,10 +437,12 @@ class AndroidOverlayClient_Internal {
     }
 
 
+
+    
     static final class AndroidOverlayClientOnSynchronouslyDestroyedResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 8;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(8, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(8, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
 
         private AndroidOverlayClientOnSynchronouslyDestroyedResponseParams(int version) {
@@ -400,7 +463,8 @@ class AndroidOverlayClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static AndroidOverlayClientOnSynchronouslyDestroyedResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -428,7 +492,8 @@ class AndroidOverlayClient_Internal {
         }
     }
 
-    static class AndroidOverlayClientOnSynchronouslyDestroyedResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class AndroidOverlayClientOnSynchronouslyDestroyedResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final AndroidOverlayClient.OnSynchronouslyDestroyed_Response mCallback;
 
         AndroidOverlayClientOnSynchronouslyDestroyedResponseParamsForwardToCallback(AndroidOverlayClient.OnSynchronouslyDestroyed_Response callback) {
@@ -438,9 +503,11 @@ class AndroidOverlayClient_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(ON_SYNCHRONOUSLY_DESTROYED_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG | org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
+                if (!header.validateHeader(ON_SYNCHRONOUSLY_DESTROYED_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG| org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
                     return false;
                 }
 
@@ -458,7 +525,10 @@ class AndroidOverlayClient_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        AndroidOverlayClientOnSynchronouslyDestroyedResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        AndroidOverlayClientOnSynchronouslyDestroyedResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -468,16 +538,24 @@ class AndroidOverlayClient_Internal {
         public void call() {
             AndroidOverlayClientOnSynchronouslyDestroyedResponseParams _response = new AndroidOverlayClientOnSynchronouslyDestroyedResponseParams();
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(ON_SYNCHRONOUSLY_DESTROYED_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG | org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    ON_SYNCHRONOUSLY_DESTROYED_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG| org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
 
 
+
+    
     static final class AndroidOverlayClientOnPowerEfficientStateParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public boolean isPowerEfficient;
 
@@ -499,7 +577,8 @@ class AndroidOverlayClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static AndroidOverlayClientOnPowerEfficientStateParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -513,10 +592,10 @@ class AndroidOverlayClient_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new AndroidOverlayClientOnPowerEfficientStateParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.isPowerEfficient = decoder0.readBoolean(8, 0);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -528,10 +607,11 @@ class AndroidOverlayClient_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.isPowerEfficient, 8, 0);
         }
     }
+
 
 
 }

@@ -13,10 +13,13 @@
 
 package org.chromium.gfx.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class HdrMetadata extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 40;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(40, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(40, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public HdrMetadataSmpteSt2086 smpteSt2086;
     public HdrMetadataCta8613 cta8613;
@@ -41,7 +44,8 @@ public final class HdrMetadata extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static HdrMetadata deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -55,26 +59,26 @@ public final class HdrMetadata extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new HdrMetadata(elementsOrVersion);
-            {
-
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, true);
                 result.smpteSt2086 = HdrMetadataSmpteSt2086.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, true);
                 result.cta8613 = HdrMetadataCta8613.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, true);
                 result.ndwl = HdrMetadataNdwl.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(32, true);
                 result.extendedRange = HdrMetadataExtendedRange.decode(decoder1);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -86,13 +90,13 @@ public final class HdrMetadata extends org.chromium.mojo.bindings.Struct {
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.smpteSt2086, 8, true);
-
+        
         encoder0.encode(this.cta8613, 16, true);
-
+        
         encoder0.encode(this.ndwl, 24, true);
-
+        
         encoder0.encode(this.extendedRange, 32, true);
     }
 }

@@ -13,17 +13,19 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface IdleManager extends org.chromium.mojo.bindings.Interface {
 
 
     
-    int USER_INPUT_THRESHOLD_MS = (int) 60000;
+    public static final int USER_INPUT_THRESHOLD_MS = (int) 60000;
 
 
 
 
-    interface Proxy extends IdleManager, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends IdleManager, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<IdleManager, IdleManager.Proxy> MANAGER = IdleManager_Internal.MANAGER;

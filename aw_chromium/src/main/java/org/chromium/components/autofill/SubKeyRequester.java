@@ -6,11 +6,12 @@ package org.chromium.components.autofill;
 
 import android.text.format.DateUtils;
 
-import org.chromium.base.ResettersForTesting;
-import org.chromium.base.ThreadUtils;
 import org.jni_zero.CalledByNative;
 import org.jni_zero.JNINamespace;
 import org.jni_zero.NativeMethods;
+
+import org.chromium.base.ResettersForTesting;
+import org.chromium.base.ThreadUtils;
 
 /**
  * A class used handle SubKey requests.
@@ -58,16 +59,15 @@ public class SubKeyRequester {
      * {@code sRequestTimeoutSeconds}, the {@code delegate} will be notified.
      *
      * @param regionCode The code of the region for which to load the subkeys.
-     * @param delegate   The object requesting the subkeys.
+     * @param delegate The object requesting the subkeys.
      */
     public void getRegionSubKeys(String regionCode, GetSubKeysRequestDelegate delegate) {
         ThreadUtils.assertOnUiThread();
-        SubKeyRequesterJni.get().startRegionSubKeysRequest(mNativePtr, regionCode, sRequestTimeoutSeconds, delegate);
+        SubKeyRequesterJni.get().startRegionSubKeysRequest(
+                mNativePtr, regionCode, sRequestTimeoutSeconds, delegate);
     }
 
-    /**
-     * Cancels the pending subkeys request.
-     */
+    /** Cancels the pending subkeys request. */
     public void cancelPendingGetSubKeys() {
         ThreadUtils.assertOnUiThread();
         SubKeyRequesterJni.get().cancelPendingGetSubKeys(mNativePtr);
@@ -89,9 +89,8 @@ public class SubKeyRequester {
     @NativeMethods
     interface Natives {
         void loadRulesForSubKeys(long nativeSubKeyRequester, String regionCode);
-
-        void startRegionSubKeysRequest(long nativeSubKeyRequester, String regionCode, int timeoutSeconds, GetSubKeysRequestDelegate delegate);
-
+        void startRegionSubKeysRequest(long nativeSubKeyRequester, String regionCode,
+                int timeoutSeconds, GetSubKeysRequestDelegate delegate);
         void cancelPendingGetSubKeys(long nativeSubKeyRequester);
     }
 }

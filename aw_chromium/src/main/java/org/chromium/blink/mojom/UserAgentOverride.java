@@ -13,6 +13,8 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public final class UserAgentOverride extends org.chromium.mojo.bindings.Struct {
 

@@ -25,11 +25,14 @@ public class HistogramsAllowlist {
     private final Set<Long> mHistogramNameHashes;
 
     public HistogramsAllowlist() {
-        assert AwFeatureMap.isEnabled(AwFeatures.WEBVIEW_METRICS_FILTERING) : "HistogramsAllowlist must not be initialized if metrics filtering is not enabled";
+        assert AwFeatureMap.isEnabled(AwFeatures.WEBVIEW_METRICS_FILTERING)
+            : "HistogramsAllowlist must not be initialized if metrics filtering is not enabled";
         Context appContext = ContextUtils.getApplicationContext();
-        InputStream inputStream = appContext.getResources().openRawResource(R.raw.histograms_allowlist);
+        InputStream inputStream =
+                appContext.getResources().openRawResource(R.raw.histograms_allowlist);
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-        mHistogramNameHashes = reader.lines().map(AwMetricsUtils::hashHistogramName).collect(Collectors.toSet());
+        mHistogramNameHashes =
+                reader.lines().map(AwMetricsUtils::hashHistogramName).collect(Collectors.toSet());
     }
 
     public boolean contains(Long histogramNameHash) {

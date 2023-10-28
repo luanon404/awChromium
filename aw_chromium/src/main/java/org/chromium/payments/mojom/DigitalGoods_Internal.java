@@ -13,9 +13,13 @@
 
 package org.chromium.payments.mojom;
 
+import androidx.annotation.IntDef;
+
+
 class DigitalGoods_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<DigitalGoods, DigitalGoods.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<DigitalGoods, DigitalGoods.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<DigitalGoods, DigitalGoods.Proxy> MANAGER =
+            new org.chromium.mojo.bindings.Interface.Manager<DigitalGoods, DigitalGoods.Proxy>() {
 
         @Override
         public String getName() {
@@ -24,11 +28,12 @@ class DigitalGoods_Internal {
 
         @Override
         public int getVersion() {
-            return 0;
+          return 0;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -39,7 +44,7 @@ class DigitalGoods_Internal {
 
         @Override
         public DigitalGoods[] buildArray(int size) {
-            return new DigitalGoods[size];
+          return new DigitalGoods[size];
         }
     };
 
@@ -55,20 +60,30 @@ class DigitalGoods_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements DigitalGoods.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core,
+              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void getDetails(String[] itemIds, GetDetails_Response callback) {
+        public void getDetails(
+String[] itemIds, 
+GetDetails_Response callback) {
 
             DigitalGoodsGetDetailsParams _message = new DigitalGoodsGetDetailsParams();
 
             _message.itemIds = itemIds;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(GET_DETAILS_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new DigitalGoodsGetDetailsResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    GET_DETAILS_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new DigitalGoodsGetDetailsResponseParamsForwardToCallback(callback));
 
         }
 
@@ -76,12 +91,19 @@ class DigitalGoods_Internal {
         @Override
         public void listPurchases(
 
-                ListPurchases_Response callback) {
+ListPurchases_Response callback) {
 
             DigitalGoodsListPurchasesParams _message = new DigitalGoodsListPurchasesParams();
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(LIST_PURCHASES_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new DigitalGoodsListPurchasesResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    LIST_PURCHASES_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new DigitalGoodsListPurchasesResponseParamsForwardToCallback(callback));
 
         }
 
@@ -89,25 +111,41 @@ class DigitalGoods_Internal {
         @Override
         public void listPurchaseHistory(
 
-                ListPurchaseHistory_Response callback) {
+ListPurchaseHistory_Response callback) {
 
             DigitalGoodsListPurchaseHistoryParams _message = new DigitalGoodsListPurchaseHistoryParams();
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(LIST_PURCHASE_HISTORY_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new DigitalGoodsListPurchaseHistoryResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    LIST_PURCHASE_HISTORY_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new DigitalGoodsListPurchaseHistoryResponseParamsForwardToCallback(callback));
 
         }
 
 
         @Override
-        public void consume(String purchaseToken, Consume_Response callback) {
+        public void consume(
+String purchaseToken, 
+Consume_Response callback) {
 
             DigitalGoodsConsumeParams _message = new DigitalGoodsConsumeParams();
 
             _message.purchaseToken = purchaseToken;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(CONSUME_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new DigitalGoodsConsumeResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    CONSUME_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new DigitalGoodsConsumeResponseParamsForwardToCallback(callback));
 
         }
 
@@ -123,7 +161,8 @@ class DigitalGoods_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -132,17 +171,26 @@ class DigitalGoods_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(DigitalGoods_Internal.MANAGER, messageWithHeader);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
+                                DigitalGoods_Internal.MANAGER, messageWithHeader);
+
+
+
+
+
+
+
+
 
 
                     default:
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -150,7 +198,8 @@ class DigitalGoods_Internal {
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -159,19 +208,31 @@ class DigitalGoods_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), DigitalGoods_Internal.MANAGER, messageWithHeader, receiver);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
+                                getCore(), DigitalGoods_Internal.MANAGER, messageWithHeader, receiver);
+
+
+
+
+
 
 
                     case GET_DETAILS_ORDINAL: {
 
-                        DigitalGoodsGetDetailsParams data = DigitalGoodsGetDetailsParams.deserialize(messageWithHeader.getPayload());
+                        DigitalGoodsGetDetailsParams data =
+                                DigitalGoodsGetDetailsParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().getDetails(data.itemIds, new DigitalGoodsGetDetailsResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
                     }
+
+
+
+
+
 
 
                     case LIST_PURCHASES_ORDINAL: {
@@ -183,6 +244,11 @@ class DigitalGoods_Internal {
                     }
 
 
+
+
+
+
+
                     case LIST_PURCHASE_HISTORY_ORDINAL: {
 
                         DigitalGoodsListPurchaseHistoryParams.deserialize(messageWithHeader.getPayload());
@@ -192,9 +258,15 @@ class DigitalGoods_Internal {
                     }
 
 
+
+
+
+
+
                     case CONSUME_ORDINAL: {
 
-                        DigitalGoodsConsumeParams data = DigitalGoodsConsumeParams.deserialize(messageWithHeader.getPayload());
+                        DigitalGoodsConsumeParams data =
+                                DigitalGoodsConsumeParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().consume(data.purchaseToken, new DigitalGoodsConsumeResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
@@ -205,17 +277,18 @@ class DigitalGoods_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class DigitalGoodsGetDetailsParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public String[] itemIds;
 
@@ -237,7 +310,8 @@ class DigitalGoods_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static DigitalGoodsGetDetailsParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -251,18 +325,18 @@ class DigitalGoods_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new DigitalGoodsGetDetailsParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     {
                         org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                         result.itemIds = new String[si1.elementsOrVersion];
                         for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                            
                             result.itemIds[i1] = decoder1.readString(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                         }
                     }
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -274,13 +348,13 @@ class DigitalGoods_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             if (this.itemIds == null) {
                 encoder0.encodeNullPointer(8, false);
             } else {
                 org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.itemIds.length, 8, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                 for (int i0 = 0; i0 < this.itemIds.length; ++i0) {
-
+                    
                     encoder1.encode(this.itemIds[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
                 }
             }
@@ -288,10 +362,12 @@ class DigitalGoods_Internal {
     }
 
 
+
+    
     static final class DigitalGoodsGetDetailsResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int code;
         public ItemDetails[] itemDetailsList;
@@ -314,7 +390,8 @@ class DigitalGoods_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static DigitalGoodsGetDetailsResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -328,25 +405,25 @@ class DigitalGoods_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new DigitalGoodsGetDetailsResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.code = decoder0.readInt(8);
-                    BillingResponseCode.validate(result.code);
-                    result.code = BillingResponseCode.toKnownValue(result.code);
-                }
-                {
-
+                        BillingResponseCode.validate(result.code);
+                        result.code = BillingResponseCode.toKnownValue(result.code);
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                     {
                         org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                         result.itemDetailsList = new ItemDetails[si1.elementsOrVersion];
                         for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                            
                             org.chromium.mojo.bindings.Decoder decoder2 = decoder1.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                             result.itemDetailsList[i1] = ItemDetails.decode(decoder2);
                         }
                     }
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -358,22 +435,23 @@ class DigitalGoods_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.code, 8);
-
+            
             if (this.itemDetailsList == null) {
                 encoder0.encodeNullPointer(16, false);
             } else {
                 org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.itemDetailsList.length, 16, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                 for (int i0 = 0; i0 < this.itemDetailsList.length; ++i0) {
-
+                    
                     encoder1.encode(this.itemDetailsList[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
                 }
             }
         }
     }
 
-    static class DigitalGoodsGetDetailsResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class DigitalGoodsGetDetailsResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final DigitalGoods.GetDetails_Response mCallback;
 
         DigitalGoodsGetDetailsResponseParamsForwardToCallback(DigitalGoods.GetDetails_Response callback) {
@@ -383,9 +461,11 @@ class DigitalGoods_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(GET_DETAILS_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(GET_DETAILS_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -405,7 +485,10 @@ class DigitalGoods_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        DigitalGoodsGetDetailsResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        DigitalGoodsGetDetailsResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -419,16 +502,24 @@ class DigitalGoods_Internal {
 
             _response.itemDetailsList = itemDetailsList;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(GET_DETAILS_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    GET_DETAILS_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
 
 
+
+    
     static final class DigitalGoodsListPurchasesParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 8;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(8, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(8, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
 
         private DigitalGoodsListPurchasesParams(int version) {
@@ -449,7 +540,8 @@ class DigitalGoods_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static DigitalGoodsListPurchasesParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -478,10 +570,12 @@ class DigitalGoods_Internal {
     }
 
 
+
+    
     static final class DigitalGoodsListPurchasesResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int code;
         public PurchaseReference[] purchaseReferenceList;
@@ -504,7 +598,8 @@ class DigitalGoods_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static DigitalGoodsListPurchasesResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -518,25 +613,25 @@ class DigitalGoods_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new DigitalGoodsListPurchasesResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.code = decoder0.readInt(8);
-                    BillingResponseCode.validate(result.code);
-                    result.code = BillingResponseCode.toKnownValue(result.code);
-                }
-                {
-
+                        BillingResponseCode.validate(result.code);
+                        result.code = BillingResponseCode.toKnownValue(result.code);
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                     {
                         org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                         result.purchaseReferenceList = new PurchaseReference[si1.elementsOrVersion];
                         for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                            
                             org.chromium.mojo.bindings.Decoder decoder2 = decoder1.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                             result.purchaseReferenceList[i1] = PurchaseReference.decode(decoder2);
                         }
                     }
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -548,22 +643,23 @@ class DigitalGoods_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.code, 8);
-
+            
             if (this.purchaseReferenceList == null) {
                 encoder0.encodeNullPointer(16, false);
             } else {
                 org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.purchaseReferenceList.length, 16, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                 for (int i0 = 0; i0 < this.purchaseReferenceList.length; ++i0) {
-
+                    
                     encoder1.encode(this.purchaseReferenceList[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
                 }
             }
         }
     }
 
-    static class DigitalGoodsListPurchasesResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class DigitalGoodsListPurchasesResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final DigitalGoods.ListPurchases_Response mCallback;
 
         DigitalGoodsListPurchasesResponseParamsForwardToCallback(DigitalGoods.ListPurchases_Response callback) {
@@ -573,9 +669,11 @@ class DigitalGoods_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(LIST_PURCHASES_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(LIST_PURCHASES_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -595,7 +693,10 @@ class DigitalGoods_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        DigitalGoodsListPurchasesResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        DigitalGoodsListPurchasesResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -609,16 +710,24 @@ class DigitalGoods_Internal {
 
             _response.purchaseReferenceList = purchaseReferenceList;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(LIST_PURCHASES_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    LIST_PURCHASES_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
 
 
+
+    
     static final class DigitalGoodsListPurchaseHistoryParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 8;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(8, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(8, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
 
         private DigitalGoodsListPurchaseHistoryParams(int version) {
@@ -639,7 +748,8 @@ class DigitalGoods_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static DigitalGoodsListPurchaseHistoryParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -668,10 +778,12 @@ class DigitalGoods_Internal {
     }
 
 
+
+    
     static final class DigitalGoodsListPurchaseHistoryResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int code;
         public PurchaseReference[] purchaseReferenceList;
@@ -694,7 +806,8 @@ class DigitalGoods_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static DigitalGoodsListPurchaseHistoryResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -708,25 +821,25 @@ class DigitalGoods_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new DigitalGoodsListPurchaseHistoryResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.code = decoder0.readInt(8);
-                    BillingResponseCode.validate(result.code);
-                    result.code = BillingResponseCode.toKnownValue(result.code);
-                }
-                {
-
+                        BillingResponseCode.validate(result.code);
+                        result.code = BillingResponseCode.toKnownValue(result.code);
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                     {
                         org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                         result.purchaseReferenceList = new PurchaseReference[si1.elementsOrVersion];
                         for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                            
                             org.chromium.mojo.bindings.Decoder decoder2 = decoder1.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                             result.purchaseReferenceList[i1] = PurchaseReference.decode(decoder2);
                         }
                     }
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -738,22 +851,23 @@ class DigitalGoods_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.code, 8);
-
+            
             if (this.purchaseReferenceList == null) {
                 encoder0.encodeNullPointer(16, false);
             } else {
                 org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.purchaseReferenceList.length, 16, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                 for (int i0 = 0; i0 < this.purchaseReferenceList.length; ++i0) {
-
+                    
                     encoder1.encode(this.purchaseReferenceList[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
                 }
             }
         }
     }
 
-    static class DigitalGoodsListPurchaseHistoryResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class DigitalGoodsListPurchaseHistoryResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final DigitalGoods.ListPurchaseHistory_Response mCallback;
 
         DigitalGoodsListPurchaseHistoryResponseParamsForwardToCallback(DigitalGoods.ListPurchaseHistory_Response callback) {
@@ -763,9 +877,11 @@ class DigitalGoods_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(LIST_PURCHASE_HISTORY_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(LIST_PURCHASE_HISTORY_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -785,7 +901,10 @@ class DigitalGoods_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        DigitalGoodsListPurchaseHistoryResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        DigitalGoodsListPurchaseHistoryResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -799,16 +918,24 @@ class DigitalGoods_Internal {
 
             _response.purchaseReferenceList = purchaseReferenceList;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(LIST_PURCHASE_HISTORY_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    LIST_PURCHASE_HISTORY_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
 
 
+
+    
     static final class DigitalGoodsConsumeParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public String purchaseToken;
 
@@ -830,7 +957,8 @@ class DigitalGoods_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static DigitalGoodsConsumeParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -844,10 +972,10 @@ class DigitalGoods_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new DigitalGoodsConsumeParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.purchaseToken = decoder0.readString(8, false);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -859,16 +987,18 @@ class DigitalGoods_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.purchaseToken, 8, false);
         }
     }
 
 
+
+    
     static final class DigitalGoodsConsumeResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int code;
 
@@ -890,7 +1020,8 @@ class DigitalGoods_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static DigitalGoodsConsumeResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -904,12 +1035,12 @@ class DigitalGoods_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new DigitalGoodsConsumeResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.code = decoder0.readInt(8);
-                    BillingResponseCode.validate(result.code);
-                    result.code = BillingResponseCode.toKnownValue(result.code);
-                }
+                        BillingResponseCode.validate(result.code);
+                        result.code = BillingResponseCode.toKnownValue(result.code);
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -921,12 +1052,13 @@ class DigitalGoods_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.code, 8);
         }
     }
 
-    static class DigitalGoodsConsumeResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class DigitalGoodsConsumeResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final DigitalGoods.Consume_Response mCallback;
 
         DigitalGoodsConsumeResponseParamsForwardToCallback(DigitalGoods.Consume_Response callback) {
@@ -936,9 +1068,11 @@ class DigitalGoods_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(CONSUME_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(CONSUME_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -958,7 +1092,10 @@ class DigitalGoods_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        DigitalGoodsConsumeResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        DigitalGoodsConsumeResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -970,10 +1107,17 @@ class DigitalGoods_Internal {
 
             _response.code = code;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(CONSUME_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    CONSUME_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
+
 
 
 }

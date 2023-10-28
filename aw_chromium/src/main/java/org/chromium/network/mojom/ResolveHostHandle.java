@@ -13,15 +13,20 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface ResolveHostHandle extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends ResolveHostHandle, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends ResolveHostHandle, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<ResolveHostHandle, ResolveHostHandle.Proxy> MANAGER = ResolveHostHandle_Internal.MANAGER;
 
-    void cancel(int result);
+    void cancel(
+int result);
 
 
 }

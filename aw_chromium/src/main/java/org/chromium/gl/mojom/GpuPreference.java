@@ -17,10 +17,13 @@ import androidx.annotation.IntDef;
 
 public final class GpuPreference {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({GpuPreference.NONE, GpuPreference.DEFAULT, GpuPreference.LOW_POWER, GpuPreference.HIGH_PERFORMANCE})
-    public @interface EnumType {
-    }
+        GpuPreference.NONE,
+        GpuPreference.DEFAULT,
+        GpuPreference.LOW_POWER,
+        GpuPreference.HIGH_PERFORMANCE})
+    public @interface EnumType {}
 
     public static final int NONE = 0;
     public static final int DEFAULT = 1;
@@ -39,9 +42,8 @@ public final class GpuPreference {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private GpuPreference() {
-    }
+    private GpuPreference() {}
 }

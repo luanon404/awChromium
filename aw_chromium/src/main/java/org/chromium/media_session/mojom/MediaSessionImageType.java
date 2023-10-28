@@ -17,10 +17,11 @@ import androidx.annotation.IntDef;
 
 public final class MediaSessionImageType {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({MediaSessionImageType.ARTWORK, MediaSessionImageType.SOURCE_ICON})
-    public @interface EnumType {
-    }
+        MediaSessionImageType.ARTWORK,
+        MediaSessionImageType.SOURCE_ICON})
+    public @interface EnumType {}
 
     public static final int ARTWORK = 0;
     public static final int SOURCE_ICON = 1;
@@ -37,9 +38,8 @@ public final class MediaSessionImageType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private MediaSessionImageType() {
-    }
+    private MediaSessionImageType() {}
 }

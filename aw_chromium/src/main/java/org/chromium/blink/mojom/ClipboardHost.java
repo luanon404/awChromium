@@ -13,22 +13,24 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface ClipboardHost extends org.chromium.mojo.bindings.Interface {
 
 
     
-    int MAX_FORMAT_SIZE = (int) 1024;
+    public static final int MAX_FORMAT_SIZE = (int) 1024;
 
 
 
     
-    int MAX_DATA_SIZE = (int) 1073741824;
+    public static final int MAX_DATA_SIZE = (int) 1073741824;
 
 
 
 
-    interface Proxy extends ClipboardHost, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends ClipboardHost, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<ClipboardHost, ClipboardHost.Proxy> MANAGER = ClipboardHost_Internal.MANAGER;

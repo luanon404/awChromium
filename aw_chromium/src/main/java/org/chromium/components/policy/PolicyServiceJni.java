@@ -4,54 +4,64 @@
 package org.chromium.components.policy;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeClassQualifiedName;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.Log;
+import org.chromium.base.ObserverList;
 
 @CheckDiscard("crbug.com/993421")
 public class PolicyServiceJni implements PolicyService.Natives {
-    private static PolicyService.Natives testInstance;
+  private static PolicyService.Natives testInstance;
 
-    public static final JniStaticTestMocker<PolicyService.Natives> TEST_HOOKS = new JniStaticTestMocker<PolicyService.Natives>() {
-        @Override
-        public void setInstanceForTesting(PolicyService.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<PolicyService.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<PolicyService.Natives>() {
     @Override
-    public void addObserver(long nativePolicyService, PolicyService caller) {
-        GEN_JNI.org_chromium_components_policy_PolicyService_addObserver(nativePolicyService, caller);
+    public void setInstanceForTesting(PolicyService.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public PolicyMap getPolicies(long nativePolicyService, PolicyService caller) {
-        return (PolicyMap) GEN_JNI.org_chromium_components_policy_PolicyService_getPolicies(nativePolicyService, caller);
-    }
+  @Override
+  public void addObserver(long nativePolicyService, PolicyService caller) {
+    GEN_JNI.org_chromium_components_policy_PolicyService_addObserver(nativePolicyService, caller);
+  }
 
-    @Override
-    public boolean isInitializationComplete(long nativePolicyService, PolicyService caller) {
-        return (boolean) GEN_JNI.org_chromium_components_policy_PolicyService_isInitializationComplete(nativePolicyService, caller);
-    }
+  @Override
+  public PolicyMap getPolicies(long nativePolicyService, PolicyService caller) {
+    return (PolicyMap) GEN_JNI.org_chromium_components_policy_PolicyService_getPolicies(nativePolicyService, caller);
+  }
 
-    @Override
-    public void removeObserver(long nativePolicyService, PolicyService caller) {
-        GEN_JNI.org_chromium_components_policy_PolicyService_removeObserver(nativePolicyService, caller);
-    }
+  @Override
+  public boolean isInitializationComplete(long nativePolicyService, PolicyService caller) {
+    return (boolean) GEN_JNI.org_chromium_components_policy_PolicyService_isInitializationComplete(nativePolicyService, caller);
+  }
 
-    public static PolicyService.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of PolicyService.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new PolicyServiceJni();
+  @Override
+  public void removeObserver(long nativePolicyService, PolicyService caller) {
+    GEN_JNI.org_chromium_components_policy_PolicyService_removeObserver(nativePolicyService, caller);
+  }
+
+  public static PolicyService.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of PolicyService.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new PolicyServiceJni();
+  }
 }

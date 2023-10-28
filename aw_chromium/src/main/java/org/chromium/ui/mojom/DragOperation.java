@@ -17,10 +17,13 @@ import androidx.annotation.IntDef;
 
 public final class DragOperation {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({DragOperation.NONE, DragOperation.COPY, DragOperation.LINK, DragOperation.MOVE})
-    public @interface EnumType {
-    }
+        DragOperation.NONE,
+        DragOperation.COPY,
+        DragOperation.LINK,
+        DragOperation.MOVE})
+    public @interface EnumType {}
 
     public static final int NONE = 0;
     public static final int COPY = 1;
@@ -46,9 +49,8 @@ public final class DragOperation {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private DragOperation() {
-    }
+    private DragOperation() {}
 }

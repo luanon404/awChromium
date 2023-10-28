@@ -31,7 +31,8 @@ import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 import androidx.annotation.VisibleForTesting;
 
-import org.chromium.android_webview.R;
+import org.jni_zero.JNINamespace;
+
 import org.chromium.base.ApiCompatibilityUtils;
 import org.chromium.base.ContextUtils;
 import org.chromium.base.StreamUtil;
@@ -43,9 +44,9 @@ import org.chromium.base.compat.ApiHelperForS;
 import org.chromium.base.metrics.RecordUserAction;
 import org.chromium.base.task.AsyncTask;
 import org.chromium.components.url_formatter.UrlFormatter;
+import org.chromium.android_webview.R;
 import org.chromium.ui.widget.Toast;
 import org.chromium.url.GURL;
-import org.jni_zero.JNINamespace;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
@@ -57,7 +58,8 @@ import java.util.Locale;
  * Simple proxy that provides C++ code with an access pathway to the Android clipboard.
  */
 @JNINamespace("ui")
-public class ClipboardImpl extends Clipboard implements ClipboardManager.OnPrimaryClipChangedListener {
+public class ClipboardImpl
+        extends Clipboard implements ClipboardManager.OnPrimaryClipChangedListener {
     private static final float CONFIDENCE_THRESHOLD_FOR_URL_DETECTION = 0.99f;
 
     private static final long MAX_ALLOWED_PNG_SIZE_BYTES = (long) 100e6; // 100 MB.
@@ -97,7 +99,10 @@ public class ClipboardImpl extends Clipboard implements ClipboardManager.OnPrima
         // getPrimaryClip() has been observed to throw unexpected exceptions for some devices (see
         // crbug.com/654802 and b/31501780)
         try {
-            return mClipboardManager.getPrimaryClip().getItemAt(0).coerceToText(mContext).toString();
+            return mClipboardManager.getPrimaryClip()
+                    .getItemAt(0)
+                    .coerceToText(mContext)
+                    .toString();
         } catch (Exception e) {
             return null;
         }
@@ -115,11 +120,14 @@ public class ClipboardImpl extends Clipboard implements ClipboardManager.OnPrima
             return !TextUtils.isEmpty(getCoercedText());
         }
 
-        return description.hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN) || description.hasMimeType(ClipDescription.MIMETYPE_TEXT_HTML) || description.hasMimeType(URL_MIME_TYPE);
+        return description.hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN)
+                || description.hasMimeType(ClipDescription.MIMETYPE_TEXT_HTML)
+                || description.hasMimeType(URL_MIME_TYPE);
     }
 
     private boolean hasStyleSpan(Spanned spanned) {
-        Class<?>[] styleClasses = {CharacterStyle.class, ParagraphStyle.class, UpdateAppearance.class};
+        Class<?>[] styleClasses = {
+                CharacterStyle.class, ParagraphStyle.class, UpdateAppearance.class};
         for (Class<?> clazz : styleClasses) {
             if (spanned.nextSpanTransition(-1, spanned.length(), clazz) < spanned.length()) {
                 return true;
@@ -164,7 +172,8 @@ public class ClipboardImpl extends Clipboard implements ClipboardManager.OnPrima
         if (description == null) return false;
 
         boolean isPlainType = description.hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN);
-        return (isPlainType && hasStyledText(description)) || description.hasMimeType(ClipDescription.MIMETYPE_TEXT_HTML);
+        return (isPlainType && hasStyledText(description))
+                || description.hasMimeType(ClipDescription.MIMETYPE_TEXT_HTML);
     }
 
     @Override
@@ -179,7 +188,8 @@ public class ClipboardImpl extends Clipboard implements ClipboardManager.OnPrima
             // Only use TextClassifier on text mime type.
             // If getClassificationStatus() is not CLASSIFICATION_COMPLETE,
             // ClipDescription#getConfidenceScore will trows exception.
-            if (!description.hasMimeType(TEXT_MIME_TYPE) || !ApiHelperForS.isGetClassificationStatusIsComplete(description)) {
+            if (!description.hasMimeType(TEXT_MIME_TYPE)
+                    || !ApiHelperForS.isGetClassificationStatusIsComplete(description)) {
                 return false;
             }
 
@@ -230,7 +240,8 @@ public class ClipboardImpl extends Clipboard implements ClipboardManager.OnPrima
         // crbug.com/654802).
         try {
             ClipData clipData = mClipboardManager.getPrimaryClip();
-            if (clipData == null || clipData.getItemCount() == 0 || !hasImageMimeType(clipData.getDescription())) {
+            if (clipData == null || clipData.getItemCount() == 0
+                    || !hasImageMimeType(clipData.getDescription())) {
                 return null;
             }
 
@@ -244,7 +255,8 @@ public class ClipboardImpl extends Clipboard implements ClipboardManager.OnPrima
     public @Nullable Uri getImageUriIfSharedByThisApp() {
         if (mImageFileProvider == null) return null;
 
-        ImageFileProvider.ClipboardFileMetadata imageMetadata = mImageFileProvider.getLastCopiedImageMetadata();
+        ImageFileProvider.ClipboardFileMetadata imageMetadata =
+                mImageFileProvider.getLastCopiedImageMetadata();
         if (imageMetadata == null || imageMetadata.uri == null) return null;
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
@@ -258,7 +270,8 @@ public class ClipboardImpl extends Clipboard implements ClipboardManager.OnPrima
         }
 
         long clipboardTimeStamp = getImageTimestamp();
-        if (clipboardTimeStamp == ImageFileProvider.ClipboardFileMetadata.INVALID_TIMESTAMP || mImageFileProvider == null) {
+        if (clipboardTimeStamp == ImageFileProvider.ClipboardFileMetadata.INVALID_TIMESTAMP
+                || mImageFileProvider == null) {
             return null;
         }
 
@@ -309,7 +322,8 @@ public class ClipboardImpl extends Clipboard implements ClipboardManager.OnPrima
         // The image is a PNG. Read and return the raw bytes.
         FileInputStream fileStream = null;
         try (AssetFileDescriptor afd = cr.openAssetFileDescriptor(uri, "r")) {
-            if (afd == null || afd.getLength() > MAX_ALLOWED_PNG_SIZE_BYTES || afd.getLength() == AssetFileDescriptor.UNKNOWN_LENGTH) {
+            if (afd == null || afd.getLength() > MAX_ALLOWED_PNG_SIZE_BYTES
+                    || afd.getLength() == AssetFileDescriptor.UNKNOWN_LENGTH) {
                 return null;
             }
             byte[] data = new byte[(int) afd.getLength()];
@@ -330,7 +344,10 @@ public class ClipboardImpl extends Clipboard implements ClipboardManager.OnPrima
     }
 
     private static boolean hasImageMimeType(ClipDescription description) {
-        return (description != null) && (description.hasMimeType("image/*") || (sSkipImageMimeTypeCheckForTesting != null && sSkipImageMimeTypeCheckForTesting));
+        return (description != null)
+                && (description.hasMimeType("image/*")
+                        || (sSkipImageMimeTypeCheckForTesting != null
+                                && sSkipImageMimeTypeCheckForTesting));
     }
 
     /**
@@ -403,9 +420,9 @@ public class ClipboardImpl extends Clipboard implements ClipboardManager.OnPrima
         new AsyncTask<ClipData>() {
             @Override
             protected ClipData doInBackground() {
-                return ClipData.newUri(ContextUtils.getApplicationContext().getContentResolver(), "image", uri);
+                return ClipData.newUri(
+                        ContextUtils.getApplicationContext().getContentResolver(), "image", uri);
             }
-
             @Override
             protected void onPostExecute(ClipData clipData) {
                 if (setPrimaryClipNoException(clipData) && notifyOnSuccess) {
@@ -422,9 +439,11 @@ public class ClipboardImpl extends Clipboard implements ClipboardManager.OnPrima
                 long imageTimestamp = getImageTimestamp();
 
                 if (mImageFileProvider == null) {
-                    mPendingCopiedImageMetadata = new ImageFileProvider.ClipboardFileMetadata(uri, imageTimestamp);
+                    mPendingCopiedImageMetadata =
+                            new ImageFileProvider.ClipboardFileMetadata(uri, imageTimestamp);
                 } else {
-                    mImageFileProvider.storeLastCopiedImageMetadata(new ImageFileProvider.ClipboardFileMetadata(uri, imageTimestamp));
+                    mImageFileProvider.storeLastCopiedImageMetadata(
+                            new ImageFileProvider.ClipboardFileMetadata(uri, imageTimestamp));
                 }
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -438,9 +457,8 @@ public class ClipboardImpl extends Clipboard implements ClipboardManager.OnPrima
             return;
         }
 
-        mImageFileProvider.storeImageAndGenerateUri(imageData, extension, (Uri uri) -> {
-            setImageUri(uri);
-        });
+        mImageFileProvider.storeImageAndGenerateUri(
+                imageData, extension, (Uri uri) -> { setImageUri(uri); });
     }
 
     @Override
@@ -466,7 +484,9 @@ public class ClipboardImpl extends Clipboard implements ClipboardManager.OnPrima
         final String manufacturer = Build.MANUFACTURER.toLowerCase(Locale.US);
         // See crbug.com/1123727, there are OEM devices having strict mode violations in their
         // Android framework code. Disabling strict mode for non-google devices.
-        try (StrictModeContext ignored = manufacturer.equals("google") ? null : StrictModeContext.allowAllThreadPolicies()) {
+        try (StrictModeContext ignored = manufacturer.equals("google")
+                        ? null
+                        : StrictModeContext.allowAllThreadPolicies()) {
             mClipboardManager.setPrimaryClip(clip);
             return true;
         } catch (Exception ex) {
@@ -493,7 +513,7 @@ public class ClipboardImpl extends Clipboard implements ClipboardManager.OnPrima
 
     /**
      * Tells the C++ Clipboard that the clipboard has changed.
-     * <p>
+     *
      * Implements OnPrimaryClipChangedListener to listen for clipboard updates.
      */
     @Override
@@ -505,7 +525,8 @@ public class ClipboardImpl extends Clipboard implements ClipboardManager.OnPrima
 
     @Override
     public void copyUrlToClipboard(GURL url) {
-        ClipData clip = new ClipData("url", new String[]{URL_MIME_TYPE, PLAIN_TEXT_MIME_TYPE}, new ClipData.Item(url.getSpec()));
+        ClipData clip = new ClipData("url", new String[] {URL_MIME_TYPE, PLAIN_TEXT_MIME_TYPE},
+                new ClipData.Item(url.getSpec()));
         if (setPrimaryClipNoException(clip)) {
             showToastIfNeeded(R.string.link_copied);
         }
@@ -541,13 +562,16 @@ public class ClipboardImpl extends Clipboard implements ClipboardManager.OnPrima
      */
     @SuppressWarnings("QueryPermissionsNeeded")
     private void grantUriPermission(@NonNull Uri uri) {
-        if ((Build.VERSION.SDK_INT != Build.VERSION_CODES.O && Build.VERSION.SDK_INT != Build.VERSION_CODES.O_MR1) || mImageFileProvider == null) {
+        if ((Build.VERSION.SDK_INT != Build.VERSION_CODES.O
+                    && Build.VERSION.SDK_INT != Build.VERSION_CODES.O_MR1)
+                || mImageFileProvider == null) {
             return;
         }
 
         List<PackageInfo> installedPackages = mContext.getPackageManager().getInstalledPackages(0);
         for (PackageInfo installedPackage : installedPackages) {
-            mContext.grantUriPermission(installedPackage.packageName, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            mContext.grantUriPermission(
+                    installedPackage.packageName, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
         }
     }
 
@@ -556,7 +580,8 @@ public class ClipboardImpl extends Clipboard implements ClipboardManager.OnPrima
      * Android O.
      */
     private void revokeUriPermissionForLastSharedImage() {
-        if (Build.VERSION.SDK_INT != Build.VERSION_CODES.O && Build.VERSION.SDK_INT != Build.VERSION_CODES.O_MR1) {
+        if (Build.VERSION.SDK_INT != Build.VERSION_CODES.O
+                && Build.VERSION.SDK_INT != Build.VERSION_CODES.O_MR1) {
             return;
         }
 
@@ -571,10 +596,12 @@ public class ClipboardImpl extends Clipboard implements ClipboardManager.OnPrima
             return;
         }
 
-        ImageFileProvider.ClipboardFileMetadata imageMetadata = mImageFileProvider.getLastCopiedImageMetadata();
+        ImageFileProvider.ClipboardFileMetadata imageMetadata =
+                mImageFileProvider.getLastCopiedImageMetadata();
         // Exit early if the URI is empty or event onPrimaryClipChanges was caused by sharing
         // image.
-        if (imageMetadata == null || imageMetadata.uri == null || imageMetadata.uri.equals(Uri.EMPTY) || imageMetadata.uri.equals(getImageUri())) {
+        if (imageMetadata == null || imageMetadata.uri == null
+                || imageMetadata.uri.equals(Uri.EMPTY) || imageMetadata.uri.equals(getImageUri())) {
             return;
         }
 
@@ -609,7 +636,6 @@ public class ClipboardImpl extends Clipboard implements ClipboardManager.OnPrima
 
     /**
      * Check Whether the ClipDescription has stypled text.
-     *
      * @param description The {@link ClipDescription} to check if it has stytled text.
      * @return True if the system clipboard contain a styled text, otherwise, false.
      */

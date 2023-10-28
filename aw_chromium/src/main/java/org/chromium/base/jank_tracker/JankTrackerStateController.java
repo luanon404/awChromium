@@ -19,7 +19,8 @@ public class JankTrackerStateController {
     protected final FrameMetricsListener mFrameMetricsListener;
     protected final JankReportingScheduler mReportingScheduler;
 
-    public JankTrackerStateController(FrameMetricsListener listener, JankReportingScheduler scheduler) {
+    public JankTrackerStateController(
+            FrameMetricsListener listener, JankReportingScheduler scheduler) {
         mFrameMetricsListener = listener;
         mReportingScheduler = scheduler;
     }
@@ -35,7 +36,8 @@ public class JankTrackerStateController {
     public void startMetricCollection(Window window) {
         mFrameMetricsListener.setIsListenerRecording(true);
         if (window != null) {
-            window.addOnFrameMetricsAvailableListener(mFrameMetricsListener, mReportingScheduler.getOrCreateHandler());
+            window.addOnFrameMetricsAvailableListener(
+                    mFrameMetricsListener, mReportingScheduler.getOrCreateHandler());
         }
     }
 
@@ -46,15 +48,13 @@ public class JankTrackerStateController {
                 window.removeOnFrameMetricsAvailableListener(mFrameMetricsListener);
             } catch (IllegalArgumentException e) {
                 // Adding the listener failed for whatever reason, so it could not be unregistered.
-                Log.e(TAG, "Could not remove listener %s from window %s", mFrameMetricsListener, window);
+                Log.e(TAG, "Could not remove listener %s from window %s", mFrameMetricsListener,
+                        window);
             }
         }
     }
 
     // Extra methods for subclasses that need to perform extra work on initialization/destruction.
-    public void initialize() {
-    }
-
-    public void destroy() {
-    }
+    public void initialize() {}
+    public void destroy() {}
 }

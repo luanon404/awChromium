@@ -86,15 +86,16 @@ public class ResettersForTesting {
     // ...
     // ResettersForTesting.register(sResetter);
     // </code>
-    private static final LinkedHashSet<Runnable> sClassResetters = BuildConfig.IS_FOR_TEST ? new LinkedHashSet<>() : null;
-    private static final LinkedHashSet<Runnable> sMethodResetters = BuildConfig.IS_FOR_TEST ? new LinkedHashSet<>() : null;
+    private static final LinkedHashSet<Runnable> sClassResetters =
+            BuildConfig.IS_FOR_TEST ? new LinkedHashSet<>() : null;
+    private static final LinkedHashSet<Runnable> sMethodResetters =
+            BuildConfig.IS_FOR_TEST ? new LinkedHashSet<>() : null;
     // Starts in "class mode", since @BeforeClass runs before @Before.
     // Test runners toggle this via setMethodMode(), then reset it via onAfterClass().
     private static boolean sMethodMode;
 
     /**
      * Register a {@link Runnable} that will automatically execute during test tear down.
-     *
      * @param runnable the {@link Runnable} to execute.
      */
     public static void register(Runnable runnable) {
@@ -112,7 +113,7 @@ public class ResettersForTesting {
 
     /**
      * Execute and clear all the currently registered resetters.
-     * <p>
+     *
      * This is not intended to be invoked manually, but is intended to be invoked by the test
      * runners automatically during tear down.
      */
@@ -128,24 +129,18 @@ public class ResettersForTesting {
         }
     }
 
-    /**
-     * Called by test runners after @After methods.
-     */
+    /** Called by test runners after @After methods. */
     public static void onAfterMethod() {
         flushResetters(sMethodResetters);
     }
 
-    /**
-     * Called by test runners after @AfterClass methods.
-     */
+    /** Called by test runners after @AfterClass methods. */
     public static void onAfterClass() {
         flushResetters(sClassResetters);
         sMethodMode = false;
     }
 
-    /**
-     * Called by test runners after @BeforeClass methods, but before @Before methods.
-     */
+    /** Called by test runners after @BeforeClass methods, but before @Before methods. */
     public static void setMethodMode() {
         sMethodMode = true;
     }

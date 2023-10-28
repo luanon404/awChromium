@@ -13,13 +13,15 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class SearchParamsVariance extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
         public static final int NoVaryParams = 0;
         public static final int VaryParams = 1;
-    }
-
+    };
     private String[] mNoVaryParams;
     private String[] mVaryParams;
 
@@ -50,26 +52,26 @@ public final class SearchParamsVariance extends org.chromium.mojo.bindings.Union
         encoder0.encode(this.mTag, offset + 4);
         switch (mTag) {
             case Tag.NoVaryParams: {
-
+                
                 if (this.mNoVaryParams == null) {
                     encoder0.encodeNullPointer(offset + 8, false);
                 } else {
                     org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.mNoVaryParams.length, offset + 8, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                     for (int i0 = 0; i0 < this.mNoVaryParams.length; ++i0) {
-
+                        
                         encoder1.encode(this.mNoVaryParams[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
                     }
                 }
                 break;
             }
             case Tag.VaryParams: {
-
+                
                 if (this.mVaryParams == null) {
                     encoder0.encodeNullPointer(offset + 8, false);
                 } else {
                     org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.mVaryParams.length, offset + 8, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                     for (int i0 = 0; i0 < this.mVaryParams.length; ++i0) {
-
+                        
                         encoder1.encode(this.mVaryParams[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
                     }
                 }
@@ -93,13 +95,13 @@ public final class SearchParamsVariance extends org.chromium.mojo.bindings.Union
         SearchParamsVariance result = new SearchParamsVariance();
         switch (dataHeader.elementsOrVersion) {
             case Tag.NoVaryParams: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 {
                     org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                     result.mNoVaryParams = new String[si1.elementsOrVersion];
                     for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                        
                         result.mNoVaryParams[i1] = decoder1.readString(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                     }
                 }
@@ -107,13 +109,13 @@ public final class SearchParamsVariance extends org.chromium.mojo.bindings.Union
                 break;
             }
             case Tag.VaryParams: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 {
                     org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                     result.mVaryParams = new String[si1.elementsOrVersion];
                     for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                        
                         result.mVaryParams[i1] = decoder1.readString(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                     }
                 }

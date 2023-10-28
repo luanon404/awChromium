@@ -15,14 +15,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.ViewStructure;
 
-import org.chromium.content.browser.RenderCoordinatesImpl;
 import org.jni_zero.CalledByNative;
+
+import org.chromium.content.browser.RenderCoordinatesImpl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- *
  */
 public class ViewStructureBuilder {
     private RenderCoordinatesImpl mRenderCoordinates;
@@ -39,7 +39,10 @@ public class ViewStructureBuilder {
     }
 
     @CalledByNative
-    private void populateViewStructureNode(ViewStructure node, String text, boolean hasSelection, int selStart, int selEnd, int color, int bgcolor, float size, boolean bold, boolean italic, boolean underline, boolean lineThrough, String className, int childCount) {
+    private void populateViewStructureNode(ViewStructure node, String text, boolean hasSelection,
+            int selStart, int selEnd, int color, int bgcolor, float size, boolean bold,
+            boolean italic, boolean underline, boolean lineThrough, String className,
+            int childCount) {
         node.setClassName(className);
         node.setChildCount(childCount);
 
@@ -51,13 +54,18 @@ public class ViewStructureBuilder {
 
         // if size is smaller than 0, then style information does not exist.
         if (size >= 0.0) {
-            int style = (bold ? ViewNode.TEXT_STYLE_BOLD : 0) | (italic ? ViewNode.TEXT_STYLE_ITALIC : 0) | (underline ? ViewNode.TEXT_STYLE_UNDERLINE : 0) | (lineThrough ? ViewNode.TEXT_STYLE_STRIKE_THRU : 0);
+            int style = (bold ? ViewNode.TEXT_STYLE_BOLD : 0)
+                    | (italic ? ViewNode.TEXT_STYLE_ITALIC : 0)
+                    | (underline ? ViewNode.TEXT_STYLE_UNDERLINE : 0)
+                    | (lineThrough ? ViewNode.TEXT_STYLE_STRIKE_THRU : 0);
             node.setTextStyle(size, color, bgcolor, style);
         }
     }
 
     @CalledByNative
-    private void setViewStructureNodeBounds(ViewStructure node, boolean isRootNode, int parentRelativeLeft, int parentRelativeTop, int width, int height, int unclippedLeft, int unclippedTop, int unclippedWidth, int unclippedHeight) {
+    private void setViewStructureNodeBounds(ViewStructure node, boolean isRootNode,
+            int parentRelativeLeft, int parentRelativeTop, int width, int height, int unclippedLeft,
+            int unclippedTop, int unclippedWidth, int unclippedHeight) {
         int left = (int) mRenderCoordinates.fromLocalCssToPix(parentRelativeLeft);
         int top = (int) mRenderCoordinates.fromLocalCssToPix(parentRelativeTop);
         width = (int) mRenderCoordinates.fromLocalCssToPix(width);
@@ -84,7 +92,8 @@ public class ViewStructureBuilder {
     }
 
     @CalledByNative
-    protected void setViewStructureNodeHtmlInfo(ViewStructure node, String htmlTag, String cssDisplay, String[][] htmlAttributes) {
+    protected void setViewStructureNodeHtmlInfo(
+            ViewStructure node, String htmlTag, String cssDisplay, String[][] htmlAttributes) {
         Bundle extras = node.getExtras();
         extras.putCharSequence("htmlTag", htmlTag);
         extras.putCharSequence("display", cssDisplay);
@@ -96,7 +105,8 @@ public class ViewStructureBuilder {
     @CalledByNative
     protected void setViewStructureNodeHtmlMetadata(ViewStructure node, String[] metadataStrings) {
         Bundle extras = node.getExtras();
-        extras.putStringArrayList("metadata", new ArrayList<String>(Arrays.asList(metadataStrings)));
+        extras.putStringArrayList(
+                "metadata", new ArrayList<String>(Arrays.asList(metadataStrings)));
     }
 
     @CalledByNative

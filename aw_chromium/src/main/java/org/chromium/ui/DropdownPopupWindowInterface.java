@@ -42,7 +42,6 @@ public interface DropdownPopupWindowInterface {
 
     /**
      * Sets the text direction in the dropdown. Should be called before show().
-     *
      * @param isRtl If true, then dropdown text direction is right to left.
      */
     void setRtl(boolean isRtl);
@@ -56,7 +55,6 @@ public interface DropdownPopupWindowInterface {
     /**
      * Sets the content description to be announced by accessibility services when the dropdown is
      * shown.
-     *
      * @param description The description of the content to be announced.
      */
     void setContentDescriptionForAccessibility(CharSequence description);

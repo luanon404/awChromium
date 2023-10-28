@@ -17,10 +17,13 @@ import androidx.annotation.IntDef;
 
 public final class VideoEncodeAcceleratorSupportedRateControlMode {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({VideoEncodeAcceleratorSupportedRateControlMode.NO_MODE, VideoEncodeAcceleratorSupportedRateControlMode.CONSTANT_MODE, VideoEncodeAcceleratorSupportedRateControlMode.VARIABLE_MODE, VideoEncodeAcceleratorSupportedRateControlMode.EXTERNAL_MODE})
-    public @interface EnumType {
-    }
+        VideoEncodeAcceleratorSupportedRateControlMode.NO_MODE,
+        VideoEncodeAcceleratorSupportedRateControlMode.CONSTANT_MODE,
+        VideoEncodeAcceleratorSupportedRateControlMode.VARIABLE_MODE,
+        VideoEncodeAcceleratorSupportedRateControlMode.EXTERNAL_MODE})
+    public @interface EnumType {}
 
     public static final int NO_MODE = 0;
     public static final int CONSTANT_MODE = 1;
@@ -39,9 +42,8 @@ public final class VideoEncodeAcceleratorSupportedRateControlMode {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private VideoEncodeAcceleratorSupportedRateControlMode() {
-    }
+    private VideoEncodeAcceleratorSupportedRateControlMode() {}
 }

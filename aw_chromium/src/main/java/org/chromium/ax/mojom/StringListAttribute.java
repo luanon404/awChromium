@@ -17,10 +17,11 @@ import androidx.annotation.IntDef;
 
 public final class StringListAttribute {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({StringListAttribute.NONE, StringListAttribute.CUSTOM_ACTION_DESCRIPTIONS})
-    public @interface EnumType {
-    }
+        StringListAttribute.NONE,
+        StringListAttribute.CUSTOM_ACTION_DESCRIPTIONS})
+    public @interface EnumType {}
 
     public static final int NONE = 0;
     public static final int CUSTOM_ACTION_DESCRIPTIONS = 1;
@@ -38,12 +39,11 @@ public final class StringListAttribute {
     }
 
     public static int toKnownValue(int value) {
-        if (isKnownValue(value)) {
-            return value;
-        }
-        return DEFAULT_VALUE;
+      if (isKnownValue(value)) {
+        return value;
+      }
+      return DEFAULT_VALUE;
     }
 
-    private StringListAttribute() {
-    }
+    private StringListAttribute() {}
 }

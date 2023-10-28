@@ -13,9 +13,12 @@ import org.chromium.base.library_loader.LibraryProcessType;
  * Implementation of the interface {@link ChildProcessCreationParams}.
  */
 public class ChildProcessCreationParamsImpl {
-    private static final String EXTRA_LIBRARY_PROCESS_TYPE = "org.chromium.content.common.child_service_params.library_process_type";
-    private static final String PRIVILEGED_SERVICES_NAME = "org.chromium.content.app.PrivilegedProcessService";
-    private static final String SANDBOXED_SERVICES_NAME = "org.chromium.content.app.SandboxedProcessService";
+    private static final String EXTRA_LIBRARY_PROCESS_TYPE =
+            "org.chromium.content.common.child_service_params.library_process_type";
+    private static final String PRIVILEGED_SERVICES_NAME =
+            "org.chromium.content.app.PrivilegedProcessService";
+    private static final String SANDBOXED_SERVICES_NAME =
+            "org.chromium.content.app.SandboxedProcessService";
 
     // Members should all be immutable to avoid worrying about thread safety.
     private static String sPackageNameForPrivilegedService;
@@ -31,18 +34,20 @@ public class ChildProcessCreationParamsImpl {
 
     private static boolean sInitialized;
 
-    private ChildProcessCreationParamsImpl() {
-    }
+    private ChildProcessCreationParamsImpl() {}
 
-    /**
-     * Set params. This should be called once on start up.
-     */
-    public static void set(String privilegedPackageName, String privilegedServicesName, String sandboxedPackageName, String sandboxedServicesName, boolean isExternalSandboxedService, int libraryProcessType, boolean bindToCallerCheck, boolean ignoreVisibilityForImportance) {
+    /** Set params. This should be called once on start up. */
+    public static void set(String privilegedPackageName, String privilegedServicesName,
+            String sandboxedPackageName, String sandboxedServicesName,
+            boolean isExternalSandboxedService, int libraryProcessType, boolean bindToCallerCheck,
+            boolean ignoreVisibilityForImportance) {
         assert !sInitialized;
         sPackageNameForPrivilegedService = privilegedPackageName;
-        sPrivilegedServicesName = privilegedServicesName == null ? PRIVILEGED_SERVICES_NAME : privilegedServicesName;
+        sPrivilegedServicesName =
+                privilegedServicesName == null ? PRIVILEGED_SERVICES_NAME : privilegedServicesName;
         sPackageNameForSandboxedService = sandboxedPackageName;
-        sSandboxedServicesName = sandboxedServicesName == null ? SANDBOXED_SERVICES_NAME : sandboxedServicesName;
+        sSandboxedServicesName =
+                sandboxedServicesName == null ? SANDBOXED_SERVICES_NAME : sandboxedServicesName;
         sIsSandboxedServiceExternal = isExternalSandboxedService;
         sLibraryProcessType = libraryProcessType;
         sBindToCallerCheck = bindToCallerCheck;
@@ -55,11 +60,13 @@ public class ChildProcessCreationParamsImpl {
     }
 
     public static String getPackageNameForPrivilegedService() {
-        return sInitialized ? sPackageNameForPrivilegedService : ContextUtils.getApplicationContext().getPackageName();
+        return sInitialized ? sPackageNameForPrivilegedService
+                            : ContextUtils.getApplicationContext().getPackageName();
     }
 
     public static String getPackageNameForSandboxedService() {
-        return sInitialized ? sPackageNameForSandboxedService : ContextUtils.getApplicationContext().getPackageName();
+        return sInitialized ? sPackageNameForSandboxedService
+                            : ContextUtils.getApplicationContext().getPackageName();
     }
 
     public static boolean getIsSandboxedServiceExternal() {

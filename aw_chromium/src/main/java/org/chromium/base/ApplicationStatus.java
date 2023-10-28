@@ -17,10 +17,11 @@ import androidx.annotation.MainThread;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 
-import org.chromium.build.BuildConfig;
 import org.jni_zero.CalledByNative;
 import org.jni_zero.JNINamespace;
 import org.jni_zero.NativeMethods;
+
+import org.chromium.build.BuildConfig;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
@@ -44,7 +45,8 @@ import javax.annotation.concurrent.GuardedBy;
  */
 @JNINamespace("base::android")
 public class ApplicationStatus {
-    private static final String TOOLBAR_CALLBACK_WRAPPER_CLASS = "androidx.appcompat.app.ToolbarActionBar$ToolbarCallbackWrapper";
+    private static final String TOOLBAR_CALLBACK_WRAPPER_CLASS =
+            "androidx.appcompat.app.ToolbarActionBar$ToolbarCallbackWrapper";
 
     private static class ActivityInfo {
         private int mStatus = ActivityState.DESTROYED;
@@ -76,12 +78,14 @@ public class ApplicationStatus {
     /**
      * A map of which observers listen to state changes from which {@link Activity}.
      */
-    private static final Map<Activity, ActivityInfo> sActivityInfo = Collections.synchronizedMap(new HashMap<Activity, ActivityInfo>());
+    private static final Map<Activity, ActivityInfo> sActivityInfo =
+            Collections.synchronizedMap(new HashMap<Activity, ActivityInfo>());
 
     /**
      * A map to cache TaskId for each {@link Activity}.
      */
-    public static final Map<Activity, Integer> sActivityTaskId = Collections.synchronizedMap(new HashMap<Activity, Integer>());
+    public static final Map<Activity, Integer> sActivityTaskId =
+            Collections.synchronizedMap(new HashMap<Activity, Integer>());
 
     // Shared preferences key for TaskId caching of an activity.
     private static final String CACHE_ACTIVITY_TASKID_KEY = "cache_activity_taskid_enabled";
@@ -161,7 +165,7 @@ public class ApplicationStatus {
          * @param activity The {@link Activity} that has a window focus changed event.
          * @param hasFocus Whether or not {@code activity} gained or lost focus.
          */
-        void onWindowFocusChanged(Activity activity, boolean hasFocus);
+        public void onWindowFocusChanged(Activity activity, boolean hasFocus);
     }
 
     /**
@@ -177,8 +181,7 @@ public class ApplicationStatus {
         void onTaskVisibilityChanged(int taskId, boolean isVisible);
     }
 
-    private ApplicationStatus() {
-    }
+    private ApplicationStatus() {}
 
     /**
      * Registers a listener to receive window focus updates on activities in this application.
@@ -233,7 +236,8 @@ public class ApplicationStatus {
 
     public static boolean isCachingEnabled() {
         try (StrictModeContext ignored = StrictModeContext.allowDiskReads()) {
-            return ContextUtils.getAppSharedPreferences().getBoolean(CACHE_ACTIVITY_TASKID_KEY, false);
+            return ContextUtils.getAppSharedPreferences().getBoolean(
+                    CACHE_ACTIVITY_TASKID_KEY, false);
         }
     }
 
@@ -267,7 +271,8 @@ public class ApplicationStatus {
 
         @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-            if (method.getName().equals("onWindowFocusChanged") && args.length == 1 && args[0] instanceof Boolean) {
+            if (method.getName().equals("onWindowFocusChanged") && args.length == 1
+                    && args[0] instanceof Boolean) {
                 onWindowFocusChanged((boolean) args[0]);
                 return null;
             } else {
@@ -385,7 +390,9 @@ public class ApplicationStatus {
 
     @VisibleForTesting
     static Window.Callback createWindowCallbackProxy(Activity activity, Window.Callback callback) {
-        return (Window.Callback) Proxy.newProxyInstance(Window.Callback.class.getClassLoader(), new Class[]{Window.Callback.class}, new ApplicationStatus.WindowCallbackProxy(activity, callback));
+        return (Window.Callback) Proxy.newProxyInstance(Window.Callback.class.getClassLoader(),
+                new Class[] {Window.Callback.class},
+                new ApplicationStatus.WindowCallbackProxy(activity, callback));
     }
 
     /**
@@ -405,7 +412,8 @@ public class ApplicationStatus {
             return true;
         }
         if (Proxy.isProxyClass(callback.getClass())) {
-            return Proxy.getInvocationHandler(callback) instanceof ApplicationStatus.WindowCallbackProxy;
+            return Proxy.getInvocationHandler(callback)
+                           instanceof ApplicationStatus.WindowCallbackProxy;
         }
         for (Class<?> c = callback.getClass(); c != Object.class; c = c.getSuperclass()) {
             for (Field f : c.getDeclaredFields()) {
@@ -438,7 +446,10 @@ public class ApplicationStatus {
     private static void onStateChange(Activity activity, @ActivityState int newState) {
         if (activity == null) throw new IllegalArgumentException("null activity is not supported");
 
-        if (sActivity == null || newState == ActivityState.CREATED || newState == ActivityState.RESUMED || newState == ActivityState.STARTED) {
+        if (sActivity == null
+                || newState == ActivityState.CREATED
+                || newState == ActivityState.RESUMED
+                || newState == ActivityState.STARTED) {
             sActivity = activity;
         }
 
@@ -603,7 +614,8 @@ public class ApplicationStatus {
     public static boolean hasVisibleActivities() {
         assert isInitialized();
         int state = getStateForApplication();
-        return state == ApplicationState.HAS_RUNNING_ACTIVITIES || state == ApplicationState.HAS_PAUSED_ACTIVITIES;
+        return state == ApplicationState.HAS_RUNNING_ACTIVITIES
+                || state == ApplicationState.HAS_PAUSED_ACTIVITIES;
     }
 
     /**
@@ -629,7 +641,8 @@ public class ApplicationStatus {
         assert isInitialized();
         for (Map.Entry<Activity, ActivityInfo> entry : sActivityInfo.entrySet()) {
             if (getTaskId(entry.getKey()) == taskId) {
-                @ActivityState int state = entry.getValue().getStatus();
+                @ActivityState
+                int state = entry.getValue().getStatus();
                 if (state == ActivityState.RESUMED || state == ActivityState.PAUSED) {
                     return true;
                 }
@@ -663,7 +676,8 @@ public class ApplicationStatus {
      */
     @MainThread
     @SuppressLint("NewApi")
-    public static void registerStateListenerForActivity(ActivityStateListener listener, Activity activity) {
+    public static void registerStateListenerForActivity(
+            ActivityStateListener listener, Activity activity) {
         assert isInitialized();
         assert activity != null;
 
@@ -744,7 +758,9 @@ public class ApplicationStatus {
         synchronized (sActivityInfo) {
             // Copy the set to avoid concurrent modifications to the underlying set.
             for (Activity activity : new HashSet<>(sActivityInfo.keySet())) {
-                assert activity.getApplication() == null : "Real activities that are launched should be closed by test code " + "and not rely on this cleanup of mocks.";
+                assert activity.getApplication()
+                        == null : "Real activities that are launched should be closed by test code "
+                                  + "and not rely on this cleanup of mocks.";
                 onStateChangeForTesting(activity, ActivityState.DESTROYED);
             }
         }
@@ -792,7 +808,8 @@ public class ApplicationStatus {
 
         for (ActivityInfo info : sActivityInfo.values()) {
             int state = info.getStatus();
-            if (state != ActivityState.PAUSED && state != ActivityState.STOPPED && state != ActivityState.DESTROYED) {
+            if (state != ActivityState.PAUSED && state != ActivityState.STOPPED
+                    && state != ActivityState.DESTROYED) {
                 return ApplicationState.HAS_RUNNING_ACTIVITIES;
             } else if (state == ActivityState.PAUSED) {
                 hasPausedActivity = true;

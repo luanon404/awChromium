@@ -29,12 +29,12 @@ public class JoystickHandler implements ImeEventObserver, UserData {
     }
 
     public static JoystickHandler fromWebContents(WebContents webContents) {
-        return ((WebContentsImpl) webContents).getOrSetUserData(JoystickHandler.class, UserDataFactoryLazyHolder.INSTANCE);
+        return ((WebContentsImpl) webContents)
+                .getOrSetUserData(JoystickHandler.class, UserDataFactoryLazyHolder.INSTANCE);
     }
 
     /**
      * Creates JoystickHandler instance.
-     *
      * @param webContents WebContents instance with which this JoystickHandler is associated.
      */
     private JoystickHandler(WebContents webContents) {
@@ -55,7 +55,6 @@ public class JoystickHandler implements ImeEventObserver, UserData {
 
     /**
      * Handles joystick input events.
-     *
      * @param event {@link MotionEvent} object.
      */
     public boolean onGenericMotionEvent(MotionEvent event) {

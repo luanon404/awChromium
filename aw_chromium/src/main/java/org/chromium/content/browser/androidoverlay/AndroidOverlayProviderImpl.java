@@ -4,6 +4,9 @@
 
 package org.chromium.content.browser.androidoverlay;
 
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+
 import org.chromium.base.ThreadUtils;
 import org.chromium.media.mojom.AndroidOverlay;
 import org.chromium.media.mojom.AndroidOverlayClient;
@@ -12,8 +15,6 @@ import org.chromium.media.mojom.AndroidOverlayProvider;
 import org.chromium.mojo.bindings.InterfaceRequest;
 import org.chromium.mojo.system.MojoException;
 import org.chromium.services.service_manager.InterfaceFactory;
-import org.jni_zero.CalledByNative;
-import org.jni_zero.JNINamespace;
 
 /**
  * Default impl of AndroidOverlayProvider.  Creates AndroidOverlayImpls.  We're a singleton, in the
@@ -45,7 +46,8 @@ public class AndroidOverlayProviderImpl implements AndroidOverlayProvider {
      * potentially many providers are created.
      */
     @Override
-    public void createOverlay(InterfaceRequest<AndroidOverlay> request, AndroidOverlayClient client, AndroidOverlayConfig config) {
+    public void createOverlay(InterfaceRequest<AndroidOverlay> request, AndroidOverlayClient client,
+            AndroidOverlayConfig config) {
         ThreadUtils.assertOnUiThread();
 
         // If this is no longer true, we need to update DialogOverlayImpl::CompleteInit().
@@ -60,7 +62,8 @@ public class AndroidOverlayProviderImpl implements AndroidOverlayProvider {
 
         mNumOverlays++;
 
-        DialogOverlayImpl impl = new DialogOverlayImpl(client, config, mNotifyReleasedRunnable, false /* asPanel*/);
+        DialogOverlayImpl impl =
+                new DialogOverlayImpl(client, config, mNotifyReleasedRunnable, false /* asPanel*/);
         DialogOverlayImpl.MANAGER.bind(impl, request);
     }
 
@@ -81,13 +84,11 @@ public class AndroidOverlayProviderImpl implements AndroidOverlayProvider {
 
     // Remember that we can't tell which client disconnected.
     @Override
-    public void close() {
-    }
+    public void close() {}
 
     // Remember that we can't tell which client disconnected.
     @Override
-    public void onConnectionError(MojoException e) {
-    }
+    public void onConnectionError(MojoException e) {}
 
     // Are overlays supported by the embedder?
     @CalledByNative
@@ -100,9 +101,7 @@ public class AndroidOverlayProviderImpl implements AndroidOverlayProvider {
      */
     public static class Factory implements InterfaceFactory<AndroidOverlayProvider> {
         private static AndroidOverlayProviderImpl sImpl;
-
-        public Factory() {
-        }
+        public Factory() {}
 
         @Override
         public AndroidOverlayProvider createImpl() {

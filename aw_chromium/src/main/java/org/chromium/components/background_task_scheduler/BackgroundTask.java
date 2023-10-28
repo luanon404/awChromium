@@ -1,9 +1,10 @@
-// Copyright 2017 The Chromium Authors. All rights reserved.
+// Copyright 2017 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
 package org.chromium.components.background_task_scheduler;
 
+import android.app.Notification;
 import android.content.Context;
 
 import androidx.annotation.AnyThread;
@@ -18,8 +19,10 @@ import androidx.annotation.MainThread;
  */
 public interface BackgroundTask {
     /**
-     * Callback to invoke whenever background processing has finished after first returning true
-     * from {@link #onStartTask(Context, TaskParameters, TaskFinishedCallback)}.
+     * Callback to the {@link BackgroundTaskScheduler} mainly used to
+     * 1. Invoke whenever background processing has finished after first returning true
+     *    from {@link #onStartTask(Context, TaskParameters, TaskFinishedCallback)}.
+     * 2. Associate a notification to the task's lifecycle in case of user-initiated tasks.
      */
     interface TaskFinishedCallback {
         /**
@@ -30,6 +33,18 @@ public interface BackgroundTask {
          */
         @AnyThread
         void taskFinished(boolean needsReschedule);
+
+        /**
+         * Callback to provide the {@link BackgroundTaskScheduler} with a notification to post and
+         * tie to this task's lifecycle. This is only required for those user-initiated tasks. If
+         * chrome does not call this method for a required notification within 10 seconds after
+         * {@link #onStartTask(Context, TaskParameters, TaskFinishedCallback)} is called, the system
+         * will trigger an ANR and stop this job.
+         * @param notificationId The ID for this notification.
+         * @param notification The notification to be displayed.
+         */
+        @AnyThread
+        void setNotification(int notificationId, Notification notification);
     }
 
     /**
@@ -44,16 +59,17 @@ public interface BackgroundTask {
      * {@link TaskFinishedCallback} is invoked, or the system calls {@link #onStopTask(Context,
      * TaskParameters)}.
      *
-     * @param context        the current context.
+     * @param context the current context.
      * @param taskParameters the data passed in as {@link TaskInfo} when the task was scheduled.
-     * @param callback       if the task needs to continue processing after returning from the call to
-     *                       {@link #onStartTask(Context, TaskParameters, TaskFinishedCallback)}, this
-     *                       callback must be invoked when the processing has finished.
+     * @param callback if the task needs to continue processing after returning from the call to
+     *                 {@link #onStartTask(Context, TaskParameters, TaskFinishedCallback)}, this
+     *                 callback must be invoked when the processing has finished.
      * @return true if the task needs to continue processing work. False if there is no more work.
      * @see TaskInfo
      */
     @MainThread
-    boolean onStartTask(Context context, TaskParameters taskParameters, TaskFinishedCallback callback);
+    boolean onStartTask(
+            Context context, TaskParameters taskParameters, TaskFinishedCallback callback);
 
     /**
      * Callback from {@link BackgroundTaskScheduler} when the system has determined that the
@@ -62,7 +78,7 @@ public interface BackgroundTask {
      * are no longer met. See {@link TaskInfo}. A wakelock is held by the system while this callback
      * is invoked, and immediately released after this method returns.
      *
-     * @param context        the current context.
+     * @param context the current context.
      * @param taskParameters the data passed in as {@link TaskInfo} when the task was scheduled.
      * @return true if the task needs to be rescheduled according to the rescheduling criteria
      * specified when the task was scheduled initially. False if the taskshould not be rescheduled.
@@ -71,14 +87,4 @@ public interface BackgroundTask {
      */
     @MainThread
     boolean onStopTask(Context context, TaskParameters taskParameters);
-
-    /**
-     * Callback from {@link BackgroundTaskScheduler} when it detects system conditions requiring
-     * rescheduling, e.g. Google Play Services update or OS upgrade. The task should schedule itself
-     * again with appropriate parameters.
-     *
-     * @param context the current context.
-     */
-    @MainThread
-    void reschedule(Context context);
 }

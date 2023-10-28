@@ -17,10 +17,20 @@ import androidx.annotation.IntDef;
 
 public final class RendererType {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({RendererType.RENDERER_IMPL, RendererType.MOJO, RendererType.MEDIA_PLAYER, RendererType.COURIER, RendererType.FLINGING, RendererType.CAST, RendererType.MEDIA_FOUNDATION, RendererType.REMOTING, RendererType.CAST_STREAMING, RendererType.CONTENT_EMBEDDER_DEFINED, RendererType.TEST})
-    public @interface EnumType {
-    }
+        RendererType.RENDERER_IMPL,
+        RendererType.MOJO,
+        RendererType.MEDIA_PLAYER,
+        RendererType.COURIER,
+        RendererType.FLINGING,
+        RendererType.CAST,
+        RendererType.MEDIA_FOUNDATION,
+        RendererType.REMOTING,
+        RendererType.CAST_STREAMING,
+        RendererType.CONTENT_EMBEDDER_DEFINED,
+        RendererType.TEST})
+    public @interface EnumType {}
 
     public static final int RENDERER_IMPL = 0;
     public static final int MOJO = 1;
@@ -60,9 +70,8 @@ public final class RendererType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private RendererType() {
-    }
+    private RendererType() {}
 }

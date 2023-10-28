@@ -13,6 +13,8 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public final class PatternTemplate extends org.chromium.mojo.bindings.Union {
 
@@ -20,8 +22,7 @@ public final class PatternTemplate extends org.chromium.mojo.bindings.Union {
         public static final int Fixed = 0;
         public static final int FullWildcard = 1;
         public static final int SegmentWildcard = 2;
-    }
-
+    };
     private FixedPattern mFixed;
     private WildcardPattern mFullWildcard;
     private WildcardPattern mSegmentWildcard;

@@ -13,13 +13,15 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class UsbOpenDeviceResult extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
         public static final int Success = 0;
         public static final int Error = 1;
-    }
-
+    };
     private int mSuccess;
     private int mError;
 
@@ -50,12 +52,12 @@ public final class UsbOpenDeviceResult extends org.chromium.mojo.bindings.Union 
         encoder0.encode(this.mTag, offset + 4);
         switch (mTag) {
             case Tag.Success: {
-
+                
                 encoder0.encode(this.mSuccess, offset + 8);
                 break;
             }
             case Tag.Error: {
-
+                
                 encoder0.encode(this.mError, offset + 8);
                 break;
             }
@@ -77,18 +79,18 @@ public final class UsbOpenDeviceResult extends org.chromium.mojo.bindings.Union 
         UsbOpenDeviceResult result = new UsbOpenDeviceResult();
         switch (dataHeader.elementsOrVersion) {
             case Tag.Success: {
-
+                
                 result.mSuccess = decoder0.readInt(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE);
-                UsbOpenDeviceSuccess.validate(result.mSuccess);
-                result.mSuccess = UsbOpenDeviceSuccess.toKnownValue(result.mSuccess);
+                    UsbOpenDeviceSuccess.validate(result.mSuccess);
+                    result.mSuccess = UsbOpenDeviceSuccess.toKnownValue(result.mSuccess);
                 result.mTag = Tag.Success;
                 break;
             }
             case Tag.Error: {
-
+                
                 result.mError = decoder0.readInt(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE);
-                UsbOpenDeviceError.validate(result.mError);
-                result.mError = UsbOpenDeviceError.toKnownValue(result.mError);
+                    UsbOpenDeviceError.validate(result.mError);
+                    result.mError = UsbOpenDeviceError.toKnownValue(result.mError);
                 result.mTag = Tag.Error;
                 break;
             }

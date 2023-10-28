@@ -13,9 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 class UdpSocket_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<UdpSocket, UdpSocket.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<UdpSocket, UdpSocket.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<UdpSocket, UdpSocket.Proxy> MANAGER =
+            new org.chromium.mojo.bindings.Interface.Manager<UdpSocket, UdpSocket.Proxy>() {
 
         @Override
         public String getName() {
@@ -24,11 +28,12 @@ class UdpSocket_Internal {
 
         @Override
         public int getVersion() {
-            return 0;
+          return 0;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -39,7 +44,7 @@ class UdpSocket_Internal {
 
         @Override
         public UdpSocket[] buildArray(int size) {
-            return new UdpSocket[size];
+          return new UdpSocket[size];
         }
     };
 
@@ -71,13 +76,16 @@ class UdpSocket_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements UdpSocket.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core,
+              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void bind(IpEndPoint localAddr, UdpSocketOptions socketOptions, Bind_Response callback) {
+        public void bind(
+IpEndPoint localAddr, UdpSocketOptions socketOptions, 
+Bind_Response callback) {
 
             UdpSocketBindParams _message = new UdpSocketBindParams();
 
@@ -86,13 +94,22 @@ class UdpSocket_Internal {
             _message.socketOptions = socketOptions;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(BIND_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new UdpSocketBindResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    BIND_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new UdpSocketBindResponseParamsForwardToCallback(callback));
 
         }
 
 
         @Override
-        public void connect(IpEndPoint remoteAddr, UdpSocketOptions socketOptions, Connect_Response callback) {
+        public void connect(
+IpEndPoint remoteAddr, UdpSocketOptions socketOptions, 
+Connect_Response callback) {
 
             UdpSocketConnectParams _message = new UdpSocketConnectParams();
 
@@ -101,91 +118,148 @@ class UdpSocket_Internal {
             _message.socketOptions = socketOptions;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(CONNECT_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new UdpSocketConnectResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    CONNECT_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new UdpSocketConnectResponseParamsForwardToCallback(callback));
 
         }
 
 
         @Override
-        public void setBroadcast(boolean broadcast, SetBroadcast_Response callback) {
+        public void setBroadcast(
+boolean broadcast, 
+SetBroadcast_Response callback) {
 
             UdpSocketSetBroadcastParams _message = new UdpSocketSetBroadcastParams();
 
             _message.broadcast = broadcast;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(SET_BROADCAST_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new UdpSocketSetBroadcastResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    SET_BROADCAST_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new UdpSocketSetBroadcastResponseParamsForwardToCallback(callback));
 
         }
 
 
         @Override
-        public void setSendBufferSize(int sendBufferSize, SetSendBufferSize_Response callback) {
+        public void setSendBufferSize(
+int sendBufferSize, 
+SetSendBufferSize_Response callback) {
 
             UdpSocketSetSendBufferSizeParams _message = new UdpSocketSetSendBufferSizeParams();
 
             _message.sendBufferSize = sendBufferSize;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(SET_SEND_BUFFER_SIZE_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new UdpSocketSetSendBufferSizeResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    SET_SEND_BUFFER_SIZE_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new UdpSocketSetSendBufferSizeResponseParamsForwardToCallback(callback));
 
         }
 
 
         @Override
-        public void setReceiveBufferSize(int receiveBufferSize, SetReceiveBufferSize_Response callback) {
+        public void setReceiveBufferSize(
+int receiveBufferSize, 
+SetReceiveBufferSize_Response callback) {
 
             UdpSocketSetReceiveBufferSizeParams _message = new UdpSocketSetReceiveBufferSizeParams();
 
             _message.receiveBufferSize = receiveBufferSize;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(SET_RECEIVE_BUFFER_SIZE_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new UdpSocketSetReceiveBufferSizeResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    SET_RECEIVE_BUFFER_SIZE_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new UdpSocketSetReceiveBufferSizeResponseParamsForwardToCallback(callback));
 
         }
 
 
         @Override
-        public void joinGroup(IpAddress groupAddress, JoinGroup_Response callback) {
+        public void joinGroup(
+IpAddress groupAddress, 
+JoinGroup_Response callback) {
 
             UdpSocketJoinGroupParams _message = new UdpSocketJoinGroupParams();
 
             _message.groupAddress = groupAddress;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(JOIN_GROUP_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new UdpSocketJoinGroupResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    JOIN_GROUP_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new UdpSocketJoinGroupResponseParamsForwardToCallback(callback));
 
         }
 
 
         @Override
-        public void leaveGroup(IpAddress groupAddress, LeaveGroup_Response callback) {
+        public void leaveGroup(
+IpAddress groupAddress, 
+LeaveGroup_Response callback) {
 
             UdpSocketLeaveGroupParams _message = new UdpSocketLeaveGroupParams();
 
             _message.groupAddress = groupAddress;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(LEAVE_GROUP_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new UdpSocketLeaveGroupResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    LEAVE_GROUP_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new UdpSocketLeaveGroupResponseParamsForwardToCallback(callback));
 
         }
 
 
         @Override
-        public void receiveMore(int numAdditionalDatagrams) {
+        public void receiveMore(
+int numAdditionalDatagrams) {
 
             UdpSocketReceiveMoreParams _message = new UdpSocketReceiveMoreParams();
 
             _message.numAdditionalDatagrams = numAdditionalDatagrams;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(RECEIVE_MORE_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(RECEIVE_MORE_ORDINAL)));
 
         }
 
 
         @Override
-        public void receiveMoreWithBufferSize(int numAdditionalDatagrams, int bufferSize) {
+        public void receiveMoreWithBufferSize(
+int numAdditionalDatagrams, int bufferSize) {
 
             UdpSocketReceiveMoreWithBufferSizeParams _message = new UdpSocketReceiveMoreWithBufferSizeParams();
 
@@ -194,13 +268,18 @@ class UdpSocket_Internal {
             _message.bufferSize = bufferSize;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(RECEIVE_MORE_WITH_BUFFER_SIZE_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(RECEIVE_MORE_WITH_BUFFER_SIZE_ORDINAL)));
 
         }
 
 
         @Override
-        public void sendTo(IpEndPoint destAddr, org.chromium.mojo_base.mojom.ReadOnlyBuffer data, MutableNetworkTrafficAnnotationTag trafficAnnotation, SendTo_Response callback) {
+        public void sendTo(
+IpEndPoint destAddr, org.chromium.mojo_base.mojom.ReadOnlyBuffer data, MutableNetworkTrafficAnnotationTag trafficAnnotation, 
+SendTo_Response callback) {
 
             UdpSocketSendToParams _message = new UdpSocketSendToParams();
 
@@ -211,13 +290,22 @@ class UdpSocket_Internal {
             _message.trafficAnnotation = trafficAnnotation;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(SEND_TO_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new UdpSocketSendToResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    SEND_TO_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new UdpSocketSendToResponseParamsForwardToCallback(callback));
 
         }
 
 
         @Override
-        public void send(org.chromium.mojo_base.mojom.ReadOnlyBuffer data, MutableNetworkTrafficAnnotationTag trafficAnnotation, Send_Response callback) {
+        public void send(
+org.chromium.mojo_base.mojom.ReadOnlyBuffer data, MutableNetworkTrafficAnnotationTag trafficAnnotation, 
+Send_Response callback) {
 
             UdpSocketSendParams _message = new UdpSocketSendParams();
 
@@ -226,18 +314,29 @@ class UdpSocket_Internal {
             _message.trafficAnnotation = trafficAnnotation;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(SEND_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new UdpSocketSendResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    SEND_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new UdpSocketSendResponseParamsForwardToCallback(callback));
 
         }
 
 
         @Override
-        public void close() {
+        public void close(
+) {
 
             UdpSocketCloseParams _message = new UdpSocketCloseParams();
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(CLOSE_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(CLOSE_ORDINAL)));
 
         }
 
@@ -253,7 +352,8 @@ class UdpSocket_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -262,28 +362,58 @@ class UdpSocket_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(UdpSocket_Internal.MANAGER, messageWithHeader);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
+                                UdpSocket_Internal.MANAGER, messageWithHeader);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
                     case RECEIVE_MORE_ORDINAL: {
 
-                        UdpSocketReceiveMoreParams data = UdpSocketReceiveMoreParams.deserialize(messageWithHeader.getPayload());
+                        UdpSocketReceiveMoreParams data =
+                                UdpSocketReceiveMoreParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().receiveMore(data.numAdditionalDatagrams);
                         return true;
                     }
 
 
+
+
+
                     case RECEIVE_MORE_WITH_BUFFER_SIZE_ORDINAL: {
 
-                        UdpSocketReceiveMoreWithBufferSizeParams data = UdpSocketReceiveMoreWithBufferSizeParams.deserialize(messageWithHeader.getPayload());
+                        UdpSocketReceiveMoreWithBufferSizeParams data =
+                                UdpSocketReceiveMoreWithBufferSizeParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().receiveMoreWithBufferSize(data.numAdditionalDatagrams, data.bufferSize);
                         return true;
                     }
+
+
+
+
+
+
+
 
 
                     case CLOSE_ORDINAL: {
@@ -299,7 +429,7 @@ class UdpSocket_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -307,7 +437,8 @@ class UdpSocket_Internal {
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -316,108 +447,170 @@ class UdpSocket_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), UdpSocket_Internal.MANAGER, messageWithHeader, receiver);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
+                                getCore(), UdpSocket_Internal.MANAGER, messageWithHeader, receiver);
+
+
+
+
+
 
 
                     case BIND_ORDINAL: {
 
-                        UdpSocketBindParams data = UdpSocketBindParams.deserialize(messageWithHeader.getPayload());
+                        UdpSocketBindParams data =
+                                UdpSocketBindParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().bind(data.localAddr, data.socketOptions, new UdpSocketBindResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
                     }
 
 
+
+
+
+
+
                     case CONNECT_ORDINAL: {
 
-                        UdpSocketConnectParams data = UdpSocketConnectParams.deserialize(messageWithHeader.getPayload());
+                        UdpSocketConnectParams data =
+                                UdpSocketConnectParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().connect(data.remoteAddr, data.socketOptions, new UdpSocketConnectResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
                     }
 
 
+
+
+
+
+
                     case SET_BROADCAST_ORDINAL: {
 
-                        UdpSocketSetBroadcastParams data = UdpSocketSetBroadcastParams.deserialize(messageWithHeader.getPayload());
+                        UdpSocketSetBroadcastParams data =
+                                UdpSocketSetBroadcastParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().setBroadcast(data.broadcast, new UdpSocketSetBroadcastResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
                     }
 
 
+
+
+
+
+
                     case SET_SEND_BUFFER_SIZE_ORDINAL: {
 
-                        UdpSocketSetSendBufferSizeParams data = UdpSocketSetSendBufferSizeParams.deserialize(messageWithHeader.getPayload());
+                        UdpSocketSetSendBufferSizeParams data =
+                                UdpSocketSetSendBufferSizeParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().setSendBufferSize(data.sendBufferSize, new UdpSocketSetSendBufferSizeResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
                     }
 
 
+
+
+
+
+
                     case SET_RECEIVE_BUFFER_SIZE_ORDINAL: {
 
-                        UdpSocketSetReceiveBufferSizeParams data = UdpSocketSetReceiveBufferSizeParams.deserialize(messageWithHeader.getPayload());
+                        UdpSocketSetReceiveBufferSizeParams data =
+                                UdpSocketSetReceiveBufferSizeParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().setReceiveBufferSize(data.receiveBufferSize, new UdpSocketSetReceiveBufferSizeResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
                     }
 
 
+
+
+
+
+
                     case JOIN_GROUP_ORDINAL: {
 
-                        UdpSocketJoinGroupParams data = UdpSocketJoinGroupParams.deserialize(messageWithHeader.getPayload());
+                        UdpSocketJoinGroupParams data =
+                                UdpSocketJoinGroupParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().joinGroup(data.groupAddress, new UdpSocketJoinGroupResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
                     }
 
 
+
+
+
+
+
                     case LEAVE_GROUP_ORDINAL: {
 
-                        UdpSocketLeaveGroupParams data = UdpSocketLeaveGroupParams.deserialize(messageWithHeader.getPayload());
+                        UdpSocketLeaveGroupParams data =
+                                UdpSocketLeaveGroupParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().leaveGroup(data.groupAddress, new UdpSocketLeaveGroupResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
                     }
 
 
+
+
+
+
+
+
+
+
+
                     case SEND_TO_ORDINAL: {
 
-                        UdpSocketSendToParams data = UdpSocketSendToParams.deserialize(messageWithHeader.getPayload());
+                        UdpSocketSendToParams data =
+                                UdpSocketSendToParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().sendTo(data.destAddr, data.data, data.trafficAnnotation, new UdpSocketSendToResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
                     }
 
 
+
+
+
+
+
                     case SEND_ORDINAL: {
 
-                        UdpSocketSendParams data = UdpSocketSendParams.deserialize(messageWithHeader.getPayload());
+                        UdpSocketSendParams data =
+                                UdpSocketSendParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().send(data.data, data.trafficAnnotation, new UdpSocketSendResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
                     }
 
 
+
+
                     default:
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class UdpSocketBindParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public IpEndPoint localAddr;
         public UdpSocketOptions socketOptions;
@@ -440,7 +633,8 @@ class UdpSocket_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static UdpSocketBindParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -454,16 +648,16 @@ class UdpSocket_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new UdpSocketBindParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.localAddr = IpEndPoint.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, true);
                     result.socketOptions = UdpSocketOptions.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -475,18 +669,20 @@ class UdpSocket_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.localAddr, 8, false);
-
+            
             encoder0.encode(this.socketOptions, 16, true);
         }
     }
 
 
+
+    
     static final class UdpSocketBindResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int result;
         public IpEndPoint localAddrOut;
@@ -509,7 +705,8 @@ class UdpSocket_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static UdpSocketBindResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -523,15 +720,15 @@ class UdpSocket_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new UdpSocketBindResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.result = decoder0.readInt(8);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, true);
                     result.localAddrOut = IpEndPoint.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -543,14 +740,15 @@ class UdpSocket_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.result, 8);
-
+            
             encoder0.encode(this.localAddrOut, 16, true);
         }
     }
 
-    static class UdpSocketBindResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class UdpSocketBindResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final UdpSocket.Bind_Response mCallback;
 
         UdpSocketBindResponseParamsForwardToCallback(UdpSocket.Bind_Response callback) {
@@ -560,9 +758,11 @@ class UdpSocket_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(BIND_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(BIND_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -582,7 +782,10 @@ class UdpSocket_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        UdpSocketBindResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        UdpSocketBindResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -596,16 +799,24 @@ class UdpSocket_Internal {
 
             _response.localAddrOut = localAddrOut;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(BIND_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    BIND_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
 
 
+
+    
     static final class UdpSocketConnectParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public IpEndPoint remoteAddr;
         public UdpSocketOptions socketOptions;
@@ -628,7 +839,8 @@ class UdpSocket_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static UdpSocketConnectParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -642,16 +854,16 @@ class UdpSocket_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new UdpSocketConnectParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.remoteAddr = IpEndPoint.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, true);
                     result.socketOptions = UdpSocketOptions.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -663,18 +875,20 @@ class UdpSocket_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.remoteAddr, 8, false);
-
+            
             encoder0.encode(this.socketOptions, 16, true);
         }
     }
 
 
+
+    
     static final class UdpSocketConnectResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int result;
         public IpEndPoint localAddrOut;
@@ -697,7 +911,8 @@ class UdpSocket_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static UdpSocketConnectResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -711,15 +926,15 @@ class UdpSocket_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new UdpSocketConnectResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.result = decoder0.readInt(8);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, true);
                     result.localAddrOut = IpEndPoint.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -731,14 +946,15 @@ class UdpSocket_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.result, 8);
-
+            
             encoder0.encode(this.localAddrOut, 16, true);
         }
     }
 
-    static class UdpSocketConnectResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class UdpSocketConnectResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final UdpSocket.Connect_Response mCallback;
 
         UdpSocketConnectResponseParamsForwardToCallback(UdpSocket.Connect_Response callback) {
@@ -748,9 +964,11 @@ class UdpSocket_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(CONNECT_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(CONNECT_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -770,7 +988,10 @@ class UdpSocket_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        UdpSocketConnectResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        UdpSocketConnectResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -784,16 +1005,24 @@ class UdpSocket_Internal {
 
             _response.localAddrOut = localAddrOut;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(CONNECT_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    CONNECT_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
 
 
+
+    
     static final class UdpSocketSetBroadcastParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public boolean broadcast;
 
@@ -815,7 +1044,8 @@ class UdpSocket_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static UdpSocketSetBroadcastParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -829,10 +1059,10 @@ class UdpSocket_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new UdpSocketSetBroadcastParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.broadcast = decoder0.readBoolean(8, 0);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -844,16 +1074,18 @@ class UdpSocket_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.broadcast, 8, 0);
         }
     }
 
 
+
+    
     static final class UdpSocketSetBroadcastResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int result;
 
@@ -875,7 +1107,8 @@ class UdpSocket_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static UdpSocketSetBroadcastResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -889,10 +1122,10 @@ class UdpSocket_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new UdpSocketSetBroadcastResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.result = decoder0.readInt(8);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -904,12 +1137,13 @@ class UdpSocket_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.result, 8);
         }
     }
 
-    static class UdpSocketSetBroadcastResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class UdpSocketSetBroadcastResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final UdpSocket.SetBroadcast_Response mCallback;
 
         UdpSocketSetBroadcastResponseParamsForwardToCallback(UdpSocket.SetBroadcast_Response callback) {
@@ -919,9 +1153,11 @@ class UdpSocket_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(SET_BROADCAST_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(SET_BROADCAST_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -941,7 +1177,10 @@ class UdpSocket_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        UdpSocketSetBroadcastResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        UdpSocketSetBroadcastResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -953,16 +1192,24 @@ class UdpSocket_Internal {
 
             _response.result = result;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(SET_BROADCAST_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    SET_BROADCAST_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
 
 
+
+    
     static final class UdpSocketSetSendBufferSizeParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int sendBufferSize;
 
@@ -984,7 +1231,8 @@ class UdpSocket_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static UdpSocketSetSendBufferSizeParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -998,10 +1246,10 @@ class UdpSocket_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new UdpSocketSetSendBufferSizeParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.sendBufferSize = decoder0.readInt(8);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1013,16 +1261,18 @@ class UdpSocket_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.sendBufferSize, 8);
         }
     }
 
 
+
+    
     static final class UdpSocketSetSendBufferSizeResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int result;
 
@@ -1044,7 +1294,8 @@ class UdpSocket_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static UdpSocketSetSendBufferSizeResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1058,10 +1309,10 @@ class UdpSocket_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new UdpSocketSetSendBufferSizeResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.result = decoder0.readInt(8);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1073,12 +1324,13 @@ class UdpSocket_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.result, 8);
         }
     }
 
-    static class UdpSocketSetSendBufferSizeResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class UdpSocketSetSendBufferSizeResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final UdpSocket.SetSendBufferSize_Response mCallback;
 
         UdpSocketSetSendBufferSizeResponseParamsForwardToCallback(UdpSocket.SetSendBufferSize_Response callback) {
@@ -1088,9 +1340,11 @@ class UdpSocket_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(SET_SEND_BUFFER_SIZE_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(SET_SEND_BUFFER_SIZE_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -1110,7 +1364,10 @@ class UdpSocket_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        UdpSocketSetSendBufferSizeResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        UdpSocketSetSendBufferSizeResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -1122,16 +1379,24 @@ class UdpSocket_Internal {
 
             _response.result = result;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(SET_SEND_BUFFER_SIZE_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    SET_SEND_BUFFER_SIZE_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
 
 
+
+    
     static final class UdpSocketSetReceiveBufferSizeParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int receiveBufferSize;
 
@@ -1153,7 +1418,8 @@ class UdpSocket_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static UdpSocketSetReceiveBufferSizeParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1167,10 +1433,10 @@ class UdpSocket_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new UdpSocketSetReceiveBufferSizeParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.receiveBufferSize = decoder0.readInt(8);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1182,16 +1448,18 @@ class UdpSocket_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.receiveBufferSize, 8);
         }
     }
 
 
+
+    
     static final class UdpSocketSetReceiveBufferSizeResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int result;
 
@@ -1213,7 +1481,8 @@ class UdpSocket_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static UdpSocketSetReceiveBufferSizeResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1227,10 +1496,10 @@ class UdpSocket_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new UdpSocketSetReceiveBufferSizeResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.result = decoder0.readInt(8);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1242,12 +1511,13 @@ class UdpSocket_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.result, 8);
         }
     }
 
-    static class UdpSocketSetReceiveBufferSizeResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class UdpSocketSetReceiveBufferSizeResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final UdpSocket.SetReceiveBufferSize_Response mCallback;
 
         UdpSocketSetReceiveBufferSizeResponseParamsForwardToCallback(UdpSocket.SetReceiveBufferSize_Response callback) {
@@ -1257,9 +1527,11 @@ class UdpSocket_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(SET_RECEIVE_BUFFER_SIZE_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(SET_RECEIVE_BUFFER_SIZE_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -1279,7 +1551,10 @@ class UdpSocket_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        UdpSocketSetReceiveBufferSizeResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        UdpSocketSetReceiveBufferSizeResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -1291,16 +1566,24 @@ class UdpSocket_Internal {
 
             _response.result = result;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(SET_RECEIVE_BUFFER_SIZE_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    SET_RECEIVE_BUFFER_SIZE_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
 
 
+
+    
     static final class UdpSocketJoinGroupParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public IpAddress groupAddress;
 
@@ -1322,7 +1605,8 @@ class UdpSocket_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static UdpSocketJoinGroupParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1336,11 +1620,11 @@ class UdpSocket_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new UdpSocketJoinGroupParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.groupAddress = IpAddress.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1352,16 +1636,18 @@ class UdpSocket_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.groupAddress, 8, false);
         }
     }
 
 
+
+    
     static final class UdpSocketJoinGroupResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int result;
 
@@ -1383,7 +1669,8 @@ class UdpSocket_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static UdpSocketJoinGroupResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1397,10 +1684,10 @@ class UdpSocket_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new UdpSocketJoinGroupResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.result = decoder0.readInt(8);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1412,12 +1699,13 @@ class UdpSocket_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.result, 8);
         }
     }
 
-    static class UdpSocketJoinGroupResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class UdpSocketJoinGroupResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final UdpSocket.JoinGroup_Response mCallback;
 
         UdpSocketJoinGroupResponseParamsForwardToCallback(UdpSocket.JoinGroup_Response callback) {
@@ -1427,9 +1715,11 @@ class UdpSocket_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(JOIN_GROUP_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(JOIN_GROUP_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -1449,7 +1739,10 @@ class UdpSocket_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        UdpSocketJoinGroupResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        UdpSocketJoinGroupResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -1461,16 +1754,24 @@ class UdpSocket_Internal {
 
             _response.result = result;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(JOIN_GROUP_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    JOIN_GROUP_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
 
 
+
+    
     static final class UdpSocketLeaveGroupParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public IpAddress groupAddress;
 
@@ -1492,7 +1793,8 @@ class UdpSocket_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static UdpSocketLeaveGroupParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1506,11 +1808,11 @@ class UdpSocket_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new UdpSocketLeaveGroupParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.groupAddress = IpAddress.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1522,16 +1824,18 @@ class UdpSocket_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.groupAddress, 8, false);
         }
     }
 
 
+
+    
     static final class UdpSocketLeaveGroupResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int result;
 
@@ -1553,7 +1857,8 @@ class UdpSocket_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static UdpSocketLeaveGroupResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1567,10 +1872,10 @@ class UdpSocket_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new UdpSocketLeaveGroupResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.result = decoder0.readInt(8);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1582,12 +1887,13 @@ class UdpSocket_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.result, 8);
         }
     }
 
-    static class UdpSocketLeaveGroupResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class UdpSocketLeaveGroupResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final UdpSocket.LeaveGroup_Response mCallback;
 
         UdpSocketLeaveGroupResponseParamsForwardToCallback(UdpSocket.LeaveGroup_Response callback) {
@@ -1597,9 +1903,11 @@ class UdpSocket_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(LEAVE_GROUP_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(LEAVE_GROUP_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -1619,7 +1927,10 @@ class UdpSocket_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        UdpSocketLeaveGroupResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        UdpSocketLeaveGroupResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -1631,16 +1942,24 @@ class UdpSocket_Internal {
 
             _response.result = result;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(LEAVE_GROUP_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    LEAVE_GROUP_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
 
 
+
+    
     static final class UdpSocketReceiveMoreParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int numAdditionalDatagrams;
 
@@ -1662,7 +1981,8 @@ class UdpSocket_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static UdpSocketReceiveMoreParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1676,10 +1996,10 @@ class UdpSocket_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new UdpSocketReceiveMoreParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.numAdditionalDatagrams = decoder0.readInt(8);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1691,16 +2011,18 @@ class UdpSocket_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.numAdditionalDatagrams, 8);
         }
     }
 
 
+
+    
     static final class UdpSocketReceiveMoreWithBufferSizeParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int numAdditionalDatagrams;
         public int bufferSize;
@@ -1723,7 +2045,8 @@ class UdpSocket_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static UdpSocketReceiveMoreWithBufferSizeParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1737,14 +2060,14 @@ class UdpSocket_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new UdpSocketReceiveMoreWithBufferSizeParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.numAdditionalDatagrams = decoder0.readInt(8);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.bufferSize = decoder0.readInt(12);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1756,18 +2079,20 @@ class UdpSocket_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.numAdditionalDatagrams, 8);
-
+            
             encoder0.encode(this.bufferSize, 12);
         }
     }
 
 
+
+    
     static final class UdpSocketSendToParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 32;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(32, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(32, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public IpEndPoint destAddr;
         public org.chromium.mojo_base.mojom.ReadOnlyBuffer data;
@@ -1791,7 +2116,8 @@ class UdpSocket_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static UdpSocketSendToParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1805,21 +2131,21 @@ class UdpSocket_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new UdpSocketSendToParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.destAddr = IpEndPoint.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                     result.data = org.chromium.mojo_base.mojom.ReadOnlyBuffer.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, false);
                     result.trafficAnnotation = MutableNetworkTrafficAnnotationTag.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1831,20 +2157,22 @@ class UdpSocket_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.destAddr, 8, false);
-
+            
             encoder0.encode(this.data, 16, false);
-
+            
             encoder0.encode(this.trafficAnnotation, 24, false);
         }
     }
 
 
+
+    
     static final class UdpSocketSendToResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int result;
 
@@ -1866,7 +2194,8 @@ class UdpSocket_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static UdpSocketSendToResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1880,10 +2209,10 @@ class UdpSocket_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new UdpSocketSendToResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.result = decoder0.readInt(8);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1895,12 +2224,13 @@ class UdpSocket_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.result, 8);
         }
     }
 
-    static class UdpSocketSendToResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class UdpSocketSendToResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final UdpSocket.SendTo_Response mCallback;
 
         UdpSocketSendToResponseParamsForwardToCallback(UdpSocket.SendTo_Response callback) {
@@ -1910,9 +2240,11 @@ class UdpSocket_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(SEND_TO_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(SEND_TO_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -1932,7 +2264,10 @@ class UdpSocket_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        UdpSocketSendToResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        UdpSocketSendToResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -1944,16 +2279,24 @@ class UdpSocket_Internal {
 
             _response.result = result;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(SEND_TO_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    SEND_TO_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
 
 
+
+    
     static final class UdpSocketSendParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.mojo_base.mojom.ReadOnlyBuffer data;
         public MutableNetworkTrafficAnnotationTag trafficAnnotation;
@@ -1976,7 +2319,8 @@ class UdpSocket_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static UdpSocketSendParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1990,16 +2334,16 @@ class UdpSocket_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new UdpSocketSendParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.data = org.chromium.mojo_base.mojom.ReadOnlyBuffer.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                     result.trafficAnnotation = MutableNetworkTrafficAnnotationTag.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -2011,18 +2355,20 @@ class UdpSocket_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.data, 8, false);
-
+            
             encoder0.encode(this.trafficAnnotation, 16, false);
         }
     }
 
 
+
+    
     static final class UdpSocketSendResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int result;
 
@@ -2044,7 +2390,8 @@ class UdpSocket_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static UdpSocketSendResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -2058,10 +2405,10 @@ class UdpSocket_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new UdpSocketSendResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.result = decoder0.readInt(8);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -2073,12 +2420,13 @@ class UdpSocket_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.result, 8);
         }
     }
 
-    static class UdpSocketSendResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class UdpSocketSendResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final UdpSocket.Send_Response mCallback;
 
         UdpSocketSendResponseParamsForwardToCallback(UdpSocket.Send_Response callback) {
@@ -2088,9 +2436,11 @@ class UdpSocket_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(SEND_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(SEND_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -2110,7 +2460,10 @@ class UdpSocket_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        UdpSocketSendResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        UdpSocketSendResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -2122,16 +2475,24 @@ class UdpSocket_Internal {
 
             _response.result = result;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(SEND_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    SEND_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
 
 
+
+    
     static final class UdpSocketCloseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 8;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(8, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(8, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
 
         private UdpSocketCloseParams(int version) {
@@ -2152,7 +2513,8 @@ class UdpSocket_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static UdpSocketCloseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -2179,6 +2541,7 @@ class UdpSocket_Internal {
             encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
         }
     }
+
 
 
 }

@@ -17,10 +17,13 @@ import androidx.annotation.IntDef;
 
 public final class SmartCardProtocol {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({SmartCardProtocol.UNDEFINED, SmartCardProtocol.T0, SmartCardProtocol.T1, SmartCardProtocol.RAW})
-    public @interface EnumType {
-    }
+        SmartCardProtocol.UNDEFINED,
+        SmartCardProtocol.T0,
+        SmartCardProtocol.T1,
+        SmartCardProtocol.RAW})
+    public @interface EnumType {}
 
     public static final int UNDEFINED = 0;
     public static final int T0 = 1;
@@ -39,9 +42,8 @@ public final class SmartCardProtocol {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private SmartCardProtocol() {
-    }
+    private SmartCardProtocol() {}
 }

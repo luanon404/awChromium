@@ -9,9 +9,10 @@ import android.text.TextUtils;
 import androidx.annotation.CheckResult;
 import androidx.annotation.Nullable;
 
-import org.chromium.base.Callback;
 import org.jni_zero.CalledByNative;
 import org.jni_zero.JNINamespace;
+
+import org.chromium.base.Callback;
 
 /**
  * CppWrappedTestTracker is a Java implementation of a {@link Tracker} object that is
@@ -88,7 +89,8 @@ public class CppWrappedTestTracker implements Tracker {
     @CalledByNative
     @Override
     public int getTriggerState(String feature) {
-        return ourFeature(feature) ? TriggerState.HAS_NOT_BEEN_DISPLAYED : TriggerState.HAS_BEEN_DISPLAYED;
+        return ourFeature(feature) ? TriggerState.HAS_NOT_BEEN_DISPLAYED
+                                   : TriggerState.HAS_BEEN_DISPLAYED;
     }
 
     @CalledByNative
@@ -112,13 +114,11 @@ public class CppWrappedTestTracker implements Tracker {
     @Override
     public DisplayLockHandle acquireDisplayLock() {
         assert false : "This should only be called on a production tracker";
-        return () -> {
-        };
+        return () -> {};
     }
 
     @Override
-    public void setPriorityNotification(String feature) {
-    }
+    public void setPriorityNotification(String feature) {}
 
     @Override
     @Nullable
@@ -127,12 +127,11 @@ public class CppWrappedTestTracker implements Tracker {
     }
 
     @Override
-    public void registerPriorityNotificationHandler(String feature, Runnable priorityNotificationHandler) {
-    }
+    public void registerPriorityNotificationHandler(
+            String feature, Runnable priorityNotificationHandler) {}
 
     @Override
-    public void unregisterPriorityNotificationHandler(String feature) {
-    }
+    public void unregisterPriorityNotificationHandler(String feature) {}
 
     @CalledByNative
     @Override

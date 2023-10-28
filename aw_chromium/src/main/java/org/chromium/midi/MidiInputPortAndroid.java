@@ -16,7 +16,6 @@ import java.io.IOException;
 
 // Note "InputPort" is named in the Web MIDI manner. It corresponds to MidiOutputPort class in the
 // Android API.
-
 /**
  * A MidiInputPortAndroid provides data to the associated midi::MidiInputPortAndroid object.
  */
@@ -41,9 +40,8 @@ class MidiInputPortAndroid {
 
     /**
      * constructor
-     *
      * @param device the device this port belongs to.
-     * @param index  the index of the port in the associated device.
+     * @param index the index of the port in the associated device.
      */
     MidiInputPortAndroid(MidiDevice device, int index) {
         mDevice = device;
@@ -53,7 +51,6 @@ class MidiInputPortAndroid {
     /**
      * Registers this object to the underlying port so as to the C++ function will be called with
      * the given C++ object when data arrives.
-     *
      * @param nativeReceiverPointer a pointer to a midi::MidiInputPortAndroid object.
      * @return true if this operation succeeds or the port is already open.
      */
@@ -74,7 +71,8 @@ class MidiInputPortAndroid {
                     if (mPort == null) {
                         return;
                     }
-                    MidiInputPortAndroidJni.get().onData(mNativeReceiverPointer, bs, offset, count, timestamp);
+                    MidiInputPortAndroidJni.get().onData(
+                            mNativeReceiverPointer, bs, offset, count, timestamp);
                 }
             }
         });
@@ -100,6 +98,7 @@ class MidiInputPortAndroid {
 
     @NativeMethods
     interface Natives {
-        void onData(long nativeMidiInputPortAndroid, byte[] bs, int offset, int count, long timestamp);
+        void onData(
+                long nativeMidiInputPortAndroid, byte[] bs, int offset, int count, long timestamp);
     }
 }

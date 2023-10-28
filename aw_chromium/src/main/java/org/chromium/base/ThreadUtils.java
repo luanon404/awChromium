@@ -8,9 +8,10 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Process;
 
+import org.jni_zero.CalledByNative;
+
 import org.chromium.base.task.PostTask;
 import org.chromium.base.task.TaskTraits;
-import org.jni_zero.CalledByNative;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -32,7 +33,7 @@ public class ThreadUtils {
     /**
      * A helper object to ensure that interactions with a particular object only happens on a
      * particular thread.
-     * <p>
+     *
      * Example:
      * <pre>
      * {@code
@@ -46,7 +47,7 @@ public class ThreadUtils {
      * }
      * }
      * </pre>
-     * <p>
+     *
      * Another way to use this class is to also use the baked in support for destruction:
      * <pre>
      * {@code
@@ -69,7 +70,8 @@ public class ThreadUtils {
          * on.
          */
         public void assertOnValidThread() {
-            assert sThreadAssertsDisabledForTesting || mThreadId == Process.myTid() : "Must only be used on a single thread.";
+            assert sThreadAssertsDisabledForTesting
+                    || mThreadId == Process.myTid() : "Must only be used on a single thread.";
         }
     }
 
@@ -97,7 +99,9 @@ public class ThreadUtils {
                 // Must come after PostTask is initialized since it uses PostTask.
                 TraceEvent.onUiThreadReady();
             } else if (sUiThreadHandler.getLooper() != looper) {
-                throw new RuntimeException("UI thread looper is already set to " + sUiThreadHandler.getLooper() + " (Main thread looper is " + Looper.getMainLooper() + "), cannot set to new looper " + looper);
+                throw new RuntimeException("UI thread looper is already set to "
+                        + sUiThreadHandler.getLooper() + " (Main thread looper is "
+                        + Looper.getMainLooper() + "), cannot set to new looper " + looper);
             }
         }
     }
@@ -115,7 +119,7 @@ public class ThreadUtils {
     /**
      * Run the supplied Runnable on the main thread. The method will block until the Runnable
      * completes.
-     * <p>
+     *
      * Note that non-test usage of this function is heavily discouraged. For non-tests, use
      * callbacks rather than blocking threads.
      *
@@ -128,7 +132,7 @@ public class ThreadUtils {
     /**
      * Run the supplied Callable on the main thread, wrapping any exceptions in a RuntimeException.
      * The method will block until the Callable completes.
-     * <p>
+     *
      * Note that non-test usage of this function is heavily discouraged. For non-tests, use
      * callbacks rather than blocking threads.
      *
@@ -146,7 +150,7 @@ public class ThreadUtils {
     /**
      * Run the supplied Callable on the main thread, The method will block until the Callable
      * completes.
-     * <p>
+     *
      * Note that non-test usage of this function is heavily discouraged. For non-tests, use
      * callbacks rather than blocking threads.
      *
@@ -217,7 +221,7 @@ public class ThreadUtils {
      * Post the supplied Runnable to run on the main thread after the given amount of time. The
      * method will not block, even if called on the UI thread.
      *
-     * @param r           The Runnable to run
+     * @param r The Runnable to run
      * @param delayMillis The delay in milliseconds until the Runnable will be run
      */
     public static void postOnUiThreadDelayed(Runnable r, long delayMillis) {
@@ -226,7 +230,7 @@ public class ThreadUtils {
 
     /**
      * Throw an exception (when DCHECKs are enabled) if currently not running on the UI thread.
-     * <p>
+     *
      * Can be disabled by setThreadAssertsDisabledForTesting(true).
      */
     public static void assertOnUiThread() {
@@ -237,7 +241,7 @@ public class ThreadUtils {
 
     /**
      * Throw an exception (regardless of build) if currently not running on the UI thread.
-     * <p>
+     *
      * Can be disabled by setThreadAssertsEnabledForTesting(false).
      *
      * @see #assertOnUiThread()
@@ -250,7 +254,7 @@ public class ThreadUtils {
 
     /**
      * Throw an exception (when DCHECKs are enabled) if currently running on the UI thread.
-     * <p>
+     *
      * Can be disabled by setThreadAssertsDisabledForTesting(true).
      */
     public static void assertOnBackgroundThread() {
@@ -261,7 +265,7 @@ public class ThreadUtils {
 
     /**
      * Disables thread asserts.
-     * <p>
+     *
      * Can be used by tests where code that normally runs multi-threaded is going to run
      * single-threaded for the test (otherwise asserts that are valid in production would fail in
      * those tests).
@@ -292,7 +296,6 @@ public class ThreadUtils {
 
     /**
      * Checks whether Thread priority is THREAD_PRIORITY_AUDIO or not.
-     *
      * @param tid Thread id.
      * @return true for THREAD_PRIORITY_AUDIO and false otherwise.
      */

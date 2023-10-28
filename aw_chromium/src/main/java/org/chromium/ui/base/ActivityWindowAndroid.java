@@ -21,7 +21,9 @@ import java.lang.ref.WeakReference;
  * Activity Instance.
  * Only instantiate this class when you need the implemented features.
  */
-public class ActivityWindowAndroid extends WindowAndroid implements ApplicationStatus.ActivityStateListener, ApplicationStatus.WindowFocusChangedListener {
+public class ActivityWindowAndroid
+        extends WindowAndroid implements ApplicationStatus.ActivityStateListener,
+                                         ApplicationStatus.WindowFocusChangedListener {
     private final boolean mListenToActivityState;
 
     // Just create one ImmutableWeakReference object to avoid gc churn.
@@ -29,36 +31,47 @@ public class ActivityWindowAndroid extends WindowAndroid implements ApplicationS
 
     /**
      * Creates an Activity-specific WindowAndroid with associated intent functionality.
-     *
-     * @param context               Context wrapping an activity associated with the WindowAndroid.
+     * @param context Context wrapping an activity associated with the WindowAndroid.
      * @param listenToActivityState Whether to listen to activity state changes.
-     * @param intentRequestTracker  The {@link IntentRequestTracker} of the current activity.
+     * @param intentRequestTracker The {@link IntentRequestTracker} of the current activity.
      */
-    public ActivityWindowAndroid(Context context, boolean listenToActivityState, IntentRequestTracker intentRequestTracker) {
-        this(context, listenToActivityState, new ActivityAndroidPermissionDelegate(new WeakReference<Activity>(ContextUtils.activityFromContext(context))), new ActivityKeyboardVisibilityDelegate(new WeakReference<Activity>(ContextUtils.activityFromContext(context))), intentRequestTracker);
+    public ActivityWindowAndroid(Context context, boolean listenToActivityState,
+            IntentRequestTracker intentRequestTracker) {
+        this(context, listenToActivityState,
+                new ActivityAndroidPermissionDelegate(
+                        new WeakReference<Activity>(ContextUtils.activityFromContext(context))),
+                new ActivityKeyboardVisibilityDelegate(
+                        new WeakReference<Activity>(ContextUtils.activityFromContext(context))),
+                intentRequestTracker);
     }
 
     /**
      * Creates an Activity-specific WindowAndroid with associated intent functionality.
-     *
-     * @param context                    Context wrapping an activity associated with the WindowAndroid.
-     * @param listenToActivityState      Whether to listen to activity state changes.
+     * @param context Context wrapping an activity associated with the WindowAndroid.
+     * @param listenToActivityState Whether to listen to activity state changes.
      * @param keyboardVisibilityDelegate Delegate which handles keyboard visibility.
-     * @param intentRequestTracker       The {@link IntentRequestTracker} of the current activity.
+     * @param intentRequestTracker The {@link IntentRequestTracker} of the current activity.
      */
-    public ActivityWindowAndroid(Context context, boolean listenToActivityState, @NonNull ActivityKeyboardVisibilityDelegate keyboardVisibilityDelegate, IntentRequestTracker intentRequestTracker) {
-        this(context, listenToActivityState, new ActivityAndroidPermissionDelegate(new WeakReference<Activity>(ContextUtils.activityFromContext(context))), keyboardVisibilityDelegate, intentRequestTracker);
+    public ActivityWindowAndroid(Context context, boolean listenToActivityState,
+            @NonNull ActivityKeyboardVisibilityDelegate keyboardVisibilityDelegate,
+            IntentRequestTracker intentRequestTracker) {
+        this(context, listenToActivityState,
+                new ActivityAndroidPermissionDelegate(
+                        new WeakReference<Activity>(ContextUtils.activityFromContext(context))),
+                keyboardVisibilityDelegate, intentRequestTracker);
     }
 
     /**
      * Creates an Activity-specific WindowAndroid with associated intent functionality.
-     *
-     * @param context                           Context wrapping an activity associated with the WindowAndroid.
-     * @param listenToActivityState             Whether to listen to activity state changes.
+     * @param context Context wrapping an activity associated with the WindowAndroid.
+     * @param listenToActivityState Whether to listen to activity state changes.
      * @param activityAndroidPermissionDelegate Delegates which handles android permissions.
-     * @param intentRequestTracker              The {@link IntentRequestTracker} of the current activity.
+     * @param intentRequestTracker The {@link IntentRequestTracker} of the current activity.
      */
-    private ActivityWindowAndroid(Context context, boolean listenToActivityState, ActivityAndroidPermissionDelegate activityAndroidPermissionDelegate, ActivityKeyboardVisibilityDelegate activityKeyboardVisibilityDelegate, IntentRequestTracker intentRequestTracker) {
+    private ActivityWindowAndroid(Context context, boolean listenToActivityState,
+            ActivityAndroidPermissionDelegate activityAndroidPermissionDelegate,
+            ActivityKeyboardVisibilityDelegate activityKeyboardVisibilityDelegate,
+            IntentRequestTracker intentRequestTracker) {
         super(context, intentRequestTracker);
         Activity activity = ContextUtils.activityFromContext(context);
         if (activity == null) {
@@ -82,7 +95,8 @@ public class ActivityWindowAndroid extends WindowAndroid implements ApplicationS
     @Override
     public WeakReference<Activity> getActivity() {
         if (mActivityWeakRefHolder == null) {
-            mActivityWeakRefHolder = new ImmutableWeakReference<>(ContextUtils.activityFromContext(getContext().get()));
+            mActivityWeakRefHolder = new ImmutableWeakReference<>(
+                    ContextUtils.activityFromContext(getContext().get()));
         }
         return mActivityWeakRefHolder;
     }
@@ -106,7 +120,8 @@ public class ActivityWindowAndroid extends WindowAndroid implements ApplicationS
     @Override
     @ActivityState
     public int getActivityState() {
-        return mListenToActivityState ? ApplicationStatus.getStateForActivity(getActivity().get()) : super.getActivityState();
+        return mListenToActivityState ? ApplicationStatus.getStateForActivity(getActivity().get())
+                                      : super.getActivityState();
     }
 
     @Override

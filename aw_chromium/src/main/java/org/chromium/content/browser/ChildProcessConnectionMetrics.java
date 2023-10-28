@@ -24,7 +24,7 @@ import java.util.Set;
  * to the
  * {@link ChildBindingState} that would be applied based on the {@link ChildProcessImportance} in
  * {@link ChildProcessLauncherHelperImpl#setPriority} if {@link BindingManager} was not running.
- * <p>
+ *
  * This class enforces that it is only used on the launcher thread other than during init.
  */
 public class ChildProcessConnectionMetrics {
@@ -76,7 +76,6 @@ public class ChildProcessConnectionMetrics {
 
     /**
      * Generate a Poisson distributed time delay.
-     *
      * @param meanTimeMs the mean time of the delay.
      */
     private long getTimeDelayMs(long meanTimeMs) {
@@ -95,15 +94,16 @@ public class ChildProcessConnectionMetrics {
 
     private void cancelEmitting() {
         assert ThreadUtils.runningOnUiThread();
-        LauncherThread.post(() -> {
-            LauncherThread.removeCallbacks(mEmitMetricsRunnable);
-        });
+        LauncherThread.post(() -> { LauncherThread.removeCallbacks(mEmitMetricsRunnable); });
     }
 
     private void registerActivityStateListenerAndStartEmitting() {
         PostTask.postTask(TaskTraits.UI_DEFAULT, () -> {
             assert ThreadUtils.runningOnUiThread();
-            mApplicationInForegroundOnUiThread = ApplicationStatus.getStateForApplication() == ApplicationState.HAS_RUNNING_ACTIVITIES || ApplicationStatus.getStateForApplication() == ApplicationState.HAS_PAUSED_ACTIVITIES;
+            mApplicationInForegroundOnUiThread = ApplicationStatus.getStateForApplication()
+                            == ApplicationState.HAS_RUNNING_ACTIVITIES
+                    || ApplicationStatus.getStateForApplication()
+                            == ApplicationState.HAS_PAUSED_ACTIVITIES;
 
             ApplicationStatus.registerApplicationStateListener(newState -> {
                 switch (newState) {
@@ -184,22 +184,34 @@ public class ChildProcessConnectionMetrics {
             }
         }
 
-        assert strongBindingCount + visibleBindingCount + notPerceptibleBindingCount + waivedBindingCount == mConnections.size();
+        assert strongBindingCount + visibleBindingCount + notPerceptibleBindingCount
+                        + waivedBindingCount
+                == mConnections.size();
         final int totalConnections = mConnections.size();
 
         // Count 100 is sufficient here as we are limited to 100 live sandboxed services. See
         // ChildConnectionAllocator.MAX_VARIABLE_ALLOCATED.
 
         // Actual effecting binding state counts.
-        RecordHistogram.recordCount100Histogram("Android.ChildProcessBinding.TotalConnections", totalConnections);
-        RecordHistogram.recordCount100Histogram("Android.ChildProcessBinding.StrongConnections", strongBindingCount);
-        RecordHistogram.recordCount100Histogram("Android.ChildProcessBinding.VisibleConnections", visibleBindingCount);
-        RecordHistogram.recordCount100Histogram("Android.ChildProcessBinding.NotPerceptibleConnections", notPerceptibleBindingCount);
-        RecordHistogram.recordCount100Histogram("Android.ChildProcessBinding.WaivedConnections", waivedBindingCount);
+        RecordHistogram.recordCount100Histogram(
+                "Android.ChildProcessBinding.TotalConnections", totalConnections);
+        RecordHistogram.recordCount100Histogram(
+                "Android.ChildProcessBinding.StrongConnections", strongBindingCount);
+        RecordHistogram.recordCount100Histogram(
+                "Android.ChildProcessBinding.VisibleConnections", visibleBindingCount);
+        RecordHistogram.recordCount100Histogram(
+                "Android.ChildProcessBinding.NotPerceptibleConnections",
+                notPerceptibleBindingCount);
+        RecordHistogram.recordCount100Histogram(
+                "Android.ChildProcessBinding.WaivedConnections", waivedBindingCount);
 
         // Metrics if BindingManager wasn't running.
-        RecordHistogram.recordCount100Histogram("Android.ChildProcessBinding.ContentVisibleConnections", contentVisibleBindingCount);
-        RecordHistogram.recordCount100Histogram("Android.ChildProcessBinding.ContentWaivedConnections", contentWaivedBindingCount);
-        RecordHistogram.recordCount100Histogram("Android.ChildProcessBinding.WaivableConnections", waivableBindingCount);
+        RecordHistogram.recordCount100Histogram(
+                "Android.ChildProcessBinding.ContentVisibleConnections",
+                contentVisibleBindingCount);
+        RecordHistogram.recordCount100Histogram(
+                "Android.ChildProcessBinding.ContentWaivedConnections", contentWaivedBindingCount);
+        RecordHistogram.recordCount100Histogram(
+                "Android.ChildProcessBinding.WaivableConnections", waivableBindingCount);
     }
 }

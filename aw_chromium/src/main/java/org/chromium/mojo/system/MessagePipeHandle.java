@@ -16,7 +16,7 @@ public interface MessagePipeHandle extends Handle {
     /**
      * Flags for the message pipe creation operation.
      */
-    class CreateFlags extends Flags<CreateFlags> {
+    public static class CreateFlags extends Flags<CreateFlags> {
         private static final int FLAG_NONE = 0;
 
         /**
@@ -45,7 +45,7 @@ public interface MessagePipeHandle extends Handle {
     /**
      * Used to specify creation parameters for a message pipe to |Core#createMessagePipe()|.
      */
-    class CreateOptions {
+    public static class CreateOptions {
         private CreateFlags mFlags = CreateFlags.NONE;
 
         /**
@@ -60,7 +60,7 @@ public interface MessagePipeHandle extends Handle {
     /**
      * Flags for the write operations on MessagePipeHandle .
      */
-    class WriteFlags extends Flags<WriteFlags> {
+    public static class WriteFlags extends Flags<WriteFlags> {
         private static final int FLAG_NONE = 0;
 
         /**
@@ -88,7 +88,7 @@ public interface MessagePipeHandle extends Handle {
     /**
      * Flags for the read operations on MessagePipeHandle.
      */
-    class ReadFlags extends Flags<ReadFlags> {
+    public static class ReadFlags extends Flags<ReadFlags> {
         private static final int FLAG_NONE = 0;
 
         /**
@@ -117,7 +117,7 @@ public interface MessagePipeHandle extends Handle {
     /**
      * Result of the |readMessage| method.
      */
-    class ReadMessageResult {
+    public static class ReadMessageResult {
         /**
          * If a message was read, this contains the bytes of its data.
          */
@@ -136,7 +136,7 @@ public interface MessagePipeHandle extends Handle {
      * @see org.chromium.mojo.system.Handle#pass()
      */
     @Override
-    MessagePipeHandle pass();
+    public MessagePipeHandle pass();
 
     /**
      * Writes a message to the message pipe endpoint, with message data specified by |bytes| and

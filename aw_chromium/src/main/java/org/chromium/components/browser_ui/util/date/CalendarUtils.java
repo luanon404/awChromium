@@ -6,26 +6,22 @@ package org.chromium.components.browser_ui.util.date;
 
 import java.util.Calendar;
 
-/**
- * A set of utility methods meant to make interacting with a {@link Calendar} instance easier.
- */
+/** A set of utility methods meant to make interacting with a {@link Calendar} instance easier. */
 public final class CalendarUtils {
     private static final class LazyHolder {
         private static Calendar sCalendar1 = CalendarFactory.get();
         private static Calendar sCalendar2 = CalendarFactory.get();
     }
 
-    private CalendarUtils() {
-    }
+    private CalendarUtils() {}
 
     /**
      * Helper method to return the start of the day according to the localized {@link Calendar}.
      * This instance will have no hour, minute, second, etc. associated with it.  Only year, month,
      * and day of month.
-     *
      * @param t The timestamp (in milliseconds) since epoch.
-     * @return A {@link Calendar} instance representing the beginning of the day denoted by
-     * {@code t}.
+     * @return  A {@link Calendar} instance representing the beginning of the day denoted by
+     *          {@code t}.
      */
     public static Calendar getStartOfDay(long t) {
         LazyHolder.sCalendar1.setTimeInMillis(t);
@@ -42,11 +38,10 @@ public final class CalendarUtils {
     /**
      * Helper method determining whether or not two timestamps occur on the same localized calendar
      * day.
-     *
      * @param t1 A timestamp (in milliseconds) since epoch.
      * @param t2 A timestamp (in milliseconds) since epoch.
-     * @return Whether or not {@code t1} and {@code t2} represent times on the same localized
-     * calendar day.
+     * @return   Whether or not {@code t1} and {@code t2} represent times on the same localized
+     *           calendar day.
      */
     public static boolean isSameDay(long t1, long t2) {
         LazyHolder.sCalendar1.setTimeInMillis(t1);
@@ -54,10 +49,9 @@ public final class CalendarUtils {
         return isSameDay(LazyHolder.sCalendar1, LazyHolder.sCalendar2);
     }
 
-    /**
-     * @return Whether {@code cal1} and {@code cal2} have the same localized calendar day.
-     */
+    /** @return Whether {@code cal1} and {@code cal2} have the same localized calendar day. */
     public static boolean isSameDay(Calendar cal1, Calendar cal2) {
-        return cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR) && cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR);
+        return cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR)
+                && cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR);
     }
 }

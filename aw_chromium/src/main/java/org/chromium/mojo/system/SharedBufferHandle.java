@@ -14,7 +14,7 @@ public interface SharedBufferHandle extends Handle {
     /**
      * Flags for the shared buffer creation operation.
      */
-    class CreateFlags extends Flags<CreateFlags> {
+    public static class CreateFlags extends Flags<CreateFlags> {
         private static final int FLAG_NONE = 0;
 
         /**
@@ -43,7 +43,7 @@ public interface SharedBufferHandle extends Handle {
     /**
      * Used to specify creation parameters for a shared buffer to |Core#createSharedBuffer()|.
      */
-    class CreateOptions {
+    public static class CreateOptions {
         private CreateFlags mFlags = CreateFlags.NONE;
 
         /**
@@ -58,7 +58,7 @@ public interface SharedBufferHandle extends Handle {
     /**
      * Flags for the shared buffer duplication operation.
      */
-    class DuplicateFlags extends Flags<DuplicateFlags> {
+    public static class DuplicateFlags extends Flags<DuplicateFlags> {
         private static final int FLAG_NONE = 0;
 
         /**
@@ -88,7 +88,7 @@ public interface SharedBufferHandle extends Handle {
      * Used to specify parameters in duplicating access to a shared buffer to
      * |SharedBufferHandle#duplicate|
      */
-    class DuplicateOptions {
+    public static class DuplicateOptions {
         private DuplicateFlags mFlags = DuplicateFlags.NONE;
 
         /**
@@ -103,7 +103,7 @@ public interface SharedBufferHandle extends Handle {
     /**
      * Flags for the shared buffer map operation.
      */
-    class MapFlags extends Flags<MapFlags> {
+    public static class MapFlags extends Flags<MapFlags> {
         private static final int FLAG_NONE = 0;
 
         /**
@@ -133,14 +133,14 @@ public interface SharedBufferHandle extends Handle {
      * @see org.chromium.mojo.system.Handle#pass()
      */
     @Override
-    SharedBufferHandle pass();
+    public SharedBufferHandle pass();
 
     /**
      * Duplicates the handle. This creates another handle (returned on success), which can then be
      * sent to another application over a message pipe, while retaining access to this handle (and
      * any mappings that it may have).
      */
-    SharedBufferHandle duplicate(DuplicateOptions options);
+    public SharedBufferHandle duplicate(DuplicateOptions options);
 
     /**
      * Map the part (at offset |offset| of length |numBytes|) of the buffer given by this handle
@@ -150,11 +150,11 @@ public interface SharedBufferHandle extends Handle {
      * permissions (e.g., writable or executable) of the returned memory may depend on the
      * properties of the buffer and properties attached to the buffer handle as well as |flags|.
      */
-    ByteBuffer map(long offset, long numBytes, MapFlags flags);
+    public ByteBuffer map(long offset, long numBytes, MapFlags flags);
 
     /**
      * Unmap a buffer pointer that was mapped by |map()|.
      */
-    void unmap(ByteBuffer buffer);
+    public void unmap(ByteBuffer buffer);
 
 }

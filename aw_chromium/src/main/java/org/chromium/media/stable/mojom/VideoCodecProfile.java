@@ -17,14 +17,82 @@ import androidx.annotation.IntDef;
 
 public final class VideoCodecProfile {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({VideoCodecProfile.VIDEO_CODEC_PROFILE_UNKNOWN, VideoCodecProfile.H264_PROFILE_MIN, VideoCodecProfile.H264_PROFILE_BASELINE, VideoCodecProfile.H264_PROFILE_MAIN, VideoCodecProfile.H264_PROFILE_EXTENDED, VideoCodecProfile.H264_PROFILE_HIGH, VideoCodecProfile.H264_PROFILE_HIGH10, VideoCodecProfile.H264_PROFILE_HIGH422, VideoCodecProfile.H264_PROFILE_HIGH444_PREDICTIVE, VideoCodecProfile.H264_PROFILE_SCALABLE_BASELINE, VideoCodecProfile.H264_PROFILE_SCALABLE_HIGH, VideoCodecProfile.H264_PROFILE_STEREO_HIGH, VideoCodecProfile.H264_PROFILE_MULTIVIEW_HIGH, VideoCodecProfile.H264_PROFILE_MAX, VideoCodecProfile.VP8_PROFILE_MIN, VideoCodecProfile.VP8_PROFILE_ANY, VideoCodecProfile.VP8_PROFILE_MAX, VideoCodecProfile.VP9_PROFILE_MIN, VideoCodecProfile.VP9_PROFILE0, VideoCodecProfile.VP9_PROFILE1, VideoCodecProfile.VP9_PROFILE2, VideoCodecProfile.VP9_PROFILE3, VideoCodecProfile.VP9_PROFILE_MAX, VideoCodecProfile.HEVC_PROFILE_MIN, VideoCodecProfile.HEVC_PROFILE_MAIN, VideoCodecProfile.HEVC_PROFILE_MAIN10, VideoCodecProfile.HEVC_PROFILE_MAIN_STILL_PICTURE, VideoCodecProfile.HEVC_PROFILE_MAX, VideoCodecProfile.DOLBY_VISION_PROFILE0, VideoCodecProfile.DOLBY_VISION_PROFILE4, VideoCodecProfile.DOLBY_VISION_PROFILE5, VideoCodecProfile.DOLBY_VISION_PROFILE7, VideoCodecProfile.THEORA_PROFILE_MIN, VideoCodecProfile.THEORA_PROFILE_ANY, VideoCodecProfile.THEORA_PROFILE_MAX, VideoCodecProfile.AV1_PROFILE_MIN, VideoCodecProfile.AV1_PROFILE_MAIN, VideoCodecProfile.AV1_PROFILE_HIGH, VideoCodecProfile.AV1_PROFILE_PRO, VideoCodecProfile.AV1_PROFILE_MAX, VideoCodecProfile.DOLBY_VISION_PROFILE8, VideoCodecProfile.DOLBY_VISION_PROFILE9, VideoCodecProfile.HEVC_PROFILE_EXT_MIN, VideoCodecProfile.HEVC_PROFILE_REXT, VideoCodecProfile.HEVC_PROFILE_HIGH_THROUGHPUT, VideoCodecProfile.HEVC_PROFILE_MULTIVIEW_MAIN, VideoCodecProfile.HEVC_PROFILE_SCALABLE_MAIN, VideoCodecProfile.HEVC_PROFILE3D_MAIN, VideoCodecProfile.HEVC_PROFILE_SCREEN_EXTENDED, VideoCodecProfile.HEVC_PROFILE_SCALABLE_REXT, VideoCodecProfile.HEVC_PROFILE_HIGH_THROUGHPUT_SCREEN_EXTENDED, VideoCodecProfile.HEVC_PROFILE_EXT_MAX, VideoCodecProfile.VVC_PROFILE_MIN, VideoCodecProfile.VVC_PROFILE_MAIN10, VideoCodecProfile.VVC_PROFILE_MAIN12, VideoCodecProfile.VVC_PROFILE_MAIN12_INTRA, VideoCodecProfile.VVC_PROFILE_MULTILAYER_MAIN10, VideoCodecProfile.VVC_PROFILE_MAIN10444, VideoCodecProfile.VVC_PROFILE_MAIN12444, VideoCodecProfile.VVC_PROFILE_MAIN16444, VideoCodecProfile.VVC_PROFILE_MAIN12444_INTRA, VideoCodecProfile.VVC_PROFILE_MAIN16444_INTRA, VideoCodecProfile.VVC_PROFILE_MULTILAYER_MAIN10444, VideoCodecProfile.VVC_PROFILE_MAIN10_STILL, VideoCodecProfile.VVC_PROFILE_MAIN12_STILL, VideoCodecProfile.VVC_PROFILE_MAIN10444_STILL, VideoCodecProfile.VVC_PROFILE_MAIN12444_STILL, VideoCodecProfile.VVC_PROFILE_MAIN16444_STILL, VideoCodecProfile.VVC_PROILE_MAX})
-    public @interface EnumType {
-    }
+        VideoCodecProfile.VIDEO_CODEC_PROFILE_UNKNOWN,
+        VideoCodecProfile.H264_PROFILE_MIN,
+        VideoCodecProfile.H264_PROFILE_BASELINE,
+        VideoCodecProfile.H264_PROFILE_MAIN,
+        VideoCodecProfile.H264_PROFILE_EXTENDED,
+        VideoCodecProfile.H264_PROFILE_HIGH,
+        VideoCodecProfile.H264_PROFILE_HIGH10,
+        VideoCodecProfile.H264_PROFILE_HIGH422,
+        VideoCodecProfile.H264_PROFILE_HIGH444_PREDICTIVE,
+        VideoCodecProfile.H264_PROFILE_SCALABLE_BASELINE,
+        VideoCodecProfile.H264_PROFILE_SCALABLE_HIGH,
+        VideoCodecProfile.H264_PROFILE_STEREO_HIGH,
+        VideoCodecProfile.H264_PROFILE_MULTIVIEW_HIGH,
+        VideoCodecProfile.H264_PROFILE_MAX,
+        VideoCodecProfile.VP8_PROFILE_MIN,
+        VideoCodecProfile.VP8_PROFILE_ANY,
+        VideoCodecProfile.VP8_PROFILE_MAX,
+        VideoCodecProfile.VP9_PROFILE_MIN,
+        VideoCodecProfile.VP9_PROFILE0,
+        VideoCodecProfile.VP9_PROFILE1,
+        VideoCodecProfile.VP9_PROFILE2,
+        VideoCodecProfile.VP9_PROFILE3,
+        VideoCodecProfile.VP9_PROFILE_MAX,
+        VideoCodecProfile.HEVC_PROFILE_MIN,
+        VideoCodecProfile.HEVC_PROFILE_MAIN,
+        VideoCodecProfile.HEVC_PROFILE_MAIN10,
+        VideoCodecProfile.HEVC_PROFILE_MAIN_STILL_PICTURE,
+        VideoCodecProfile.HEVC_PROFILE_MAX,
+        VideoCodecProfile.DOLBY_VISION_PROFILE0,
+        VideoCodecProfile.DOLBY_VISION_PROFILE4,
+        VideoCodecProfile.DOLBY_VISION_PROFILE5,
+        VideoCodecProfile.DOLBY_VISION_PROFILE7,
+        VideoCodecProfile.THEORA_PROFILE_MIN,
+        VideoCodecProfile.THEORA_PROFILE_ANY,
+        VideoCodecProfile.THEORA_PROFILE_MAX,
+        VideoCodecProfile.AV1_PROFILE_MIN,
+        VideoCodecProfile.AV1_PROFILE_MAIN,
+        VideoCodecProfile.AV1_PROFILE_HIGH,
+        VideoCodecProfile.AV1_PROFILE_PRO,
+        VideoCodecProfile.AV1_PROFILE_MAX,
+        VideoCodecProfile.DOLBY_VISION_PROFILE8,
+        VideoCodecProfile.DOLBY_VISION_PROFILE9,
+        VideoCodecProfile.HEVC_PROFILE_EXT_MIN,
+        VideoCodecProfile.HEVC_PROFILE_REXT,
+        VideoCodecProfile.HEVC_PROFILE_HIGH_THROUGHPUT,
+        VideoCodecProfile.HEVC_PROFILE_MULTIVIEW_MAIN,
+        VideoCodecProfile.HEVC_PROFILE_SCALABLE_MAIN,
+        VideoCodecProfile.HEVC_PROFILE3D_MAIN,
+        VideoCodecProfile.HEVC_PROFILE_SCREEN_EXTENDED,
+        VideoCodecProfile.HEVC_PROFILE_SCALABLE_REXT,
+        VideoCodecProfile.HEVC_PROFILE_HIGH_THROUGHPUT_SCREEN_EXTENDED,
+        VideoCodecProfile.HEVC_PROFILE_EXT_MAX,
+        VideoCodecProfile.VVC_PROFILE_MIN,
+        VideoCodecProfile.VVC_PROFILE_MAIN10,
+        VideoCodecProfile.VVC_PROFILE_MAIN12,
+        VideoCodecProfile.VVC_PROFILE_MAIN12_INTRA,
+        VideoCodecProfile.VVC_PROFILE_MULTILAYER_MAIN10,
+        VideoCodecProfile.VVC_PROFILE_MAIN10444,
+        VideoCodecProfile.VVC_PROFILE_MAIN12444,
+        VideoCodecProfile.VVC_PROFILE_MAIN16444,
+        VideoCodecProfile.VVC_PROFILE_MAIN12444_INTRA,
+        VideoCodecProfile.VVC_PROFILE_MAIN16444_INTRA,
+        VideoCodecProfile.VVC_PROFILE_MULTILAYER_MAIN10444,
+        VideoCodecProfile.VVC_PROFILE_MAIN10_STILL,
+        VideoCodecProfile.VVC_PROFILE_MAIN12_STILL,
+        VideoCodecProfile.VVC_PROFILE_MAIN10444_STILL,
+        VideoCodecProfile.VVC_PROFILE_MAIN12444_STILL,
+        VideoCodecProfile.VVC_PROFILE_MAIN16444_STILL,
+        VideoCodecProfile.VVC_PROILE_MAX})
+    public @interface EnumType {}
 
     public static final int VIDEO_CODEC_PROFILE_UNKNOWN = -1;
     public static final int H264_PROFILE_MIN = 0;
-    public static final int H264_PROFILE_BASELINE = H264_PROFILE_MIN;
+    public static final int H264_PROFILE_BASELINE = 0;
     public static final int H264_PROFILE_MAIN = 1;
     public static final int H264_PROFILE_EXTENDED = 2;
     public static final int H264_PROFILE_HIGH = 3;
@@ -105,12 +173,11 @@ public final class VideoCodecProfile {
     }
 
     public static int toKnownValue(int value) {
-        if (isKnownValue(value)) {
-            return value;
-        }
-        return DEFAULT_VALUE;
+      if (isKnownValue(value)) {
+        return value;
+      }
+      return DEFAULT_VALUE;
     }
 
-    private VideoCodecProfile() {
-    }
+    private VideoCodecProfile() {}
 }

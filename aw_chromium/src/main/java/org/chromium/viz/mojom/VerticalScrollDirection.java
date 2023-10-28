@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class VerticalScrollDirection {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({VerticalScrollDirection.NULL, VerticalScrollDirection.DOWN, VerticalScrollDirection.UP})
-    public @interface EnumType {
-    }
+        VerticalScrollDirection.NULL,
+        VerticalScrollDirection.DOWN,
+        VerticalScrollDirection.UP})
+    public @interface EnumType {}
 
     public static final int NULL = 0;
     public static final int DOWN = 1;
@@ -38,9 +40,8 @@ public final class VerticalScrollDirection {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private VerticalScrollDirection() {
-    }
+    private VerticalScrollDirection() {}
 }

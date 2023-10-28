@@ -13,6 +13,8 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 class AttributionDataHost_Internal {
 
@@ -222,7 +224,7 @@ org.chromium.attribution_reporting.mojom.OsRegistration registration) {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -259,7 +261,7 @@ org.chromium.attribution_reporting.mojom.OsRegistration registration) {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }

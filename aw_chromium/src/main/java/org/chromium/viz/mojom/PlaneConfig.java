@@ -17,10 +17,13 @@ import androidx.annotation.IntDef;
 
 public final class PlaneConfig {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({PlaneConfig.Y_U_V, PlaneConfig.Y_V_U, PlaneConfig.Y_UV, PlaneConfig.Y_UV_A})
-    public @interface EnumType {
-    }
+        PlaneConfig.Y_U_V,
+        PlaneConfig.Y_V_U,
+        PlaneConfig.Y_UV,
+        PlaneConfig.Y_UV_A})
+    public @interface EnumType {}
 
     public static final int Y_U_V = 0;
     public static final int Y_V_U = 1;
@@ -39,9 +42,8 @@ public final class PlaneConfig {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private PlaneConfig() {
-    }
+    private PlaneConfig() {}
 }

@@ -13,10 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class SourceLocation extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 24;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public String url;
     public int line;
@@ -42,7 +45,8 @@ public final class SourceLocation extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static SourceLocation deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -56,18 +60,18 @@ public final class SourceLocation extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new SourceLocation(elementsOrVersion);
-            {
-
+                {
+                    
                 result.url = decoder0.readString(8, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.line = decoder0.readInt(16);
-            }
-            {
-
+                }
+                {
+                    
                 result.column = decoder0.readInt(20);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -79,11 +83,11 @@ public final class SourceLocation extends org.chromium.mojo.bindings.Struct {
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.url, 8, false);
-
+        
         encoder0.encode(this.line, 16);
-
+        
         encoder0.encode(this.column, 20);
     }
 }

@@ -13,18 +13,23 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface SystemDnsResolver extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends SystemDnsResolver, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends SystemDnsResolver, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<SystemDnsResolver, SystemDnsResolver.Proxy> MANAGER = SystemDnsResolver_Internal.MANAGER;
 
-    void resolve(String hostname, int addrFamily, int flags, long network, Resolve_Response callback);
+    void resolve(
+String hostname, int addrFamily, int flags, long network, 
+Resolve_Response callback);
 
-    interface Resolve_Response extends org.chromium.mojo.bindings.Callbacks.Callback3<AddressList, Integer, Integer> {
-    }
+    interface Resolve_Response extends org.chromium.mojo.bindings.Callbacks.Callback3<AddressList, Integer, Integer> { }
 
 
 }

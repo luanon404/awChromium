@@ -24,6 +24,5 @@ public final class BlinkSchedulerFeatures {
     public static final String PRIORITIZE_COMPOSITING_AFTER_DELAY_TRIALS = "PrioritizeCompositingAfterDelayTrials";
 
     // Do not instantiate this class.
-    private BlinkSchedulerFeatures() {
-    }
+    private BlinkSchedulerFeatures() {}
 }

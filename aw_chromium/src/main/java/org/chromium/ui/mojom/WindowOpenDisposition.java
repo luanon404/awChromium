@@ -17,10 +17,21 @@ import androidx.annotation.IntDef;
 
 public final class WindowOpenDisposition {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({WindowOpenDisposition.UNKNOWN, WindowOpenDisposition.CURRENT_TAB, WindowOpenDisposition.SINGLETON_TAB, WindowOpenDisposition.NEW_FOREGROUND_TAB, WindowOpenDisposition.NEW_BACKGROUND_TAB, WindowOpenDisposition.NEW_POPUP, WindowOpenDisposition.NEW_WINDOW, WindowOpenDisposition.SAVE_TO_DISK, WindowOpenDisposition.OFF_THE_RECORD, WindowOpenDisposition.IGNORE_ACTION, WindowOpenDisposition.SWITCH_TO_TAB, WindowOpenDisposition.NEW_PICTURE_IN_PICTURE})
-    public @interface EnumType {
-    }
+        WindowOpenDisposition.UNKNOWN,
+        WindowOpenDisposition.CURRENT_TAB,
+        WindowOpenDisposition.SINGLETON_TAB,
+        WindowOpenDisposition.NEW_FOREGROUND_TAB,
+        WindowOpenDisposition.NEW_BACKGROUND_TAB,
+        WindowOpenDisposition.NEW_POPUP,
+        WindowOpenDisposition.NEW_WINDOW,
+        WindowOpenDisposition.SAVE_TO_DISK,
+        WindowOpenDisposition.OFF_THE_RECORD,
+        WindowOpenDisposition.IGNORE_ACTION,
+        WindowOpenDisposition.SWITCH_TO_TAB,
+        WindowOpenDisposition.NEW_PICTURE_IN_PICTURE})
+    public @interface EnumType {}
 
     public static final int UNKNOWN = 0;
     public static final int CURRENT_TAB = 1;
@@ -47,9 +58,8 @@ public final class WindowOpenDisposition {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private WindowOpenDisposition() {
-    }
+    private WindowOpenDisposition() {}
 }

@@ -8,7 +8,6 @@ import android.graphics.Rect;
 import android.view.View;
 import android.view.ViewTreeObserver;
 
-import androidx.annotation.NonNull;
 import androidx.core.view.ViewCompat;
 
 /**
@@ -16,7 +15,9 @@ import androidx.core.view.ViewCompat;
  * {@link View#getLocationOnScreen(int[])}. When view bound changes, {@link RectProvider.Observer}
  * will be notified.
  */
-public class ViewRectProvider extends RectProvider implements ViewTreeObserver.OnGlobalLayoutListener, View.OnAttachStateChangeListener, ViewTreeObserver.OnPreDrawListener {
+public class ViewRectProvider extends RectProvider
+        implements ViewTreeObserver.OnGlobalLayoutListener, View.OnAttachStateChangeListener,
+                   ViewTreeObserver.OnPreDrawListener {
     private final int[] mCachedWindowCoordinates = new int[2];
     private final Rect mInsetRect = new Rect();
     private final View mView;
@@ -24,16 +25,13 @@ public class ViewRectProvider extends RectProvider implements ViewTreeObserver.O
     private int mCachedViewWidth;
     private int mCachedViewHeight;
 
-    /**
-     * If not {@code null}, the {@link ViewTreeObserver} that we are registered to.
-     */
+    /** If not {@code null}, the {@link ViewTreeObserver} that we are registered to. */
     private ViewTreeObserver mViewTreeObserver;
 
     private boolean mIncludePadding;
 
     /**
      * Creates an instance of a {@link ViewRectProvider}.
-     *
      * @param view The {@link View} used to generate a {@link Rect}.
      */
     public ViewRectProvider(View view) {
@@ -65,7 +63,6 @@ public class ViewRectProvider extends RectProvider implements ViewTreeObserver.O
 
     /**
      * Whether padding should be included in the {@link Rect} for the {@link View}.
-     *
      * @param includePadding Whether padding should be included. Defaults to false.
      */
     public void setIncludePadding(boolean includePadding) {
@@ -120,18 +117,17 @@ public class ViewRectProvider extends RectProvider implements ViewTreeObserver.O
 
     // View.OnAttachStateChangedObserver implementation.
     @Override
-    public void onViewAttachedToWindow(@NonNull View v) {
-    }
+    public void onViewAttachedToWindow(View v) {}
 
     @Override
-    public void onViewDetachedFromWindow(@NonNull View v) {
+    public void onViewDetachedFromWindow(View v) {
         notifyRectHidden();
     }
 
     /**
      * @param forceRefresh Whether the rect bounds should be refreshed even when the window
-     *                     coordinates and view sizes haven't changed. This is needed when inset or padding changes.
-     */
+     * coordinates and view sizes haven't changed. This is needed when inset or padding changes.
+     * */
     private void refreshRectBounds(boolean forceRefresh) {
         int previousPositionX = mCachedWindowCoordinates[0];
         int previousPositionY = mCachedWindowCoordinates[1];
@@ -145,7 +141,9 @@ public class ViewRectProvider extends RectProvider implements ViewTreeObserver.O
         mCachedViewHeight = mView.getHeight();
 
         // Return if the window coordinates and view sizes haven't changed.
-        if (!forceRefresh && mCachedWindowCoordinates[0] == previousPositionX && mCachedWindowCoordinates[1] == previousPositionY && mCachedViewWidth == previousWidth && mCachedViewHeight == previousHeight) {
+        if (!forceRefresh && mCachedWindowCoordinates[0] == previousPositionX
+                && mCachedWindowCoordinates[1] == previousPositionY
+                && mCachedViewWidth == previousWidth && mCachedViewHeight == previousHeight) {
             return;
         }
 
@@ -162,8 +160,10 @@ public class ViewRectProvider extends RectProvider implements ViewTreeObserver.O
         // Account for the padding.
         if (!mIncludePadding) {
             boolean isRtl = mView.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
-            mRect.left += isRtl ? ViewCompat.getPaddingEnd(mView) : ViewCompat.getPaddingStart(mView);
-            mRect.right -= isRtl ? ViewCompat.getPaddingStart(mView) : ViewCompat.getPaddingEnd(mView);
+            mRect.left +=
+                    isRtl ? ViewCompat.getPaddingEnd(mView) : ViewCompat.getPaddingStart(mView);
+            mRect.right -=
+                    isRtl ? ViewCompat.getPaddingStart(mView) : ViewCompat.getPaddingEnd(mView);
             mRect.top += mView.getPaddingTop();
             mRect.bottom -= mView.getPaddingBottom();
         }

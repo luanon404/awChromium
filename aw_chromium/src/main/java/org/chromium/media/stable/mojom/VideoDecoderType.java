@@ -17,10 +17,14 @@ import androidx.annotation.IntDef;
 
 public final class VideoDecoderType {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({VideoDecoderType.UNKNOWN, VideoDecoderType.VAAPI, VideoDecoderType.VDA, VideoDecoderType.V4L2, VideoDecoderType.TESTING})
-    public @interface EnumType {
-    }
+        VideoDecoderType.UNKNOWN,
+        VideoDecoderType.VAAPI,
+        VideoDecoderType.VDA,
+        VideoDecoderType.V4L2,
+        VideoDecoderType.TESTING})
+    public @interface EnumType {}
 
     public static final int UNKNOWN = 0;
     public static final int VAAPI = 1;
@@ -41,12 +45,11 @@ public final class VideoDecoderType {
     }
 
     public static int toKnownValue(int value) {
-        if (isKnownValue(value)) {
-            return value;
-        }
-        return DEFAULT_VALUE;
+      if (isKnownValue(value)) {
+        return value;
+      }
+      return DEFAULT_VALUE;
     }
 
-    private VideoDecoderType() {
-    }
+    private VideoDecoderType() {}
 }

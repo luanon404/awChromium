@@ -27,54 +27,41 @@ import androidx.annotation.RequiresApi;
  */
 @RequiresApi(Build.VERSION_CODES.N)
 public final class ApiHelperForN {
-    private ApiHelperForN() {
-    }
+    private ApiHelperForN() {}
 
-    /**
-     * See {@link View#startDragAndDrop(ClipData, DragShadowBuilder, Object, int)}.
-     */
-    public static boolean startDragAndDrop(View view, ClipData data, DragShadowBuilder shadowBuilder, Object myLocalState, int flags) {
+    /** See {@link View#startDragAndDrop(ClipData, DragShadowBuilder, Object, int)}. */
+    public static boolean startDragAndDrop(View view, ClipData data,
+            DragShadowBuilder shadowBuilder, Object myLocalState, int flags) {
         return view.startDragAndDrop(data, shadowBuilder, myLocalState, flags);
     }
 
-    /**
-     * See {@link CryptoInfo#setPattern(Pattern)}.
-     */
+    /** See {@link CryptoInfo#setPattern(Pattern)}. */
     public static void setCryptoInfoPattern(CryptoInfo cryptoInfo, int encrypt, int skip) {
         cryptoInfo.setPattern(new CryptoInfo.Pattern(encrypt, skip));
     }
 
-    /**
-     * See {@link Activity#setVrModeEnabled(boolean, ComponentName)}.
-     */
-    public static void setVrModeEnabled(Activity activity, boolean enabled, ComponentName requestedComponent) throws PackageManager.NameNotFoundException {
+    /** See {@link Activity#setVrModeEnabled(boolean, ComponentName)}. */
+    public static void setVrModeEnabled(Activity activity, boolean enabled,
+            ComponentName requestedComponent) throws PackageManager.NameNotFoundException {
         activity.setVrModeEnabled(enabled, requestedComponent);
     }
 
-    /**
-     * See {@link NetworkSecurityPolicy#isCleartextTrafficPermitted(String)}.
-     */
+    /** See {@link NetworkSecurityPolicy#isCleartextTrafficPermitted(String)}. */
     public static boolean isCleartextTrafficPermitted(String host) {
         return NetworkSecurityPolicy.getInstance().isCleartextTrafficPermitted(host);
     }
 
-    /**
-     * See {@link View#onResolvePointerIcon(MotionEvent, int)}.
-     */
+    /** See {@link View#onResolvePointerIcon(MotionEvent, int)}. */
     public static PointerIcon onResolvePointerIcon(View view, MotionEvent event, int pointerIndex) {
         return view.onResolvePointerIcon(event, pointerIndex);
     }
 
-    /**
-     * See {@link Process#getStartUptimeMillis()}.
-     */
+    /** See {@link Process#getStartUptimeMillis()}. */
     public static long getStartUptimeMillis() {
         return Process.getStartUptimeMillis();
     }
 
-    /**
-     * See {@link ConnectivityManager#getRestrictBackgroundStatus(ConnectivityManager)}.
-     */
+    /** See {@link ConnectivityManager#getRestrictBackgroundStatus(ConnectivityManager)}. */
     public static int getRestrictBackgroundStatus(ConnectivityManager cm) {
         return cm.getRestrictBackgroundStatus();
     }

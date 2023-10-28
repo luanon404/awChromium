@@ -24,21 +24,27 @@ public class SystemResourceLoader extends AsyncPreloadResourceLoader {
 
     /**
      * Creates an instance of a {@link SystemResourceLoader}.
-     *
-     * @param resourceType          The resource type this loader is responsible for loading.
-     * @param callback              The {@link ResourceLoaderCallback} to notify when a {@link Resource} is
-     *                              done loading.
-     * @param minScreenSideLengthPx The length (in pixels) of the smallest side of the screen.
+     * @param resourceType The resource type this loader is responsible for loading.
+     * @param callback     The {@link ResourceLoaderCallback} to notify when a {@link Resource} is
+     *                     done loading.
+     * @param minScreenSideLengthPx    The length (in pixels) of the smallest side of the screen.
      */
-    public SystemResourceLoader(int resourceType, ResourceLoaderCallback callback, final int minScreenSideLengthPx) {
-        super(resourceType, callback, resId -> createResource(minScreenSideLengthPx, resId));
+    public SystemResourceLoader(
+            int resourceType, ResourceLoaderCallback callback, final int minScreenSideLengthPx) {
+        super(resourceType, callback, new ResourceCreator() {
+            @Override
+            public Resource create(int resId) {
+                return createResource(minScreenSideLengthPx, resId);
+            }
+        });
     }
 
     private static Resource createResource(int minScreenSideLengthPx, int resId) {
-        if (resId == SystemUIResourceType.OVERSCROLL_GLOW) {
-            return createOverscrollGlowBitmap(minScreenSideLengthPx);
-        } else {
-            assert false;
+        switch (resId) {
+            case SystemUIResourceType.OVERSCROLL_GLOW:
+                return createOverscrollGlowBitmap(minScreenSideLengthPx);
+            default:
+                assert false;
         }
         return null;
     }
@@ -52,7 +58,8 @@ public class SystemResourceLoader extends AsyncPreloadResourceLoader {
         float arcRectY = -arcWidth - y;
         float arcRectWidth = arcWidth * 2.f;
         float arcRectHeight = arcWidth * 2.f;
-        RectF arcRect = new RectF(arcRectX, arcRectY, arcRectX + arcRectWidth, arcRectY + arcRectHeight);
+        RectF arcRect = new RectF(
+                arcRectX, arcRectY, arcRectX + arcRectWidth, arcRectY + arcRectHeight);
 
         Paint arcPaint = new Paint();
         arcPaint.setAntiAlias(true);

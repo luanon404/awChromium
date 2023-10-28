@@ -4,44 +4,74 @@
 package org.chromium.url;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.os.SystemClock;
+import android.text.TextUtils;
+import androidx.annotation.Nullable;
+import com.google.errorprone.annotations.DoNotMock;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.Log;
+import org.chromium.base.ThreadUtils;
+import org.chromium.base.library_loader.LibraryLoader;
+import org.chromium.base.metrics.RecordHistogram;
+import org.chromium.base.task.PostTask;
+import org.chromium.base.task.TaskTraits;
+import org.chromium.url.mojom.Url;
+import org.chromium.url.mojom.UrlConstants;
+import java.util.Random;
 
 @CheckDiscard("crbug.com/993421")
 class GURLJni implements GURL.Natives {
-    private static GURL.Natives testInstance;
+  private static GURL.Natives testInstance;
 
-    public static final JniStaticTestMocker<GURL.Natives> TEST_HOOKS = new JniStaticTestMocker<>() {
-        @Override
-        public void setInstanceForTesting(GURL.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<GURL.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<GURL.Natives>() {
     @Override
-    public void getOrigin(String spec, boolean isValid, long nativeParsed, GURL target) {
-        GEN_JNI.org_chromium_url_GURL_getOrigin(spec, isValid, nativeParsed, target);
+    public void setInstanceForTesting(GURL.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public void init(String uri, GURL target) {
-        GEN_JNI.org_chromium_url_GURL_init(uri, target);
-    }
+  @Override
+  public long createNative(String spec, boolean isValid, long nativeParsed) {
+    return (long) GEN_JNI.org_chromium_url_GURL_createNative(spec, isValid, nativeParsed);
+  }
 
-    public static GURL.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of GURL.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new GURLJni();
+  @Override
+  public boolean domainIs(String spec, boolean isValid, long nativeParsed, String domain) {
+    return (boolean) GEN_JNI.org_chromium_url_GURL_domainIs(spec, isValid, nativeParsed, domain);
+  }
+
+  @Override
+  public void getOrigin(String spec, boolean isValid, long nativeParsed, GURL target) {
+    GEN_JNI.org_chromium_url_GURL_getOrigin(spec, isValid, nativeParsed, target);
+  }
+
+  @Override
+  public void init(String uri, GURL target) {
+    GEN_JNI.org_chromium_url_GURL_init(uri, target);
+  }
+
+  public static GURL.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of GURL.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new GURLJni();
+  }
 }

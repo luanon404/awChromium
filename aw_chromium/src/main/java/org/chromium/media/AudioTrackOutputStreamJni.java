@@ -4,51 +4,63 @@
 package org.chromium.media;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
-
+import org.jni_zero.GEN_JNI;
+import android.annotation.SuppressLint;
+import android.media.AudioFormat;
+import android.media.AudioManager;
+import android.media.AudioTrack;
+import androidx.annotation.VisibleForTesting;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.Log;
 import java.nio.ByteBuffer;
 
 @CheckDiscard("crbug.com/993421")
 class AudioTrackOutputStreamJni implements AudioTrackOutputStream.Natives {
-    private static AudioTrackOutputStream.Natives testInstance;
+  private static AudioTrackOutputStream.Natives testInstance;
 
-    public static final JniStaticTestMocker<AudioTrackOutputStream.Natives> TEST_HOOKS = new JniStaticTestMocker<AudioTrackOutputStream.Natives>() {
-        @Override
-        public void setInstanceForTesting(AudioTrackOutputStream.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<AudioTrackOutputStream.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<AudioTrackOutputStream.Natives>() {
     @Override
-    public long getAddress(long nativeAudioTrackOutputStream, AudioTrackOutputStream caller, ByteBuffer byteBuffer) {
-        return (long) GEN_JNI.org_chromium_media_AudioTrackOutputStream_getAddress(nativeAudioTrackOutputStream, caller, byteBuffer);
+    public void setInstanceForTesting(AudioTrackOutputStream.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public void onError(long nativeAudioTrackOutputStream, AudioTrackOutputStream caller) {
-        GEN_JNI.org_chromium_media_AudioTrackOutputStream_onError(nativeAudioTrackOutputStream, caller);
-    }
+  @Override
+  public long getAddress(long nativeAudioTrackOutputStream, AudioTrackOutputStream caller, ByteBuffer byteBuffer) {
+    return (long) GEN_JNI.org_chromium_media_AudioTrackOutputStream_getAddress(nativeAudioTrackOutputStream, caller, byteBuffer);
+  }
 
-    @Override
-    public AudioTrackOutputStream.AudioBufferInfo onMoreData(long nativeAudioTrackOutputStream, AudioTrackOutputStream caller, ByteBuffer audioData, long delayInFrames) {
-        return (AudioTrackOutputStream.AudioBufferInfo) GEN_JNI.org_chromium_media_AudioTrackOutputStream_onMoreData(nativeAudioTrackOutputStream, caller, audioData, delayInFrames);
-    }
+  @Override
+  public void onError(long nativeAudioTrackOutputStream, AudioTrackOutputStream caller) {
+    GEN_JNI.org_chromium_media_AudioTrackOutputStream_onError(nativeAudioTrackOutputStream, caller);
+  }
 
-    public static AudioTrackOutputStream.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of AudioTrackOutputStream.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new AudioTrackOutputStreamJni();
+  @Override
+  public AudioTrackOutputStream.AudioBufferInfo onMoreData(long nativeAudioTrackOutputStream, AudioTrackOutputStream caller, ByteBuffer audioData, long delayInFrames) {
+    return (AudioTrackOutputStream.AudioBufferInfo) GEN_JNI.org_chromium_media_AudioTrackOutputStream_onMoreData(nativeAudioTrackOutputStream, caller, audioData, delayInFrames);
+  }
+
+  public static AudioTrackOutputStream.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of AudioTrackOutputStream.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new AudioTrackOutputStreamJni();
+  }
 }

@@ -31,8 +31,7 @@ public final class AwOriginVisitLogger {
     private static final String KEY_ORIGINS_VISITED_DATE = "origins_visited_date";
     private static final String KEY_ORIGINS_VISITED_SET = "origins_visited_set";
 
-    private AwOriginVisitLogger() {
-    }
+    private AwOriginVisitLogger() {}
 
     /**
      * Stores the origin and logs the count of distinct origins if there are any for past visits.
@@ -41,7 +40,8 @@ public final class AwOriginVisitLogger {
     @WorkerThread
     public static void logOriginVisit(long originHash) {
         try (StrictModeContext ignored = StrictModeContext.allowDiskReads()) {
-            SharedPreferences prefs = ContextUtils.getApplicationContext().getSharedPreferences(PREFS_FILE, Context.MODE_PRIVATE);
+            SharedPreferences prefs = ContextUtils.getApplicationContext().getSharedPreferences(
+                    PREFS_FILE, Context.MODE_PRIVATE);
 
             // We use TimeUtils to make testing easier.
             Date now = new Date(TimeUtils.currentTimeMillis());
@@ -51,18 +51,23 @@ public final class AwOriginVisitLogger {
             String storedDate = prefs.getString(KEY_ORIGINS_VISITED_DATE, null);
 
             // Wrap it in a new HashSet as the one returned by getStringSet must not be modified.
-            Set<String> origins = new HashSet<>(prefs.getStringSet(KEY_ORIGINS_VISITED_SET, Collections.emptySet()));
+            Set<String> origins = new HashSet<>(
+                    prefs.getStringSet(KEY_ORIGINS_VISITED_SET, Collections.emptySet()));
 
             // If there are stored origin hashes that are not for today, then their count must be
             // logged exactly once and the set cleared before we start storing hashes for today.
             if (!origins.isEmpty() && storedDate != null && !storedDate.equals(todayDate)) {
-                RecordHistogram.recordLinearCountHistogram("Android.WebView.OriginsVisited", origins.size(), 1, 99, 100);
+                RecordHistogram.recordLinearCountHistogram(
+                        "Android.WebView.OriginsVisited", origins.size(), 1, 99, 100);
                 origins.clear();
             }
 
             // Store the date and origin to be logged on a later day.
             origins.add(Long.toString(originHash));
-            prefs.edit().putString(KEY_ORIGINS_VISITED_DATE, todayDate).putStringSet(KEY_ORIGINS_VISITED_SET, origins).apply();
+            prefs.edit()
+                    .putString(KEY_ORIGINS_VISITED_DATE, todayDate)
+                    .putStringSet(KEY_ORIGINS_VISITED_SET, origins)
+                    .apply();
         }
     }
 }

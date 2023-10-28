@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class BeginFrameArgsType {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({BeginFrameArgsType.INVALID, BeginFrameArgsType.NORMAL, BeginFrameArgsType.MISSED})
-    public @interface EnumType {
-    }
+        BeginFrameArgsType.INVALID,
+        BeginFrameArgsType.NORMAL,
+        BeginFrameArgsType.MISSED})
+    public @interface EnumType {}
 
     public static final int INVALID = 0;
     public static final int NORMAL = 1;
@@ -38,9 +40,8 @@ public final class BeginFrameArgsType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private BeginFrameArgsType() {
-    }
+    private BeginFrameArgsType() {}
 }

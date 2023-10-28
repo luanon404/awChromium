@@ -13,6 +13,8 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 class FileSystemAccessManager_Internal {
 
@@ -264,7 +266,7 @@ org.chromium.mojo.bindings.InterfaceRequest<FileSystemAccessObserverHost> observ
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -343,7 +345,7 @@ org.chromium.mojo.bindings.InterfaceRequest<FileSystemAccessObserverHost> observ
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }

@@ -13,29 +13,35 @@
 
 package org.chromium.viz.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface Gpu extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends Gpu, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends Gpu, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<Gpu, Gpu.Proxy> MANAGER = Gpu_Internal.MANAGER;
 
-    void createGpuMemoryBufferFactory(org.chromium.mojo.bindings.InterfaceRequest<GpuMemoryBufferFactory> receiver);
+    void createGpuMemoryBufferFactory(
+org.chromium.mojo.bindings.InterfaceRequest<GpuMemoryBufferFactory> receiver);
 
 
-    void createClientGpuMemoryBufferFactory(org.chromium.mojo.bindings.InterfaceRequest<org.chromium.gpu.mojom.ClientGmbInterface> receiver);
+    void createClientGpuMemoryBufferFactory(
+org.chromium.mojo.bindings.InterfaceRequest<org.chromium.gpu.mojom.ClientGmbInterface> receiver);
 
 
     void establishGpuChannel(
 
-            EstablishGpuChannel_Response callback);
+EstablishGpuChannel_Response callback);
 
-    interface EstablishGpuChannel_Response extends org.chromium.mojo.bindings.Callbacks.Callback5<Integer, org.chromium.mojo.system.MessagePipeHandle, org.chromium.gpu.mojom.GpuInfo, org.chromium.gpu.mojom.GpuFeatureInfo, org.chromium.gpu.mojom.SharedImageCapabilities> {
-    }
+    interface EstablishGpuChannel_Response extends org.chromium.mojo.bindings.Callbacks.Callback5<Integer, org.chromium.mojo.system.MessagePipeHandle, org.chromium.gpu.mojom.GpuInfo, org.chromium.gpu.mojom.GpuFeatureInfo, org.chromium.gpu.mojom.SharedImageCapabilities> { }
 
 
-    void createVideoEncodeAcceleratorProvider(org.chromium.mojo.bindings.InterfaceRequest<org.chromium.media.mojom.VideoEncodeAcceleratorProvider> veaProvider);
+    void createVideoEncodeAcceleratorProvider(
+org.chromium.mojo.bindings.InterfaceRequest<org.chromium.media.mojom.VideoEncodeAcceleratorProvider> veaProvider);
 
 
 }

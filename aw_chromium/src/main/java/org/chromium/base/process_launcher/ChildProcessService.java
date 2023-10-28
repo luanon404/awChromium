@@ -21,6 +21,9 @@ import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.SparseArray;
 
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+
 import org.chromium.base.BaseSwitches;
 import org.chromium.base.CommandLine;
 import org.chromium.base.ContextUtils;
@@ -32,8 +35,6 @@ import org.chromium.base.compat.ApiHelperForN;
 import org.chromium.base.library_loader.LibraryLoader;
 import org.chromium.base.memory.MemoryPressureMonitor;
 import org.chromium.base.metrics.RecordHistogram;
-import org.jni_zero.JNINamespace;
-import org.jni_zero.NativeMethods;
 
 import java.util.List;
 
@@ -46,18 +47,18 @@ import javax.annotation.concurrent.GuardedBy;
  * one distinct process (i.e. one process per service number, up to limit of N).
  * The embedding application must declare these service instances in the application section
  * of its AndroidManifest.xml, first with some meta-data describing the services:
- * <meta-data android:name="org.chromium.test_app.SERVICES_NAME"
- * android:value="org.chromium.test_app.ProcessService"/>
+ *     <meta-data android:name="org.chromium.test_app.SERVICES_NAME"
+ *           android:value="org.chromium.test_app.ProcessService"/>
  * and then N entries of the form:
- * <service android:name="org.chromium.test_app.ProcessServiceX"
- * android:process=":processX" />
- * <p>
+ *     <service android:name="org.chromium.test_app.ProcessServiceX"
+ *              android:process=":processX" />
+ *
  * Q added bindIsolatedService which supports creating multiple instances from a single manifest
  * declaration for isolated services. In this case, only need to declare instance 0 in the manifest.
- * <p>
+ *
  * Subclasses must also provide a delegate in this class constructor. That delegate is responsible
  * for loading native libraries and running the main entry point of the service.
- * <p>
+ *
  * This class does not directly inherit from Service because the logic may be used by a Service
  * implementation which cannot directly inherit from this class (e.g. for WebLayer child services).
  */
@@ -108,7 +109,8 @@ public class ChildProcessService {
     // Interface to send notifications to the parent process.
     private IParentProcess mParentProcess;
 
-    public ChildProcessService(ChildProcessServiceDelegate delegate, Service service, Context applicationContext) {
+    public ChildProcessService(
+            ChildProcessServiceDelegate delegate, Service service, Context applicationContext) {
         mDelegate = delegate;
         mService = service;
         mApplicationContext = applicationContext;
@@ -127,10 +129,12 @@ public class ChildProcessService {
                     mBoundCallingPid = callingPid;
                     mBoundCallingClazz = clazz;
                 } else if (mBoundCallingPid != callingPid) {
-                    Log.e(TAG, "Service is already bound by pid %d, cannot bind for pid %d", mBoundCallingPid, callingPid);
+                    Log.e(TAG, "Service is already bound by pid %d, cannot bind for pid %d",
+                            mBoundCallingPid, callingPid);
                     return false;
                 } else if (!TextUtils.equals(mBoundCallingClazz, clazz)) {
-                    Log.w(TAG, "Service is already bound by %s, cannot bind for %s", mBoundCallingClazz, clazz);
+                    Log.w(TAG, "Service is already bound by %s, cannot bind for %s",
+                            mBoundCallingClazz, clazz);
                     return false;
                 }
             }
@@ -143,7 +147,8 @@ public class ChildProcessService {
         }
 
         @Override
-        public void setupConnection(Bundle args, IParentProcess parentProcess, List<IBinder> callbacks) throws RemoteException {
+        public void setupConnection(Bundle args, IParentProcess parentProcess,
+                List<IBinder> callbacks) throws RemoteException {
             assert mServiceBound;
             synchronized (mBinderLock) {
                 if (mBindToCallerCheck && mBoundCallingPid == 0) {
@@ -259,7 +264,8 @@ public class ChildProcessService {
                     assert mServiceBound;
                     CommandLine.init(mCommandLineParams);
 
-                    if (CommandLine.getInstance().hasSwitch(BaseSwitches.RENDERER_WAIT_FOR_JAVA_DEBUGGER)) {
+                    if (CommandLine.getInstance().hasSwitch(
+                                BaseSwitches.RENDERER_WAIT_FOR_JAVA_DEBUGGER)) {
                         android.os.Debug.waitForDebugger();
                     }
 
@@ -296,12 +302,14 @@ public class ChildProcessService {
                         regionOffsets[i] = fdInfo.offset;
                         regionSizes[i] = fdInfo.size;
                     }
-                    ChildProcessServiceJni.get().registerFileDescriptors(keys, fileIds, fds, regionOffsets, regionSizes);
+                    ChildProcessServiceJni.get().registerFileDescriptors(
+                            keys, fileIds, fds, regionOffsets, regionSizes);
 
                     mDelegate.onBeforeMain();
                 } catch (Throwable e) {
                     try {
-                        mParentProcess.reportExceptionInInit(ChildProcessService.class.getName() + "\n" + android.util.Log.getStackTraceString(e));
+                        mParentProcess.reportExceptionInInit(ChildProcessService.class.getName()
+                                + "\n" + android.util.Log.getStackTraceString(e));
                     } catch (RemoteException re) {
                         Log.e(TAG, "Failed to call reportExceptionInInit.", re);
                     }
@@ -310,11 +318,14 @@ public class ChildProcessService {
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     // Record process startup time histograms.
-                    long startTime = SystemClock.uptimeMillis() - ApiHelperForN.getStartUptimeMillis();
+                    long startTime =
+                            SystemClock.uptimeMillis() - ApiHelperForN.getStartUptimeMillis();
                     String baseHistogramName = "Android.ChildProcessStartTimeV2";
                     String suffix = ContextUtils.isIsolatedProcess() ? ".Isolated" : ".NotIsolated";
-                    RecordHistogram.recordMediumTimesHistogram(baseHistogramName + ".All", startTime);
-                    RecordHistogram.recordMediumTimesHistogram(baseHistogramName + suffix, startTime);
+                    RecordHistogram.recordMediumTimesHistogram(
+                            baseHistogramName + ".All", startTime);
+                    RecordHistogram.recordMediumTimesHistogram(
+                            baseHistogramName + suffix, startTime);
                 }
 
                 mDelegate.runMain();
@@ -352,23 +363,24 @@ public class ChildProcessService {
         // time.
         mService.stopSelf();
 
-        mBindToCallerCheck = intent.getBooleanExtra(ChildProcessConstants.EXTRA_BIND_TO_CALLER, false);
+        mBindToCallerCheck =
+                intent.getBooleanExtra(ChildProcessConstants.EXTRA_BIND_TO_CALLER, false);
         mServiceBound = true;
         mDelegate.onServiceBound(intent);
 
-        String packageName = intent.getStringExtra(ChildProcessConstants.EXTRA_BROWSER_PACKAGE_NAME);
+        String packageName =
+                intent.getStringExtra(ChildProcessConstants.EXTRA_BROWSER_PACKAGE_NAME);
         if (packageName == null) {
             packageName = getApplicationContext().getApplicationInfo().packageName;
         }
         // Don't block bind() with any extra work, post it to the application thread instead.
         final String preloadPackageName = packageName;
-        new Handler(Looper.getMainLooper()).post(() -> mDelegate.preloadNativeLibrary(preloadPackageName));
+        new Handler(Looper.getMainLooper())
+                .post(() -> mDelegate.preloadNativeLibrary(preloadPackageName));
         return mBinder;
     }
 
-    /**
-     * This will be called from the zygote on startup.
-     */
+    /** This will be called from the zygote on startup. */
     public static void setZygoteInfo(int zygotePid, long zygoteStartupTimeMillis) {
         sZygotePid = zygotePid;
         sZygoteStartupTimeMillis = zygoteStartupTimeMillis;
@@ -380,12 +392,14 @@ public class ChildProcessService {
         bundle.setClassLoader(classLoader);
         synchronized (mMainThread) {
             if (mCommandLineParams == null) {
-                mCommandLineParams = bundle.getStringArray(ChildProcessConstants.EXTRA_COMMAND_LINE);
+                mCommandLineParams =
+                        bundle.getStringArray(ChildProcessConstants.EXTRA_COMMAND_LINE);
                 mMainThread.notifyAll();
             }
             // We must have received the command line by now
             assert mCommandLineParams != null;
-            Parcelable[] fdInfosAsParcelable = bundle.getParcelableArray(ChildProcessConstants.EXTRA_FILES);
+            Parcelable[] fdInfosAsParcelable =
+                    bundle.getParcelableArray(ChildProcessConstants.EXTRA_FILES);
             if (fdInfosAsParcelable != null) {
                 // For why this arraycopy is necessary:
                 // http://stackoverflow.com/questions/8745893/i-dont-get-why-this-classcastexception-occurs

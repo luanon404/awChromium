@@ -17,10 +17,32 @@ import androidx.annotation.IntDef;
 
 public final class TextBoundary {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({TextBoundary.NONE, TextBoundary.CHARACTER, TextBoundary.FORMAT_END, TextBoundary.FORMAT_START, TextBoundary.FORMAT_START_OR_END, TextBoundary.LINE_END, TextBoundary.LINE_START, TextBoundary.LINE_START_OR_END, TextBoundary.OBJECT, TextBoundary.PAGE_END, TextBoundary.PAGE_START, TextBoundary.PAGE_START_OR_END, TextBoundary.PARAGRAPH_END, TextBoundary.PARAGRAPH_START, TextBoundary.PARAGRAPH_START_SKIPPING_EMPTY_PARAGRAPHS, TextBoundary.PARAGRAPH_START_OR_END, TextBoundary.SENTENCE_END, TextBoundary.SENTENCE_START, TextBoundary.SENTENCE_START_OR_END, TextBoundary.WEB_PAGE, TextBoundary.WORD_END, TextBoundary.WORD_START, TextBoundary.WORD_START_OR_END})
-    public @interface EnumType {
-    }
+        TextBoundary.NONE,
+        TextBoundary.CHARACTER,
+        TextBoundary.FORMAT_END,
+        TextBoundary.FORMAT_START,
+        TextBoundary.FORMAT_START_OR_END,
+        TextBoundary.LINE_END,
+        TextBoundary.LINE_START,
+        TextBoundary.LINE_START_OR_END,
+        TextBoundary.OBJECT,
+        TextBoundary.PAGE_END,
+        TextBoundary.PAGE_START,
+        TextBoundary.PAGE_START_OR_END,
+        TextBoundary.PARAGRAPH_END,
+        TextBoundary.PARAGRAPH_START,
+        TextBoundary.PARAGRAPH_START_SKIPPING_EMPTY_PARAGRAPHS,
+        TextBoundary.PARAGRAPH_START_OR_END,
+        TextBoundary.SENTENCE_END,
+        TextBoundary.SENTENCE_START,
+        TextBoundary.SENTENCE_START_OR_END,
+        TextBoundary.WEB_PAGE,
+        TextBoundary.WORD_END,
+        TextBoundary.WORD_START,
+        TextBoundary.WORD_START_OR_END})
+    public @interface EnumType {}
 
     public static final int NONE = 0;
     public static final int CHARACTER = 1;
@@ -59,12 +81,11 @@ public final class TextBoundary {
     }
 
     public static int toKnownValue(int value) {
-        if (isKnownValue(value)) {
-            return value;
-        }
-        return DEFAULT_VALUE;
+      if (isKnownValue(value)) {
+        return value;
+      }
+      return DEFAULT_VALUE;
     }
 
-    private TextBoundary() {
-    }
+    private TextBoundary() {}
 }

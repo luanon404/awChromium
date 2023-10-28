@@ -23,7 +23,7 @@ public final class WindowEventObserverManager implements DisplayAndroidObserver,
     private final ObserverList<WindowEventObserver> mWindowEventObservers = new ObserverList<>();
 
     private WindowAndroid mWindowAndroid;
-    private final ViewEventSinkImpl mViewEventSink;
+    private ViewEventSinkImpl mViewEventSink;
     private boolean mAttachedToWindow;
 
     // The cache of device's current orientation and DIP scale factor.
@@ -31,11 +31,14 @@ public final class WindowEventObserverManager implements DisplayAndroidObserver,
     private float mDipScale;
 
     private static final class UserDataFactoryLazyHolder {
-        private static final UserDataFactory<WindowEventObserverManager> INSTANCE = WindowEventObserverManager::new;
+        private static final UserDataFactory<WindowEventObserverManager> INSTANCE =
+                WindowEventObserverManager::new;
     }
 
     public static WindowEventObserverManager from(WebContents webContents) {
-        return ((WebContentsImpl) webContents).getOrSetUserData(WindowEventObserverManager.class, UserDataFactoryLazyHolder.INSTANCE);
+        return ((WebContentsImpl) webContents)
+                .getOrSetUserData(
+                        WindowEventObserverManager.class, UserDataFactoryLazyHolder.INSTANCE);
     }
 
     private WindowEventObserverManager(WebContents webContents) {
@@ -47,7 +50,6 @@ public final class WindowEventObserverManager implements DisplayAndroidObserver,
 
     /**
      * Add {@link WindowEventObserver} object.
-     *
      * @param observer Observer instance to add.
      */
     public void addObserver(WindowEventObserver observer) {
@@ -58,7 +60,6 @@ public final class WindowEventObserverManager implements DisplayAndroidObserver,
 
     /**
      * Remove {@link WindowEventObserver} object.
-     *
      * @param observer Observer instance to remove.
      */
     public void removeObserver(WindowEventObserver observer) {
@@ -95,7 +96,6 @@ public final class WindowEventObserverManager implements DisplayAndroidObserver,
 
     /**
      * Called when {@link WindowAndroid} for WebContents is updated.
-     *
      * @param windowAndroid A new WindowAndroid object.
      */
     public void onWindowAndroidChanged(WindowAndroid windowAndroid) {

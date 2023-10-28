@@ -13,10 +13,13 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class SpatialLayer extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 32;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(32, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(32, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public int width;
     public int height;
@@ -43,7 +46,8 @@ public final class SpatialLayer extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static SpatialLayer deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -57,30 +61,30 @@ public final class SpatialLayer extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new SpatialLayer(elementsOrVersion);
-            {
-
+                {
+                    
                 result.width = decoder0.readInt(8);
-            }
-            {
-
+                }
+                {
+                    
                 result.height = decoder0.readInt(12);
-            }
-            {
-
+                }
+                {
+                    
                 result.bitrateBps = decoder0.readInt(16);
-            }
-            {
-
+                }
+                {
+                    
                 result.framerate = decoder0.readInt(20);
-            }
-            {
-
+                }
+                {
+                    
                 result.maxQp = decoder0.readByte(24);
-            }
-            {
-
+                }
+                {
+                    
                 result.numOfTemporalLayers = decoder0.readByte(25);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -92,17 +96,17 @@ public final class SpatialLayer extends org.chromium.mojo.bindings.Struct {
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.width, 8);
-
+        
         encoder0.encode(this.height, 12);
-
+        
         encoder0.encode(this.bitrateBps, 16);
-
+        
         encoder0.encode(this.framerate, 20);
-
+        
         encoder0.encode(this.maxQp, 24);
-
+        
         encoder0.encode(this.numOfTemporalLayers, 25);
     }
 }

@@ -17,10 +17,14 @@ import androidx.annotation.IntDef;
 
 public final class HasEnrolledInstrumentQueryResult {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({HasEnrolledInstrumentQueryResult.HAS_ENROLLED_INSTRUMENT, HasEnrolledInstrumentQueryResult.HAS_NO_ENROLLED_INSTRUMENT, HasEnrolledInstrumentQueryResult.QUERY_QUOTA_EXCEEDED, HasEnrolledInstrumentQueryResult.WARNING_HAS_ENROLLED_INSTRUMENT, HasEnrolledInstrumentQueryResult.WARNING_HAS_NO_ENROLLED_INSTRUMENT})
-    public @interface EnumType {
-    }
+        HasEnrolledInstrumentQueryResult.HAS_ENROLLED_INSTRUMENT,
+        HasEnrolledInstrumentQueryResult.HAS_NO_ENROLLED_INSTRUMENT,
+        HasEnrolledInstrumentQueryResult.QUERY_QUOTA_EXCEEDED,
+        HasEnrolledInstrumentQueryResult.WARNING_HAS_ENROLLED_INSTRUMENT,
+        HasEnrolledInstrumentQueryResult.WARNING_HAS_NO_ENROLLED_INSTRUMENT})
+    public @interface EnumType {}
 
     public static final int HAS_ENROLLED_INSTRUMENT = 0;
     public static final int HAS_NO_ENROLLED_INSTRUMENT = 1;
@@ -40,9 +44,8 @@ public final class HasEnrolledInstrumentQueryResult {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private HasEnrolledInstrumentQueryResult() {
-    }
+    private HasEnrolledInstrumentQueryResult() {}
 }

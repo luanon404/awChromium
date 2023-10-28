@@ -13,15 +13,20 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface PowerMonitor extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends PowerMonitor, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends PowerMonitor, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<PowerMonitor, PowerMonitor.Proxy> MANAGER = PowerMonitor_Internal.MANAGER;
 
-    void addClient(PowerMonitorClient client);
+    void addClient(
+PowerMonitorClient client);
 
 
 }

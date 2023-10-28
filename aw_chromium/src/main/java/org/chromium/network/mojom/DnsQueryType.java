@@ -17,10 +17,16 @@ import androidx.annotation.IntDef;
 
 public final class DnsQueryType {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({DnsQueryType.UNSPECIFIED, DnsQueryType.A, DnsQueryType.AAAA, DnsQueryType.TXT, DnsQueryType.PTR, DnsQueryType.SRV, DnsQueryType.HTTPS})
-    public @interface EnumType {
-    }
+        DnsQueryType.UNSPECIFIED,
+        DnsQueryType.A,
+        DnsQueryType.AAAA,
+        DnsQueryType.TXT,
+        DnsQueryType.PTR,
+        DnsQueryType.SRV,
+        DnsQueryType.HTTPS})
+    public @interface EnumType {}
 
     public static final int UNSPECIFIED = 0;
     public static final int A = 1;
@@ -42,9 +48,8 @@ public final class DnsQueryType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private DnsQueryType() {
-    }
+    private DnsQueryType() {}
 }

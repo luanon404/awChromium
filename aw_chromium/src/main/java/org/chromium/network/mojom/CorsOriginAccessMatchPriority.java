@@ -17,10 +17,15 @@ import androidx.annotation.IntDef;
 
 public final class CorsOriginAccessMatchPriority {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({CorsOriginAccessMatchPriority.NO_MATCHING_ORIGIN, CorsOriginAccessMatchPriority.DEFAULT_PRIORITY, CorsOriginAccessMatchPriority.LOW_PRIORITY, CorsOriginAccessMatchPriority.MEDIUM_PRIORITY, CorsOriginAccessMatchPriority.HIGH_PRIORITY, CorsOriginAccessMatchPriority.MAX_PRIORITY})
-    public @interface EnumType {
-    }
+        CorsOriginAccessMatchPriority.NO_MATCHING_ORIGIN,
+        CorsOriginAccessMatchPriority.DEFAULT_PRIORITY,
+        CorsOriginAccessMatchPriority.LOW_PRIORITY,
+        CorsOriginAccessMatchPriority.MEDIUM_PRIORITY,
+        CorsOriginAccessMatchPriority.HIGH_PRIORITY,
+        CorsOriginAccessMatchPriority.MAX_PRIORITY})
+    public @interface EnumType {}
 
     public static final int NO_MATCHING_ORIGIN = 0;
     public static final int DEFAULT_PRIORITY = 1;
@@ -41,9 +46,8 @@ public final class CorsOriginAccessMatchPriority {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private CorsOriginAccessMatchPriority() {
-    }
+    private CorsOriginAccessMatchPriority() {}
 }

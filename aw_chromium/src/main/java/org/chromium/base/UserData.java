@@ -12,9 +12,9 @@ public interface UserData {
     /**
      * Called when {@link UserData} object needs to be destroyed.
      * WARNING: This method is not guaranteed to be called. Each host class should
-     * call {@link UserDataHost#destroy()} explicitly at the end of its
-     * lifetime to have all of its {@link UserData#destroy()} get invoked.
+     *          call {@link UserDataHost#destroy()} explicitly at the end of its
+     *          lifetime to have all of its {@link UserData#destroy()} get invoked.
      */
-    default void destroy() {
-    }
+    default void
+        destroy() {}
 }

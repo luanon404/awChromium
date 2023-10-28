@@ -18,7 +18,7 @@ import org.chromium.base.Log;
 
 /**
  * Display cutout controller for WebView.
- * <p>
+ *
  * This object should be constructed in WebView's constructor to support set listener logic for
  * Android P and above.
  */
@@ -32,11 +32,8 @@ public class AwDisplayCutoutController {
      * This is a delegate that the embedder needs to implement.
      */
     public interface Delegate {
-        /**
-         * @return The DIP scale.
-         */
+        /** @return The DIP scale. */
         float getDipScale();
-
         /**
          * Set display cutout safe area such that webpage can read safe-area-insets CSS properties.
          * Note that this can be called with the same parameter repeatedly, and the embedder needs
@@ -50,7 +47,7 @@ public class AwDisplayCutoutController {
 
     /**
      * A placeholder for insets.
-     * <p>
+     *
      * android.graphics.Insets is available from Q, while we support display cutout from P and
      * above, so adding a new class.
      */
@@ -60,8 +57,7 @@ public class AwDisplayCutoutController {
         public int right;
         public int bottom;
 
-        public Insets() {
-        }
+        public Insets() {}
 
         public Insets(int left, int top, int right, int bottom) {
             set(left, top, right, bottom);
@@ -110,7 +106,7 @@ public class AwDisplayCutoutController {
     /**
      * Constructor for AwDisplayCutoutController.
      *
-     * @param delegate      The delegate.
+     * @param delegate The delegate.
      * @param containerView The container view (WebView).
      */
     public AwDisplayCutoutController(Delegate delegate, View containerView) {
@@ -121,7 +117,7 @@ public class AwDisplayCutoutController {
 
     /**
      * Register a container view to listen to window insets.
-     * <p>
+     *
      * Note that you do not need to register the containerView.
      *
      * @param containerView A container View, such as fullscreen view.
@@ -165,8 +161,8 @@ public class AwDisplayCutoutController {
     /**
      * Call this when window insets are first applied or changed.
      *
-     * @param insets The window (display) insets.
      * @see View#onApplyWindowInsets(WindowInsets)
+     * @param insets The window (display) insets.
      */
     @VisibleForTesting
     public WindowInsets onApplyWindowInsets(final WindowInsets insets) {
@@ -176,7 +172,9 @@ public class AwDisplayCutoutController {
         // DisplayCutout can be null if there is no notch, or layoutInDisplayCutoutMode is DEFAULT
         // (before R) or consumed in the parent view.
         if (cutout != null) {
-            Insets displayCutoutInsets = new Insets(cutout.getSafeInsetLeft(), cutout.getSafeInsetTop(), cutout.getSafeInsetRight(), cutout.getSafeInsetBottom());
+            Insets displayCutoutInsets =
+                    new Insets(cutout.getSafeInsetLeft(), cutout.getSafeInsetTop(),
+                            cutout.getSafeInsetRight(), cutout.getSafeInsetBottom());
             onApplyWindowInsetsInternal(displayCutoutInsets);
         }
         return insets;
@@ -184,7 +182,7 @@ public class AwDisplayCutoutController {
 
     /**
      * Call this when window insets are first applied or changed.
-     * <p>
+     *
      * Similar to {@link onApplyWindowInsets(WindowInsets)}, but accepts
      * Rect as input.
      *
@@ -197,7 +195,9 @@ public class AwDisplayCutoutController {
         adjustInsetsForScale(displayCutoutInsets, dipScale);
 
         if (DEBUG) {
-            Log.i(TAG, "onApplyWindowInsetsInternal. insets: " + displayCutoutInsets + ", dip scale: " + dipScale);
+            Log.i(TAG,
+                    "onApplyWindowInsetsInternal. insets: " + displayCutoutInsets
+                            + ", dip scale: " + dipScale);
         }
         // Note that internally we apply this logic only when the display is in fullscreen mode.
         // See AwDisplayModeController for more details on how we check the fullscreen mode.
@@ -208,17 +208,13 @@ public class AwDisplayCutoutController {
         mContainerView.requestApplyInsets();
     }
 
-    /**
-     * @see View#onSizeChanged(int, int, int, int)
-     */
+    /** @see View#onSizeChanged(int, int, int, int) */
     public void onSizeChanged() {
         if (DEBUG) Log.i(TAG, "onSizeChanged");
         onUpdateWindowInsets();
     }
 
-    /**
-     * @see View#onAttachedToWindow()
-     */
+    /** @see View#onAttachedToWindow() */
     public void onAttachedToWindow() {
         if (DEBUG) Log.i(TAG, "onAttachedToWindow");
         onUpdateWindowInsets();
@@ -234,7 +230,7 @@ public class AwDisplayCutoutController {
     /**
      * Adjusts a WindowInset inset to a CSS pixel value.
      *
-     * @param inset    The inset as an integer.
+     * @param inset The inset as an integer.
      * @param dipScale The devices dip scale as an integer.
      * @return The CSS pixel value adjusted for scale.
      */

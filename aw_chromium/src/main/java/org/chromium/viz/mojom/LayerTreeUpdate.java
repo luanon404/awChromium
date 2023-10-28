@@ -13,10 +13,13 @@
 
 package org.chromium.viz.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class LayerTreeUpdate extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 32;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(32, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(32, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public org.chromium.gfx.mojom.Rect deviceViewport;
     public float deviceScaleFactor;
@@ -24,6 +27,10 @@ public final class LayerTreeUpdate extends org.chromium.mojo.bindings.Struct {
 
     private LayerTreeUpdate(int version) {
         super(STRUCT_SIZE, version);
+    }
+
+    public LayerTreeUpdate() {
+        this(0);
     }
 
     public static LayerTreeUpdate deserialize(org.chromium.mojo.bindings.Message message) {
@@ -36,9 +43,11 @@ public final class LayerTreeUpdate extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static LayerTreeUpdate deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
+    @SuppressWarnings("unchecked")
     public static LayerTreeUpdate decode(org.chromium.mojo.bindings.Decoder decoder0) {
         if (decoder0 == null) {
             return null;
@@ -49,20 +58,20 @@ public final class LayerTreeUpdate extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new LayerTreeUpdate(elementsOrVersion);
-            {
-
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                 result.deviceViewport = org.chromium.gfx.mojom.Rect.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.deviceScaleFactor = decoder0.readFloat(16);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, false);
                 result.localSurfaceIdFromParent = LocalSurfaceId.decode(decoder1);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -70,14 +79,15 @@ public final class LayerTreeUpdate extends org.chromium.mojo.bindings.Struct {
         return result;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
+    protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.deviceViewport, 8, false);
-
+        
         encoder0.encode(this.deviceScaleFactor, 16);
-
+        
         encoder0.encode(this.localSurfaceIdFromParent, 24, false);
     }
 }

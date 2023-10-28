@@ -13,75 +13,100 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface MediaMetricsProvider extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends MediaMetricsProvider, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends MediaMetricsProvider, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<MediaMetricsProvider, MediaMetricsProvider.Proxy> MANAGER = MediaMetricsProvider_Internal.MANAGER;
 
-    void initialize(boolean isMse, int urlScheme, int streamType);
+    void initialize(
+boolean isMse, int urlScheme, int streamType);
 
 
-    void onError(PipelineStatus status);
+    void onError(
+PipelineStatus status);
 
 
-    void onFallback(PipelineStatus status);
+    void onFallback(
+PipelineStatus status);
 
 
-    void setHasPlayed();
+    void setHasPlayed(
+);
 
 
-    void setHaveEnough();
+    void setHaveEnough(
+);
 
 
-    void setIsEme();
+    void setIsEme(
+);
 
 
-    void setTimeToMetadata(org.chromium.mojo_base.mojom.TimeDelta elapsed);
+    void setTimeToMetadata(
+org.chromium.mojo_base.mojom.TimeDelta elapsed);
 
 
-    void setTimeToFirstFrame(org.chromium.mojo_base.mojom.TimeDelta elapsed);
+    void setTimeToFirstFrame(
+org.chromium.mojo_base.mojom.TimeDelta elapsed);
 
 
-    void setTimeToPlayReady(org.chromium.mojo_base.mojom.TimeDelta elapsed);
+    void setTimeToPlayReady(
+org.chromium.mojo_base.mojom.TimeDelta elapsed);
 
 
-    void setRendererType(int rendererType);
+    void setRendererType(
+int rendererType);
 
 
-    void setKeySystem(String keySystem);
+    void setKeySystem(
+String keySystem);
 
 
-    void setIsHardwareSecure();
+    void setIsHardwareSecure(
+);
 
 
-    void setContainerName(int containerName);
+    void setContainerName(
+int containerName);
 
 
-    void acquireWatchTimeRecorder(PlaybackProperties properties, org.chromium.mojo.bindings.InterfaceRequest<WatchTimeRecorder> recorder);
+    void acquireWatchTimeRecorder(
+PlaybackProperties properties, org.chromium.mojo.bindings.InterfaceRequest<WatchTimeRecorder> recorder);
 
 
-    void acquireVideoDecodeStatsRecorder(org.chromium.mojo.bindings.InterfaceRequest<VideoDecodeStatsRecorder> recorder);
+    void acquireVideoDecodeStatsRecorder(
+org.chromium.mojo.bindings.InterfaceRequest<VideoDecodeStatsRecorder> recorder);
 
 
-    void acquireLearningTaskController(String taskName, org.chromium.mojo.bindings.InterfaceRequest<org.chromium.media.learning.mojom.LearningTaskController> controller);
+    void acquireLearningTaskController(
+String taskName, org.chromium.mojo.bindings.InterfaceRequest<org.chromium.media.learning.mojom.LearningTaskController> controller);
 
 
-    void acquirePlaybackEventsRecorder(org.chromium.mojo.bindings.InterfaceRequest<PlaybackEventsRecorder> receiver);
+    void acquirePlaybackEventsRecorder(
+org.chromium.mojo.bindings.InterfaceRequest<PlaybackEventsRecorder> receiver);
 
 
-    void setHasAudio(int codec);
+    void setHasAudio(
+int codec);
 
 
-    void setHasVideo(int codec);
+    void setHasVideo(
+int codec);
 
 
-    void setVideoPipelineInfo(VideoPipelineInfo info);
+    void setVideoPipelineInfo(
+VideoPipelineInfo info);
 
 
-    void setAudioPipelineInfo(AudioPipelineInfo info);
+    void setAudioPipelineInfo(
+AudioPipelineInfo info);
 
 
 }

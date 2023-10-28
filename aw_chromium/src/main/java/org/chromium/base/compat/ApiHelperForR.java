@@ -27,8 +27,7 @@ import java.io.File;
  */
 @RequiresApi(Build.VERSION_CODES.R)
 public final class ApiHelperForR {
-    private ApiHelperForR() {
-    }
+    private ApiHelperForR() {}
 
     public static Display getDisplay(Context context) throws UnsupportedOperationException {
         return context.getDisplay();

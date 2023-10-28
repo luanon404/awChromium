@@ -29,11 +29,9 @@ import android.view.Display;
 import android.view.View;
 import android.view.textclassifier.TextClassifier;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -43,7 +41,7 @@ import java.util.List;
 
 /**
  * Utility class to use APIs not in all supported Android versions.
- * <p>
+ *
  * Do not inline because we use many new APIs, and if they are inlined, they could cause dex
  * validation errors on low Android versions.
  */
@@ -62,12 +60,16 @@ public class ApiCompatibilityUtils {
         static List<Integer> getTargetableDisplayIds(@Nullable Activity activity) {
             List<Integer> displayList = new ArrayList<>();
             if (activity == null) return displayList;
-            DisplayManager displayManager = (DisplayManager) activity.getSystemService(Context.DISPLAY_SERVICE);
+            DisplayManager displayManager =
+                    (DisplayManager) activity.getSystemService(Context.DISPLAY_SERVICE);
             if (displayManager == null) return displayList;
             Display[] displays = displayManager.getDisplays();
-            ActivityManager am = (ActivityManager) activity.getSystemService(Context.ACTIVITY_SERVICE);
+            ActivityManager am =
+                    (ActivityManager) activity.getSystemService(Context.ACTIVITY_SERVICE);
             for (Display display : displays) {
-                if (display.getState() == Display.STATE_ON && am.isActivityStartAllowedOnDisplay(activity, display.getDisplayId(), new Intent(activity, activity.getClass()))) {
+                if (display.getState() == Display.STATE_ON
+                        && am.isActivityStartAllowedOnDisplay(activity, display.getDisplayId(),
+                                new Intent(activity, activity.getClass()))) {
                     displayList.add(display.getDisplayId());
                 }
             }
@@ -108,7 +110,9 @@ public class ApiCompatibilityUtils {
     @RequiresApi(Build.VERSION_CODES.N_MR1)
     private static class ApisNMR1 {
         static boolean isDemoUser() {
-            UserManager userManager = (UserManager) ContextUtils.getApplicationContext().getSystemService(Context.USER_SERVICE);
+            UserManager userManager =
+                    (UserManager) ContextUtils.getApplicationContext().getSystemService(
+                            Context.USER_SERVICE);
             return userManager.isDemoUser();
         }
     }
@@ -116,7 +120,6 @@ public class ApiCompatibilityUtils {
     /**
      * Checks that the object reference is not null and throws NullPointerException if it is.
      * See {@link Objects#requireNonNull} which is available since API level 19.
-     *
      * @param obj The object to check
      */
     @NonNull
@@ -128,8 +131,7 @@ public class ApiCompatibilityUtils {
     /**
      * Checks that the object reference is not null and throws NullPointerException if it is.
      * See {@link Objects#requireNonNull} which is available since API level 19.
-     *
-     * @param obj     The object to check
+     * @param obj The object to check
      * @param message The message to put into NullPointerException
      */
     @NonNull
@@ -147,7 +149,8 @@ public class ApiCompatibilityUtils {
     }
 
     /**
-     * Gets an intent to start the Android system notification settings activity for an app.
+     *  Gets an intent to start the Android system notification settings activity for an app.
+     *
      */
     public static Intent getNotificationSettingsIntent() {
         Intent intent = new Intent();
@@ -157,7 +160,8 @@ public class ApiCompatibilityUtils {
         } else {
             intent.setAction("android.settings.ACTION_APP_NOTIFICATION_SETTINGS");
             intent.putExtra("app_package", packageName);
-            intent.putExtra("app_uid", ContextUtils.getApplicationContext().getApplicationInfo().uid);
+            intent.putExtra(
+                    "app_uid", ContextUtils.getApplicationContext().getApplicationInfo().uid);
         }
         return intent;
     }
@@ -242,10 +246,9 @@ public class ApiCompatibilityUtils {
      * Get a list of ids of targetable displays, including the default display for the
      * current activity. A set of targetable displays can only be determined on Q+. An empty list
      * is returned if called on prior Q.
-     *
      * @param activity The {@link Activity} to check.
      * @return A list of display ids. Empty if there is none or version is less than Q, or
-     * windowAndroid does not contain an activity.
+     *         windowAndroid does not contain an activity.
      */
     @NonNull
     public static List<Integer> getTargetableDisplayIds(Activity activity) {
@@ -257,7 +260,6 @@ public class ApiCompatibilityUtils {
 
     /**
      * Disables the Smart Select {@link TextClassifier} for the given {@link TextView} instance.
-     *
      * @param textView The {@link TextView} that should have its classifier disabled.
      */
     public static void disableSmartSelectionTextClassifier(TextView textView) {
@@ -268,7 +270,6 @@ public class ApiCompatibilityUtils {
 
     /**
      * Creates an ActivityOptions Bundle with basic options and the LaunchDisplayId set.
-     *
      * @param displayId The id of the display to launch into.
      * @return The created bundle, or null if unsupported.
      */
@@ -283,18 +284,18 @@ public class ApiCompatibilityUtils {
      * Sets the mode {@link ActivityOptions#MODE_BACKGROUND_ACTIVITY_START_ALLOWED} to the
      * given {@link ActivityOptions}. The options can be used to send {@link PendingIntent}
      * passed to Chrome from a backgrounded app.
-     *
      * @param options {@ActivityOptions} to set the required mode to.
      */
-    public static void setActivityOptionsBackgroundActivityStartMode(@NonNull ActivityOptions options) {
+    public static void setActivityOptionsBackgroundActivityStartMode(
+            @NonNull ActivityOptions options) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.UPSIDE_DOWN_CAKE) return;
-        options.setPendingIntentBackgroundActivityStartMode(ActivityOptions.MODE_BACKGROUND_ACTIVITY_START_ALLOWED);
+        options.setPendingIntentBackgroundActivityStartMode(
+                ActivityOptions.MODE_BACKGROUND_ACTIVITY_START_ALLOWED);
     }
 
     /**
      * Sets the bottom handwriting bounds offset of the given view to 0.
      * See https://crbug.com/1427112
-     *
      * @param view The view on which to set the handwriting bounds.
      */
     public static void clearHandwritingBoundsOffsetBottom(View view) {
@@ -305,16 +306,20 @@ public class ApiCompatibilityUtils {
         // stylus events meant for the web contents.
         try {
             // float offsetTop = this.getHandwritingBoundsOffsetTop();
-            float offsetTop = (float) View.class.getMethod("getHandwritingBoundsOffsetTop").invoke(view);
+            float offsetTop =
+                    (float) View.class.getMethod("getHandwritingBoundsOffsetTop").invoke(view);
             // float offsetLeft = this.getHandwritingBoundsOffsetLeft();
-            float offsetLeft = (float) View.class.getMethod("getHandwritingBoundsOffsetLeft").invoke(view);
+            float offsetLeft =
+                    (float) View.class.getMethod("getHandwritingBoundsOffsetLeft").invoke(view);
             // float offsetRight = this.getHandwritingBoundsOffsetRight();
-            float offsetRight = (float) View.class.getMethod("getHandwritingBoundsOffsetRight").invoke(view);
+            float offsetRight =
+                    (float) View.class.getMethod("getHandwritingBoundsOffsetRight").invoke(view);
             // this.setHandwritingBoundsOffsets(offsetLeft, offsetTop, offsetRight, 0);
-            Method setHandwritingBoundsOffsets = View.class.getMethod("setHandwritingBoundsOffsets", float.class, float.class, float.class, float.class);
+            Method setHandwritingBoundsOffsets = View.class.getMethod("setHandwritingBoundsOffsets",
+                    float.class, float.class, float.class, float.class);
             setHandwritingBoundsOffsets.invoke(view, offsetLeft, offsetTop, offsetRight, 0);
-        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException |
-                 NullPointerException e) {
+        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException
+                | NullPointerException e) {
             // Do nothing.
         }
     }

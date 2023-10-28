@@ -13,16 +13,23 @@
 
 package org.chromium.viz.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class BundledFrameSubmission extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 32;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(32, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(32, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public int sinkId;
     public BundledFrameSubmissionData data;
 
     private BundledFrameSubmission(int version) {
         super(STRUCT_SIZE, version);
+    }
+
+    public BundledFrameSubmission() {
+        this(0);
     }
 
     public static BundledFrameSubmission deserialize(org.chromium.mojo.bindings.Message message) {
@@ -35,9 +42,11 @@ public final class BundledFrameSubmission extends org.chromium.mojo.bindings.Str
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static BundledFrameSubmission deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
+    @SuppressWarnings("unchecked")
     public static BundledFrameSubmission decode(org.chromium.mojo.bindings.Decoder decoder0) {
         if (decoder0 == null) {
             return null;
@@ -48,14 +57,14 @@ public final class BundledFrameSubmission extends org.chromium.mojo.bindings.Str
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new BundledFrameSubmission(elementsOrVersion);
-            {
-
+                {
+                    
                 result.sinkId = decoder0.readInt(8);
-            }
-            {
-
+                }
+                {
+                    
                 result.data = BundledFrameSubmissionData.decode(decoder0, 16);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -63,12 +72,13 @@ public final class BundledFrameSubmission extends org.chromium.mojo.bindings.Str
         return result;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
+    protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.sinkId, 8);
-
+        
         encoder0.encode(this.data, 16, false);
     }
 }

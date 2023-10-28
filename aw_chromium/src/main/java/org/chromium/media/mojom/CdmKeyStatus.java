@@ -17,10 +17,16 @@ import androidx.annotation.IntDef;
 
 public final class CdmKeyStatus {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({CdmKeyStatus.USABLE, CdmKeyStatus.INTERNAL_ERROR, CdmKeyStatus.EXPIRED, CdmKeyStatus.OUTPUT_RESTRICTED, CdmKeyStatus.OUTPUT_DOWNSCALED, CdmKeyStatus.KEY_STATUS_PENDING, CdmKeyStatus.RELEASED})
-    public @interface EnumType {
-    }
+        CdmKeyStatus.USABLE,
+        CdmKeyStatus.INTERNAL_ERROR,
+        CdmKeyStatus.EXPIRED,
+        CdmKeyStatus.OUTPUT_RESTRICTED,
+        CdmKeyStatus.OUTPUT_DOWNSCALED,
+        CdmKeyStatus.KEY_STATUS_PENDING,
+        CdmKeyStatus.RELEASED})
+    public @interface EnumType {}
 
     public static final int USABLE = 0;
     public static final int INTERNAL_ERROR = 1;
@@ -42,9 +48,8 @@ public final class CdmKeyStatus {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private CdmKeyStatus() {
-    }
+    private CdmKeyStatus() {}
 }

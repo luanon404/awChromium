@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface ReceivedSnapshotListener extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends ReceivedSnapshotListener, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends ReceivedSnapshotListener, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<ReceivedSnapshotListener, ReceivedSnapshotListener.Proxy> MANAGER = ReceivedSnapshotListener_Internal.MANAGER;

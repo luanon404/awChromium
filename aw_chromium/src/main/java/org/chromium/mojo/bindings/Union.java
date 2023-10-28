@@ -10,21 +10,15 @@ import org.chromium.mojo.system.Core;
  * Base class for all mojo unions.
  */
 public abstract class Union {
-    /**
-     * They type of object that has been set.
-     */
+    /** They type of object that has been set. */
     protected int mTag;
 
-    /**
-     * Returns the type of object being held by this union.
-     */
+    /** Returns the type of object being held by this union. */
     public int which() {
         return mTag;
     }
 
-    /**
-     * Returns whether the type of object in this union is known.
-     */
+    /** Returns whether the type of object in this union is known. */
     public boolean isUnknown() {
         return mTag == -1;
     }
@@ -33,7 +27,7 @@ public abstract class Union {
      * Returns the serialization of the union. This method can close Handles.
      *
      * @param core the |Core| implementation used to generate handles. Only used if the data
-     *             structure being encoded contains interfaces, can be |null| otherwise.
+     *            structure being encoded contains interfaces, can be |null| otherwise.
      */
     public Message serialize(Core core) {
         Encoder encoder = new Encoder(core, BindingsHelper.UNION_SIZE);

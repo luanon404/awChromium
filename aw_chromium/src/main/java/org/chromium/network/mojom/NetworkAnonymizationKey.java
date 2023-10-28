@@ -13,13 +13,15 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class NetworkAnonymizationKey extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
         public static final int Empty = 0;
         public static final int NonEmpty = 1;
-    }
-
+    };
     private EmptyNetworkAnonymizationKey mEmpty;
     private NonEmptyNetworkAnonymizationKey mNonEmpty;
 
@@ -50,12 +52,12 @@ public final class NetworkAnonymizationKey extends org.chromium.mojo.bindings.Un
         encoder0.encode(this.mTag, offset + 4);
         switch (mTag) {
             case Tag.Empty: {
-
+                
                 encoder0.encode(this.mEmpty, offset + 8, false);
                 break;
             }
             case Tag.NonEmpty: {
-
+                
                 encoder0.encode(this.mNonEmpty, offset + 8, false);
                 break;
             }
@@ -77,14 +79,14 @@ public final class NetworkAnonymizationKey extends org.chromium.mojo.bindings.Un
         NetworkAnonymizationKey result = new NetworkAnonymizationKey();
         switch (dataHeader.elementsOrVersion) {
             case Tag.Empty: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mEmpty = EmptyNetworkAnonymizationKey.decode(decoder1);
                 result.mTag = Tag.Empty;
                 break;
             }
             case Tag.NonEmpty: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mNonEmpty = NonEmptyNetworkAnonymizationKey.decode(decoder1);
                 result.mTag = Tag.NonEmpty;

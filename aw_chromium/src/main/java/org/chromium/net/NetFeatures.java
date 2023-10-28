@@ -261,6 +261,5 @@ public final class NetFeatures {
     public static final String RECEIVE_ECN = "ReceiveEcn";
 
     // Do not instantiate this class.
-    private NetFeatures() {
-    }
+    private NetFeatures() {}
 }

@@ -6,12 +6,13 @@ package org.chromium.ui.base;
 
 import android.view.View;
 
-import org.chromium.base.ContextUtils;
-import org.chromium.base.LocaleUtils;
-import org.chromium.base.ResettersForTesting;
 import org.jni_zero.CalledByNative;
 import org.jni_zero.JNINamespace;
 import org.jni_zero.NativeMethods;
+
+import org.chromium.base.ContextUtils;
+import org.chromium.base.LocaleUtils;
+import org.chromium.base.ResettersForTesting;
 
 import java.util.Locale;
 
@@ -42,18 +43,22 @@ public class LocalizationUtils {
 
     /**
      * Returns whether the Android layout direction is RTL.
-     * <p>
+     *
      * Note that the locale direction can be different from layout direction. Two known cases:
      * - RTL languages on Android 4.1, due to the lack of RTL layout support on 4.1.
      * - When user turned on force RTL layout option under developer options.
-     * <p>
+     *
      * Therefore, only this function should be used to query RTL for layout purposes.
      */
     @CalledByNative
     public static boolean isLayoutRtl() {
         if (sIsLayoutRtlForTesting != null) return sIsLayoutRtlForTesting;
 
-        return ContextUtils.getApplicationContext().getResources().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
+        return ContextUtils.getApplicationContext()
+                       .getResources()
+                       .getConfiguration()
+                       .getLayoutDirection()
+                == View.LAYOUT_DIRECTION_RTL;
     }
 
     public static void setRtlForTesting(boolean shouldBeRtl) {
@@ -63,7 +68,6 @@ public class LocalizationUtils {
 
     /**
      * Jni binding to base::i18n::GetFirstStrongCharacterDirection
-     *
      * @param string String to decide the direction.
      * @return One of the UNKNOWN_DIRECTION, RIGHT_TO_LEFT, and LEFT_TO_RIGHT.
      */
@@ -82,7 +86,7 @@ public class LocalizationUtils {
 
     /**
      * Return the asset split language associated with a given Chromium language.
-     * <p>
+     *
      * This matches the directory used to store language-based assets in bundle APK splits.
      * E.g. for Hebrew, known as 'he' by Chromium, this method should return 'iw' because
      * the .pak file will be stored as /assets/locales#lang_iw/he.pak within the split.
@@ -111,10 +115,10 @@ public class LocalizationUtils {
      * Return true iff a locale string matches a specific language string.
      *
      * @param locale Chromium locale name (e.g. "fil", or "en-US").
-     * @param lang   Chromium language name (e.g. "fi", or "en").
+     * @param lang Chromium language name (e.g. "fi", or "en").
      * @return true iff the locale name matches the languages. E.g. should
-     * be false for ("fil", "fi") (Filipino locale + Finish language)
-     * but true for ("en-US", "en") (USA locale + English language).
+     *         be false for ("fil", "fi") (Filipino locale + Finish language)
+     *         but true for ("en-US", "en") (USA locale + English language).
      */
     public static boolean chromiumLocaleMatchesLanguage(String locale, String lang) {
         return LocaleUtils.toBaseLanguage(locale).equals(lang);
@@ -123,7 +127,6 @@ public class LocalizationUtils {
     @NativeMethods
     interface Natives {
         int getFirstStrongCharacterDirection(String string);
-
         String getNativeUiLocale();
     }
 }

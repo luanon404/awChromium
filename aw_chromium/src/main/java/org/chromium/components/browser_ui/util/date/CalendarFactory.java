@@ -14,30 +14,28 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-/**
- * Helper class to simplify querying for a {@link Calendar} instance.
- */
+/** Helper class to simplify querying for a {@link Calendar} instance. */
 public final class CalendarFactory {
     // USER_BLOCKING since we eventually .get() this.
-    private static final AsyncTask<Calendar> sCalendarBuilder = new CalendarBuilder().executeWithTaskTraits(TaskTraits.USER_BLOCKING_MAY_BLOCK);
+    private static final AsyncTask<Calendar> sCalendarBuilder =
+            new CalendarBuilder().executeWithTaskTraits(TaskTraits.USER_BLOCKING_MAY_BLOCK);
     private static Calendar sCalendarToClone;
 
-    private CalendarFactory() {
-    }
+    private CalendarFactory() {}
 
     /**
      * Call this to warm up the AsyncTask.
-     * <p>
+     *
      * Since the AsyncTask is a static field, it won't be started until the static initializer runs.
      * Calling this function simply forces the static initialized to be run.
      */
     @DoNotInline
-    public static void warmUp() {
-    }
+    public static void warmUp() {}
 
     /**
+     *
      * @return A unique {@link Calendar} instance.  This version will (1) not be handed out to any
-     * other caller and (2) will be completely reset.
+     *         other caller and (2) will be completely reset.
      */
     public static Calendar get() {
         if (sCalendarToClone == null) {

@@ -13,7 +13,6 @@ package org.chromium.android_webview;
  * processing to continue.
  */
 public interface JsResultReceiver {
-    void confirm();
-
-    void cancel();
+    public void confirm();
+    public void cancel();
 }

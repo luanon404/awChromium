@@ -19,12 +19,14 @@ import androidx.annotation.IntDef;
 public interface OutputProtection extends org.chromium.mojo.bindings.Interface {
 
 
-    final class ProtectionType {
-        private static final boolean IS_EXTENSIBLE = true;
 
-        @IntDef({ProtectionType.NONE, ProtectionType.HDCP})
-        public @interface EnumType {
-        }
+    public static final class ProtectionType {
+        private static final boolean IS_EXTENSIBLE = true;
+        @IntDef({
+
+            ProtectionType.NONE,
+            ProtectionType.HDCP})
+        public @interface EnumType {}
 
         public static final int NONE = 0;
         public static final int HDCP = 1;
@@ -42,25 +44,29 @@ public interface OutputProtection extends org.chromium.mojo.bindings.Interface {
         }
 
         public static int toKnownValue(int value) {
-            if (isKnownValue(value)) {
-                return value;
-            }
-            return DEFAULT_VALUE;
+          if (isKnownValue(value)) {
+            return value;
+          }
+          return DEFAULT_VALUE;
         }
 
-        private ProtectionType() {
-        }
+        private ProtectionType() {}
     }
 
 
-    final class LinkType {
+    public static final class LinkType {
         private static final boolean IS_EXTENSIBLE = true;
-
         @IntDef({
 
-                LinkType.NONE, LinkType.UNKNOWN, LinkType.INTERNAL, LinkType.VGA, LinkType.HDMI, LinkType.DVI, LinkType.DISPLAYPORT, LinkType.NETWORK})
-        public @interface EnumType {
-        }
+            LinkType.NONE,
+            LinkType.UNKNOWN,
+            LinkType.INTERNAL,
+            LinkType.VGA,
+            LinkType.HDMI,
+            LinkType.DVI,
+            LinkType.DISPLAYPORT,
+            LinkType.NETWORK})
+        public @interface EnumType {}
 
         public static final int NONE = 0;
         public static final int UNKNOWN = 1;
@@ -95,34 +101,33 @@ public interface OutputProtection extends org.chromium.mojo.bindings.Interface {
         }
 
         public static int toKnownValue(int value) {
-            if (isKnownValue(value)) {
-                return value;
-            }
-            return DEFAULT_VALUE;
+          if (isKnownValue(value)) {
+            return value;
+          }
+          return DEFAULT_VALUE;
         }
 
-        private LinkType() {
-        }
+        private LinkType() {}
     }
 
 
-    interface Proxy extends OutputProtection, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends OutputProtection, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<OutputProtection, OutputProtection.Proxy> MANAGER = OutputProtection_Internal.MANAGER;
 
     void queryStatus(
 
-            QueryStatus_Response callback);
+QueryStatus_Response callback);
 
-    interface QueryStatus_Response extends org.chromium.mojo.bindings.Callbacks.Callback3<Boolean, Integer, Integer> {
-    }
+    interface QueryStatus_Response extends org.chromium.mojo.bindings.Callbacks.Callback3<Boolean, Integer, Integer> { }
 
 
-    void enableProtection(int desiredProtectionMask, EnableProtection_Response callback);
+    void enableProtection(
+int desiredProtectionMask, 
+EnableProtection_Response callback);
 
-    interface EnableProtection_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> {
-    }
+    interface EnableProtection_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> { }
 
 
 }

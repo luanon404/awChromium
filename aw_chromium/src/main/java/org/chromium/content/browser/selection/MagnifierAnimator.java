@@ -51,7 +51,9 @@ public class MagnifierAnimator {
     public void handleDragStartedOrMoved(float x, float y) {
         if (!mMagnifier.isAvailable()) return;
         if (DEBUG) {
-            Log.i(TAG, "handleDragStartedOrMoved: " + "(" + x + ", " + y + ")");
+            Log.i(TAG,
+                    "handleDragStartedOrMoved: "
+                            + "(" + x + ", " + y + ")");
         }
         // We only do animation if this is not the first time to show magnifier and y coordinate
         // is different from last target.

@@ -13,10 +13,14 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface LocalMuter extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends LocalMuter, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends LocalMuter, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<LocalMuter, LocalMuter.Proxy> MANAGER = LocalMuter_Internal.MANAGER;

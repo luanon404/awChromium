@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface AnchorElementInteractionHost extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends AnchorElementInteractionHost, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends AnchorElementInteractionHost, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<AnchorElementInteractionHost, AnchorElementInteractionHost.Proxy> MANAGER = AnchorElementInteractionHost_Internal.MANAGER;

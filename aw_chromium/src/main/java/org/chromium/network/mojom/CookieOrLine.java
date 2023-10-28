@@ -13,13 +13,15 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class CookieOrLine extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
         public static final int Cookie = 0;
         public static final int CookieString = 1;
-    }
-
+    };
     private CanonicalCookie mCookie;
     private String mCookieString;
 
@@ -50,12 +52,12 @@ public final class CookieOrLine extends org.chromium.mojo.bindings.Union {
         encoder0.encode(this.mTag, offset + 4);
         switch (mTag) {
             case Tag.Cookie: {
-
+                
                 encoder0.encode(this.mCookie, offset + 8, false);
                 break;
             }
             case Tag.CookieString: {
-
+                
                 encoder0.encode(this.mCookieString, offset + 8, false);
                 break;
             }
@@ -77,14 +79,14 @@ public final class CookieOrLine extends org.chromium.mojo.bindings.Union {
         CookieOrLine result = new CookieOrLine();
         switch (dataHeader.elementsOrVersion) {
             case Tag.Cookie: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mCookie = CanonicalCookie.decode(decoder1);
                 result.mTag = Tag.Cookie;
                 break;
             }
             case Tag.CookieString: {
-
+                
                 result.mCookieString = decoder0.readString(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mTag = Tag.CookieString;
                 break;

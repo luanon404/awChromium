@@ -17,10 +17,40 @@ import androidx.annotation.IntDef;
 
 public final class SmartCardError {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({SmartCardError.REMOVED_CARD, SmartCardError.RESET_CARD, SmartCardError.UNPOWERED_CARD, SmartCardError.UNRESPONSIVE_CARD, SmartCardError.UNSUPPORTED_CARD, SmartCardError.READER_UNAVAILABLE, SmartCardError.SHARING_VIOLATION, SmartCardError.NOT_TRANSACTED, SmartCardError.NO_SMARTCARD, SmartCardError.PROTO_MISMATCH, SmartCardError.SYSTEM_CANCELLED, SmartCardError.NOT_READY, SmartCardError.CANCELLED, SmartCardError.INSUFFICIENT_BUFFER, SmartCardError.INVALID_HANDLE, SmartCardError.INVALID_PARAMETER, SmartCardError.INVALID_VALUE, SmartCardError.NO_MEMORY, SmartCardError.TIMEOUT, SmartCardError.UNKNOWN_READER, SmartCardError.UNSUPPORTED_FEATURE, SmartCardError.NO_READERS_AVAILABLE, SmartCardError.SERVICE_STOPPED, SmartCardError.NO_SERVICE, SmartCardError.COMM_ERROR, SmartCardError.INTERNAL_ERROR, SmartCardError.UNKNOWN_ERROR, SmartCardError.SERVER_TOO_BUSY, SmartCardError.UNEXPECTED, SmartCardError.SHUTDOWN, SmartCardError.UNKNOWN})
-    public @interface EnumType {
-    }
+        SmartCardError.REMOVED_CARD,
+        SmartCardError.RESET_CARD,
+        SmartCardError.UNPOWERED_CARD,
+        SmartCardError.UNRESPONSIVE_CARD,
+        SmartCardError.UNSUPPORTED_CARD,
+        SmartCardError.READER_UNAVAILABLE,
+        SmartCardError.SHARING_VIOLATION,
+        SmartCardError.NOT_TRANSACTED,
+        SmartCardError.NO_SMARTCARD,
+        SmartCardError.PROTO_MISMATCH,
+        SmartCardError.SYSTEM_CANCELLED,
+        SmartCardError.NOT_READY,
+        SmartCardError.CANCELLED,
+        SmartCardError.INSUFFICIENT_BUFFER,
+        SmartCardError.INVALID_HANDLE,
+        SmartCardError.INVALID_PARAMETER,
+        SmartCardError.INVALID_VALUE,
+        SmartCardError.NO_MEMORY,
+        SmartCardError.TIMEOUT,
+        SmartCardError.UNKNOWN_READER,
+        SmartCardError.UNSUPPORTED_FEATURE,
+        SmartCardError.NO_READERS_AVAILABLE,
+        SmartCardError.SERVICE_STOPPED,
+        SmartCardError.NO_SERVICE,
+        SmartCardError.COMM_ERROR,
+        SmartCardError.INTERNAL_ERROR,
+        SmartCardError.UNKNOWN_ERROR,
+        SmartCardError.SERVER_TOO_BUSY,
+        SmartCardError.UNEXPECTED,
+        SmartCardError.SHUTDOWN,
+        SmartCardError.UNKNOWN})
+    public @interface EnumType {}
 
     public static final int REMOVED_CARD = 0;
     public static final int RESET_CARD = 1;
@@ -66,9 +96,8 @@ public final class SmartCardError {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private SmartCardError() {
-    }
+    private SmartCardError() {}
 }

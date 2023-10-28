@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface FontAccessManager extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends FontAccessManager, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends FontAccessManager, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<FontAccessManager, FontAccessManager.Proxy> MANAGER = FontAccessManager_Internal.MANAGER;

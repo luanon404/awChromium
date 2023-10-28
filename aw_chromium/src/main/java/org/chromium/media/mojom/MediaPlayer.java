@@ -13,51 +13,68 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface MediaPlayer extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends MediaPlayer, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends MediaPlayer, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<MediaPlayer, MediaPlayer.Proxy> MANAGER = MediaPlayer_Internal.MANAGER;
 
-    void requestPlay();
+    void requestPlay(
+);
 
 
-    void requestPause(boolean triggeredByUser);
+    void requestPause(
+boolean triggeredByUser);
 
 
-    void requestSeekForward(org.chromium.mojo_base.mojom.TimeDelta seekTime);
+    void requestSeekForward(
+org.chromium.mojo_base.mojom.TimeDelta seekTime);
 
 
-    void requestSeekBackward(org.chromium.mojo_base.mojom.TimeDelta seekTime);
+    void requestSeekBackward(
+org.chromium.mojo_base.mojom.TimeDelta seekTime);
 
 
-    void requestSeekTo(org.chromium.mojo_base.mojom.TimeDelta seekTime);
+    void requestSeekTo(
+org.chromium.mojo_base.mojom.TimeDelta seekTime);
 
 
-    void requestEnterPictureInPicture();
+    void requestEnterPictureInPicture(
+);
 
 
-    void requestMute(boolean mute);
+    void requestMute(
+boolean mute);
 
 
-    void setVolumeMultiplier(double multiplier);
+    void setVolumeMultiplier(
+double multiplier);
 
 
-    void setPersistentState(boolean persistent);
+    void setPersistentState(
+boolean persistent);
 
 
-    void setPowerExperimentState(boolean enabled);
+    void setPowerExperimentState(
+boolean enabled);
 
 
-    void setAudioSinkId(String sinkId);
+    void setAudioSinkId(
+String sinkId);
 
 
-    void suspendForFrameClosed();
+    void suspendForFrameClosed(
+);
 
 
-    void requestMediaRemoting();
+    void requestMediaRemoting(
+);
 
 
 }

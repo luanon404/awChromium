@@ -22,17 +22,20 @@ public class PackageManagerUtils {
     // This is the intent Android uses internally to detect browser apps.
     // See
     // https://cs.android.com/android/_/android/platform/packages/modules/Permission/+/android12-release:PermissionController/src/com/android/permissioncontroller/role/model/BrowserRoleBehavior.java;drc=86fa7d5dfa43f66b170f93ade4f59b9a770be32f;l=50
-    public static final Intent BROWSER_INTENT = new Intent().setAction(Intent.ACTION_VIEW).addCategory(Intent.CATEGORY_BROWSABLE).setData(Uri.fromParts("http", "", null));
+    public static final Intent BROWSER_INTENT = new Intent()
+                                                        .setAction(Intent.ACTION_VIEW)
+                                                        .addCategory(Intent.CATEGORY_BROWSABLE)
+                                                        .setData(Uri.fromParts("http", "", null));
 
     /**
      * Retrieve information about the Activity that will handle the given Intent.
-     * <p>
+     *
      * Note: This function is expensive on KK and below and should not be called from main thread
      * when avoidable.
      *
      * @param intent Intent to resolve.
-     * @param flags  The PackageManager flags to pass to resolveActivity().
-     * @return ResolveInfo of the Activity that will handle the Intent, or null if it failed.
+     * @param flags The PackageManager flags to pass to resolveActivity().
+     * @return       ResolveInfo of the Activity that will handle the Intent, or null if it failed.
      */
     public static ResolveInfo resolveActivity(Intent intent, int flags) {
         // On KitKat, calling PackageManager#resolveActivity() causes disk reads and
@@ -49,7 +52,7 @@ public class PackageManagerUtils {
     /**
      * Get the list of component name of activities which can resolve |intent|.  If the request
      * fails, an empty list will be returned.
-     * <p>
+     *
      * See {@link PackageManager#queryIntentActivities(Intent, int)}
      */
     public static List<ResolveInfo> queryIntentActivities(Intent intent, int flags) {
@@ -66,7 +69,7 @@ public class PackageManagerUtils {
 
     /**
      * Check if the given Intent can be resolved by any Activities on the system.
-     * <p>
+     *
      * See {@link PackageManagerUtils#queryIntentActivities(Intent, int)}
      */
     public static boolean canResolveActivity(Intent intent, int flags) {
@@ -75,7 +78,7 @@ public class PackageManagerUtils {
 
     /**
      * Check if the given Intent can be resolved by any Activities on the system.
-     * <p>
+     *
      * See {@link PackageManagerUtils#canResolveActivity(Intent, int)}
      */
     public static boolean canResolveActivity(Intent intent) {
@@ -98,14 +101,15 @@ public class PackageManagerUtils {
 
     /**
      * @return The list of names of web browser applications available in the system. A browser
-     * may appear twice if it has multiple intent handlers.
+     *         may appear twice if it has multiple intent handlers.
      */
     public static List<ResolveInfo> queryAllWebBrowsersInfo() {
         // Copying these flags from Android source for detecting the list of installed browsers.
         // Apparently MATCH_ALL doesn't include MATCH_DIRECT_BOOT_*.
         // See
         // https://cs.android.com/android/_/android/platform/packages/modules/Permission/+/android12-release:PermissionController/src/com/android/permissioncontroller/role/model/BrowserRoleBehavior.java;drc=86fa7d5dfa43f66b170f93ade4f59b9a770be32f;l=114
-        int flags = PackageManager.MATCH_ALL | PackageManager.MATCH_DIRECT_BOOT_AWARE | PackageManager.MATCH_DIRECT_BOOT_UNAWARE | PackageManager.MATCH_DEFAULT_ONLY;
+        int flags = PackageManager.MATCH_ALL | PackageManager.MATCH_DIRECT_BOOT_AWARE
+                | PackageManager.MATCH_DIRECT_BOOT_UNAWARE | PackageManager.MATCH_DEFAULT_ONLY;
         return queryIntentActivities(BROWSER_INTENT, flags);
     }
 
@@ -113,12 +117,14 @@ public class PackageManagerUtils {
      * @return The list of names of system launcher applications available in the system.
      */
     public static List<ResolveInfo> queryAllLaunchersInfo() {
-        return queryIntentActivities(getQueryInstalledHomeLaunchersIntent(), PackageManager.MATCH_ALL);
+        return queryIntentActivities(
+                getQueryInstalledHomeLaunchersIntent(), PackageManager.MATCH_ALL);
     }
 
     // See https://crbug.com/700505 and https://crbug.com/369574.
     private static void handleExpectedExceptionsOrRethrow(RuntimeException e, Intent intent) {
-        if (e instanceof NullPointerException || e.getCause() instanceof TransactionTooLargeException) {
+        if (e instanceof NullPointerException
+                || e.getCause() instanceof TransactionTooLargeException) {
             Log.e(TAG, "Could not resolve Activity for intent " + intent.toString(), e);
         } else {
             throw e;

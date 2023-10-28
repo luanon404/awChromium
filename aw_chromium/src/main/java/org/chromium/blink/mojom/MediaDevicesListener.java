@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface MediaDevicesListener extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends MediaDevicesListener, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends MediaDevicesListener, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<MediaDevicesListener, MediaDevicesListener.Proxy> MANAGER = MediaDevicesListener_Internal.MANAGER;

@@ -3,56 +3,75 @@
 //
 package org.chromium.content.browser;
 
-import org.chromium.content_public.browser.WebContents;
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.util.Pair;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.UserData;
+import org.chromium.build.annotations.DoNotInline;
+import org.chromium.content.browser.remoteobjects.RemoteObjectInjector;
+import org.chromium.content.browser.webcontents.WebContentsImpl;
+import org.chromium.content.browser.webcontents.WebContentsImpl.UserDataFactory;
+import org.chromium.content_public.browser.JavascriptInjector;
+import org.chromium.content_public.browser.WebContents;
+import java.lang.annotation.Annotation;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 @CheckDiscard("crbug.com/993421")
 class JavascriptInjectorImplJni implements JavascriptInjectorImpl.Natives {
-    private static JavascriptInjectorImpl.Natives testInstance;
+  private static JavascriptInjectorImpl.Natives testInstance;
 
-    public static final JniStaticTestMocker<JavascriptInjectorImpl.Natives> TEST_HOOKS = new JniStaticTestMocker<JavascriptInjectorImpl.Natives>() {
-        @Override
-        public void setInstanceForTesting(JavascriptInjectorImpl.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<JavascriptInjectorImpl.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<JavascriptInjectorImpl.Natives>() {
     @Override
-    public void addInterface(long nativeJavascriptInjector, JavascriptInjectorImpl caller, Object object, String name, Class requiredAnnotation) {
-        GEN_JNI.org_chromium_content_browser_JavascriptInjectorImpl_addInterface(nativeJavascriptInjector, caller, object, name, requiredAnnotation);
+    public void setInstanceForTesting(JavascriptInjectorImpl.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public long init(JavascriptInjectorImpl caller, WebContents webContents, Object retainedObjects) {
-        return GEN_JNI.org_chromium_content_browser_JavascriptInjectorImpl_init(caller, webContents, retainedObjects);
-    }
+  @Override
+  public void addInterface(long nativeJavascriptInjector, JavascriptInjectorImpl caller, Object object, String name, Class requiredAnnotation) {
+    GEN_JNI.org_chromium_content_browser_JavascriptInjectorImpl_addInterface(nativeJavascriptInjector, caller, object, name, requiredAnnotation);
+  }
 
-    @Override
-    public void removeInterface(long nativeJavascriptInjector, JavascriptInjectorImpl caller, String name) {
-        GEN_JNI.org_chromium_content_browser_JavascriptInjectorImpl_removeInterface(nativeJavascriptInjector, caller, name);
-    }
+  @Override
+  public long init(JavascriptInjectorImpl caller, WebContents webContents, Object retainedObjects) {
+    return (long) GEN_JNI.org_chromium_content_browser_JavascriptInjectorImpl_init(caller, webContents, retainedObjects);
+  }
 
-    @Override
-    public void setAllowInspection(long nativeJavascriptInjector, JavascriptInjectorImpl caller, boolean allow) {
-        GEN_JNI.org_chromium_content_browser_JavascriptInjectorImpl_setAllowInspection(nativeJavascriptInjector, caller, allow);
-    }
+  @Override
+  public void removeInterface(long nativeJavascriptInjector, JavascriptInjectorImpl caller, String name) {
+    GEN_JNI.org_chromium_content_browser_JavascriptInjectorImpl_removeInterface(nativeJavascriptInjector, caller, name);
+  }
 
-    public static JavascriptInjectorImpl.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of JavascriptInjectorImpl.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new JavascriptInjectorImplJni();
+  @Override
+  public void setAllowInspection(long nativeJavascriptInjector, JavascriptInjectorImpl caller, boolean allow) {
+    GEN_JNI.org_chromium_content_browser_JavascriptInjectorImpl_setAllowInspection(nativeJavascriptInjector, caller, allow);
+  }
+
+  public static JavascriptInjectorImpl.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of JavascriptInjectorImpl.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new JavascriptInjectorImplJni();
+  }
 }

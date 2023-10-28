@@ -17,10 +17,11 @@ import androidx.annotation.IntDef;
 
 public final class RestrictedCookieManagerRole {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({RestrictedCookieManagerRole.SCRIPT, RestrictedCookieManagerRole.NETWORK})
-    public @interface EnumType {
-    }
+        RestrictedCookieManagerRole.SCRIPT,
+        RestrictedCookieManagerRole.NETWORK})
+    public @interface EnumType {}
 
     public static final int SCRIPT = 0;
     public static final int NETWORK = 1;
@@ -37,9 +38,8 @@ public final class RestrictedCookieManagerRole {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private RestrictedCookieManagerRole() {
-    }
+    private RestrictedCookieManagerRole() {}
 }

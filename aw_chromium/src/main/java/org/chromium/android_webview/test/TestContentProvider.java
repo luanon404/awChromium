@@ -25,7 +25,8 @@ import java.util.Map;
 
 // Note: if you move this class, make sure you have also updated AndroidManifest.xml
 public class TestContentProvider extends ContentProvider {
-    private static final String AUTHORITY = "org.chromium.android_webview.test.TestContentProvider";
+    private static final String AUTHORITY =
+            "org.chromium.android_webview.test.TestContentProvider";
     private static final String CONTENT_SCHEME = "content://";
     private static final String CONTENT_IMAGE_TYPE = "image/png";
     private static final String CONTENT_IMAGE_TARGET = "image";
@@ -33,12 +34,20 @@ public class TestContentProvider extends ContentProvider {
     private static final String RESET_RESOURCE_REQUEST_COUNT = "reset_resource_request_count";
     private static final String TAG = "TestContentProvider";
     private static final int EXPECTED_COLUMN_INDEX = 0;
-    private static final Map<String, String> REGISTERED_CONTENT_TYPE = new HashMap<String, String>();
+    private static final Map<String, String> REGISTERED_CONTENT_TYPE =
+            new HashMap<String, String>();
     private static final Map<String, byte[]> REGISTERED_RESPONSE = new HashMap<String, byte[]>();
     private final Map<String, Integer> mResourceRequestCount;
 
     // 1x1 black dot png image.
-    private static final byte[] IMAGE = {(byte) 0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 0x00, 0x00, 0x00, 0x0d, 0x49, 0x48, 0x44, 0x52, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x01, 0x08, 0x00, 0x00, 0x00, 0x00, 0x3a, 0x7e, (byte) 0x9b, 0x55, 0x00, 0x00, 0x00, 0x01, 0x73, 0x52, 0x47, 0x42, 0x00, (byte) 0xae, (byte) 0xce, 0x1c, (byte) 0xe9, 0x00, 0x00, 0x00, 0x0d, 0x49, 0x44, 0x41, 0x54, 0x08, 0x1d, 0x01, 0x02, 0x00, (byte) 0xfd, (byte) 0xff, 0x00, 0x00, 0x00, 0x02, 0x00, 0x01, (byte) 0xcd, (byte) 0xe3, (byte) 0xd1, 0x2b, 0x00, 0x00, 0x00, 0x00, 0x49, 0x45, 0x4e, 0x44, (byte) 0xae, 0x42, 0x60, (byte) 0x82};
+    private static final byte[] IMAGE = {(byte) 0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a,
+            0x00, 0x00, 0x00, 0x0d, 0x49, 0x48, 0x44, 0x52, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00,
+            0x00, 0x01, 0x08, 0x00, 0x00, 0x00, 0x00, 0x3a, 0x7e, (byte) 0x9b, 0x55, 0x00, 0x00,
+            0x00, 0x01, 0x73, 0x52, 0x47, 0x42, 0x00, (byte) 0xae, (byte) 0xce, 0x1c, (byte) 0xe9,
+            0x00, 0x00, 0x00, 0x0d, 0x49, 0x44, 0x41, 0x54, 0x08, 0x1d, 0x01, 0x02, 0x00,
+            (byte) 0xfd, (byte) 0xff, 0x00, 0x00, 0x00, 0x02, 0x00, 0x01, (byte) 0xcd, (byte) 0xe3,
+            (byte) 0xd1, 0x2b, 0x00, 0x00, 0x00, 0x00, 0x49, 0x45, 0x4e, 0x44, (byte) 0xae, 0x42,
+            0x60, (byte) 0x82};
 
     public static String createContentUrl(String target) {
         return CONTENT_SCHEME + AUTHORITY + "/" + target;
@@ -103,7 +112,8 @@ public class TestContentProvider extends ContentProvider {
     }
 
     @Override
-    public int update(Uri uri, ContentValues values, String where, String[] whereArgs) {
+    public int update(Uri uri, ContentValues values, String where,
+                      String[] whereArgs) {
         return 0;
     }
 
@@ -139,7 +149,8 @@ public class TestContentProvider extends ContentProvider {
 
         @Override
         public int getType(int columnIndex) {
-            return columnIndex == EXPECTED_COLUMN_INDEX ? Cursor.FIELD_TYPE_INTEGER : Cursor.FIELD_TYPE_NULL;
+            return columnIndex == EXPECTED_COLUMN_INDEX ? Cursor.FIELD_TYPE_INTEGER
+                                                        : Cursor.FIELD_TYPE_NULL;
         }
 
         private void unsupported() {
@@ -182,16 +193,19 @@ public class TestContentProvider extends ContentProvider {
 
         @Override
         public String[] getColumnNames() {
-            return new String[]{GET_RESOURCE_REQUEST_COUNT};
+            return new String[] { GET_RESOURCE_REQUEST_COUNT };
         }
     }
 
     @Override
-    public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
+    public Cursor query(Uri uri, String[] projection, String selection,
+                        String[] selectionArgs, String sortOrder) {
         String action = uri.getLastPathSegment();
         String resource = uri.getQuery();
         if (GET_RESOURCE_REQUEST_COUNT.equals(action)) {
-            return new ProviderStateCursor(mResourceRequestCount.containsKey(resource) ? mResourceRequestCount.get(resource) : 0);
+            return new ProviderStateCursor(
+                mResourceRequestCount.containsKey(resource)
+                    ? mResourceRequestCount.get(resource) : 0);
         } else if (RESET_RESOURCE_REQUEST_COUNT.equals(action)) {
             mResourceRequestCount.put(resource, 0);
         }

@@ -29,7 +29,9 @@ class BitrateAdjuster {
             case Type.NO_ADJUSTMENT:
                 return bps;
             case Type.FRAMERATE_ADJUSTMENT:
-                return frameRate == 0 ? bps : FRAMERATE_ADJUSTMENT_BITRATE_ADJUSTMENT_FPS * bps / frameRate;
+                return frameRate == 0
+                        ? bps
+                        : FRAMERATE_ADJUSTMENT_BITRATE_ADJUSTMENT_FPS * bps / frameRate;
         }
         return 0;
     }

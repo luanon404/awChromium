@@ -10,6 +10,10 @@ import android.os.StrictMode;
 import androidx.annotation.IntDef;
 import androidx.annotation.VisibleForTesting;
 
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+
 import org.chromium.base.BuildInfo;
 import org.chromium.base.ContextUtils;
 import org.chromium.base.Log;
@@ -24,9 +28,6 @@ import org.chromium.base.task.TaskTraits;
 import org.chromium.content.app.ContentMain;
 import org.chromium.content.browser.ServicificationStartupUma.ServicificationStartup;
 import org.chromium.content_public.browser.BrowserStartupController;
-import org.jni_zero.CalledByNative;
-import org.jni_zero.JNINamespace;
-import org.jni_zero.NativeMethods;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -173,11 +174,13 @@ public class BrowserStartupControllerImpl implements BrowserStartupController {
     }
 
     @Override
-    public void startBrowserProcessesAsync(@LibraryProcessType int libraryProcessType, boolean startGpuProcess, boolean startMinimalBrowser, final StartupCallback callback) {
+    public void startBrowserProcessesAsync(@LibraryProcessType int libraryProcessType,
+            boolean startGpuProcess, boolean startMinimalBrowser, final StartupCallback callback) {
         assert !LibraryLoader.isBrowserProcessStartupBlockedForTesting();
         assertProcessTypeSupported(libraryProcessType);
         assert ThreadUtils.runningOnUiThread() : "Tried to start the browser on the wrong thread.";
-        ServicificationStartupUma.getInstance().record(ServicificationStartupUma.getStartupMode(mFullBrowserStartupDone, mMinimalBrowserStarted, startMinimalBrowser));
+        ServicificationStartupUma.getInstance().record(ServicificationStartupUma.getStartupMode(
+                mFullBrowserStartupDone, mMinimalBrowserStarted, startMinimalBrowser));
 
         if (mFullBrowserStartupDone || (startMinimalBrowser && mMinimalBrowserStarted)) {
             // Browser process initialization has already been completed, so we can immediately post
@@ -194,7 +197,9 @@ public class BrowserStartupControllerImpl implements BrowserStartupController {
         }
         // If a minimal browser process is launched, we need to relaunch the full process in
         // minimalBrowserStarted() if such a request was received.
-        mLaunchFullBrowserAfterMinimalBrowserStart |= (mCurrentBrowserStartType == BrowserStartType.MINIMAL_BROWSER) && !startMinimalBrowser;
+        mLaunchFullBrowserAfterMinimalBrowserStart |=
+                (mCurrentBrowserStartType == BrowserStartType.MINIMAL_BROWSER)
+                && !startMinimalBrowser;
         if (!mHasStartedInitializingBrowserProcess) {
             // This is the first time we have been asked to start the browser process. We set the
             // flag that indicates that we have kicked off starting the browser process.
@@ -212,7 +217,9 @@ public class BrowserStartupControllerImpl implements BrowserStartupController {
                 public void run() {
                     ThreadUtils.assertOnUiThread();
                     if (mHasCalledContentStart) return;
-                    mCurrentBrowserStartType = startMinimalBrowser ? BrowserStartType.MINIMAL_BROWSER : BrowserStartType.FULL_BROWSER;
+                    mCurrentBrowserStartType = startMinimalBrowser
+                            ? BrowserStartType.MINIMAL_BROWSER
+                            : BrowserStartType.FULL_BROWSER;
                     if (contentStart() > 0) {
                         // Failed. The callbacks may not have run, so run them.
                         enqueueCallbackExecutionOnStartupFailure();
@@ -229,13 +236,15 @@ public class BrowserStartupControllerImpl implements BrowserStartupController {
     }
 
     @Override
-    public void startBrowserProcessesSync(@LibraryProcessType int libraryProcessType, boolean singleProcess, boolean startGpuProcess) {
+    public void startBrowserProcessesSync(@LibraryProcessType int libraryProcessType,
+            boolean singleProcess, boolean startGpuProcess) {
         assert !LibraryLoader.isBrowserProcessStartupBlockedForTesting();
         assertProcessTypeSupported(libraryProcessType);
 
         sShouldStartGpuProcessOnBrowserStartup |= startGpuProcess;
 
-        ServicificationStartupUma.getInstance().record(ServicificationStartupUma.getStartupMode(mFullBrowserStartupDone, mMinimalBrowserStarted, false /* startMinimalBrowser */));
+        ServicificationStartupUma.getInstance().record(ServicificationStartupUma.getStartupMode(
+                mFullBrowserStartupDone, mMinimalBrowserStarted, false /* startMinimalBrowser */));
 
         // If already started skip to checking the result
         if (!mFullBrowserStartupDone) {
@@ -243,7 +252,8 @@ public class BrowserStartupControllerImpl implements BrowserStartupController {
             prepareToStartBrowserProcess(singleProcess, null /* deferrableTask */);
 
             boolean startedSuccessfully = true;
-            if (!mHasCalledContentStart || mCurrentBrowserStartType == BrowserStartType.MINIMAL_BROWSER) {
+            if (!mHasCalledContentStart
+                    || mCurrentBrowserStartType == BrowserStartType.MINIMAL_BROWSER) {
                 mCurrentBrowserStartType = BrowserStartType.FULL_BROWSER;
                 if (contentStart() > 0) {
                     // Failed. The callbacks may not have run, so run them.
@@ -269,7 +279,8 @@ public class BrowserStartupControllerImpl implements BrowserStartupController {
     int contentStart() {
         int result = 0;
         if (mContentMainCallbackForTests == null) {
-            boolean startMinimalBrowser = mCurrentBrowserStartType == BrowserStartType.MINIMAL_BROWSER;
+            boolean startMinimalBrowser =
+                    mCurrentBrowserStartType == BrowserStartType.MINIMAL_BROWSER;
             result = contentMainStart(startMinimalBrowser);
             // No need to launch the full browser again if we are launching full browser now.
             if (!startMinimalBrowser) mLaunchFullBrowserAfterMinimalBrowserStart = false;
@@ -329,21 +340,21 @@ public class BrowserStartupControllerImpl implements BrowserStartupController {
             mAsyncStartupCallbacks.add(callback);
         }
     }
-
     @Override
     public @ServicificationStartup int getStartupMode(boolean startMinimalBrowser) {
-        return ServicificationStartupUma.getStartupMode(mFullBrowserStartupDone, mMinimalBrowserStarted, startMinimalBrowser);
+        return ServicificationStartupUma.getStartupMode(
+                mFullBrowserStartupDone, mMinimalBrowserStarted, startMinimalBrowser);
     }
 
     /**
      * Asserts that library process type is one of the supported types.
-     *
      * @param libraryProcessType the type of process the shared library is loaded. It must be
      *                           LibraryProcessType.PROCESS_BROWSER or
      *                           LibraryProcessType.PROCESS_WEBVIEW.
      */
     private void assertProcessTypeSupported(@LibraryProcessType int libraryProcessType) {
-        assert LibraryProcessType.PROCESS_BROWSER == libraryProcessType || LibraryProcessType.PROCESS_WEBVIEW == libraryProcessType;
+        assert LibraryProcessType.PROCESS_BROWSER == libraryProcessType
+                || LibraryProcessType.PROCESS_WEBVIEW == libraryProcessType;
         LibraryLoader.getInstance().assertCompatibleProcessType(libraryProcessType);
     }
 

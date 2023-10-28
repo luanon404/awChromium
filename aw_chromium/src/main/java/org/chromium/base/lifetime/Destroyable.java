@@ -4,12 +4,8 @@
 
 package org.chromium.base.lifetime;
 
-/**
- * Interface for items that require a controlled clean up.
- */
+/** Interface for items that require a controlled clean up. */
 public interface Destroyable {
-    /**
-     * Cleans up resources held by the implementing object.
-     */
+    /** Cleans up resources held by the implementing object. */
     void destroy();
 }

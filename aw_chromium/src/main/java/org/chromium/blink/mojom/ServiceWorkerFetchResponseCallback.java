@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface ServiceWorkerFetchResponseCallback extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends ServiceWorkerFetchResponseCallback, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends ServiceWorkerFetchResponseCallback, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<ServiceWorkerFetchResponseCallback, ServiceWorkerFetchResponseCallback.Proxy> MANAGER = ServiceWorkerFetchResponseCallback_Internal.MANAGER;

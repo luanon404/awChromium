@@ -13,6 +13,8 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 class LockRequest_Internal {
 
@@ -149,7 +151,7 @@ org.chromium.mojo.bindings.AssociatedInterfaceNotSupported lockHandle) {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -182,7 +184,7 @@ org.chromium.mojo.bindings.AssociatedInterfaceNotSupported lockHandle) {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }

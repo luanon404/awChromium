@@ -20,7 +20,8 @@ public class DelegatingConnectionErrorHandler implements ConnectionErrorHandler 
      * The registered handlers. This uses a {@link WeakHashMap} so that it doesn't prevent the
      * handler from being garbage collected.
      */
-    private final Set<ConnectionErrorHandler> mHandlers = Collections.newSetFromMap(new WeakHashMap<ConnectionErrorHandler, Boolean>());
+    private final Set<ConnectionErrorHandler> mHandlers =
+            Collections.newSetFromMap(new WeakHashMap<ConnectionErrorHandler, Boolean>());
 
     /**
      * @see ConnectionErrorHandler#onConnectionError(MojoException)

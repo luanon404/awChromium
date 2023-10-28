@@ -16,7 +16,7 @@ import org.chromium.base.ThreadUtils;
  * OneshotSupplier and providing it as a dependency to others.
  *
  * <p>Instances of this class must only be accessed from the thread they were created on.
- * <p>
+ *
  * To use:
  * <ol>
  *    <li>Create a new {@code OneshotSupplierImpl<T>} to pass as a dependency.

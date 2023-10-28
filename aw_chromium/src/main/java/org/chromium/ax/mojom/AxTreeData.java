@@ -13,10 +13,13 @@
 
 package org.chromium.ax.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class AxTreeData extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 136;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(128, 0), new org.chromium.mojo.bindings.DataHeader(136, 2)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(128, 0),new org.chromium.mojo.bindings.DataHeader(136, 2)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[1];
     public AxTreeId treeId;
     public AxTreeId parentTreeId;
@@ -56,7 +59,8 @@ public final class AxTreeData extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static AxTreeData deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -70,96 +74,96 @@ public final class AxTreeData extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new AxTreeData(elementsOrVersion);
-            {
-
+                {
+                    
                 result.treeId = AxTreeId.decode(decoder0, 8);
-            }
-            {
-
+                }
+                {
+                    
                 result.parentTreeId = AxTreeId.decode(decoder0, 24);
-            }
-            {
-
+                }
+                {
+                    
                 result.focusedTreeId = AxTreeId.decode(decoder0, 40);
-            }
-            {
-
+                }
+                {
+                    
                 result.doctype = decoder0.readString(56, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.loaded = decoder0.readBoolean(64, 0);
-            }
-            {
-
+                }
+                {
+                    
                 result.selIsBackward = decoder0.readBoolean(64, 1);
-            }
-            {
-
+                }
+                {
+                    
                 result.loadingProgress = decoder0.readFloat(68);
-            }
-            {
-
+                }
+                {
+                    
                 result.mimetype = decoder0.readString(72, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.title = decoder0.readString(80, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.url = decoder0.readString(88, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.focusId = decoder0.readInt(96);
-            }
-            {
-
+                }
+                {
+                    
                 result.selAnchorObjectId = decoder0.readInt(100);
-            }
-            {
-
+                }
+                {
+                    
                 result.selAnchorOffset = decoder0.readInt(104);
-            }
-            {
-
+                }
+                {
+                    
                 result.selAnchorAffinity = decoder0.readInt(108);
-                TextAffinity.validate(result.selAnchorAffinity);
-                result.selAnchorAffinity = TextAffinity.toKnownValue(result.selAnchorAffinity);
-            }
-            {
-
+                    TextAffinity.validate(result.selAnchorAffinity);
+                    result.selAnchorAffinity = TextAffinity.toKnownValue(result.selAnchorAffinity);
+                }
+                {
+                    
                 result.selFocusObjectId = decoder0.readInt(112);
-            }
-            {
-
+                }
+                {
+                    
                 result.selFocusOffset = decoder0.readInt(116);
-            }
-            {
-
+                }
+                {
+                    
                 result.selFocusAffinity = decoder0.readInt(120);
-                TextAffinity.validate(result.selFocusAffinity);
-                result.selFocusAffinity = TextAffinity.toKnownValue(result.selFocusAffinity);
-            }
-            {
-
+                    TextAffinity.validate(result.selFocusAffinity);
+                    result.selFocusAffinity = TextAffinity.toKnownValue(result.selFocusAffinity);
+                }
+                {
+                    
                 result.rootScrollerId = decoder0.readInt(124);
-            }
+                }
             if (elementsOrVersion >= 2) {
                 {
-
-                    org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(128, true);
-                    if (decoder1 == null) {
-                        result.metadata = null;
-                    } else {
-                        org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
-                        result.metadata = new String[si1.elementsOrVersion];
-                        for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
-                            result.metadata[i1] = decoder1.readString(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
-                        }
+                    
+                org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(128, true);
+                if (decoder1 == null) {
+                    result.metadata = null;
+                } else {
+                    org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
+                    result.metadata = new String[si1.elementsOrVersion];
+                    for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
+                        
+                        result.metadata[i1] = decoder1.readString(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                     }
+                }
                 }
             }
 
@@ -173,49 +177,49 @@ public final class AxTreeData extends org.chromium.mojo.bindings.Struct {
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.treeId, 8, false);
-
+        
         encoder0.encode(this.parentTreeId, 24, false);
-
+        
         encoder0.encode(this.focusedTreeId, 40, false);
-
+        
         encoder0.encode(this.doctype, 56, false);
-
+        
         encoder0.encode(this.loaded, 64, 0);
-
+        
         encoder0.encode(this.selIsBackward, 64, 1);
-
+        
         encoder0.encode(this.loadingProgress, 68);
-
+        
         encoder0.encode(this.mimetype, 72, false);
-
+        
         encoder0.encode(this.title, 80, false);
-
+        
         encoder0.encode(this.url, 88, false);
-
+        
         encoder0.encode(this.focusId, 96);
-
+        
         encoder0.encode(this.selAnchorObjectId, 100);
-
+        
         encoder0.encode(this.selAnchorOffset, 104);
-
+        
         encoder0.encode(this.selAnchorAffinity, 108);
-
+        
         encoder0.encode(this.selFocusObjectId, 112);
-
+        
         encoder0.encode(this.selFocusOffset, 116);
-
+        
         encoder0.encode(this.selFocusAffinity, 120);
-
+        
         encoder0.encode(this.rootScrollerId, 124);
-
+        
         if (this.metadata == null) {
             encoder0.encodeNullPointer(128, true);
         } else {
             org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.metadata.length, 128, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
             for (int i0 = 0; i0 < this.metadata.length; ++i0) {
-
+                
                 encoder1.encode(this.metadata[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
             }
         }

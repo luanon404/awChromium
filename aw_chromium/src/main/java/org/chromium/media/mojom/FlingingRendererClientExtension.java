@@ -13,15 +13,20 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface FlingingRendererClientExtension extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends FlingingRendererClientExtension, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends FlingingRendererClientExtension, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<FlingingRendererClientExtension, FlingingRendererClientExtension.Proxy> MANAGER = FlingingRendererClientExtension_Internal.MANAGER;
 
-    void onRemotePlayStateChange(int state);
+    void onRemotePlayStateChange(
+int state);
 
 
 }

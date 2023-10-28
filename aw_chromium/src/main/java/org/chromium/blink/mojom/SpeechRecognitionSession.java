@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface SpeechRecognitionSession extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends SpeechRecognitionSession, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends SpeechRecognitionSession, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<SpeechRecognitionSession, SpeechRecognitionSession.Proxy> MANAGER = SpeechRecognitionSession_Internal.MANAGER;

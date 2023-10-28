@@ -17,10 +17,11 @@ import androidx.annotation.IntDef;
 
 public final class PaymentCredentialStorageStatus {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({PaymentCredentialStorageStatus.SUCCESS, PaymentCredentialStorageStatus.FAILED_TO_STORE_CREDENTIAL})
-    public @interface EnumType {
-    }
+        PaymentCredentialStorageStatus.SUCCESS,
+        PaymentCredentialStorageStatus.FAILED_TO_STORE_CREDENTIAL})
+    public @interface EnumType {}
 
     public static final int SUCCESS = 0;
     public static final int FAILED_TO_STORE_CREDENTIAL = 1;
@@ -37,9 +38,8 @@ public final class PaymentCredentialStorageStatus {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private PaymentCredentialStorageStatus() {
-    }
+    private PaymentCredentialStorageStatus() {}
 }

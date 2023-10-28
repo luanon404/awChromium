@@ -19,15 +19,14 @@ import androidx.annotation.IntDef;
 public final class CdmPromiseResult extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 32;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(32, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(32, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
 
     public static final class Exception {
         private static final boolean IS_EXTENSIBLE = false;
-
-        @IntDef({})
-        public @interface EnumType {
-        }
+        @IntDef({
+    })
+        public @interface EnumType {}
 
 
         public static boolean isKnownValue(int value) {
@@ -40,13 +39,11 @@ public final class CdmPromiseResult extends org.chromium.mojo.bindings.Struct {
         }
 
         public static int toKnownValue(int value) {
-            return value;
+          return value;
         }
 
-        private Exception() {
-        }
+        private Exception() {}
     }
-
     public boolean success;
     public int exception;
     public int systemCode;
@@ -70,7 +67,8 @@ public final class CdmPromiseResult extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static CdmPromiseResult deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -84,24 +82,24 @@ public final class CdmPromiseResult extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new CdmPromiseResult(elementsOrVersion);
-            {
-
+                {
+                    
                 result.success = decoder0.readBoolean(8, 0);
-            }
-            {
-
+                }
+                {
+                    
                 result.exception = decoder0.readInt(12);
-                CdmPromiseResult.Exception.validate(result.exception);
-                result.exception = CdmPromiseResult.Exception.toKnownValue(result.exception);
-            }
-            {
-
+                    CdmPromiseResult.Exception.validate(result.exception);
+                    result.exception = CdmPromiseResult.Exception.toKnownValue(result.exception);
+                }
+                {
+                    
                 result.systemCode = decoder0.readInt(16);
-            }
-            {
-
+                }
+                {
+                    
                 result.errorMessage = decoder0.readString(24, false);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -113,13 +111,13 @@ public final class CdmPromiseResult extends org.chromium.mojo.bindings.Struct {
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.success, 8, 0);
-
+        
         encoder0.encode(this.exception, 12);
-
+        
         encoder0.encode(this.systemCode, 16);
-
+        
         encoder0.encode(this.errorMessage, 24, false);
     }
 }

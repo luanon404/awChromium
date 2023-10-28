@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface KeyboardLockService extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends KeyboardLockService, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends KeyboardLockService, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<KeyboardLockService, KeyboardLockService.Proxy> MANAGER = KeyboardLockService_Internal.MANAGER;

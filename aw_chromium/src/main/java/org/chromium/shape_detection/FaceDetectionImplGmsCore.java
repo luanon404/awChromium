@@ -39,7 +39,8 @@ public class FaceDetectionImplGmsCore implements FaceDetection {
     private final FaceDetector mFaceDetector;
 
     FaceDetectionImplGmsCore(FaceDetectorOptions options) {
-        FaceDetector.Builder builder = new FaceDetector.Builder(ContextUtils.getApplicationContext());
+        FaceDetector.Builder builder =
+                new FaceDetector.Builder(ContextUtils.getApplicationContext());
         mMaxFaces = Math.min(options.maxDetectedFaces, MAX_FACES);
         mFastMode = options.fastMode;
 
@@ -96,16 +97,20 @@ public class FaceDetectionImplGmsCore implements FaceDetection {
             faceArray[i].boundingBox.height = face.getHeight();
 
             final List<Landmark> landmarks = face.getLandmarks();
-            ArrayList<org.chromium.shape_detection.mojom.Landmark> mojoLandmarks = new ArrayList<org.chromium.shape_detection.mojom.Landmark>(landmarks.size());
+            ArrayList<org.chromium.shape_detection.mojom.Landmark> mojoLandmarks =
+                    new ArrayList<org.chromium.shape_detection.mojom.Landmark>(landmarks.size());
 
             for (int j = 0; j < landmarks.size(); j++) {
                 final Landmark landmark = landmarks.get(j);
                 final int landmarkType = landmark.getType();
-                if (landmarkType != Landmark.LEFT_EYE && landmarkType != Landmark.RIGHT_EYE && landmarkType != Landmark.BOTTOM_MOUTH && landmarkType != Landmark.NOSE_BASE) {
+                if (landmarkType != Landmark.LEFT_EYE && landmarkType != Landmark.RIGHT_EYE
+                        && landmarkType != Landmark.BOTTOM_MOUTH
+                        && landmarkType != Landmark.NOSE_BASE) {
                     continue;
                 }
 
-                org.chromium.shape_detection.mojom.Landmark mojoLandmark = new org.chromium.shape_detection.mojom.Landmark();
+                org.chromium.shape_detection.mojom.Landmark mojoLandmark =
+                        new org.chromium.shape_detection.mojom.Landmark();
                 mojoLandmark.locations = new org.chromium.gfx.mojom.PointF[1];
                 mojoLandmark.locations[0] = new org.chromium.gfx.mojom.PointF();
                 mojoLandmark.locations[0].x = landmark.getPosition().x;
@@ -123,7 +128,8 @@ public class FaceDetectionImplGmsCore implements FaceDetection {
                 }
                 mojoLandmarks.add(mojoLandmark);
             }
-            faceArray[i].landmarks = mojoLandmarks.toArray(new org.chromium.shape_detection.mojom.Landmark[mojoLandmarks.size()]);
+            faceArray[i].landmarks = mojoLandmarks.toArray(
+                    new org.chromium.shape_detection.mojom.Landmark[mojoLandmarks.size()]);
         }
         callback.call(faceArray);
     }

@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class InstanceState {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({InstanceState.CREATED, InstanceState.STARTED, InstanceState.UNREACHABLE})
-    public @interface EnumType {
-    }
+        InstanceState.CREATED,
+        InstanceState.STARTED,
+        InstanceState.UNREACHABLE})
+    public @interface EnumType {}
 
     public static final int CREATED = 0;
     public static final int STARTED = 1;
@@ -38,9 +40,8 @@ public final class InstanceState {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private InstanceState() {
-    }
+    private InstanceState() {}
 }

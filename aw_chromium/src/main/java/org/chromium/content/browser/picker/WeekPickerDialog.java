@@ -14,23 +14,31 @@ import org.chromium.android_webview.R;
 public class WeekPickerDialog extends TwoFieldDatePickerDialog {
 
     /**
-     * @param context    The context the dialog is to run in.
-     * @param callBack   How the parent is notified that the date is set.
-     * @param year       The initial year of the dialog.
+     * @param context The context the dialog is to run in.
+     * @param callBack How the parent is notified that the date is set.
+     * @param year The initial year of the dialog.
      * @param weekOfYear The initial week of the dialog.
      */
-    public WeekPickerDialog(Context context, OnValueSetListener callBack, int year, int weekOfYear, double minValue, double maxValue) {
+    public WeekPickerDialog(Context context,
+             OnValueSetListener callBack,
+            int year, int weekOfYear,
+            double minValue, double maxValue) {
         this(context, 0, callBack, year, weekOfYear, minValue, maxValue);
     }
 
     /**
-     * @param context    The context the dialog is to run in.
-     * @param theme      the theme to apply to this dialog
-     * @param callBack   How the parent is notified that the date is set.
-     * @param year       The initial year of the dialog.
+     * @param context The context the dialog is to run in.
+     * @param theme the theme to apply to this dialog
+     * @param callBack How the parent is notified that the date is set.
+     * @param year The initial year of the dialog.
      * @param weekOfYear The initial week of the dialog.
      */
-    public WeekPickerDialog(Context context, int theme, OnValueSetListener callBack, int year, int weekOfYear, double minValue, double maxValue) {
+    public WeekPickerDialog(Context context,
+            int theme,
+             OnValueSetListener callBack,
+            int year,
+            int weekOfYear,
+            double minValue, double maxValue) {
         super(context, theme, callBack, year, weekOfYear, minValue, maxValue);
         setTitle(R.string.week_picker_dialog_title);
     }

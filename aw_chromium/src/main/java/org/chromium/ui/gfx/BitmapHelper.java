@@ -6,9 +6,10 @@ package org.chromium.ui.gfx;
 
 import android.graphics.Bitmap;
 
-import org.chromium.base.Log;
 import org.jni_zero.CalledByNative;
 import org.jni_zero.JNINamespace;
+
+import org.chromium.base.Log;
 
 /**
  * Helper class to decode and sample down bitmap resources.
@@ -18,7 +19,8 @@ public class BitmapHelper {
     private static final String TAG = "BitmapHelper";
 
     @CalledByNative
-    private static Bitmap createBitmap(int width, int height, int bitmapFormatValue, boolean catchOom) {
+    private static Bitmap createBitmap(
+            int width, int height, int bitmapFormatValue, boolean catchOom) {
         Bitmap.Config bitmapConfig = getBitmapConfigForFormat(bitmapFormatValue);
         try {
             return Bitmap.createBitmap(width, height, bitmapConfig);

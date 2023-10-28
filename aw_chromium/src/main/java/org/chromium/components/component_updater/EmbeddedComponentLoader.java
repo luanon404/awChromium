@@ -37,7 +37,8 @@ public class EmbeddedComponentLoader implements ServiceConnection {
      * interface. Use this String in an intent to connect to the service to avoid dependency on the
      * service class itself.
      */
-    public static final String AW_COMPONENTS_PROVIDER_SERVICE = "org.chromium.android_webview.services.ComponentsProviderService";
+    public static final String AW_COMPONENTS_PROVIDER_SERVICE =
+            "org.chromium.android_webview.services.ComponentsProviderService";
 
     private static final String KEY_RESULT = "RESULT";
 
@@ -80,12 +81,15 @@ public class EmbeddedComponentLoader implements ServiceConnection {
             }
 
             if (resultCode != 0) {
-                mComponent.componentLoadFailed(ComponentLoadResult.COMPONENTS_PROVIDER_SERVICE_ERROR);
+                mComponent.componentLoadFailed(
+                        ComponentLoadResult.COMPONENTS_PROVIDER_SERVICE_ERROR);
                 return;
             }
-            Map<String, ParcelFileDescriptor> resultMap = (Map<String, ParcelFileDescriptor>) resultData.getSerializable(KEY_RESULT);
+            Map<String, ParcelFileDescriptor> resultMap =
+                    (Map<String, ParcelFileDescriptor>) resultData.getSerializable(KEY_RESULT);
             if (resultMap == null) {
-                mComponent.componentLoadFailed(ComponentLoadResult.COMPONENTS_PROVIDER_SERVICE_ERROR);
+                mComponent.componentLoadFailed(
+                        ComponentLoadResult.COMPONENTS_PROVIDER_SERVICE_ERROR);
                 return;
             }
             mComponent.componentLoaded(resultMap);
@@ -100,7 +104,8 @@ public class EmbeddedComponentLoader implements ServiceConnection {
     public void onServiceConnected(ComponentName className, IBinder service) {
         PostTask.runOrPostTask(TaskTraits.UI_DEFAULT, () -> {
             try {
-                IComponentsProviderService providerService = IComponentsProviderService.Stub.asInterface(service);
+                IComponentsProviderService providerService =
+                        IComponentsProviderService.Stub.asInterface(service);
                 for (ComponentResultReceiver receiver : mComponentsResultReceivers) {
                     String componentId = receiver.getComponentLoaderPolicy().getComponentId();
                     providerService.getFilesForComponent(componentId, receiver);
@@ -112,7 +117,8 @@ public class EmbeddedComponentLoader implements ServiceConnection {
                     // This means if some receivers get their result after this step, their results
                     // will be ignored.
                     for (ComponentResultReceiver receiver : mComponentsResultReceivers) {
-                        receiver.getComponentLoaderPolicy().componentLoadFailed(ComponentLoadResult.REMOTE_EXCEPTION);
+                        receiver.getComponentLoaderPolicy().componentLoadFailed(
+                                ComponentLoadResult.REMOTE_EXCEPTION);
                     }
                     mComponentsResultReceivers.clear();
                     ContextUtils.getApplicationContext().unbindService(this);
@@ -122,12 +128,11 @@ public class EmbeddedComponentLoader implements ServiceConnection {
     }
 
     @Override
-    public void onServiceDisconnected(ComponentName className) {
-    }
+    public void onServiceDisconnected(ComponentName className) {}
 
     /**
      * Bind to the provider service with the given {@code intent} and load components.
-     * <p>
+     *
      * Only connect to the service if there are registered components when the class is created.
      * Must be called once.
      *
@@ -143,7 +148,8 @@ public class EmbeddedComponentLoader implements ServiceConnection {
         if (!appContext.bindService(intent, this, Context.BIND_AUTO_CREATE)) {
             Log.d(TAG, "Could not bind to " + intent);
             for (ComponentResultReceiver receiver : mComponentsResultReceivers) {
-                receiver.getComponentLoaderPolicy().componentLoadFailed(ComponentLoadResult.FAILED_TO_CONNECT_TO_COMPONENTS_PROVIDER_SERVICE);
+                receiver.getComponentLoaderPolicy().componentLoadFailed(
+                        ComponentLoadResult.FAILED_TO_CONNECT_TO_COMPONENTS_PROVIDER_SERVICE);
             }
             mComponentsResultReceivers.clear();
         }

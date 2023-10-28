@@ -76,7 +76,8 @@ public class VariationsSeedHolder {
 
                 // Load the seed if necessary.
                 if (VariationsSeedHolder.this.mSeed == null && !mFailedReadingSeed) {
-                    VariationsSeedHolder.this.mSeed = VariationsUtils.readSeedFile(VariationsUtils.getSeedFile());
+                    VariationsSeedHolder.this.mSeed =
+                            VariationsUtils.readSeedFile(VariationsUtils.getSeedFile());
                     mFailedReadingSeed = VariationsSeedHolder.this.mSeed == null;
                 }
 
@@ -156,8 +157,7 @@ public class VariationsSeedHolder {
     }
 
     // overridden by tests
-    public void onWriteFinished() {
-    }
+    public void onWriteFinished() {}
 
     /**
      * A seed updater class tailored to update Variations seeds specifically for SafeMode scenarios
@@ -166,7 +166,8 @@ public class VariationsSeedHolder {
         // Stores a list of requests to notify the requester, SafeModeVariationsSeedContentProvider,
         // as soon as the Variations Fast Fetch Mode seed is fresh, where fresh is considered to be
         // < 15 minutes old.
-        private final Queue<Runnable> mSafeModeVariationsSeedContentProviderCallback = new LinkedList<Runnable>();
+        private final Queue<Runnable> mSafeModeVariationsSeedContentProviderCallback =
+                new LinkedList<Runnable>();
 
         public void hasSeedUpdateCompletedAsync(Runnable r) {
             mSafeModeVariationsSeedContentProviderCallback.add(r);
@@ -213,7 +214,9 @@ public class VariationsSeedHolder {
     @VisibleForTesting
     public boolean isSeedFileFresh() {
         long currTimestamp = getCurrentTimestamp();
-        return (VariationsUtils.getSeedFile().lastModified() > 0 && (currTimestamp - VariationsUtils.getSeedFile().lastModified()) < VariationsFastFetchModeUtils.MAX_ALLOWABLE_SEED_AGE_MS);
+        return (VariationsUtils.getSeedFile().lastModified() > 0
+                && (currTimestamp - VariationsUtils.getSeedFile().lastModified())
+                        < VariationsFastFetchModeUtils.MAX_ALLOWABLE_SEED_AGE_MS);
     }
 
     public void setDateForTesting(Date date) {

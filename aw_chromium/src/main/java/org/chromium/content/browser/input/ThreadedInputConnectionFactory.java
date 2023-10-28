@@ -38,7 +38,9 @@ public class ThreadedInputConnectionFactory implements ChromiumBaseInputConnecti
     private boolean mReentrantTriggering;
     private boolean mTriggerDelayedOnCreateInputConnection;
 
-    @IntDef({FocusState.NOT_APPLICABLE, FocusState.WINDOW_FOCUS_LOST, FocusState.VIEW_FOCUSED_WITHOUT_WINDOW_FOCUS, FocusState.VIEW_FOCUSED_THEN_WINDOW_FOCUSED})
+    @IntDef({FocusState.NOT_APPLICABLE, FocusState.WINDOW_FOCUS_LOST,
+            FocusState.VIEW_FOCUSED_WITHOUT_WINDOW_FOCUS,
+            FocusState.VIEW_FOCUSED_THEN_WINDOW_FOCUSED})
     @interface FocusState {
         int NOT_APPLICABLE = 0;
         int WINDOW_FOCUS_LOST = 1;
@@ -54,9 +56,9 @@ public class ThreadedInputConnectionFactory implements ChromiumBaseInputConnecti
     private static class LazyHandlerHolder {
         // Note that we never exit this thread to avoid lifetime or thread-safety issues.
         private static final Handler sHandler;
-
         static {
-            HandlerThread handlerThread = new HandlerThread("InputConnectionHandlerThread", HandlerThread.NORM_PRIORITY);
+            HandlerThread handlerThread =
+                    new HandlerThread("InputConnectionHandlerThread", HandlerThread.NORM_PRIORITY);
             handlerThread.start();
             sHandler = new Handler(handlerThread.getLooper());
         }
@@ -89,8 +91,10 @@ public class ThreadedInputConnectionFactory implements ChromiumBaseInputConnecti
     }
 
     @VisibleForTesting
-    protected ThreadedInputConnectionProxyView createProxyView(Handler handler, View containerView) {
-        return new ThreadedInputConnectionProxyView(containerView.getContext(), handler, containerView, this);
+    protected ThreadedInputConnectionProxyView createProxyView(
+            Handler handler, View containerView) {
+        return new ThreadedInputConnectionProxyView(
+                containerView.getContext(), handler, containerView, this);
     }
 
     @Override
@@ -109,12 +113,15 @@ public class ThreadedInputConnectionFactory implements ChromiumBaseInputConnecti
     }
 
     @Override
-    public ThreadedInputConnection initializeAndGet(View view, ImeAdapterImpl imeAdapter, int inputType, int inputFlags, int inputMode, int inputAction, int selectionStart, int selectionEnd, String lastText, EditorInfo outAttrs) {
+    public ThreadedInputConnection initializeAndGet(View view, ImeAdapterImpl imeAdapter,
+            int inputType, int inputFlags, int inputMode, int inputAction, int selectionStart,
+            int selectionEnd, String lastText, EditorInfo outAttrs) {
         ImeUtils.checkOnUiThread();
 
         // Compute outAttrs early in case we early out to prevent reentrancy. (crbug.com/636197)
         // TODO(changwan): move this up to ImeAdapter once ReplicaInputConnection is deprecated.
-        ImeUtils.computeEditorInfo(inputType, inputFlags, inputMode, inputAction, selectionStart, selectionEnd, lastText, outAttrs);
+        ImeUtils.computeEditorInfo(inputType, inputFlags, inputMode, inputAction, selectionStart,
+                selectionEnd, lastText, outAttrs);
         if (DEBUG_LOGS) {
             Log.i(TAG, "initializeAndGet. outAttr: " + ImeUtils.getEditorInfoDebugString(outAttrs));
         }
@@ -186,7 +193,8 @@ public class ThreadedInputConnectionFactory implements ChromiumBaseInputConnecti
                 getHandler().post(new Runnable() {
                     @Override
                     public void run() {
-                        postCheckRegisterResultOnUiThread(view, mCheckInvalidator, CHECK_REGISTER_RETRY);
+                        postCheckRegisterResultOnUiThread(view, mCheckInvalidator,
+                                CHECK_REGISTER_RETRY);
                     }
                 });
             }
@@ -204,7 +212,9 @@ public class ThreadedInputConnectionFactory implements ChromiumBaseInputConnecti
             // 4) Window focus gain.
             // (On N+ window focus gain occurs first, anyways.)
             if (DEBUG_LOGS) {
-                Log.i(TAG, "Delaying keyboard activation by 1 second since view was focused before " + "window.");
+                Log.i(TAG,
+                        "Delaying keyboard activation by 1 second since view was focused before "
+                                + "window.");
             }
             postDelayed(view, r, 1000);
             mFocusState = FocusState.NOT_APPLICABLE;
@@ -219,7 +229,8 @@ public class ThreadedInputConnectionFactory implements ChromiumBaseInputConnecti
     }
 
     // Note that this function is called both from IME thread and UI thread.
-    private void postCheckRegisterResultOnUiThread(final View view, final CheckInvalidator checkInvalidator, final int retry) {
+    private void postCheckRegisterResultOnUiThread(final View view,
+            final CheckInvalidator checkInvalidator, final int retry) {
         // Now posting on UI thread to access view methods.
         final Handler viewHandler = view.getHandler();
         if (viewHandler == null) return;

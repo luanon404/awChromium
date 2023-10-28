@@ -13,10 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class CtPolicy extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 32;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(32, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(32, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public String[] excludedHosts;
     public String[] excludedSpkis;
@@ -40,7 +43,8 @@ public final class CtPolicy extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static CtPolicy deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -54,42 +58,42 @@ public final class CtPolicy extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new CtPolicy(elementsOrVersion);
-            {
-
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                 {
                     org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                     result.excludedHosts = new String[si1.elementsOrVersion];
                     for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                        
                         result.excludedHosts[i1] = decoder1.readString(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                     }
                 }
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                 {
                     org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                     result.excludedSpkis = new String[si1.elementsOrVersion];
                     for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                        
                         result.excludedSpkis[i1] = decoder1.readString(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                     }
                 }
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, false);
                 {
                     org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                     result.excludedLegacySpkis = new String[si1.elementsOrVersion];
                     for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                        
                         result.excludedLegacySpkis[i1] = decoder1.readString(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                     }
                 }
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -101,33 +105,33 @@ public final class CtPolicy extends org.chromium.mojo.bindings.Struct {
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         if (this.excludedHosts == null) {
             encoder0.encodeNullPointer(8, false);
         } else {
             org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.excludedHosts.length, 8, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
             for (int i0 = 0; i0 < this.excludedHosts.length; ++i0) {
-
+                
                 encoder1.encode(this.excludedHosts[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
             }
         }
-
+        
         if (this.excludedSpkis == null) {
             encoder0.encodeNullPointer(16, false);
         } else {
             org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.excludedSpkis.length, 16, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
             for (int i0 = 0; i0 < this.excludedSpkis.length; ++i0) {
-
+                
                 encoder1.encode(this.excludedSpkis[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
             }
         }
-
+        
         if (this.excludedLegacySpkis == null) {
             encoder0.encodeNullPointer(24, false);
         } else {
             org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.excludedLegacySpkis.length, 24, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
             for (int i0 = 0; i0 < this.excludedLegacySpkis.length; ++i0) {
-
+                
                 encoder1.encode(this.excludedLegacySpkis[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
             }
         }

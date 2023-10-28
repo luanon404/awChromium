@@ -13,10 +13,13 @@
 
 package org.chromium.skia.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class BitmapN32ImageInfo extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 40;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(40, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(40, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public int alphaType;
     public int width;
@@ -42,7 +45,8 @@ public final class BitmapN32ImageInfo extends org.chromium.mojo.bindings.Struct 
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static BitmapN32ImageInfo deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -56,28 +60,28 @@ public final class BitmapN32ImageInfo extends org.chromium.mojo.bindings.Struct 
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new BitmapN32ImageInfo(elementsOrVersion);
-            {
-
+                {
+                    
                 result.alphaType = decoder0.readInt(8);
-                AlphaType.validate(result.alphaType);
-                result.alphaType = AlphaType.toKnownValue(result.alphaType);
-            }
-            {
-
+                    AlphaType.validate(result.alphaType);
+                    result.alphaType = AlphaType.toKnownValue(result.alphaType);
+                }
+                {
+                    
                 result.width = decoder0.readInt(12);
-            }
-            {
-
+                }
+                {
+                    
                 result.height = decoder0.readInt(16);
-            }
-            {
-
+                }
+                {
+                    
                 result.colorTransferFunction = decoder0.readFloats(24, org.chromium.mojo.bindings.BindingsHelper.ARRAY_NULLABLE, 7);
-            }
-            {
-
+                }
+                {
+                    
                 result.colorToXyzMatrix = decoder0.readFloats(32, org.chromium.mojo.bindings.BindingsHelper.ARRAY_NULLABLE, 9);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -89,15 +93,15 @@ public final class BitmapN32ImageInfo extends org.chromium.mojo.bindings.Struct 
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.alphaType, 8);
-
+        
         encoder0.encode(this.width, 12);
-
+        
         encoder0.encode(this.height, 16);
-
+        
         encoder0.encode(this.colorTransferFunction, 24, org.chromium.mojo.bindings.BindingsHelper.ARRAY_NULLABLE, 7);
-
+        
         encoder0.encode(this.colorToXyzMatrix, 32, org.chromium.mojo.bindings.BindingsHelper.ARRAY_NULLABLE, 9);
     }
 }

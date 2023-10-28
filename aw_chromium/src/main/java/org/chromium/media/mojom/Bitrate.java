@@ -13,14 +13,16 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class Bitrate extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
         public static final int Constant = 0;
         public static final int Variable = 1;
         public static final int External = 2;
-    }
-
+    };
     private ConstantBitrate mConstant;
     private VariableBitrate mVariable;
     private ExternalBitrate mExternal;
@@ -62,17 +64,17 @@ public final class Bitrate extends org.chromium.mojo.bindings.Union {
         encoder0.encode(this.mTag, offset + 4);
         switch (mTag) {
             case Tag.Constant: {
-
+                
                 encoder0.encode(this.mConstant, offset + 8, false);
                 break;
             }
             case Tag.Variable: {
-
+                
                 encoder0.encode(this.mVariable, offset + 8, false);
                 break;
             }
             case Tag.External: {
-
+                
                 encoder0.encode(this.mExternal, offset + 8, false);
                 break;
             }
@@ -94,21 +96,21 @@ public final class Bitrate extends org.chromium.mojo.bindings.Union {
         Bitrate result = new Bitrate();
         switch (dataHeader.elementsOrVersion) {
             case Tag.Constant: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mConstant = ConstantBitrate.decode(decoder1);
                 result.mTag = Tag.Constant;
                 break;
             }
             case Tag.Variable: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mVariable = VariableBitrate.decode(decoder1);
                 result.mTag = Tag.Variable;
                 break;
             }
             case Tag.External: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mExternal = ExternalBitrate.decode(decoder1);
                 result.mTag = Tag.External;

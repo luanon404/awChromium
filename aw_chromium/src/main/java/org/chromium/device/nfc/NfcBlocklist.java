@@ -25,8 +25,11 @@ import java.util.List;
 public class NfcBlocklist {
     private static final String TAG = "NfcBlocklist";
 
-    private static final byte[][] STATIC_HISTORICAL_BYTES = {new byte[]{(byte) 0x80, 0x73, (byte) 0xc0, 0x21, (byte) 0xc0, 0x57, 0x59, 0x75, 0x62, 0x69, 0x4b, 0x65, 0x79}, // YubiKey 5 series
-            new byte[]{(byte) 0x59, 0x75, 0x62, 0x69, 0x6b, 0x65, 0x79, 0x4e, 0x45, 0x4f, 0x72, 0x33} // YubiKey NEO
+    private static final byte[][] STATIC_HISTORICAL_BYTES = {
+            new byte[] {(byte) 0x80, 0x73, (byte) 0xc0, 0x21, (byte) 0xc0, 0x57, 0x59, 0x75, 0x62,
+                    0x69, 0x4b, 0x65, 0x79}, // YubiKey 5 series
+            new byte[] {(byte) 0x59, 0x75, 0x62, 0x69, 0x6b, 0x65, 0x79, 0x4e, 0x45, 0x4f, 0x72,
+                    0x33} // YubiKey NEO
     };
 
     private static final String TRIAL_NAME = "WebNFCBlockList";
@@ -51,7 +54,8 @@ public class NfcBlocklist {
     }
 
     private NfcBlocklist() {
-        String serverProvidedValues = VariationsAssociatedData.getVariationParamValue(TRIAL_NAME, HISTORICAL_BYTES_PARAM_NAME);
+        String serverProvidedValues = VariationsAssociatedData.getVariationParamValue(
+                TRIAL_NAME, HISTORICAL_BYTES_PARAM_NAME);
         populateWithServerProvidedValues(serverProvidedValues);
     }
 
@@ -136,9 +140,7 @@ public class NfcBlocklist {
         return false;
     }
 
-    /**
-     * Block/unblock NFC tag access for testing use only.
-     */
+    /** Block/unblock NFC tag access for testing use only. */
     public void setIsTagBlockedForTesting(Boolean blocked) {
         mIsTagBlockedForTesting = blocked;
         ResettersForTesting.register(() -> mIsTagBlockedForTesting = null);

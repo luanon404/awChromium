@@ -13,10 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class NetworkContextFilePaths extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 120;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(120, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(120, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public TransferableDirectory sharedDictionaryDirectory;
     public TransferableDirectory httpCacheDirectory;
@@ -49,7 +52,8 @@ public final class NetworkContextFilePaths extends org.chromium.mojo.bindings.St
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static NetworkContextFilePaths deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -63,57 +67,57 @@ public final class NetworkContextFilePaths extends org.chromium.mojo.bindings.St
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new NetworkContextFilePaths(elementsOrVersion);
-            {
-
+                {
+                    
                 result.sharedDictionaryDirectory = TransferableDirectory.decode(decoder0, 8);
-            }
-            {
-
+                }
+                {
+                    
                 result.httpCacheDirectory = TransferableDirectory.decode(decoder0, 24);
-            }
-            {
-
+                }
+                {
+                    
                 result.dataDirectory = TransferableDirectory.decode(decoder0, 40);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(56, true);
                 result.unsandboxedDataPath = org.chromium.mojo_base.mojom.FilePath.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(64, true);
                 result.cookieDatabaseName = org.chromium.mojo_base.mojom.FilePath.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(72, true);
                 result.trustTokenDatabaseName = org.chromium.mojo_base.mojom.FilePath.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(80, true);
                 result.httpServerPropertiesFileName = org.chromium.mojo_base.mojom.FilePath.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(88, true);
                 result.transportSecurityPersisterFileName = org.chromium.mojo_base.mojom.FilePath.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(96, true);
                 result.reportingAndNelStoreDatabaseName = org.chromium.mojo_base.mojom.FilePath.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(104, true);
                 result.sctAuditingPendingReportsFileName = org.chromium.mojo_base.mojom.FilePath.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.triggerMigration = decoder0.readBoolean(112, 0);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -125,27 +129,27 @@ public final class NetworkContextFilePaths extends org.chromium.mojo.bindings.St
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.sharedDictionaryDirectory, 8, true);
-
+        
         encoder0.encode(this.httpCacheDirectory, 24, true);
-
+        
         encoder0.encode(this.dataDirectory, 40, false);
-
+        
         encoder0.encode(this.unsandboxedDataPath, 56, true);
-
+        
         encoder0.encode(this.cookieDatabaseName, 64, true);
-
+        
         encoder0.encode(this.trustTokenDatabaseName, 72, true);
-
+        
         encoder0.encode(this.httpServerPropertiesFileName, 80, true);
-
+        
         encoder0.encode(this.transportSecurityPersisterFileName, 88, true);
-
+        
         encoder0.encode(this.reportingAndNelStoreDatabaseName, 96, true);
-
+        
         encoder0.encode(this.sctAuditingPendingReportsFileName, 104, true);
-
+        
         encoder0.encode(this.triggerMigration, 112, 0);
     }
 }

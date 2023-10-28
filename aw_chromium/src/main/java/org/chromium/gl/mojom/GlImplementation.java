@@ -17,10 +17,15 @@ import androidx.annotation.IntDef;
 
 public final class GlImplementation {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({GlImplementation.GL_IMPLEMENTATION_NONE, GlImplementation.GL_IMPLEMENTATION_EGLGLES2, GlImplementation.GL_IMPLEMENTATION_MOCK_GL, GlImplementation.GL_IMPLEMENTATION_STUB_GL, GlImplementation.GL_IMPLEMENTATION_DISABLED, GlImplementation.GL_IMPLEMENTATION_EGLANGLE})
-    public @interface EnumType {
-    }
+        GlImplementation.GL_IMPLEMENTATION_NONE,
+        GlImplementation.GL_IMPLEMENTATION_EGLGLES2,
+        GlImplementation.GL_IMPLEMENTATION_MOCK_GL,
+        GlImplementation.GL_IMPLEMENTATION_STUB_GL,
+        GlImplementation.GL_IMPLEMENTATION_DISABLED,
+        GlImplementation.GL_IMPLEMENTATION_EGLANGLE})
+    public @interface EnumType {}
 
     public static final int GL_IMPLEMENTATION_NONE = 0;
     public static final int GL_IMPLEMENTATION_EGLGLES2 = 1;
@@ -41,9 +46,8 @@ public final class GlImplementation {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private GlImplementation() {
-    }
+    private GlImplementation() {}
 }

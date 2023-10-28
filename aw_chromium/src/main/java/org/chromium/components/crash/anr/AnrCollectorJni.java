@@ -4,39 +4,68 @@
 package org.chromium.components.crash.anr;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.app.ActivityManager;
+import android.app.ApplicationExitInfo;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.Build;
+import android.util.Pair;
+import androidx.annotation.RequiresApi;
+import androidx.annotation.VisibleForTesting;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.ContextUtils;
+import org.chromium.base.Log;
+import org.chromium.base.metrics.RecordHistogram;
+import org.chromium.components.crash.anr.AnrDataOuterClass.AnrData;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @CheckDiscard("crbug.com/993421")
 class AnrCollectorJni implements AnrCollector.Natives {
-    private static AnrCollector.Natives testInstance;
+  private static AnrCollector.Natives testInstance;
 
-    public static final JniStaticTestMocker<AnrCollector.Natives> TEST_HOOKS = new JniStaticTestMocker<AnrCollector.Natives>() {
-        @Override
-        public void setInstanceForTesting(AnrCollector.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<AnrCollector.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<AnrCollector.Natives>() {
     @Override
-    public String getSharedLibraryBuildId() {
-        return (String) GEN_JNI.org_chromium_components_crash_anr_AnrCollector_getSharedLibraryBuildId();
+    public void setInstanceForTesting(AnrCollector.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    public static AnrCollector.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of AnrCollector.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new AnrCollectorJni();
+  @Override
+  public String getSharedLibraryBuildId() {
+    return (String) GEN_JNI.org_chromium_components_crash_anr_AnrCollector_getSharedLibraryBuildId();
+  }
+
+  public static AnrCollector.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of AnrCollector.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new AnrCollectorJni();
+  }
 }

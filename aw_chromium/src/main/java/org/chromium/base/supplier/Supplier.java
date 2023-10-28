@@ -13,15 +13,13 @@ import androidx.annotation.Nullable;
  * @param <T> Return type.
  */
 public interface Supplier<T> {
-    /**
-     * Returns the value currently held or <code>null</code> when none is held.
-     */
+    /** Returns the value currently held or <code>null</code> when none is held. */
     @Nullable
     T get();
 
     /**
      * Returns whether the supplier holds a value currently.
-     * <p>
+     *
      * This default implementation should only be used with trivial implementation of #get(), where
      * the supplier object is accessed. In case it is created on demand, or the Supplier
      * implementation provides a new one every time, this method must be overridden.

@@ -10,20 +10,21 @@ import android.util.Pair;
 
 import androidx.annotation.VisibleForTesting;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import org.chromium.base.ContextUtils;
 import org.chromium.base.ResettersForTesting;
 import org.chromium.base.StrictModeContext;
 import org.chromium.base.ThreadUtils;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.List;
 import java.util.Map;
 
 /**
  * Manage policy cache that will be used during browser launch stage.
- * <p>
+ *
  * Policy loading is async on Android and caching policy values makes them
  * available during launch stage even before native library is ready.
  */
@@ -34,7 +35,11 @@ public class PolicyCache {
     private static PolicyCache sInstance;
 
     public enum Type {
-        Integer, Boolean, String, List, Dict,
+        Integer,
+        Boolean,
+        String,
+        List,
+        Dict,
     }
 
     private boolean mReadable = true;
@@ -48,7 +53,7 @@ public class PolicyCache {
      * value.
      *
      * @return The SharedPreferences instance that is used for policy caching. Returns null if
-     * application context is not available.
+     *         application context is not available.
      */
     private SharedPreferences getSharedPreferences() {
         assert mReadable;
@@ -58,7 +63,8 @@ public class PolicyCache {
             // Policy cache is not accessiable without application context.
             if (context == null) return null;
             try (StrictModeContext ignored = StrictModeContext.allowDiskReads()) {
-                mSharedPreferences = context.getSharedPreferences(POLICY_PREF, Context.MODE_PRIVATE);
+                mSharedPreferences =
+                        context.getSharedPreferences(POLICY_PREF, Context.MODE_PRIVATE);
             }
         }
         return mSharedPreferences;
@@ -67,7 +73,9 @@ public class PolicyCache {
     private SharedPreferences.Editor getSharedPreferencesEditor() {
         mThreadChecker.assertOnValidThread();
         try (StrictModeContext ignored = StrictModeContext.allowDiskReads()) {
-            return ContextUtils.getApplicationContext().getSharedPreferences(POLICY_PREF, Context.MODE_PRIVATE).edit();
+            return ContextUtils.getApplicationContext()
+                    .getSharedPreferences(POLICY_PREF, Context.MODE_PRIVATE)
+                    .edit();
         }
     }
 
@@ -175,10 +183,10 @@ public class PolicyCache {
     }
 
     /**
-     * @param policyMap   The latest policy value bundle.
+     * @param policyMap The latest policy value bundle.
      * @param policyNames The list of policies that needs to be cached if available.
-     *                    Caches the policies that are available in both |policyNames| and
-     *                    |policyMap|. It also disables {@link PolicyCache} reading.
+     * Caches the policies that are available in both |policyNames| and
+     * |policyMap|. It also disables {@link PolicyCache} reading.
      */
     public void cachePolicies(PolicyMap policyMap, List<Pair<String, Type>> policyNames) {
         // TODO(zmin): support policy level while caching policy.
@@ -241,9 +249,7 @@ public class PolicyCache {
         enableWriteOnlyMode();
     }
 
-    /**
-     * Delete all entries from the cache.
-     */
+    /** Delete all entries from the cache. */
     public void reset() {
         SharedPreferences.Editor sharedPreferencesEditor = getSharedPreferencesEditor();
         sharedPreferencesEditor.clear();

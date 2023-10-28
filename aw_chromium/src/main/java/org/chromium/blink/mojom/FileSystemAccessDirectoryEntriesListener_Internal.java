@@ -13,6 +13,8 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 class FileSystemAccessDirectoryEntriesListener_Internal {
 
@@ -124,7 +126,7 @@ FileSystemAccessError result, FileSystemAccessEntry[] entries, boolean hasMoreEn
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -155,7 +157,7 @@ FileSystemAccessError result, FileSystemAccessEntry[] entries, boolean hasMoreEn
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }

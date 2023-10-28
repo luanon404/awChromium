@@ -17,10 +17,11 @@ import androidx.annotation.IntDef;
 
 public final class MediaPlaybackState {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({MediaPlaybackState.PAUSED, MediaPlaybackState.PLAYING})
-    public @interface EnumType {
-    }
+        MediaPlaybackState.PAUSED,
+        MediaPlaybackState.PLAYING})
+    public @interface EnumType {}
 
     public static final int PAUSED = 0;
     public static final int PLAYING = 1;
@@ -37,9 +38,8 @@ public final class MediaPlaybackState {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private MediaPlaybackState() {
-    }
+    private MediaPlaybackState() {}
 }

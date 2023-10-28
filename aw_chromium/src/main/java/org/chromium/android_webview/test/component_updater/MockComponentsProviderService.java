@@ -20,7 +20,7 @@ import java.util.HashMap;
 
 /**
  * Mock {@link org.chrmoium.android_webview.services.ComponentsProviderService} for tests.
- * <p>
+ *
  * It accepts a list of files paths in the onBind {@link Intent} that it opens as a result for the
  * incoming componentId.
  */
@@ -37,7 +37,9 @@ public class MockComponentsProviderService extends Service {
                     for (CharSequence filePath : filePaths) {
                         File file = new File(filePath.toString());
                         try {
-                            resultMap.put(file.getName(), ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_ONLY));
+                            resultMap.put(file.getName(),
+                                    ParcelFileDescriptor.open(
+                                            file, ParcelFileDescriptor.MODE_READ_ONLY));
                         } catch (FileNotFoundException exception) {
                             throw new RuntimeException(exception);
                         }

@@ -22,14 +22,16 @@ public interface ContactsPickerListener {
     /**
      * A container class for exchanging contact details.
      */
-    class Contact {
+    public static class Contact {
         public final List<String> names;
         public final List<String> emails;
         public final List<String> tel;
         public final List<ByteBuffer> serializedAddresses;
         public final List<ByteBuffer> serializedIcons;
 
-        public Contact(List<String> contactNames, List<String> contactEmails, List<String> contactTel, List<PaymentAddress> contactAddresses, List<ContactIconBlob> contactIcons) {
+        public Contact(List<String> contactNames, List<String> contactEmails,
+                List<String> contactTel, List<PaymentAddress> contactAddresses,
+                List<ContactIconBlob> contactIcons) {
             names = contactNames;
             emails = contactEmails;
             tel = contactTel;
@@ -57,9 +59,10 @@ public interface ContactsPickerListener {
     /**
      * The action the user took in the picker.
      */
-    @IntDef({ContactsPickerAction.CANCEL, ContactsPickerAction.CONTACTS_SELECTED, ContactsPickerAction.SELECT_ALL, ContactsPickerAction.UNDO_SELECT_ALL})
+    @IntDef({ContactsPickerAction.CANCEL, ContactsPickerAction.CONTACTS_SELECTED,
+            ContactsPickerAction.SELECT_ALL, ContactsPickerAction.UNDO_SELECT_ALL})
     @Retention(RetentionPolicy.SOURCE)
-    @interface ContactsPickerAction {
+    public @interface ContactsPickerAction {
         int CANCEL = 0;
         int CONTACTS_SELECTED = 1;
         int SELECT_ALL = 2;
@@ -70,13 +73,14 @@ public interface ContactsPickerListener {
     /**
      * Called when the user has selected an action. For possible actions see above.
      *
-     * @param contacts                The list of contacts selected.
-     * @param percentageShared        How big a percentage of the full contact list was shared (for metrics
-     *                                purposes).
+     * @param contacts The list of contacts selected.
+     * @param percentageShared How big a percentage of the full contact list was shared (for metrics
+     *         purposes).
      * @param propertiesSiteRequested The properties requested by the website (bitmask of names,
-     *                                emails, telephones, etc).
-     * @param propertiesUserRejected  The properties rejected by the user (bitmask of names, emails,
-     *                                telephones, etc) when the sharing dialog is presented.
+     *         emails, telephones, etc).
+     * @param propertiesUserRejected The properties rejected by the user (bitmask of names, emails,
+     *         telephones, etc) when the sharing dialog is presented.
      */
-    void onContactsPickerUserAction(@ContactsPickerAction int action, List<Contact> contacts, int percentageShared, int propertiesSiteRequested, int propertiesUserRejected);
+    void onContactsPickerUserAction(@ContactsPickerAction int action, List<Contact> contacts,
+            int percentageShared, int propertiesSiteRequested, int propertiesUserRejected);
 }

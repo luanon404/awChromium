@@ -4,20 +4,21 @@
 
 package org.chromium.components.permissions;
 
-import org.chromium.base.FeatureMap;
 import org.jni_zero.JNINamespace;
 import org.jni_zero.NativeMethods;
+
+import org.chromium.base.FeatureMap;
 
 /**
  * Java accessor for base::Features listed in {@link PermissionsAndroidFeatureList}
  */
 @JNINamespace("permissions")
 public final class PermissionsAndroidFeatureMap extends FeatureMap {
-    private static final PermissionsAndroidFeatureMap sInstance = new PermissionsAndroidFeatureMap();
+    private static final PermissionsAndroidFeatureMap sInstance =
+            new PermissionsAndroidFeatureMap();
 
     // Do not instantiate this class.
-    private PermissionsAndroidFeatureMap() {
-    }
+    private PermissionsAndroidFeatureMap() {}
 
     /**
      * @return the singleton DeviceFeatureMap.

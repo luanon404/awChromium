@@ -13,10 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class CanonicalCookie extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 104;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(104, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(104, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public String name;
     public String value;
@@ -60,7 +63,8 @@ public final class CanonicalCookie extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static CanonicalCookie deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -74,81 +78,81 @@ public final class CanonicalCookie extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new CanonicalCookie(elementsOrVersion);
-            {
-
+                {
+                    
                 result.name = decoder0.readString(8, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.value = decoder0.readString(16, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.domain = decoder0.readString(24, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.path = decoder0.readString(32, false);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(40, false);
                 result.creation = org.chromium.mojo_base.mojom.Time.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(48, false);
                 result.expiry = org.chromium.mojo_base.mojom.Time.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(56, false);
                 result.lastAccess = org.chromium.mojo_base.mojom.Time.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(64, false);
                 result.lastUpdate = org.chromium.mojo_base.mojom.Time.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.secure = decoder0.readBoolean(72, 0);
-            }
-            {
-
+                }
+                {
+                    
                 result.httponly = decoder0.readBoolean(72, 1);
-            }
-            {
-
+                }
+                {
+                    
                 result.sameParty = decoder0.readBoolean(72, 2);
-            }
-            {
-
+                }
+                {
+                    
                 result.siteRestrictions = decoder0.readInt(76);
-                CookieSameSite.validate(result.siteRestrictions);
-                result.siteRestrictions = CookieSameSite.toKnownValue(result.siteRestrictions);
-            }
-            {
-
+                    CookieSameSite.validate(result.siteRestrictions);
+                    result.siteRestrictions = CookieSameSite.toKnownValue(result.siteRestrictions);
+                }
+                {
+                    
                 result.priority = decoder0.readInt(80);
-                CookiePriority.validate(result.priority);
-                result.priority = CookiePriority.toKnownValue(result.priority);
-            }
-            {
-
+                    CookiePriority.validate(result.priority);
+                    result.priority = CookiePriority.toKnownValue(result.priority);
+                }
+                {
+                    
                 result.sourceScheme = decoder0.readInt(84);
-                CookieSourceScheme.validate(result.sourceScheme);
-                result.sourceScheme = CookieSourceScheme.toKnownValue(result.sourceScheme);
-            }
-            {
-
+                    CookieSourceScheme.validate(result.sourceScheme);
+                    result.sourceScheme = CookieSourceScheme.toKnownValue(result.sourceScheme);
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(88, true);
                 result.partitionKey = CookiePartitionKey.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.sourcePort = decoder0.readInt(96);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -160,37 +164,37 @@ public final class CanonicalCookie extends org.chromium.mojo.bindings.Struct {
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.name, 8, false);
-
+        
         encoder0.encode(this.value, 16, false);
-
+        
         encoder0.encode(this.domain, 24, false);
-
+        
         encoder0.encode(this.path, 32, false);
-
+        
         encoder0.encode(this.creation, 40, false);
-
+        
         encoder0.encode(this.expiry, 48, false);
-
+        
         encoder0.encode(this.lastAccess, 56, false);
-
+        
         encoder0.encode(this.lastUpdate, 64, false);
-
+        
         encoder0.encode(this.secure, 72, 0);
-
+        
         encoder0.encode(this.httponly, 72, 1);
-
+        
         encoder0.encode(this.sameParty, 72, 2);
-
+        
         encoder0.encode(this.siteRestrictions, 76);
-
+        
         encoder0.encode(this.priority, 80);
-
+        
         encoder0.encode(this.sourceScheme, 84);
-
+        
         encoder0.encode(this.partitionKey, 88, true);
-
+        
         encoder0.encode(this.sourcePort, 96);
     }
 }

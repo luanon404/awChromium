@@ -4,54 +4,69 @@
 package org.chromium.components.policy;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.os.Bundle;
+import androidx.annotation.VisibleForTesting;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.chromium.base.Log;
+import java.util.Arrays;
+import java.util.Set;
 
 @CheckDiscard("crbug.com/993421")
 class PolicyConverterJni implements PolicyConverter.Natives {
-    private static PolicyConverter.Natives testInstance;
+  private static PolicyConverter.Natives testInstance;
 
-    public static final JniStaticTestMocker<PolicyConverter.Natives> TEST_HOOKS = new JniStaticTestMocker<PolicyConverter.Natives>() {
-        @Override
-        public void setInstanceForTesting(PolicyConverter.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<PolicyConverter.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<PolicyConverter.Natives>() {
     @Override
-    public void setPolicyBoolean(long nativePolicyConverter, PolicyConverter caller, String policyKey, boolean value) {
-        GEN_JNI.org_chromium_components_policy_PolicyConverter_setPolicyBoolean(nativePolicyConverter, caller, policyKey, value);
+    public void setInstanceForTesting(PolicyConverter.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public void setPolicyInteger(long nativePolicyConverter, PolicyConverter caller, String policyKey, int value) {
-        GEN_JNI.org_chromium_components_policy_PolicyConverter_setPolicyInteger(nativePolicyConverter, caller, policyKey, value);
-    }
+  @Override
+  public void setPolicyBoolean(long nativePolicyConverter, PolicyConverter caller, String policyKey, boolean value) {
+    GEN_JNI.org_chromium_components_policy_PolicyConverter_setPolicyBoolean(nativePolicyConverter, caller, policyKey, value);
+  }
 
-    @Override
-    public void setPolicyString(long nativePolicyConverter, PolicyConverter caller, String policyKey, String value) {
-        GEN_JNI.org_chromium_components_policy_PolicyConverter_setPolicyString(nativePolicyConverter, caller, policyKey, value);
-    }
+  @Override
+  public void setPolicyInteger(long nativePolicyConverter, PolicyConverter caller, String policyKey, int value) {
+    GEN_JNI.org_chromium_components_policy_PolicyConverter_setPolicyInteger(nativePolicyConverter, caller, policyKey, value);
+  }
 
-    @Override
-    public void setPolicyStringArray(long nativePolicyConverter, PolicyConverter caller, String policyKey, String[] value) {
-        GEN_JNI.org_chromium_components_policy_PolicyConverter_setPolicyStringArray(nativePolicyConverter, caller, policyKey, value);
-    }
+  @Override
+  public void setPolicyString(long nativePolicyConverter, PolicyConverter caller, String policyKey, String value) {
+    GEN_JNI.org_chromium_components_policy_PolicyConverter_setPolicyString(nativePolicyConverter, caller, policyKey, value);
+  }
 
-    public static PolicyConverter.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of PolicyConverter.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new PolicyConverterJni();
+  @Override
+  public void setPolicyStringArray(long nativePolicyConverter, PolicyConverter caller, String policyKey, String[] value) {
+    GEN_JNI.org_chromium_components_policy_PolicyConverter_setPolicyStringArray(nativePolicyConverter, caller, policyKey, value);
+  }
+
+  public static PolicyConverter.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of PolicyConverter.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new PolicyConverterJni();
+  }
 }

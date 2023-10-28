@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface FileSystemCancellableOperation extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends FileSystemCancellableOperation, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends FileSystemCancellableOperation, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<FileSystemCancellableOperation, FileSystemCancellableOperation.Proxy> MANAGER = FileSystemCancellableOperation_Internal.MANAGER;

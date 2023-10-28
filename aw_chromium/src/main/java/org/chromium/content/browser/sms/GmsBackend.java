@@ -1,3 +1,4 @@
+
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -14,10 +15,12 @@ import androidx.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@IntDef({GmsBackend.AUTO, GmsBackend.USER_CONSENT, GmsBackend.VERIFICATION})
+@IntDef({
+    GmsBackend.AUTO, GmsBackend.USER_CONSENT, GmsBackend.VERIFICATION
+})
 @Retention(RetentionPolicy.SOURCE)
 public @interface GmsBackend {
-    int AUTO = 0;
-    int USER_CONSENT = 1;
-    int VERIFICATION = 2;
+  int AUTO = 0;
+  int USER_CONSENT = 1;
+  int VERIFICATION = 2;
 }

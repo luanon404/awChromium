@@ -22,39 +22,39 @@ public interface Handle extends Closeable {
      * happen after.
      */
     @Override
-    void close();
+    public void close();
 
     /**
      * @return the last known signaling state of the handle.
      */
-    HandleSignalsState querySignalsState();
+    public HandleSignalsState querySignalsState();
 
     /**
      * @return whether the handle is valid. A handle is valid until it has been explicitly closed or
-     * send through a message pipe via |MessagePipeHandle.writeMessage|.
+     *         send through a message pipe via |MessagePipeHandle.writeMessage|.
      */
-    boolean isValid();
+    public boolean isValid();
 
     /**
      * Converts this handle into an {@link UntypedHandle}, invalidating this handle.
      */
-    UntypedHandle toUntypedHandle();
+    public UntypedHandle toUntypedHandle();
 
     /**
      * Returns the {@link Core} implementation for this handle. Can be null if this handle is
      * invalid.
      */
-    Core getCore();
+    public Core getCore();
 
     /**
      * Passes ownership of the handle from this handle to the newly created Handle object,
      * invalidating this handle object in the process.
      */
-    Handle pass();
+    public Handle pass();
 
     /**
      * Releases the native handle backed by this {@link Handle}. The caller owns the handle and must
      * close it.
      */
-    long releaseNativeHandle();
+    public long releaseNativeHandle();
 }

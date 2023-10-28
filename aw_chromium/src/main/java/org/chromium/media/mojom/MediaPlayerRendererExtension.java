@@ -13,20 +13,23 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface MediaPlayerRendererExtension extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends MediaPlayerRendererExtension, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends MediaPlayerRendererExtension, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<MediaPlayerRendererExtension, MediaPlayerRendererExtension.Proxy> MANAGER = MediaPlayerRendererExtension_Internal.MANAGER;
 
     void initiateScopedSurfaceRequest(
 
-            InitiateScopedSurfaceRequest_Response callback);
+InitiateScopedSurfaceRequest_Response callback);
 
-    interface InitiateScopedSurfaceRequest_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<org.chromium.mojo_base.mojom.UnguessableToken> {
-    }
+    interface InitiateScopedSurfaceRequest_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<org.chromium.mojo_base.mojom.UnguessableToken> { }
 
 
 }

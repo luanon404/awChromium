@@ -1,3 +1,4 @@
+
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -14,13 +15,16 @@ import androidx.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@IntDef({ChildBindingState.UNBOUND, ChildBindingState.WAIVED, ChildBindingState.NOT_PERCEPTIBLE, ChildBindingState.VISIBLE, ChildBindingState.STRONG, ChildBindingState.MAX_VALUE})
+@IntDef({
+    ChildBindingState.UNBOUND, ChildBindingState.WAIVED, ChildBindingState.NOT_PERCEPTIBLE,
+    ChildBindingState.VISIBLE, ChildBindingState.STRONG, ChildBindingState.MAX_VALUE
+})
 @Retention(RetentionPolicy.SOURCE)
 public @interface ChildBindingState {
-    int UNBOUND = 0;
-    int WAIVED = 1;
-    int NOT_PERCEPTIBLE = 2;
-    int VISIBLE = 3;
-    int STRONG = 4;
-    int MAX_VALUE = STRONG;
+  int UNBOUND = 0;
+  int WAIVED = 1;
+  int NOT_PERCEPTIBLE = 2;
+  int VISIBLE = 3;
+  int STRONG = 4;
+  int MAX_VALUE = 4;
 }

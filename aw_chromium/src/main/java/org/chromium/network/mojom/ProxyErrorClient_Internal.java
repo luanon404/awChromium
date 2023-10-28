@@ -13,9 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 class ProxyErrorClient_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<ProxyErrorClient, ProxyErrorClient.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<ProxyErrorClient, ProxyErrorClient.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<ProxyErrorClient, ProxyErrorClient.Proxy> MANAGER =
+            new org.chromium.mojo.bindings.Interface.Manager<ProxyErrorClient, ProxyErrorClient.Proxy>() {
 
         @Override
         public String getName() {
@@ -24,11 +28,12 @@ class ProxyErrorClient_Internal {
 
         @Override
         public int getVersion() {
-            return 0;
+          return 0;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -39,7 +44,7 @@ class ProxyErrorClient_Internal {
 
         @Override
         public ProxyErrorClient[] buildArray(int size) {
-            return new ProxyErrorClient[size];
+          return new ProxyErrorClient[size];
         }
     };
 
@@ -51,13 +56,15 @@ class ProxyErrorClient_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements ProxyErrorClient.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core,
+              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void onPacScriptError(int lineNumber, String details) {
+        public void onPacScriptError(
+int lineNumber, String details) {
 
             ProxyErrorClientOnPacScriptErrorParams _message = new ProxyErrorClientOnPacScriptErrorParams();
 
@@ -66,20 +73,27 @@ class ProxyErrorClient_Internal {
             _message.details = details;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_PAC_SCRIPT_ERROR_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_PAC_SCRIPT_ERROR_ORDINAL)));
 
         }
 
 
         @Override
-        public void onRequestMaybeFailedDueToProxySettings(int netError) {
+        public void onRequestMaybeFailedDueToProxySettings(
+int netError) {
 
             ProxyErrorClientOnRequestMaybeFailedDueToProxySettingsParams _message = new ProxyErrorClientOnRequestMaybeFailedDueToProxySettingsParams();
 
             _message.netError = netError;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_REQUEST_MAYBE_FAILED_DUE_TO_PROXY_SETTINGS_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_REQUEST_MAYBE_FAILED_DUE_TO_PROXY_SETTINGS_ORDINAL)));
 
         }
 
@@ -95,7 +109,8 @@ class ProxyErrorClient_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -104,24 +119,33 @@ class ProxyErrorClient_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(ProxyErrorClient_Internal.MANAGER, messageWithHeader);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
+                                ProxyErrorClient_Internal.MANAGER, messageWithHeader);
+
+
+
 
 
                     case ON_PAC_SCRIPT_ERROR_ORDINAL: {
 
-                        ProxyErrorClientOnPacScriptErrorParams data = ProxyErrorClientOnPacScriptErrorParams.deserialize(messageWithHeader.getPayload());
+                        ProxyErrorClientOnPacScriptErrorParams data =
+                                ProxyErrorClientOnPacScriptErrorParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onPacScriptError(data.lineNumber, data.details);
                         return true;
                     }
 
 
+
+
+
                     case ON_REQUEST_MAYBE_FAILED_DUE_TO_PROXY_SETTINGS_ORDINAL: {
 
-                        ProxyErrorClientOnRequestMaybeFailedDueToProxySettingsParams data = ProxyErrorClientOnRequestMaybeFailedDueToProxySettingsParams.deserialize(messageWithHeader.getPayload());
+                        ProxyErrorClientOnRequestMaybeFailedDueToProxySettingsParams data =
+                                ProxyErrorClientOnRequestMaybeFailedDueToProxySettingsParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onRequestMaybeFailedDueToProxySettings(data.netError);
                         return true;
@@ -132,7 +156,7 @@ class ProxyErrorClient_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -140,7 +164,8 @@ class ProxyErrorClient_Internal {
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -149,27 +174,33 @@ class ProxyErrorClient_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), ProxyErrorClient_Internal.MANAGER, messageWithHeader, receiver);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
+                                getCore(), ProxyErrorClient_Internal.MANAGER, messageWithHeader, receiver);
+
+
+
+
 
 
                     default:
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class ProxyErrorClientOnPacScriptErrorParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int lineNumber;
         public String details;
@@ -192,7 +223,8 @@ class ProxyErrorClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static ProxyErrorClientOnPacScriptErrorParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -206,14 +238,14 @@ class ProxyErrorClient_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new ProxyErrorClientOnPacScriptErrorParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.lineNumber = decoder0.readInt(8);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.details = decoder0.readString(16, false);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -225,18 +257,20 @@ class ProxyErrorClient_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.lineNumber, 8);
-
+            
             encoder0.encode(this.details, 16, false);
         }
     }
 
 
+
+    
     static final class ProxyErrorClientOnRequestMaybeFailedDueToProxySettingsParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int netError;
 
@@ -258,7 +292,8 @@ class ProxyErrorClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static ProxyErrorClientOnRequestMaybeFailedDueToProxySettingsParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -272,10 +307,10 @@ class ProxyErrorClient_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new ProxyErrorClientOnRequestMaybeFailedDueToProxySettingsParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.netError = decoder0.readInt(8);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -287,10 +322,11 @@ class ProxyErrorClient_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.netError, 8);
         }
     }
+
 
 
 }

@@ -13,6 +13,8 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 class FindInPageClient_Internal {
 
@@ -162,7 +164,7 @@ int requestId, org.chromium.gfx.mojom.Rect activeMatchRect, int activeMatchOrdin
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -195,7 +197,7 @@ int requestId, org.chromium.gfx.mojom.Rect activeMatchRect, int activeMatchOrdin
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }

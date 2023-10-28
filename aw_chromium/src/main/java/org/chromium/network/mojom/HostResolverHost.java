@@ -13,13 +13,15 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class HostResolverHost extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
         public static final int SchemeHostPort = 0;
         public static final int HostPortPair = 1;
-    }
-
+    };
     private org.chromium.url.mojom.SchemeHostPort mSchemeHostPort;
     private HostPortPair mHostPortPair;
 
@@ -50,12 +52,12 @@ public final class HostResolverHost extends org.chromium.mojo.bindings.Union {
         encoder0.encode(this.mTag, offset + 4);
         switch (mTag) {
             case Tag.SchemeHostPort: {
-
+                
                 encoder0.encode(this.mSchemeHostPort, offset + 8, false);
                 break;
             }
             case Tag.HostPortPair: {
-
+                
                 encoder0.encode(this.mHostPortPair, offset + 8, false);
                 break;
             }
@@ -77,14 +79,14 @@ public final class HostResolverHost extends org.chromium.mojo.bindings.Union {
         HostResolverHost result = new HostResolverHost();
         switch (dataHeader.elementsOrVersion) {
             case Tag.SchemeHostPort: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mSchemeHostPort = org.chromium.url.mojom.SchemeHostPort.decode(decoder1);
                 result.mTag = Tag.SchemeHostPort;
                 break;
             }
             case Tag.HostPortPair: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mHostPortPair = HostPortPair.decode(decoder1);
                 result.mTag = Tag.HostPortPair;

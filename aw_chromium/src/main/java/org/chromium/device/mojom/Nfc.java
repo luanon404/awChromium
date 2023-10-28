@@ -13,44 +13,53 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface Nfc extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends Nfc, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends Nfc, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<Nfc, Nfc.Proxy> MANAGER = Nfc_Internal.MANAGER;
 
-    void setClient(NfcClient client);
+    void setClient(
+NfcClient client);
 
 
-    void push(NdefMessage message, NdefWriteOptions options, Push_Response callback);
+    void push(
+NdefMessage message, NdefWriteOptions options, 
+Push_Response callback);
 
-    interface Push_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<NdefError> {
-    }
+    interface Push_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<NdefError> { }
 
 
-    void cancelPush();
+    void cancelPush(
+);
 
 
     void makeReadOnly(
 
-            MakeReadOnly_Response callback);
+MakeReadOnly_Response callback);
 
-    interface MakeReadOnly_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<NdefError> {
-    }
-
-
-    void cancelMakeReadOnly();
+    interface MakeReadOnly_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<NdefError> { }
 
 
-    void watch(int id, Watch_Response callback);
-
-    interface Watch_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<NdefError> {
-    }
+    void cancelMakeReadOnly(
+);
 
 
-    void cancelWatch(int id);
+    void watch(
+int id, 
+Watch_Response callback);
+
+    interface Watch_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<NdefError> { }
+
+
+    void cancelWatch(
+int id);
 
 
 }

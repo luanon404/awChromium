@@ -13,12 +13,11 @@ import org.jni_zero.NativeMethods;
  */
 @JNINamespace("base::android")
 public final class StatisticsRecorderAndroid {
-    private StatisticsRecorderAndroid() {
-    }
+    private StatisticsRecorderAndroid() {}
 
     /**
      * @param verbosityLevel controls the information that should be included when dumping each of
-     *                       the histogram.
+     * the histogram.
      * @return All the registered histograms as JSON text.
      */
     public static String toJson(@JSONVerbosityLevel int verbosityLevel) {

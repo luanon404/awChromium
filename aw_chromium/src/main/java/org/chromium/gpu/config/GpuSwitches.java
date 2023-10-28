@@ -168,6 +168,5 @@ public final class GpuSwitches {
     public static final String SHADER_CACHE_PATH = "shader-cache-path";
 
     // Prevent instantiation.
-    private GpuSwitches() {
-    }
+    private GpuSwitches() {}
 }

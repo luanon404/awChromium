@@ -17,10 +17,14 @@ import androidx.annotation.IntDef;
 
 public final class PrivateNetworkRequestPolicy {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({PrivateNetworkRequestPolicy.ALLOW, PrivateNetworkRequestPolicy.WARN, PrivateNetworkRequestPolicy.BLOCK, PrivateNetworkRequestPolicy.PREFLIGHT_WARN, PrivateNetworkRequestPolicy.PREFLIGHT_BLOCK})
-    public @interface EnumType {
-    }
+        PrivateNetworkRequestPolicy.ALLOW,
+        PrivateNetworkRequestPolicy.WARN,
+        PrivateNetworkRequestPolicy.BLOCK,
+        PrivateNetworkRequestPolicy.PREFLIGHT_WARN,
+        PrivateNetworkRequestPolicy.PREFLIGHT_BLOCK})
+    public @interface EnumType {}
 
     public static final int ALLOW = 0;
     public static final int WARN = 1;
@@ -40,9 +44,8 @@ public final class PrivateNetworkRequestPolicy {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private PrivateNetworkRequestPolicy() {
-    }
+    private PrivateNetworkRequestPolicy() {}
 }

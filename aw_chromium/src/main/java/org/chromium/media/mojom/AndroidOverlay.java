@@ -13,15 +13,20 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface AndroidOverlay extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends AndroidOverlay, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends AndroidOverlay, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<AndroidOverlay, AndroidOverlay.Proxy> MANAGER = AndroidOverlay_Internal.MANAGER;
 
-    void scheduleLayout(org.chromium.gfx.mojom.Rect rect);
+    void scheduleLayout(
+org.chromium.gfx.mojom.Rect rect);
 
 
 }

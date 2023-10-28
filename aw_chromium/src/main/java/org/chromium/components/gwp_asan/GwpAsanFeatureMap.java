@@ -4,9 +4,10 @@
 
 package org.chromium.components.gwp_asan;
 
-import org.chromium.base.FeatureMap;
 import org.jni_zero.JNINamespace;
 import org.jni_zero.NativeMethods;
+
+import org.chromium.base.FeatureMap;
 
 /**
  * Java accessor for base::Features listed in components/gwp_asan/client/feature_map.cc.
@@ -17,8 +18,7 @@ public class GwpAsanFeatureMap extends FeatureMap {
     private static final GwpAsanFeatureMap sInstance = new GwpAsanFeatureMap();
 
     // Do not instantiate this class.
-    private GwpAsanFeatureMap() {
-    }
+    private GwpAsanFeatureMap() {}
 
     /**
      * @return the singleton {@link GwpAsanFeatureMap}

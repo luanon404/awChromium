@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface CodeCacheHost extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends CodeCacheHost, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends CodeCacheHost, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<CodeCacheHost, CodeCacheHost.Proxy> MANAGER = CodeCacheHost_Internal.MANAGER;

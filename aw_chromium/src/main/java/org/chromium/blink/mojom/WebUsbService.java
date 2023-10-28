@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface WebUsbService extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends WebUsbService, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends WebUsbService, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<WebUsbService, WebUsbService.Proxy> MANAGER = WebUsbService_Internal.MANAGER;

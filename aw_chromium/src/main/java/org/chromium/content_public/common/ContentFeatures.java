@@ -669,6 +669,5 @@ public final class ContentFeatures {
     public static final String MOJO_VIDEO_CAPTURE_SECONDARY = "MojoVideoCaptureSecondary";
 
     // Do not instantiate this class.
-    private ContentFeatures() {
-    }
+    private ContentFeatures() {}
 }

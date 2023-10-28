@@ -13,21 +13,28 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface ClientCertificateResponder extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends ClientCertificateResponder, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends ClientCertificateResponder, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<ClientCertificateResponder, ClientCertificateResponder.Proxy> MANAGER = ClientCertificateResponder_Internal.MANAGER;
 
-    void continueWithCertificate(X509Certificate x509Certificate, String providerName, short[] algorithmPreferences, SslPrivateKey sslPrivateKey);
+    void continueWithCertificate(
+X509Certificate x509Certificate, String providerName, short[] algorithmPreferences, SslPrivateKey sslPrivateKey);
 
 
-    void continueWithoutCertificate();
+    void continueWithoutCertificate(
+);
 
 
-    void cancelRequest();
+    void cancelRequest(
+);
 
 
 }

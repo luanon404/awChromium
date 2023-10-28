@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class CookiePriority {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({CookiePriority.LOW, CookiePriority.MEDIUM, CookiePriority.HIGH})
-    public @interface EnumType {
-    }
+        CookiePriority.LOW,
+        CookiePriority.MEDIUM,
+        CookiePriority.HIGH})
+    public @interface EnumType {}
 
     public static final int LOW = 0;
     public static final int MEDIUM = 1;
@@ -38,9 +40,8 @@ public final class CookiePriority {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private CookiePriority() {
-    }
+    private CookiePriority() {}
 }

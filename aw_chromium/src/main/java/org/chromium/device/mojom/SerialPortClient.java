@@ -13,18 +13,24 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface SerialPortClient extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends SerialPortClient, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends SerialPortClient, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<SerialPortClient, SerialPortClient.Proxy> MANAGER = SerialPortClient_Internal.MANAGER;
 
-    void onReadError(int error);
+    void onReadError(
+int error);
 
 
-    void onSendError(int error);
+    void onSendError(
+int error);
 
 
 }

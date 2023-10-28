@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface BlobUrlStore extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends BlobUrlStore, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends BlobUrlStore, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<BlobUrlStore, BlobUrlStore.Proxy> MANAGER = BlobUrlStore_Internal.MANAGER;

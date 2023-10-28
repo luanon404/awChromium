@@ -3,71 +3,96 @@
 //
 package org.chromium.content.browser;
 
-import org.chromium.base.Callback;
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.Environment;
+import android.text.TextUtils;
+import android.util.Pair;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.Callback;
+import org.chromium.base.ContextUtils;
+import org.chromium.base.Log;
+import org.chromium.base.StrictModeContext;
+import org.chromium.android_webview.R;
+import org.chromium.content_public.browser.TracingControllerAndroid;
+import org.chromium.ui.widget.Toast;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 @CheckDiscard("crbug.com/993421")
 class TracingControllerAndroidImplJni implements TracingControllerAndroidImpl.Natives {
-    private static TracingControllerAndroidImpl.Natives testInstance;
+  private static TracingControllerAndroidImpl.Natives testInstance;
 
-    public static final JniStaticTestMocker<TracingControllerAndroidImpl.Natives> TEST_HOOKS = new JniStaticTestMocker<TracingControllerAndroidImpl.Natives>() {
-        @Override
-        public void setInstanceForTesting(TracingControllerAndroidImpl.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<TracingControllerAndroidImpl.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<TracingControllerAndroidImpl.Natives>() {
     @Override
-    public void destroy(long nativeTracingControllerAndroid, TracingControllerAndroidImpl caller) {
-        GEN_JNI.org_chromium_content_browser_TracingControllerAndroidImpl_destroy(nativeTracingControllerAndroid, caller);
+    public void setInstanceForTesting(TracingControllerAndroidImpl.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public String getDefaultCategories(TracingControllerAndroidImpl caller) {
-        return GEN_JNI.org_chromium_content_browser_TracingControllerAndroidImpl_getDefaultCategories(caller);
-    }
+  @Override
+  public void destroy(long nativeTracingControllerAndroid, TracingControllerAndroidImpl caller) {
+    GEN_JNI.org_chromium_content_browser_TracingControllerAndroidImpl_destroy(nativeTracingControllerAndroid, caller);
+  }
 
-    @Override
-    public boolean getKnownCategoriesAsync(long nativeTracingControllerAndroid, TracingControllerAndroidImpl caller, Callback callback) {
-        return GEN_JNI.org_chromium_content_browser_TracingControllerAndroidImpl_getKnownCategoriesAsync(nativeTracingControllerAndroid, caller, callback);
-    }
+  @Override
+  public String getDefaultCategories(TracingControllerAndroidImpl caller) {
+    return (String) GEN_JNI.org_chromium_content_browser_TracingControllerAndroidImpl_getDefaultCategories(caller);
+  }
 
-    @Override
-    public boolean getTraceBufferUsageAsync(long nativeTracingControllerAndroid, TracingControllerAndroidImpl caller, Callback callback) {
-        return GEN_JNI.org_chromium_content_browser_TracingControllerAndroidImpl_getTraceBufferUsageAsync(nativeTracingControllerAndroid, caller, callback);
-    }
+  @Override
+  public boolean getKnownCategoriesAsync(long nativeTracingControllerAndroid, TracingControllerAndroidImpl caller, Callback callback) {
+    return (boolean) GEN_JNI.org_chromium_content_browser_TracingControllerAndroidImpl_getKnownCategoriesAsync(nativeTracingControllerAndroid, caller, callback);
+  }
 
-    @Override
-    public long init(TracingControllerAndroidImpl caller) {
-        return GEN_JNI.org_chromium_content_browser_TracingControllerAndroidImpl_init(caller);
-    }
+  @Override
+  public boolean getTraceBufferUsageAsync(long nativeTracingControllerAndroid, TracingControllerAndroidImpl caller, Callback callback) {
+    return (boolean) GEN_JNI.org_chromium_content_browser_TracingControllerAndroidImpl_getTraceBufferUsageAsync(nativeTracingControllerAndroid, caller, callback);
+  }
 
-    @Override
-    public boolean startTracing(long nativeTracingControllerAndroid, TracingControllerAndroidImpl caller, String categories, String traceOptions, boolean useProtobuf) {
-        return GEN_JNI.org_chromium_content_browser_TracingControllerAndroidImpl_startTracing(nativeTracingControllerAndroid, caller, categories, traceOptions, useProtobuf);
-    }
+  @Override
+  public long init(TracingControllerAndroidImpl caller) {
+    return (long) GEN_JNI.org_chromium_content_browser_TracingControllerAndroidImpl_init(caller);
+  }
 
-    @Override
-    public void stopTracing(long nativeTracingControllerAndroid, TracingControllerAndroidImpl caller, String filename, boolean compressFile, boolean useProtobuf, Callback callback) {
-        GEN_JNI.org_chromium_content_browser_TracingControllerAndroidImpl_stopTracing(nativeTracingControllerAndroid, caller, filename, compressFile, useProtobuf, callback);
-    }
+  @Override
+  public boolean startTracing(long nativeTracingControllerAndroid, TracingControllerAndroidImpl caller, String categories, String traceOptions, boolean useProtobuf) {
+    return (boolean) GEN_JNI.org_chromium_content_browser_TracingControllerAndroidImpl_startTracing(nativeTracingControllerAndroid, caller, categories, traceOptions, useProtobuf);
+  }
 
-    public static TracingControllerAndroidImpl.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of TracingControllerAndroidImpl.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new TracingControllerAndroidImplJni();
+  @Override
+  public void stopTracing(long nativeTracingControllerAndroid, TracingControllerAndroidImpl caller, String filename, boolean compressFile, boolean useProtobuf, Callback callback) {
+    GEN_JNI.org_chromium_content_browser_TracingControllerAndroidImpl_stopTracing(nativeTracingControllerAndroid, caller, filename, compressFile, useProtobuf, callback);
+  }
+
+  public static TracingControllerAndroidImpl.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of TracingControllerAndroidImpl.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new TracingControllerAndroidImplJni();
+  }
 }

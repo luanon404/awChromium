@@ -17,10 +17,17 @@ import androidx.annotation.IntDef;
 
 public final class NoVarySearchParseError {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({NoVarySearchParseError.OK, NoVarySearchParseError.DEFAULT_VALUE, NoVarySearchParseError.NOT_DICTIONARY, NoVarySearchParseError.UNKNOWN_DICTIONARY_KEY, NoVarySearchParseError.NON_BOOLEAN_KEY_ORDER, NoVarySearchParseError.PARAMS_NOT_STRING_LIST, NoVarySearchParseError.EXCEPT_NOT_STRING_LIST, NoVarySearchParseError.EXCEPT_WITHOUT_TRUE_PARAMS})
-    public @interface EnumType {
-    }
+        NoVarySearchParseError.OK,
+        NoVarySearchParseError.DEFAULT_VALUE,
+        NoVarySearchParseError.NOT_DICTIONARY,
+        NoVarySearchParseError.UNKNOWN_DICTIONARY_KEY,
+        NoVarySearchParseError.NON_BOOLEAN_KEY_ORDER,
+        NoVarySearchParseError.PARAMS_NOT_STRING_LIST,
+        NoVarySearchParseError.EXCEPT_NOT_STRING_LIST,
+        NoVarySearchParseError.EXCEPT_WITHOUT_TRUE_PARAMS})
+    public @interface EnumType {}
 
     public static final int OK = 0;
     public static final int DEFAULT_VALUE = 1;
@@ -43,9 +50,8 @@ public final class NoVarySearchParseError {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private NoVarySearchParseError() {
-    }
+    private NoVarySearchParseError() {}
 }

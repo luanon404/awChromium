@@ -13,15 +13,20 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface UdpSocketListener extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends UdpSocketListener, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends UdpSocketListener, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<UdpSocketListener, UdpSocketListener.Proxy> MANAGER = UdpSocketListener_Internal.MANAGER;
 
-    void onReceived(int result, IpEndPoint srcAddr, org.chromium.mojo_base.mojom.ReadOnlyBuffer data);
+    void onReceived(
+int result, IpEndPoint srcAddr, org.chromium.mojo_base.mojom.ReadOnlyBuffer data);
 
 
 }

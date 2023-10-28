@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class CookieAccessDelegateType {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({CookieAccessDelegateType.USE_CONTENT_SETTINGS, CookieAccessDelegateType.ALWAYS_LEGACY, CookieAccessDelegateType.ALWAYS_NONLEGACY})
-    public @interface EnumType {
-    }
+        CookieAccessDelegateType.USE_CONTENT_SETTINGS,
+        CookieAccessDelegateType.ALWAYS_LEGACY,
+        CookieAccessDelegateType.ALWAYS_NONLEGACY})
+    public @interface EnumType {}
 
     public static final int USE_CONTENT_SETTINGS = 0;
     public static final int ALWAYS_LEGACY = 1;
@@ -38,9 +40,8 @@ public final class CookieAccessDelegateType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private CookieAccessDelegateType() {
-    }
+    private CookieAccessDelegateType() {}
 }

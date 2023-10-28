@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface BytesProvider extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends BytesProvider, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends BytesProvider, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<BytesProvider, BytesProvider.Proxy> MANAGER = BytesProvider_Internal.MANAGER;

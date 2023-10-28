@@ -17,10 +17,13 @@ import androidx.annotation.IntDef;
 
 public final class IpAddressSpace {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({IpAddressSpace.LOCAL, IpAddressSpace.PRIVATE, IpAddressSpace.PUBLIC, IpAddressSpace.UNKNOWN})
-    public @interface EnumType {
-    }
+        IpAddressSpace.LOCAL,
+        IpAddressSpace.PRIVATE,
+        IpAddressSpace.PUBLIC,
+        IpAddressSpace.UNKNOWN})
+    public @interface EnumType {}
 
     public static final int LOCAL = 0;
     public static final int PRIVATE = 1;
@@ -39,9 +42,8 @@ public final class IpAddressSpace {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private IpAddressSpace() {
-    }
+    private IpAddressSpace() {}
 }

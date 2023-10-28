@@ -18,7 +18,7 @@ public interface NonEmbeddedSafeModeAction extends SafeModeAction {
      * @return {@code true} if the action succeeded, {@code false} otherwise.
      */
     @Override
-    default boolean execute() {
+    public default boolean execute() {
         return true;
     }
 
@@ -31,7 +31,7 @@ public interface NonEmbeddedSafeModeAction extends SafeModeAction {
      *
      * @return {@code true} if the action succeeded, {@code false} otherwise.
      */
-    default boolean onActivate() {
+    public default boolean onActivate() {
         return true;
     }
 
@@ -44,7 +44,7 @@ public interface NonEmbeddedSafeModeAction extends SafeModeAction {
      *
      * @return {@code true} if the action succeeded, {@code false} otherwise.
      */
-    default boolean onDeactivate() {
+    public default boolean onDeactivate() {
         return true;
     }
 }

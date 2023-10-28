@@ -13,10 +13,13 @@
 
 package org.chromium.viz.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class ReturnedResource extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 40;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(40, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(40, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public ResourceId id;
     public org.chromium.gpu.mojom.SyncToken syncToken;
@@ -26,6 +29,10 @@ public final class ReturnedResource extends org.chromium.mojo.bindings.Struct {
 
     private ReturnedResource(int version) {
         super(STRUCT_SIZE, version);
+    }
+
+    public ReturnedResource() {
+        this(0);
     }
 
     public static ReturnedResource deserialize(org.chromium.mojo.bindings.Message message) {
@@ -38,9 +45,11 @@ public final class ReturnedResource extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static ReturnedResource deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
+    @SuppressWarnings("unchecked")
     public static ReturnedResource decode(org.chromium.mojo.bindings.Decoder decoder0) {
         if (decoder0 == null) {
             return null;
@@ -51,29 +60,29 @@ public final class ReturnedResource extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new ReturnedResource(elementsOrVersion);
-            {
-
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                 result.id = ResourceId.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                 result.syncToken = org.chromium.gpu.mojom.SyncToken.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, true);
                 result.releaseFence = org.chromium.gfx.mojom.GpuFenceHandle.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.count = decoder0.readInt(32);
-            }
-            {
-
+                }
+                {
+                    
                 result.lost = decoder0.readBoolean(36, 0);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -81,18 +90,19 @@ public final class ReturnedResource extends org.chromium.mojo.bindings.Struct {
         return result;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
+    protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.id, 8, false);
-
+        
         encoder0.encode(this.syncToken, 16, false);
-
+        
         encoder0.encode(this.releaseFence, 24, true);
-
+        
         encoder0.encode(this.count, 32);
-
+        
         encoder0.encode(this.lost, 36, 0);
     }
 }

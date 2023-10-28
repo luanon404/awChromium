@@ -39,7 +39,11 @@ public class StylusGestureConverter {
     // numeric values should never be reused.
     // Entries with the DW prefix are used by Samsung's DirectWriting service. All other entries are
     // used by Android stylus handwriting.
-    @IntDef({UmaGestureType.DW_DELETE_TEXT, UmaGestureType.DW_ADD_SPACE_OR_TEXT, UmaGestureType.DW_REMOVE_SPACES, UmaGestureType.DW_SPLIT_OR_MERGE, UmaGestureType.SELECT, UmaGestureType.INSERT, UmaGestureType.DELETE, UmaGestureType.REMOVE_SPACE, UmaGestureType.JOIN_OR_SPLIT, UmaGestureType.SELECT_RANGE, UmaGestureType.DELETE_RANGE, UmaGestureType.NUM_ENTRIES})
+    @IntDef({UmaGestureType.DW_DELETE_TEXT, UmaGestureType.DW_ADD_SPACE_OR_TEXT,
+            UmaGestureType.DW_REMOVE_SPACES, UmaGestureType.DW_SPLIT_OR_MERGE,
+            UmaGestureType.SELECT, UmaGestureType.INSERT, UmaGestureType.DELETE,
+            UmaGestureType.REMOVE_SPACE, UmaGestureType.JOIN_OR_SPLIT, UmaGestureType.SELECT_RANGE,
+            UmaGestureType.DELETE_RANGE, UmaGestureType.NUM_ENTRIES})
     @Retention(RetentionPolicy.SOURCE)
     public @interface UmaGestureType {
         int DW_DELETE_TEXT = 0;
@@ -57,7 +61,8 @@ public class StylusGestureConverter {
     }
 
     public static void logGestureType(@UmaGestureType int gestureType) {
-        RecordHistogram.recordEnumeratedHistogram("InputMethod.StylusHandwriting.Gesture", gestureType, UmaGestureType.NUM_ENTRIES);
+        RecordHistogram.recordEnumeratedHistogram(
+                "InputMethod.StylusHandwriting.Gesture", gestureType, UmaGestureType.NUM_ENTRIES);
     }
 
     public static StylusWritingGestureData createGestureData(HandwritingGesture gesture) {
@@ -88,14 +93,15 @@ public class StylusGestureConverter {
 
     /**
      * Creates a StylusWritingGestureData object from a SelectGesture.
-     *
      * @param gesture The SelectGesture to extract data from.
      * @return A StylusWritingGestureData object to pass through Mojo to blink.
      */
     private static StylusWritingGestureData createGestureData(SelectGesture gesture) {
         StylusWritingGestureData gestureData = new StylusWritingGestureData();
         gestureData.action = StylusWritingGestureAction.SELECT_TEXT;
-        gestureData.granularity = gesture.getGranularity() == HandwritingGesture.GRANULARITY_WORD ? StylusWritingGestureGranularity.WORD : StylusWritingGestureGranularity.CHARACTER;
+        gestureData.granularity = gesture.getGranularity() == HandwritingGesture.GRANULARITY_WORD
+                ? StylusWritingGestureGranularity.WORD
+                : StylusWritingGestureGranularity.CHARACTER;
         gestureData.textAlternative = toMojoString(gesture.getFallbackText());
         Rect[] areas = toTwoMojoRects(gesture.getSelectionArea());
         gestureData.startRect = areas[0];
@@ -105,7 +111,6 @@ public class StylusGestureConverter {
 
     /**
      * Creates a StylusWritingGestureData object from an InsertGesture.
-     *
      * @param gesture The InsertGesture to extract data from.
      * @return A StylusWritingGestureData object to pass through Mojo to blink.
      */
@@ -121,14 +126,15 @@ public class StylusGestureConverter {
 
     /**
      * Creates a StylusWritingGestureData object from a DeleteGesture.
-     *
      * @param gesture The DeleteGesture to extract data from.
      * @return A StylusWritingGestureData object to pass through Mojo to blink.
      */
     private static StylusWritingGestureData createGestureData(DeleteGesture gesture) {
         StylusWritingGestureData gestureData = new StylusWritingGestureData();
         gestureData.action = StylusWritingGestureAction.DELETE_TEXT;
-        gestureData.granularity = gesture.getGranularity() == HandwritingGesture.GRANULARITY_WORD ? StylusWritingGestureGranularity.WORD : StylusWritingGestureGranularity.CHARACTER;
+        gestureData.granularity = gesture.getGranularity() == HandwritingGesture.GRANULARITY_WORD
+                ? StylusWritingGestureGranularity.WORD
+                : StylusWritingGestureGranularity.CHARACTER;
         gestureData.textAlternative = toMojoString(gesture.getFallbackText());
         Rect[] areas = toTwoMojoRects(gesture.getDeletionArea());
         gestureData.startRect = areas[0];
@@ -138,7 +144,6 @@ public class StylusGestureConverter {
 
     /**
      * Creates a StylusWritingGestureData object from a RemoveSpaceGesture.
-     *
      * @param gesture The RemoveSpaceGesture object to extract data from.
      * @return A StylusWritingGestureData object to pass through Mojo to blink.
      */
@@ -154,7 +159,6 @@ public class StylusGestureConverter {
 
     /**
      * Creates a StylusWritingGestureData object from a JoinOrSplitGesture.
-     *
      * @param gesture The JoinOrSplitGesture to extract data from.
      * @return A StylusWritingGestureData object to pass through Mojo to blink.
      */
@@ -169,14 +173,15 @@ public class StylusGestureConverter {
 
     /**
      * Creates a StylusWritingGestureData object from a SelectRangeGesture.
-     *
      * @param gesture The SelectRangeGesture to extract data from.
      * @return A StylusWritingGestureData object to pass through Mojo to blink.
      */
     private static StylusWritingGestureData createGestureData(SelectRangeGesture gesture) {
         StylusWritingGestureData gestureData = new StylusWritingGestureData();
         gestureData.action = StylusWritingGestureAction.SELECT_TEXT;
-        gestureData.granularity = gesture.getGranularity() == HandwritingGesture.GRANULARITY_WORD ? StylusWritingGestureGranularity.WORD : StylusWritingGestureGranularity.CHARACTER;
+        gestureData.granularity = gesture.getGranularity() == HandwritingGesture.GRANULARITY_WORD
+                ? StylusWritingGestureGranularity.WORD
+                : StylusWritingGestureGranularity.CHARACTER;
         gestureData.textAlternative = toMojoString(gesture.getFallbackText());
         gestureData.startRect = toMojoRect(gesture.getSelectionStartArea());
         gestureData.endRect = toMojoRect(gesture.getSelectionEndArea());
@@ -185,14 +190,15 @@ public class StylusGestureConverter {
 
     /**
      * Creates a StylusWritingGestureData object from a DeleteRangeGesture.
-     *
      * @param gesture The DeleteRangeGesture to extract data from.
      * @return A StylusWritingGestureData object to pass through Mojo to blink.
      */
     private static StylusWritingGestureData createGestureData(DeleteRangeGesture gesture) {
         StylusWritingGestureData gestureData = new StylusWritingGestureData();
         gestureData.action = StylusWritingGestureAction.DELETE_TEXT;
-        gestureData.granularity = gesture.getGranularity() == HandwritingGesture.GRANULARITY_WORD ? StylusWritingGestureGranularity.WORD : StylusWritingGestureGranularity.CHARACTER;
+        gestureData.granularity = gesture.getGranularity() == HandwritingGesture.GRANULARITY_WORD
+                ? StylusWritingGestureGranularity.WORD
+                : StylusWritingGestureGranularity.CHARACTER;
         gestureData.textAlternative = toMojoString(gesture.getFallbackText());
         gestureData.startRect = toMojoRect(gesture.getDeletionStartArea());
         gestureData.endRect = toMojoRect(gesture.getDeletionEndArea());
@@ -201,9 +207,8 @@ public class StylusGestureConverter {
 
     /**
      * Takes an Android RectF and converts it to a Mojo Rect object.
-     *
      * @param rect The Android representation of a rectangle with four floats representing the left,
-     *             top, right and bottom positions of the rectangle.
+     * top, right and bottom positions of the rectangle.
      * @return A Mojo rectangle which consists of a point (represented by x and y integers) and a
      * size (represented by width and height integers).
      */
@@ -218,7 +223,6 @@ public class StylusGestureConverter {
 
     /**
      * Takes an Android PointF and converts it to a zero-sized Mojo Rect object.
-     *
      * @param point The Android representation of a point with two floats for the x and y position.
      * @return A Mojo rectangle with an area of 0 at the provided point.
      */
@@ -234,7 +238,6 @@ public class StylusGestureConverter {
     /**
      * Converts an Android RectF object to an array of 2 Mojo Rect objects. These Rect objects have
      * an area of 0 and represent the left center and right center of the given RectF.
-     *
      * @param area The Android RectF to convert to two Mojo Rect objects.
      * @return An area of 2 Mojo Rect objects representing the left and right centers of the RectF.
      */
@@ -249,7 +252,6 @@ public class StylusGestureConverter {
 
     /**
      * Converts a Java String object to the String16 representation compatible with Mojo.
-     *
      * @param string A Java String to convert to the String16 format.
      * @return A String16 object which wraps an array of short integers for each character in the
      * string.
@@ -264,6 +266,5 @@ public class StylusGestureConverter {
         return mojoString;
     }
 
-    private StylusGestureConverter() {
-    }
+    private StylusGestureConverter() {}
 }

@@ -9,7 +9,11 @@ import android.text.TextUtils;
 
 import androidx.annotation.Nullable;
 
-import com.google.firebase.crashlytics.buildtools.reloc.com.google.errorprone.annotations.DoNotMock;
+import com.google.errorprone.annotations.DoNotMock;
+
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
 
 import org.chromium.base.Log;
 import org.chromium.base.ThreadUtils;
@@ -17,20 +21,19 @@ import org.chromium.base.library_loader.LibraryLoader;
 import org.chromium.base.metrics.RecordHistogram;
 import org.chromium.base.task.PostTask;
 import org.chromium.base.task.TaskTraits;
-import org.jni_zero.CalledByNative;
-import org.jni_zero.JNINamespace;
-import org.jni_zero.NativeMethods;
+import org.chromium.url.mojom.Url;
+import org.chromium.url.mojom.UrlConstants;
 
 import java.util.Random;
 
 /**
  * An immutable Java wrapper for GURL, Chromium's URL parsing library.
- * <p>
+ *
  * This class is safe to use during startup, but will block on the native library being sufficiently
  * loaded to use native GURL (and will not wait for content initialization). In practice it's very
  * unlikely that this will actually block startup unless used extremely early, in which case you
  * should probably seek an alternative solution to using GURL.
- * <p>
+ *
  * The design of this class avoids destruction/finalization by caching all values necessary to
  * reconstruct a GURL in Java, allowing it to be much faster in the common case and easier to use.
  */
@@ -50,12 +53,11 @@ public class GURL {
      * Exception signalling that a GURL failed to parse due to an unexpected version marker in the
      * serialized input.
      */
-    public static class BadSerializerVersionException extends RuntimeException {
-    }
+    public static class BadSerializerVersionException extends RuntimeException {}
 
     // Right now this is only collecting reports on Canary which has a relatively small population.
     private static final int DEBUG_REPORT_PERCENTAGE = 10;
-    public static ReportDebugThrowableCallback sReportCallback;
+    private static ReportDebugThrowableCallback sReportCallback;
 
     // TODO(https://crbug.com/1039841): Right now we return a new String with each request for a
     //      GURL component other than the spec itself. Should we cache return Strings (as
@@ -64,9 +66,7 @@ public class GURL {
     private boolean mIsValid;
     private Parsed mParsed;
 
-    private static class Holder {
-        private static final GURL sEmptyGURL = new GURL("");
-    }
+    private static class Holder { private static GURL sEmptyGURL = new GURL(""); }
 
     @CalledByNative
     public static GURL emptyGURL() {
@@ -90,12 +90,18 @@ public class GURL {
     }
 
     @CalledByNative
-    protected GURL() {
+    protected GURL() {}
+
+    /**
+     * Enables debug stack trace gathering for GURL.
+     */
+    public static void setReportDebugThrowableCallback(ReportDebugThrowableCallback callback) {
+        sReportCallback = callback;
     }
 
     /**
      * Ensures that the native library is sufficiently loaded for GURL usage.
-     * <p>
+     *
      * This function is public so that GURL-related usage like the UrlFormatter also counts towards
      * the "Startup.Android.GURLEnsureMainDexInitialized" histogram.
      */
@@ -108,20 +114,21 @@ public class GURL {
             // "MainDex" in name of histogram is a dated reference to when we used to have 2
             // sections of the native library, main dex and non-main dex. Maintaining name for
             // consistency in metrics.
-            RecordHistogram.recordTimesHistogram("Startup.Android.GURLEnsureMainDexInitialized", SystemClock.elapsedRealtime() - time);
+            RecordHistogram.recordTimesHistogram("Startup.Android.GURLEnsureMainDexInitialized",
+                    SystemClock.elapsedRealtime() - time);
             if (sReportCallback != null && new Random().nextInt(100) < DEBUG_REPORT_PERCENTAGE) {
-                final Throwable throwable = new Throwable("This is not a crash, please ignore. See crbug.com/1065377.");
+                final Throwable throwable =
+                        new Throwable("This is not a crash, please ignore. See crbug.com/1065377.");
                 // This isn't an assert, because by design this is possible, but we would prefer
                 // this path does not get hit more than necessary and getting stack traces from the
                 // wild will help find issues.
-                PostTask.postTask(TaskTraits.BEST_EFFORT_MAY_BLOCK, () -> sReportCallback.run(throwable));
+                PostTask.postTask(TaskTraits.BEST_EFFORT_MAY_BLOCK,
+                        () -> { sReportCallback.run(throwable); });
             }
         }
     }
 
-    /**
-     * @return true if the GURL is null, empty, or invalid.
-     */
+    /** @return true if the GURL is null, empty, or invalid. */
     public static boolean isEmptyOrInvalid(@Nullable GURL gurl) {
         return gurl == null || gurl.isEmpty() || !gurl.isValid();
     }
@@ -131,6 +138,11 @@ public class GURL {
         mSpec = spec;
         mIsValid = isValid;
         mParsed = parsed;
+    }
+
+    @CalledByNative
+    private long toNativeGURL() {
+        return getNatives().createNative(mSpec, mIsValid, mParsed.toNativeParsed());
     }
 
     /**
@@ -146,6 +158,14 @@ public class GURL {
     public String getSpec() {
         if (isValid() || mSpec.isEmpty()) return mSpec;
         assert false : "Trying to get the spec of an invalid URL!";
+        return "";
+    }
+
+    /**
+     * @return Either a valid Spec (see {@link #getSpec}), or an empty string.
+     */
+    public String getValidSpecOrEmpty() {
+        if (isValid()) return mSpec;
         return "";
     }
 
@@ -169,6 +189,13 @@ public class GURL {
     }
 
     /**
+     * See native GURL::username().
+     */
+    public String getUsername() {
+        return getComponent(mParsed.mUsernameBegin, mParsed.mUsernameLength);
+    }
+
+    /**
      * See native GURL::password().
      */
     public String getPassword() {
@@ -184,7 +211,7 @@ public class GURL {
 
     /**
      * See native GURL::port().
-     * <p>
+     *
      * Note: Do not convert this to an integer yourself. See native GURL::IntPort().
      */
     public String getPort() {
@@ -232,6 +259,13 @@ public class GURL {
         getNatives().getOrigin(mSpec, mIsValid, mParsed.toNativeParsed(), target);
     }
 
+    /**
+     * See native GURL::DomainIs().
+     */
+    public boolean domainIs(String domain) {
+        return getNatives().domainIs(mSpec, mIsValid, mParsed.toNativeParsed(), domain);
+    }
+
     @Override
     public final int hashCode() {
         return mSpec.hashCode();
@@ -246,14 +280,19 @@ public class GURL {
 
     /**
      * Serialize a GURL to a String, to be used with {@link GURL#deserialize(String)}.
-     * <p>
+     *
      * Note that a serialized GURL should only be used internally to Chrome, and should *never* be
      * used if coming from an untrusted source.
      *
      * @return A serialzed GURL.
      */
     public final String serialize() {
-        String serialization = String.valueOf(SERIALIZER_VERSION) + SERIALIZER_DELIMITER + mIsValid + SERIALIZER_DELIMITER + mParsed.serialize() + SERIALIZER_DELIMITER + mSpec;
+        StringBuilder builder = new StringBuilder();
+        builder.append(SERIALIZER_VERSION).append(SERIALIZER_DELIMITER);
+        builder.append(mIsValid).append(SERIALIZER_DELIMITER);
+        builder.append(mParsed.serialize()).append(SERIALIZER_DELIMITER);
+        builder.append(mSpec);
+        String serialization = builder.toString();
         return Integer.toString(serialization.length()) + SERIALIZER_DELIMITER + serialization;
     }
 
@@ -261,7 +300,7 @@ public class GURL {
      * Deserialize a GURL serialized with {@link GURL#serialize()}. This will re-parse in case of
      * version mismatch, which may trigger undesired native loading. {@see
      * deserializeLatestVersionOnly} if you want to fail in case of version mismatch.
-     * <p>
+     *
      * This function should *never* be used on a String coming from an untrusted source.
      *
      * @return The deserialized GURL (or null if the input is empty).
@@ -271,7 +310,6 @@ public class GURL {
             return deserializeLatestVersionOnly(gurl);
         } catch (BadSerializerVersionException be) {
             // Just re-parse the GURL on version changes.
-            assert gurl != null;
             String[] tokens = gurl.split(Character.toString(SERIALIZER_DELIMITER));
             return new GURL(getSpecFromTokens(gurl, tokens));
         } catch (Exception e) {
@@ -313,7 +351,8 @@ public class GURL {
     private static String getSpecFromTokens(String gurl, String[] tokens) {
         // Last token MUST always be the original spec.
         // Special case for empty spec - it won't get its own token.
-        return gurl.endsWith(Character.toString(SERIALIZER_DELIMITER)) ? "" : tokens[tokens.length - 1];
+        return gurl.endsWith(Character.toString(SERIALIZER_DELIMITER)) ? ""
+                                                                       : tokens[tokens.length - 1];
     }
 
     /**
@@ -325,6 +364,23 @@ public class GURL {
      */
     private static Natives getNatives() {
         return GURLJni.get();
+    }
+
+    /** Inits this GURL with the internal state of another GURL. */
+    /* package */ void initForTesting(GURL gurl) {
+        init(gurl.mSpec, gurl.mIsValid, gurl.mParsed);
+    }
+
+    /** @return A Mojom representation of this URL. */
+    public Url toMojom() {
+        Url url = new Url();
+        // See url/mojom/url_gurl_mojom_traits.cc.
+        url.url = TextUtils.isEmpty(getPossiblyInvalidSpec())
+                        || getPossiblyInvalidSpec().length() > UrlConstants.MAX_URL_CHARS
+                        || !isValid()
+                ? ""
+                : getPossiblyInvalidSpec();
+        return url;
     }
 
     @NativeMethods
@@ -339,5 +395,14 @@ public class GURL {
          */
         void getOrigin(String spec, boolean isValid, long nativeParsed, GURL target);
 
+        /**
+         * Reconstructs the native GURL for this Java GURL, and calls GURL.DomainIs.
+         */
+        boolean domainIs(String spec, boolean isValid, long nativeParsed, String domain);
+
+        /**
+         * Reconstructs the native GURL for this Java GURL, returning its native pointer.
+         */
+        long createNative(String spec, boolean isValid, long nativeParsed);
     }
 }

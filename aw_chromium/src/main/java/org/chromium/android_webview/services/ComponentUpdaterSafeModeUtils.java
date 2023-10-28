@@ -18,15 +18,14 @@ import java.util.Set;
  */
 public class ComponentUpdaterSafeModeUtils {
     private static final String TAG = "AwCUSafeMode";
-    private static final String HISTOGRAM_COMPONENT_UPDATER_SAFEMODE_EXECUTED = "Android.WebView.ComponentUpdater.SafeModeActionExecuted";
+    private static final String HISTOGRAM_COMPONENT_UPDATER_SAFEMODE_EXECUTED =
+            "Android.WebView.ComponentUpdater.SafeModeActionExecuted";
 
     // Don't instantiate this class.
-    private ComponentUpdaterSafeModeUtils() {
-    }
+    private ComponentUpdaterSafeModeUtils() {}
 
     /**
      * Executes Component Updater Safe Mode actions, if Safe Mode is enabled.
-     *
      * @param configDir The directory containing dynamic configs.
      * @return true if any SafeMode actions were executed, false otherwise.
      */
@@ -34,13 +33,15 @@ public class ComponentUpdaterSafeModeUtils {
         SafeModeController controller = SafeModeController.getInstance();
         String packageName = ContextUtils.getApplicationContext().getPackageName();
         if (!controller.isSafeModeEnabled(packageName)) {
-            RecordHistogram.recordBooleanHistogram(HISTOGRAM_COMPONENT_UPDATER_SAFEMODE_EXECUTED, false);
+            RecordHistogram.recordBooleanHistogram(
+                    HISTOGRAM_COMPONENT_UPDATER_SAFEMODE_EXECUTED, false);
             return false;
         }
         Set<String> actions = controller.queryActions(packageName);
 
         if (actions.isEmpty() || !actions.contains(ComponentUpdaterResetSafeModeAction.ID)) {
-            RecordHistogram.recordBooleanHistogram(HISTOGRAM_COMPONENT_UPDATER_SAFEMODE_EXECUTED, false);
+            RecordHistogram.recordBooleanHistogram(
+                    HISTOGRAM_COMPONENT_UPDATER_SAFEMODE_EXECUTED, false);
             return false;
         }
 

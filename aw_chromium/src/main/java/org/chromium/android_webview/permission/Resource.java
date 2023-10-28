@@ -1,3 +1,4 @@
+
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -14,12 +15,15 @@ import androidx.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@IntDef({Resource.GEOLOCATION, Resource.VIDEO_CAPTURE, Resource.AUDIO_CAPTURE, Resource.PROTECTED_MEDIA_ID, Resource.MIDI_SYSEX})
+@IntDef({
+    Resource.GEOLOCATION, Resource.VIDEO_CAPTURE, Resource.AUDIO_CAPTURE,
+    Resource.PROTECTED_MEDIA_ID, Resource.MIDI_SYSEX
+})
 @Retention(RetentionPolicy.SOURCE)
 public @interface Resource {
-    int GEOLOCATION = 1 << 0;
-    int VIDEO_CAPTURE = 1 << 1;
-    int AUDIO_CAPTURE = 1 << 2;
-    int PROTECTED_MEDIA_ID = 1 << 3;
-    int MIDI_SYSEX = 1 << 4;
+  int GEOLOCATION = 1 << 0;
+  int VIDEO_CAPTURE = 1 << 1;
+  int AUDIO_CAPTURE = 1 << 2;
+  int PROTECTED_MEDIA_ID = 1 << 3;
+  int MIDI_SYSEX = 1 << 4;
 }

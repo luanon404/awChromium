@@ -13,28 +13,51 @@
 
 package org.chromium.ui.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class GestureDataDetails extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
         public static final int Pinch = 0;
         public static final int Swipe = 1;
-    }
-
+    };
     private GesturePinchData mPinch;
     private GestureSwipeData mSwipe;
 
+    public void setPinch(GesturePinchData pinch) {
+        this.mTag = Tag.Pinch;
+        this.mPinch = pinch;
+    }
+
+    public GesturePinchData getPinch() {
+        assert this.mTag == Tag.Pinch;
+        return this.mPinch;
+    }
+
+    public void setSwipe(GestureSwipeData swipe) {
+        this.mTag = Tag.Swipe;
+        this.mSwipe = swipe;
+    }
+
+    public GestureSwipeData getSwipe() {
+        assert this.mTag == Tag.Swipe;
+        return this.mSwipe;
+    }
+
+
     @Override
-    protected void encode(org.chromium.mojo.bindings.Encoder encoder0, int offset) {
+    protected final void encode(org.chromium.mojo.bindings.Encoder encoder0, int offset) {
         encoder0.encode(org.chromium.mojo.bindings.BindingsHelper.UNION_SIZE, offset);
         encoder0.encode(this.mTag, offset + 4);
         switch (mTag) {
             case Tag.Pinch: {
-
+                
                 encoder0.encode(this.mPinch, offset + 8, false);
                 break;
             }
             case Tag.Swipe: {
-
+                
                 encoder0.encode(this.mSwipe, offset + 8, false);
                 break;
             }
@@ -48,7 +71,7 @@ public final class GestureDataDetails extends org.chromium.mojo.bindings.Union {
         return decode(new org.chromium.mojo.bindings.Decoder(message).decoderForSerializedUnion(), 0);
     }
 
-    public static GestureDataDetails decode(org.chromium.mojo.bindings.Decoder decoder0, int offset) {
+    public static final GestureDataDetails decode(org.chromium.mojo.bindings.Decoder decoder0, int offset) {
         org.chromium.mojo.bindings.DataHeader dataHeader = decoder0.readDataHeaderForUnion(offset);
         if (dataHeader.size == 0) {
             return null;
@@ -56,14 +79,14 @@ public final class GestureDataDetails extends org.chromium.mojo.bindings.Union {
         GestureDataDetails result = new GestureDataDetails();
         switch (dataHeader.elementsOrVersion) {
             case Tag.Pinch: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mPinch = GesturePinchData.decode(decoder1);
                 result.mTag = Tag.Pinch;
                 break;
             }
             case Tag.Swipe: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mSwipe = GestureSwipeData.decode(decoder1);
                 result.mTag = Tag.Swipe;

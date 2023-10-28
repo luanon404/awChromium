@@ -13,13 +13,15 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class SmartCardDataResult extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
         public static final int Data = 0;
         public static final int Error = 1;
-    }
-
+    };
     private byte[] mData;
     private int mError;
 
@@ -50,12 +52,12 @@ public final class SmartCardDataResult extends org.chromium.mojo.bindings.Union 
         encoder0.encode(this.mTag, offset + 4);
         switch (mTag) {
             case Tag.Data: {
-
+                
                 encoder0.encode(this.mData, offset + 8, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                 break;
             }
             case Tag.Error: {
-
+                
                 encoder0.encode(this.mError, offset + 8);
                 break;
             }
@@ -77,16 +79,16 @@ public final class SmartCardDataResult extends org.chromium.mojo.bindings.Union 
         SmartCardDataResult result = new SmartCardDataResult();
         switch (dataHeader.elementsOrVersion) {
             case Tag.Data: {
-
+                
                 result.mData = decoder0.readBytes(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                 result.mTag = Tag.Data;
                 break;
             }
             case Tag.Error: {
-
+                
                 result.mError = decoder0.readInt(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE);
-                SmartCardError.validate(result.mError);
-                result.mError = SmartCardError.toKnownValue(result.mError);
+                    SmartCardError.validate(result.mError);
+                    result.mError = SmartCardError.toKnownValue(result.mError);
                 result.mTag = Tag.Error;
                 break;
             }

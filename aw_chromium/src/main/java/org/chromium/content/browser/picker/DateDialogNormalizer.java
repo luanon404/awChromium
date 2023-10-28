@@ -62,7 +62,8 @@ public class DateDialogNormalizer {
         }
     }
 
-    private static void setLimits(DatePicker picker, long currentMillisForPicker, long minMillisForPicker, long maxMillisForPicker) {
+    private static void setLimits(DatePicker picker, long currentMillisForPicker,
+            long minMillisForPicker, long maxMillisForPicker) {
         // On KitKat and earlier, DatePicker requires the minDate is always less than maxDate, even
         // during the process of setting those values (eek), so set them in an order that preserves
         // this invariant throughout.
@@ -79,15 +80,16 @@ public class DateDialogNormalizer {
      * Sets the current, min, and max values on the given DatePicker and ensures that
      * min <= current <= max, adjusting current and max if needed.
      *
-     * @param year         The current year to set.
-     * @param month        The current month to set. 0-based.
-     * @param day          The current day to set.
+     * @param year The current year to set.
+     * @param month The current month to set. 0-based.
+     * @param day The current day to set.
      * @param minMillisUtc The minimum allowed date, in milliseconds from the epoch according to a
      *                     proleptic Gregorian calendar (no Julian switch).
      * @param maxMillisUtc The maximum allowed date, in milliseconds from the epoch according to a
      *                     proleptic Gregorian calendar (no Julian switch).
      */
-    public static void normalize(DatePicker picker, final OnDateChangedListener listener, int year, int month, int day, long minMillisUtc, long maxMillisUtc) {
+    public static void normalize(DatePicker picker, final OnDateChangedListener listener,
+            int year, int month, int day, long minMillisUtc, long maxMillisUtc) {
         DateAndMillis currentDate = DateAndMillis.create(year, month, day);
         DateAndMillis minDate = DateAndMillis.create(minMillisUtc);
         DateAndMillis maxDate = DateAndMillis.create(maxMillisUtc);
@@ -102,7 +104,8 @@ public class DateDialogNormalizer {
             currentDate = maxDate;
         }
 
-        setLimits(picker, currentDate.millisForPicker, minDate.millisForPicker, maxDate.millisForPicker);
+        setLimits(picker, currentDate.millisForPicker, minDate.millisForPicker,
+                maxDate.millisForPicker);
         picker.init(currentDate.year, currentDate.month, currentDate.day, listener);
     }
 }

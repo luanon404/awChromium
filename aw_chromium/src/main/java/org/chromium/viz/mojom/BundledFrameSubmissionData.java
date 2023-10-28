@@ -13,14 +13,16 @@
 
 package org.chromium.viz.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class BundledFrameSubmissionData extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
         public static final int Frame = 0;
         public static final int DidNotProduceFrame = 1;
         public static final int DidDeleteSharedBitmap = 2;
-    }
-
+    };
     private BundledCompositorFrame mFrame;
     private BeginFrameAck mDidNotProduceFrame;
     private org.chromium.gpu.mojom.Mailbox mDidDeleteSharedBitmap;
@@ -35,24 +37,44 @@ public final class BundledFrameSubmissionData extends org.chromium.mojo.bindings
         return this.mFrame;
     }
 
+    public void setDidNotProduceFrame(BeginFrameAck didNotProduceFrame) {
+        this.mTag = Tag.DidNotProduceFrame;
+        this.mDidNotProduceFrame = didNotProduceFrame;
+    }
+
+    public BeginFrameAck getDidNotProduceFrame() {
+        assert this.mTag == Tag.DidNotProduceFrame;
+        return this.mDidNotProduceFrame;
+    }
+
+    public void setDidDeleteSharedBitmap(org.chromium.gpu.mojom.Mailbox didDeleteSharedBitmap) {
+        this.mTag = Tag.DidDeleteSharedBitmap;
+        this.mDidDeleteSharedBitmap = didDeleteSharedBitmap;
+    }
+
+    public org.chromium.gpu.mojom.Mailbox getDidDeleteSharedBitmap() {
+        assert this.mTag == Tag.DidDeleteSharedBitmap;
+        return this.mDidDeleteSharedBitmap;
+    }
+
 
     @Override
-    protected void encode(org.chromium.mojo.bindings.Encoder encoder0, int offset) {
+    protected final void encode(org.chromium.mojo.bindings.Encoder encoder0, int offset) {
         encoder0.encode(org.chromium.mojo.bindings.BindingsHelper.UNION_SIZE, offset);
         encoder0.encode(this.mTag, offset + 4);
         switch (mTag) {
             case Tag.Frame: {
-
+                
                 encoder0.encode(this.mFrame, offset + 8, false);
                 break;
             }
             case Tag.DidNotProduceFrame: {
-
+                
                 encoder0.encode(this.mDidNotProduceFrame, offset + 8, false);
                 break;
             }
             case Tag.DidDeleteSharedBitmap: {
-
+                
                 encoder0.encode(this.mDidDeleteSharedBitmap, offset + 8, false);
                 break;
             }
@@ -66,7 +88,7 @@ public final class BundledFrameSubmissionData extends org.chromium.mojo.bindings
         return decode(new org.chromium.mojo.bindings.Decoder(message).decoderForSerializedUnion(), 0);
     }
 
-    public static BundledFrameSubmissionData decode(org.chromium.mojo.bindings.Decoder decoder0, int offset) {
+    public static final BundledFrameSubmissionData decode(org.chromium.mojo.bindings.Decoder decoder0, int offset) {
         org.chromium.mojo.bindings.DataHeader dataHeader = decoder0.readDataHeaderForUnion(offset);
         if (dataHeader.size == 0) {
             return null;
@@ -74,21 +96,21 @@ public final class BundledFrameSubmissionData extends org.chromium.mojo.bindings
         BundledFrameSubmissionData result = new BundledFrameSubmissionData();
         switch (dataHeader.elementsOrVersion) {
             case Tag.Frame: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mFrame = BundledCompositorFrame.decode(decoder1);
                 result.mTag = Tag.Frame;
                 break;
             }
             case Tag.DidNotProduceFrame: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mDidNotProduceFrame = BeginFrameAck.decode(decoder1);
                 result.mTag = Tag.DidNotProduceFrame;
                 break;
             }
             case Tag.DidDeleteSharedBitmap: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mDidDeleteSharedBitmap = org.chromium.gpu.mojom.Mailbox.decode(decoder1);
                 result.mTag = Tag.DidDeleteSharedBitmap;

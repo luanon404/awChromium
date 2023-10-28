@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface FrameWidget extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends FrameWidget, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends FrameWidget, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<FrameWidget, FrameWidget.Proxy> MANAGER = FrameWidget_Internal.MANAGER;

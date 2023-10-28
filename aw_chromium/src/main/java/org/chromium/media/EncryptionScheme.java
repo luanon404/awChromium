@@ -1,3 +1,4 @@
+
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -14,11 +15,14 @@ import androidx.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@IntDef({EncryptionScheme.UNENCRYPTED, EncryptionScheme.CENC, EncryptionScheme.CBCS, EncryptionScheme.MAX_VALUE})
+@IntDef({
+    EncryptionScheme.UNENCRYPTED, EncryptionScheme.CENC, EncryptionScheme.CBCS,
+    EncryptionScheme.MAX_VALUE
+})
 @Retention(RetentionPolicy.SOURCE)
 public @interface EncryptionScheme {
-    int UNENCRYPTED = 0;
-    int CENC = 1;
-    int CBCS = 2;
-    int MAX_VALUE = CBCS;
+  int UNENCRYPTED = 0;
+  int CENC = 1;
+  int CBCS = 2;
+  int MAX_VALUE = 2;
 }

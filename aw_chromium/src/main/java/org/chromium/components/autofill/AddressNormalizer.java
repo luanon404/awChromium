@@ -4,11 +4,12 @@
 
 package org.chromium.components.autofill;
 
-import org.chromium.base.ResettersForTesting;
-import org.chromium.base.ThreadUtils;
 import org.jni_zero.CalledByNative;
 import org.jni_zero.JNINamespace;
 import org.jni_zero.NativeMethods;
+
+import org.chromium.base.ResettersForTesting;
+import org.chromium.base.ThreadUtils;
 
 /**
  * A class used to normalize addresses.
@@ -61,12 +62,14 @@ public class AddressNormalizer {
      * to the {@code delegate}. If the profile is not normalized in the specified
      * {@code sRequestTimeoutSeconds}, the {@code delegate} will be notified.
      *
-     * @param profile  The profile to normalize.
+     * @param profile The profile to normalize.
      * @param delegate The object requesting the normalization.
      */
-    public void normalizeAddress(AutofillProfile profile, NormalizedAddressRequestDelegate delegate) {
+    public void normalizeAddress(
+            AutofillProfile profile, NormalizedAddressRequestDelegate delegate) {
         ThreadUtils.assertOnUiThread();
-        AddressNormalizerJni.get().startAddressNormalization(mNativePtr, profile, sRequestTimeoutSeconds, delegate);
+        AddressNormalizerJni.get().startAddressNormalization(
+                mNativePtr, profile, sRequestTimeoutSeconds, delegate);
     }
 
     public static void setRequestTimeoutForTesting(int timeout) {
@@ -78,7 +81,7 @@ public class AddressNormalizer {
     @NativeMethods
     interface Natives {
         void loadRulesForAddressNormalization(long nativeAddressNormalizerImpl, String regionCode);
-
-        void startAddressNormalization(long nativeAddressNormalizerImpl, AutofillProfile profile, int timeoutSeconds, NormalizedAddressRequestDelegate delegate);
+        void startAddressNormalization(long nativeAddressNormalizerImpl, AutofillProfile profile,
+                int timeoutSeconds, NormalizedAddressRequestDelegate delegate);
     }
 }

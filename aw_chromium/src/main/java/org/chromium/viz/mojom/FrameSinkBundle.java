@@ -13,27 +13,36 @@
 
 package org.chromium.viz.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface FrameSinkBundle extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends FrameSinkBundle, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends FrameSinkBundle, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<FrameSinkBundle, FrameSinkBundle.Proxy> MANAGER = FrameSinkBundle_Internal.MANAGER;
 
-    void initializeCompositorFrameSinkType(int sinkId, int type);
+    void initializeCompositorFrameSinkType(
+int sinkId, int type);
 
 
-    void setNeedsBeginFrame(int sinkId, boolean needsBeginFrame);
+    void setNeedsBeginFrame(
+int sinkId, boolean needsBeginFrame);
 
 
-    void submit(BundledFrameSubmission[] submissions);
+    void submit(
+BundledFrameSubmission[] submissions);
 
 
-    void didAllocateSharedBitmap(int sinkId, org.chromium.mojo_base.mojom.ReadOnlySharedMemoryRegion region, org.chromium.gpu.mojom.Mailbox id);
+    void didAllocateSharedBitmap(
+int sinkId, org.chromium.mojo_base.mojom.ReadOnlySharedMemoryRegion region, org.chromium.gpu.mojom.Mailbox id);
 
 
-    void setThreadIds(int sinkId, int[] threadIds);
+    void setThreadIds(
+int sinkId, int[] threadIds);
 
 
 }

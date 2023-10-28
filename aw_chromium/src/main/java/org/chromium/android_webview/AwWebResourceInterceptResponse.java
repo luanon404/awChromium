@@ -4,9 +4,10 @@
 
 package org.chromium.android_webview;
 
-import org.chromium.components.embedder_support.util.WebResourceResponseInfo;
 import org.jni_zero.CalledByNative;
 import org.jni_zero.JNINamespace;
+
+import org.chromium.components.embedder_support.util.WebResourceResponseInfo;
 
 /**
  * The response information that is to be returned for a particular resource fetch.
@@ -16,7 +17,8 @@ public class AwWebResourceInterceptResponse {
     private WebResourceResponseInfo mResponse;
     private boolean mRaisedException;
 
-    public AwWebResourceInterceptResponse(WebResourceResponseInfo response, boolean raisedException) {
+    public AwWebResourceInterceptResponse(
+            WebResourceResponseInfo response, boolean raisedException) {
         mResponse = response;
         mRaisedException = raisedException;
     }

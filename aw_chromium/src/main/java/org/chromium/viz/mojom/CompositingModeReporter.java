@@ -13,15 +13,20 @@
 
 package org.chromium.viz.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface CompositingModeReporter extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends CompositingModeReporter, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends CompositingModeReporter, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<CompositingModeReporter, CompositingModeReporter.Proxy> MANAGER = CompositingModeReporter_Internal.MANAGER;
 
-    void addCompositingModeWatcher(CompositingModeWatcher watcher);
+    void addCompositingModeWatcher(
+CompositingModeWatcher watcher);
 
 
 }

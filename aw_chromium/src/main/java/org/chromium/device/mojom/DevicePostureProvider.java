@@ -13,24 +13,30 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface DevicePostureProvider extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends DevicePostureProvider, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends DevicePostureProvider, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<DevicePostureProvider, DevicePostureProvider.Proxy> MANAGER = DevicePostureProvider_Internal.MANAGER;
 
-    void addListenerAndGetCurrentPosture(DevicePostureClient client, AddListenerAndGetCurrentPosture_Response callback);
+    void addListenerAndGetCurrentPosture(
+DevicePostureClient client, 
+AddListenerAndGetCurrentPosture_Response callback);
 
-    interface AddListenerAndGetCurrentPosture_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> {
-    }
+    interface AddListenerAndGetCurrentPosture_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> { }
 
 
-    void addListenerAndGetCurrentViewportSegments(DeviceViewportSegmentsClient client, AddListenerAndGetCurrentViewportSegments_Response callback);
+    void addListenerAndGetCurrentViewportSegments(
+DeviceViewportSegmentsClient client, 
+AddListenerAndGetCurrentViewportSegments_Response callback);
 
-    interface AddListenerAndGetCurrentViewportSegments_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<org.chromium.gfx.mojom.Rect[]> {
-    }
+    interface AddListenerAndGetCurrentViewportSegments_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<org.chromium.gfx.mojom.Rect[]> { }
 
 
 }

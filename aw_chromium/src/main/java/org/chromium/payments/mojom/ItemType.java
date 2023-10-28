@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class ItemType {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({ItemType.UNKNOWN, ItemType.PRODUCT, ItemType.SUBSCRIPTION})
-    public @interface EnumType {
-    }
+        ItemType.UNKNOWN,
+        ItemType.PRODUCT,
+        ItemType.SUBSCRIPTION})
+    public @interface EnumType {}
 
     public static final int UNKNOWN = 0;
     public static final int PRODUCT = 1;
@@ -38,9 +40,8 @@ public final class ItemType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private ItemType() {
-    }
+    private ItemType() {}
 }

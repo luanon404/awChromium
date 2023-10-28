@@ -10,5 +10,4 @@ package org.chromium.android_webview.common;
  * {@link PlatformServiceBridge} is compiled separately from its implementation; other
  * projects may specify a different PlatformServiceBridgeImpl via GN.
  */
-public class PlatformServiceBridgeImpl extends PlatformServiceBridge {
-}
+public class PlatformServiceBridgeImpl extends PlatformServiceBridge {}

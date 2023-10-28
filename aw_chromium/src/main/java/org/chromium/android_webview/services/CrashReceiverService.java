@@ -43,19 +43,20 @@ public class CrashReceiverService extends Service {
             if (crashInfo != null) {
                 assert crashInfo.size() == fileDescriptors.length;
             }
-            performMinidumpCopyingSerially(uid, fileDescriptors, crashInfo, true /* scheduleUploads */);
+            performMinidumpCopyingSerially(
+                    uid, fileDescriptors, crashInfo, true /* scheduleUploads */);
         }
     };
 
     /**
      * Copies minidumps in a synchronized way, waiting for any already started copying operations to
      * finish before copying the current dumps.
-     *
      * @param scheduleUploads whether to ask JobScheduler to schedule an upload-job (avoid this
-     *                        during testing).
+     * during testing).
      */
     @VisibleForTesting
-    public void performMinidumpCopyingSerially(int uid, ParcelFileDescriptor[] fileDescriptors, List<Map<String, String>> crashesInfo, boolean scheduleUploads) {
+    public void performMinidumpCopyingSerially(int uid, ParcelFileDescriptor[] fileDescriptors,
+            List<Map<String, String>> crashesInfo, boolean scheduleUploads) {
         if (!waitUntilWeCanCopy()) {
             Log.e(TAG, "something went wrong when waiting to copy minidumps, bailing!");
             return;
@@ -77,7 +78,6 @@ public class CrashReceiverService extends Service {
 
     /**
      * Wait until we are allowed to copy minidumps.
-     *
      * @return whether we are actually allowed to copy the files - if false we should just bail.
      */
     private boolean waitUntilWeCanCopy() {
@@ -104,22 +104,26 @@ public class CrashReceiverService extends Service {
      * @return whether any minidump was copied.
      */
     @VisibleForTesting
-    public static boolean copyMinidumps(int uid, ParcelFileDescriptor[] fileDescriptors, List<Map<String, String>> crashesInfo) {
-        CrashFileManager crashFileManager = new CrashFileManager(SystemWideCrashDirectories.getOrCreateWebViewCrashDir());
+    public static boolean copyMinidumps(int uid, ParcelFileDescriptor[] fileDescriptors,
+            List<Map<String, String>> crashesInfo) {
+        CrashFileManager crashFileManager =
+                new CrashFileManager(SystemWideCrashDirectories.getOrCreateWebViewCrashDir());
         boolean copiedAnything = false;
         for (int i = 0; i < fileDescriptors.length; i++) {
             ParcelFileDescriptor fd = fileDescriptors[i];
             Map<String, String> crashInfo = crashesInfo.get(i);
             if (fd == null) continue;
             try {
-                File copiedFile = crashFileManager.copyMinidumpFromFD(fd.getFileDescriptor(), SystemWideCrashDirectories.getWebViewTmpCrashDir(), uid);
+                File copiedFile = crashFileManager.copyMinidumpFromFD(fd.getFileDescriptor(),
+                        SystemWideCrashDirectories.getWebViewTmpCrashDir(), uid);
                 if (copiedFile == null) {
                     Log.w(TAG, "failed to copy minidump from " + fd);
                     // TODO(gsennton): add UMA metric to ensure we aren't losing too many
                     // minidumps here.
                 } else {
                     copiedAnything = true;
-                    File logFile = SystemWideCrashDirectories.createCrashJsonLogFile(copiedFile.getName());
+                    File logFile =
+                            SystemWideCrashDirectories.createCrashJsonLogFile(copiedFile.getName());
                     CrashLoggingUtils.writeCrashInfoToLogFile(logFile, copiedFile, crashInfo);
                 }
             } catch (IOException e) {

@@ -13,24 +13,30 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface TcpBoundSocket extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends TcpBoundSocket, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends TcpBoundSocket, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<TcpBoundSocket, TcpBoundSocket.Proxy> MANAGER = TcpBoundSocket_Internal.MANAGER;
 
-    void listen(int backlog, org.chromium.mojo.bindings.InterfaceRequest<TcpServerSocket> socket, Listen_Response callback);
+    void listen(
+int backlog, org.chromium.mojo.bindings.InterfaceRequest<TcpServerSocket> socket, 
+Listen_Response callback);
 
-    interface Listen_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> {
-    }
+    interface Listen_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> { }
 
 
-    void connect(AddressList remoteAddrList, TcpConnectedSocketOptions tcpConnectedSocketOptions, org.chromium.mojo.bindings.InterfaceRequest<TcpConnectedSocket> socket, SocketObserver observer, Connect_Response callback);
+    void connect(
+AddressList remoteAddrList, TcpConnectedSocketOptions tcpConnectedSocketOptions, org.chromium.mojo.bindings.InterfaceRequest<TcpConnectedSocket> socket, SocketObserver observer, 
+Connect_Response callback);
 
-    interface Connect_Response extends org.chromium.mojo.bindings.Callbacks.Callback5<Integer, IpEndPoint, IpEndPoint, org.chromium.mojo.system.DataPipe.ConsumerHandle, org.chromium.mojo.system.DataPipe.ProducerHandle> {
-    }
+    interface Connect_Response extends org.chromium.mojo.bindings.Callbacks.Callback5<Integer, IpEndPoint, IpEndPoint, org.chromium.mojo.system.DataPipe.ConsumerHandle, org.chromium.mojo.system.DataPipe.ProducerHandle> { }
 
 
 }

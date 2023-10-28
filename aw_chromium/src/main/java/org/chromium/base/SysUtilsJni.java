@@ -4,39 +4,59 @@
 package org.chromium.base;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.app.ActivityManager;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.os.Environment;
+import android.os.StatFs;
+import android.os.StrictMode;
+import android.util.Log;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.build.BuildConfig;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @CheckDiscard("crbug.com/993421")
 class SysUtilsJni implements SysUtils.Natives {
-    private static SysUtils.Natives testInstance;
+  private static SysUtils.Natives testInstance;
 
-    public static final JniStaticTestMocker<SysUtils.Natives> TEST_HOOKS = new JniStaticTestMocker<SysUtils.Natives>() {
-        @Override
-        public void setInstanceForTesting(SysUtils.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<SysUtils.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<SysUtils.Natives>() {
     @Override
-    public void logPageFaultCountToTracing() {
-        GEN_JNI.org_chromium_base_SysUtils_logPageFaultCountToTracing();
+    public void setInstanceForTesting(SysUtils.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    public static SysUtils.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of SysUtils.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new SysUtilsJni();
+  @Override
+  public void logPageFaultCountToTracing() {
+    GEN_JNI.org_chromium_base_SysUtils_logPageFaultCountToTracing();
+  }
+
+  public static SysUtils.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of SysUtils.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new SysUtilsJni();
+  }
 }

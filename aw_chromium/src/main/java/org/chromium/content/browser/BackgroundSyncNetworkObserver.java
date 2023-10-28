@@ -11,6 +11,11 @@ import android.os.Process;
 
 import androidx.annotation.VisibleForTesting;
 
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeClassQualifiedName;
+import org.jni_zero.NativeMethods;
+
 import org.chromium.base.ApiCompatibilityUtils;
 import org.chromium.base.ContextUtils;
 import org.chromium.base.ThreadUtils;
@@ -18,24 +23,20 @@ import org.chromium.base.metrics.RecordHistogram;
 import org.chromium.net.ConnectionType;
 import org.chromium.net.NetworkChangeNotifierAutoDetect;
 import org.chromium.net.RegistrationPolicyAlwaysRegister;
-import org.jni_zero.CalledByNative;
-import org.jni_zero.JNINamespace;
-import org.jni_zero.NativeClassQualifiedName;
-import org.jni_zero.NativeMethods;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Contains the Java code used by the BackgroundSyncNetworkObserverAndroid C++ class.
- * <p>
+ *
  * The purpose of this class is to listen for and forward network connectivity events to the
  * BackgroundSyncNetworkObserverAndroid objects even when the application is paused. The standard
  * NetworkChangeNotifier does not listen for connectivity events when the application is paused.
- * <p>
+ *
  * This class maintains a NetworkChangeNotifierAutoDetect, which exists for as long as any
  * BackgroundSyncNetworkObserverAndroid objects are registered.
- * <p>
+ *
  * This class lives on the main thread.
  */
 @JNINamespace("content")
@@ -67,7 +68,9 @@ public class BackgroundSyncNetworkObserver implements NetworkChangeNotifierAutoD
     }
 
     private static boolean canCreateObserver() {
-        return ApiCompatibilityUtils.checkPermission(ContextUtils.getApplicationContext(), Manifest.permission.ACCESS_NETWORK_STATE, Process.myPid(), Process.myUid()) == PackageManager.PERMISSION_GRANTED;
+        return ApiCompatibilityUtils.checkPermission(ContextUtils.getApplicationContext(),
+                       Manifest.permission.ACCESS_NETWORK_STATE, Process.myPid(), Process.myUid())
+                == PackageManager.PERMISSION_GRANTED;
     }
 
     private static BackgroundSyncNetworkObserver getBackgroundSyncNetworkObserver() {
@@ -88,18 +91,23 @@ public class BackgroundSyncNetworkObserver implements NetworkChangeNotifierAutoD
     private void registerObserver(final long nativePtr) {
         ThreadUtils.assertOnUiThread();
         if (!canCreateObserver()) {
-            RecordHistogram.recordBooleanHistogram("BackgroundSync.NetworkObserver.HasPermission", false);
+            RecordHistogram.recordBooleanHistogram(
+                    "BackgroundSync.NetworkObserver.HasPermission", false);
             return;
         }
 
         // Create the NetworkChangeNotifierAutoDetect if it does not exist already.
         if (mNotifier == null) {
-            mNotifier = new NetworkChangeNotifierAutoDetect(this, new RegistrationPolicyAlwaysRegister());
-            RecordHistogram.recordBooleanHistogram("BackgroundSync.NetworkObserver.HasPermission", true);
+            mNotifier = new NetworkChangeNotifierAutoDetect(
+                    this, new RegistrationPolicyAlwaysRegister());
+            RecordHistogram.recordBooleanHistogram(
+                    "BackgroundSync.NetworkObserver.HasPermission", true);
         }
         mNativePtrs.add(nativePtr);
 
-        BackgroundSyncNetworkObserverJni.get().notifyConnectionTypeChanged(nativePtr, BackgroundSyncNetworkObserver.this, mNotifier.getCurrentNetworkState().getConnectionType());
+        BackgroundSyncNetworkObserverJni.get().notifyConnectionTypeChanged(nativePtr,
+                BackgroundSyncNetworkObserver.this,
+                mNotifier.getCurrentNetworkState().getConnectionType());
     }
 
     @CalledByNative
@@ -121,7 +129,8 @@ public class BackgroundSyncNetworkObserver implements NetworkChangeNotifierAutoD
         mHasBroadcastConnectionType = true;
         mLastBroadcastConnectionType = newConnectionType;
         for (Long nativePtr : mNativePtrs) {
-            BackgroundSyncNetworkObserverJni.get().notifyConnectionTypeChanged(nativePtr, BackgroundSyncNetworkObserver.this, newConnectionType);
+            BackgroundSyncNetworkObserverJni.get().notifyConnectionTypeChanged(
+                    nativePtr, BackgroundSyncNetworkObserver.this, newConnectionType);
         }
     }
 
@@ -134,12 +143,10 @@ public class BackgroundSyncNetworkObserver implements NetworkChangeNotifierAutoD
     }
 
     @Override
-    public void onConnectionCostChanged(int newConnectionCost) {
-    }
+    public void onConnectionCostChanged(int newConnectionCost) {}
 
     @Override
-    public void onConnectionSubtypeChanged(int newConnectionSubtype) {
-    }
+    public void onConnectionSubtypeChanged(int newConnectionSubtype) {}
 
     @Override
     public void onNetworkConnect(long netId, @ConnectionType int connectionType) {
@@ -153,8 +160,7 @@ public class BackgroundSyncNetworkObserver implements NetworkChangeNotifierAutoD
     }
 
     @Override
-    public void onNetworkSoonToDisconnect(long netId) {
-    }
+    public void onNetworkSoonToDisconnect(long netId) {}
 
     @Override
     public void onNetworkDisconnect(long netId) {
@@ -168,12 +174,12 @@ public class BackgroundSyncNetworkObserver implements NetworkChangeNotifierAutoD
     }
 
     @Override
-    public void purgeActiveNetworkList(long[] activeNetIds) {
-    }
+    public void purgeActiveNetworkList(long[] activeNetIds) {}
 
     @NativeMethods
     interface Natives {
         @NativeClassQualifiedName("BackgroundSyncNetworkObserverAndroid::Observer")
-        void notifyConnectionTypeChanged(long nativePtr, BackgroundSyncNetworkObserver caller, int newConnectionType);
+        void notifyConnectionTypeChanged(
+                long nativePtr, BackgroundSyncNetworkObserver caller, int newConnectionType);
     }
 }

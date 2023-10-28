@@ -13,15 +13,20 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface MediaFoundationRendererNotifier extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends MediaFoundationRendererNotifier, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends MediaFoundationRendererNotifier, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<MediaFoundationRendererNotifier, MediaFoundationRendererNotifier.Proxy> MANAGER = MediaFoundationRendererNotifier_Internal.MANAGER;
 
-    void mediaFoundationRendererCreated(org.chromium.mojo.bindings.InterfaceRequest<MediaFoundationRendererObserver> observer);
+    void mediaFoundationRendererCreated(
+org.chromium.mojo.bindings.InterfaceRequest<MediaFoundationRendererObserver> observer);
 
 
 }

@@ -34,7 +34,9 @@ public class FlagOverrideHelper {
 
     @VisibleForTesting
     public static List<String> getCommaDelimitedSwitchValue(String name) {
-        return CommandLine.getInstance().hasSwitch(name) ? Arrays.asList(CommandLine.getInstance().getSwitchValue(name).split(",")) : new ArrayList<>();
+        return CommandLine.getInstance().hasSwitch(name)
+                ? Arrays.asList(CommandLine.getInstance().getSwitchValue(name).split(","))
+                : new ArrayList<>();
     }
 
     @VisibleForTesting
@@ -72,7 +74,8 @@ public class FlagOverrideHelper {
                 }
             } else {
                 if (enabled && flag.getEnabledStateValue() != null) {
-                    CommandLine.getInstance().appendSwitchWithValue(flag.getName(), flag.getEnabledStateValue());
+                    CommandLine.getInstance().appendSwitchWithValue(
+                            flag.getName(), flag.getEnabledStateValue());
                 } else if (enabled) {
                     CommandLine.getInstance().appendSwitch(flag.getName());
                 } else {

@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface DateTimeChooser extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends DateTimeChooser, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends DateTimeChooser, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<DateTimeChooser, DateTimeChooser.Proxy> MANAGER = DateTimeChooser_Internal.MANAGER;

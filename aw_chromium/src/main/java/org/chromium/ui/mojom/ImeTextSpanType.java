@@ -17,10 +17,14 @@ import androidx.annotation.IntDef;
 
 public final class ImeTextSpanType {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({ImeTextSpanType.COMPOSITION, ImeTextSpanType.SUGGESTION, ImeTextSpanType.MISSPELLING_SUGGESTION, ImeTextSpanType.AUTOCORRECT, ImeTextSpanType.GRAMMAR_SUGGESTION})
-    public @interface EnumType {
-    }
+        ImeTextSpanType.COMPOSITION,
+        ImeTextSpanType.SUGGESTION,
+        ImeTextSpanType.MISSPELLING_SUGGESTION,
+        ImeTextSpanType.AUTOCORRECT,
+        ImeTextSpanType.GRAMMAR_SUGGESTION})
+    public @interface EnumType {}
 
     public static final int COMPOSITION = 0;
     public static final int SUGGESTION = 1;
@@ -40,9 +44,8 @@ public final class ImeTextSpanType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private ImeTextSpanType() {
-    }
+    private ImeTextSpanType() {}
 }

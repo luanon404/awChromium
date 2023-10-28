@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class CompositorFrameTransitionDirectiveType {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({CompositorFrameTransitionDirectiveType.SAVE, CompositorFrameTransitionDirectiveType.ANIMATE_RENDERER, CompositorFrameTransitionDirectiveType.RELEASE})
-    public @interface EnumType {
-    }
+        CompositorFrameTransitionDirectiveType.SAVE,
+        CompositorFrameTransitionDirectiveType.ANIMATE_RENDERER,
+        CompositorFrameTransitionDirectiveType.RELEASE})
+    public @interface EnumType {}
 
     public static final int SAVE = 0;
     public static final int ANIMATE_RENDERER = 1;
@@ -38,9 +40,8 @@ public final class CompositorFrameTransitionDirectiveType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private CompositorFrameTransitionDirectiveType() {
-    }
+    private CompositorFrameTransitionDirectiveType() {}
 }

@@ -13,18 +13,24 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface ProxyErrorClient extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends ProxyErrorClient, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends ProxyErrorClient, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<ProxyErrorClient, ProxyErrorClient.Proxy> MANAGER = ProxyErrorClient_Internal.MANAGER;
 
-    void onPacScriptError(int lineNumber, String details);
+    void onPacScriptError(
+int lineNumber, String details);
 
 
-    void onRequestMaybeFailedDueToProxySettings(int netError);
+    void onRequestMaybeFailedDueToProxySettings(
+int netError);
 
 
 }

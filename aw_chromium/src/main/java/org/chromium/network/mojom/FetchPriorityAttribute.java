@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class FetchPriorityAttribute {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({FetchPriorityAttribute.LOW, FetchPriorityAttribute.AUTO, FetchPriorityAttribute.HIGH})
-    public @interface EnumType {
-    }
+        FetchPriorityAttribute.LOW,
+        FetchPriorityAttribute.AUTO,
+        FetchPriorityAttribute.HIGH})
+    public @interface EnumType {}
 
     public static final int LOW = 0;
     public static final int AUTO = 1;
@@ -38,9 +40,8 @@ public final class FetchPriorityAttribute {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private FetchPriorityAttribute() {
-    }
+    private FetchPriorityAttribute() {}
 }

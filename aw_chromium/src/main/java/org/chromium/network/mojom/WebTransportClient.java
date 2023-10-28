@@ -13,30 +13,40 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface WebTransportClient extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends WebTransportClient, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends WebTransportClient, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<WebTransportClient, WebTransportClient.Proxy> MANAGER = WebTransportClient_Internal.MANAGER;
 
-    void onDatagramReceived(org.chromium.mojo_base.mojom.ReadOnlyBuffer data);
+    void onDatagramReceived(
+org.chromium.mojo_base.mojom.ReadOnlyBuffer data);
 
 
-    void onIncomingStreamClosed(int streamId, boolean finReceived);
+    void onIncomingStreamClosed(
+int streamId, boolean finReceived);
 
 
-    void onOutgoingStreamClosed(int streamId);
+    void onOutgoingStreamClosed(
+int streamId);
 
 
-    void onReceivedStopSending(int streamId, int streamErrorCode);
+    void onReceivedStopSending(
+int streamId, int streamErrorCode);
 
 
-    void onReceivedResetStream(int streamId, int streamErrorCode);
+    void onReceivedResetStream(
+int streamId, int streamErrorCode);
 
 
-    void onClosed(WebTransportCloseInfo closeInfo);
+    void onClosed(
+WebTransportCloseInfo closeInfo);
 
 
 }

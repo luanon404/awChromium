@@ -17,10 +17,15 @@ import androidx.annotation.IntDef;
 
 public final class SourceType {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({SourceType.BROTLI, SourceType.DEFLATE, SourceType.GZIP, SourceType.ZSTD, SourceType.NONE, SourceType.UNKNOWN})
-    public @interface EnumType {
-    }
+        SourceType.BROTLI,
+        SourceType.DEFLATE,
+        SourceType.GZIP,
+        SourceType.ZSTD,
+        SourceType.NONE,
+        SourceType.UNKNOWN})
+    public @interface EnumType {}
 
     public static final int BROTLI = 0;
     public static final int DEFLATE = 1;
@@ -41,9 +46,8 @@ public final class SourceType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private SourceType() {
-    }
+    private SourceType() {}
 }

@@ -25,7 +25,9 @@ class CodecProfileLevelList {
     public boolean addCodecProfileLevel(String mime, CodecProfileLevel codecProfileLevel) {
         try {
             int codec = getCodecFromMime(mime);
-            mList.add(new CodecProfileLevelAdapter(codec, mediaCodecProfileToChromiumMediaProfile(codec, codecProfileLevel.profile), mediaCodecLevelToChromiumMediaLevel(codec, codecProfileLevel.level)));
+            mList.add(new CodecProfileLevelAdapter(codec,
+                    mediaCodecProfileToChromiumMediaProfile(codec, codecProfileLevel.profile),
+                    mediaCodecLevelToChromiumMediaLevel(codec, codecProfileLevel.level)));
             return true;
         } catch (UnsupportedCodecProfileException e) {
             return false;
@@ -68,8 +70,7 @@ class CodecProfileLevelList {
         }
     }
 
-    private static class UnsupportedCodecProfileException extends RuntimeException {
-    }
+    private static class UnsupportedCodecProfileException extends RuntimeException {}
 
     public static int getCodecFromMime(String mime) {
         if (mime.endsWith("vp9")) return VideoCodec.VP9;
@@ -152,7 +153,7 @@ class CodecProfileLevelList {
                 }
             case VideoCodec.DOLBY_VISION:
                 switch (profile) {
-                    // Profile 0, 1, 2, 3, 6 are not supported for new applications.
+                        // Profile 0, 1, 2, 3, 6 are not supported for new applications.
                     case CodecProfileLevel.DolbyVisionProfileDvheDtr:
                         return VideoCodecProfile.DOLBYVISION_PROFILE4;
                     case CodecProfileLevel.DolbyVisionProfileDvheStn:

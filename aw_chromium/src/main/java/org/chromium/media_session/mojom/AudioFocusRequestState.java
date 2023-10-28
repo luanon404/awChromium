@@ -13,10 +13,13 @@
 
 package org.chromium.media_session.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class AudioFocusRequestState extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 48;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0), new org.chromium.mojo.bindings.DataHeader(32, 2), new org.chromium.mojo.bindings.DataHeader(40, 3), new org.chromium.mojo.bindings.DataHeader(48, 9)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0),new org.chromium.mojo.bindings.DataHeader(32, 2),new org.chromium.mojo.bindings.DataHeader(40, 3),new org.chromium.mojo.bindings.DataHeader(48, 9)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[3];
     public MediaSessionInfo sessionInfo;
     public int audioFocusType;
@@ -42,7 +45,8 @@ public final class AudioFocusRequestState extends org.chromium.mojo.bindings.Str
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static AudioFocusRequestState deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -56,35 +60,35 @@ public final class AudioFocusRequestState extends org.chromium.mojo.bindings.Str
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new AudioFocusRequestState(elementsOrVersion);
-            {
-
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                 result.sessionInfo = MediaSessionInfo.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.audioFocusType = decoder0.readInt(16);
-                AudioFocusType.validate(result.audioFocusType);
-                result.audioFocusType = AudioFocusType.toKnownValue(result.audioFocusType);
-            }
+                    AudioFocusType.validate(result.audioFocusType);
+                    result.audioFocusType = AudioFocusType.toKnownValue(result.audioFocusType);
+                }
             if (elementsOrVersion >= 2) {
                 {
-
-                    result.sourceName = decoder0.readString(24, true);
+                    
+                result.sourceName = decoder0.readString(24, true);
                 }
             }
             if (elementsOrVersion >= 3) {
                 {
-
-                    org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(32, true);
-                    result.requestId = org.chromium.mojo_base.mojom.UnguessableToken.decode(decoder1);
+                    
+                org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(32, true);
+                result.requestId = org.chromium.mojo_base.mojom.UnguessableToken.decode(decoder1);
                 }
             }
             if (elementsOrVersion >= 9) {
                 {
-
-                    org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(40, true);
-                    result.sourceId = org.chromium.mojo_base.mojom.UnguessableToken.decode(decoder1);
+                    
+                org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(40, true);
+                result.sourceId = org.chromium.mojo_base.mojom.UnguessableToken.decode(decoder1);
                 }
             }
 
@@ -98,15 +102,15 @@ public final class AudioFocusRequestState extends org.chromium.mojo.bindings.Str
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.sessionInfo, 8, false);
-
+        
         encoder0.encode(this.audioFocusType, 16);
-
+        
         encoder0.encode(this.sourceName, 24, true);
-
+        
         encoder0.encode(this.requestId, 32, true);
-
+        
         encoder0.encode(this.sourceId, 40, true);
     }
 }

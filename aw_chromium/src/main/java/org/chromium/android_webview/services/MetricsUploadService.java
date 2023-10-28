@@ -23,7 +23,8 @@ public class MetricsUploadService extends Service {
     private final IMetricsUploadService.Stub mBinder = new IMetricsUploadService.Stub() {
         @Override
         public int uploadMetricsLog(byte[] serializedLog, boolean useDefaultUploadQos) {
-            int status = PlatformServiceBridge.getInstance().logMetricsBlocking(serializedLog, useDefaultUploadQos);
+            int status = PlatformServiceBridge.getInstance().logMetricsBlocking(
+                    serializedLog, useDefaultUploadQos);
 
             // We map the platform reported statuses out to HTTP status codes so that Chromium
             // metrics can work with a single standard.

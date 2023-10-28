@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface PeerConnectionManager extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends PeerConnectionManager, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends PeerConnectionManager, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<PeerConnectionManager, PeerConnectionManager.Proxy> MANAGER = PeerConnectionManager_Internal.MANAGER;

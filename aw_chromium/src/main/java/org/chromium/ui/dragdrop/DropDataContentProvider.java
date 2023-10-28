@@ -20,7 +20,7 @@ import java.io.FileNotFoundException;
 /**
  * ContentProvider for Chrome image data of Drag and Drop. A light wrapper around {@link
  * DropDataProviderImpl}.
- * <p>
+ *
  * The content provider acts a wrapper over the core implementation in order to be able to access
  * the feature from different platforms as other platform won't be able to access the impl
  * class directly as it lives in other classloader than the app's one (Chromium classloader).
@@ -55,7 +55,8 @@ public class DropDataContentProvider extends ContentProvider {
     }
 
     @Override
-    public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
+    public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs,
+            String sortOrder) {
         return mDropDataProviderImpl.query(uri, projection);
     }
 

@@ -1,3 +1,4 @@
+
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -14,10 +15,13 @@ import androidx.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@IntDef({ForceDarkBehavior.FORCE_DARK_ONLY, ForceDarkBehavior.MEDIA_QUERY_ONLY, ForceDarkBehavior.PREFER_MEDIA_QUERY_OVER_FORCE_DARK})
+@IntDef({
+    ForceDarkBehavior.FORCE_DARK_ONLY, ForceDarkBehavior.MEDIA_QUERY_ONLY,
+    ForceDarkBehavior.PREFER_MEDIA_QUERY_OVER_FORCE_DARK
+})
 @Retention(RetentionPolicy.SOURCE)
 public @interface ForceDarkBehavior {
-    int FORCE_DARK_ONLY = 0;
-    int MEDIA_QUERY_ONLY = 1;
-    int PREFER_MEDIA_QUERY_OVER_FORCE_DARK = 2;
+  int FORCE_DARK_ONLY = 0;
+  int MEDIA_QUERY_ONLY = 1;
+  int PREFER_MEDIA_QUERY_OVER_FORCE_DARK = 2;
 }

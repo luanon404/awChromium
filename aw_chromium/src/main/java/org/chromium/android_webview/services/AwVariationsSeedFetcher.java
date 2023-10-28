@@ -76,12 +76,8 @@ public class AwVariationsSeedFetcher extends JobService {
     // enough delay that it should not massively affect automated testing.
     private static final int SMALL_JITTER_IN_MS = 5;
 
-    /**
-     * Clock used to fake time in tests.
-     */
-    public interface Clock {
-        long currentTimeMillis();
-    }
+    /** Clock used to fake time in tests. */
+    public interface Clock { long currentTimeMillis(); }
 
     private static JobScheduler sMockJobScheduler;
     private static VariationsSeedFetcher sMockDownloader;
@@ -89,7 +85,8 @@ public class AwVariationsSeedFetcher extends JobService {
     private static Date sDateForTesting;
 
     private FetchTask mFetchTask;
-    private static final int sJitter = new Random().nextInt((int) VariationsFastFetchModeUtils.MAX_ALLOWABLE_SEED_AGE_MS);
+    private static final int sJitter =
+            new Random().nextInt((int) VariationsFastFetchModeUtils.MAX_ALLOWABLE_SEED_AGE_MS);
     private static boolean sUseSmallJitterForTesting;
 
     private static long currentTimeMillis() {
@@ -101,16 +98,11 @@ public class AwVariationsSeedFetcher extends JobService {
 
     private static String getChannelStr() {
         switch (VersionConstants.CHANNEL) {
-            case Channel.STABLE:
-                return "stable";
-            case Channel.BETA:
-                return "beta";
-            case Channel.DEV:
-                return "dev";
-            case Channel.CANARY:
-                return "canary";
-            default:
-                return null;
+            case Channel.STABLE: return "stable";
+            case Channel.BETA:   return "beta";
+            case Channel.DEV:    return "dev";
+            case Channel.CANARY: return "canary";
+            default: return null;
         }
     }
 
@@ -122,7 +114,8 @@ public class AwVariationsSeedFetcher extends JobService {
         if (sMockJobScheduler != null) return sMockJobScheduler;
 
         // This may be null due to vendor framework bugs. https://crbug.com/968636
-        return (JobScheduler) ContextUtils.getApplicationContext().getSystemService(Context.JOB_SCHEDULER_SERVICE);
+        return (JobScheduler) ContextUtils.getApplicationContext().getSystemService(
+                Context.JOB_SCHEDULER_SERVICE);
     }
 
     /**
@@ -157,7 +150,7 @@ public class AwVariationsSeedFetcher extends JobService {
      * 2. Whether the command line switch - finch-seed-ignore-pending-download is set
      * 3. The incoming job request is for Fast Mode and there is a regular seed fetch job already
      * scheduled
-     * <p>
+     *
      * It also cancels currently scheduled jobs as need based on two conditions:
      * 1. The command line switch - finch-seed-ignore-pending-download is set and the currently
      * scheduled job is for Fast Mode. This prevents multiple periodic seed fetch jobs, since the
@@ -167,19 +160,22 @@ public class AwVariationsSeedFetcher extends JobService {
      * up resources for the higher priority Fast Mode job. Note: These conditions are dependent on a
      * job being scheduled. Otherwise, no jobs can be canceled.
      *
-     * @param scheduler       Reference to the job scheduler
+     * @param scheduler Reference to the job scheduler
      * @param requireFastMode Indicates if the incoming job request is for Fast Mode
+     *
      * @return A return value of true indicates the scheduler will NOT schedule a new job. A return
-     * value of false means that the scheduler will schedule the new job as requested.
+     *         value of false means that the scheduler will schedule the new job as requested.
      */
-    private static boolean handlePreviouslyScheduledJob(JobScheduler scheduler, boolean requireFastMode) {
+    private static boolean handlePreviouslyScheduledJob(
+            JobScheduler scheduler, boolean requireFastMode) {
         // Check if a job is already scheduled.
         JobInfo jobInfo = getPendingJob(scheduler);
         if (jobInfo == null) return false;
 
         PersistableBundle bundle = jobInfo.getExtras();
         boolean inFastMode = isFastModeJob(bundle);
-        boolean ignorePendingDownload = CommandLine.getInstance().hasSwitch(AwSwitches.FINCH_SEED_IGNORE_PENDING_DOWNLOAD);
+        boolean ignorePendingDownload =
+                CommandLine.getInstance().hasSwitch(AwSwitches.FINCH_SEED_IGNORE_PENDING_DOWNLOAD);
 
         if (ignorePendingDownload) {
             if (inFastMode) {
@@ -197,7 +193,8 @@ public class AwVariationsSeedFetcher extends JobService {
             // only expected to ever occur once before a deactivate command is subsequently
             // made, cancelling all seed fetch jobs.
             scheduler.cancel(JOB_ID);
-            VariationsUtils.debugLog("Regular seed download job already scheduled. " + "Canceling for Fast Mode job.");
+            VariationsUtils.debugLog("Regular seed download job already scheduled. "
+                    + "Canceling for Fast Mode job.");
             return false;
         }
 
@@ -206,9 +203,7 @@ public class AwVariationsSeedFetcher extends JobService {
         return true;
     }
 
-    /**
-     * Should only be called by {@link VariationsSeedServer} for non-SafeMode seed fetches.
-     */
+    /** Should only be called by {@link VariationsSeedServer} for non-SafeMode seed fetches. */
     public static void scheduleIfNeeded() {
         scheduleIfNeeded(false);
     }
@@ -219,8 +214,8 @@ public class AwVariationsSeedFetcher extends JobService {
      * SafeMode seed fetches are made through {@link NonEmbeddedFastVariationsSeedSafeModeAction}.
      *
      * @param fastVariationsSeed Indicates whether the request is for a SafeMode seed fetch,
-     *                           which requires a higher priority and less restricted seed fetch job, or a regular seed fetch
-     *                           job.
+     * which requires a higher priority and less restricted seed fetch job, or a regular seed fetch
+     * job.
      */
     public static void scheduleIfNeeded(boolean requireFastMode) {
         JobScheduler scheduler = getScheduler();
@@ -244,7 +239,8 @@ public class AwVariationsSeedFetcher extends JobService {
         long lastRequestTime = VariationsUtils.getStampTime();
         if (lastRequestTime != 0) {
             long now = currentTimeMillis();
-            long minJobPeriodMillis = VariationsUtils.getDurationSwitchValueInMillis(AwSwitches.FINCH_SEED_MIN_DOWNLOAD_PERIOD, MIN_JOB_PERIOD_MILLIS);
+            long minJobPeriodMillis = VariationsUtils.getDurationSwitchValueInMillis(
+                    AwSwitches.FINCH_SEED_MIN_DOWNLOAD_PERIOD, MIN_JOB_PERIOD_MILLIS);
             // At this point when requireFastMode == true, we have likely recently
             // scheduled/completed a regular seed fetch
             // On top of that FastMode is expected to only ever schedule a periodic job once
@@ -257,17 +253,23 @@ public class AwVariationsSeedFetcher extends JobService {
     }
 
     @VisibleForTesting
-    public static void scheduleJob(JobScheduler scheduler, boolean requireFastMode, boolean requestPeriodicFastMode) {
+    public static void scheduleJob(
+            JobScheduler scheduler, boolean requireFastMode, boolean requestPeriodicFastMode) {
         Context context = ContextUtils.getApplicationContext();
         ComponentName thisComponent = new ComponentName(context, AwVariationsSeedFetcher.class);
         PersistableBundle extras = new PersistableBundle(/*capacity=*/2);
         extras.putInt(JOB_REQUEST_COUNT_KEY, 0);
         extras.putBoolean(JOB_REQUEST_FAST_MODE, requireFastMode);
         extras.putBoolean(PERIODIC_FAST_MODE, requestPeriodicFastMode);
-        JobInfo.Builder builder = new JobInfo.Builder(JOB_ID, thisComponent).setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY).setBackoffCriteria(JOB_INITIAL_BACKOFF_TIME_IN_MS, JOB_BACKOFF_POLICY);
+        JobInfo.Builder builder =
+                new JobInfo.Builder(JOB_ID, thisComponent)
+                        .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+                        .setBackoffCriteria(JOB_INITIAL_BACKOFF_TIME_IN_MS, JOB_BACKOFF_POLICY);
         if (requireFastMode) {
-            long backoffTime = sUseSmallJitterForTesting ? SMALL_JITTER_IN_MS : TimeUnit.MINUTES.toMillis(1);
-            builder = builder.setBackoffCriteria(backoffTime, JobInfo.BACKOFF_POLICY_LINEAR).setPersisted(true);
+            long backoffTime =
+                    sUseSmallJitterForTesting ? SMALL_JITTER_IN_MS : TimeUnit.MINUTES.toMillis(1);
+            builder = builder.setBackoffCriteria(backoffTime, JobInfo.BACKOFF_POLICY_LINEAR)
+                              .setPersisted(true);
 
             boolean isInitialRequest = !requestPeriodicFastMode;
             if (isInitialRequest) {
@@ -275,17 +277,21 @@ public class AwVariationsSeedFetcher extends JobService {
                 // for the population. Adding jitter to the initial request helps space them out
                 // more evenly as the mitigation is deployed so the seed fetches are not requested
                 // all at once even if SafeMode is enabled simultaneously on many devices.
-                builder = builder.setMinimumLatency(sUseSmallJitterForTesting ? SMALL_JITTER_IN_MS : sJitter);
+                builder = builder.setMinimumLatency(
+                        sUseSmallJitterForTesting ? SMALL_JITTER_IN_MS : sJitter);
             } else {
-                builder = builder.setPeriodic(VariationsFastFetchModeUtils.MAX_ALLOWABLE_SEED_AGE_MS);
+                builder =
+                        builder.setPeriodic(VariationsFastFetchModeUtils.MAX_ALLOWABLE_SEED_AGE_MS);
             }
         } else {
-            boolean requiresCharging = !CommandLine.getInstance().hasSwitch(AwSwitches.FINCH_SEED_NO_CHARGING_REQUIREMENT);
+            boolean requiresCharging = !CommandLine.getInstance().hasSwitch(
+                    AwSwitches.FINCH_SEED_NO_CHARGING_REQUIREMENT);
             builder = builder.setRequiresCharging(requiresCharging);
         }
         builder = builder.setExtras(extras);
         if (scheduler.schedule(builder.build()) == JobScheduler.RESULT_SUCCESS) {
-            VariationsServiceMetricsHelper metrics = VariationsServiceMetricsHelper.fromVariationsSharedPreferences(context);
+            VariationsServiceMetricsHelper metrics =
+                    VariationsServiceMetricsHelper.fromVariationsSharedPreferences(context);
             metrics.setLastEnqueueTime(currentTimeMillis());
             if (!metrics.writeMetricsToVariationsSharedPreferences(context)) {
                 Log.e(TAG, "Failed to write variations SharedPreferences to disk");
@@ -330,7 +336,8 @@ public class AwVariationsSeedFetcher extends JobService {
 
         private void saveMetrics(long startTime, long endTime) {
             Context context = ContextUtils.getApplicationContext();
-            VariationsServiceMetricsHelper metrics = VariationsServiceMetricsHelper.fromVariationsSharedPreferences(context);
+            VariationsServiceMetricsHelper metrics =
+                    VariationsServiceMetricsHelper.fromVariationsSharedPreferences(context);
             if (metrics.hasLastEnqueueTime()) {
                 metrics.setJobQueueTime(startTime - metrics.getLastEnqueueTime());
             }
@@ -355,10 +362,17 @@ public class AwVariationsSeedFetcher extends JobService {
             SeedInfo info = VariationsUtils.readSeedFile(VariationsUtils.getSeedFile());
             VariationsUtils.debugLog(String.format("Downloading new seed [fastMode=%B]", fastMode));
 
-            VariationsSeedFetcher downloader = sMockDownloader != null ? sMockDownloader : VariationsSeedFetcher.get();
+            VariationsSeedFetcher downloader =
+                    sMockDownloader != null ? sMockDownloader : VariationsSeedFetcher.get();
             String milestone = String.valueOf(VersionConstants.PRODUCT_MAJOR_VERSION);
 
-            final VariationsSeedFetcher.SeedFetchParameters params = VariationsSeedFetcher.SeedFetchParameters.Builder.newBuilder().setPlatform(VariationsSeedFetcher.VariationsPlatform.ANDROID_WEBVIEW).setMilestone(milestone).setChannel(getChannelStr()).setIsFastFetchMode(fastMode).build();
+            final VariationsSeedFetcher.SeedFetchParameters params =
+                    VariationsSeedFetcher.SeedFetchParameters.Builder.newBuilder()
+                            .setPlatform(VariationsSeedFetcher.VariationsPlatform.ANDROID_WEBVIEW)
+                            .setMilestone(milestone)
+                            .setChannel(getChannelStr())
+                            .setIsFastFetchMode(fastMode)
+                            .build();
             SeedFetchInfo fetchInfo = downloader.downloadContent(params, info);
 
             saveMetrics(startTime, /*endTime=*/currentTimeMillis());
@@ -371,7 +385,8 @@ public class AwVariationsSeedFetcher extends JobService {
             // VariationsSeedFetcher returns HttpURLConnection.HTTP_NOT_MODIFIED if seed did
             // not change server-side, or HttpURLConnection.HTTP_OK if a new seed was
             // successfully fetched
-            if (HttpURLConnection.HTTP_OK != fetchInfo.seedFetchResult && HttpURLConnection.HTTP_NOT_MODIFIED != fetchInfo.seedFetchResult) {
+            if (HttpURLConnection.HTTP_OK != fetchInfo.seedFetchResult
+                    && HttpURLConnection.HTTP_NOT_MODIFIED != fetchInfo.seedFetchResult) {
                 int requestCount = 0;
                 if (bundle != null) {
                     requestCount = bundle.getInt(JOB_REQUEST_COUNT_KEY) + 1;
@@ -382,7 +397,8 @@ public class AwVariationsSeedFetcher extends JobService {
             }
             if (fetchInfo.seedInfo != null) {
                 if (fastMode) {
-                    VariationsSeedHolder.getInstance().updateSeedFilesSynchronously(fetchInfo.seedInfo);
+                    VariationsSeedHolder.getInstance().updateSeedFilesSynchronously(
+                            fetchInfo.seedInfo);
                 } else {
                     VariationsSeedHolder.getInstance().updateSeed(fetchInfo.seedInfo,
                             /*onFinished=*/
@@ -401,11 +417,9 @@ public class AwVariationsSeedFetcher extends JobService {
             public boolean getShouldFinish() {
                 return mShouldFinish;
             }
-
             public boolean getNeedsReschedule() {
                 return mNeedsReschedule;
             }
-
             public boolean getCancelled() {
                 return mCancelled;
             }
@@ -416,7 +430,8 @@ public class AwVariationsSeedFetcher extends JobService {
                 mCancelled = false;
             }
 
-            public FetchSeedOutput(boolean shouldFinish, boolean needsReschedule, boolean cancelled) {
+            public FetchSeedOutput(
+                    boolean shouldFinish, boolean needsReschedule, boolean cancelled) {
                 mShouldFinish = shouldFinish;
                 mNeedsReschedule = needsReschedule;
                 mCancelled = cancelled;
@@ -439,7 +454,8 @@ public class AwVariationsSeedFetcher extends JobService {
         // exist. Either way, (re)create it with the new params.
         mFetchTask = new FetchTask(params);
         if (params != null && isFastModeJob(params.getExtras())) {
-            final Executor userBlockingExecutor = (Runnable r) -> PostTask.postTask(TaskTraits.USER_BLOCKING, r);
+            final Executor userBlockingExecutor =
+                    (Runnable r) -> PostTask.postTask(TaskTraits.USER_BLOCKING, r);
             mFetchTask.executeOnExecutor(userBlockingExecutor);
         } else {
             mFetchTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);

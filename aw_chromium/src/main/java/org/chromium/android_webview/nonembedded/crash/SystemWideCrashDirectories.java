@@ -10,7 +10,7 @@ import java.io.File;
 
 /**
  * Contains getters for the folders where crash information will be stored.
- * <p>
+ *
  * This class should NOT be called in a non-WebView UID.
  */
 public class SystemWideCrashDirectories {
@@ -21,7 +21,6 @@ public class SystemWideCrashDirectories {
 
     /**
      * Create the directory in which WebView will log crashes info.
-     *
      * @return a reference to the created directory, or null if the creation failed.
      */
     public static File getWebViewCrashLogDir() {
@@ -30,7 +29,6 @@ public class SystemWideCrashDirectories {
 
     /**
      * Create the directory in which WebView will log crashes info.
-     *
      * @return a reference to the created directory, or null if the creation failed.
      */
     public static File getOrCreateWebViewCrashLogDir() {
@@ -40,7 +38,6 @@ public class SystemWideCrashDirectories {
 
     /**
      * Fetch the crash directory where WebView stores its minidumps.
-     *
      * @return a File pointing to the crash directory.
      */
     public static File getWebViewCrashDir() {
@@ -52,7 +49,6 @@ public class SystemWideCrashDirectories {
      * WebView needs a crash directory different from Chrome's to ensure Chrome's and WebView's
      * minidump handling won't clash in cases where both Chrome and WebView are provided by the
      * same app (Monochrome).
-     *
      * @return a reference to the created directory, or null if the creation failed.
      */
     public static File getOrCreateWebViewCrashDir() {
@@ -68,7 +64,6 @@ public class SystemWideCrashDirectories {
 
     /**
      * Create Crash json log file in the crash log directory.
-     *
      * @return a File pointing to the created crash json log file.
      */
     public static File createCrashJsonLogFile(String logFileName) {
@@ -84,6 +79,5 @@ public class SystemWideCrashDirectories {
         return null;
     }
 
-    private SystemWideCrashDirectories() {
-    }
+    private SystemWideCrashDirectories() {}
 }

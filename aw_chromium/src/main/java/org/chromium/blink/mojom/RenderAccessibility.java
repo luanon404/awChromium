@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface RenderAccessibility extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends RenderAccessibility, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends RenderAccessibility, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<RenderAccessibility, RenderAccessibility.Proxy> MANAGER = RenderAccessibility_Internal.MANAGER;

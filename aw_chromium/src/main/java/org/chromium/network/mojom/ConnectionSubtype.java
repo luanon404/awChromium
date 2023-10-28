@@ -17,10 +17,43 @@ import androidx.annotation.IntDef;
 
 public final class ConnectionSubtype {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({ConnectionSubtype.SUBTYPE_UNKNOWN, ConnectionSubtype.SUBTYPE_NONE, ConnectionSubtype.SUBTYPE_OTHER, ConnectionSubtype.SUBTYPE_GSM, ConnectionSubtype.SUBTYPE_IDEN, ConnectionSubtype.SUBTYPE_CDMA, ConnectionSubtype.SUBTYPE_1XRTT, ConnectionSubtype.SUBTYPE_GPRS, ConnectionSubtype.SUBTYPE_EDGE, ConnectionSubtype.SUBTYPE_UMTS, ConnectionSubtype.SUBTYPE_EVDO_REV_0, ConnectionSubtype.SUBTYPE_EVDO_REV_A, ConnectionSubtype.SUBTYPE_HSPA, ConnectionSubtype.SUBTYPE_EVDO_REV_B, ConnectionSubtype.SUBTYPE_HSDPA, ConnectionSubtype.SUBTYPE_HSUPA, ConnectionSubtype.SUBTYPE_EHRPD, ConnectionSubtype.SUBTYPE_HSPAP, ConnectionSubtype.SUBTYPE_LTE, ConnectionSubtype.SUBTYPE_LTE_ADVANCED, ConnectionSubtype.SUBTYPE_BLUETOOTH_1_2, ConnectionSubtype.SUBTYPE_BLUETOOTH_2_1, ConnectionSubtype.SUBTYPE_BLUETOOTH_3_0, ConnectionSubtype.SUBTYPE_BLUETOOTH_4_0, ConnectionSubtype.SUBTYPE_ETHERNET, ConnectionSubtype.SUBTYPE_FAST_ETHERNET, ConnectionSubtype.SUBTYPE_GIGABIT_ETHERNET, ConnectionSubtype.SUBTYPE_10_GIGABIT_ETHERNET, ConnectionSubtype.SUBTYPE_WIFI_B, ConnectionSubtype.SUBTYPE_WIFI_G, ConnectionSubtype.SUBTYPE_WIFI_N, ConnectionSubtype.SUBTYPE_WIFI_AC, ConnectionSubtype.SUBTYPE_WIFI_AD, ConnectionSubtype.SUBTYPE_LAST})
-    public @interface EnumType {
-    }
+        ConnectionSubtype.SUBTYPE_UNKNOWN,
+        ConnectionSubtype.SUBTYPE_NONE,
+        ConnectionSubtype.SUBTYPE_OTHER,
+        ConnectionSubtype.SUBTYPE_GSM,
+        ConnectionSubtype.SUBTYPE_IDEN,
+        ConnectionSubtype.SUBTYPE_CDMA,
+        ConnectionSubtype.SUBTYPE_1XRTT,
+        ConnectionSubtype.SUBTYPE_GPRS,
+        ConnectionSubtype.SUBTYPE_EDGE,
+        ConnectionSubtype.SUBTYPE_UMTS,
+        ConnectionSubtype.SUBTYPE_EVDO_REV_0,
+        ConnectionSubtype.SUBTYPE_EVDO_REV_A,
+        ConnectionSubtype.SUBTYPE_HSPA,
+        ConnectionSubtype.SUBTYPE_EVDO_REV_B,
+        ConnectionSubtype.SUBTYPE_HSDPA,
+        ConnectionSubtype.SUBTYPE_HSUPA,
+        ConnectionSubtype.SUBTYPE_EHRPD,
+        ConnectionSubtype.SUBTYPE_HSPAP,
+        ConnectionSubtype.SUBTYPE_LTE,
+        ConnectionSubtype.SUBTYPE_LTE_ADVANCED,
+        ConnectionSubtype.SUBTYPE_BLUETOOTH_1_2,
+        ConnectionSubtype.SUBTYPE_BLUETOOTH_2_1,
+        ConnectionSubtype.SUBTYPE_BLUETOOTH_3_0,
+        ConnectionSubtype.SUBTYPE_BLUETOOTH_4_0,
+        ConnectionSubtype.SUBTYPE_ETHERNET,
+        ConnectionSubtype.SUBTYPE_FAST_ETHERNET,
+        ConnectionSubtype.SUBTYPE_GIGABIT_ETHERNET,
+        ConnectionSubtype.SUBTYPE_10_GIGABIT_ETHERNET,
+        ConnectionSubtype.SUBTYPE_WIFI_B,
+        ConnectionSubtype.SUBTYPE_WIFI_G,
+        ConnectionSubtype.SUBTYPE_WIFI_N,
+        ConnectionSubtype.SUBTYPE_WIFI_AC,
+        ConnectionSubtype.SUBTYPE_WIFI_AD,
+        ConnectionSubtype.SUBTYPE_LAST})
+    public @interface EnumType {}
 
     public static final int SUBTYPE_UNKNOWN = 0;
     public static final int SUBTYPE_NONE = 1;
@@ -69,9 +102,8 @@ public final class ConnectionSubtype {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private ConnectionSubtype() {
-    }
+    private ConnectionSubtype() {}
 }

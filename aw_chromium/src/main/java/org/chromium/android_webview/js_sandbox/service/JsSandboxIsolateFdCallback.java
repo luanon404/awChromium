@@ -8,10 +8,11 @@ import android.content.res.AssetFileDescriptor;
 import android.os.ParcelFileDescriptor;
 import android.os.RemoteException;
 
-import org.chromium.android_webview.js_sandbox.common.IJsSandboxIsolateSyncCallback;
-import org.chromium.base.Log;
 import org.jni_zero.CalledByNative;
 import org.jni_zero.JNINamespace;
+
+import org.chromium.android_webview.js_sandbox.common.IJsSandboxIsolateSyncCallback;
+import org.chromium.base.Log;
 
 import java.io.IOException;
 
@@ -38,7 +39,8 @@ public class JsSandboxIsolateFdCallback {
     @CalledByNative
     public void onResult(int fd, int length) {
         try (ParcelFileDescriptor parcelFileDescriptor = ParcelFileDescriptor.adoptFd(fd)) {
-            AssetFileDescriptor assetFileDescriptor = new AssetFileDescriptor(parcelFileDescriptor, 0, length);
+            AssetFileDescriptor assetFileDescriptor =
+                    new AssetFileDescriptor(parcelFileDescriptor, 0, length);
             mCallback.reportResultWithFd(assetFileDescriptor);
         } catch (RemoteException | IOException e) {
             Log.e(TAG, "reporting result failed", e);
@@ -51,14 +53,15 @@ public class JsSandboxIsolateFdCallback {
      * @param errorType See
      *                  {@link
      *                  org.chromium.android_webview.js_sandbox.common.IJsSandboxIsolateSyncCallback}
-     *                  for error types.
+     * for error types.
      * @param fd        The fd to which the description of the error is written into.
      * @param length    Number of bytes written into the fd.
      */
     @CalledByNative
     public void onError(int errorType, int fd, int length) {
         try (ParcelFileDescriptor parcelFileDescriptor = ParcelFileDescriptor.adoptFd(fd)) {
-            AssetFileDescriptor assetFileDescriptor = new AssetFileDescriptor(parcelFileDescriptor, 0, length);
+            AssetFileDescriptor assetFileDescriptor =
+                    new AssetFileDescriptor(parcelFileDescriptor, 0, length);
             mCallback.reportErrorWithFd(errorType, assetFileDescriptor);
         } catch (RemoteException | IOException e) {
             Log.e(TAG, "reporting error failed", e);

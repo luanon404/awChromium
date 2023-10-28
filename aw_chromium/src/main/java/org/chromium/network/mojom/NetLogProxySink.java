@@ -13,15 +13,20 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface NetLogProxySink extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends NetLogProxySink, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends NetLogProxySink, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<NetLogProxySink, NetLogProxySink.Proxy> MANAGER = NetLogProxySink_Internal.MANAGER;
 
-    void addEntry(int type, NetLogSource netLogSource, int phase, org.chromium.mojo_base.mojom.TimeTicks time, org.chromium.mojo_base.mojom.DictionaryValue params);
+    void addEntry(
+int type, NetLogSource netLogSource, int phase, org.chromium.mojo_base.mojom.TimeTicks time, org.chromium.mojo_base.mojom.DictionaryValue params);
 
 
 }

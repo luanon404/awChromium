@@ -17,10 +17,11 @@ import androidx.annotation.IntDef;
 
 public final class HttpCacheBackendDeleteFileMode {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({HttpCacheBackendDeleteFileMode.DEFAULT, HttpCacheBackendDeleteFileMode.ENSURE_IMMEDIATE_AVAILABILITY})
-    public @interface EnumType {
-    }
+        HttpCacheBackendDeleteFileMode.DEFAULT,
+        HttpCacheBackendDeleteFileMode.ENSURE_IMMEDIATE_AVAILABILITY})
+    public @interface EnumType {}
 
     public static final int DEFAULT = 0;
     public static final int ENSURE_IMMEDIATE_AVAILABILITY = 1;
@@ -37,9 +38,8 @@ public final class HttpCacheBackendDeleteFileMode {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private HttpCacheBackendDeleteFileMode() {
-    }
+    private HttpCacheBackendDeleteFileMode() {}
 }

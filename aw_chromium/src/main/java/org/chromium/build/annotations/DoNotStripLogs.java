@@ -14,5 +14,4 @@ import java.lang.annotation.Target;
  */
 @Target({ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.CLASS)
-public @interface DoNotStripLogs {
-}
+public @interface DoNotStripLogs {}

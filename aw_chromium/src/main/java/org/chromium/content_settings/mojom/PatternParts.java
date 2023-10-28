@@ -13,10 +13,13 @@
 
 package org.chromium.content_settings.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class PatternParts extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 48;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(48, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(48, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public String scheme;
     public boolean isSchemeWildcard;
@@ -45,7 +48,8 @@ public final class PatternParts extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static PatternParts deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -59,38 +63,38 @@ public final class PatternParts extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new PatternParts(elementsOrVersion);
-            {
-
+                {
+                    
                 result.scheme = decoder0.readString(8, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.isSchemeWildcard = decoder0.readBoolean(16, 0);
-            }
-            {
-
+                }
+                {
+                    
                 result.hasDomainWildcard = decoder0.readBoolean(16, 1);
-            }
-            {
-
+                }
+                {
+                    
                 result.isPortWildcard = decoder0.readBoolean(16, 2);
-            }
-            {
-
+                }
+                {
+                    
                 result.isPathWildcard = decoder0.readBoolean(16, 3);
-            }
-            {
-
+                }
+                {
+                    
                 result.host = decoder0.readString(24, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.port = decoder0.readString(32, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.path = decoder0.readString(40, false);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -102,21 +106,21 @@ public final class PatternParts extends org.chromium.mojo.bindings.Struct {
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.scheme, 8, false);
-
+        
         encoder0.encode(this.isSchemeWildcard, 16, 0);
-
+        
         encoder0.encode(this.hasDomainWildcard, 16, 1);
-
+        
         encoder0.encode(this.isPortWildcard, 16, 2);
-
+        
         encoder0.encode(this.isPathWildcard, 16, 3);
-
+        
         encoder0.encode(this.host, 24, false);
-
+        
         encoder0.encode(this.port, 32, false);
-
+        
         encoder0.encode(this.path, 40, false);
     }
 }

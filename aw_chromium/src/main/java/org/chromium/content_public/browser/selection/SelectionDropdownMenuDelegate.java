@@ -38,15 +38,15 @@ public interface SelectionDropdownMenuDelegate {
      * Attempts to show the dropdown anchored by its top-left corner at the passed in
      * x and y offset if there is room. Otherwise it will pick another corner to
      * ensure the entire dropdown fits on the screen.
-     *
-     * @param context       the context needed to show the dropdown menu.
-     * @param rootView      the root view of the dropdown menu.
-     * @param items         the items that will be shown inside the dropdown menu.
+     * @param context the context needed to show the dropdown menu.
+     * @param rootView the root view of the dropdown menu.
+     * @param items the items that will be shown inside the dropdown menu.
      * @param clickListener the click listener for the items in the dropdown menu.
-     * @param x             The x offset of the dropdown menu relative to the container View.
-     * @param y             The y offset of the dropdown menu relative to the container View.
+     * @param x The x offset of the dropdown menu relative to the container View.
+     * @param y The y offset of the dropdown menu relative to the container View.
      */
-    void show(Context context, View rootView, MVCListAdapter.ModelList items, ItemClickListener clickListener, @Px int x, @Px int y);
+    void show(Context context, View rootView, MVCListAdapter.ModelList items,
+            ItemClickListener clickListener, @Px int x, @Px int y);
 
     /**
      * Dismisses the dropdown menu.
@@ -86,18 +86,20 @@ public interface SelectionDropdownMenuDelegate {
     /**
      * Returns a menu item. Pass 0 for attributes that aren't
      * applicable to the menu item (e.g. if there is no icon or text).
-     *
-     * @param title              The text on the menu item.
+     * @param title The text on the menu item.
      * @param contentDescription The content description of the menu item.
-     * @param groupId            The group id of the menu item.
-     * @param id                 Id of the menu item.
-     * @param startIcon          The icon at the start of the menu item.
-     * @param isIconTintable     True if the icon can be tinted.
-     * @param groupContainsIcon  True if this or any other item in group has an icon.
-     * @param enabled            Whether or not this menu item should be enabled.
-     * @param clickListener      Optional click listener for the menu item.
-     * @param intent             Optional intent for the menu item.
+     * @param groupId The group id of the menu item.
+     * @param id Id of the menu item.
+     * @param startIcon The icon at the start of the menu item.
+     * @param isIconTintable True if the icon can be tinted.
+     * @param groupContainsIcon True if this or any other item in group has an icon.
+     * @param enabled Whether or not this menu item should be enabled.
+     * @param clickListener Optional click listener for the menu item.
+     * @param intent Optional intent for the menu item.
      * @return ListItem with text and optionally an icon.
      */
-    ListItem getMenuItem(String title, @Nullable String contentDescription, @IdRes int groupId, @IdRes int id, @Nullable Drawable startIcon, boolean isIconTintable, boolean groupContainsIcon, boolean enabled, @Nullable View.OnClickListener clickListener, @Nullable Intent intent);
+    ListItem getMenuItem(String title, @Nullable String contentDescription, @IdRes int groupId,
+            @IdRes int id, @Nullable Drawable startIcon, boolean isIconTintable,
+            boolean groupContainsIcon, boolean enabled,
+            @Nullable View.OnClickListener clickListener, @Nullable Intent intent);
 }

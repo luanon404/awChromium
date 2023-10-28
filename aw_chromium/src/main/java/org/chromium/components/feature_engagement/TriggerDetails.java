@@ -11,7 +11,6 @@ package org.chromium.components.feature_engagement;
 public class TriggerDetails {
     /**
      * Construct an instance of TriggerDetails.
-     *
      * @param shouldTriggerIph Whether or not in-product help should be shown.
      * @param shouldShowSnooze Whether or not snooze button should be shown.
      */

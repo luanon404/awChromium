@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class SerialSendError {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({SerialSendError.NONE, SerialSendError.DISCONNECTED, SerialSendError.SYSTEM_ERROR})
-    public @interface EnumType {
-    }
+        SerialSendError.NONE,
+        SerialSendError.DISCONNECTED,
+        SerialSendError.SYSTEM_ERROR})
+    public @interface EnumType {}
 
     public static final int NONE = 0;
     public static final int DISCONNECTED = 1;
@@ -38,9 +40,8 @@ public final class SerialSendError {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private SerialSendError() {
-    }
+    private SerialSendError() {}
 }

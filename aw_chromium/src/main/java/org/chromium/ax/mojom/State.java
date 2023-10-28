@@ -17,10 +17,28 @@ import androidx.annotation.IntDef;
 
 public final class State {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({State.NONE, State.AUTOFILL_AVAILABLE, State.COLLAPSED, State.DEFAULT, State.EDITABLE, State.EXPANDED, State.FOCUSABLE, State.HORIZONTAL, State.HOVERED, State.IGNORED, State.INVISIBLE, State.LINKED, State.MULTILINE, State.MULTISELECTABLE, State.PROTECTED, State.REQUIRED, State.RICHLY_EDITABLE, State.VERTICAL, State.VISITED})
-    public @interface EnumType {
-    }
+        State.NONE,
+        State.AUTOFILL_AVAILABLE,
+        State.COLLAPSED,
+        State.DEFAULT,
+        State.EDITABLE,
+        State.EXPANDED,
+        State.FOCUSABLE,
+        State.HORIZONTAL,
+        State.HOVERED,
+        State.IGNORED,
+        State.INVISIBLE,
+        State.LINKED,
+        State.MULTILINE,
+        State.MULTISELECTABLE,
+        State.PROTECTED,
+        State.REQUIRED,
+        State.RICHLY_EDITABLE,
+        State.VERTICAL,
+        State.VISITED})
+    public @interface EnumType {}
 
     public static final int NONE = 0;
     public static final int AUTOFILL_AVAILABLE = 1;
@@ -55,12 +73,11 @@ public final class State {
     }
 
     public static int toKnownValue(int value) {
-        if (isKnownValue(value)) {
-            return value;
-        }
-        return DEFAULT_VALUE;
+      if (isKnownValue(value)) {
+        return value;
+      }
+      return DEFAULT_VALUE;
     }
 
-    private State() {
-    }
+    private State() {}
 }

@@ -11,26 +11,24 @@ public interface AutofillDelegate {
     /**
      * Informs the controller the AutofillPopup or AutofillKeyboardAccessory was hidden.
      */
-    void dismissed();
+    public void dismissed();
 
     /**
      * Handles the selection of an Autofill suggestion from an AutofillPopup or
      * AutofillKeyboardAccessory.
-     *
      * @param listIndex The index of the selected Autofill suggestion.
      */
-    void suggestionSelected(int listIndex);
+    public void suggestionSelected(int listIndex);
 
     /**
      * Initiates the deletion process for an item. (A confirm dialog should be shown.)
-     *
      * @param listIndex The index of the suggestion to delete.
      */
-    void deleteSuggestion(int listIndex);
+    public void deleteSuggestion(int listIndex);
 
     /**
      * Informs the controller the AutofillPopup received a
      * {@code TYPE_VIEW_ACCESSIBILITY_FOCUS_CLEARED} accessibility event.
      */
-    void accessibilityFocusCleared();
+    public void accessibilityFocusCleared();
 }

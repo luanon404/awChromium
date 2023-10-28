@@ -13,49 +13,55 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface SimpleCache extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends SimpleCache, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends SimpleCache, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<SimpleCache, SimpleCache.Proxy> MANAGER = SimpleCache_Internal.MANAGER;
 
-    void createEntry(String key, CreateEntry_Response callback);
+    void createEntry(
+String key, 
+CreateEntry_Response callback);
 
-    interface CreateEntry_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<SimpleCacheEntry, Integer> {
-    }
-
-
-    void openEntry(String key, OpenEntry_Response callback);
-
-    interface OpenEntry_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<SimpleCacheEntry, Integer> {
-    }
+    interface CreateEntry_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<SimpleCacheEntry, Integer> { }
 
 
-    void doomEntry(String key, DoomEntry_Response callback);
+    void openEntry(
+String key, 
+OpenEntry_Response callback);
 
-    interface DoomEntry_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> {
-    }
+    interface OpenEntry_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<SimpleCacheEntry, Integer> { }
+
+
+    void doomEntry(
+String key, 
+DoomEntry_Response callback);
+
+    interface DoomEntry_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> { }
 
 
     void doomAllEntries(
 
-            DoomAllEntries_Response callback);
+DoomAllEntries_Response callback);
 
-    interface DoomAllEntries_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> {
-    }
+    interface DoomAllEntries_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> { }
 
 
-    void enumerateEntries(org.chromium.mojo.bindings.InterfaceRequest<SimpleCacheEntryEnumerator> receiver);
+    void enumerateEntries(
+org.chromium.mojo.bindings.InterfaceRequest<SimpleCacheEntryEnumerator> receiver);
 
 
     void detach(
 
-            Detach_Response callback);
+Detach_Response callback);
 
-    interface Detach_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 {
-    }
+    interface Detach_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 { }
 
 
 }

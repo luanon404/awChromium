@@ -13,13 +13,15 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class SmartCardTransactionResult extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
         public static final int Transaction = 0;
         public static final int Error = 1;
-    }
-
+    };
     private org.chromium.mojo.bindings.AssociatedInterfaceNotSupported mTransaction;
     private int mError;
 
@@ -50,12 +52,12 @@ public final class SmartCardTransactionResult extends org.chromium.mojo.bindings
         encoder0.encode(this.mTag, offset + 4);
         switch (mTag) {
             case Tag.Transaction: {
-
+                
                 encoder0.encode(this.mTransaction, offset + 8, false);
                 break;
             }
             case Tag.Error: {
-
+                
                 encoder0.encode(this.mError, offset + 8);
                 break;
             }
@@ -77,16 +79,16 @@ public final class SmartCardTransactionResult extends org.chromium.mojo.bindings
         SmartCardTransactionResult result = new SmartCardTransactionResult();
         switch (dataHeader.elementsOrVersion) {
             case Tag.Transaction: {
-
+                
                 result.mTransaction = decoder0.readAssociatedServiceInterfaceNotSupported(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mTag = Tag.Transaction;
                 break;
             }
             case Tag.Error: {
-
+                
                 result.mError = decoder0.readInt(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE);
-                SmartCardError.validate(result.mError);
-                result.mError = SmartCardError.toKnownValue(result.mError);
+                    SmartCardError.validate(result.mError);
+                    result.mError = SmartCardError.toKnownValue(result.mError);
                 result.mTag = Tag.Error;
                 break;
             }

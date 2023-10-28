@@ -18,7 +18,6 @@ import androidx.core.provider.FontsContractCompat;
 import androidx.core.provider.FontsContractCompat.FontFamilyResult;
 import androidx.core.provider.FontsContractCompat.FontInfo;
 
-import org.chromium.android_webview.R;
 import org.chromium.base.ContextUtils;
 import org.chromium.base.Log;
 import org.chromium.base.StreamUtil;
@@ -27,6 +26,7 @@ import org.chromium.base.task.PostTask;
 import org.chromium.base.task.SequencedTaskRunner;
 import org.chromium.base.task.TaskTraits;
 import org.chromium.blink.mojom.AndroidFontLookup;
+import org.chromium.android_webview.R;
 import org.chromium.mojo.bindings.ExecutorFactory;
 import org.chromium.mojo.system.Core;
 import org.chromium.mojo.system.MojoException;
@@ -95,7 +95,7 @@ public class AndroidFontLookupImpl implements AndroidFontLookup {
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     AndroidFontLookupImpl(Context appContext, FontsContractWrapper fontsContract,
-                          Map<String, String> fullFontNameToQuery) {
+            Map<String, String> fullFontNameToQuery) {
         mAppContext = appContext;
         mFontsContract = fontsContract;
         mFullFontNameToQuery = fullFontNameToQuery;
@@ -107,11 +107,11 @@ public class AndroidFontLookupImpl implements AndroidFontLookup {
      * available from GMS Core on-device. These fonts should have already been preloaded via the
      * "preloaded_fonts" AndroidManifest directive, and have not previously failed a programmatic
      * font fetch request.
-     * <p>
+     *
      * TODO(crbug.com/1111148): Ensure the font preload by manifest XML is also done for WebView.
      *
      * @param callback The callback to be called with the list of fonts expected (but not
-     *                 guaranteed) to be available. The list is sorted in ascending order.
+     *         guaranteed) to be available. The list is sorted in ascending order.
      */
     @Override
     public void getUniqueNameLookupTable(GetUniqueNameLookupTable_Response callback) {
@@ -126,8 +126,8 @@ public class AndroidFontLookupImpl implements AndroidFontLookup {
      * session.
      *
      * @param fontUniqueName The ICU case folded full font name to fetch.
-     * @param callback       The callback to be called with the resulting opened font file handle, or null
-     *                       if the font file is not available. Caller is responsible for closing file when done.
+     * @param callback The callback to be called with the resulting opened font file handle, or null
+     *         if the font file is not available. Caller is responsible for closing file when done.
      */
     @Override
     public void matchLocalFontByUniqueName(
@@ -147,9 +147,7 @@ public class AndroidFontLookupImpl implements AndroidFontLookup {
         });
     }
 
-    /**
-     * Fetches all available font files from the {@link #mExpectedFonts} array.
-     */
+    /** Fetches all available font files from the {@link #mExpectedFonts} array. */
     @Override
     public void fetchAllFontFiles(FetchAllFontFiles_Response callback) {
         long startTimeMs = SystemClock.elapsedRealtime();
@@ -195,7 +193,7 @@ public class AndroidFontLookupImpl implements AndroidFontLookup {
 
     /**
      * Tries to fetch the specified font from GMS Core (the Android Downloadable fonts provider).
-     * <p>
+     *
      * This method makes a synchronous request to GMS Core and should not be called from the IO
      * thread. This requirement may be re-evaluated based on the timing results of {@link
      * #GMS_FONT_REQUEST_HISTOGRAM}.
@@ -285,13 +283,13 @@ public class AndroidFontLookupImpl implements AndroidFontLookup {
     /**
      * Creates the map from ICU case folded full font name to GMS Core font provider query format,
      * for a selected subset of Android Downloadable fonts.
-     * <p>
+     *
      * When adding additional fonts to this map:
      * 1. Add the font to the array in {@link FontPreloader} to prefetch new fonts programmatically
-     * async during startup.
+     *    async during startup.
      * 2. Keys should be ICU case folded full font name. This can be done manually with
-     * icu_fold_case_util.cc, or in Java by importing the ICU4J third_party library. (The
-     * CaseMap.Fold Java API is only available in Android API 29+.)
+     *    icu_fold_case_util.cc, or in Java by importing the ICU4J third_party library. (The
+     *    CaseMap.Fold Java API is only available in Android API 29+.)
      *
      * @return The created map from font names to queries.
      */
@@ -308,7 +306,7 @@ public class AndroidFontLookupImpl implements AndroidFontLookup {
      * Construct a GMS Core Downloadable fonts query for a font with exact match parameters.
      * (More info: https://developers.google.com/fonts/docs/android#query_format)
      *
-     * @param name   Font family name (from fonts.google.com).
+     * @param name Font family name (from fonts.google.com).
      * @param weight Font weight.
      * @return Query for Google Fonts provider.
      */
@@ -317,12 +315,10 @@ public class AndroidFontLookupImpl implements AndroidFontLookup {
     }
 
     @Override
-    public void close() {
-    }
+    public void close() {}
 
     @Override
-    public void onConnectionError(MojoException e) {
-    }
+    public void onConnectionError(MojoException e) {}
 
     /**
      * A factory for implementations of the AndroidFontLookup interface.
@@ -335,8 +331,7 @@ public class AndroidFontLookupImpl implements AndroidFontLookup {
         @SuppressLint("StaticFieldLeak")
         private static AndroidFontLookupImpl sImpl;
 
-        public Factory() {
-        }
+        public Factory() {}
 
         @Override
         public AndroidFontLookup createImpl() {

@@ -13,43 +13,48 @@
 
 package org.chromium.media.stable.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface StableVideoDecoder extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends StableVideoDecoder, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends StableVideoDecoder, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<StableVideoDecoder, StableVideoDecoder.Proxy> MANAGER = StableVideoDecoder_Internal.MANAGER;
 
     void getSupportedConfigs(
 
-            GetSupportedConfigs_Response callback);
+GetSupportedConfigs_Response callback);
 
-    interface GetSupportedConfigs_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<SupportedVideoDecoderConfig[], Integer> {
-    }
-
-
-    void construct(org.chromium.mojo.bindings.AssociatedInterfaceNotSupported client, MediaLog mediaLog, org.chromium.mojo.bindings.InterfaceRequest<VideoFrameHandleReleaser> videoFrameHandleReleaser, org.chromium.mojo.system.DataPipe.ConsumerHandle decoderBufferPipe, ColorSpace targetColorSpace);
+    interface GetSupportedConfigs_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<SupportedVideoDecoderConfig[], Integer> { }
 
 
-    void initialize(VideoDecoderConfig config, boolean lowDelay, StableCdmContext cdmContext, Initialize_Response callback);
-
-    interface Initialize_Response extends org.chromium.mojo.bindings.Callbacks.Callback5<Status, Boolean, Integer, Integer, Boolean> {
-    }
+    void construct(
+org.chromium.mojo.bindings.AssociatedInterfaceNotSupported client, MediaLog mediaLog, org.chromium.mojo.bindings.InterfaceRequest<VideoFrameHandleReleaser> videoFrameHandleReleaser, org.chromium.mojo.system.DataPipe.ConsumerHandle decoderBufferPipe, ColorSpace targetColorSpace);
 
 
-    void decode(DecoderBuffer buffer, Decode_Response callback);
+    void initialize(
+VideoDecoderConfig config, boolean lowDelay, StableCdmContext cdmContext, 
+Initialize_Response callback);
 
-    interface Decode_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Status> {
-    }
+    interface Initialize_Response extends org.chromium.mojo.bindings.Callbacks.Callback5<Status, Boolean, Integer, Integer, Boolean> { }
+
+
+    void decode(
+DecoderBuffer buffer, 
+Decode_Response callback);
+
+    interface Decode_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Status> { }
 
 
     void reset(
 
-            Reset_Response callback);
+Reset_Response callback);
 
-    interface Reset_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 {
-    }
+    interface Reset_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 { }
 
 
 }

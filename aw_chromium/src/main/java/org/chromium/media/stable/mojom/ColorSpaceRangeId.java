@@ -17,10 +17,13 @@ import androidx.annotation.IntDef;
 
 public final class ColorSpaceRangeId {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({ColorSpaceRangeId.INVALID, ColorSpaceRangeId.LIMITED, ColorSpaceRangeId.FULL, ColorSpaceRangeId.DERIVED})
-    public @interface EnumType {
-    }
+        ColorSpaceRangeId.INVALID,
+        ColorSpaceRangeId.LIMITED,
+        ColorSpaceRangeId.FULL,
+        ColorSpaceRangeId.DERIVED})
+    public @interface EnumType {}
 
     public static final int INVALID = 0;
     public static final int LIMITED = 1;
@@ -40,12 +43,11 @@ public final class ColorSpaceRangeId {
     }
 
     public static int toKnownValue(int value) {
-        if (isKnownValue(value)) {
-            return value;
-        }
-        return DEFAULT_VALUE;
+      if (isKnownValue(value)) {
+        return value;
+      }
+      return DEFAULT_VALUE;
     }
 
-    private ColorSpaceRangeId() {
-    }
+    private ColorSpaceRangeId() {}
 }

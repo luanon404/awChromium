@@ -13,10 +13,13 @@
 
 package org.chromium.ax.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class AxRelativeBounds extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 32;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(32, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(32, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public int offsetContainerId;
     public org.chromium.gfx.mojom.RectF bounds;
@@ -40,7 +43,8 @@ public final class AxRelativeBounds extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static AxRelativeBounds deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -54,20 +58,20 @@ public final class AxRelativeBounds extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new AxRelativeBounds(elementsOrVersion);
-            {
-
+                {
+                    
                 result.offsetContainerId = decoder0.readInt(8);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                 result.bounds = org.chromium.gfx.mojom.RectF.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, false);
                 result.transform = org.chromium.gfx.mojom.Transform.decode(decoder1);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -79,11 +83,11 @@ public final class AxRelativeBounds extends org.chromium.mojo.bindings.Struct {
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.offsetContainerId, 8);
-
+        
         encoder0.encode(this.bounds, 16, false);
-
+        
         encoder0.encode(this.transform, 24, false);
     }
 }

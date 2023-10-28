@@ -18,6 +18,7 @@ import androidx.annotation.IntDef;
 public final class FormControlType {
     private static final boolean IS_EXTENSIBLE = false;
     @IntDef({
+
         FormControlType.CONTENT_EDITABLE,
         FormControlType.INPUT_CHECKBOX,
         FormControlType.INPUT_EMAIL,

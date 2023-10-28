@@ -3,72 +3,90 @@
 //
 package org.chromium.android_webview.js_sandbox.service;
 
-import android.os.ParcelFileDescriptor;
-
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.content.res.AssetFileDescriptor;
+import android.os.ParcelFileDescriptor;
+import android.os.RemoteException;
+import com.luanon.androidx.javascriptengine.common.Utils;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.android_webview.js_sandbox.common.IJsSandboxConsoleCallback;
+import org.chromium.android_webview.js_sandbox.common.IJsSandboxIsolate;
+import org.chromium.android_webview.js_sandbox.common.IJsSandboxIsolateCallback;
+import org.chromium.android_webview.js_sandbox.common.IJsSandboxIsolateClient;
+import org.chromium.android_webview.js_sandbox.common.IJsSandboxIsolateSyncCallback;
+import org.chromium.base.Log;
+import java.io.IOException;
+import java.util.concurrent.atomic.AtomicReference;
+import javax.annotation.concurrent.GuardedBy;
 
 @CheckDiscard("crbug.com/993421")
 public class JsSandboxIsolateJni implements JsSandboxIsolate.Natives {
-    private static JsSandboxIsolate.Natives testInstance;
+  private static JsSandboxIsolate.Natives testInstance;
 
-    public static final JniStaticTestMocker<JsSandboxIsolate.Natives> TEST_HOOKS = new JniStaticTestMocker<JsSandboxIsolate.Natives>() {
-        @Override
-        public void setInstanceForTesting(JsSandboxIsolate.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<JsSandboxIsolate.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<JsSandboxIsolate.Natives>() {
     @Override
-    public long createNativeJsSandboxIsolateWrapper(JsSandboxIsolate jsSandboxIsolate, long maxHeapSizeBytes) {
-        return (long) GEN_JNI.org_chromium_android_1webview_js_1sandbox_service_JsSandboxIsolate_createNativeJsSandboxIsolateWrapper(jsSandboxIsolate, maxHeapSizeBytes);
+    public void setInstanceForTesting(JsSandboxIsolate.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public void destroyNative(long nativeJsSandboxIsolate, JsSandboxIsolate caller) {
-        GEN_JNI.org_chromium_android_1webview_js_1sandbox_service_JsSandboxIsolate_destroyNative(nativeJsSandboxIsolate, caller);
-    }
+  @Override
+  public long createNativeJsSandboxIsolateWrapper(JsSandboxIsolate jsSandboxIsolate, long maxHeapSizeBytes) {
+    return (long) GEN_JNI.org_chromium_android_1webview_js_1sandbox_service_JsSandboxIsolate_createNativeJsSandboxIsolateWrapper(jsSandboxIsolate, maxHeapSizeBytes);
+  }
 
-    @Override
-    public boolean evaluateJavascript(long nativeJsSandboxIsolate, JsSandboxIsolate caller, String script, JsSandboxIsolateCallback callback) {
-        return (boolean) GEN_JNI.org_chromium_android_1webview_js_1sandbox_service_JsSandboxIsolate_evaluateJavascript(nativeJsSandboxIsolate, caller, script, callback);
-    }
+  @Override
+  public void destroyNative(long nativeJsSandboxIsolate, JsSandboxIsolate caller) {
+    GEN_JNI.org_chromium_android_1webview_js_1sandbox_service_JsSandboxIsolate_destroyNative(nativeJsSandboxIsolate, caller);
+  }
 
-    @Override
-    public boolean evaluateJavascriptWithFd(long nativeJsSandboxIsolate, JsSandboxIsolate caller, int fd, long length, long offset, JsSandboxIsolateFdCallback callback, ParcelFileDescriptor pfd) {
-        return (boolean) GEN_JNI.org_chromium_android_1webview_js_1sandbox_service_JsSandboxIsolate_evaluateJavascriptWithFd(nativeJsSandboxIsolate, caller, fd, length, offset, callback, pfd);
-    }
+  @Override
+  public boolean evaluateJavascript(long nativeJsSandboxIsolate, JsSandboxIsolate caller, String script, JsSandboxIsolateCallback callback) {
+    return (boolean) GEN_JNI.org_chromium_android_1webview_js_1sandbox_service_JsSandboxIsolate_evaluateJavascript(nativeJsSandboxIsolate, caller, script, callback);
+  }
 
-    @Override
-    public void initializeEnvironment() {
-        GEN_JNI.org_chromium_android_1webview_js_1sandbox_service_JsSandboxIsolate_initializeEnvironment();
-    }
+  @Override
+  public boolean evaluateJavascriptWithFd(long nativeJsSandboxIsolate, JsSandboxIsolate caller, int fd, long length, long offset, JsSandboxIsolateFdCallback callback, ParcelFileDescriptor pfd) {
+    return (boolean) GEN_JNI.org_chromium_android_1webview_js_1sandbox_service_JsSandboxIsolate_evaluateJavascriptWithFd(nativeJsSandboxIsolate, caller, fd, length, offset, callback, pfd);
+  }
 
-    @Override
-    public boolean provideNamedData(long nativeJsSandboxIsolate, JsSandboxIsolate caller, String name, int fd, int length) {
-        return (boolean) GEN_JNI.org_chromium_android_1webview_js_1sandbox_service_JsSandboxIsolate_provideNamedData(nativeJsSandboxIsolate, caller, name, fd, length);
-    }
+  @Override
+  public void initializeEnvironment() {
+    GEN_JNI.org_chromium_android_1webview_js_1sandbox_service_JsSandboxIsolate_initializeEnvironment();
+  }
 
-    @Override
-    public void setConsoleEnabled(long nativeJsSandboxIsolate, JsSandboxIsolate caller, boolean enable) {
-        GEN_JNI.org_chromium_android_1webview_js_1sandbox_service_JsSandboxIsolate_setConsoleEnabled(nativeJsSandboxIsolate, caller, enable);
-    }
+  @Override
+  public boolean provideNamedData(long nativeJsSandboxIsolate, JsSandboxIsolate caller, String name, int fd, int length) {
+    return (boolean) GEN_JNI.org_chromium_android_1webview_js_1sandbox_service_JsSandboxIsolate_provideNamedData(nativeJsSandboxIsolate, caller, name, fd, length);
+  }
 
-    public static JsSandboxIsolate.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of JsSandboxIsolate.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new JsSandboxIsolateJni();
+  @Override
+  public void setConsoleEnabled(long nativeJsSandboxIsolate, JsSandboxIsolate caller, boolean enable) {
+    GEN_JNI.org_chromium_android_1webview_js_1sandbox_service_JsSandboxIsolate_setConsoleEnabled(nativeJsSandboxIsolate, caller, enable);
+  }
+
+  public static JsSandboxIsolate.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of JsSandboxIsolate.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new JsSandboxIsolateJni();
+  }
 }

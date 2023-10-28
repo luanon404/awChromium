@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface ResourceLoadInfoNotifier extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends ResourceLoadInfoNotifier, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends ResourceLoadInfoNotifier, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<ResourceLoadInfoNotifier, ResourceLoadInfoNotifier.Proxy> MANAGER = ResourceLoadInfoNotifier_Internal.MANAGER;

@@ -13,75 +13,91 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface UdpSocket extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends UdpSocket, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends UdpSocket, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<UdpSocket, UdpSocket.Proxy> MANAGER = UdpSocket_Internal.MANAGER;
 
-    void bind(IpEndPoint localAddr, UdpSocketOptions socketOptions, Bind_Response callback);
+    void bind(
+IpEndPoint localAddr, UdpSocketOptions socketOptions, 
+Bind_Response callback);
 
-    interface Bind_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<Integer, IpEndPoint> {
-    }
-
-
-    void connect(IpEndPoint remoteAddr, UdpSocketOptions socketOptions, Connect_Response callback);
-
-    interface Connect_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<Integer, IpEndPoint> {
-    }
+    interface Bind_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<Integer, IpEndPoint> { }
 
 
-    void setBroadcast(boolean broadcast, SetBroadcast_Response callback);
+    void connect(
+IpEndPoint remoteAddr, UdpSocketOptions socketOptions, 
+Connect_Response callback);
 
-    interface SetBroadcast_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> {
-    }
-
-
-    void setSendBufferSize(int sendBufferSize, SetSendBufferSize_Response callback);
-
-    interface SetSendBufferSize_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> {
-    }
+    interface Connect_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<Integer, IpEndPoint> { }
 
 
-    void setReceiveBufferSize(int receiveBufferSize, SetReceiveBufferSize_Response callback);
+    void setBroadcast(
+boolean broadcast, 
+SetBroadcast_Response callback);
 
-    interface SetReceiveBufferSize_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> {
-    }
-
-
-    void joinGroup(IpAddress groupAddress, JoinGroup_Response callback);
-
-    interface JoinGroup_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> {
-    }
+    interface SetBroadcast_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> { }
 
 
-    void leaveGroup(IpAddress groupAddress, LeaveGroup_Response callback);
+    void setSendBufferSize(
+int sendBufferSize, 
+SetSendBufferSize_Response callback);
 
-    interface LeaveGroup_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> {
-    }
-
-
-    void receiveMore(int numAdditionalDatagrams);
+    interface SetSendBufferSize_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> { }
 
 
-    void receiveMoreWithBufferSize(int numAdditionalDatagrams, int bufferSize);
+    void setReceiveBufferSize(
+int receiveBufferSize, 
+SetReceiveBufferSize_Response callback);
+
+    interface SetReceiveBufferSize_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> { }
 
 
-    void sendTo(IpEndPoint destAddr, org.chromium.mojo_base.mojom.ReadOnlyBuffer data, MutableNetworkTrafficAnnotationTag trafficAnnotation, SendTo_Response callback);
+    void joinGroup(
+IpAddress groupAddress, 
+JoinGroup_Response callback);
 
-    interface SendTo_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> {
-    }
-
-
-    void send(org.chromium.mojo_base.mojom.ReadOnlyBuffer data, MutableNetworkTrafficAnnotationTag trafficAnnotation, Send_Response callback);
-
-    interface Send_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> {
-    }
+    interface JoinGroup_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> { }
 
 
-    void close();
+    void leaveGroup(
+IpAddress groupAddress, 
+LeaveGroup_Response callback);
+
+    interface LeaveGroup_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> { }
+
+
+    void receiveMore(
+int numAdditionalDatagrams);
+
+
+    void receiveMoreWithBufferSize(
+int numAdditionalDatagrams, int bufferSize);
+
+
+    void sendTo(
+IpEndPoint destAddr, org.chromium.mojo_base.mojom.ReadOnlyBuffer data, MutableNetworkTrafficAnnotationTag trafficAnnotation, 
+SendTo_Response callback);
+
+    interface SendTo_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> { }
+
+
+    void send(
+org.chromium.mojo_base.mojom.ReadOnlyBuffer data, MutableNetworkTrafficAnnotationTag trafficAnnotation, 
+Send_Response callback);
+
+    interface Send_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> { }
+
+
+    void close(
+);
 
 
 }

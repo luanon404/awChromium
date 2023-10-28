@@ -17,10 +17,18 @@ import androidx.annotation.IntDef;
 
 public final class SourceEventType {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({SourceEventType.UNKNOWN, SourceEventType.WHEEL, SourceEventType.MOUSE, SourceEventType.TOUCH, SourceEventType.INERTIAL, SourceEventType.KEY_PRESS, SourceEventType.TOUCHPAD, SourceEventType.SCROLLBAR, SourceEventType.OTHER})
-    public @interface EnumType {
-    }
+        SourceEventType.UNKNOWN,
+        SourceEventType.WHEEL,
+        SourceEventType.MOUSE,
+        SourceEventType.TOUCH,
+        SourceEventType.INERTIAL,
+        SourceEventType.KEY_PRESS,
+        SourceEventType.TOUCHPAD,
+        SourceEventType.SCROLLBAR,
+        SourceEventType.OTHER})
+    public @interface EnumType {}
 
     public static final int UNKNOWN = 0;
     public static final int WHEEL = 1;
@@ -44,9 +52,8 @@ public final class SourceEventType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private SourceEventType() {
-    }
+    private SourceEventType() {}
 }

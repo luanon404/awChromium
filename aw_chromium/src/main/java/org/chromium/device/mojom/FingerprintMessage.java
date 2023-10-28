@@ -13,13 +13,15 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class FingerprintMessage extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
         public static final int FingerprintError = 0;
         public static final int ScanResult = 1;
-    }
-
+    };
     private int mFingerprintError;
     private int mScanResult;
 
@@ -50,12 +52,12 @@ public final class FingerprintMessage extends org.chromium.mojo.bindings.Union {
         encoder0.encode(this.mTag, offset + 4);
         switch (mTag) {
             case Tag.FingerprintError: {
-
+                
                 encoder0.encode(this.mFingerprintError, offset + 8);
                 break;
             }
             case Tag.ScanResult: {
-
+                
                 encoder0.encode(this.mScanResult, offset + 8);
                 break;
             }
@@ -77,18 +79,18 @@ public final class FingerprintMessage extends org.chromium.mojo.bindings.Union {
         FingerprintMessage result = new FingerprintMessage();
         switch (dataHeader.elementsOrVersion) {
             case Tag.FingerprintError: {
-
+                
                 result.mFingerprintError = decoder0.readInt(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE);
-                FingerprintError.validate(result.mFingerprintError);
-                result.mFingerprintError = FingerprintError.toKnownValue(result.mFingerprintError);
+                    FingerprintError.validate(result.mFingerprintError);
+                    result.mFingerprintError = FingerprintError.toKnownValue(result.mFingerprintError);
                 result.mTag = Tag.FingerprintError;
                 break;
             }
             case Tag.ScanResult: {
-
+                
                 result.mScanResult = decoder0.readInt(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE);
-                ScanResult.validate(result.mScanResult);
-                result.mScanResult = ScanResult.toKnownValue(result.mScanResult);
+                    ScanResult.validate(result.mScanResult);
+                    result.mScanResult = ScanResult.toKnownValue(result.mScanResult);
                 result.mTag = Tag.ScanResult;
                 break;
             }

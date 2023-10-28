@@ -13,15 +13,20 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface WakeLockObserver extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends WakeLockObserver, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends WakeLockObserver, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<WakeLockObserver, WakeLockObserver.Proxy> MANAGER = WakeLockObserver_Internal.MANAGER;
 
-    void onWakeLockDeactivated(int type);
+    void onWakeLockDeactivated(
+int type);
 
 
 }

@@ -17,10 +17,14 @@ import androidx.annotation.IntDef;
 
 public final class ScreenOrientation {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({ScreenOrientation.UNDEFINED, ScreenOrientation.PORTRAIT_PRIMARY, ScreenOrientation.PORTRAIT_SECONDARY, ScreenOrientation.LANDSCAPE_PRIMARY, ScreenOrientation.LANDSCAPE_SECONDARY})
-    public @interface EnumType {
-    }
+        ScreenOrientation.UNDEFINED,
+        ScreenOrientation.PORTRAIT_PRIMARY,
+        ScreenOrientation.PORTRAIT_SECONDARY,
+        ScreenOrientation.LANDSCAPE_PRIMARY,
+        ScreenOrientation.LANDSCAPE_SECONDARY})
+    public @interface EnumType {}
 
     public static final int UNDEFINED = 0;
     public static final int PORTRAIT_PRIMARY = 1;
@@ -40,9 +44,8 @@ public final class ScreenOrientation {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private ScreenOrientation() {
-    }
+    private ScreenOrientation() {}
 }

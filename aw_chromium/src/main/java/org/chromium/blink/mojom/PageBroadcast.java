@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface PageBroadcast extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends PageBroadcast, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends PageBroadcast, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<PageBroadcast, PageBroadcast.Proxy> MANAGER = PageBroadcast_Internal.MANAGER;

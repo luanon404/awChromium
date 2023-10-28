@@ -13,15 +13,20 @@
 
 package org.chromium.cert_verifier.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface UrlLoaderFactoryConnector extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends UrlLoaderFactoryConnector, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends UrlLoaderFactoryConnector, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<UrlLoaderFactoryConnector, UrlLoaderFactoryConnector.Proxy> MANAGER = UrlLoaderFactoryConnector_Internal.MANAGER;
 
-    void createUrlLoaderFactory(org.chromium.mojo.bindings.InterfaceRequest<org.chromium.network.mojom.UrlLoaderFactory> urlLoaderFactory);
+    void createUrlLoaderFactory(
+org.chromium.mojo.bindings.InterfaceRequest<org.chromium.network.mojom.UrlLoaderFactory> urlLoaderFactory);
 
 
 }

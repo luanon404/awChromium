@@ -1,3 +1,4 @@
+
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -14,8 +15,10 @@ import androidx.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@IntDef({TrafficStatsUid.UNSET})
+@IntDef({
+    TrafficStatsUid.UNSET
+})
 @Retention(RetentionPolicy.SOURCE)
 public @interface TrafficStatsUid {
-    int UNSET = -1;
+  int UNSET = -1;
 }

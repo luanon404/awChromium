@@ -6,11 +6,12 @@ package org.chromium.base.task;
 
 import android.os.Handler;
 
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+
 import org.chromium.base.Log;
 import org.chromium.base.ResettersForTesting;
 import org.chromium.base.ThreadUtils;
-import org.jni_zero.CalledByNative;
-import org.jni_zero.JNINamespace;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,10 +38,12 @@ public class PostTask {
     // one-way switch (outside of testing) and volatile makes writes to it immediately visible to
     // other threads.
     private static volatile boolean sNativeInitialized;
-    private static ChromeThreadPoolExecutor sPrenativeThreadPoolExecutor = new ChromeThreadPoolExecutor();
+    private static ChromeThreadPoolExecutor sPrenativeThreadPoolExecutor =
+            new ChromeThreadPoolExecutor();
     private static volatile Executor sPrenativeThreadPoolExecutorForTesting;
 
-    private static final ThreadPoolTaskExecutor sThreadPoolTaskExecutor = new ThreadPoolTaskExecutor();
+    private static final ThreadPoolTaskExecutor sThreadPoolTaskExecutor =
+            new ThreadPoolTaskExecutor();
     // Initialized on demand or when the UI thread is initialized to allow embedders (eg WebView) to
     // override the UI thread.
     private static UiThreadTaskExecutor sUiThreadTaskExecutor;
@@ -59,7 +62,6 @@ public class PostTask {
     /**
      * Creates and returns a SequencedTaskRunner. SequencedTaskRunners automatically destroy
      * themselves, so the destroy() function is not required to be called.
-     *
      * @param traits The TaskTraits that describe the desired TaskRunner.
      * @return The TaskRunner for the specified TaskTraits.
      */
@@ -68,6 +70,7 @@ public class PostTask {
     }
 
     /**
+     *
      * @param traits The TaskTraits that describe the desired TaskRunner.
      * @return The TaskRunner for the specified TaskTraits.
      */
@@ -77,7 +80,7 @@ public class PostTask {
 
     /**
      * @param taskTraits The TaskTraits that describe the desired TaskRunner.
-     * @param task       The task to be run with the specified traits.
+     * @param task The task to be run with the specified traits.
      */
     public static void postTask(@TaskTraits int taskTraits, Runnable task) {
         postDelayedTask(taskTraits, task, 0);
@@ -85,8 +88,8 @@ public class PostTask {
 
     /**
      * @param taskTraits The TaskTraits that describe the desired TaskRunner.
-     * @param task       The task to be run with the specified traits.
-     * @param delay      The delay in milliseconds before the task can be run.
+     * @param task The task to be run with the specified traits.
+     * @param delay The delay in milliseconds before the task can be run.
      */
     public static void postDelayedTask(@TaskTraits int taskTraits, Runnable task, long delay) {
         getTaskExecutorForTraits(taskTraits).postDelayedTask(taskTraits, task, delay);
@@ -96,14 +99,14 @@ public class PostTask {
      * This function executes the task immediately if the current thread is the
      * same as the one corresponding to the SingleThreadTaskRunner, otherwise it
      * posts it.
-     * <p>
+     *
      * It should be executed only for tasks with traits corresponding to
      * executors backed by a SingleThreadTaskRunner, like TaskTraits.UI_*.
-     * <p>
+     *
      * Use this only for trivial tasks as it ignores task priorities.
      *
      * @param taskTraits The TaskTraits that describe the desired TaskRunner.
-     * @param task       The task to be run with the specified traits.
+     * @param task The task to be run with the specified traits.
      */
     public static void runOrPostTask(@TaskTraits int taskTraits, Runnable task) {
         if (getTaskExecutorForTraits(taskTraits).canRunTaskImmediately(taskTraits)) {
@@ -125,17 +128,17 @@ public class PostTask {
      * This function executes the task immediately if the current thread is the
      * same as the one corresponding to the SingleThreadTaskRunner, otherwise it
      * posts it and blocks until the task finishes.
-     * <p>
+     *
      * It should be executed only for tasks with traits corresponding to
      * executors backed by a SingleThreadTaskRunner, like TaskTraits.UI_*.
-     * <p>
+     *
      * Use this only for trivial tasks as it ignores task priorities.
-     * <p>
+     *
      * Note that non-test usage of this function is heavily discouraged. For non-tests, use
      * callbacks rather than blocking threads.
      *
      * @param taskTraits The TaskTraits that describe the desired TaskRunner.
-     * @param task       The task to be run with the specified traits.
+     * @param task The task to be run with the specified traits.
      * @return The result of the callable
      */
     @Deprecated
@@ -147,17 +150,17 @@ public class PostTask {
      * This function executes the task immediately if the current thread is the
      * same as the one corresponding to the SingleThreadTaskRunner, otherwise it
      * posts it and blocks until the task finishes.
-     * <p>
+     *
      * It should be executed only for tasks with traits corresponding to
      * executors backed by a SingleThreadTaskRunner, like TaskTraits.UI_*.
-     * <p>
+     *
      * Use this only for trivial tasks as it ignores task priorities.
-     * <p>
+     *
      * Note that non-test usage of this function is heavily discouraged. For non-tests, use
      * callbacks rather than blocking threads.
      *
      * @param taskTraits The TaskTraits that describe the desired TaskRunner.
-     * @param task       The task to be run with the specified traits.
+     * @param task The task to be run with the specified traits.
      */
     @Deprecated
     public static void runSynchronously(@TaskTraits int taskTraits, Runnable r) {
@@ -240,9 +243,7 @@ public class PostTask {
         }
     }
 
-    /**
-     * Drops all queued pre-native tasks.
-     */
+    /** Drops all queued pre-native tasks. */
     public static void flushJobsAndResetForTesting() throws InterruptedException {
         ChromeThreadPoolExecutor executor = sPrenativeThreadPoolExecutor;
         // Potential race condition, but by checking queue size first we overcount if anything.
@@ -272,9 +273,7 @@ public class PostTask {
         }
     }
 
-    /**
-     * Called once when the UI thread has been initialized
-     */
+    /** Called once when the UI thread has been initialized */
     public static void onUiThreadReady(Handler uiThreadHandler) {
         assert sUiThreadTaskExecutor == null;
         sUiThreadTaskExecutor = new UiThreadTaskExecutor(uiThreadHandler);

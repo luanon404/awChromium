@@ -17,10 +17,15 @@ import androidx.annotation.IntDef;
 
 public final class LinkAsAttribute {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({LinkAsAttribute.UNSPECIFIED, LinkAsAttribute.FONT, LinkAsAttribute.IMAGE, LinkAsAttribute.SCRIPT, LinkAsAttribute.STYLE_SHEET, LinkAsAttribute.FETCH})
-    public @interface EnumType {
-    }
+        LinkAsAttribute.UNSPECIFIED,
+        LinkAsAttribute.FONT,
+        LinkAsAttribute.IMAGE,
+        LinkAsAttribute.SCRIPT,
+        LinkAsAttribute.STYLE_SHEET,
+        LinkAsAttribute.FETCH})
+    public @interface EnumType {}
 
     public static final int UNSPECIFIED = 0;
     public static final int FONT = 1;
@@ -41,9 +46,8 @@ public final class LinkAsAttribute {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private LinkAsAttribute() {
-    }
+    private LinkAsAttribute() {}
 }

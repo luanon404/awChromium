@@ -13,15 +13,20 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface MediaPlayerHost extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends MediaPlayerHost, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends MediaPlayerHost, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<MediaPlayerHost, MediaPlayerHost.Proxy> MANAGER = MediaPlayerHost_Internal.MANAGER;
 
-    void onMediaPlayerAdded(org.chromium.mojo.bindings.AssociatedInterfaceNotSupported playerRemote, org.chromium.mojo.bindings.AssociatedInterfaceRequestNotSupported observer, int playerId);
+    void onMediaPlayerAdded(
+org.chromium.mojo.bindings.AssociatedInterfaceNotSupported playerRemote, org.chromium.mojo.bindings.AssociatedInterfaceRequestNotSupported observer, int playerId);
 
 
 }

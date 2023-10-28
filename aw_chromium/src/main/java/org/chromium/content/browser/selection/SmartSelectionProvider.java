@@ -58,7 +58,8 @@ public class SmartSelectionProvider {
     @Nullable
     private final SmartSelectionEventProcessor mSelectionEventProcessor;
 
-    public SmartSelectionProvider(SelectionClient.ResultCallback callback, WebContents webContents, @Nullable SmartSelectionEventProcessor selectionEventProcessor) {
+    public SmartSelectionProvider(SelectionClient.ResultCallback callback, WebContents webContents,
+            @Nullable SmartSelectionEventProcessor selectionEventProcessor) {
         mResultCallback = callback;
         mWindowAndroid = webContents.getTopLevelNativeWindow();
         WindowEventObserverManager manager = WindowEventObserverManager.from(webContents);
@@ -104,7 +105,8 @@ public class SmartSelectionProvider {
         if (context == null) {
             return;
         }
-        ((TextClassificationManager) context.getSystemService(Context.TEXT_CLASSIFICATION_SERVICE)).setTextClassifier(textClassifier);
+        ((TextClassificationManager) context.getSystemService(Context.TEXT_CLASSIFICATION_SERVICE))
+                .setTextClassifier(textClassifier);
     }
 
     // TODO(wnwen): Remove this suppression once the constant is added to lint.
@@ -119,7 +121,9 @@ public class SmartSelectionProvider {
         Context context = mWindowAndroid.getContext().get();
         if (context == null) return null;
 
-        return ((TextClassificationManager) context.getSystemService(Context.TEXT_CLASSIFICATION_SERVICE)).getTextClassifier();
+        return ((TextClassificationManager) context.getSystemService(
+                        Context.TEXT_CLASSIFICATION_SERVICE))
+                .getTextClassifier();
     }
 
     public TextClassifier getCustomTextClassifier() {
@@ -146,7 +150,8 @@ public class SmartSelectionProvider {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private void sendSmartSelectionRequest(@RequestType int requestType, CharSequence text, int start, int end) {
+    private void sendSmartSelectionRequest(
+            @RequestType int requestType, CharSequence text, int start, int end) {
         TextClassifier classifier = getTextClassificationSession();
         if (classifier == null || classifier == TextClassifier.NO_OP) {
             mHandler.post(mFailureResponseRunnable);
@@ -160,7 +165,8 @@ public class SmartSelectionProvider {
 
         // We checked mWindowAndroid.getContext().get() is not null in getTextClassifier(), so pass
         // the value directly here.
-        mClassificationTask = new ClassificationTask(classifier, requestType, text, start, end, mWindowAndroid.getContext().get());
+        mClassificationTask = new ClassificationTask(
+                classifier, requestType, text, start, end, mWindowAndroid.getContext().get());
         mClassificationTask.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
     }
 
@@ -173,7 +179,8 @@ public class SmartSelectionProvider {
         private final int mOriginalEnd;
         private final Context mContext;
 
-        ClassificationTask(TextClassifier classifier, @RequestType int requestType, CharSequence text, int start, int end, Context context) {
+        ClassificationTask(TextClassifier classifier, @RequestType int requestType,
+                CharSequence text, int start, int end, Context context) {
             mTextClassifier = classifier;
             mRequestType = requestType;
             mText = text;
@@ -204,7 +211,8 @@ public class SmartSelectionProvider {
                 }
 
                 if (textClassification == null) {
-                    textClassification = mTextClassifier.classifyText(mText, start, end, LocaleList.getAdjustedDefault());
+                    textClassification = mTextClassifier.classifyText(
+                            mText, start, end, LocaleList.getAdjustedDefault());
                 }
                 return makeResult(start, end, textClassification, textSelection);
             } catch (IllegalStateException ex) {
@@ -218,15 +226,19 @@ public class SmartSelectionProvider {
 
         private TextSelection suggestSelection(int start, int end) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                TextSelection.Request.Builder builder = ApiHelperForP.newTextSelectionRequestBuilder(mText, start, end);
+                TextSelection.Request.Builder builder =
+                        ApiHelperForP.newTextSelectionRequestBuilder(mText, start, end);
                 builder = ApiHelperForP.setDefaultLocales(builder, LocaleList.getAdjustedDefault());
                 builder = ApiHelperForS.setIncludeTextClassification(builder, true);
-                return ApiHelperForP.suggestSelection(mTextClassifier, ApiHelperForP.build(builder));
+                return ApiHelperForP.suggestSelection(
+                        mTextClassifier, ApiHelperForP.build(builder));
             }
-            return mTextClassifier.suggestSelection(mText, start, end, LocaleList.getAdjustedDefault());
+            return mTextClassifier.suggestSelection(
+                    mText, start, end, LocaleList.getAdjustedDefault());
         }
 
-        private SelectionClient.Result makeResult(int start, int end, TextClassification tc, TextSelection ts) {
+        private SelectionClient.Result makeResult(
+                int start, int end, TextClassification tc, TextSelection ts) {
             SelectionClient.Result result = new SelectionClient.Result();
 
             result.startAdjust = start - mOriginalStart;

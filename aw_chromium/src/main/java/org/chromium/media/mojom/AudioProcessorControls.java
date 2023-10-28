@@ -13,23 +13,27 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface AudioProcessorControls extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends AudioProcessorControls, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends AudioProcessorControls, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<AudioProcessorControls, AudioProcessorControls.Proxy> MANAGER = AudioProcessorControls_Internal.MANAGER;
 
     void getStats(
 
-            GetStats_Response callback);
+GetStats_Response callback);
 
-    interface GetStats_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<AudioProcessingStats> {
-    }
+    interface GetStats_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<AudioProcessingStats> { }
 
 
-    void setPreferredNumCaptureChannels(int numPreferredChannels);
+    void setPreferredNumCaptureChannels(
+int numPreferredChannels);
 
 
 }

@@ -17,10 +17,10 @@ import androidx.annotation.IntDef;
 
 public final class UsbOpenDeviceSuccess {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({UsbOpenDeviceSuccess.OK})
-    public @interface EnumType {
-    }
+        UsbOpenDeviceSuccess.OK})
+    public @interface EnumType {}
 
     public static final int OK = 0;
     public static final int MIN_VALUE = 0;
@@ -36,9 +36,8 @@ public final class UsbOpenDeviceSuccess {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private UsbOpenDeviceSuccess() {
-    }
+    private UsbOpenDeviceSuccess() {}
 }

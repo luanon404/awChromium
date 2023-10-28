@@ -17,10 +17,13 @@ import androidx.annotation.IntDef;
 
 public final class ShareError {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({ShareError.OK, ShareError.INTERNAL_ERROR, ShareError.PERMISSION_DENIED, ShareError.CANCELED})
-    public @interface EnumType {
-    }
+        ShareError.OK,
+        ShareError.INTERNAL_ERROR,
+        ShareError.PERMISSION_DENIED,
+        ShareError.CANCELED})
+    public @interface EnumType {}
 
     public static final int OK = 0;
     public static final int INTERNAL_ERROR = 1;
@@ -39,9 +42,8 @@ public final class ShareError {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private ShareError() {
-    }
+    private ShareError() {}
 }

@@ -13,14 +13,15 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public final class FileSystemAccessHandle extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
         public static final int File = 0;
         public static final int Directory = 1;
-    }
-
+    };
     private FileSystemAccessFileHandle mFile;
     private FileSystemAccessDirectoryHandle mDirectory;
 

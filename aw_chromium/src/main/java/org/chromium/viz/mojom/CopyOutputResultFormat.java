@@ -17,17 +17,17 @@ import androidx.annotation.IntDef;
 
 public final class CopyOutputResultFormat {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({CopyOutputResultFormat.RGBA})
-    public @interface EnumType {
-    }
+        CopyOutputResultFormat.RGBA})
+    public @interface EnumType {}
 
     public static final int RGBA = 0;
     public static final int MIN_VALUE = 0;
     public static final int MAX_VALUE = 0;
 
     public static boolean isKnownValue(int value) {
-        return value == 0;
+        return value >= 0 && value <= 0;
     }
 
     public static void validate(int value) {
@@ -36,9 +36,8 @@ public final class CopyOutputResultFormat {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private CopyOutputResultFormat() {
-    }
+    private CopyOutputResultFormat() {}
 }

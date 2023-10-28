@@ -13,10 +13,11 @@ import android.os.StatFs;
 import android.os.StrictMode;
 import android.util.Log;
 
-import org.chromium.build.BuildConfig;
 import org.jni_zero.CalledByNative;
 import org.jni_zero.JNINamespace;
 import org.jni_zero.NativeMethods;
+
+import org.chromium.build.BuildConfig;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -43,14 +44,12 @@ public class SysUtils {
 
     private static Boolean sHighEndDiskDevice;
 
-    private SysUtils() {
-    }
+    private SysUtils() { }
 
     /**
      * Return the amount of physical memory on this device in kilobytes.
-     *
      * @return Amount of physical memory in kilobytes, or 0 if there was
-     * an error trying to access the information.
+     *         an error trying to access the information.
      */
     private static int detectAmountOfPhysicalMemoryKB() {
         // Extract total memory RAM size by parsing /proc/meminfo, note that
@@ -74,7 +73,7 @@ public class SysUtils {
                 BufferedReader reader = new BufferedReader(fileReader);
                 try {
                     String line;
-                    for (; ; ) {
+                    for (;;) {
                         line = reader.readLine();
                         if (line == null) {
                             Log.w(TAG, "/proc/meminfo lacks a MemTotal entry?");
@@ -136,7 +135,9 @@ public class SysUtils {
      */
     @CalledByNative
     public static boolean isCurrentlyLowMemory() {
-        ActivityManager am = (ActivityManager) ContextUtils.getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
+        ActivityManager am =
+                (ActivityManager) ContextUtils.getApplicationContext().getSystemService(
+                        Context.ACTIVITY_SERVICE);
         ActivityManager.MemoryInfo info = new ActivityManager.MemoryInfo();
         try {
             am.getMemoryInfo(info);
@@ -186,7 +187,7 @@ public class SysUtils {
 
     /**
      * @return Whether or not this device should be considered a high end device from a disk
-     * capacity point of view.
+     *         capacity point of view.
      */
     public static boolean isHighEndDiskDevice() {
         if (sHighEndDiskDevice == null) {

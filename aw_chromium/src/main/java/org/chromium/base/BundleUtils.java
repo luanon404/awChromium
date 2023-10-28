@@ -19,10 +19,14 @@ import android.view.LayoutInflater;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
+import dalvik.system.BaseDexClassLoader;
+import dalvik.system.PathClassLoader;
+
+import org.jni_zero.CalledByNative;
+
 import org.chromium.base.compat.ApiHelperForO;
 import org.chromium.base.metrics.RecordHistogram;
 import org.chromium.build.BuildConfig;
-import org.jni_zero.CalledByNative;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -30,12 +34,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Map;
 
-import dalvik.system.BaseDexClassLoader;
-import dalvik.system.PathClassLoader;
-
 /**
  * Utils for working with android app bundles.
- * <p>
+ *
  * Important notes about bundle status as interpreted by this class:
  *
  * <ul>
@@ -44,7 +45,7 @@ import dalvik.system.PathClassLoader;
  *   <li>If {@link BuildConfig#BUNDLES_SUPPORTED} is true, then we MIGHT be in a bundle.
  *   {@link BundleUtils#sIsBundle} is the source of truth.</li>
  * </ul>
- * <p>
+ *
  * We need two fields to store one bit of information here to ensure that ProGuard can optimize out
  * the bundle support library (since {@link BuildConfig#BUNDLES_SUPPORTED} is final) and so that
  * we can dynamically set whether or not we're in a bundle for targets that use static shared
@@ -60,7 +61,8 @@ public class BundleUtils {
     // createIsolatedSplitContext() for more info.
     private static final ArrayMap<String, ClassLoader> sCachedClassLoaders = new ArrayMap<>();
 
-    private static final Map<String, ClassLoader> sInflationClassLoaders = Collections.synchronizedMap(new ArrayMap<>());
+    private static final Map<String, ClassLoader> sInflationClassLoaders =
+            Collections.synchronizedMap(new ArrayMap<>());
     private static SplitCompatClassLoader sSplitCompatClassLoaderInstance;
 
     // List of splits that were loaded during the last run of chrome when
@@ -171,13 +173,16 @@ public class BundleUtils {
             // cache, see b/172602571. This should be solved for the chrome ClassLoader by
             // SplitCompatAppComponentFactory, but modules which depend on the chrome module need
             // special handling here to make sure they have the correct parent.
-            boolean shouldReplaceClassLoader = isolatedSplitsEnabled() && !parent.equals(BundleUtils.class.getClassLoader()) && appContext != null && !parent.equals(appContext.getClassLoader());
+            boolean shouldReplaceClassLoader = isolatedSplitsEnabled()
+                    && !parent.equals(BundleUtils.class.getClassLoader()) && appContext != null
+                    && !parent.equals(appContext.getClassLoader());
             synchronized (sCachedClassLoaders) {
                 if (shouldReplaceClassLoader && !sCachedClassLoaders.containsKey(splitName)) {
                     String apkPath = getSplitApkPath(splitName);
                     // The librarySearchPath argument to PathClassLoader is not needed here
                     // because the framework doesn't pass it either, see b/171269960.
-                    sCachedClassLoaders.put(splitName, new PathClassLoader(apkPath, appContext.getClassLoader()));
+                    sCachedClassLoaders.put(
+                            splitName, new PathClassLoader(apkPath, appContext.getClassLoader()));
                 }
                 // Always replace the ClassLoader if we have a cached version to make sure all
                 // ClassLoaders are consistent.
@@ -192,16 +197,16 @@ public class BundleUtils {
                     sCachedClassLoaders.put(splitName, context.getClassLoader());
                 }
             }
-            RecordHistogram.recordBooleanHistogram("Android.IsolatedSplits.ClassLoaderReplaced." + splitName, shouldReplaceClassLoader);
+            RecordHistogram.recordBooleanHistogram(
+                    "Android.IsolatedSplits.ClassLoaderReplaced." + splitName,
+                    shouldReplaceClassLoader);
             return context;
         } catch (PackageManager.NameNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
 
-    /**
-     * Replaces the ClassLoader of the passed in Context.
-     */
+    /** Replaces the ClassLoader of the passed in Context. */
     public static void replaceClassLoader(Context baseContext, ClassLoader classLoader) {
         while (baseContext instanceof ContextWrapper) {
             baseContext = ((ContextWrapper) baseContext).getBaseContext();
@@ -225,7 +230,8 @@ public class BundleUtils {
             // Due to b/171269960 isolated split class loaders have an empty library path, so check
             // the base module class loader first which loaded BundleUtils. If the library is not
             // found there, attempt to construct the correct library path from the split.
-            String path = ((BaseDexClassLoader) BundleUtils.class.getClassLoader()).findLibrary(libraryName);
+            String path = ((BaseDexClassLoader) BundleUtils.class.getClassLoader())
+                                  .findLibrary(libraryName);
             if (path != null) {
                 return path;
             }
@@ -251,7 +257,8 @@ public class BundleUtils {
         ClassLoader activityClassLoader = activity.getClass().getClassLoader();
         ClassLoader contextClassLoader = baseContext.getClassLoader();
         if (activityClassLoader != contextClassLoader) {
-            Log.w(TAG, "Mismatched ClassLoaders between Activity and context (fixing): %s", activity.getClass());
+            Log.w(TAG, "Mismatched ClassLoaders between Activity and context (fixing): %s",
+                    activity.getClass());
             replaceClassLoader(baseContext, activityClassLoader);
         }
     }
@@ -348,7 +355,8 @@ public class BundleUtils {
     }
 
     public static void saveLoadedSplits(Bundle outState) {
-        outState.putStringArrayList(LOADED_SPLITS_KEY, new ArrayList(sInflationClassLoaders.keySet()));
+        outState.putStringArrayList(
+                LOADED_SPLITS_KEY, new ArrayList(sInflationClassLoaders.keySet()));
     }
 
     public static void restoreLoadedSplits(Bundle savedInstanceState) {
@@ -401,7 +409,8 @@ public class BundleUtils {
                         return foundClass;
                     }
                 }
-                Log.w(TAG, "No class %s amongst %s", cn, TextUtils.join("\n", sInflationClassLoaders.keySet()));
+                Log.w(TAG, "No class %s amongst %s", cn,
+                        TextUtils.join("\n", sInflationClassLoaders.keySet()));
             }
             throw new ClassNotFoundException(cn);
         }

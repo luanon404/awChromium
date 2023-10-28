@@ -13,9 +13,13 @@
 
 package org.chromium.media_session.mojom;
 
+import androidx.annotation.IntDef;
+
+
 class AudioFocusObserver_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<AudioFocusObserver, AudioFocusObserver.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<AudioFocusObserver, AudioFocusObserver.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<AudioFocusObserver, AudioFocusObserver.Proxy> MANAGER =
+            new org.chromium.mojo.bindings.Interface.Manager<AudioFocusObserver, AudioFocusObserver.Proxy>() {
 
         @Override
         public String getName() {
@@ -24,11 +28,12 @@ class AudioFocusObserver_Internal {
 
         @Override
         public int getVersion() {
-            return 8;
+          return 8;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -39,7 +44,7 @@ class AudioFocusObserver_Internal {
 
         @Override
         public AudioFocusObserver[] buildArray(int size) {
-            return new AudioFocusObserver[size];
+          return new AudioFocusObserver[size];
         }
     };
 
@@ -53,46 +58,59 @@ class AudioFocusObserver_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements AudioFocusObserver.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core,
+              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void onFocusGained(AudioFocusRequestState state) {
+        public void onFocusGained(
+AudioFocusRequestState state) {
 
             AudioFocusObserverOnFocusGainedParams _message = new AudioFocusObserverOnFocusGainedParams();
 
             _message.state = state;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_FOCUS_GAINED_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_FOCUS_GAINED_ORDINAL)));
 
         }
 
 
         @Override
-        public void onFocusLost(AudioFocusRequestState state) {
+        public void onFocusLost(
+AudioFocusRequestState state) {
 
             AudioFocusObserverOnFocusLostParams _message = new AudioFocusObserverOnFocusLostParams();
 
             _message.state = state;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_FOCUS_LOST_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_FOCUS_LOST_ORDINAL)));
 
         }
 
 
         @Override
-        public void onRequestIdReleased(org.chromium.mojo_base.mojom.UnguessableToken requestId) {
+        public void onRequestIdReleased(
+org.chromium.mojo_base.mojom.UnguessableToken requestId) {
 
             AudioFocusObserverOnRequestIdReleasedParams _message = new AudioFocusObserverOnRequestIdReleasedParams();
 
             _message.requestId = requestId;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_REQUEST_ID_RELEASED_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_REQUEST_ID_RELEASED_ORDINAL)));
 
         }
 
@@ -108,7 +126,8 @@ class AudioFocusObserver_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -117,33 +136,46 @@ class AudioFocusObserver_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(AudioFocusObserver_Internal.MANAGER, messageWithHeader);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
+                                AudioFocusObserver_Internal.MANAGER, messageWithHeader);
+
+
+
 
 
                     case ON_FOCUS_GAINED_ORDINAL: {
 
-                        AudioFocusObserverOnFocusGainedParams data = AudioFocusObserverOnFocusGainedParams.deserialize(messageWithHeader.getPayload());
+                        AudioFocusObserverOnFocusGainedParams data =
+                                AudioFocusObserverOnFocusGainedParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onFocusGained(data.state);
                         return true;
                     }
 
 
+
+
+
                     case ON_FOCUS_LOST_ORDINAL: {
 
-                        AudioFocusObserverOnFocusLostParams data = AudioFocusObserverOnFocusLostParams.deserialize(messageWithHeader.getPayload());
+                        AudioFocusObserverOnFocusLostParams data =
+                                AudioFocusObserverOnFocusLostParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onFocusLost(data.state);
                         return true;
                     }
 
 
+
+
+
                     case ON_REQUEST_ID_RELEASED_ORDINAL: {
 
-                        AudioFocusObserverOnRequestIdReleasedParams data = AudioFocusObserverOnRequestIdReleasedParams.deserialize(messageWithHeader.getPayload());
+                        AudioFocusObserverOnRequestIdReleasedParams data =
+                                AudioFocusObserverOnRequestIdReleasedParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onRequestIdReleased(data.requestId);
                         return true;
@@ -154,7 +186,7 @@ class AudioFocusObserver_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -162,7 +194,8 @@ class AudioFocusObserver_Internal {
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -171,27 +204,35 @@ class AudioFocusObserver_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), AudioFocusObserver_Internal.MANAGER, messageWithHeader, receiver);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
+                                getCore(), AudioFocusObserver_Internal.MANAGER, messageWithHeader, receiver);
+
+
+
+
+
+
 
 
                     default:
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class AudioFocusObserverOnFocusGainedParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public AudioFocusRequestState state;
 
@@ -213,7 +254,8 @@ class AudioFocusObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static AudioFocusObserverOnFocusGainedParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -227,11 +269,11 @@ class AudioFocusObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new AudioFocusObserverOnFocusGainedParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.state = AudioFocusRequestState.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -243,16 +285,18 @@ class AudioFocusObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.state, 8, false);
         }
     }
 
 
+
+    
     static final class AudioFocusObserverOnFocusLostParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public AudioFocusRequestState state;
 
@@ -274,7 +318,8 @@ class AudioFocusObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static AudioFocusObserverOnFocusLostParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -288,11 +333,11 @@ class AudioFocusObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new AudioFocusObserverOnFocusLostParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.state = AudioFocusRequestState.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -304,16 +349,18 @@ class AudioFocusObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.state, 8, false);
         }
     }
 
 
+
+    
     static final class AudioFocusObserverOnRequestIdReleasedParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.mojo_base.mojom.UnguessableToken requestId;
 
@@ -335,7 +382,8 @@ class AudioFocusObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static AudioFocusObserverOnRequestIdReleasedParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -349,11 +397,11 @@ class AudioFocusObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new AudioFocusObserverOnRequestIdReleasedParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.requestId = org.chromium.mojo_base.mojom.UnguessableToken.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -365,10 +413,11 @@ class AudioFocusObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.requestId, 8, false);
         }
     }
+
 
 
 }

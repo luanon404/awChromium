@@ -13,10 +13,14 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface HidConnectionWatcher extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends HidConnectionWatcher, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends HidConnectionWatcher, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<HidConnectionWatcher, HidConnectionWatcher.Proxy> MANAGER = HidConnectionWatcher_Internal.MANAGER;

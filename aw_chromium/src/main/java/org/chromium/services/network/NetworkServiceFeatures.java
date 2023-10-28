@@ -224,6 +224,5 @@ public final class NetworkServiceFeatures {
     public static final String COOKIE_ACCESS_DETAILS_NOTIFICATION_DE_DUPING = "CookieAccessDetailsNotificationDeDuping";
 
     // Do not instantiate this class.
-    private NetworkServiceFeatures() {
-    }
+    private NetworkServiceFeatures() {}
 }

@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface BackgroundFetchRegistrationService extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends BackgroundFetchRegistrationService, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends BackgroundFetchRegistrationService, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<BackgroundFetchRegistrationService, BackgroundFetchRegistrationService.Proxy> MANAGER = BackgroundFetchRegistrationService_Internal.MANAGER;

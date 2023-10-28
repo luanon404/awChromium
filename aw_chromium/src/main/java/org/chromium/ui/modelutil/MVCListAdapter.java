@@ -19,23 +19,16 @@ import org.chromium.ui.modelutil.PropertyModelChangeProcessor.ViewBinder;
  * {@link #registerType(int, ViewBuilder, ViewBinder)}.
  */
 public interface MVCListAdapter {
-    /**
-     * A basic container for {@link PropertyModel}s with a type.
-     */
+    /** A basic container for {@link PropertyModel}s with a type. */
     class ListItem {
-        /**
-         * The type of view that the {@code model} is associated with.
-         */
+        /** The type of view that the {@code model} is associated with. */
         public final int type;
-        /**
-         * The model to be managed by a list.
-         */
+        /** The model to be managed by a list. */
         public final PropertyModel model;
 
         /**
          * Build a new item to managed by a {@link ModelListAdapter}.
-         *
-         * @param type  The view type the model will bind to.
+         * @param type The view type the model will bind to.
          * @param model The model that will be bound to a view.
          */
         public ListItem(int type, PropertyModel model) {
@@ -44,15 +37,11 @@ public interface MVCListAdapter {
         }
     }
 
-    /**
-     * A basic observable list for this adapter to use. This more or less acts as a typedef.
-     */
-    class ModelList extends ListModelBase<ListItem, Void> {
-    }
+    /** A basic observable list for this adapter to use. This more or less acts as a typedef. */
+    class ModelList extends ListModelBase<ListItem, Void> {}
 
     /**
      * An interface to provide a means to build specific view types.
-     *
      * @param <T> The type of view that the implementor will build.
      */
     interface ViewBuilder<T extends View> {
@@ -65,11 +54,11 @@ public interface MVCListAdapter {
 
     /**
      * Register a new view type that this adapter knows how to show.
-     *
-     * @param typeId  The ID of the view type. This should not match any other view type registered
-     *                in this adapter.
+     * @param typeId The ID of the view type. This should not match any other view type registered
+     *               in this adapter.
      * @param builder A mechanism for building new views of the specified type.
-     * @param binder  A means of binding a model to the provided view.
+     * @param binder A means of binding a model to the provided view.
      */
-    <T extends View> void registerType(int typeId, ViewBuilder<T> builder, ViewBinder<PropertyModel, T, PropertyKey> binder);
+    <T extends View> void registerType(
+            int typeId, ViewBuilder<T> builder, ViewBinder<PropertyModel, T, PropertyKey> binder);
 }

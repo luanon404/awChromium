@@ -30,7 +30,8 @@ public class AccessibilityAutofillHelper {
         // On Android P and higher, when no other accessibility services are running other than
         // Autofill, we should always expose the actual password text so that third-party Autofill
         // services can save it rather than obtain only the masking characters.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && isAutofillOnlyPossibleAccessibilityConsumer()) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P
+                && isAutofillOnlyPossibleAccessibilityConsumer()) {
             return true;
         }
 

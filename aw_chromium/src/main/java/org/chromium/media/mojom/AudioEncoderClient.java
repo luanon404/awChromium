@@ -13,15 +13,20 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface AudioEncoderClient extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends AudioEncoderClient, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends AudioEncoderClient, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<AudioEncoderClient, AudioEncoderClient.Proxy> MANAGER = AudioEncoderClient_Internal.MANAGER;
 
-    void onEncodedBufferReady(EncodedAudioBuffer buffer, byte[] description);
+    void onEncodedBufferReady(
+EncodedAudioBuffer buffer, byte[] description);
 
 
 }

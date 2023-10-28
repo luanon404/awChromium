@@ -13,13 +13,15 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class GetVirtualSensorInformationResult extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
         public static final int Info = 0;
         public static final int Error = 1;
-    }
-
+    };
     private VirtualSensorInformation mInfo;
     private int mError;
 
@@ -50,12 +52,12 @@ public final class GetVirtualSensorInformationResult extends org.chromium.mojo.b
         encoder0.encode(this.mTag, offset + 4);
         switch (mTag) {
             case Tag.Info: {
-
+                
                 encoder0.encode(this.mInfo, offset + 8, false);
                 break;
             }
             case Tag.Error: {
-
+                
                 encoder0.encode(this.mError, offset + 8);
                 break;
             }
@@ -77,17 +79,17 @@ public final class GetVirtualSensorInformationResult extends org.chromium.mojo.b
         GetVirtualSensorInformationResult result = new GetVirtualSensorInformationResult();
         switch (dataHeader.elementsOrVersion) {
             case Tag.Info: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mInfo = VirtualSensorInformation.decode(decoder1);
                 result.mTag = Tag.Info;
                 break;
             }
             case Tag.Error: {
-
+                
                 result.mError = decoder0.readInt(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE);
-                GetVirtualSensorInformationError.validate(result.mError);
-                result.mError = GetVirtualSensorInformationError.toKnownValue(result.mError);
+                    GetVirtualSensorInformationError.validate(result.mError);
+                    result.mError = GetVirtualSensorInformationError.toKnownValue(result.mError);
                 result.mTag = Tag.Error;
                 break;
             }

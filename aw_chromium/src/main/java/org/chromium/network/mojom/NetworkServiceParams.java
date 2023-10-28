@@ -13,10 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class NetworkServiceParams extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 48;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(48, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(48, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public int initialConnectionType;
     public int initialConnectionSubtype;
@@ -45,7 +48,8 @@ public final class NetworkServiceParams extends org.chromium.mojo.bindings.Struc
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static NetworkServiceParams deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -59,43 +63,43 @@ public final class NetworkServiceParams extends org.chromium.mojo.bindings.Struc
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new NetworkServiceParams(elementsOrVersion);
-            {
-
+                {
+                    
                 result.initialConnectionType = decoder0.readInt(8);
-                ConnectionType.validate(result.initialConnectionType);
-                result.initialConnectionType = ConnectionType.toKnownValue(result.initialConnectionType);
-            }
-            {
-
+                    ConnectionType.validate(result.initialConnectionType);
+                    result.initialConnectionType = ConnectionType.toKnownValue(result.initialConnectionType);
+                }
+                {
+                    
                 result.initialConnectionSubtype = decoder0.readInt(12);
-                ConnectionSubtype.validate(result.initialConnectionSubtype);
-                result.initialConnectionSubtype = ConnectionSubtype.toKnownValue(result.initialConnectionSubtype);
-            }
-            {
-
+                    ConnectionSubtype.validate(result.initialConnectionSubtype);
+                    result.initialConnectionSubtype = ConnectionSubtype.toKnownValue(result.initialConnectionSubtype);
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                 {
                     org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                     result.environment = new EnvironmentVariable[si1.elementsOrVersion];
                     for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                        
                         org.chromium.mojo.bindings.Decoder decoder2 = decoder1.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                         result.environment[i1] = EnvironmentVariable.decode(decoder2);
                     }
                 }
-            }
-            {
-
+                }
+                {
+                    
                 result.defaultObserver = decoder0.readServiceInterface(24, false, UrlLoaderNetworkServiceObserver.MANAGER);
-            }
-            {
-
+                }
+                {
+                    
                 result.firstPartySetsEnabled = decoder0.readBoolean(32, 0);
-            }
-            {
-
+                }
+                {
+                    
                 result.systemDnsResolver = decoder0.readServiceInterface(36, true, SystemDnsResolver.MANAGER);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -107,25 +111,25 @@ public final class NetworkServiceParams extends org.chromium.mojo.bindings.Struc
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.initialConnectionType, 8);
-
+        
         encoder0.encode(this.initialConnectionSubtype, 12);
-
+        
         if (this.environment == null) {
             encoder0.encodeNullPointer(16, false);
         } else {
             org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.environment.length, 16, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
             for (int i0 = 0; i0 < this.environment.length; ++i0) {
-
+                
                 encoder1.encode(this.environment[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
             }
         }
-
+        
         encoder0.encode(this.defaultObserver, 24, false, UrlLoaderNetworkServiceObserver.MANAGER);
-
+        
         encoder0.encode(this.firstPartySetsEnabled, 32, 0);
-
+        
         encoder0.encode(this.systemDnsResolver, 36, true, SystemDnsResolver.MANAGER);
     }
 }

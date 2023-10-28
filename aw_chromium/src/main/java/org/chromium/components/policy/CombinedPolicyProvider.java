@@ -8,12 +8,13 @@ import android.os.Bundle;
 
 import androidx.annotation.VisibleForTesting;
 
-import org.chromium.base.Log;
-import org.chromium.base.ResettersForTesting;
-import org.chromium.base.ThreadUtils;
 import org.jni_zero.CalledByNative;
 import org.jni_zero.JNINamespace;
 import org.jni_zero.NativeMethods;
+
+import org.chromium.base.Log;
+import org.chromium.base.ResettersForTesting;
+import org.chromium.base.ThreadUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,7 +45,8 @@ public class CombinedPolicyProvider {
         return sInstance;
     }
 
-    private void linkNativeInternal(long nativeCombinedPolicyProvider, PolicyConverter policyConverter) {
+    private void linkNativeInternal(
+            long nativeCombinedPolicyProvider, PolicyConverter policyConverter) {
         mNativeCombinedPolicyProvider = nativeCombinedPolicyProvider;
         mPolicyConverter = policyConverter;
         if (nativeCombinedPolicyProvider == 0) {
@@ -61,7 +63,8 @@ public class CombinedPolicyProvider {
     }
 
     @CalledByNative
-    public static CombinedPolicyProvider linkNative(long nativeCombinedPolicyProvider, PolicyConverter policyConverter) {
+    public static CombinedPolicyProvider linkNative(
+            long nativeCombinedPolicyProvider, PolicyConverter policyConverter) {
         ThreadUtils.assertOnUiThread();
         get().linkNativeInternal(nativeCombinedPolicyProvider, policyConverter);
         return get();
@@ -73,7 +76,10 @@ public class CombinedPolicyProvider {
      * disambiguating updates.
      */
     public void registerProvider(PolicyProvider provider) {
-        Log.i(TAG, "#registerProvider() provider:" + provider + " isPolicyCacheEnabled:" + isPolicyCacheEnabled() + " policyProvidersSize:" + mPolicyProviders.size());
+        Log.i(TAG,
+                "#registerProvider() provider:" + provider
+                        + " isPolicyCacheEnabled:" + isPolicyCacheEnabled()
+                        + " policyProvidersSize:" + mPolicyProviders.size());
         if (isPolicyCacheEnabled()) {
             mPolicyCacheProvider = null;
         }
@@ -161,7 +167,6 @@ public class CombinedPolicyProvider {
     boolean isPolicyCacheEnabled() {
         return mPolicyCacheProvider != null;
     }
-
     /**
      * Interface to handle actions related with policy changes.
      */

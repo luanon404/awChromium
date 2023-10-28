@@ -9,7 +9,7 @@ import android.graphics.drawable.Drawable;
 import androidx.annotation.Nullable;
 
 import org.chromium.android_webview.R;
-
+import org.chromium.url.GURL;
 /**
  * Base implementation of DropdownItem which is used to get default settings to
  * show the item.
@@ -98,6 +98,11 @@ public class DropdownItemBase implements DropdownItem {
     @Override
     public int getIconMarginResId() {
         return R.dimen.dropdown_icon_margin;
+    }
+
+    @Override
+    public GURL getCustomIconUrl() {
+        return null;
     }
 
     @Override

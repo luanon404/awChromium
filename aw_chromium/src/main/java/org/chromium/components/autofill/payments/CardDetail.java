@@ -28,8 +28,8 @@ public class CardDetail {
     /**
      * Creates a new instance of the detailed card information.
      *
-     * @param iconId   ID corresponding to the icon that will be shown for this credit card.
-     * @param label    The credit card label, for example "***1234".
+     * @param iconId ID corresponding to the icon that will be shown for this credit card.
+     * @param label The credit card label, for example "***1234".
      * @param subLabel The credit card sub-label, for example "Exp: 06/17".
      */
     public CardDetail(@DrawableRes int iconId, String label, String subLabel) {

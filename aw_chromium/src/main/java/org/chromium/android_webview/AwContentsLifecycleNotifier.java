@@ -6,12 +6,13 @@ package org.chromium.android_webview;
 
 import android.os.Build;
 
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+
 import org.chromium.android_webview.common.Lifetime;
 import org.chromium.android_webview.metrics.TrackExitReasonsOfInterest;
 import org.chromium.base.ObserverList;
 import org.chromium.base.ThreadUtils;
-import org.jni_zero.CalledByNative;
-import org.jni_zero.JNINamespace;
 
 /**
  * This class is intended to notify observers of the existence native instances of
@@ -43,19 +44,16 @@ public class AwContentsLifecycleNotifier {
     /**
      * Observer interface to be implemented by deriving webview lifecycle observers.
      */
-    public interface Observer {
-        void onFirstWebViewCreated();
-
-        void onLastWebViewDestroyed();
+    public static interface Observer {
+        public void onFirstWebViewCreated();
+        public void onLastWebViewDestroyed();
     }
 
     private boolean mHasWebViewInstances;
     private volatile @AppState int mAppState = AppState.DESTROYED;
 
     private final ObserverList<Observer> mLifecycleObservers = new ObserverList<Observer>();
-
-    private AwContentsLifecycleNotifier() {
-    }
+    private AwContentsLifecycleNotifier() {}
 
     public void addObserver(Observer observer) {
         mLifecycleObservers.addObserver(observer);

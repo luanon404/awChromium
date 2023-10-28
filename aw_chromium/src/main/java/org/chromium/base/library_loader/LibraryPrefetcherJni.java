@@ -4,49 +4,63 @@
 package org.chromium.base.library_loader;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.CommandLine;
+import org.chromium.base.ContextUtils;
+import org.chromium.base.SysUtils;
+import org.chromium.base.TraceEvent;
+import org.chromium.base.metrics.RecordHistogram;
+import org.chromium.base.task.PostTask;
+import org.chromium.base.task.TaskTraits;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @CheckDiscard("crbug.com/993421")
 class LibraryPrefetcherJni implements LibraryPrefetcher.Natives {
-    private static LibraryPrefetcher.Natives testInstance;
+  private static LibraryPrefetcher.Natives testInstance;
 
-    public static final JniStaticTestMocker<LibraryPrefetcher.Natives> TEST_HOOKS = new JniStaticTestMocker<LibraryPrefetcher.Natives>() {
-        @Override
-        public void setInstanceForTesting(LibraryPrefetcher.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<LibraryPrefetcher.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<LibraryPrefetcher.Natives>() {
     @Override
-    public void forkAndPrefetchNativeLibrary() {
-        GEN_JNI.org_chromium_base_library_1loader_LibraryPrefetcher_forkAndPrefetchNativeLibrary();
+    public void setInstanceForTesting(LibraryPrefetcher.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public int percentageOfResidentNativeLibraryCode() {
-        return (int) GEN_JNI.org_chromium_base_library_1loader_LibraryPrefetcher_percentageOfResidentNativeLibraryCode();
-    }
+  @Override
+  public void forkAndPrefetchNativeLibrary() {
+    GEN_JNI.org_chromium_base_library_1loader_LibraryPrefetcher_forkAndPrefetchNativeLibrary();
+  }
 
-    @Override
-    public void periodicallyCollectResidency() {
-        GEN_JNI.org_chromium_base_library_1loader_LibraryPrefetcher_periodicallyCollectResidency();
-    }
+  @Override
+  public int percentageOfResidentNativeLibraryCode() {
+    return (int) GEN_JNI.org_chromium_base_library_1loader_LibraryPrefetcher_percentageOfResidentNativeLibraryCode();
+  }
 
-    public static LibraryPrefetcher.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of LibraryPrefetcher.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new LibraryPrefetcherJni();
+  @Override
+  public void periodicallyCollectResidency() {
+    GEN_JNI.org_chromium_base_library_1loader_LibraryPrefetcher_periodicallyCollectResidency();
+  }
+
+  public static LibraryPrefetcher.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of LibraryPrefetcher.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new LibraryPrefetcherJni();
+  }
 }

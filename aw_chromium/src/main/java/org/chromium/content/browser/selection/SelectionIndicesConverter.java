@@ -14,11 +14,11 @@ import java.util.regex.Pattern;
  * Since start offset from showSelectionMenu() event is not very reliable due to JavaScript
  * triggered DOM changes, this class is doing best effort to make sure that we could log as much as
  * we can by detecting such changes.
- * <p>
+ *
  * Usage:
  * When the logging session started, setInitialStartOffset() should be called to set the start
  * offset at that time point.
- * <p>
+ *
  * Each time, before calling getWordDelta() for the current selection modification/action,
  * updateSelectionState() must be called. If updateSelectionState() or getWordDelta() returns false,
  * we should end the current logging session immediately since there must be a DOM change.
@@ -55,7 +55,8 @@ public class SelectionIndicesConverter {
             // We need to compare the overlapping part to make sure that we can update it.
             int l = Math.max(mLastStartOffset, startOffset);
             int r = Math.min(lastEndOffset, endOffset);
-            update = mLastSelectionText.regionMatches(l - mLastStartOffset, selectionText, l - startOffset, r - l);
+            update = mLastSelectionText.regionMatches(
+                    l - mLastStartOffset, selectionText, l - startOffset, r - l);
         }
 
         // Handle adjacent cases.
@@ -98,17 +99,21 @@ public class SelectionIndicesConverter {
             // Use "New York City" as an example, if the selection started with "New", now we want
             // to count "York" by calling countWordBackward(4, 0). We will count "Y" and "New" as
             // two words, but we want the result be 1, so taking one step back here.
-            if (!breakIterator.isBoundary(start) && !isWhitespace(breakIterator.preceding(start), breakIterator.following(start))) {
+            if (!breakIterator.isBoundary(start)
+                    && !isWhitespace(
+                               breakIterator.preceding(start), breakIterator.following(start))) {
                 // We counted a partial word. Remove it.
                 wordIndices[0]--;
             }
         }
 
         if (end <= initialStartOffset) {
-            wordIndices[1] = -countWordsForward(/* start = */ end, initialStartOffset, breakIterator);
+            wordIndices[1] =
+                    -countWordsForward(/* start = */ end, initialStartOffset, breakIterator);
         } else {
             // end > initialStartOffset
-            wordIndices[1] = countWordsBackward(/* start = */ end, initialStartOffset, breakIterator);
+            wordIndices[1] =
+                    countWordsBackward(/* start = */ end, initialStartOffset, breakIterator);
         }
 
         return true;
@@ -202,12 +207,17 @@ public class SelectionIndicesConverter {
 
         // Extends left if necessary.
         if (startOffset < mGlobalStartOffset) {
-            updateGlobalSelection(selectionText.substring(0, mGlobalStartOffset - startOffset) + mGlobalSelectionText, startOffset);
+            updateGlobalSelection(selectionText.substring(0, mGlobalStartOffset - startOffset)
+                            + mGlobalSelectionText,
+                    startOffset);
         }
 
         // Extends right if necessary.
         if (endOffset > globalEndOffset) {
-            updateGlobalSelection(mGlobalSelectionText + selectionText.substring(globalEndOffset - startOffset, selectionText.length()), mGlobalStartOffset);
+            updateGlobalSelection(mGlobalSelectionText
+                            + selectionText.substring(
+                                      globalEndOffset - startOffset, selectionText.length()),
+                    mGlobalStartOffset);
         }
     }
 }

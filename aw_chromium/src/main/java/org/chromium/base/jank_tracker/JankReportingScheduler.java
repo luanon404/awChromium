@@ -57,7 +57,8 @@ public class JankReportingScheduler {
             getOrCreateHandler().removeCallbacks(stopTask);
             mRunnableStore.remove(scenario);
         }
-        getOrCreateHandler().post(new JankReportingRunnable(mFrameMetricsStore, scenario, /* isStartingTracking= */ true, mHandler, null));
+        getOrCreateHandler().post(new JankReportingRunnable(
+                mFrameMetricsStore, scenario, /* isStartingTracking= */ true, mHandler, null));
     }
 
     public void finishTrackingScenario(@JankScenario int scenario) {
@@ -68,11 +69,13 @@ public class JankReportingScheduler {
         finishTrackingScenario(scenario, JankEndScenarioTime.endAt(endScenarioTimeNs));
     }
 
-    public void finishTrackingScenario(@JankScenario int scenario, JankEndScenarioTime endScenarioTime) {
+    public void finishTrackingScenario(
+            @JankScenario int scenario, JankEndScenarioTime endScenarioTime) {
         // We store the stop task in case the delay is greater than zero and we start this scenario
         // again.
-        JankReportingRunnable runnable = mRunnableStore.getOrDefault(scenario, new JankReportingRunnable(mFrameMetricsStore, scenario,
-                /* isStartingTracking= */ false, mHandler, endScenarioTime));
+        JankReportingRunnable runnable = mRunnableStore.getOrDefault(scenario,
+                new JankReportingRunnable(mFrameMetricsStore, scenario,
+                        /* isStartingTracking= */ false, mHandler, endScenarioTime));
         getOrCreateHandler().post(runnable);
     }
 

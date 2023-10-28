@@ -12,7 +12,6 @@ import java.util.List;
 /**
  * A minimal subset of the functionality of {@link List}, to allow easier implementation in
  * classes that already extend another class and therefore can't inherit from {@link AbstractList}.
- *
  * @param <T> The type of list item.
  */
 public interface SimpleList<T> extends Iterable<T> {
@@ -24,7 +23,6 @@ public interface SimpleList<T> extends Iterable<T> {
 
     /**
      * Returns the item at the given position.
-     *
      * @param index The position to get the item from.
      * @return Returns the found item.
      * @see List#get

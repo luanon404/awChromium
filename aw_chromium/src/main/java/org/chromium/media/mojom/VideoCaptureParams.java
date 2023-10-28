@@ -13,10 +13,13 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class VideoCaptureParams extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 32;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(32, 0), new org.chromium.mojo.bindings.DataHeader(32, 1)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(32, 0),new org.chromium.mojo.bindings.DataHeader(32, 1)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[1];
     public VideoCaptureFormat requestedFormat;
     public int bufferType;
@@ -43,7 +46,8 @@ public final class VideoCaptureParams extends org.chromium.mojo.bindings.Struct 
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static VideoCaptureParams deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -57,37 +61,37 @@ public final class VideoCaptureParams extends org.chromium.mojo.bindings.Struct 
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new VideoCaptureParams(elementsOrVersion);
-            {
-
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                 result.requestedFormat = VideoCaptureFormat.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.bufferType = decoder0.readInt(16);
-                VideoCaptureBufferType.validate(result.bufferType);
-                result.bufferType = VideoCaptureBufferType.toKnownValue(result.bufferType);
-            }
-            {
-
+                    VideoCaptureBufferType.validate(result.bufferType);
+                    result.bufferType = VideoCaptureBufferType.toKnownValue(result.bufferType);
+                }
+                {
+                    
                 result.resolutionChangePolicy = decoder0.readInt(20);
-                ResolutionChangePolicy.validate(result.resolutionChangePolicy);
-                result.resolutionChangePolicy = ResolutionChangePolicy.toKnownValue(result.resolutionChangePolicy);
-            }
-            {
-
+                    ResolutionChangePolicy.validate(result.resolutionChangePolicy);
+                    result.resolutionChangePolicy = ResolutionChangePolicy.toKnownValue(result.resolutionChangePolicy);
+                }
+                {
+                    
                 result.powerLineFrequency = decoder0.readInt(24);
-                PowerLineFrequency.validate(result.powerLineFrequency);
-                result.powerLineFrequency = PowerLineFrequency.toKnownValue(result.powerLineFrequency);
-            }
-            {
-
+                    PowerLineFrequency.validate(result.powerLineFrequency);
+                    result.powerLineFrequency = PowerLineFrequency.toKnownValue(result.powerLineFrequency);
+                }
+                {
+                    
                 result.enableFaceDetection = decoder0.readBoolean(28, 0);
-            }
+                }
             if (elementsOrVersion >= 1) {
                 {
-
-                    result.isHighDpiEnabled = decoder0.readBoolean(28, 1);
+                    
+                result.isHighDpiEnabled = decoder0.readBoolean(28, 1);
                 }
             }
 
@@ -101,17 +105,17 @@ public final class VideoCaptureParams extends org.chromium.mojo.bindings.Struct 
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.requestedFormat, 8, false);
-
+        
         encoder0.encode(this.bufferType, 16);
-
+        
         encoder0.encode(this.resolutionChangePolicy, 20);
-
+        
         encoder0.encode(this.powerLineFrequency, 24);
-
+        
         encoder0.encode(this.enableFaceDetection, 28, 0);
-
+        
         encoder0.encode(this.isHighDpiEnabled, 28, 1);
     }
 }

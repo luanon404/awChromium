@@ -19,7 +19,7 @@ import java.util.concurrent.Callable;
 
 /**
  * This class tries to upload a minidump to the crash server.
- * <p>
+ *
  * It is implemented as a Callable<Boolean> and returns true on successful uploads,
  * and false otherwise.
  */
@@ -30,7 +30,8 @@ public class MinidumpUploadCallable implements Callable<Integer> {
     // "crash_dump_week_upload_size" - Deprecated prefs used for limiting crash report uploads over
     // cellular network. Last used in M47, removed in M78.
 
-    @IntDef({MinidumpUploadStatus.SUCCESS, MinidumpUploadStatus.FAILURE, MinidumpUploadStatus.USER_DISABLED, MinidumpUploadStatus.DISABLED_BY_SAMPLING})
+    @IntDef({MinidumpUploadStatus.SUCCESS, MinidumpUploadStatus.FAILURE,
+            MinidumpUploadStatus.USER_DISABLED, MinidumpUploadStatus.DISABLED_BY_SAMPLING})
     @Retention(RetentionPolicy.SOURCE)
     public @interface MinidumpUploadStatus {
         int SUCCESS = 0;
@@ -44,11 +45,13 @@ public class MinidumpUploadCallable implements Callable<Integer> {
     private final CrashReportingPermissionManager mPermManager;
     private final MinidumpUploader mMinidumpUploader;
 
-    public MinidumpUploadCallable(File fileToUpload, File logfile, CrashReportingPermissionManager permissionManager) {
+    public MinidumpUploadCallable(
+            File fileToUpload, File logfile, CrashReportingPermissionManager permissionManager) {
         this(fileToUpload, logfile, new MinidumpUploader(), permissionManager);
     }
 
-    public MinidumpUploadCallable(File fileToUpload, File logfile, MinidumpUploader minidumpUploader, CrashReportingPermissionManager permissionManager) {
+    public MinidumpUploadCallable(File fileToUpload, File logfile,
+            MinidumpUploader minidumpUploader, CrashReportingPermissionManager permissionManager) {
         mFileToUpload = fileToUpload;
         mLogfile = logfile;
         mMinidumpUploader = minidumpUploader;
@@ -61,13 +64,16 @@ public class MinidumpUploadCallable implements Callable<Integer> {
             Log.i(TAG, "Minidump upload enabled for tests, skipping other checks.");
         } else if (!CrashFileManager.isForcedUpload(mFileToUpload)) {
             if (!mPermManager.isUsageAndCrashReportingPermitted()) {
-                Log.i(TAG, "Minidump upload is not permitted. Marking file as skipped " + "for cleanup to prevent future uploads.");
+                Log.i(TAG,
+                        "Minidump upload is not permitted. Marking file as skipped "
+                                + "for cleanup to prevent future uploads.");
                 CrashFileManager.markUploadSkipped(mFileToUpload);
                 return MinidumpUploadStatus.USER_DISABLED;
             }
 
             if (!mPermManager.isClientInMetricsSample()) {
-                Log.i(TAG, "Minidump upload skipped due to sampling.  Marking file as skipped for " + "cleanup to prevent future uploads.");
+                Log.i(TAG, "Minidump upload skipped due to sampling.  Marking file as skipped for "
+                                + "cleanup to prevent future uploads.");
                 CrashFileManager.markUploadSkipped(mFileToUpload);
                 return MinidumpUploadStatus.DISABLED_BY_SAMPLING;
             }
@@ -102,13 +108,16 @@ public class MinidumpUploadCallable implements Callable<Integer> {
         if (result.isUploadError()) {
             // Log the results of the upload. Note that periodic upload failures aren't bad
             // because we will need to throttle uploads in the future anyway.
-            String msg = String.format(Locale.US, "Failed to upload %s with code: %d (%s).", mFileToUpload.getName(), result.errorCode(), result.message());
+            String msg = String.format(Locale.US, "Failed to upload %s with code: %d (%s).",
+                    mFileToUpload.getName(), result.errorCode(), result.message());
             Log.i(TAG, msg);
 
             // TODO(acleung): The return status informs us about why an upload might be
             // rejected. The next logical step is to put the reasons in an UMA histogram.
         } else {
-            Log.e(TAG, "Local error while uploading " + mFileToUpload.getName() + ": " + result.message());
+            Log.e(TAG,
+                    "Local error while uploading " + mFileToUpload.getName() + ": "
+                            + result.message());
         }
         return MinidumpUploadStatus.FAILURE;
     }
@@ -117,7 +126,7 @@ public class MinidumpUploadCallable implements Callable<Integer> {
      * Records the upload entry to a log file
      * similar to what is done in chrome/app/breakpad_linux.cc
      *
-     * @param localId  The local ID when crash happened.
+     * @param localId The local ID when crash happened.
      * @param uploadId The crash ID return from the server.
      */
     private void appendUploadedEntryToLog(String localId, String uploadId) throws IOException {

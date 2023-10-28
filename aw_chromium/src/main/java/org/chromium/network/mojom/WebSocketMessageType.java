@@ -17,10 +17,13 @@ import androidx.annotation.IntDef;
 
 public final class WebSocketMessageType {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({WebSocketMessageType.CONTINUATION, WebSocketMessageType.TEXT, WebSocketMessageType.BINARY, WebSocketMessageType.LAST})
-    public @interface EnumType {
-    }
+        WebSocketMessageType.CONTINUATION,
+        WebSocketMessageType.TEXT,
+        WebSocketMessageType.BINARY,
+        WebSocketMessageType.LAST})
+    public @interface EnumType {}
 
     public static final int CONTINUATION = 0;
     public static final int TEXT = 1;
@@ -39,9 +42,8 @@ public final class WebSocketMessageType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private WebSocketMessageType() {
-    }
+    private WebSocketMessageType() {}
 }

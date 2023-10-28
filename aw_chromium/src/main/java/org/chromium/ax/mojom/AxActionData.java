@@ -13,10 +13,13 @@
 
 package org.chromium.ax.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class AxActionData extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 128;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(112, 0), new org.chromium.mojo.bindings.DataHeader(128, 1)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(112, 0),new org.chromium.mojo.bindings.DataHeader(128, 1)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[1];
     public int action;
     public AxTreeId targetTreeId;
@@ -56,7 +59,8 @@ public final class AxActionData extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static AxActionData deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -70,94 +74,94 @@ public final class AxActionData extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new AxActionData(elementsOrVersion);
-            {
-
+                {
+                    
                 result.action = decoder0.readInt(8);
-                Action.validate(result.action);
-                result.action = Action.toKnownValue(result.action);
-            }
-            {
-
+                    Action.validate(result.action);
+                    result.action = Action.toKnownValue(result.action);
+                }
+                {
+                    
                 result.targetNodeId = decoder0.readInt(12);
-            }
-            {
-
+                }
+                {
+                    
                 result.targetTreeId = AxTreeId.decode(decoder0, 16);
-            }
-            {
-
+                }
+                {
+                    
                 result.sourceExtensionId = decoder0.readString(32, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.requestId = decoder0.readInt(40);
-            }
-            {
-
+                }
+                {
+                    
                 result.flags = decoder0.readInt(44);
-            }
-            {
-
+                }
+                {
+                    
                 result.anchorNodeId = decoder0.readInt(48);
-            }
-            {
-
+                }
+                {
+                    
                 result.anchorOffset = decoder0.readInt(52);
-            }
-            {
-
+                }
+                {
+                    
                 result.focusNodeId = decoder0.readInt(56);
-            }
-            {
-
+                }
+                {
+                    
                 result.focusOffset = decoder0.readInt(60);
-            }
-            {
-
+                }
+                {
+                    
                 result.customActionId = decoder0.readInt(64);
-            }
-            {
-
+                }
+                {
+                    
                 result.hitTestEventToFire = decoder0.readInt(68);
-                Event.validate(result.hitTestEventToFire);
-                result.hitTestEventToFire = Event.toKnownValue(result.hitTestEventToFire);
-            }
-            {
-
+                    Event.validate(result.hitTestEventToFire);
+                    result.hitTestEventToFire = Event.toKnownValue(result.hitTestEventToFire);
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(72, false);
                 result.targetRect = org.chromium.gfx.mojom.Rect.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(80, false);
                 result.targetPoint = org.chromium.gfx.mojom.Point.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.value = decoder0.readString(88, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.horizontalScrollAlignment = decoder0.readInt(96);
-                ScrollAlignment.validate(result.horizontalScrollAlignment);
-                result.horizontalScrollAlignment = ScrollAlignment.toKnownValue(result.horizontalScrollAlignment);
-            }
-            {
-
+                    ScrollAlignment.validate(result.horizontalScrollAlignment);
+                    result.horizontalScrollAlignment = ScrollAlignment.toKnownValue(result.horizontalScrollAlignment);
+                }
+                {
+                    
                 result.verticalScrollAlignment = decoder0.readInt(100);
-                ScrollAlignment.validate(result.verticalScrollAlignment);
-                result.verticalScrollAlignment = ScrollAlignment.toKnownValue(result.verticalScrollAlignment);
-            }
-            {
-
+                    ScrollAlignment.validate(result.verticalScrollAlignment);
+                    result.verticalScrollAlignment = ScrollAlignment.toKnownValue(result.verticalScrollAlignment);
+                }
+                {
+                    
                 result.scrollBehavior = decoder0.readInt(104);
-                ScrollBehavior.validate(result.scrollBehavior);
-                result.scrollBehavior = ScrollBehavior.toKnownValue(result.scrollBehavior);
-            }
+                    ScrollBehavior.validate(result.scrollBehavior);
+                    result.scrollBehavior = ScrollBehavior.toKnownValue(result.scrollBehavior);
+                }
             if (elementsOrVersion >= 1) {
                 {
-
-                    result.childTreeId = AxTreeId.decode(decoder0, 112);
+                    
+                result.childTreeId = AxTreeId.decode(decoder0, 112);
                 }
             }
 
@@ -171,43 +175,43 @@ public final class AxActionData extends org.chromium.mojo.bindings.Struct {
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.action, 8);
-
+        
         encoder0.encode(this.targetNodeId, 12);
-
+        
         encoder0.encode(this.targetTreeId, 16, false);
-
+        
         encoder0.encode(this.sourceExtensionId, 32, false);
-
+        
         encoder0.encode(this.requestId, 40);
-
+        
         encoder0.encode(this.flags, 44);
-
+        
         encoder0.encode(this.anchorNodeId, 48);
-
+        
         encoder0.encode(this.anchorOffset, 52);
-
+        
         encoder0.encode(this.focusNodeId, 56);
-
+        
         encoder0.encode(this.focusOffset, 60);
-
+        
         encoder0.encode(this.customActionId, 64);
-
+        
         encoder0.encode(this.hitTestEventToFire, 68);
-
+        
         encoder0.encode(this.targetRect, 72, false);
-
+        
         encoder0.encode(this.targetPoint, 80, false);
-
+        
         encoder0.encode(this.value, 88, false);
-
+        
         encoder0.encode(this.horizontalScrollAlignment, 96);
-
+        
         encoder0.encode(this.verticalScrollAlignment, 100);
-
+        
         encoder0.encode(this.scrollBehavior, 104);
-
+        
         encoder0.encode(this.childTreeId, 112, true);
     }
 }

@@ -20,6 +20,10 @@ import android.text.format.DateUtils;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+
 import org.chromium.base.ContextUtils;
 import org.chromium.base.Log;
 import org.chromium.base.StrictModeContext;
@@ -27,9 +31,6 @@ import org.chromium.base.compat.ApiHelperForQ;
 import org.chromium.third_party.android.provider.MediaStoreUtils;
 import org.chromium.third_party.android.provider.MediaStoreUtils.PendingParams;
 import org.chromium.third_party.android.provider.MediaStoreUtils.PendingSession;
-import org.jni_zero.CalledByNative;
-import org.jni_zero.JNINamespace;
-import org.jni_zero.NativeMethods;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -52,12 +53,13 @@ public class DownloadCollectionBridge {
     // that of download_path_reservation_tracker.cc.
     private static final String FILE_NAME_PATTERN = "yyyy-MM-dd'T'HHmmss.SSS";
 
-    private static final List<String> COMMON_DOUBLE_EXTENSIONS = new ArrayList<String>(Arrays.asList("tar.gz", "tar.z", "tar.bz2", "tar.bz", "user.js"));
+    private static final List<String> COMMON_DOUBLE_EXTENSIONS =
+            new ArrayList<String>(Arrays.asList("tar.gz", "tar.z", "tar.bz2", "tar.bz", "user.js"));
 
     private static DownloadDelegate sDownloadDelegate = new DownloadDelegate();
 
     /**
-     * Class representing the Uri and display name pair for downloads.
+     *  Class representing the Uri and display name pair for downloads.
      */
     protected static class DisplayNameInfo {
         private final String mUri;
@@ -83,7 +85,6 @@ public class DownloadCollectionBridge {
      * Sets the DownloadDelegate to be used for utility methods.
      * TODO(qinmin): remove this method once we moved all the utility methods into
      * components/.
-     *
      * @param downloadDelegate The new delegate to be used.
      */
     public static void setDownloadDelegate(DownloadDelegate downloadDelegate) {
@@ -98,15 +99,14 @@ public class DownloadCollectionBridge {
     /**
      * Creates an intermediate URI for download to be written into. On completion, call
      * nativeOnCreateIntermediateUriResult() with |callbackId|.
-     *
-     * @param fileName    Name of the file.
-     * @param mimeType    Mime type of the file.
+     * @param fileName Name of the file.
+     * @param mimeType Mime type of the file.
      * @param originalUrl Originating URL of the download.
-     * @param referrer    Referrer of the download.
+     * @param referrer Referrer of the download.
      */
-    @RequiresApi(api = Build.VERSION_CODES.Q)
     @CalledByNative
-    public static String createIntermediateUriForPublish(final String fileName, final String mimeType, final String originalUrl, final String referrer) {
+    public static String createIntermediateUriForPublish(final String fileName,
+            final String mimeType, final String originalUrl, final String referrer) {
         Uri uri = createPendingSessionInternal(fileName, mimeType, originalUrl, referrer);
         if (uri != null) return uri.toString();
 
@@ -126,7 +126,6 @@ public class DownloadCollectionBridge {
 
     /**
      * Returns whether a download needs to be published.
-     *
      * @param filePath File path of the download.
      * @return True if the download needs to be published, or false otherwise.
      */
@@ -142,14 +141,14 @@ public class DownloadCollectionBridge {
 
     /**
      * Copies file content from a source file to the destination Uri.
-     *
-     * @param sourcePath     File content to be copied from.
+     * @param sourcePath File content to be copied from.
      * @param destinationUri Destination Uri to be copied to.
      * @return True on success, or false otherwise.
      */
     @CalledByNative
     @RequiresApi(29)
-    public static boolean copyFileToIntermediateUri(final String sourcePath, final String destinationUri) {
+    public static boolean copyFileToIntermediateUri(
+            final String sourcePath, final String destinationUri) {
         try {
             PendingSession session = openPendingUri(destinationUri);
             OutputStream out = session.openOutputStream();
@@ -166,7 +165,6 @@ public class DownloadCollectionBridge {
 
     /**
      * Deletes the intermediate Uri.
-     *
      * @param uri Intermediate Uri that is going to be deleted.
      */
     @CalledByNative
@@ -177,7 +175,6 @@ public class DownloadCollectionBridge {
 
     /**
      * Publishes the completed download to public download collection.
-     *
      * @param intermediateUri Intermediate Uri that is going to be published.
      * @return Uri of the published file.
      */
@@ -191,7 +188,8 @@ public class DownloadCollectionBridge {
         String mimeType = null;
         Cursor cursor = null;
         try {
-            cursor = resolver.query(Uri.parse(intermediateUri), new String[]{MediaColumns.MIME_TYPE}, null, null, null);
+            cursor = resolver.query(Uri.parse(intermediateUri),
+                    new String[] {MediaColumns.MIME_TYPE}, null, null, null);
             if (cursor != null && cursor.getCount() != 0 && cursor.moveToNext()) {
                 mimeType = cursor.getString(cursor.getColumnIndexOrThrow(MediaColumns.MIME_TYPE));
             }
@@ -217,7 +215,6 @@ public class DownloadCollectionBridge {
 
     /**
      * Opens the intermediate Uri for writing.
-     *
      * @param intermediateUri Intermediate Uri that is going to be written to.
      * @return file descriptor that is opened for writing.
      */
@@ -225,10 +222,12 @@ public class DownloadCollectionBridge {
     private static int openIntermediateUri(final String intermediateUri) {
         try {
             ContentResolver resolver = ContextUtils.getApplicationContext().getContentResolver();
-            ParcelFileDescriptor pfd = resolver.openFileDescriptor(Uri.parse(intermediateUri), "rw");
+            ParcelFileDescriptor pfd =
+                    resolver.openFileDescriptor(Uri.parse(intermediateUri), "rw");
             ContentValues updateValues = new ContentValues();
             updateValues.put("date_expires", getNewExpirationTime());
-            ContextUtils.getApplicationContext().getContentResolver().update(Uri.parse(intermediateUri), updateValues, null, null);
+            ContextUtils.getApplicationContext().getContentResolver().update(
+                    Uri.parse(intermediateUri), updateValues, null, null);
             return pfd.detachFd();
         } catch (Exception e) {
             Log.e(TAG, "Cannot open intermediate Uri.", e);
@@ -238,11 +237,9 @@ public class DownloadCollectionBridge {
 
     /**
      * Check if a download with the same name already exists.
-     *
      * @param fileName The name of the file to check.
      * @return whether a download with the file name exists.
      */
-    @RequiresApi(api = Build.VERSION_CODES.Q)
     @CalledByNative
     private static boolean fileNameExists(final String fileName) {
         return getDownloadUriForFileName(fileName) != null;
@@ -250,7 +247,6 @@ public class DownloadCollectionBridge {
 
     /**
      * Renames a download Uri with a display name.
-     *
      * @param downloadUri Uri of the download.
      * @param displayName New display name for the download.
      * @return whether rename was successful.
@@ -260,12 +256,13 @@ public class DownloadCollectionBridge {
         final ContentValues updateValues = new ContentValues();
         Uri uri = Uri.parse(downloadUri);
         updateValues.put(MediaColumns.DISPLAY_NAME, displayName);
-        return ContextUtils.getApplicationContext().getContentResolver().update(uri, updateValues, null, null) == 1;
+        return ContextUtils.getApplicationContext().getContentResolver().update(
+                       uri, updateValues, null, null)
+                == 1;
     }
 
     /**
      * Gets the display names for all downloads
-     *
      * @return an array of download Uri and display name pair.
      */
     @CalledByNative
@@ -275,12 +272,15 @@ public class DownloadCollectionBridge {
         Cursor cursor = null;
         try {
             Uri uri = Downloads.EXTERNAL_CONTENT_URI;
-            cursor = resolver.query(ApiHelperForQ.setIncludePending(uri), new String[]{BaseColumns._ID, MediaColumns.DISPLAY_NAME}, null, null, null);
+            cursor = resolver.query(ApiHelperForQ.setIncludePending(uri),
+                    new String[] {BaseColumns._ID, MediaColumns.DISPLAY_NAME}, null, null, null);
             if (cursor == null || cursor.getCount() == 0) return null;
             List<DisplayNameInfo> infos = new ArrayList<DisplayNameInfo>();
             while (cursor.moveToNext()) {
-                String displayName = cursor.getString(cursor.getColumnIndexOrThrow(MediaColumns.DISPLAY_NAME));
-                Uri downloadUri = ContentUris.withAppendedId(uri, cursor.getInt(cursor.getColumnIndexOrThrow(BaseColumns._ID)));
+                String displayName =
+                        cursor.getString(cursor.getColumnIndexOrThrow(MediaColumns.DISPLAY_NAME));
+                Uri downloadUri = ContentUris.withAppendedId(
+                        uri, cursor.getInt(cursor.getColumnIndexOrThrow(BaseColumns._ID)));
                 infos.add(new DisplayNameInfo(downloadUri.toString(), displayName));
             }
             return infos.toArray(new DisplayNameInfo[0]);
@@ -301,7 +301,6 @@ public class DownloadCollectionBridge {
 
     /**
      * Gets the content URI of the download that has the given file name.
-     *
      * @param fileName name of the file.
      * @return Uri of the download with the given display name.
      */
@@ -310,10 +309,13 @@ public class DownloadCollectionBridge {
         Cursor cursor = null;
         try {
             Uri uri = Downloads.EXTERNAL_CONTENT_URI;
-            cursor = ContextUtils.getApplicationContext().getContentResolver().query(ApiHelperForQ.setIncludePending(uri), new String[]{BaseColumns._ID}, "_display_name LIKE ?1", new String[]{fileName}, null);
+            cursor = ContextUtils.getApplicationContext().getContentResolver().query(
+                    ApiHelperForQ.setIncludePending(uri), new String[] {BaseColumns._ID},
+                    "_display_name LIKE ?1", new String[] {fileName}, null);
             if (cursor == null) return null;
             if (cursor.moveToNext()) {
-                return ContentUris.withAppendedId(uri, cursor.getInt(cursor.getColumnIndexOrThrow(BaseColumns._ID)));
+                return ContentUris.withAppendedId(
+                        uri, cursor.getInt(cursor.getColumnIndexOrThrow(BaseColumns._ID)));
             }
         } catch (Exception e) {
             Log.e(TAG, "Unable to check file name existence.", e);
@@ -332,19 +334,20 @@ public class DownloadCollectionBridge {
 
     /**
      * Helper method to create a pending session for download to be written into.
-     *
-     * @param fileName    Name of the file.
-     * @param mimeType    Mime type of the file.
+     * @param fileName Name of the file.
+     * @param mimeType Mime type of the file.
      * @param originalUrl Originating URL of the download.
-     * @param referrer    Referrer of the download.
+     * @param referrer Referrer of the download.
      * @return Uri created for the pending session, or null if failed.
      */
-    @RequiresApi(api = Build.VERSION_CODES.Q)
-    private static Uri createPendingSessionInternal(final String fileName, final String mimeType, final String originalUrl, final String referrer) {
-        PendingParams pendingParams = createPendingParams(fileName, mimeType, originalUrl, referrer);
+    private static Uri createPendingSessionInternal(final String fileName, final String mimeType,
+            final String originalUrl, final String referrer) {
+        PendingParams pendingParams =
+                createPendingParams(fileName, mimeType, originalUrl, referrer);
         pendingParams.setExpirationTime(getNewExpirationTime());
         try {
-            return MediaStoreUtils.createPending(ContextUtils.getApplicationContext(), pendingParams);
+            return MediaStoreUtils.createPending(
+                    ContextUtils.getApplicationContext(), pendingParams);
         } catch (Exception e) {
             return null;
         }
@@ -352,17 +355,18 @@ public class DownloadCollectionBridge {
 
     /**
      * Helper method to create PendingParams needed for PendingSession creation.
-     *
-     * @param fileName    Name of the file.
-     * @param mimeType    Mime type of the file.
+     * @param fileName Name of the file.
+     * @param mimeType Mime type of the file.
      * @param originalUrl Originating URL of the download.
-     * @param referrer    Referrer of the download.
+     * @param referrer Referrer of the download.
      * @return PendingParams needed for creating the PendingSession.
      */
     @RequiresApi(29)
-    private static PendingParams createPendingParams(final String fileName, final String mimeType, final String originalUrl, final String referrer) {
+    private static PendingParams createPendingParams(final String fileName, final String mimeType,
+            final String originalUrl, final String referrer) {
         Uri downloadsUri = Downloads.EXTERNAL_CONTENT_URI;
-        String newMimeType = sDownloadDelegate.remapGenericMimeType(mimeType, originalUrl, fileName);
+        String newMimeType =
+                sDownloadDelegate.remapGenericMimeType(mimeType, originalUrl, fileName);
         PendingParams pendingParams = new PendingParams(downloadsUri, fileName, newMimeType);
         Uri originalUri = sDownloadDelegate.parseOriginalUrl(originalUrl);
         Uri referrerUri = TextUtils.isEmpty(referrer) ? null : Uri.parse(referrer);
@@ -372,7 +376,7 @@ public class DownloadCollectionBridge {
     }
 
     /**
-     * Gets the base name, without extension, from a file name.
+     *  Gets the base name, without extension, from a file name.
      *  TODO(qinmin): move this into a common utility class.
      *  @param fileName Name of the file.
      *  @return Base name of the file.
@@ -396,21 +400,23 @@ public class DownloadCollectionBridge {
     }
 
     private static @NonNull PendingSession openPendingUri(final String pendingUri) {
-        return MediaStoreUtils.openPending(ContextUtils.getApplicationContext(), Uri.parse(pendingUri));
+        return MediaStoreUtils.openPending(
+                ContextUtils.getApplicationContext(), Uri.parse(pendingUri));
     }
 
     /**
      * Helper method to generate a new expiration epoch time in seconds.
-     *
      * @return Epoch time value in seconds for the download to expire.
      */
     private static long getNewExpirationTime() {
-        return (System.currentTimeMillis() + DownloadCollectionBridge.getExpirationDurationInDays() * DateUtils.DAY_IN_MILLIS) / 1000;
+        return (System.currentTimeMillis()
+                       + DownloadCollectionBridge.getExpirationDurationInDays()
+                               * DateUtils.DAY_IN_MILLIS)
+                / 1000;
     }
 
     /**
      * Gets the display name for a download.
-     *
      * @param downloadUri Uri of the download.
      * @return the display name of the download.
      */
@@ -419,7 +425,8 @@ public class DownloadCollectionBridge {
         ContentResolver resolver = ContextUtils.getApplicationContext().getContentResolver();
         Cursor cursor = null;
         try {
-            cursor = resolver.query(Uri.parse(downloadUri), new String[]{MediaColumns.DISPLAY_NAME}, null, null, null);
+            cursor = resolver.query(Uri.parse(downloadUri),
+                    new String[] {MediaColumns.DISPLAY_NAME}, null, null, null);
             if (cursor == null || cursor.getCount() == 0) return null;
             if (cursor.moveToNext()) {
                 return cursor.getString(cursor.getColumnIndexOrThrow(MediaColumns.DISPLAY_NAME));

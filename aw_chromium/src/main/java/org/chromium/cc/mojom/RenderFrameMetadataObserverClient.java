@@ -13,21 +13,28 @@
 
 package org.chromium.cc.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface RenderFrameMetadataObserverClient extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends RenderFrameMetadataObserverClient, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends RenderFrameMetadataObserverClient, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<RenderFrameMetadataObserverClient, RenderFrameMetadataObserverClient.Proxy> MANAGER = RenderFrameMetadataObserverClient_Internal.MANAGER;
 
-    void onRenderFrameMetadataChanged(int frameToken, RenderFrameMetadata metadata);
+    void onRenderFrameMetadataChanged(
+int frameToken, RenderFrameMetadata metadata);
 
 
-    void onFrameSubmissionForTesting(int frameToken);
+    void onFrameSubmissionForTesting(
+int frameToken);
 
 
-    void onRootScrollOffsetChanged(org.chromium.gfx.mojom.PointF rootScrollOffset);
+    void onRootScrollOffsetChanged(
+org.chromium.gfx.mojom.PointF rootScrollOffset);
 
 
 }

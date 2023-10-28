@@ -6,12 +6,13 @@ package org.chromium.components.embedder_support.delegate;
 
 import android.view.KeyEvent;
 
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+
 import org.chromium.blink.mojom.DisplayMode;
 import org.chromium.content_public.browser.WebContents;
 import org.chromium.content_public.common.ResourceRequestBody;
 import org.chromium.url.GURL;
-import org.jni_zero.CalledByNative;
-import org.jni_zero.JNINamespace;
 
 /**
  * Java peer of the native class of the same name.
@@ -34,46 +35,40 @@ public class WebContentsDelegateAndroid {
      * @param isRendererInitiated Whether or not the renderer initiated this action.
      */
     @CalledByNative
-    public void openNewTab(GURL url, String extraHeaders, ResourceRequestBody postData, int disposition, boolean isRendererInitiated) {
-    }
+    public void openNewTab(GURL url, String extraHeaders, ResourceRequestBody postData,
+            int disposition, boolean isRendererInitiated) {}
 
     @CalledByNative
-    public void activateContents() {
-    }
+    public void activateContents() {}
 
     @CalledByNative
-    public void closeContents() {
-    }
+    public void closeContents() {}
 
     @CalledByNative
-    public void loadingStateChanged(boolean shouldShowLoadingUI) {
-    }
+    public void loadingStateChanged(boolean shouldShowLoadingUI) {}
 
     @CalledByNative
-    public void navigationStateChanged(int flags) {
-    }
+    public void navigationStateChanged(int flags) {}
 
     @CalledByNative
-    public void visibleSSLStateChanged() {
-    }
+    public void visibleSSLStateChanged() {}
 
     /**
      * Signaled when the renderer has been deemed to be unresponsive.
      */
     @CalledByNative
-    public void rendererUnresponsive() {
-    }
+    public void rendererUnresponsive() {}
 
     /**
      * Signaled when the render has been deemed to be responsive.
      */
     @CalledByNative
-    public void rendererResponsive() {
-    }
+    public void rendererResponsive() {}
 
     @CalledByNative
-    public void webContentsCreated(WebContents sourceWebContents, long openerRenderProcessId, long openerRenderFrameId, String frameName, GURL targetUrl, WebContents newWebContents) {
-    }
+    public void webContentsCreated(WebContents sourceWebContents, long openerRenderProcessId,
+            long openerRenderFrameId, String frameName, GURL targetUrl,
+            WebContents newWebContents) {}
 
     @CalledByNative
     public boolean shouldCreateWebContents(GURL targetUrl) {
@@ -81,8 +76,7 @@ public class WebContentsDelegateAndroid {
     }
 
     @CalledByNative
-    public void onUpdateUrl(GURL url) {
-    }
+    public void onUpdateUrl(GURL url) {}
 
     @CalledByNative
     public boolean takeFocus(boolean reverse) {
@@ -98,10 +92,10 @@ public class WebContentsDelegateAndroid {
     /**
      * Report a JavaScript console message.
      *
-     * @param level      message level. One of WebContentsDelegateAndroid.LOG_LEVEL*.
-     * @param message    the error message.
+     * @param level message level. One of WebContentsDelegateAndroid.LOG_LEVEL*.
+     * @param message the error message.
      * @param lineNumber the line number int the source file at which the error is reported.
-     * @param sourceId   the name of the source file that caused the error.
+     * @param sourceId the name of the source file that caused the error.
      * @return true if the client will handle logging the message.
      */
     @CalledByNative
@@ -115,20 +109,17 @@ public class WebContentsDelegateAndroid {
      * NavigationController.CancelPendingReload.
      */
     @CalledByNative
-    public void showRepostFormWarningDialog() {
-    }
+    public void showRepostFormWarningDialog() {}
 
     @CalledByNative
-    public void enterFullscreenModeForTab(boolean prefersNavigationBar, boolean prefersStatusBar) {
-    }
+    public void enterFullscreenModeForTab(boolean prefersNavigationBar, boolean prefersStatusBar) {}
 
     @CalledByNative
-    public void fullscreenStateChangedForTab(boolean prefersNavigationBar, boolean prefersStatusBar) {
-    }
+    public void fullscreenStateChangedForTab(
+            boolean prefersNavigationBar, boolean prefersStatusBar) {}
 
     @CalledByNative
-    public void exitFullscreenModeForTab() {
-    }
+    public void exitFullscreenModeForTab() {}
 
     @CalledByNative
     public boolean isFullscreenForTabOrPending() {
@@ -137,7 +128,6 @@ public class WebContentsDelegateAndroid {
 
     /**
      * Called when BrowserMediaPlayerManager wants to load a media resource.
-     *
      * @param url the URL of media resource to load.
      * @return true to prevent the resource from being loaded.
      */
@@ -172,7 +162,7 @@ public class WebContentsDelegateAndroid {
 
     /**
      * @return The minimum visible height the bottom controls can have in physical pixels (not
-     * DIPs).
+     *         DIPs).
      */
     @CalledByNative
     public int getBottomControlsMinHeight() {
@@ -197,7 +187,7 @@ public class WebContentsDelegateAndroid {
 
     /**
      * @return If shown, returns the height of the virtual keyboard in physical pixels. Otherwise,
-     * returns 0.
+     *         returns 0.
      */
     @CalledByNative
     public int getVirtualKeyboardHeight() {
@@ -232,6 +222,5 @@ public class WebContentsDelegateAndroid {
      * should intercept.
      */
     @CalledByNative
-    public void didChangeCloseSignalInterceptStatus() {
-    }
+    public void didChangeCloseSignalInterceptStatus() {}
 }

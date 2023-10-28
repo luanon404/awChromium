@@ -21,6 +21,5 @@ public final class AndroidMetricsFeatures {
     public static final String ANDROID_METRICS_ASYNC_METRIC_LOGGING = "AndroidMetricsAsyncMetricLogging";
 
     // Prevents instantiation.
-    private AndroidMetricsFeatures() {
-    }
+    private AndroidMetricsFeatures() {}
 }

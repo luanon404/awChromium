@@ -11,23 +11,15 @@ import android.graphics.Canvas;
  * Vulkan implementations.
  */
 public interface AwFunctor {
-    /**
-     * Insert draw functor into recording canvas
-     */
+    /** Insert draw functor into recording canvas */
     boolean requestDraw(Canvas canvas);
 
-    /**
-     * Return the raw native pointer to CompositorFrameConsumer
-     */
+    /** Return the raw native pointer to CompositorFrameConsumer */
     long getNativeCompositorFrameConsumer();
 
-    /**
-     * Free memory
-     */
+    /** Free memory */
     void trimMemory();
 
-    /**
-     * Destroy on UI thread. Client should stop using CompositorFrameConsumer before this
-     */
+    /** Destroy on UI thread. Client should stop using CompositorFrameConsumer before this */
     void destroy();
 }

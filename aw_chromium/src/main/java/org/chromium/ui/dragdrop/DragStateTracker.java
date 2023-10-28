@@ -6,13 +6,9 @@ package org.chromium.ui.dragdrop;
 
 import android.view.View;
 
-/**
- * Helper class the listen and track the latest drag event for the view.
- */
+/** Helper class the listen and track the latest drag event for the view. */
 public interface DragStateTracker extends View.OnDragListener {
-    /**
-     * Return whether there's an active drag process started.
-     */
+    /** Return whether there's an active drag process started. */
     default boolean isDragStarted() {
         return false;
     }
@@ -33,9 +29,6 @@ public interface DragStateTracker extends View.OnDragListener {
         return 0;
     }
 
-    /**
-     * Clean up and release the memory of this drag state tracker.
-     */
-    default void destroy() {
-    }
+    /** Clean up and release the memory of this drag state tracker. */
+    default void destroy() {}
 }

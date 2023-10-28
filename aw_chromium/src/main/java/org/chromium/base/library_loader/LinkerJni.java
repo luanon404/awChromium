@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 
 /**
  * Mockable stub for all native methods in Linker.
- * <p>
+ *
  * This functionality is usually generated from @NativeMethods, which cannot be used for the
  * auxiliary native library used by classes in Linker and other classes in this package.
  */
@@ -29,7 +29,8 @@ class LinkerJni implements Linker.Natives {
     }
 
     @Override
-    public boolean loadLibrary(String libFilePath, Linker.LibInfo libInfo, boolean spawnRelroRegion) {
+    public boolean loadLibrary(
+            String libFilePath, Linker.LibInfo libInfo, boolean spawnRelroRegion) {
         return nativeLoadLibrary(libFilePath, libInfo, spawnRelroRegion);
     }
 
@@ -45,15 +46,14 @@ class LinkerJni implements Linker.Natives {
 
     // Does not use JNI Generator because the native side is in libchromium_linker.so rather
     // libmonochrome.so
-    private static native void nativeFindMemoryRegionAtRandomAddress(@NonNull Linker.LibInfo libInfo);
-
+    private static native void nativeFindMemoryRegionAtRandomAddress(
+            @NonNull Linker.LibInfo libInfo);
     private static native void nativeReserveMemoryForLibrary(@NonNull Linker.LibInfo libInfo);
-
-    private static native boolean nativeFindRegionReservedByWebViewZygote(@NonNull Linker.LibInfo libInfo);
-
-    private static native boolean nativeLoadLibrary(String libFilePath, Linker.LibInfo libInfo, boolean spawnRelroRegion);
-
-    private static native boolean nativeUseRelros(long localLoadAddress, Linker.LibInfo remoteLibInfo);
-
+    private static native boolean nativeFindRegionReservedByWebViewZygote(
+            @NonNull Linker.LibInfo libInfo);
+    private static native boolean nativeLoadLibrary(
+            String libFilePath, Linker.LibInfo libInfo, boolean spawnRelroRegion);
+    private static native boolean nativeUseRelros(
+            long localLoadAddress, Linker.LibInfo remoteLibInfo);
     private static native int nativeGetRelroSharingResult();
 }

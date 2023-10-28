@@ -32,14 +32,20 @@ public class ManifestMetadataUtil {
 
     // Individual apps can use this meta-data tag in their manifest to opt out of metrics
     // reporting. See https://developer.android.com/reference/android/webkit/WebView.html
-    private static final String METRICS_OPT_OUT_METADATA_NAME = "android.webkit.WebView.MetricsOptOut";
-    private static final String SAFE_BROWSING_OPT_IN_METADATA_NAME = "android.webkit.WebView.EnableSafeBrowsing";
+    private static final String METRICS_OPT_OUT_METADATA_NAME =
+            "android.webkit.WebView.MetricsOptOut";
+    private static final String SAFE_BROWSING_OPT_IN_METADATA_NAME =
+            "android.webkit.WebView.EnableSafeBrowsing";
 
     // Do not change value, it is used by external AndroidManifest.xml files
-    private static final String METADATA_HOLDER_SERVICE_NAME = "android.webkit.MetaDataHolderService";
+    private static final String METADATA_HOLDER_SERVICE_NAME =
+            "android.webkit.MetaDataHolderService";
     // Do not change value, it is used by external AndroidManifest.xml files
-    private static final String XRW_ALLOWLIST_METADATA_NAME = "REQUESTED_WITH_HEADER_ORIGIN_ALLOW_LIST";
-    private static final String XRW_PARSING_ERROR_MESSAGE = "Value of meta-data " + XRW_ALLOWLIST_METADATA_NAME + " in service " + METADATA_HOLDER_SERVICE_NAME + " must be a resource ID referencing a string-array resource.";
+    private static final String XRW_ALLOWLIST_METADATA_NAME =
+            "REQUESTED_WITH_HEADER_ORIGIN_ALLOW_LIST";
+    private static final String XRW_PARSING_ERROR_MESSAGE = "Value of meta-data "
+            + XRW_ALLOWLIST_METADATA_NAME + " in service " + METADATA_HOLDER_SERVICE_NAME
+            + " must be a resource ID referencing a string-array resource.";
 
     private static Set<String> sXRequestedWithAllowListOverride;
 
@@ -49,7 +55,8 @@ public class ManifestMetadataUtil {
     public static boolean isAppOptedOutFromMetricsCollection() {
         Context ctx = ContextUtils.getApplicationContext();
         try {
-            ApplicationInfo info = ctx.getPackageManager().getApplicationInfo(ctx.getPackageName(), PackageManager.GET_META_DATA);
+            ApplicationInfo info = ctx.getPackageManager().getApplicationInfo(
+                    ctx.getPackageName(), PackageManager.GET_META_DATA);
             if (info.metaData == null) {
                 // null means no such tag was found.
                 return false;
@@ -73,8 +80,10 @@ public class ManifestMetadataUtil {
     public static Boolean getSafeBrowsingAppOptInPreference() {
         Context ctx = ContextUtils.getApplicationContext();
         try {
-            ApplicationInfo info = ctx.getPackageManager().getApplicationInfo(ctx.getPackageName(), PackageManager.GET_META_DATA);
-            if (info.metaData == null || !info.metaData.containsKey(SAFE_BROWSING_OPT_IN_METADATA_NAME)) {
+            ApplicationInfo info = ctx.getPackageManager().getApplicationInfo(
+                    ctx.getPackageName(), PackageManager.GET_META_DATA);
+            if (info.metaData == null
+                    || !info.metaData.containsKey(SAFE_BROWSING_OPT_IN_METADATA_NAME)) {
                 // No <meta-data> tag was found.
                 return null;
             }
@@ -89,7 +98,7 @@ public class ManifestMetadataUtil {
     /**
      * Get the configured allow-list for X-Requested-With origins, if present, otherwise {@code
      * null}.
-     * <p>
+     *
      * The allowlist should be declared in the manifest with the snippet
      * <pre>
      *    &lt;service android:name="androidx.webkit.MetaDataHolderService"
@@ -121,12 +130,12 @@ public class ManifestMetadataUtil {
 
     /**
      * Pulls out X-Requested-With header from the metadata bundle, if present.
-     *
      * @param context Application context
-     * @param bundle  Bundle to extract the resource from
+     * @param bundle Bundle to extract the resource from
      * @return Set of strings, possibly empty if unable to find the key.
      */
-    private static Set<String> getXRequestedWithAllowListFromMetadata(final Context context, Bundle bundle) {
+    private static Set<String> getXRequestedWithAllowListFromMetadata(
+            final Context context, Bundle bundle) {
         if (!bundle.containsKey(XRW_ALLOWLIST_METADATA_NAME)) {
             return Collections.emptySet();
         }
@@ -143,13 +152,15 @@ public class ManifestMetadataUtil {
      * Get metadata bundle from ApplicationManifest.xml registered to
      * the {@link ManifestMetadataUtil#METADATA_HOLDER_SERVICE_NAME} service.
      *
-     * @param context Application context
      * @return Metadata bundle or {@code null} if no metadata was found.
+     * @param context Application context
      */
     private static Bundle getMetadataHolderServiceBundle(final Context context) {
         int flags = PackageManager.GET_META_DATA | PackageManager.MATCH_DISABLED_COMPONENTS;
         try {
-            return context.getPackageManager().getServiceInfo(new ComponentName(context, METADATA_HOLDER_SERVICE_NAME), flags).metaData;
+            return context.getPackageManager()
+                    .getServiceInfo(new ComponentName(context, METADATA_HOLDER_SERVICE_NAME), flags)
+                    .metaData;
         } catch (NameNotFoundException e) {
             return null;
         }
@@ -157,7 +168,6 @@ public class ManifestMetadataUtil {
 
     /**
      * Set the value to be returned by {@link ManifestMetadataUtil#getXRequestedWithAllowList()}.
-     *
      * @return AutoCloseable that will reset the value when closed.
      */
     public static AutoCloseable setXRequestedWithAllowListScopedForTesting(Set<String> allowList) {

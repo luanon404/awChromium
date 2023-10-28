@@ -12,9 +12,10 @@ import android.content.IntentFilter;
 import android.os.PowerManager;
 import android.os.SystemClock;
 
-import org.chromium.base.ContextUtils;
 import org.jni_zero.CalledByNative;
 import org.jni_zero.JNINamespace;
+
+import org.chromium.base.ContextUtils;
 
 import java.util.concurrent.TimeUnit;
 
@@ -42,7 +43,8 @@ public class IdleDetector extends BroadcastReceiver {
         IntentFilter filter = new IntentFilter();
         filter.addAction(Intent.ACTION_SCREEN_OFF);
         filter.addAction(Intent.ACTION_USER_PRESENT);
-        ContextUtils.registerProtectedBroadcastReceiver(ContextUtils.getApplicationContext(), this, filter);
+        ContextUtils.registerProtectedBroadcastReceiver(
+                ContextUtils.getApplicationContext(), this, filter);
     }
 
     @CalledByNative
@@ -82,7 +84,8 @@ public class IdleDetector extends BroadcastReceiver {
     @CalledByNative
     private boolean isScreenLocked() {
         Context context = ContextUtils.getApplicationContext();
-        KeyguardManager keyguardManager = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
+        KeyguardManager keyguardManager =
+                (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
         if (keyguardManager.inKeyguardRestrictedInputMode()) return true;
 
         PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);

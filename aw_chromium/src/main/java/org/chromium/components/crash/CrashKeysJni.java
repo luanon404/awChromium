@@ -4,39 +4,48 @@
 package org.chromium.components.crash;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import androidx.annotation.Nullable;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.ThreadUtils;
+import java.util.concurrent.atomic.AtomicReferenceArray;
 
 @CheckDiscard("crbug.com/993421")
 class CrashKeysJni implements CrashKeys.Natives {
-    private static CrashKeys.Natives testInstance;
+  private static CrashKeys.Natives testInstance;
 
-    public static final JniStaticTestMocker<CrashKeys.Natives> TEST_HOOKS = new JniStaticTestMocker<CrashKeys.Natives>() {
-        @Override
-        public void setInstanceForTesting(CrashKeys.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<CrashKeys.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<CrashKeys.Natives>() {
     @Override
-    public void set(CrashKeys caller, int key, String value) {
-        GEN_JNI.org_chromium_components_crash_CrashKeys_set(caller, key, value);
+    public void setInstanceForTesting(CrashKeys.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    public static CrashKeys.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of CrashKeys.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new CrashKeysJni();
+  @Override
+  public void set(CrashKeys caller, int key, String value) {
+    GEN_JNI.org_chromium_components_crash_CrashKeys_set(caller, key, value);
+  }
+
+  public static CrashKeys.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of CrashKeys.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new CrashKeysJni();
+  }
 }

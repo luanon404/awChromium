@@ -19,15 +19,19 @@ import androidx.annotation.IntDef;
 public final class ResolveHostParameters extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 40;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(40, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(40, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
 
     public static final class Source {
         private static final boolean IS_EXTENSIBLE = false;
+        @IntDef({
 
-        @IntDef({Source.ANY, Source.SYSTEM, Source.DNS, Source.MULTICAST_DNS, Source.LOCAL_ONLY})
-        public @interface EnumType {
-        }
+            Source.ANY,
+            Source.SYSTEM,
+            Source.DNS,
+            Source.MULTICAST_DNS,
+            Source.LOCAL_ONLY})
+        public @interface EnumType {}
 
         public static final int ANY = 0;
         public static final int SYSTEM = 1;
@@ -47,21 +51,20 @@ public final class ResolveHostParameters extends org.chromium.mojo.bindings.Stru
         }
 
         public static int toKnownValue(int value) {
-            return value;
+          return value;
         }
 
-        private Source() {
-        }
+        private Source() {}
     }
 
     public static final class CacheUsage {
         private static final boolean IS_EXTENSIBLE = false;
-
         @IntDef({
 
-                CacheUsage.ALLOWED, CacheUsage.STALE_ALLOWED, CacheUsage.DISALLOWED})
-        public @interface EnumType {
-        }
+            CacheUsage.ALLOWED,
+            CacheUsage.STALE_ALLOWED,
+            CacheUsage.DISALLOWED})
+        public @interface EnumType {}
 
         public static final int ALLOWED = 0;
         public static final int STALE_ALLOWED = 1;
@@ -79,21 +82,19 @@ public final class ResolveHostParameters extends org.chromium.mojo.bindings.Stru
         }
 
         public static int toKnownValue(int value) {
-            return value;
+          return value;
         }
 
-        private CacheUsage() {
-        }
+        private CacheUsage() {}
     }
 
     public static final class Purpose {
         private static final boolean IS_EXTENSIBLE = false;
-
         @IntDef({
 
-                Purpose.UNSPECIFIED, Purpose.PRECONNECT})
-        public @interface EnumType {
-        }
+            Purpose.UNSPECIFIED,
+            Purpose.PRECONNECT})
+        public @interface EnumType {}
 
         public static final int UNSPECIFIED = 0;
         public static final int PRECONNECT = 1;
@@ -110,13 +111,11 @@ public final class ResolveHostParameters extends org.chromium.mojo.bindings.Stru
         }
 
         public static int toKnownValue(int value) {
-            return value;
+          return value;
         }
 
-        private Purpose() {
-        }
+        private Purpose() {}
     }
-
     public int dnsQueryType;
     public int initialPriority;
     public int source;
@@ -155,7 +154,8 @@ public final class ResolveHostParameters extends org.chromium.mojo.bindings.Stru
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static ResolveHostParameters deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -169,58 +169,58 @@ public final class ResolveHostParameters extends org.chromium.mojo.bindings.Stru
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new ResolveHostParameters(elementsOrVersion);
-            {
-
+                {
+                    
                 result.dnsQueryType = decoder0.readInt(8);
-                DnsQueryType.validate(result.dnsQueryType);
-                result.dnsQueryType = DnsQueryType.toKnownValue(result.dnsQueryType);
-            }
-            {
-
+                    DnsQueryType.validate(result.dnsQueryType);
+                    result.dnsQueryType = DnsQueryType.toKnownValue(result.dnsQueryType);
+                }
+                {
+                    
                 result.initialPriority = decoder0.readInt(12);
-                RequestPriority.validate(result.initialPriority);
-                result.initialPriority = RequestPriority.toKnownValue(result.initialPriority);
-            }
-            {
-
+                    RequestPriority.validate(result.initialPriority);
+                    result.initialPriority = RequestPriority.toKnownValue(result.initialPriority);
+                }
+                {
+                    
                 result.source = decoder0.readInt(16);
-                ResolveHostParameters.Source.validate(result.source);
-                result.source = ResolveHostParameters.Source.toKnownValue(result.source);
-            }
-            {
-
+                    ResolveHostParameters.Source.validate(result.source);
+                    result.source = ResolveHostParameters.Source.toKnownValue(result.source);
+                }
+                {
+                    
                 result.cacheUsage = decoder0.readInt(20);
-                ResolveHostParameters.CacheUsage.validate(result.cacheUsage);
-                result.cacheUsage = ResolveHostParameters.CacheUsage.toKnownValue(result.cacheUsage);
-            }
-            {
-
+                    ResolveHostParameters.CacheUsage.validate(result.cacheUsage);
+                    result.cacheUsage = ResolveHostParameters.CacheUsage.toKnownValue(result.cacheUsage);
+                }
+                {
+                    
                 result.controlHandle = decoder0.readInterfaceRequest(24, true);
-            }
-            {
-
+                }
+                {
+                    
                 result.includeCanonicalName = decoder0.readBoolean(28, 0);
-            }
-            {
-
+                }
+                {
+                    
                 result.loopbackOnly = decoder0.readBoolean(28, 1);
-            }
-            {
-
+                }
+                {
+                    
                 result.isSpeculative = decoder0.readBoolean(28, 2);
-            }
-            {
-
+                }
+                {
+                    
                 result.secureDnsPolicy = decoder0.readInt(32);
-                SecureDnsPolicy.validate(result.secureDnsPolicy);
-                result.secureDnsPolicy = SecureDnsPolicy.toKnownValue(result.secureDnsPolicy);
-            }
-            {
-
+                    SecureDnsPolicy.validate(result.secureDnsPolicy);
+                    result.secureDnsPolicy = SecureDnsPolicy.toKnownValue(result.secureDnsPolicy);
+                }
+                {
+                    
                 result.purpose = decoder0.readInt(36);
-                ResolveHostParameters.Purpose.validate(result.purpose);
-                result.purpose = ResolveHostParameters.Purpose.toKnownValue(result.purpose);
-            }
+                    ResolveHostParameters.Purpose.validate(result.purpose);
+                    result.purpose = ResolveHostParameters.Purpose.toKnownValue(result.purpose);
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -232,25 +232,25 @@ public final class ResolveHostParameters extends org.chromium.mojo.bindings.Stru
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.dnsQueryType, 8);
-
+        
         encoder0.encode(this.initialPriority, 12);
-
+        
         encoder0.encode(this.source, 16);
-
+        
         encoder0.encode(this.cacheUsage, 20);
-
+        
         encoder0.encode(this.controlHandle, 24, true);
-
+        
         encoder0.encode(this.includeCanonicalName, 28, 0);
-
+        
         encoder0.encode(this.loopbackOnly, 28, 1);
-
+        
         encoder0.encode(this.isSpeculative, 28, 2);
-
+        
         encoder0.encode(this.secureDnsPolicy, 32);
-
+        
         encoder0.encode(this.purpose, 36);
     }
 }

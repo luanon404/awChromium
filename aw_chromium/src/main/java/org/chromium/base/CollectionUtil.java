@@ -24,8 +24,7 @@ import java.util.List;
  * further details)
  */
 public final class CollectionUtil {
-    private CollectionUtil() {
-    }
+    private CollectionUtil() {}
 
     @SafeVarargs
     public static <E> HashSet<E> newHashSet(E... elements) {
@@ -71,7 +70,7 @@ public final class CollectionUtil {
 
     /**
      * Removes null entries from the given collection and then returns a list of strong references.
-     * <p>
+     *
      * Note: This helper is relevant if you have a List<WeakReference<T>> or a Map with weak values.
      * For Set<WeakReference<T>>, use Collections.newSetFromMap(new WeakHashMap()) instead.
      *

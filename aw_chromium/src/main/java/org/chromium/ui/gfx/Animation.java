@@ -6,9 +6,10 @@ package org.chromium.ui.gfx;
 
 import android.provider.Settings;
 
-import org.chromium.base.ContextUtils;
 import org.jni_zero.CalledByNative;
 import org.jni_zero.JNINamespace;
+
+import org.chromium.base.ContextUtils;
 
 /**
  * Provides utility methods relating to system animation state on the current platform (i.e. Android
@@ -21,7 +22,9 @@ public class Animation {
         // We default to assuming that animations are enabled, to avoid impacting the experience for
         // users that don't have ANIMATOR_DURATION_SCALE defined.
         final float defaultScale = 1f;
-        float durationScale = Settings.Global.getFloat(ContextUtils.getApplicationContext().getContentResolver(), Settings.Global.ANIMATOR_DURATION_SCALE, defaultScale);
+        float durationScale =
+                Settings.Global.getFloat(ContextUtils.getApplicationContext().getContentResolver(),
+                        Settings.Global.ANIMATOR_DURATION_SCALE, defaultScale);
         return durationScale == 0.0;
     }
 }

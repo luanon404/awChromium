@@ -17,7 +17,6 @@ import java.util.function.Function;
 /**
  * A Promise class to be used as a placeholder for a result that will be provided asynchronously.
  * It must only be accessed from a single thread.
- *
  * @param <T> The type the Promise will be fulfilled with.
  */
 public class Promise<T> {
@@ -47,12 +46,10 @@ public class Promise<T> {
 
     /**
      * A function class for use when chaining Promises with {@link Promise#then(AsyncFunction)}.
-     *
-     * @param <A>  The type of the function input.
+     * @param <A> The type of the function input.
      * @param <RT> The type of the function output.
      */
-    public interface AsyncFunction<A, RT> extends Function<A, Promise<RT>> {
-    }
+    public interface AsyncFunction<A, RT> extends Function<A, Promise<RT>> {}
 
     /**
      * An exception class for when a rejected Promise is not handled and cannot pass the rejection
@@ -79,10 +76,12 @@ public class Promise<T> {
             return;
         }
 
-        assert mRejectCallbacks.size() == 0 : "Do not call the single argument " + "Promise.then(Callback) on a Promise that already has a rejection handler.";
+        assert mRejectCallbacks.size() == 0 : "Do not call the single argument "
+            + "Promise.then(Callback) on a Promise that already has a rejection handler.";
 
         Callback<Exception> onReject = reason -> {
-            throw new UnhandledRejectionException("Promise was rejected without a rejection handler.", reason);
+            throw new UnhandledRejectionException(
+                    "Promise was rejected without a rejection handler.", reason);
         };
 
         then(onFulfill, onReject);
@@ -95,8 +94,8 @@ public class Promise<T> {
      * iteration of the message loop.
      *
      * @param onFulfill The Callback to be called on fulfillment.
-     * @param onReject  The Callback to be called on rejection. The argument to onReject will
-     *                  may be null if the Promise was rejected manually.
+     * @param onReject The Callback to be called on rejection. The argument to onReject will
+     *         may be null if the Promise was rejected manually.
      */
     public void then(Callback<T> onFulfill, Callback<Exception> onReject) {
         checkThread();
@@ -124,7 +123,8 @@ public class Promise<T> {
     }
 
     private void exceptInner(Callback<Exception> onReject) {
-        assert !mThrowingRejectionHandler : "Do not add an exception handler to a Promise you have " + "called the single argument Promise.then(Callback) on.";
+        assert !mThrowingRejectionHandler : "Do not add an exception handler to a Promise you have "
+            + "called the single argument Promise.then(Callback) on.";
 
         if (mState == PromiseState.REJECTED) {
             postCallbackToLooper(onReject, mRejectReason);
@@ -212,7 +212,7 @@ public class Promise<T> {
 
     /**
      * Rejects the Promise, rejecting all those Promises that rely on it.
-     * <p>
+     *
      * This may throw an exception if a dependent Promise fails to handle the rejection, so it is
      * important to make it explicit when a Promise may be rejected, so that users of that Promise
      * know to provide rejection handling.

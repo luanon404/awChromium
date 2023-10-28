@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface KeepAliveHandle extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends KeepAliveHandle, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends KeepAliveHandle, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<KeepAliveHandle, KeepAliveHandle.Proxy> MANAGER = KeepAliveHandle_Internal.MANAGER;

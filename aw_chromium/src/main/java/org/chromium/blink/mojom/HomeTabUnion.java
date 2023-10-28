@@ -13,14 +13,15 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public final class HomeTabUnion extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
         public static final int Visibility = 0;
         public static final int Params = 1;
-    }
-
+    };
     private int mVisibility;
     private HomeTabParams mParams;
 

@@ -17,10 +17,11 @@ import androidx.annotation.IntDef;
 
 public final class TrustTokenOperationPolicyVerdict {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({TrustTokenOperationPolicyVerdict.FORBID, TrustTokenOperationPolicyVerdict.POTENTIALLY_PERMIT})
-    public @interface EnumType {
-    }
+        TrustTokenOperationPolicyVerdict.FORBID,
+        TrustTokenOperationPolicyVerdict.POTENTIALLY_PERMIT})
+    public @interface EnumType {}
 
     public static final int FORBID = 0;
     public static final int POTENTIALLY_PERMIT = 1;
@@ -37,9 +38,8 @@ public final class TrustTokenOperationPolicyVerdict {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private TrustTokenOperationPolicyVerdict() {
-    }
+    private TrustTokenOperationPolicyVerdict() {}
 }

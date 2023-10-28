@@ -13,43 +13,48 @@
 
 package org.chromium.media.stable.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface StableCdmContext extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends StableCdmContext, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends StableCdmContext, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<StableCdmContext, StableCdmContext.Proxy> MANAGER = StableCdmContext_Internal.MANAGER;
 
-    void getHwKeyData(DecryptConfig decryptConfig, byte[] hwIdentifier, GetHwKeyData_Response callback);
+    void getHwKeyData(
+DecryptConfig decryptConfig, byte[] hwIdentifier, 
+GetHwKeyData_Response callback);
 
-    interface GetHwKeyData_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<Integer, byte[]> {
-    }
+    interface GetHwKeyData_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<Integer, byte[]> { }
 
 
-    void registerEventCallback(CdmContextEventCallback callback);
+    void registerEventCallback(
+CdmContextEventCallback callback);
 
 
     void getHwConfigData(
 
-            GetHwConfigData_Response callback);
+GetHwConfigData_Response callback);
 
-    interface GetHwConfigData_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<Boolean, byte[]> {
-    }
+    interface GetHwConfigData_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<Boolean, byte[]> { }
 
 
     void getScreenResolutions(
 
-            GetScreenResolutions_Response callback);
+GetScreenResolutions_Response callback);
 
-    interface GetScreenResolutions_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<org.chromium.gfx.mojom.Size[]> {
-    }
+    interface GetScreenResolutions_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<org.chromium.gfx.mojom.Size[]> { }
 
 
-    void allocateSecureBuffer(int size, AllocateSecureBuffer_Response callback);
+    void allocateSecureBuffer(
+int size, 
+AllocateSecureBuffer_Response callback);
 
-    interface AllocateSecureBuffer_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<org.chromium.mojo.system.UntypedHandle> {
-    }
+    interface AllocateSecureBuffer_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<org.chromium.mojo.system.UntypedHandle> { }
 
 
 }

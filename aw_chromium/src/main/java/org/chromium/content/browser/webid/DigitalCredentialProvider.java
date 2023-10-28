@@ -4,15 +4,14 @@
 
 package org.chromium.content.browser.webid;
 
-import org.chromium.base.ResettersForTesting;
-import org.chromium.ui.base.WindowAndroid;
 import org.jni_zero.CalledByNative;
 import org.jni_zero.JNINamespace;
 import org.jni_zero.NativeMethods;
 
-/**
- * Class for issuing request to the Identity Credentials Manager in GMS core.
- */
+import org.chromium.base.ResettersForTesting;
+import org.chromium.ui.base.WindowAndroid;
+
+/** Class for issuing request to the Identity Credentials Manager in GMS core. */
 @JNINamespace("content")
 public class DigitalCredentialProvider {
     private static final String TAG = "DigitalCredentialProvider";
@@ -36,23 +35,27 @@ public class DigitalCredentialProvider {
     }
 
     @CalledByNative
-    private void destroy() {
-    }
+    private void destroy() {}
 
     /**
      * Triggers a request to the Identity Credentials Manager in GMS.
      *
-     * @param window  The window associated with the request.
-     * @param origin  The origin of the requester.
+     * @param window The window associated with the request.
+     * @param origin The origin of the requester.
      * @param request The request.
      */
     @CalledByNative
     void requestDigitalCredential(WindowAndroid window, String origin, String request) {
-        sCredentials.get(window.getActivity().get(), origin, request).then(data -> {
-            DigitalCredentialProviderJni.get().onReceive(mDigitalCredentialProvider, new String(data));
-        }, e -> {
-            DigitalCredentialProviderJni.get().onError(mDigitalCredentialProvider);
-        });
+        sCredentials
+                .get(window.getActivity().get(), origin, request)
+                .then(
+                        data -> {
+                            DigitalCredentialProviderJni.get()
+                                    .onReceive(mDigitalCredentialProvider, new String(data));
+                        },
+                        e -> {
+                            DigitalCredentialProviderJni.get().onError(mDigitalCredentialProvider);
+                        });
     }
 
     @NativeMethods

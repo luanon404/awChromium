@@ -184,6 +184,5 @@ public final class VizFeatures {
     public static final String HIDE_DELEGATED_FRAME_HOST_MAC = "HideDelegatedFrameHostMac";
 
     // Prevent instantiation.
-    private VizFeatures() {
-    }
+    private VizFeatures() {}
 }

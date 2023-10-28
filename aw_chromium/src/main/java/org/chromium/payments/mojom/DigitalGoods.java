@@ -13,40 +13,44 @@
 
 package org.chromium.payments.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface DigitalGoods extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends DigitalGoods, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends DigitalGoods, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<DigitalGoods, DigitalGoods.Proxy> MANAGER = DigitalGoods_Internal.MANAGER;
 
-    void getDetails(String[] itemIds, GetDetails_Response callback);
+    void getDetails(
+String[] itemIds, 
+GetDetails_Response callback);
 
-    interface GetDetails_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<Integer, ItemDetails[]> {
-    }
+    interface GetDetails_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<Integer, ItemDetails[]> { }
 
 
     void listPurchases(
 
-            ListPurchases_Response callback);
+ListPurchases_Response callback);
 
-    interface ListPurchases_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<Integer, PurchaseReference[]> {
-    }
+    interface ListPurchases_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<Integer, PurchaseReference[]> { }
 
 
     void listPurchaseHistory(
 
-            ListPurchaseHistory_Response callback);
+ListPurchaseHistory_Response callback);
 
-    interface ListPurchaseHistory_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<Integer, PurchaseReference[]> {
-    }
+    interface ListPurchaseHistory_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<Integer, PurchaseReference[]> { }
 
 
-    void consume(String purchaseToken, Consume_Response callback);
+    void consume(
+String purchaseToken, 
+Consume_Response callback);
 
-    interface Consume_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> {
-    }
+    interface Consume_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> { }
 
 
 }

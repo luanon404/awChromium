@@ -4,39 +4,67 @@
 package org.chromium.media;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.annotation.SuppressLint;
+import android.media.MediaPlayer;
+import android.net.Uri;
+import android.os.ParcelFileDescriptor;
+import android.text.TextUtils;
+import android.util.Base64;
+import android.util.Base64InputStream;
+import android.view.Surface;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.ApiCompatibilityUtils;
+import org.chromium.base.ContextUtils;
+import org.chromium.base.Log;
+import org.chromium.base.StreamUtil;
+import org.chromium.base.task.AsyncTask;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.HashMap;
 
 @CheckDiscard("crbug.com/993421")
 class MediaPlayerBridgeJni implements MediaPlayerBridge.Natives {
-    private static MediaPlayerBridge.Natives testInstance;
+  private static MediaPlayerBridge.Natives testInstance;
 
-    public static final JniStaticTestMocker<MediaPlayerBridge.Natives> TEST_HOOKS = new JniStaticTestMocker<MediaPlayerBridge.Natives>() {
-        @Override
-        public void setInstanceForTesting(MediaPlayerBridge.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<MediaPlayerBridge.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<MediaPlayerBridge.Natives>() {
     @Override
-    public void onDidSetDataUriDataSource(long nativeMediaPlayerBridge, MediaPlayerBridge caller, boolean success) {
-        GEN_JNI.org_chromium_media_MediaPlayerBridge_onDidSetDataUriDataSource(nativeMediaPlayerBridge, caller, success);
+    public void setInstanceForTesting(MediaPlayerBridge.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    public static MediaPlayerBridge.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of MediaPlayerBridge.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new MediaPlayerBridgeJni();
+  @Override
+  public void onDidSetDataUriDataSource(long nativeMediaPlayerBridge, MediaPlayerBridge caller, boolean success) {
+    GEN_JNI.org_chromium_media_MediaPlayerBridge_onDidSetDataUriDataSource(nativeMediaPlayerBridge, caller, success);
+  }
+
+  public static MediaPlayerBridge.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of MediaPlayerBridge.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new MediaPlayerBridgeJni();
+  }
 }

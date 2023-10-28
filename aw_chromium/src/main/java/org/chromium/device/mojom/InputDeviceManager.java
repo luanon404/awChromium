@@ -13,26 +13,30 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface InputDeviceManager extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends InputDeviceManager, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends InputDeviceManager, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<InputDeviceManager, InputDeviceManager.Proxy> MANAGER = InputDeviceManager_Internal.MANAGER;
 
-    void getDevicesAndSetClient(org.chromium.mojo.bindings.AssociatedInterfaceNotSupported client, GetDevicesAndSetClient_Response callback);
+    void getDevicesAndSetClient(
+org.chromium.mojo.bindings.AssociatedInterfaceNotSupported client, 
+GetDevicesAndSetClient_Response callback);
 
-    interface GetDevicesAndSetClient_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<InputDeviceInfo[]> {
-    }
+    interface GetDevicesAndSetClient_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<InputDeviceInfo[]> { }
 
 
     void getDevices(
 
-            GetDevices_Response callback);
+GetDevices_Response callback);
 
-    interface GetDevices_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<InputDeviceInfo[]> {
-    }
+    interface GetDevices_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<InputDeviceInfo[]> { }
 
 
 }

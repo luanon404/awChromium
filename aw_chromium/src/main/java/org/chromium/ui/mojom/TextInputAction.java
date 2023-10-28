@@ -17,10 +17,17 @@ import androidx.annotation.IntDef;
 
 public final class TextInputAction {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({TextInputAction.DEFAULT, TextInputAction.ENTER, TextInputAction.DONE, TextInputAction.GO, TextInputAction.NEXT, TextInputAction.PREVIOUS, TextInputAction.SEARCH, TextInputAction.SEND})
-    public @interface EnumType {
-    }
+        TextInputAction.DEFAULT,
+        TextInputAction.ENTER,
+        TextInputAction.DONE,
+        TextInputAction.GO,
+        TextInputAction.NEXT,
+        TextInputAction.PREVIOUS,
+        TextInputAction.SEARCH,
+        TextInputAction.SEND})
+    public @interface EnumType {}
 
     public static final int DEFAULT = 0;
     public static final int ENTER = 1;
@@ -43,9 +50,8 @@ public final class TextInputAction {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private TextInputAction() {
-    }
+    private TextInputAction() {}
 }

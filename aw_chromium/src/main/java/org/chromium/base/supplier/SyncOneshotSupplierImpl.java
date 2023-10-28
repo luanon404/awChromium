@@ -32,9 +32,7 @@ import java.util.ArrayList;
 public class SyncOneshotSupplierImpl<T> implements SyncOneshotSupplier<T> {
     private final ThreadUtils.ThreadChecker mThreadChecker = new ThreadUtils.ThreadChecker();
 
-    /**
-     * Lazily created list of pending callbacks to invoke when an object is set.
-     */
+    /** Lazily created list of pending callbacks to invoke when an object is set. */
     private @Nullable ArrayList<Callback<T>> mPendingCallbacks;
 
     private @Nullable T mObject;

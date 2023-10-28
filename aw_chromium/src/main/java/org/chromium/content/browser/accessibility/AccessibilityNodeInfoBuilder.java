@@ -74,33 +74,41 @@ public class AccessibilityNodeInfoBuilder {
     // are added to every relevant node (e.g. hasImage will always be present in the Bundle for
     // AccessibilityNodeInfo objects that represent images in the web contents).
     public static final String EXTRAS_KEY_BRAILLE_LABEL = "AccessibilityNodeInfo.brailleLabel";
-    public static final String EXTRAS_KEY_BRAILLE_ROLE_DESCRIPTION = "AccessibilityNodeInfo.brailleRoleDescription";
+    public static final String EXTRAS_KEY_BRAILLE_ROLE_DESCRIPTION =
+            "AccessibilityNodeInfo.brailleRoleDescription";
     public static final String EXTRAS_KEY_CHROME_ROLE = "AccessibilityNodeInfo.chromeRole";
     public static final String EXTRAS_KEY_CLICKABLE_SCORE = "AccessibilityNodeInfo.clickableScore";
     public static final String EXTRAS_KEY_CSS_DISPLAY = "AccessibilityNodeInfo.cssDisplay";
     public static final String EXTRAS_KEY_HAS_IMAGE = "AccessibilityNodeInfo.hasImage";
     public static final String EXTRAS_KEY_HINT = "AccessibilityNodeInfo.hint";
     public static final String EXTRAS_KEY_OFFSCREEN = "AccessibilityNodeInfo.offscreen";
-    public static final String EXTRAS_KEY_ROLE_DESCRIPTION = "AccessibilityNodeInfo.roleDescription";
-    public static final String EXTRAS_KEY_SUPPORTED_ELEMENTS = "ACTION_ARGUMENT_HTML_ELEMENT_STRING_VALUES";
+    public static final String EXTRAS_KEY_ROLE_DESCRIPTION =
+            "AccessibilityNodeInfo.roleDescription";
+    public static final String EXTRAS_KEY_SUPPORTED_ELEMENTS =
+            "ACTION_ARGUMENT_HTML_ELEMENT_STRING_VALUES";
     public static final String EXTRAS_KEY_TARGET_URL = "AccessibilityNodeInfo.targetUrl";
     public static final String EXTRAS_KEY_UNCLIPPED_TOP = "AccessibilityNodeInfo.unclippedTop";
     public static final String EXTRAS_KEY_UNCLIPPED_LEFT = "AccessibilityNodeInfo.unclippedLeft";
-    public static final String EXTRAS_KEY_UNCLIPPED_BOTTOM = "AccessibilityNodeInfo.unclippedBottom";
+    public static final String EXTRAS_KEY_UNCLIPPED_BOTTOM =
+            "AccessibilityNodeInfo.unclippedBottom";
     public static final String EXTRAS_KEY_UNCLIPPED_WIDTH = "AccessibilityNodeInfo.unclippedWidth";
-    public static final String EXTRAS_KEY_UNCLIPPED_HEIGHT = "AccessibilityNodeInfo.unclippedHeight";
+    public static final String EXTRAS_KEY_UNCLIPPED_HEIGHT =
+            "AccessibilityNodeInfo.unclippedHeight";
     public static final String EXTRAS_KEY_URL = "url";
 
     // Constants defined for requests to add extra data to AccessibilityNodeInfo objects. These
     // values are Chromium specific, and allow AT to request extra data be added to the node
     // objects. These are used for large/async requests and are done on a per-node basis.
-    public static final String EXTRAS_DATA_REQUEST_IMAGE_DATA_KEY = "AccessibilityNodeInfo.requestImageData";
+    public static final String EXTRAS_DATA_REQUEST_IMAGE_DATA_KEY =
+            "AccessibilityNodeInfo.requestImageData";
     public static final String EXTRAS_KEY_IMAGE_DATA = "AccessibilityNodeInfo.imageData";
 
     // Static instances of the two types of extra data keys that can be added to nodes.
-    private static final List<String> sTextCharacterLocation = Collections.singletonList(EXTRA_DATA_TEXT_CHARACTER_LOCATION_KEY);
+    private static final List<String> sTextCharacterLocation =
+            Collections.singletonList(EXTRA_DATA_TEXT_CHARACTER_LOCATION_KEY);
 
-    private static final List<String> sRequestImageData = Collections.singletonList(EXTRAS_DATA_REQUEST_IMAGE_DATA_KEY);
+    private static final List<String> sRequestImageData =
+            Collections.singletonList(EXTRAS_DATA_REQUEST_IMAGE_DATA_KEY);
 
     // Throttle time for content invalid utterances. Content invalid will only be announced at most
     // once per this time interval in milliseconds for a given focused node.
@@ -144,14 +152,19 @@ public class AccessibilityNodeInfoBuilder {
     }
 
     @CalledByNative
-    private void addAccessibilityNodeInfoChildren(AccessibilityNodeInfoCompat node, int[] childIds) {
+    private void addAccessibilityNodeInfoChildren(
+            AccessibilityNodeInfoCompat node, int[] childIds) {
         for (int childId : childIds) {
             node.addChild(mDelegate.getView(), childId);
         }
     }
 
     @CalledByNative
-    private void setAccessibilityNodeInfoBooleanAttributes(AccessibilityNodeInfoCompat node, int virtualViewId, boolean checkable, boolean checked, boolean clickable, boolean contentInvalid, boolean enabled, boolean focusable, boolean focused, boolean hasImage, boolean password, boolean scrollable, boolean selected, boolean visibleToUser) {
+    private void setAccessibilityNodeInfoBooleanAttributes(AccessibilityNodeInfoCompat node,
+            int virtualViewId, boolean checkable, boolean checked, boolean clickable,
+            boolean contentInvalid, boolean enabled, boolean focusable, boolean focused,
+            boolean hasImage, boolean password, boolean scrollable, boolean selected,
+            boolean visibleToUser) {
         node.setCheckable(checkable);
         node.setChecked(checked);
         node.setClickable(clickable);
@@ -171,7 +184,8 @@ public class AccessibilityNodeInfoBuilder {
                 // If we are focused on the same node as before, check if it has been longer than
                 // our delay since our last utterance, and if so, report invalid content and update
                 // our last reported time, otherwise suppress reporting content invalid.
-                if (Calendar.getInstance().getTimeInMillis() - mLastContentInvalidUtteranceTime >= CONTENT_INVALID_THROTTLE_DELAY) {
+                if (Calendar.getInstance().getTimeInMillis() - mLastContentInvalidUtteranceTime
+                        >= CONTENT_INVALID_THROTTLE_DELAY) {
                     mLastContentInvalidUtteranceTime = Calendar.getInstance().getTimeInMillis();
                     node.setContentInvalid(true);
                 }
@@ -191,14 +205,21 @@ public class AccessibilityNodeInfoBuilder {
             bundle.putCharSequence(EXTRAS_KEY_HAS_IMAGE, "true");
         }
 
-        node.setMovementGranularities(MOVEMENT_GRANULARITY_CHARACTER | MOVEMENT_GRANULARITY_WORD | MOVEMENT_GRANULARITY_LINE | MOVEMENT_GRANULARITY_PARAGRAPH);
+        node.setMovementGranularities(MOVEMENT_GRANULARITY_CHARACTER | MOVEMENT_GRANULARITY_WORD
+                | MOVEMENT_GRANULARITY_LINE | MOVEMENT_GRANULARITY_PARAGRAPH);
 
         boolean isAF = mDelegate.currentAccessibilityFocusId() == virtualViewId;
         node.setAccessibilityFocused(isAF);
     }
 
     @CalledByNative
-    private void addAccessibilityNodeInfoActions(AccessibilityNodeInfoCompat node, int virtualViewId, boolean canScrollForward, boolean canScrollBackward, boolean canScrollUp, boolean canScrollDown, boolean canScrollLeft, boolean canScrollRight, boolean clickable, boolean editableText, boolean enabled, boolean focusable, boolean focused, boolean isCollapsed, boolean isExpanded, boolean hasNonEmptyValue, boolean hasNonEmptyInnerText, boolean isSeekControl, boolean isForm) {
+    private void addAccessibilityNodeInfoActions(AccessibilityNodeInfoCompat node,
+            int virtualViewId, boolean canScrollForward, boolean canScrollBackward,
+            boolean canScrollUp, boolean canScrollDown, boolean canScrollLeft,
+            boolean canScrollRight, boolean clickable, boolean editableText, boolean enabled,
+            boolean focusable, boolean focused, boolean isCollapsed, boolean isExpanded,
+            boolean hasNonEmptyValue, boolean hasNonEmptyInnerText, boolean isSeekControl,
+            boolean isForm) {
         node.addAction(ACTION_NEXT_HTML_ELEMENT);
         node.addAction(ACTION_PREVIOUS_HTML_ELEMENT);
         node.addAction(ACTION_SHOW_ON_SCREEN);
@@ -284,7 +305,11 @@ public class AccessibilityNodeInfoBuilder {
     }
 
     @CalledByNative
-    private void setAccessibilityNodeInfoBaseAttributes(AccessibilityNodeInfoCompat node, int virtualViewId, int parentId, String className, String role, String roleDescription, String hint, String targetUrl, boolean canOpenPopup, boolean multiLine, int inputType, int liveRegion, String errorMessage, int clickableScore, String display, String brailleLabel, String brailleRoleDescription) {
+    private void setAccessibilityNodeInfoBaseAttributes(AccessibilityNodeInfoCompat node,
+            int virtualViewId, int parentId, String className, String role, String roleDescription,
+            String hint, String targetUrl, boolean canOpenPopup, boolean multiLine, int inputType,
+            int liveRegion, String errorMessage, int clickableScore, String display,
+            String brailleLabel, String brailleRoleDescription) {
         node.setClassName(className);
 
         Bundle bundle = node.getExtras();
@@ -335,8 +360,12 @@ public class AccessibilityNodeInfoBuilder {
 
     @SuppressLint("NewApi")
     @CalledByNative
-    protected void setAccessibilityNodeInfoText(AccessibilityNodeInfoCompat node, String text, String targetUrl, boolean annotateAsLink, boolean isEditableText, String language, int[] suggestionStarts, int[] suggestionEnds, String[] suggestions, String stateDescription) {
-        CharSequence computedText = computeText(text, targetUrl, annotateAsLink, language, suggestionStarts, suggestionEnds, suggestions);
+    protected void setAccessibilityNodeInfoText(AccessibilityNodeInfoCompat node, String text,
+            String targetUrl, boolean annotateAsLink, boolean isEditableText, String language,
+            int[] suggestionStarts, int[] suggestionEnds, String[] suggestions,
+            String stateDescription) {
+        CharSequence computedText = computeText(text, targetUrl, annotateAsLink, language,
+                suggestionStarts, suggestionEnds, suggestions);
 
         // We add the stateDescription attribute when it is non-null and not empty.
         if (stateDescription != null && !stateDescription.isEmpty()) {
@@ -353,12 +382,16 @@ public class AccessibilityNodeInfoBuilder {
     }
 
     @CalledByNative
-    protected void setAccessibilityNodeInfoLocation(AccessibilityNodeInfoCompat node, final int virtualViewId, int absoluteLeft, int absoluteTop, int parentRelativeLeft, int parentRelativeTop, int width, int height, boolean isOffscreen) {
+    protected void setAccessibilityNodeInfoLocation(AccessibilityNodeInfoCompat node,
+            final int virtualViewId, int absoluteLeft, int absoluteTop, int parentRelativeLeft,
+            int parentRelativeTop, int width, int height, boolean isOffscreen) {
         // First set the bounds in parent.
-        Rect boundsInParent = new Rect(parentRelativeLeft, parentRelativeTop, parentRelativeLeft + width, parentRelativeTop + height);
+        Rect boundsInParent = new Rect(parentRelativeLeft, parentRelativeTop,
+                parentRelativeLeft + width, parentRelativeTop + height);
         if (virtualViewId == mDelegate.currentRootId()) {
             // Offset of the web content relative to the View.
-            AccessibilityDelegate.AccessibilityCoordinates ac = mDelegate.getAccessibilityCoordinates();
+            AccessibilityDelegate.AccessibilityCoordinates ac =
+                    mDelegate.getAccessibilityCoordinates();
             boundsInParent.offset(0, (int) ac.getContentOffsetYPix());
         }
         node.setBoundsInParent(boundsInParent);
@@ -382,27 +415,35 @@ public class AccessibilityNodeInfoBuilder {
     }
 
     @CalledByNative
-    protected void setAccessibilityNodeInfoCollectionInfo(AccessibilityNodeInfoCompat node, int rowCount, int columnCount, boolean hierarchical) {
-        node.setCollectionInfo(AccessibilityNodeInfoCompat.CollectionInfoCompat.obtain(rowCount, columnCount, hierarchical));
+    protected void setAccessibilityNodeInfoCollectionInfo(
+            AccessibilityNodeInfoCompat node, int rowCount, int columnCount, boolean hierarchical) {
+        node.setCollectionInfo(AccessibilityNodeInfoCompat.CollectionInfoCompat.obtain(
+                rowCount, columnCount, hierarchical));
     }
 
     @CalledByNative
-    protected void setAccessibilityNodeInfoCollectionItemInfo(AccessibilityNodeInfoCompat node, int rowIndex, int rowSpan, int columnIndex, int columnSpan, boolean heading) {
-        node.setCollectionItemInfo(AccessibilityNodeInfoCompat.CollectionItemInfoCompat.obtain(rowIndex, rowSpan, columnIndex, columnSpan, heading));
+    protected void setAccessibilityNodeInfoCollectionItemInfo(AccessibilityNodeInfoCompat node,
+            int rowIndex, int rowSpan, int columnIndex, int columnSpan, boolean heading) {
+        node.setCollectionItemInfo(AccessibilityNodeInfoCompat.CollectionItemInfoCompat.obtain(
+                rowIndex, rowSpan, columnIndex, columnSpan, heading));
     }
 
     @CalledByNative
-    protected void setAccessibilityNodeInfoRangeInfo(AccessibilityNodeInfoCompat node, int rangeType, float min, float max, float current) {
-        node.setRangeInfo(AccessibilityNodeInfoCompat.RangeInfoCompat.obtain(rangeType, min, max, current));
+    protected void setAccessibilityNodeInfoRangeInfo(
+            AccessibilityNodeInfoCompat node, int rangeType, float min, float max, float current) {
+        node.setRangeInfo(
+                AccessibilityNodeInfoCompat.RangeInfoCompat.obtain(rangeType, min, max, current));
     }
 
     @CalledByNative
-    protected void setAccessibilityNodeInfoViewIdResourceName(AccessibilityNodeInfoCompat node, String viewIdResourceName) {
+    protected void setAccessibilityNodeInfoViewIdResourceName(
+            AccessibilityNodeInfoCompat node, String viewIdResourceName) {
         node.setViewIdResourceName(viewIdResourceName);
     }
 
     @CalledByNative
-    protected void setAccessibilityNodeInfoOAttributes(AccessibilityNodeInfoCompat node, boolean hasCharacterLocations, boolean hasImage, String hint) {
+    protected void setAccessibilityNodeInfoOAttributes(AccessibilityNodeInfoCompat node,
+            boolean hasCharacterLocations, boolean hasImage, String hint) {
         node.setHintText(hint);
 
         // Work-around a gap in the Android API, that |AccessibilityNodeInfoCompat| class does not
@@ -410,7 +451,8 @@ public class AccessibilityNodeInfoBuilder {
         // TODO(mschillaci): Remove unwrapping and SDK version req once Android API is updated.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             if (hasCharacterLocations) {
-                ((AccessibilityNodeInfo) node.getInfo()).setAvailableExtraData(sTextCharacterLocation);
+                ((AccessibilityNodeInfo) node.getInfo())
+                        .setAvailableExtraData(sTextCharacterLocation);
             } else if (hasImage) {
                 ((AccessibilityNodeInfo) node.getInfo()).setAvailableExtraData(sRequestImageData);
             }
@@ -418,22 +460,26 @@ public class AccessibilityNodeInfoBuilder {
     }
 
     @CalledByNative
-    protected void setAccessibilityNodeInfoPaneTitle(AccessibilityNodeInfoCompat node, String title) {
+    protected void setAccessibilityNodeInfoPaneTitle(
+            AccessibilityNodeInfoCompat node, String title) {
         node.setPaneTitle(title);
     }
 
     @CalledByNative
-    protected void setAccessibilityNodeInfoSelectionAttrs(AccessibilityNodeInfoCompat node, int startIndex, int endIndex) {
+    protected void setAccessibilityNodeInfoSelectionAttrs(
+            AccessibilityNodeInfoCompat node, int startIndex, int endIndex) {
         node.setEditable(true);
         node.setTextSelection(startIndex, endIndex);
     }
 
     @CalledByNative
-    protected void setAccessibilityNodeInfoImageData(AccessibilityNodeInfoCompat info, byte[] imageData) {
+    protected void setAccessibilityNodeInfoImageData(
+            AccessibilityNodeInfoCompat info, byte[] imageData) {
         info.getExtras().putByteArray(EXTRAS_KEY_IMAGE_DATA, imageData);
     }
 
-    private CharSequence computeText(String text, String targetUrl, boolean annotateAsLink, String language, int[] suggestionStarts, int[] suggestionEnds, String[] suggestions) {
+    private CharSequence computeText(String text, String targetUrl, boolean annotateAsLink,
+            String language, int[] suggestionStarts, int[] suggestionEnds, String[] suggestions) {
         CharSequence charSequence = text;
         if (annotateAsLink) {
             SpannableString spannable = new SpannableString(text);
@@ -470,14 +516,16 @@ public class AccessibilityNodeInfoBuilder {
                 int start = suggestionStarts[i];
                 int end = suggestionEnds[i];
                 // Ignore any spans outside the range of the spannable string.
-                if (start < 0 || start > spannableLen || end < 0 || end > spannableLen || start > end) {
+                if (start < 0 || start > spannableLen || end < 0 || end > spannableLen
+                        || start > end) {
                     continue;
                 }
 
                 String[] suggestionArray = new String[1];
                 suggestionArray[0] = suggestions[i];
                 int flags = SuggestionSpan.FLAG_MISSPELLED;
-                SuggestionSpan suggestionSpan = new SuggestionSpan(mDelegate.getContext(), suggestionArray, flags);
+                SuggestionSpan suggestionSpan =
+                        new SuggestionSpan(mDelegate.getContext(), suggestionArray, flags);
                 spannable.setSpan(suggestionSpan, start, end, 0);
             }
             charSequence = spannable;

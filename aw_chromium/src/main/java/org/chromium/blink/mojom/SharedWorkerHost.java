@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface SharedWorkerHost extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends SharedWorkerHost, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends SharedWorkerHost, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<SharedWorkerHost, SharedWorkerHost.Proxy> MANAGER = SharedWorkerHost_Internal.MANAGER;

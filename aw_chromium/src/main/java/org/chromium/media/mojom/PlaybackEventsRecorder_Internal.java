@@ -13,9 +13,13 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 class PlaybackEventsRecorder_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<PlaybackEventsRecorder, PlaybackEventsRecorder.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<PlaybackEventsRecorder, PlaybackEventsRecorder.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<PlaybackEventsRecorder, PlaybackEventsRecorder.Proxy> MANAGER =
+            new org.chromium.mojo.bindings.Interface.Manager<PlaybackEventsRecorder, PlaybackEventsRecorder.Proxy>() {
 
         @Override
         public String getName() {
@@ -24,11 +28,12 @@ class PlaybackEventsRecorder_Internal {
 
         @Override
         public int getVersion() {
-            return 0;
+          return 0;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -39,7 +44,7 @@ class PlaybackEventsRecorder_Internal {
 
         @Override
         public PlaybackEventsRecorder[] buildArray(int size) {
-            return new PlaybackEventsRecorder[size];
+          return new PlaybackEventsRecorder[size];
         }
     };
 
@@ -65,112 +70,149 @@ class PlaybackEventsRecorder_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements PlaybackEventsRecorder.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core,
+              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void onPlaying() {
+        public void onPlaying(
+) {
 
             PlaybackEventsRecorderOnPlayingParams _message = new PlaybackEventsRecorderOnPlayingParams();
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_PLAYING_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_PLAYING_ORDINAL)));
 
         }
 
 
         @Override
-        public void onPaused() {
+        public void onPaused(
+) {
 
             PlaybackEventsRecorderOnPausedParams _message = new PlaybackEventsRecorderOnPausedParams();
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_PAUSED_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_PAUSED_ORDINAL)));
 
         }
 
 
         @Override
-        public void onSeeking() {
+        public void onSeeking(
+) {
 
             PlaybackEventsRecorderOnSeekingParams _message = new PlaybackEventsRecorderOnSeekingParams();
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_SEEKING_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_SEEKING_ORDINAL)));
 
         }
 
 
         @Override
-        public void onEnded() {
+        public void onEnded(
+) {
 
             PlaybackEventsRecorderOnEndedParams _message = new PlaybackEventsRecorderOnEndedParams();
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_ENDED_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_ENDED_ORDINAL)));
 
         }
 
 
         @Override
-        public void onError(PipelineStatus status) {
+        public void onError(
+PipelineStatus status) {
 
             PlaybackEventsRecorderOnErrorParams _message = new PlaybackEventsRecorderOnErrorParams();
 
             _message.status = status;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_ERROR_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_ERROR_ORDINAL)));
 
         }
 
 
         @Override
-        public void onBuffering() {
+        public void onBuffering(
+) {
 
             PlaybackEventsRecorderOnBufferingParams _message = new PlaybackEventsRecorderOnBufferingParams();
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_BUFFERING_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_BUFFERING_ORDINAL)));
 
         }
 
 
         @Override
-        public void onBufferingComplete() {
+        public void onBufferingComplete(
+) {
 
             PlaybackEventsRecorderOnBufferingCompleteParams _message = new PlaybackEventsRecorderOnBufferingCompleteParams();
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_BUFFERING_COMPLETE_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_BUFFERING_COMPLETE_ORDINAL)));
 
         }
 
 
         @Override
-        public void onNaturalSizeChanged(org.chromium.gfx.mojom.Size size) {
+        public void onNaturalSizeChanged(
+org.chromium.gfx.mojom.Size size) {
 
             PlaybackEventsRecorderOnNaturalSizeChangedParams _message = new PlaybackEventsRecorderOnNaturalSizeChangedParams();
 
             _message.size = size;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_NATURAL_SIZE_CHANGED_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_NATURAL_SIZE_CHANGED_ORDINAL)));
 
         }
 
 
         @Override
-        public void onPipelineStatistics(PipelineStatistics stats) {
+        public void onPipelineStatistics(
+PipelineStatistics stats) {
 
             PlaybackEventsRecorderOnPipelineStatisticsParams _message = new PlaybackEventsRecorderOnPipelineStatisticsParams();
 
             _message.stats = stats;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_PIPELINE_STATISTICS_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_PIPELINE_STATISTICS_ORDINAL)));
 
         }
 
@@ -186,7 +228,8 @@ class PlaybackEventsRecorder_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -195,10 +238,14 @@ class PlaybackEventsRecorder_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(PlaybackEventsRecorder_Internal.MANAGER, messageWithHeader);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
+                                PlaybackEventsRecorder_Internal.MANAGER, messageWithHeader);
+
+
+
 
 
                     case ON_PLAYING_ORDINAL: {
@@ -210,6 +257,9 @@ class PlaybackEventsRecorder_Internal {
                     }
 
 
+
+
+
                     case ON_PAUSED_ORDINAL: {
 
                         PlaybackEventsRecorderOnPausedParams.deserialize(messageWithHeader.getPayload());
@@ -217,6 +267,9 @@ class PlaybackEventsRecorder_Internal {
                         getImpl().onPaused();
                         return true;
                     }
+
+
+
 
 
                     case ON_SEEKING_ORDINAL: {
@@ -228,6 +281,9 @@ class PlaybackEventsRecorder_Internal {
                     }
 
 
+
+
+
                     case ON_ENDED_ORDINAL: {
 
                         PlaybackEventsRecorderOnEndedParams.deserialize(messageWithHeader.getPayload());
@@ -237,13 +293,20 @@ class PlaybackEventsRecorder_Internal {
                     }
 
 
+
+
+
                     case ON_ERROR_ORDINAL: {
 
-                        PlaybackEventsRecorderOnErrorParams data = PlaybackEventsRecorderOnErrorParams.deserialize(messageWithHeader.getPayload());
+                        PlaybackEventsRecorderOnErrorParams data =
+                                PlaybackEventsRecorderOnErrorParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onError(data.status);
                         return true;
                     }
+
+
+
 
 
                     case ON_BUFFERING_ORDINAL: {
@@ -255,6 +318,9 @@ class PlaybackEventsRecorder_Internal {
                     }
 
 
+
+
+
                     case ON_BUFFERING_COMPLETE_ORDINAL: {
 
                         PlaybackEventsRecorderOnBufferingCompleteParams.deserialize(messageWithHeader.getPayload());
@@ -264,18 +330,26 @@ class PlaybackEventsRecorder_Internal {
                     }
 
 
+
+
+
                     case ON_NATURAL_SIZE_CHANGED_ORDINAL: {
 
-                        PlaybackEventsRecorderOnNaturalSizeChangedParams data = PlaybackEventsRecorderOnNaturalSizeChangedParams.deserialize(messageWithHeader.getPayload());
+                        PlaybackEventsRecorderOnNaturalSizeChangedParams data =
+                                PlaybackEventsRecorderOnNaturalSizeChangedParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onNaturalSizeChanged(data.size);
                         return true;
                     }
 
 
+
+
+
                     case ON_PIPELINE_STATISTICS_ORDINAL: {
 
-                        PlaybackEventsRecorderOnPipelineStatisticsParams data = PlaybackEventsRecorderOnPipelineStatisticsParams.deserialize(messageWithHeader.getPayload());
+                        PlaybackEventsRecorderOnPipelineStatisticsParams data =
+                                PlaybackEventsRecorderOnPipelineStatisticsParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onPipelineStatistics(data.stats);
                         return true;
@@ -286,7 +360,7 @@ class PlaybackEventsRecorder_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -294,7 +368,8 @@ class PlaybackEventsRecorder_Internal {
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -303,27 +378,47 @@ class PlaybackEventsRecorder_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), PlaybackEventsRecorder_Internal.MANAGER, messageWithHeader, receiver);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
+                                getCore(), PlaybackEventsRecorder_Internal.MANAGER, messageWithHeader, receiver);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
                     default:
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class PlaybackEventsRecorderOnPlayingParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 8;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(8, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(8, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
 
         private PlaybackEventsRecorderOnPlayingParams(int version) {
@@ -344,7 +439,8 @@ class PlaybackEventsRecorder_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static PlaybackEventsRecorderOnPlayingParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -373,10 +469,12 @@ class PlaybackEventsRecorder_Internal {
     }
 
 
+
+    
     static final class PlaybackEventsRecorderOnPausedParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 8;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(8, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(8, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
 
         private PlaybackEventsRecorderOnPausedParams(int version) {
@@ -397,7 +495,8 @@ class PlaybackEventsRecorder_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static PlaybackEventsRecorderOnPausedParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -426,10 +525,12 @@ class PlaybackEventsRecorder_Internal {
     }
 
 
+
+    
     static final class PlaybackEventsRecorderOnSeekingParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 8;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(8, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(8, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
 
         private PlaybackEventsRecorderOnSeekingParams(int version) {
@@ -450,7 +551,8 @@ class PlaybackEventsRecorder_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static PlaybackEventsRecorderOnSeekingParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -479,10 +581,12 @@ class PlaybackEventsRecorder_Internal {
     }
 
 
+
+    
     static final class PlaybackEventsRecorderOnEndedParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 8;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(8, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(8, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
 
         private PlaybackEventsRecorderOnEndedParams(int version) {
@@ -503,7 +607,8 @@ class PlaybackEventsRecorder_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static PlaybackEventsRecorderOnEndedParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -532,10 +637,12 @@ class PlaybackEventsRecorder_Internal {
     }
 
 
+
+    
     static final class PlaybackEventsRecorderOnErrorParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public PipelineStatus status;
 
@@ -557,7 +664,8 @@ class PlaybackEventsRecorder_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static PlaybackEventsRecorderOnErrorParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -571,11 +679,11 @@ class PlaybackEventsRecorder_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new PlaybackEventsRecorderOnErrorParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.status = PipelineStatus.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -587,16 +695,18 @@ class PlaybackEventsRecorder_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.status, 8, false);
         }
     }
 
 
+
+    
     static final class PlaybackEventsRecorderOnBufferingParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 8;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(8, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(8, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
 
         private PlaybackEventsRecorderOnBufferingParams(int version) {
@@ -617,7 +727,8 @@ class PlaybackEventsRecorder_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static PlaybackEventsRecorderOnBufferingParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -646,10 +757,12 @@ class PlaybackEventsRecorder_Internal {
     }
 
 
+
+    
     static final class PlaybackEventsRecorderOnBufferingCompleteParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 8;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(8, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(8, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
 
         private PlaybackEventsRecorderOnBufferingCompleteParams(int version) {
@@ -670,7 +783,8 @@ class PlaybackEventsRecorder_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static PlaybackEventsRecorderOnBufferingCompleteParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -699,10 +813,12 @@ class PlaybackEventsRecorder_Internal {
     }
 
 
+
+    
     static final class PlaybackEventsRecorderOnNaturalSizeChangedParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.gfx.mojom.Size size;
 
@@ -724,7 +840,8 @@ class PlaybackEventsRecorder_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static PlaybackEventsRecorderOnNaturalSizeChangedParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -738,11 +855,11 @@ class PlaybackEventsRecorder_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new PlaybackEventsRecorderOnNaturalSizeChangedParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.size = org.chromium.gfx.mojom.Size.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -754,16 +871,18 @@ class PlaybackEventsRecorder_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.size, 8, false);
         }
     }
 
 
+
+    
     static final class PlaybackEventsRecorderOnPipelineStatisticsParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public PipelineStatistics stats;
 
@@ -785,7 +904,8 @@ class PlaybackEventsRecorder_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static PlaybackEventsRecorderOnPipelineStatisticsParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -799,11 +919,11 @@ class PlaybackEventsRecorder_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new PlaybackEventsRecorderOnPipelineStatisticsParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.stats = PipelineStatistics.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -815,10 +935,11 @@ class PlaybackEventsRecorder_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.stats, 8, false);
         }
     }
+
 
 
 }

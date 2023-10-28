@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class DisplayCaptureSurfaceType {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({DisplayCaptureSurfaceType.MONITOR, DisplayCaptureSurfaceType.WINDOW, DisplayCaptureSurfaceType.BROWSER})
-    public @interface EnumType {
-    }
+        DisplayCaptureSurfaceType.MONITOR,
+        DisplayCaptureSurfaceType.WINDOW,
+        DisplayCaptureSurfaceType.BROWSER})
+    public @interface EnumType {}
 
     public static final int MONITOR = 0;
     public static final int WINDOW = 1;
@@ -38,9 +40,8 @@ public final class DisplayCaptureSurfaceType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private DisplayCaptureSurfaceType() {
-    }
+    private DisplayCaptureSurfaceType() {}
 }

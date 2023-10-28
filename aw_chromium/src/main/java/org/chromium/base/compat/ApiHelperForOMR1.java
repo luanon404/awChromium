@@ -16,12 +16,9 @@ import androidx.annotation.RequiresApi;
  */
 @RequiresApi(Build.VERSION_CODES.O_MR1)
 public final class ApiHelperForOMR1 {
-    private ApiHelperForOMR1() {
-    }
+    private ApiHelperForOMR1() {}
 
-    /**
-     * See {@link Window#isWideColorGamut() }.
-     */
+    /** See {@link Window#isWideColorGamut() }. */
     public static boolean isWideColorGamut(Window window) {
         return window.isWideColorGamut();
     }

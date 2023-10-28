@@ -17,10 +17,18 @@ import androidx.annotation.IntDef;
 
 public final class FingerprintError {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({FingerprintError.UNKNOWN, FingerprintError.HW_UNAVAILABLE, FingerprintError.UNABLE_TO_PROCESS, FingerprintError.TIMEOUT, FingerprintError.NO_SPACE, FingerprintError.CANCELED, FingerprintError.UNABLE_TO_REMOVE, FingerprintError.LOCKOUT, FingerprintError.NO_TEMPLATES})
-    public @interface EnumType {
-    }
+        FingerprintError.UNKNOWN,
+        FingerprintError.HW_UNAVAILABLE,
+        FingerprintError.UNABLE_TO_PROCESS,
+        FingerprintError.TIMEOUT,
+        FingerprintError.NO_SPACE,
+        FingerprintError.CANCELED,
+        FingerprintError.UNABLE_TO_REMOVE,
+        FingerprintError.LOCKOUT,
+        FingerprintError.NO_TEMPLATES})
+    public @interface EnumType {}
 
     public static final int UNKNOWN = 0;
     public static final int HW_UNAVAILABLE = 1;
@@ -44,9 +52,8 @@ public final class FingerprintError {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private FingerprintError() {
-    }
+    private FingerprintError() {}
 }

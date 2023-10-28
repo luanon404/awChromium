@@ -17,10 +17,11 @@ import androidx.annotation.IntDef;
 
 public final class VirtualKeyboardPolicy {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({VirtualKeyboardPolicy.AUTO, VirtualKeyboardPolicy.MANUAL})
-    public @interface EnumType {
-    }
+        VirtualKeyboardPolicy.AUTO,
+        VirtualKeyboardPolicy.MANUAL})
+    public @interface EnumType {}
 
     public static final int AUTO = 0;
     public static final int MANUAL = 1;
@@ -37,9 +38,8 @@ public final class VirtualKeyboardPolicy {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private VirtualKeyboardPolicy() {
-    }
+    private VirtualKeyboardPolicy() {}
 }

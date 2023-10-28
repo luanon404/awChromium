@@ -3,57 +3,75 @@
 //
 package org.chromium.content.browser;
 
-import org.chromium.content_public.browser.MessagePayload;
-import org.chromium.content_public.browser.MessagePort;
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+import android.util.Pair;
+import androidx.annotation.MainThread;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.Log;
+import org.chromium.base.ThreadUtils;
+import org.chromium.base.task.PostTask;
+import org.chromium.base.task.TaskTraits;
+import org.chromium.content_public.browser.MessagePayload;
+import org.chromium.content_public.browser.MessagePort;
 
 @CheckDiscard("crbug.com/993421")
 class AppWebMessagePortJni implements AppWebMessagePort.Natives {
-    private static AppWebMessagePort.Natives testInstance;
+  private static AppWebMessagePort.Natives testInstance;
 
-    public static final JniStaticTestMocker<AppWebMessagePort.Natives> TEST_HOOKS = new JniStaticTestMocker<AppWebMessagePort.Natives>() {
-        @Override
-        public void setInstanceForTesting(AppWebMessagePort.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<AppWebMessagePort.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<AppWebMessagePort.Natives>() {
     @Override
-    public void closeAndDestroy(long nativeAppWebMessagePort) {
-        GEN_JNI.org_chromium_content_browser_AppWebMessagePort_closeAndDestroy(nativeAppWebMessagePort);
+    public void setInstanceForTesting(AppWebMessagePort.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public AppWebMessagePort[] createPair() {
-        return (AppWebMessagePort[]) GEN_JNI.org_chromium_content_browser_AppWebMessagePort_createPair();
-    }
+  @Override
+  public void closeAndDestroy(long nativeAppWebMessagePort) {
+    GEN_JNI.org_chromium_content_browser_AppWebMessagePort_closeAndDestroy(nativeAppWebMessagePort);
+  }
 
-    @Override
-    public void postMessage(long nativeAppWebMessagePort, MessagePayload messagePayload, MessagePort[] sentPorts) {
-        GEN_JNI.org_chromium_content_browser_AppWebMessagePort_postMessage(nativeAppWebMessagePort, messagePayload, sentPorts);
-    }
+  @Override
+  public AppWebMessagePort[] createPair() {
+    return (AppWebMessagePort[]) GEN_JNI.org_chromium_content_browser_AppWebMessagePort_createPair();
+  }
 
-    @Override
-    public void setShouldReceiveMessages(long nativeAppWebMessagePort, boolean shouldReceiveMessage) {
-        GEN_JNI.org_chromium_content_browser_AppWebMessagePort_setShouldReceiveMessages(nativeAppWebMessagePort, shouldReceiveMessage);
-    }
+  @Override
+  public void postMessage(long nativeAppWebMessagePort, MessagePayload messagePayload, MessagePort[] sentPorts) {
+    GEN_JNI.org_chromium_content_browser_AppWebMessagePort_postMessage(nativeAppWebMessagePort, messagePayload, sentPorts);
+  }
 
-    public static AppWebMessagePort.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of AppWebMessagePort.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new AppWebMessagePortJni();
+  @Override
+  public void setShouldReceiveMessages(long nativeAppWebMessagePort, boolean shouldReceiveMessage) {
+    GEN_JNI.org_chromium_content_browser_AppWebMessagePort_setShouldReceiveMessages(nativeAppWebMessagePort, shouldReceiveMessage);
+  }
+
+  public static AppWebMessagePort.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of AppWebMessagePort.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new AppWebMessagePortJni();
+  }
 }

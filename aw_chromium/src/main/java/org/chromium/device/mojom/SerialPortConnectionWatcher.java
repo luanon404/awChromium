@@ -13,10 +13,14 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface SerialPortConnectionWatcher extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends SerialPortConnectionWatcher, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends SerialPortConnectionWatcher, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<SerialPortConnectionWatcher, SerialPortConnectionWatcher.Proxy> MANAGER = SerialPortConnectionWatcher_Internal.MANAGER;

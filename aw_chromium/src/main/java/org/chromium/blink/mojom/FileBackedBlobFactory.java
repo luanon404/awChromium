@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface FileBackedBlobFactory extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends FileBackedBlobFactory, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends FileBackedBlobFactory, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<FileBackedBlobFactory, FileBackedBlobFactory.Proxy> MANAGER = FileBackedBlobFactory_Internal.MANAGER;

@@ -13,10 +13,13 @@
 
 package org.chromium.viz.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class CompositorRenderPass extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 112;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(112, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(112, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public CompositorRenderPassId id;
     public org.chromium.gfx.mojom.Rect outputRect;
@@ -43,6 +46,10 @@ public final class CompositorRenderPass extends org.chromium.mojo.bindings.Struc
         this.generateMipmap = (boolean) false;
     }
 
+    public CompositorRenderPass() {
+        this(0);
+    }
+
     public static CompositorRenderPass deserialize(org.chromium.mojo.bindings.Message message) {
         return decode(new org.chromium.mojo.bindings.Decoder(message));
     }
@@ -53,9 +60,11 @@ public final class CompositorRenderPass extends org.chromium.mojo.bindings.Struc
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static CompositorRenderPass deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
+    @SuppressWarnings("unchecked")
     public static CompositorRenderPass decode(org.chromium.mojo.bindings.Decoder decoder0) {
         if (decoder0 == null) {
             return null;
@@ -66,102 +75,102 @@ public final class CompositorRenderPass extends org.chromium.mojo.bindings.Struc
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new CompositorRenderPass(elementsOrVersion);
-            {
-
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                 result.id = CompositorRenderPassId.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                 result.outputRect = org.chromium.gfx.mojom.Rect.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, false);
                 result.damageRect = org.chromium.gfx.mojom.Rect.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(32, false);
                 result.transformToRootTarget = org.chromium.gfx.mojom.Transform.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(40, false);
                 result.filters = FilterOperations.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(48, false);
                 result.backdropFilters = FilterOperations.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(56, true);
                 result.backdropFilterBounds = org.chromium.gfx.mojom.RRectF.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(64, false);
                 result.subtreeCaptureId = SubtreeCaptureId.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(72, false);
                 result.subtreeSize = org.chromium.gfx.mojom.Size.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(80, false);
                 result.viewTransitionElementResourceId = ViewTransitionElementResourceId.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.hasTransparentBackground = decoder0.readBoolean(88, 0);
-            }
-            {
-
+                }
+                {
+                    
                 result.cacheRenderPass = decoder0.readBoolean(88, 1);
-            }
-            {
-
+                }
+                {
+                    
                 result.hasDamageFromContributingContent = decoder0.readBoolean(88, 2);
-            }
-            {
-
+                }
+                {
+                    
                 result.generateMipmap = decoder0.readBoolean(88, 3);
-            }
-            {
-
+                }
+                {
+                    
                 result.hasPerQuadDamage = decoder0.readBoolean(88, 4);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(96, false);
                 {
                     org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                     result.copyRequests = new CopyOutputRequest[si1.elementsOrVersion];
                     for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                        
                         org.chromium.mojo.bindings.Decoder decoder2 = decoder1.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                         result.copyRequests[i1] = CopyOutputRequest.decode(decoder2);
                     }
                 }
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(104, false);
                 {
                     org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                     result.quadList = new DrawQuad[si1.elementsOrVersion];
                     for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                        
                         org.chromium.mojo.bindings.Decoder decoder2 = decoder1.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                         result.quadList[i1] = DrawQuad.decode(decoder2);
                     }
                 }
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -169,56 +178,57 @@ public final class CompositorRenderPass extends org.chromium.mojo.bindings.Struc
         return result;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
+    protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.id, 8, false);
-
+        
         encoder0.encode(this.outputRect, 16, false);
-
+        
         encoder0.encode(this.damageRect, 24, false);
-
+        
         encoder0.encode(this.transformToRootTarget, 32, false);
-
+        
         encoder0.encode(this.filters, 40, false);
-
+        
         encoder0.encode(this.backdropFilters, 48, false);
-
+        
         encoder0.encode(this.backdropFilterBounds, 56, true);
-
+        
         encoder0.encode(this.subtreeCaptureId, 64, false);
-
+        
         encoder0.encode(this.subtreeSize, 72, false);
-
+        
         encoder0.encode(this.viewTransitionElementResourceId, 80, false);
-
+        
         encoder0.encode(this.hasTransparentBackground, 88, 0);
-
+        
         encoder0.encode(this.cacheRenderPass, 88, 1);
-
+        
         encoder0.encode(this.hasDamageFromContributingContent, 88, 2);
-
+        
         encoder0.encode(this.generateMipmap, 88, 3);
-
+        
         encoder0.encode(this.hasPerQuadDamage, 88, 4);
-
+        
         if (this.copyRequests == null) {
             encoder0.encodeNullPointer(96, false);
         } else {
             org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.copyRequests.length, 96, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
             for (int i0 = 0; i0 < this.copyRequests.length; ++i0) {
-
+                
                 encoder1.encode(this.copyRequests[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
             }
         }
-
+        
         if (this.quadList == null) {
             encoder0.encodeNullPointer(104, false);
         } else {
             org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.quadList.length, 104, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
             for (int i0 = 0; i0 < this.quadList.length; ++i0) {
-
+                
                 encoder1.encode(this.quadList[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
             }
         }

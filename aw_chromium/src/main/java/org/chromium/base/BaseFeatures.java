@@ -5,8 +5,8 @@
 package org.chromium.base;
 
 /**
- * Constants for the names of //base Features.
- */
+* Constants for the names of //base Features.
+*/
 public final class BaseFeatures {
 
 
@@ -190,6 +190,5 @@ public final class BaseFeatures {
     public static final String MAX_DELAYED_STARVATION_TASKS = "MaxDelayedStarvationTasks";
 
     // Prevents instantiation.
-    private BaseFeatures() {
-    }
+    private BaseFeatures() {}
 }

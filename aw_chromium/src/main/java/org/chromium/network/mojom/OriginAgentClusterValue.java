@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class OriginAgentClusterValue {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({OriginAgentClusterValue.ABSENT, OriginAgentClusterValue.TRUE, OriginAgentClusterValue.FALSE})
-    public @interface EnumType {
-    }
+        OriginAgentClusterValue.ABSENT,
+        OriginAgentClusterValue.TRUE,
+        OriginAgentClusterValue.FALSE})
+    public @interface EnumType {}
 
     public static final int ABSENT = 0;
     public static final int TRUE = 1;
@@ -38,9 +40,8 @@ public final class OriginAgentClusterValue {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private OriginAgentClusterValue() {
-    }
+    private OriginAgentClusterValue() {}
 }

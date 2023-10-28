@@ -21,11 +21,11 @@ public class SingleThreadTaskRunnerImpl extends TaskRunnerImpl implements Single
     private final Handler mHandler;
 
     /**
-     * @param handler The backing Handler if any. Note this must run tasks on the
-     *                same thread that the native code runs a task with |traits|.
-     *                If handler is null then tasks won't run until native has
-     *                initialized.
-     * @param traits  The TaskTraits associated with this SingleThreadTaskRunnerImpl.
+     * @param handler                The backing Handler if any. Note this must run tasks on the
+     *                               same thread that the native code runs a task with |traits|.
+     *                               If handler is null then tasks won't run until native has
+     *                               initialized.
+     * @param traits                 The TaskTraits associated with this SingleThreadTaskRunnerImpl.
      */
     public SingleThreadTaskRunnerImpl(Handler handler, @TaskTraits int traits) {
         super(traits, "SingleThreadTaskRunnerImpl", TaskRunnerType.SINGLE_THREAD);

@@ -17,7 +17,9 @@ import java.lang.annotation.RetentionPolicy;
  */
 public class ServicificationStartupUma {
     // This enum is used to back UMA histograms, and should therefore be treated as append-only.
-    @IntDef({ServicificationStartup.CHROME_COLD, ServicificationStartup.CHROME_HALF_WARM, ServicificationStartup.MINIMAL_BROWSER_COLD, ServicificationStartup.MINIMAL_BROWSER_WARM})
+    @IntDef({ServicificationStartup.CHROME_COLD, ServicificationStartup.CHROME_HALF_WARM,
+            ServicificationStartup.MINIMAL_BROWSER_COLD,
+            ServicificationStartup.MINIMAL_BROWSER_WARM})
     @Retention(RetentionPolicy.SOURCE)
     public @interface ServicificationStartup {
         // Cold start of Chrome as a full browser.
@@ -33,7 +35,7 @@ public class ServicificationStartupUma {
     }
 
     // Caches the pending commits before the native is initialized.
-    private final int[] mPendingCommits = new int[ServicificationStartup.NUM_ENTRIES];
+    private int[] mPendingCommits = new int[ServicificationStartup.NUM_ENTRIES];
     private boolean mIsNativeInitialized;
 
     private static final ServicificationStartupUma sInstance = new ServicificationStartupUma();
@@ -48,7 +50,8 @@ public class ServicificationStartupUma {
     /**
      * Returns the startup mode.
      */
-    public static int getStartupMode(boolean isFullBrowserStarted, boolean isMinimalBrowserStarted, boolean startMinimalBrowser) {
+    public static int getStartupMode(boolean isFullBrowserStarted, boolean isMinimalBrowserStarted,
+            boolean startMinimalBrowser) {
         if (isFullBrowserStarted) {
             return -1;
         }
@@ -104,6 +107,7 @@ public class ServicificationStartupUma {
     }
 
     private void recordStartupMode(@ServicificationStartup int startupMode) {
-        RecordHistogram.recordEnumeratedHistogram("Servicification.Startup2", startupMode, ServicificationStartup.NUM_ENTRIES);
+        RecordHistogram.recordEnumeratedHistogram(
+                "Servicification.Startup2", startupMode, ServicificationStartup.NUM_ENTRIES);
     }
 }

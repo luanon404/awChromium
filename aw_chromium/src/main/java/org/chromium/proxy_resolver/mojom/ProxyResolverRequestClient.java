@@ -13,24 +13,32 @@
 
 package org.chromium.proxy_resolver.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface ProxyResolverRequestClient extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends ProxyResolverRequestClient, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends ProxyResolverRequestClient, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<ProxyResolverRequestClient, ProxyResolverRequestClient.Proxy> MANAGER = ProxyResolverRequestClient_Internal.MANAGER;
 
-    void reportResult(int error, ProxyInfo proxyInfo);
+    void reportResult(
+int error, ProxyInfo proxyInfo);
 
 
-    void alert(String error);
+    void alert(
+String error);
 
 
-    void onError(int lineNumber, String error);
+    void onError(
+int lineNumber, String error);
 
 
-    void resolveDns(String host, int operation, org.chromium.network.mojom.NetworkAnonymizationKey networkAnonymizationKey, HostResolverRequestClient client);
+    void resolveDns(
+String host, int operation, org.chromium.network.mojom.NetworkAnonymizationKey networkAnonymizationKey, HostResolverRequestClient client);
 
 
 }

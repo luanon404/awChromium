@@ -11,6 +11,10 @@ import android.view.MotionEvent;
 
 import androidx.annotation.VisibleForTesting;
 
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+
 import org.chromium.base.UserData;
 import org.chromium.content.browser.input.ImeAdapterImpl;
 import org.chromium.content.browser.webcontents.WebContentsImpl;
@@ -19,9 +23,6 @@ import org.chromium.content_public.browser.ViewEventSink.InternalAccessDelegate;
 import org.chromium.content_public.browser.WebContents;
 import org.chromium.ui.MotionEventUtils;
 import org.chromium.ui.base.EventForwarder;
-import org.jni_zero.CalledByNative;
-import org.jni_zero.JNINamespace;
-import org.jni_zero.NativeMethods;
 
 /**
  * Called from native to handle UI events that need access to various Java layer
@@ -34,19 +35,23 @@ public class ContentUiEventHandler implements UserData {
     private long mNativeContentUiEventHandler;
 
     private static final class UserDataFactoryLazyHolder {
-        private static final UserDataFactory<ContentUiEventHandler> INSTANCE = ContentUiEventHandler::new;
+        private static final UserDataFactory<ContentUiEventHandler> INSTANCE =
+                ContentUiEventHandler::new;
     }
 
     public static ContentUiEventHandler fromWebContents(WebContents webContents) {
-        return ((WebContentsImpl) webContents).getOrSetUserData(ContentUiEventHandler.class, UserDataFactoryLazyHolder.INSTANCE);
+        return ((WebContentsImpl) webContents)
+                .getOrSetUserData(ContentUiEventHandler.class, UserDataFactoryLazyHolder.INSTANCE);
     }
 
     public ContentUiEventHandler(WebContents webContents) {
         mWebContents = (WebContentsImpl) webContents;
-        mNativeContentUiEventHandler = ContentUiEventHandlerJni.get().init(ContentUiEventHandler.this, webContents);
+        mNativeContentUiEventHandler =
+                ContentUiEventHandlerJni.get().init(ContentUiEventHandler.this, webContents);
     }
 
-    static ContentUiEventHandler createForTesting(WebContents webContents, long nativeContentUiEventHandler) {
+    static ContentUiEventHandler createForTesting(
+            WebContents webContents, long nativeContentUiEventHandler) {
         ContentUiEventHandler contentUiEventHandler = new ContentUiEventHandler(webContents);
         contentUiEventHandler.mNativeContentUiEventHandler = nativeContentUiEventHandler;
         return contentUiEventHandler;
@@ -82,12 +87,16 @@ public class ContentUiEventHandler implements UserData {
     }
 
     private boolean isTrackpadEventThatNeedsConversion(MotionEvent event) {
-        return mWebContents.getEventForwarder().isTrackpadToMouseEventConversionEnabled() && EventForwarder.isTrackpadClickOrClickAndDragEvent(event);
+        return mWebContents.getEventForwarder().isTrackpadToMouseEventConversionEnabled()
+                && EventForwarder.isTrackpadClickOrClickAndDragEvent(event);
     }
 
     private void onMouseWheelEvent(MotionEvent event) {
         assert mNativeContentUiEventHandler != 0;
-        ContentUiEventHandlerJni.get().sendMouseWheelEvent(mNativeContentUiEventHandler, ContentUiEventHandler.this, MotionEventUtils.getEventTimeNanos(event), event.getX(), event.getY(), event.getAxisValue(MotionEvent.AXIS_HSCROLL), event.getAxisValue(MotionEvent.AXIS_VSCROLL));
+        ContentUiEventHandlerJni.get().sendMouseWheelEvent(mNativeContentUiEventHandler,
+                ContentUiEventHandler.this, MotionEventUtils.getEventTimeNanos(event), event.getX(),
+                event.getY(), event.getAxisValue(MotionEvent.AXIS_HSCROLL),
+                event.getAxisValue(MotionEvent.AXIS_VSCROLL));
     }
 
     private boolean onMouseEvent(MotionEvent event, boolean shouldConvertToMouseEvent) {
@@ -99,7 +108,14 @@ public class ContentUiEventHandler implements UserData {
             didOffsetEvent = true;
             event = newEvent;
         }
-        ContentUiEventHandlerJni.get().sendMouseEvent(mNativeContentUiEventHandler, ContentUiEventHandler.this, MotionEventUtils.getEventTimeNanos(event), event.getActionMasked(), event.getX(), event.getY(), event.getPointerId(0), event.getPressure(0), event.getOrientation(0), event.getAxisValue(MotionEvent.AXIS_TILT, 0), EventForwarder.getMouseEventActionButton(event), event.getButtonState(), event.getMetaState(), shouldConvertToMouseEvent ? MotionEvent.TOOL_TYPE_MOUSE : event.getToolType(0));
+        ContentUiEventHandlerJni.get().sendMouseEvent(mNativeContentUiEventHandler,
+                ContentUiEventHandler.this, MotionEventUtils.getEventTimeNanos(event),
+                event.getActionMasked(), event.getX(), event.getY(), event.getPointerId(0),
+                event.getPressure(0), event.getOrientation(0),
+                event.getAxisValue(MotionEvent.AXIS_TILT, 0),
+                EventForwarder.getMouseEventActionButton(event), event.getButtonState(),
+                event.getMetaState(),
+                shouldConvertToMouseEvent ? MotionEvent.TOOL_TYPE_MOUSE : event.getToolType(0));
         if (didOffsetEvent) event.recycle();
         return true;
     }
@@ -136,7 +152,16 @@ public class ContentUiEventHandler implements UserData {
      */
     private static boolean shouldPropagateKeyEvent(KeyEvent event) {
         int keyCode = event.getKeyCode();
-        return keyCode != KeyEvent.KEYCODE_MENU && keyCode != KeyEvent.KEYCODE_HOME && keyCode != KeyEvent.KEYCODE_BACK && keyCode != KeyEvent.KEYCODE_CALL && keyCode != KeyEvent.KEYCODE_ENDCALL && keyCode != KeyEvent.KEYCODE_POWER && keyCode != KeyEvent.KEYCODE_HEADSETHOOK && keyCode != KeyEvent.KEYCODE_CAMERA && keyCode != KeyEvent.KEYCODE_FOCUS && keyCode != KeyEvent.KEYCODE_VOLUME_DOWN && keyCode != KeyEvent.KEYCODE_VOLUME_MUTE && keyCode != KeyEvent.KEYCODE_VOLUME_UP && keyCode != KeyEvent.KEYCODE_SYSRQ;
+        if (keyCode == KeyEvent.KEYCODE_MENU || keyCode == KeyEvent.KEYCODE_HOME
+                || keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_CALL
+                || keyCode == KeyEvent.KEYCODE_ENDCALL || keyCode == KeyEvent.KEYCODE_POWER
+                || keyCode == KeyEvent.KEYCODE_HEADSETHOOK || keyCode == KeyEvent.KEYCODE_CAMERA
+                || keyCode == KeyEvent.KEYCODE_FOCUS || keyCode == KeyEvent.KEYCODE_VOLUME_DOWN
+                || keyCode == KeyEvent.KEYCODE_VOLUME_MUTE || keyCode == KeyEvent.KEYCODE_VOLUME_UP
+                || keyCode == KeyEvent.KEYCODE_SYSRQ) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -154,9 +179,11 @@ public class ContentUiEventHandler implements UserData {
         // be active when programatically scrolling. Cancelling the fling in
         // such cases ensures a consistent gesture event stream.
         if (GestureListenerManagerImpl.fromWebContents(mWebContents).hasActiveFlingScroll()) {
-            ContentUiEventHandlerJni.get().cancelFling(mNativeContentUiEventHandler, ContentUiEventHandler.this, time);
+            ContentUiEventHandlerJni.get().cancelFling(
+                    mNativeContentUiEventHandler, ContentUiEventHandler.this, time);
         }
-        ContentUiEventHandlerJni.get().sendScrollEvent(mNativeContentUiEventHandler, ContentUiEventHandler.this, time, dxPix, dyPix);
+        ContentUiEventHandlerJni.get().sendScrollEvent(
+                mNativeContentUiEventHandler, ContentUiEventHandler.this, time, dxPix, dyPix);
     }
 
     @CalledByNative
@@ -171,13 +198,15 @@ public class ContentUiEventHandler implements UserData {
     @NativeMethods
     interface Natives {
         long init(ContentUiEventHandler caller, WebContents webContents);
-
-        void sendMouseWheelEvent(long nativeContentUiEventHandler, ContentUiEventHandler caller, long timeNs, float x, float y, float ticksX, float ticksY);
-
-        void sendMouseEvent(long nativeContentUiEventHandler, ContentUiEventHandler caller, long timeNs, int action, float x, float y, int pointerId, float pressure, float orientation, float tilt, int changedButton, int buttonState, int metaState, int toolType);
-
-        void sendScrollEvent(long nativeContentUiEventHandler, ContentUiEventHandler caller, long timeMs, float deltaX, float deltaY);
-
-        void cancelFling(long nativeContentUiEventHandler, ContentUiEventHandler caller, long timeMs);
+        void sendMouseWheelEvent(long nativeContentUiEventHandler, ContentUiEventHandler caller,
+                long timeNs, float x, float y, float ticksX, float ticksY);
+        void sendMouseEvent(long nativeContentUiEventHandler, ContentUiEventHandler caller,
+                long timeNs, int action, float x, float y, int pointerId, float pressure,
+                float orientation, float tilt, int changedButton, int buttonState, int metaState,
+                int toolType);
+        void sendScrollEvent(long nativeContentUiEventHandler, ContentUiEventHandler caller,
+                long timeMs, float deltaX, float deltaY);
+        void cancelFling(
+                long nativeContentUiEventHandler, ContentUiEventHandler caller, long timeMs);
     }
 }

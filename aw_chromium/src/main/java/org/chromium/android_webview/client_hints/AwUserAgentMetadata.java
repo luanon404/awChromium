@@ -19,7 +19,7 @@ import java.util.Objects;
 
 /**
  * A class that defines user-agent metadata, it's used to override user-agent client hints.
- * <p>
+ *
  * To provide a better experience on using the WebView public API to override user-agent client
  * hints API, this class is implemented a little different from the existing blink Chromium
  * UserAgentMetadata. See: third_party/blink/public/common/user_agent/user_agent_metadata.h.
@@ -40,7 +40,10 @@ public class AwUserAgentMetadata {
     /**
      * Key for the user-agent metadata properties.
      */
-    @StringDef({MetadataKeys.BRAND_VERSION_LIST, MetadataKeys.FULL_VERSION, MetadataKeys.PLATFORM, MetadataKeys.PLATFORM_VERSION, MetadataKeys.ARCHITECTURE, MetadataKeys.MODEL, MetadataKeys.MOBILE, MetadataKeys.BITNESS, MetadataKeys.WOW64, MetadataKeys.FORM_FACTOR})
+    @StringDef({MetadataKeys.BRAND_VERSION_LIST, MetadataKeys.FULL_VERSION, MetadataKeys.PLATFORM,
+            MetadataKeys.PLATFORM_VERSION, MetadataKeys.ARCHITECTURE, MetadataKeys.MODEL,
+            MetadataKeys.MOBILE, MetadataKeys.BITNESS, MetadataKeys.WOW64,
+            MetadataKeys.FORM_FACTOR})
     @Retention(RetentionPolicy.SOURCE)
     public @interface MetadataKeys {
         String BRAND_VERSION_LIST = "BRAND_VERSION_LIST";
@@ -53,7 +56,7 @@ public class AwUserAgentMetadata {
         String BITNESS = "BITNESS";
         String WOW64 = "WOW64";
         String FORM_FACTOR = "FORM_FACTOR";
-    }
+    };
 
     public static final int BITNESS_DEFAULT = 0;
 
@@ -64,8 +67,7 @@ public class AwUserAgentMetadata {
 
     // To better manage the data within this class, make the constructor as private to avoid
     // creating instances outside of the class.
-    private AwUserAgentMetadata() {
-    }
+    private AwUserAgentMetadata() {}
 
     public AwUserAgentMetadata shallowCopy() {
         AwUserAgentMetadata copy = new AwUserAgentMetadata();
@@ -90,7 +92,8 @@ public class AwUserAgentMetadata {
         }
     }
 
-    private static String getFullVersionFromBandList(String[][] brandFullVersionList, String brand) {
+    private static String getFullVersionFromBandList(
+            String[][] brandFullVersionList, String brand) {
         if (brandFullVersionList == null) {
             return "";
         }
@@ -157,13 +160,17 @@ public class AwUserAgentMetadata {
      * Construct a AwUserAgentMetadata instance, and low-entropy client hints should not be null.
      */
     @CalledByNative
-    private static AwUserAgentMetadata create(@NonNull String[][] brandVersionList, String[][] brandFullVersionList, String fullVersion, @NonNull String platform, String platformVersion, String architecture, String model, boolean mobile, String bitness, boolean wow64, String formFactor) {
+    private static AwUserAgentMetadata create(@NonNull String[][] brandVersionList,
+            String[][] brandFullVersionList, String fullVersion, @NonNull String platform,
+            String platformVersion, String architecture, String model, boolean mobile,
+            String bitness, boolean wow64, String formFactor) {
         AwUserAgentMetadata result = new AwUserAgentMetadata();
         result.mBrandVersionList = new String[brandVersionList.length][BRAND_VERSION_LENGTH];
         for (int i = 0; i < brandVersionList.length; i++) {
             result.mBrandVersionList[i][0] = brandVersionList[i][0]; // brand
             result.mBrandVersionList[i][1] = brandVersionList[i][1]; // majorVersion
-            result.mBrandVersionList[i][2] = getFullVersionFromBandList(brandFullVersionList, brandVersionList[i][0]); // fullVersion
+            result.mBrandVersionList[i][2] = getFullVersionFromBandList(
+                    brandFullVersionList, brandVersionList[i][0]); // fullVersion
         }
         result.mFullVersion = fullVersion;
         result.mPlatform = platform;
@@ -177,10 +184,12 @@ public class AwUserAgentMetadata {
         return result;
     }
 
-    private static String getValueAsString(Map<String, Object> map, @MetadataKeys String key, String defaultValue) {
+    private static String getValueAsString(
+            Map<String, Object> map, @MetadataKeys String key, String defaultValue) {
         Object value = map.get(key);
         if (value != null && !(value instanceof String)) {
-            throw new IllegalArgumentException("AwUserAgentMetadata map does not have " + "right type of value for key: " + key);
+            throw new IllegalArgumentException("AwUserAgentMetadata map does not have "
+                    + "right type of value for key: " + key);
         }
         if (value != null) {
             return (String) value;
@@ -188,10 +197,12 @@ public class AwUserAgentMetadata {
         return defaultValue;
     }
 
-    private static boolean getValueAsBoolean(Map<String, Object> map, @MetadataKeys String key, boolean defaultValue) {
+    private static boolean getValueAsBoolean(
+            Map<String, Object> map, @MetadataKeys String key, boolean defaultValue) {
         Object value = map.get(key);
         if (value != null && !(value instanceof Boolean)) {
-            throw new IllegalArgumentException("AwUserAgentMetadata map does not have " + "right type of value for key: " + key);
+            throw new IllegalArgumentException("AwUserAgentMetadata map does not have "
+                    + "right type of value for key: " + key);
         }
         if (value != null) {
             return (Boolean) value;
@@ -199,10 +210,12 @@ public class AwUserAgentMetadata {
         return defaultValue;
     }
 
-    private static int getValueAsInt(Map<String, Object> map, @MetadataKeys String key, int defaultValue) {
+    private static int getValueAsInt(
+            Map<String, Object> map, @MetadataKeys String key, int defaultValue) {
         Object value = map.get(key);
         if (value != null && !(value instanceof Integer)) {
-            throw new IllegalArgumentException("AwUserAgentMetadata map does not have " + "right type of value for key: " + key);
+            throw new IllegalArgumentException("AwUserAgentMetadata map does not have "
+                    + "right type of value for key: " + key);
         }
         if (value != null) {
             return (Integer) value;
@@ -213,19 +226,20 @@ public class AwUserAgentMetadata {
     /**
      * Return an instance based on the provided override user-agent metadata map and the default
      * user-agent metadata settings.
-     * <p>
+     *
      * Here we only validate some basic requirements for the input, we need to do more strictly
      * validation on Android public API, like check whether brand full version either all empty or
      * all non-empty. Return a boolean indicate whether it needs to update the user-agent metadata.
      *
      * @param uaMetadataMap an object represent what users intend to override user-agent metadata
-     *                      setting.
-     * @param defaultData   an object represent system default user-agent metadata.
+     *         setting.
+     * @param defaultData an object represent system default user-agent metadata.
      * @return For system default override settings, we maintain a shallow copy instance of
-     * AwUserAgentMetadata, while for outside override settings(e.g brand version array)
-     * we will deep copy them when constructing a new instance of AwUserAgentMetadata.
+     *         AwUserAgentMetadata, while for outside override settings(e.g brand version array)
+     *         we will deep copy them when constructing a new instance of AwUserAgentMetadata.
      */
-    public static AwUserAgentMetadata fromMap(Map<String, Object> uaMetadataMap, @NonNull AwUserAgentMetadata defaultData) {
+    public static AwUserAgentMetadata fromMap(
+            Map<String, Object> uaMetadataMap, @NonNull AwUserAgentMetadata defaultData) {
         if (uaMetadataMap == null || uaMetadataMap.isEmpty()) {
             return defaultData.shallowCopy();
         }
@@ -234,17 +248,24 @@ public class AwUserAgentMetadata {
         String[][] brandVersionList = defaultData.mBrandVersionList;
         if (brandVersionValue != null) {
             if (!(brandVersionValue instanceof String[][])) {
-                throw new IllegalArgumentException("AwUserAgentMetadata map does not have " + "right type of value for key: " + MetadataKeys.BRAND_VERSION_LIST);
+                throw new IllegalArgumentException("AwUserAgentMetadata map does not have "
+                        + "right type of value for key: " + MetadataKeys.BRAND_VERSION_LIST);
             }
             String[][] overrideBrandVersionList = (String[][]) brandVersionValue;
             brandVersionList = new String[overrideBrandVersionList.length][];
             for (int i = 0; i < overrideBrandVersionList.length; i++) {
                 String[] brandVersionInfo = overrideBrandVersionList[i];
                 if (brandVersionInfo.length != BRAND_VERSION_LENGTH) {
-                    throw new IllegalArgumentException("AwUserAgentMetadata map does not have " + "right type of value for key: " + MetadataKeys.BRAND_VERSION_LIST + ", expect brand item length:" + BRAND_VERSION_LENGTH + ", actual:" + brandVersionInfo.length);
+                    throw new IllegalArgumentException("AwUserAgentMetadata map does not have "
+                            + "right type of value for key: " + MetadataKeys.BRAND_VERSION_LIST
+                            + ", expect brand item length:" + BRAND_VERSION_LENGTH
+                            + ", actual:" + brandVersionInfo.length);
                 }
-                if (brandVersionInfo[0] == null || brandVersionInfo[1] == null || brandVersionInfo[2] == null) {
-                    throw new IllegalArgumentException("AwUserAgentMetadata map does not have " + "right type of value for key: " + MetadataKeys.BRAND_VERSION_LIST + ", brand item should not set as null");
+                if (brandVersionInfo[0] == null || brandVersionInfo[1] == null
+                        || brandVersionInfo[2] == null) {
+                    throw new IllegalArgumentException("AwUserAgentMetadata map does not have "
+                            + "right type of value for key: " + MetadataKeys.BRAND_VERSION_LIST
+                            + ", brand item should not set as null");
                 }
                 brandVersionList[i] = Arrays.copyOf(brandVersionInfo, brandVersionInfo.length);
             }
@@ -252,15 +273,20 @@ public class AwUserAgentMetadata {
 
         AwUserAgentMetadata result = new AwUserAgentMetadata();
         result.mBrandVersionList = brandVersionList;
-        result.mFullVersion = getValueAsString(uaMetadataMap, MetadataKeys.FULL_VERSION, defaultData.mFullVersion);
-        result.mPlatform = getValueAsString(uaMetadataMap, MetadataKeys.PLATFORM, defaultData.mPlatform);
-        result.mPlatformVersion = getValueAsString(uaMetadataMap, MetadataKeys.PLATFORM_VERSION, defaultData.mPlatformVersion);
-        result.mArchitecture = getValueAsString(uaMetadataMap, MetadataKeys.ARCHITECTURE, defaultData.mArchitecture);
+        result.mFullVersion = getValueAsString(
+                uaMetadataMap, MetadataKeys.FULL_VERSION, defaultData.mFullVersion);
+        result.mPlatform =
+                getValueAsString(uaMetadataMap, MetadataKeys.PLATFORM, defaultData.mPlatform);
+        result.mPlatformVersion = getValueAsString(
+                uaMetadataMap, MetadataKeys.PLATFORM_VERSION, defaultData.mPlatformVersion);
+        result.mArchitecture = getValueAsString(
+                uaMetadataMap, MetadataKeys.ARCHITECTURE, defaultData.mArchitecture);
         result.mModel = getValueAsString(uaMetadataMap, MetadataKeys.MODEL, defaultData.mModel);
         result.mMobile = getValueAsBoolean(uaMetadataMap, MetadataKeys.MOBILE, defaultData.mMobile);
         result.mBitness = getValueAsInt(uaMetadataMap, MetadataKeys.BITNESS, defaultData.mBitness);
         result.mWow64 = getValueAsBoolean(uaMetadataMap, MetadataKeys.WOW64, defaultData.mWow64);
-        result.mFormFactor = getValueAsString(uaMetadataMap, MetadataKeys.FORM_FACTOR, defaultData.mFormFactor);
+        result.mFormFactor =
+                getValueAsString(uaMetadataMap, MetadataKeys.FORM_FACTOR, defaultData.mFormFactor);
         return result;
     }
 
@@ -288,11 +314,19 @@ public class AwUserAgentMetadata {
             return false;
         }
         AwUserAgentMetadata that = (AwUserAgentMetadata) o;
-        return mMobile == that.mMobile && mWow64 == that.mWow64 && mBitness == that.mBitness && Arrays.deepEquals(mBrandVersionList, that.mBrandVersionList) && Objects.equals(mFullVersion, that.mFullVersion) && Objects.equals(mPlatform, that.mPlatform) && Objects.equals(mPlatformVersion, that.mPlatformVersion) && Objects.equals(mArchitecture, that.mArchitecture) && Objects.equals(mModel, that.mModel) && Objects.equals(mFormFactor, that.mFormFactor);
+        return mMobile == that.mMobile && mWow64 == that.mWow64 && mBitness == that.mBitness
+                && Arrays.deepEquals(mBrandVersionList, that.mBrandVersionList)
+                && Objects.equals(mFullVersion, that.mFullVersion)
+                && Objects.equals(mPlatform, that.mPlatform)
+                && Objects.equals(mPlatformVersion, that.mPlatformVersion)
+                && Objects.equals(mArchitecture, that.mArchitecture)
+                && Objects.equals(mModel, that.mModel)
+                && Objects.equals(mFormFactor, that.mFormFactor);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(Arrays.deepHashCode(mBrandVersionList), mFullVersion, mPlatform, mPlatformVersion, mArchitecture, mModel, mMobile, mBitness, mWow64, mFormFactor);
+        return Objects.hash(Arrays.deepHashCode(mBrandVersionList), mFullVersion, mPlatform,
+                mPlatformVersion, mArchitecture, mModel, mMobile, mBitness, mWow64, mFormFactor);
     }
 }

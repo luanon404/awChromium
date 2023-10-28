@@ -13,14 +13,15 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public final class PresentationConnectionMessage extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
         public static final int Message = 0;
         public static final int Data = 1;
-    }
-
+    };
     private String mMessage;
     private byte[] mData;
 

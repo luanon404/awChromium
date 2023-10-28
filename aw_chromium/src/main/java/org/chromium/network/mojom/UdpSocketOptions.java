@@ -13,10 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class UdpSocketOptions extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 32;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(32, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(32, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public boolean allowAddressReuse;
     public boolean allowBroadcast;
@@ -54,7 +57,8 @@ public final class UdpSocketOptions extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static UdpSocketOptions deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -68,44 +72,44 @@ public final class UdpSocketOptions extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new UdpSocketOptions(elementsOrVersion);
-            {
-
+                {
+                    
                 result.allowAddressReuse = decoder0.readBoolean(8, 0);
-            }
-            {
-
+                }
+                {
+                    
                 result.allowBroadcast = decoder0.readBoolean(8, 1);
-            }
-            {
-
+                }
+                {
+                    
                 result.allowAddressSharingForMulticast = decoder0.readBoolean(8, 2);
-            }
-            {
-
+                }
+                {
+                    
                 result.multicastLoopbackMode = decoder0.readBoolean(8, 3);
-            }
-            {
-
+                }
+                {
+                    
                 result.multicastInterface = decoder0.readInt(12);
-            }
-            {
-
+                }
+                {
+                    
                 result.multicastTimeToLive = decoder0.readInt(16);
-            }
-            {
-
+                }
+                {
+                    
                 result.sendBufferSize = decoder0.readInt(20);
-            }
-            {
-
+                }
+                {
+                    
                 result.receiveBufferSize = decoder0.readInt(24);
-            }
-            {
-
+                }
+                {
+                    
                 result.ipv6Only = decoder0.readInt(28);
-                OptionalBool.validate(result.ipv6Only);
-                result.ipv6Only = OptionalBool.toKnownValue(result.ipv6Only);
-            }
+                    OptionalBool.validate(result.ipv6Only);
+                    result.ipv6Only = OptionalBool.toKnownValue(result.ipv6Only);
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -117,23 +121,23 @@ public final class UdpSocketOptions extends org.chromium.mojo.bindings.Struct {
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.allowAddressReuse, 8, 0);
-
+        
         encoder0.encode(this.allowBroadcast, 8, 1);
-
+        
         encoder0.encode(this.allowAddressSharingForMulticast, 8, 2);
-
+        
         encoder0.encode(this.multicastLoopbackMode, 8, 3);
-
+        
         encoder0.encode(this.multicastInterface, 12);
-
+        
         encoder0.encode(this.multicastTimeToLive, 16);
-
+        
         encoder0.encode(this.sendBufferSize, 20);
-
+        
         encoder0.encode(this.receiveBufferSize, 24);
-
+        
         encoder0.encode(this.ipv6Only, 28);
     }
 }

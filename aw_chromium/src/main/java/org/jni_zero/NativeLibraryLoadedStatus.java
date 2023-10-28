@@ -4,12 +4,11 @@
 
 package org.jni_zero;
 
-import androidx.annotation.Keep;
+import org.chromium.build.BuildConfig;
 
 /**
  * Exposes native library loading status.
  */
-@Keep
 public class NativeLibraryLoadedStatus {
     /**
      * Interface for querying native method availability.
@@ -30,7 +29,8 @@ public class NativeLibraryLoadedStatus {
         if (sProvider == null) return;
 
         if (!sProvider.areNativeMethodsReady()) {
-            throw new NativeNotLoadedException("Native method called before the native library was ready.");
+            throw new NativeNotLoadedException(
+                    "Native method called before the native library was ready.");
         }
     }
 
@@ -38,4 +38,7 @@ public class NativeLibraryLoadedStatus {
         sProvider = statusProvider;
     }
 
+    public static NativeLibraryLoadedStatusProvider getProviderForTesting() {
+        return sProvider;
+    }
 }

@@ -13,10 +13,14 @@
 
 package org.chromium.mojo_base.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface GenericAssociatedInterface extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends GenericAssociatedInterface, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends GenericAssociatedInterface, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<GenericAssociatedInterface, GenericAssociatedInterface.Proxy> MANAGER = GenericAssociatedInterface_Internal.MANAGER;

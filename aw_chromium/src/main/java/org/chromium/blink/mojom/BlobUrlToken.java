@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface BlobUrlToken extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends BlobUrlToken, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends BlobUrlToken, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<BlobUrlToken, BlobUrlToken.Proxy> MANAGER = BlobUrlToken_Internal.MANAGER;

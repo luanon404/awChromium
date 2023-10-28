@@ -4,49 +4,97 @@
 package org.chromium.content.browser;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.content.Context;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.IBinder;
+import android.os.ParcelFileDescriptor;
+import android.text.TextUtils;
+import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.ApplicationState;
+import org.chromium.base.ApplicationStatus;
+import org.chromium.base.Callback;
+import org.chromium.base.ChildBindingState;
+import org.chromium.base.ContextUtils;
+import org.chromium.base.CpuFeatures;
+import org.chromium.base.EarlyTraceEvent;
+import org.chromium.base.JavaExceptionReporter;
+import org.chromium.base.Log;
+import org.chromium.base.ThreadUtils;
+import org.chromium.base.TraceEvent;
+import org.chromium.base.library_loader.LibraryLoader;
+import org.chromium.base.library_loader.LibraryLoader.MultiProcessMediator;
+import org.chromium.base.process_launcher.ChildConnectionAllocator;
+import org.chromium.base.process_launcher.ChildProcessConnection;
+import org.chromium.base.process_launcher.ChildProcessConstants;
+import org.chromium.base.process_launcher.ChildProcessLauncher;
+import org.chromium.base.process_launcher.FileDescriptorInfo;
+import org.chromium.base.task.PostTask;
+import org.chromium.base.task.TaskTraits;
+import org.chromium.content.app.SandboxedProcessService;
+import org.chromium.content.common.ContentSwitchUtils;
+import org.chromium.content_public.browser.ChildProcessImportance;
+import org.chromium.content_public.browser.ContentFeatureList;
+import org.chromium.content_public.browser.ContentFeatureMap;
+import org.chromium.content_public.common.ContentFeatures;
+import org.chromium.content_public.common.ContentSwitches;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @CheckDiscard("crbug.com/993421")
 class ChildProcessLauncherHelperImplJni implements ChildProcessLauncherHelperImpl.Natives {
-    private static ChildProcessLauncherHelperImpl.Natives testInstance;
+  private static ChildProcessLauncherHelperImpl.Natives testInstance;
 
-    public static final JniStaticTestMocker<ChildProcessLauncherHelperImpl.Natives> TEST_HOOKS = new JniStaticTestMocker<ChildProcessLauncherHelperImpl.Natives>() {
-        @Override
-        public void setInstanceForTesting(ChildProcessLauncherHelperImpl.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<ChildProcessLauncherHelperImpl.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<ChildProcessLauncherHelperImpl.Natives>() {
     @Override
-    public void onChildProcessStarted(long nativeChildProcessLauncherHelper, int pid) {
-        GEN_JNI.org_chromium_content_browser_ChildProcessLauncherHelperImpl_onChildProcessStarted(nativeChildProcessLauncherHelper, pid);
+    public void setInstanceForTesting(ChildProcessLauncherHelperImpl.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public boolean serviceGroupImportanceEnabled() {
-        return GEN_JNI.org_chromium_content_browser_ChildProcessLauncherHelperImpl_serviceGroupImportanceEnabled();
-    }
+  @Override
+  public void onChildProcessStarted(long nativeChildProcessLauncherHelper, int pid) {
+    GEN_JNI.org_chromium_content_browser_ChildProcessLauncherHelperImpl_onChildProcessStarted(nativeChildProcessLauncherHelper, pid);
+  }
 
-    @Override
-    public void setTerminationInfo(long termiantionInfoPtr, int bindingState, boolean killedByUs, boolean cleanExit, boolean exceptionDuringInit) {
-        GEN_JNI.org_chromium_content_browser_ChildProcessLauncherHelperImpl_setTerminationInfo(termiantionInfoPtr, bindingState, killedByUs, cleanExit, exceptionDuringInit);
-    }
+  @Override
+  public boolean serviceGroupImportanceEnabled() {
+    return (boolean) GEN_JNI.org_chromium_content_browser_ChildProcessLauncherHelperImpl_serviceGroupImportanceEnabled();
+  }
 
-    public static ChildProcessLauncherHelperImpl.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of ChildProcessLauncherHelperImpl.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new ChildProcessLauncherHelperImplJni();
+  @Override
+  public void setTerminationInfo(long termiantionInfoPtr, int bindingState, boolean killedByUs, boolean cleanExit, boolean exceptionDuringInit) {
+    GEN_JNI.org_chromium_content_browser_ChildProcessLauncherHelperImpl_setTerminationInfo(termiantionInfoPtr, bindingState, killedByUs, cleanExit, exceptionDuringInit);
+  }
+
+  public static ChildProcessLauncherHelperImpl.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of ChildProcessLauncherHelperImpl.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new ChildProcessLauncherHelperImplJni();
+  }
 }

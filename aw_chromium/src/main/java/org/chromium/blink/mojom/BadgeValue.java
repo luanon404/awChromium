@@ -13,14 +13,15 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public final class BadgeValue extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
         public static final int Flag = 0;
         public static final int Number = 1;
-    }
-
+    };
     private byte mFlag;
     private long mNumber;
 

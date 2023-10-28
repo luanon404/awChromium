@@ -13,15 +13,20 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface ObliviousHttpClient extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends ObliviousHttpClient, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends ObliviousHttpClient, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<ObliviousHttpClient, ObliviousHttpClient.Proxy> MANAGER = ObliviousHttpClient_Internal.MANAGER;
 
-    void onCompleted(ObliviousHttpCompletionResult response);
+    void onCompleted(
+ObliviousHttpCompletionResult response);
 
 
 }

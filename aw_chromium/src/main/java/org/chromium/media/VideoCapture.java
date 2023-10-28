@@ -10,10 +10,11 @@ import android.hardware.display.DisplayManager;
 import android.view.Display;
 import android.view.Surface;
 
-import org.chromium.base.ContextUtils;
 import org.jni_zero.CalledByNative;
 import org.jni_zero.JNINamespace;
 import org.jni_zero.NativeMethods;
+
+import org.chromium.base.ContextUtils;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -65,7 +66,8 @@ public abstract class VideoCapture {
 
     // Allocate necessary resources for capture.
     @CalledByNative
-    public abstract boolean allocate(int width, int height, int frameRate, boolean enableFaceDetection);
+    public abstract boolean allocate(
+            int width, int height, int frameRate, boolean enableFaceDetection);
 
     // Success is indicated by returning true and a callback to
     // VideoCaptureJni.get().onStarted(,  VideoCapture.this), which may occur synchronously or
@@ -86,26 +88,30 @@ public abstract class VideoCapture {
     public abstract void getPhotoCapabilitiesAsync(long callbackId);
 
     /**
-     * @param zoom                    Zoom level, should be ignored if 0.
-     * @param focusMode               Focus mode following AndroidMeteringMode enum.
-     * @param focusDistance           Desired distance to plane of sharpest focus.
-     * @param exposureMode            Exposure mode following AndroidMeteringMode enum.
-     * @param pointsOfInterest2D      2D normalized points of interest, marshalled with
-     *                                x coordinate first followed by the y coordinate.
+     * @param zoom Zoom level, should be ignored if 0.
+     * @param focusMode Focus mode following AndroidMeteringMode enum.
+     * @param focusDistance Desired distance to plane of sharpest focus.
+     * @param exposureMode Exposure mode following AndroidMeteringMode enum.
+     * @param pointsOfInterest2D 2D normalized points of interest, marshalled with
+     * x coordinate first followed by the y coordinate.
      * @param hasExposureCompensation Indicates if |exposureCompensation| is set.
-     * @param exposureCompensation    Adjustment to auto exposure. 0 means not adjusted.
-     * @param exposureTime            Duration each pixel is exposed to light (in nanoseconds).
-     * @param whiteBalanceMode        White Balance mode following AndroidMeteringMode enum.
-     * @param iso                     Sensitivity to light. 0, which would be invalid, means ignore.
-     * @param hasRedEyeReduction      Indicates if |redEyeReduction| is set.
-     * @param redEyeReduction         Value of red eye reduction for the auto flash setting.
-     * @param fillLightMode           Flash setting, following AndroidFillLightMode enum.
-     * @param colorTemperature        White Balance reference temperature, valid if whiteBalanceMode is
-     *                                manual, and its value is larger than 0.
-     * @param torch                   Torch setting, true meaning on.
+     * @param exposureCompensation Adjustment to auto exposure. 0 means not adjusted.
+     * @param exposureTime Duration each pixel is exposed to light (in nanoseconds).
+     * @param whiteBalanceMode White Balance mode following AndroidMeteringMode enum.
+     * @param iso Sensitivity to light. 0, which would be invalid, means ignore.
+     * @param hasRedEyeReduction Indicates if |redEyeReduction| is set.
+     * @param redEyeReduction Value of red eye reduction for the auto flash setting.
+     * @param fillLightMode Flash setting, following AndroidFillLightMode enum.
+     * @param colorTemperature White Balance reference temperature, valid if whiteBalanceMode is
+     * manual, and its value is larger than 0.
+     * @param torch Torch setting, true meaning on.
      */
     @CalledByNative
-    public abstract void setPhotoOptions(double zoom, int focusMode, double focusDistance, int exposureMode, double width, double height, double[] pointsOfInterest2D, boolean hasExposureCompensation, double exposureCompensation, double exposureTime, int whiteBalanceMode, double iso, boolean hasRedEyeReduction, boolean redEyeReduction, int fillLightMode, boolean hasTorch, boolean torch, double colorTemperature);
+    public abstract void setPhotoOptions(double zoom, int focusMode, double focusDistance,
+            int exposureMode, double width, double height, double[] pointsOfInterest2D,
+            boolean hasExposureCompensation, double exposureCompensation, double exposureTime,
+            int whiteBalanceMode, double iso, boolean hasRedEyeReduction, boolean redEyeReduction,
+            int fillLightMode, boolean hasTorch, boolean torch, double colorTemperature);
 
     // Replies by calling VideoCaptureJni.get().onPhotoTaken().
     @CalledByNative
@@ -118,7 +124,6 @@ public abstract class VideoCapture {
         }
         deallocateInternal();
     }
-
     public abstract void deallocateInternal();
 
     @CalledByNative
@@ -157,13 +162,15 @@ public abstract class VideoCapture {
     }
 
     protected final int getCameraRotation() {
-        int rotation = mInvertDeviceOrientationReadings ? (360 - getDeviceRotation()) : getDeviceRotation();
+        int rotation = mInvertDeviceOrientationReadings ? (360 - getDeviceRotation())
+                                                        : getDeviceRotation();
         return (mCameraNativeOrientation + rotation) % 360;
     }
 
     protected final int getDeviceRotation() {
         final int orientation;
-        DisplayManager dm = (DisplayManager) ContextUtils.getApplicationContext().getSystemService(Context.DISPLAY_SERVICE);
+        DisplayManager dm = (DisplayManager) ContextUtils.getApplicationContext().getSystemService(
+                Context.DISPLAY_SERVICE);
         switch (dm.getDisplay(Display.DEFAULT_DISPLAY).getRotation()) {
             case Surface.ROTATION_90:
                 orientation = 90;
@@ -187,7 +194,8 @@ public abstract class VideoCapture {
     protected void notifyTakePhotoError(long callbackId) {
         synchronized (mNativeVideoCaptureLock) {
             if (mNativeVideoCaptureDeviceAndroid != 0) {
-                VideoCaptureJni.get().onPhotoTaken(mNativeVideoCaptureDeviceAndroid, VideoCapture.this, callbackId, null);
+                VideoCaptureJni.get().onPhotoTaken(
+                        mNativeVideoCaptureDeviceAndroid, VideoCapture.this, callbackId, null);
             }
         }
     }
@@ -196,12 +204,13 @@ public abstract class VideoCapture {
      * Finds the framerate range matching |targetFramerate|. Tries to find a range with as low of a
      * minimum value as possible to allow the camera adjust based on the lighting conditions.
      * Assumes that all framerate values are multiplied by 1000.
-     * <p>
+     *
      * This code is mostly copied from WebRTC:
      * CameraEnumerationAndroid.getClosestSupportedFramerateRange
      * in webrtc/api/android/java/src/org/webrtc/CameraEnumerationAndroid.java
      */
-    protected static FramerateRange getClosestFramerateRange(final List<FramerateRange> framerateRanges, final int targetFramerate) {
+    protected static FramerateRange getClosestFramerateRange(
+            final List<FramerateRange> framerateRanges, final int targetFramerate) {
         return Collections.min(framerateRanges, new Comparator<FramerateRange>() {
             // Threshold and penalty weights if the upper bound is further away than
             // |MAX_FPS_DIFF_THRESHOLD| from requested.
@@ -215,13 +224,18 @@ public abstract class VideoCapture {
             private static final int MIN_FPS_HIGH_VALUE_WEIGHT = 4;
 
             // Use one weight for small |value| less than |threshold|, and another weight above.
-            private int progressivePenalty(int value, int threshold, int lowWeight, int highWeight) {
-                return (value < threshold) ? value * lowWeight : threshold * lowWeight + (value - threshold) * highWeight;
+            private int progressivePenalty(
+                    int value, int threshold, int lowWeight, int highWeight) {
+                return (value < threshold)
+                        ? value * lowWeight
+                        : threshold * lowWeight + (value - threshold) * highWeight;
             }
 
             int diff(FramerateRange range) {
-                final int minFpsError = progressivePenalty(range.min, MIN_FPS_THRESHOLD, MIN_FPS_LOW_VALUE_WEIGHT, MIN_FPS_HIGH_VALUE_WEIGHT);
-                final int maxFpsError = progressivePenalty(Math.abs(targetFramerate - range.max), MAX_FPS_DIFF_THRESHOLD, MAX_FPS_LOW_DIFF_WEIGHT, MAX_FPS_HIGH_DIFF_WEIGHT);
+                final int minFpsError = progressivePenalty(range.min, MIN_FPS_THRESHOLD,
+                        MIN_FPS_LOW_VALUE_WEIGHT, MIN_FPS_HIGH_VALUE_WEIGHT);
+                final int maxFpsError = progressivePenalty(Math.abs(targetFramerate - range.max),
+                        MAX_FPS_DIFF_THRESHOLD, MAX_FPS_LOW_DIFF_WEIGHT, MAX_FPS_HIGH_DIFF_WEIGHT);
                 return minFpsError + maxFpsError;
             }
 
@@ -244,15 +258,20 @@ public abstract class VideoCapture {
     protected void onFrameAvailable(VideoCapture caller, byte[] data, int length, int rotation) {
         synchronized (mNativeVideoCaptureLock) {
             if (mNativeVideoCaptureDeviceAndroid != 0) {
-                VideoCaptureJni.get().onFrameAvailable(mNativeVideoCaptureDeviceAndroid, caller, data, length, rotation);
+                VideoCaptureJni.get().onFrameAvailable(
+                        mNativeVideoCaptureDeviceAndroid, caller, data, length, rotation);
             }
         }
     }
 
-    protected void onI420FrameAvailable(VideoCapture caller, ByteBuffer yBuffer, int yStride, ByteBuffer uBuffer, ByteBuffer vBuffer, int uvRowStride, int uvPixelStride, int width, int height, int rotation, long timestamp) {
+    protected void onI420FrameAvailable(VideoCapture caller, ByteBuffer yBuffer, int yStride,
+            ByteBuffer uBuffer, ByteBuffer vBuffer, int uvRowStride, int uvPixelStride, int width,
+            int height, int rotation, long timestamp) {
         synchronized (mNativeVideoCaptureLock) {
             if (mNativeVideoCaptureDeviceAndroid != 0) {
-                VideoCaptureJni.get().onI420FrameAvailable(mNativeVideoCaptureDeviceAndroid, caller, yBuffer, yStride, uBuffer, vBuffer, uvRowStride, uvPixelStride, width, height, rotation, timestamp);
+                VideoCaptureJni.get().onI420FrameAvailable(mNativeVideoCaptureDeviceAndroid, caller,
+                        yBuffer, yStride, uBuffer, vBuffer, uvRowStride, uvPixelStride, width,
+                        height, rotation, timestamp);
             }
         }
     }
@@ -260,7 +279,8 @@ public abstract class VideoCapture {
     protected void onError(VideoCapture caller, int androidVideoCaptureError, String message) {
         synchronized (mNativeVideoCaptureLock) {
             if (mNativeVideoCaptureDeviceAndroid != 0) {
-                VideoCaptureJni.get().onError(mNativeVideoCaptureDeviceAndroid, caller, androidVideoCaptureError, message);
+                VideoCaptureJni.get().onError(mNativeVideoCaptureDeviceAndroid, caller,
+                        androidVideoCaptureError, message);
             }
         }
     }
@@ -269,15 +289,18 @@ public abstract class VideoCapture {
     protected void onFrameDropped(VideoCapture caller, int androidVideoCaptureFrameDropReason) {
         synchronized (mNativeVideoCaptureLock) {
             if (mNativeVideoCaptureDeviceAndroid != 0) {
-                VideoCaptureJni.get().onFrameDropped(mNativeVideoCaptureDeviceAndroid, caller, androidVideoCaptureFrameDropReason);
+                VideoCaptureJni.get().onFrameDropped(mNativeVideoCaptureDeviceAndroid, caller,
+                        androidVideoCaptureFrameDropReason);
             }
         }
     }
 
-    protected void onGetPhotoCapabilitiesReply(VideoCapture caller, long callbackId, PhotoCapabilities result) {
+    protected void onGetPhotoCapabilitiesReply(
+            VideoCapture caller, long callbackId, PhotoCapabilities result) {
         synchronized (mNativeVideoCaptureLock) {
             if (mNativeVideoCaptureDeviceAndroid != 0) {
-                VideoCaptureJni.get().onGetPhotoCapabilitiesReply(mNativeVideoCaptureDeviceAndroid, caller, callbackId, result);
+                VideoCaptureJni.get().onGetPhotoCapabilitiesReply(
+                        mNativeVideoCaptureDeviceAndroid, caller, callbackId, result);
             }
         }
     }
@@ -285,7 +308,8 @@ public abstract class VideoCapture {
     protected void onPhotoTaken(VideoCapture caller, long callbackId, byte[] data) {
         synchronized (mNativeVideoCaptureLock) {
             if (mNativeVideoCaptureDeviceAndroid != 0) {
-                VideoCaptureJni.get().onPhotoTaken(mNativeVideoCaptureDeviceAndroid, caller, callbackId, data);
+                VideoCaptureJni.get().onPhotoTaken(
+                        mNativeVideoCaptureDeviceAndroid, caller, callbackId, data);
             }
         }
     }
@@ -301,7 +325,8 @@ public abstract class VideoCapture {
     protected void dCheckCurrentlyOnIncomingTaskRunner(VideoCapture caller) {
         synchronized (mNativeVideoCaptureLock) {
             if (mNativeVideoCaptureDeviceAndroid != 0) {
-                VideoCaptureJni.get().dCheckCurrentlyOnIncomingTaskRunner(mNativeVideoCaptureDeviceAndroid, caller);
+                VideoCaptureJni.get().dCheckCurrentlyOnIncomingTaskRunner(
+                        mNativeVideoCaptureDeviceAndroid, caller);
             }
         }
     }
@@ -309,25 +334,32 @@ public abstract class VideoCapture {
     @NativeMethods
     interface Natives {
         // Method for VideoCapture implementations to call back native code.
-        void onFrameAvailable(long nativeVideoCaptureDeviceAndroid, VideoCapture caller, byte[] data, int length, int rotation);
+        void onFrameAvailable(long nativeVideoCaptureDeviceAndroid, VideoCapture caller,
+                byte[] data, int length, int rotation);
 
-        void onI420FrameAvailable(long nativeVideoCaptureDeviceAndroid, VideoCapture caller, ByteBuffer yBuffer, int yStride, ByteBuffer uBuffer, ByteBuffer vBuffer, int uvRowStride, int uvPixelStride, int width, int height, int rotation, long timestamp);
-
+        void onI420FrameAvailable(long nativeVideoCaptureDeviceAndroid, VideoCapture caller,
+                ByteBuffer yBuffer, int yStride, ByteBuffer uBuffer, ByteBuffer vBuffer,
+                int uvRowStride, int uvPixelStride, int width, int height, int rotation,
+                long timestamp);
         // Method for VideoCapture implementations to signal an asynchronous error.
-        void onError(long nativeVideoCaptureDeviceAndroid, VideoCapture caller, int androidVideoCaptureError, String message);
+        void onError(long nativeVideoCaptureDeviceAndroid, VideoCapture caller,
+                int androidVideoCaptureError, String message);
 
         // Method for VideoCapture implementations to signal that a frame was dropped.
-        void onFrameDropped(long nativeVideoCaptureDeviceAndroid, VideoCapture caller, int androidVideoCaptureFrameDropReason);
+        void onFrameDropped(long nativeVideoCaptureDeviceAndroid, VideoCapture caller,
+                int androidVideoCaptureFrameDropReason);
 
-        void onGetPhotoCapabilitiesReply(long nativeVideoCaptureDeviceAndroid, VideoCapture caller, long callbackId, PhotoCapabilities result);
-
+        void onGetPhotoCapabilitiesReply(long nativeVideoCaptureDeviceAndroid, VideoCapture caller,
+                long callbackId, PhotoCapabilities result);
         // Callback for calls to takePhoto(). This can indicate both success and
         // failure. Failure is indicated by |data| being null.
-        void onPhotoTaken(long nativeVideoCaptureDeviceAndroid, VideoCapture caller, long callbackId, byte[] data);
+        void onPhotoTaken(long nativeVideoCaptureDeviceAndroid, VideoCapture caller,
+                long callbackId, byte[] data);
 
         // Method for VideoCapture implementations to report device started event.
         void onStarted(long nativeVideoCaptureDeviceAndroid, VideoCapture caller);
 
-        void dCheckCurrentlyOnIncomingTaskRunner(long nativeVideoCaptureDeviceAndroid, VideoCapture caller);
+        void dCheckCurrentlyOnIncomingTaskRunner(
+                long nativeVideoCaptureDeviceAndroid, VideoCapture caller);
     }
 }

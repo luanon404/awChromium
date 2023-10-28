@@ -13,41 +13,49 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface Renderer extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends Renderer, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends Renderer, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<Renderer, Renderer.Proxy> MANAGER = Renderer_Internal.MANAGER;
 
-    void initialize(org.chromium.mojo.bindings.AssociatedInterfaceNotSupported client, DemuxerStream[] streams, MediaUrlParams mediaUrlParams, Initialize_Response callback);
+    void initialize(
+org.chromium.mojo.bindings.AssociatedInterfaceNotSupported client, DemuxerStream[] streams, MediaUrlParams mediaUrlParams, 
+Initialize_Response callback);
 
-    interface Initialize_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> {
-    }
+    interface Initialize_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> { }
 
 
     void flush(
 
-            Flush_Response callback);
+Flush_Response callback);
 
-    interface Flush_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 {
-    }
-
-
-    void startPlayingFrom(org.chromium.mojo_base.mojom.TimeDelta time);
+    interface Flush_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 { }
 
 
-    void setPlaybackRate(double playbackRate);
+    void startPlayingFrom(
+org.chromium.mojo_base.mojom.TimeDelta time);
 
 
-    void setVolume(float volume);
+    void setPlaybackRate(
+double playbackRate);
 
 
-    void setCdm(org.chromium.mojo_base.mojom.UnguessableToken cdmId, SetCdm_Response callback);
+    void setVolume(
+float volume);
 
-    interface SetCdm_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> {
-    }
+
+    void setCdm(
+org.chromium.mojo_base.mojom.UnguessableToken cdmId, 
+SetCdm_Response callback);
+
+    interface SetCdm_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> { }
 
 
 }

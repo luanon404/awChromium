@@ -4,39 +4,46 @@
 package org.chromium.components.autofill;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.Features;
 
 @CheckDiscard("crbug.com/993421")
 class AndroidAutofillFeaturesJni implements AndroidAutofillFeatures.Natives {
-    private static AndroidAutofillFeatures.Natives testInstance;
+  private static AndroidAutofillFeatures.Natives testInstance;
 
-    public static final JniStaticTestMocker<AndroidAutofillFeatures.Natives> TEST_HOOKS = new JniStaticTestMocker<AndroidAutofillFeatures.Natives>() {
-        @Override
-        public void setInstanceForTesting(AndroidAutofillFeatures.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<AndroidAutofillFeatures.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<AndroidAutofillFeatures.Natives>() {
     @Override
-    public long getFeature(int ordinal) {
-        return (long) GEN_JNI.org_chromium_components_autofill_AndroidAutofillFeatures_getFeature(ordinal);
+    public void setInstanceForTesting(AndroidAutofillFeatures.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    public static AndroidAutofillFeatures.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of AndroidAutofillFeatures.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new AndroidAutofillFeaturesJni();
+  @Override
+  public long getFeature(int ordinal) {
+    return (long) GEN_JNI.org_chromium_components_autofill_AndroidAutofillFeatures_getFeature(ordinal);
+  }
+
+  public static AndroidAutofillFeatures.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of AndroidAutofillFeatures.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new AndroidAutofillFeaturesJni();
+  }
 }

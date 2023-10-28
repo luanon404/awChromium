@@ -4,39 +4,76 @@
 package org.chromium.components.download;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.content.ContentResolver;
+import android.content.ContentUris;
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.Build;
+import android.os.ParcelFileDescriptor;
+import android.provider.BaseColumns;
+import android.provider.MediaStore.Downloads;
+import android.provider.MediaStore.MediaColumns;
+import android.text.TextUtils;
+import android.text.format.DateUtils;
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.ContextUtils;
+import org.chromium.base.Log;
+import org.chromium.base.StrictModeContext;
+import org.chromium.base.compat.ApiHelperForQ;
+import org.chromium.third_party.android.provider.MediaStoreUtils;
+import org.chromium.third_party.android.provider.MediaStoreUtils.PendingParams;
+import org.chromium.third_party.android.provider.MediaStoreUtils.PendingSession;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 @CheckDiscard("crbug.com/993421")
 class DownloadCollectionBridgeJni implements DownloadCollectionBridge.Natives {
-    private static DownloadCollectionBridge.Natives testInstance;
+  private static DownloadCollectionBridge.Natives testInstance;
 
-    public static final JniStaticTestMocker<DownloadCollectionBridge.Natives> TEST_HOOKS = new JniStaticTestMocker<DownloadCollectionBridge.Natives>() {
-        @Override
-        public void setInstanceForTesting(DownloadCollectionBridge.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<DownloadCollectionBridge.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<DownloadCollectionBridge.Natives>() {
     @Override
-    public int getExpirationDurationInDays() {
-        return (int) GEN_JNI.org_chromium_components_download_DownloadCollectionBridge_getExpirationDurationInDays();
+    public void setInstanceForTesting(DownloadCollectionBridge.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    public static DownloadCollectionBridge.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of DownloadCollectionBridge.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new DownloadCollectionBridgeJni();
+  @Override
+  public int getExpirationDurationInDays() {
+    return (int) GEN_JNI.org_chromium_components_download_DownloadCollectionBridge_getExpirationDurationInDays();
+  }
+
+  public static DownloadCollectionBridge.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of DownloadCollectionBridge.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new DownloadCollectionBridgeJni();
+  }
 }

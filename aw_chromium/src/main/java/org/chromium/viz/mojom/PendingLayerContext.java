@@ -13,16 +13,23 @@
 
 package org.chromium.viz.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class PendingLayerContext extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 24;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public org.chromium.mojo.bindings.AssociatedInterfaceRequestNotSupported receiver;
     public org.chromium.mojo.bindings.AssociatedInterfaceNotSupported client;
 
     private PendingLayerContext(int version) {
         super(STRUCT_SIZE, version);
+    }
+
+    public PendingLayerContext() {
+        this(0);
     }
 
     public static PendingLayerContext deserialize(org.chromium.mojo.bindings.Message message) {
@@ -35,9 +42,11 @@ public final class PendingLayerContext extends org.chromium.mojo.bindings.Struct
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static PendingLayerContext deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
+    @SuppressWarnings("unchecked")
     public static PendingLayerContext decode(org.chromium.mojo.bindings.Decoder decoder0) {
         if (decoder0 == null) {
             return null;
@@ -48,14 +57,14 @@ public final class PendingLayerContext extends org.chromium.mojo.bindings.Struct
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new PendingLayerContext(elementsOrVersion);
-            {
-
+                {
+                    
                 result.receiver = decoder0.readAssociatedInterfaceRequestNotSupported(8, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.client = decoder0.readAssociatedServiceInterfaceNotSupported(12, false);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -63,12 +72,13 @@ public final class PendingLayerContext extends org.chromium.mojo.bindings.Struct
         return result;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
+    protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.receiver, 8, false);
-
+        
         encoder0.encode(this.client, 12, false);
     }
 }

@@ -1,3 +1,4 @@
+
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -14,11 +15,14 @@ import androidx.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@IntDef({VideoFacingMode.MEDIA_VIDEO_FACING_NONE, VideoFacingMode.MEDIA_VIDEO_FACING_USER, VideoFacingMode.MEDIA_VIDEO_FACING_ENVIRONMENT, VideoFacingMode.NUM_MEDIA_VIDEO_FACING_MODES})
+@IntDef({
+    VideoFacingMode.MEDIA_VIDEO_FACING_NONE, VideoFacingMode.MEDIA_VIDEO_FACING_USER,
+    VideoFacingMode.MEDIA_VIDEO_FACING_ENVIRONMENT, VideoFacingMode.NUM_MEDIA_VIDEO_FACING_MODES
+})
 @Retention(RetentionPolicy.SOURCE)
 public @interface VideoFacingMode {
-    int MEDIA_VIDEO_FACING_NONE = 0;
-    int MEDIA_VIDEO_FACING_USER = 1;
-    int MEDIA_VIDEO_FACING_ENVIRONMENT = 2;
-    int NUM_MEDIA_VIDEO_FACING_MODES = 3;
+  int MEDIA_VIDEO_FACING_NONE = 0;
+  int MEDIA_VIDEO_FACING_USER = 1;
+  int MEDIA_VIDEO_FACING_ENVIRONMENT = 2;
+  int NUM_MEDIA_VIDEO_FACING_MODES = 3;
 }

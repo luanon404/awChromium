@@ -4,9 +4,10 @@
 
 package org.chromium.ui.base;
 
-import org.chromium.base.FeatureMap;
 import org.jni_zero.JNINamespace;
 import org.jni_zero.NativeMethods;
+
+import org.chromium.base.FeatureMap;
 
 /**
  * Java accessor for ui/android/ui_android_feature_map.cc state
@@ -16,8 +17,7 @@ public class UiAndroidFeatureMap extends FeatureMap {
     private static final UiAndroidFeatureMap sInstance = new UiAndroidFeatureMap();
 
     // Do not instantiate this class
-    private UiAndroidFeatureMap() {
-    }
+    private UiAndroidFeatureMap() {}
 
     /**
      * @return the singleton UiAndroidFeatureMap.

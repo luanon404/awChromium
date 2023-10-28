@@ -4,44 +4,63 @@
 package org.chromium.content.browser.webcontents;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.ObserverList;
+import org.chromium.base.ObserverList.RewindableIterator;
+import org.chromium.base.ThreadUtils;
+import org.chromium.content_public.browser.GlobalRenderFrameHostId;
+import org.chromium.content_public.browser.LifecycleState;
+import org.chromium.content_public.browser.LoadCommittedDetails;
+import org.chromium.content_public.browser.NavigationHandle;
+import org.chromium.content_public.browser.WebContentsObserver;
+import org.chromium.ui.base.WindowAndroid;
+import org.chromium.ui.mojom.VirtualKeyboardMode;
+import org.chromium.url.GURL;
+import java.util.Iterator;
 
 @CheckDiscard("crbug.com/993421")
 class WebContentsObserverProxyJni implements WebContentsObserverProxy.Natives {
-    private static WebContentsObserverProxy.Natives testInstance;
+  private static WebContentsObserverProxy.Natives testInstance;
 
-    public static final JniStaticTestMocker<WebContentsObserverProxy.Natives> TEST_HOOKS = new JniStaticTestMocker<WebContentsObserverProxy.Natives>() {
-        @Override
-        public void setInstanceForTesting(WebContentsObserverProxy.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<WebContentsObserverProxy.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<WebContentsObserverProxy.Natives>() {
     @Override
-    public void destroy(long nativeWebContentsObserverProxy, WebContentsObserverProxy caller) {
-        GEN_JNI.org_chromium_content_browser_webcontents_WebContentsObserverProxy_destroy(nativeWebContentsObserverProxy, caller);
+    public void setInstanceForTesting(WebContentsObserverProxy.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public long init(WebContentsObserverProxy caller, WebContentsImpl webContents) {
-        return (long) GEN_JNI.org_chromium_content_browser_webcontents_WebContentsObserverProxy_init(caller, webContents);
-    }
+  @Override
+  public void destroy(long nativeWebContentsObserverProxy, WebContentsObserverProxy caller) {
+    GEN_JNI.org_chromium_content_browser_webcontents_WebContentsObserverProxy_destroy(nativeWebContentsObserverProxy, caller);
+  }
 
-    public static WebContentsObserverProxy.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of WebContentsObserverProxy.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new WebContentsObserverProxyJni();
+  @Override
+  public long init(WebContentsObserverProxy caller, WebContentsImpl webContents) {
+    return (long) GEN_JNI.org_chromium_content_browser_webcontents_WebContentsObserverProxy_init(caller, webContents);
+  }
+
+  public static WebContentsObserverProxy.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of WebContentsObserverProxy.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new WebContentsObserverProxyJni();
+  }
 }

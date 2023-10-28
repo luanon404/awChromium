@@ -4,39 +4,62 @@
 package org.chromium.base;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.ParcelFileDescriptor;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileDescriptor;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.List;
+import java.util.Locale;
+import java.util.function.Function;
 
 @CheckDiscard("crbug.com/993421")
 public class FileUtilsJni implements FileUtils.Natives {
-    private static FileUtils.Natives testInstance;
+  private static FileUtils.Natives testInstance;
 
-    public static final JniStaticTestMocker<FileUtils.Natives> TEST_HOOKS = new JniStaticTestMocker<FileUtils.Natives>() {
-        @Override
-        public void setInstanceForTesting(FileUtils.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<FileUtils.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<FileUtils.Natives>() {
     @Override
-    public String getAbsoluteFilePath(String filePath) {
-        return (String) GEN_JNI.org_chromium_base_FileUtils_getAbsoluteFilePath(filePath);
+    public void setInstanceForTesting(FileUtils.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    public static FileUtils.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of FileUtils.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new FileUtilsJni();
+  @Override
+  public String getAbsoluteFilePath(String filePath) {
+    return (String) GEN_JNI.org_chromium_base_FileUtils_getAbsoluteFilePath(filePath);
+  }
+
+  public static FileUtils.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of FileUtils.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new FileUtilsJni();
+  }
 }

@@ -13,10 +13,13 @@
 
 package org.chromium.media_session.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class MediaImageBitmap extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 32;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0), new org.chromium.mojo.bindings.DataHeader(32, 5)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0),new org.chromium.mojo.bindings.DataHeader(32, 5)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[1];
     public int width;
     public int height;
@@ -41,7 +44,8 @@ public final class MediaImageBitmap extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static MediaImageBitmap deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -55,22 +59,22 @@ public final class MediaImageBitmap extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new MediaImageBitmap(elementsOrVersion);
-            {
-
+                {
+                    
                 result.width = decoder0.readInt(8);
-            }
-            {
-
+                }
+                {
+                    
                 result.height = decoder0.readInt(12);
-            }
-            {
-
+                }
+                {
+                    
                 result.pixelData = decoder0.readBytes(16, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
-            }
+                }
             if (elementsOrVersion >= 5) {
                 {
-
-                    result.colorType = decoder0.readInt(24);
+                    
+                result.colorType = decoder0.readInt(24);
                     MediaImageBitmapColorType.validate(result.colorType);
                     result.colorType = MediaImageBitmapColorType.toKnownValue(result.colorType);
                 }
@@ -86,13 +90,13 @@ public final class MediaImageBitmap extends org.chromium.mojo.bindings.Struct {
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.width, 8);
-
+        
         encoder0.encode(this.height, 12);
-
+        
         encoder0.encode(this.pixelData, 16, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
-
+        
         encoder0.encode(this.colorType, 24);
     }
 }

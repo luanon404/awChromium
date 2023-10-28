@@ -23,7 +23,7 @@ import java.util.ArrayList;
 /**
  * A class to translate {@link FormData} into the ViewStructure used by Android's
  * Autofill framework.
- * <p>
+ *
  * The key methods of this class are:
  * - {@link #fillViewStructure}: Translates the FormData in this object into a ViewStructure.
  * - {@link #autofill}: Verifies that the autofill request by the framework is valid.
@@ -56,8 +56,8 @@ public class AutofillRequest {
     private AutofillHintsService mAutofillHintsService;
 
     /**
-     * @param formData            the form of the AutofillRequest.
-     * @param focus               the currently focused field.
+     * @param formData the form of the AutofillRequest.
+     * @param focus the currently focused field.
      * @param hasServerPrediction whether the server type of formData is valid.
      */
     public AutofillRequest(FormData formData, FocusField focus, boolean hasServerPrediction) {
@@ -76,13 +76,16 @@ public class AutofillRequest {
     public void fillViewStructure(ViewStructure structure) {
         // If the experiment is on, then the root node's children correspond to forms and the actual
         // fields are leaf nodes with depth 2.
-        if (AndroidAutofillFeatures.ANDROID_AUTOFILL_VIEW_STRUCTURE_WITH_FORM_HIERARCHY_LAYER.isEnabled()) {
+        if (AndroidAutofillFeatures.ANDROID_AUTOFILL_VIEW_STRUCTURE_WITH_FORM_HIERARCHY_LAYER
+                        .isEnabled()) {
             ViewStructure rootStructure = structure;
             structure = rootStructure.newChild(rootStructure.addChildCount(1));
-            structure.setAutofillId(rootStructure.getAutofillId(), toVirtualId(sessionId, FORM_NODE_ID));
+            structure.setAutofillId(
+                    rootStructure.getAutofillId(), toVirtualId(sessionId, FORM_NODE_ID));
         }
         structure.setWebDomain(mFormData.mHost);
-        structure.setHtmlInfo(structure.newHtmlInfoBuilder("form").addAttribute("name", mFormData.mName).build());
+        structure.setHtmlInfo(
+                structure.newHtmlInfoBuilder("form").addAttribute("name", mFormData.mName).build());
         int index = structure.addChildCount(mFormData.mFields.size());
         short fieldIndex = 0;
         for (FormFieldData field : mFormData.mFields) {
@@ -97,16 +100,24 @@ public class AutofillRequest {
 
             RectF bounds = field.getBoundsInContainerViewCoordinates();
             // Field has no scroll.
-            child.setDimens((int) bounds.left, (int) bounds.top, 0 /* scrollX*/, 0 /* scrollY */, (int) bounds.width(), (int) bounds.height());
+            child.setDimens((int) bounds.left, (int) bounds.top, 0 /* scrollX*/, 0 /* scrollY */,
+                    (int) bounds.width(), (int) bounds.height());
             child.setVisibility(field.getVisible() ? View.VISIBLE : View.INVISIBLE);
 
-            ViewStructure.HtmlInfo.Builder builder = child.newHtmlInfoBuilder("input").addAttribute("name", field.mName).addAttribute("type", field.mType).addAttribute("label", field.mLabel).addAttribute("ua-autofill-hints", field.mHeuristicType).addAttribute("id", field.mId);
+            ViewStructure.HtmlInfo.Builder builder =
+                    child.newHtmlInfoBuilder("input")
+                            .addAttribute("name", field.mName)
+                            .addAttribute("type", field.mType)
+                            .addAttribute("label", field.mLabel)
+                            .addAttribute("ua-autofill-hints", field.mHeuristicType)
+                            .addAttribute("id", field.mId);
             builder.addAttribute("crowdsourcing-autofill-hints", field.getServerType());
             builder.addAttribute("computed-autofill-hints", field.getComputedType());
             // Compose multiple predictions to a string separated by ','.
             String[] predictions = field.getServerPredictions();
             if (predictions != null && predictions.length > 0) {
-                builder.addAttribute("crowdsourcing-predictions-autofill-hints", String.join(",", predictions));
+                builder.addAttribute(
+                        "crowdsourcing-predictions-autofill-hints", String.join(",", predictions));
             }
             switch (field.getControlType()) {
                 case FormFieldData.ControlType.LIST:
@@ -263,7 +274,8 @@ public class AutofillRequest {
         if (success) {
             ArrayList<ViewType> viewTypes = new ArrayList<ViewType>();
             for (FormFieldData field : mFormData.mFields) {
-                viewTypes.add(new ViewType(field.getAutofillId(), field.getServerType(), field.getComputedType(), field.getServerPredictions()));
+                viewTypes.add(new ViewType(field.getAutofillId(), field.getServerType(),
+                        field.getComputedType(), field.getServerPredictions()));
             }
             mAutofillHintsService.onViewTypeAvailable(viewTypes);
         } else {

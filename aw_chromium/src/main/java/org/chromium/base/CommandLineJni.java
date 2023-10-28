@@ -4,74 +4,90 @@
 package org.chromium.base;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.text.TextUtils;
+import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
+import org.jni_zero.NativeMethods;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
 
 @CheckDiscard("crbug.com/993421")
 class CommandLineJni implements CommandLine.Natives {
-    private static CommandLine.Natives testInstance;
+  private static CommandLine.Natives testInstance;
 
-    public static final JniStaticTestMocker<CommandLine.Natives> TEST_HOOKS = new JniStaticTestMocker<CommandLine.Natives>() {
-        @Override
-        public void setInstanceForTesting(CommandLine.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<CommandLine.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<CommandLine.Natives>() {
     @Override
-    public void appendSwitch(String switchString) {
-        GEN_JNI.org_chromium_base_CommandLine_appendSwitch(switchString);
+    public void setInstanceForTesting(CommandLine.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public void appendSwitchWithValue(String switchString, String value) {
-        GEN_JNI.org_chromium_base_CommandLine_appendSwitchWithValue(switchString, value);
-    }
+  @Override
+  public void appendSwitch(String switchString) {
+    GEN_JNI.org_chromium_base_CommandLine_appendSwitch(switchString);
+  }
 
-    @Override
-    public void appendSwitchesAndArguments(String[] array) {
-        GEN_JNI.org_chromium_base_CommandLine_appendSwitchesAndArguments(array);
-    }
+  @Override
+  public void appendSwitchWithValue(String switchString, String value) {
+    GEN_JNI.org_chromium_base_CommandLine_appendSwitchWithValue(switchString, value);
+  }
 
-    @Override
-    public String getSwitchValue(String switchString) {
-        return (String) GEN_JNI.org_chromium_base_CommandLine_getSwitchValue(switchString);
-    }
+  @Override
+  public void appendSwitchesAndArguments(String[] array) {
+    GEN_JNI.org_chromium_base_CommandLine_appendSwitchesAndArguments(array);
+  }
 
-    @Override
-    public String[] getSwitchesFlattened() {
-        return (String[]) GEN_JNI.org_chromium_base_CommandLine_getSwitchesFlattened();
-    }
+  @Override
+  public String getSwitchValue(String switchString) {
+    return (String) GEN_JNI.org_chromium_base_CommandLine_getSwitchValue(switchString);
+  }
 
-    @Override
-    public boolean hasSwitch(String switchString) {
-        return (boolean) GEN_JNI.org_chromium_base_CommandLine_hasSwitch(switchString);
-    }
+  @Override
+  public String[] getSwitchesFlattened() {
+    return (String[]) GEN_JNI.org_chromium_base_CommandLine_getSwitchesFlattened();
+  }
 
-    @Override
-    public void init(String[] args) {
-        GEN_JNI.org_chromium_base_CommandLine_init(args);
-    }
+  @Override
+  public boolean hasSwitch(String switchString) {
+    return (boolean) GEN_JNI.org_chromium_base_CommandLine_hasSwitch(switchString);
+  }
 
-    @Override
-    public void removeSwitch(String switchString) {
-        GEN_JNI.org_chromium_base_CommandLine_removeSwitch(switchString);
-    }
+  @Override
+  public void init(String[] args) {
+    GEN_JNI.org_chromium_base_CommandLine_init(args);
+  }
 
-    public static CommandLine.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of CommandLine.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new CommandLineJni();
+  @Override
+  public void removeSwitch(String switchString) {
+    GEN_JNI.org_chromium_base_CommandLine_removeSwitch(switchString);
+  }
+
+  public static CommandLine.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of CommandLine.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new CommandLineJni();
+  }
 }

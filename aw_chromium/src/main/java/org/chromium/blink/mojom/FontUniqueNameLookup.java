@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface FontUniqueNameLookup extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends FontUniqueNameLookup, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends FontUniqueNameLookup, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<FontUniqueNameLookup, FontUniqueNameLookup.Proxy> MANAGER = FontUniqueNameLookup_Internal.MANAGER;

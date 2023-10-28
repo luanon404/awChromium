@@ -13,63 +13,76 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface HttpCacheBackendFileOperations extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends HttpCacheBackendFileOperations, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends HttpCacheBackendFileOperations, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<HttpCacheBackendFileOperations, HttpCacheBackendFileOperations.Proxy> MANAGER = HttpCacheBackendFileOperations_Internal.MANAGER;
 
-    void createDirectory(org.chromium.mojo_base.mojom.FilePath path, CreateDirectory_Response callback);
+    void createDirectory(
+org.chromium.mojo_base.mojom.FilePath path, 
+CreateDirectory_Response callback);
 
-    interface CreateDirectory_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> {
-    }
-
-
-    void pathExists(org.chromium.mojo_base.mojom.FilePath path, PathExists_Response callback);
-
-    interface PathExists_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> {
-    }
+    interface CreateDirectory_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> { }
 
 
-    void directoryExists(org.chromium.mojo_base.mojom.FilePath path, DirectoryExists_Response callback);
+    void pathExists(
+org.chromium.mojo_base.mojom.FilePath path, 
+PathExists_Response callback);
 
-    interface DirectoryExists_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> {
-    }
-
-
-    void openFile(org.chromium.mojo_base.mojom.FilePath path, int flags, OpenFile_Response callback);
-
-    interface OpenFile_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<org.chromium.mojo_base.mojom.File, Integer> {
-    }
+    interface PathExists_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> { }
 
 
-    void deleteFile(org.chromium.mojo_base.mojom.FilePath path, int mode, DeleteFile_Response callback);
+    void directoryExists(
+org.chromium.mojo_base.mojom.FilePath path, 
+DirectoryExists_Response callback);
 
-    interface DeleteFile_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> {
-    }
-
-
-    void renameFile(org.chromium.mojo_base.mojom.FilePath fromPath, org.chromium.mojo_base.mojom.FilePath toPath, RenameFile_Response callback);
-
-    interface RenameFile_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> {
-    }
+    interface DirectoryExists_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> { }
 
 
-    void getFileInfo(org.chromium.mojo_base.mojom.FilePath path, GetFileInfo_Response callback);
+    void openFile(
+org.chromium.mojo_base.mojom.FilePath path, int flags, 
+OpenFile_Response callback);
 
-    interface GetFileInfo_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<org.chromium.mojo_base.mojom.FileInfo> {
-    }
-
-
-    void enumerateFiles(org.chromium.mojo_base.mojom.FilePath path, org.chromium.mojo.bindings.InterfaceRequest<FileEnumerator> receiver);
+    interface OpenFile_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<org.chromium.mojo_base.mojom.File, Integer> { }
 
 
-    void cleanupDirectory(org.chromium.mojo_base.mojom.FilePath path, CleanupDirectory_Response callback);
+    void deleteFile(
+org.chromium.mojo_base.mojom.FilePath path, int mode, 
+DeleteFile_Response callback);
 
-    interface CleanupDirectory_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> {
-    }
+    interface DeleteFile_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> { }
+
+
+    void renameFile(
+org.chromium.mojo_base.mojom.FilePath fromPath, org.chromium.mojo_base.mojom.FilePath toPath, 
+RenameFile_Response callback);
+
+    interface RenameFile_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> { }
+
+
+    void getFileInfo(
+org.chromium.mojo_base.mojom.FilePath path, 
+GetFileInfo_Response callback);
+
+    interface GetFileInfo_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<org.chromium.mojo_base.mojom.FileInfo> { }
+
+
+    void enumerateFiles(
+org.chromium.mojo_base.mojom.FilePath path, org.chromium.mojo.bindings.InterfaceRequest<FileEnumerator> receiver);
+
+
+    void cleanupDirectory(
+org.chromium.mojo_base.mojom.FilePath path, 
+CleanupDirectory_Response callback);
+
+    interface CleanupDirectory_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> { }
 
 
 }

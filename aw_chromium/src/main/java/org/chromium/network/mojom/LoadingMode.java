@@ -17,10 +17,14 @@ import androidx.annotation.IntDef;
 
 public final class LoadingMode {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({LoadingMode.DEFAULT, LoadingMode.UNCREDENTIALED_PREFETCH, LoadingMode.UNCREDENTIALED_PRERENDER, LoadingMode.CREDENTIALED_PRERENDER, LoadingMode.FENCED_FRAME})
-    public @interface EnumType {
-    }
+        LoadingMode.DEFAULT,
+        LoadingMode.UNCREDENTIALED_PREFETCH,
+        LoadingMode.UNCREDENTIALED_PRERENDER,
+        LoadingMode.CREDENTIALED_PRERENDER,
+        LoadingMode.FENCED_FRAME})
+    public @interface EnumType {}
 
     public static final int DEFAULT = 0;
     public static final int UNCREDENTIALED_PREFETCH = 1;
@@ -40,9 +44,8 @@ public final class LoadingMode {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private LoadingMode() {
-    }
+    private LoadingMode() {}
 }

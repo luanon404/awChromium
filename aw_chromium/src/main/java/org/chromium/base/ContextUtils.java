@@ -20,10 +20,11 @@ import android.preference.PreferenceManager;
 
 import androidx.annotation.Nullable;
 
+import org.jni_zero.JNINamespace;
+
 import org.chromium.base.compat.ApiHelperForM;
 import org.chromium.base.compat.ApiHelperForO;
 import org.chromium.build.BuildConfig;
-import org.jni_zero.JNINamespace;
 
 /**
  * This class provides Android application context related utility methods.
@@ -36,7 +37,7 @@ public class ContextUtils {
     /**
      * Flag for {@link Context#registerReceiver}: The receiver can receive broadcasts from other
      * Apps. Has the same behavior as marking a statically registered receiver with "exported=true".
-     * <p>
+     *
      * TODO(mthiesse): Move to ApiHelperForT when we build against T SDK.
      */
     public static final int RECEIVER_EXPORTED = 0x2;
@@ -52,12 +53,12 @@ public class ContextUtils {
 
     /**
      * Get the Android application context.
-     * <p>
+     *
      * Under normal circumstances there is only one application context in a process, so it's safe
      * to treat this as a global. In WebView it's possible for more than one app using WebView to be
      * running in a single process, but this mechanism is rarely used and this is not the only
      * problem in that scenario, so we don't currently forbid using it as a global.
-     * <p>
+     *
      * Do not downcast the context returned by this method to Application (or any subclass). It may
      * not be an Application object; it may be wrapped in a ContextWrapper. The only assumption you
      * may make is that it is a Context whose lifetime is the same as the lifetime of the process.
@@ -68,7 +69,7 @@ public class ContextUtils {
 
     /**
      * Initializes the java application context.
-     * <p>
+     *
      * This should be called exactly once early on during startup, before native is loaded and
      * before any other clients make use of the application context through this class.
      *
@@ -77,7 +78,8 @@ public class ContextUtils {
     public static void initApplicationContext(Context appContext) {
         // Conceding that occasionally in tests, native is loaded before the browser process is
         // started, in which case the browser process re-sets the application context.
-        assert sApplicationContext == null || sApplicationContext == appContext || ((ContextWrapper) sApplicationContext).getBaseContext() == appContext;
+        assert sApplicationContext == null || sApplicationContext == appContext
+                || ((ContextWrapper) sApplicationContext).getBaseContext() == appContext;
         initJavaSideApplicationContext(appContext);
     }
 
@@ -140,7 +142,7 @@ public class ContextUtils {
      * In most cases, {@link Context#getAssets()} can be used directly. Modified resources are
      * used downstream and are set up on application startup, and this method provides access to
      * regular assets before that initialization is complete.
-     * <p>
+     *
      * This method should ONLY be used for accessing files within the assets folder.
      *
      * @return Application assets.
@@ -173,16 +175,12 @@ public class ContextUtils {
         }
     }
 
-    /**
-     * @return The name of the current process. E.g. "org.chromium.chrome:privileged_process0".
-     */
+    /** @return The name of the current process. E.g. "org.chromium.chrome:privileged_process0". */
     public static String getProcessName() {
         return ApiCompatibilityUtils.getProcessName();
     }
 
-    /**
-     * @return Whether the current process is 64-bit.
-     */
+    /** @return Whether the current process is 64-bit. */
     public static boolean isProcess64Bit() {
         return ApiHelperForM.isProcess64Bit();
     }
@@ -207,7 +205,7 @@ public class ContextUtils {
 
     /**
      * Register a broadcast receiver that may only accept protected broadcasts.
-     * <p>
+     *
      * You should (only) use this method when:
      * <p><ul>
      * <li>You need to receive protected broadcasts.
@@ -224,17 +222,21 @@ public class ContextUtils {
      * <p>
      * You can unregister receivers using the normal {@link Context#unregisterReceiver} method.
      */
-    public static Intent registerProtectedBroadcastReceiver(Context context, BroadcastReceiver receiver, IntentFilter filter) {
-        return registerBroadcastReceiver(context, receiver, filter, /*permission=*/null, /*scheduler=*/null, 0);
+    public static Intent registerProtectedBroadcastReceiver(
+            Context context, BroadcastReceiver receiver, IntentFilter filter) {
+        return registerBroadcastReceiver(
+                context, receiver, filter, /*permission=*/null, /*scheduler=*/null, 0);
     }
 
-    public static Intent registerProtectedBroadcastReceiver(Context context, BroadcastReceiver receiver, IntentFilter filter, Handler scheduler) {
-        return registerBroadcastReceiver(context, receiver, filter, /*permission=*/null, scheduler, 0);
+    public static Intent registerProtectedBroadcastReceiver(
+            Context context, BroadcastReceiver receiver, IntentFilter filter, Handler scheduler) {
+        return registerBroadcastReceiver(
+                context, receiver, filter, /*permission=*/null, scheduler, 0);
     }
 
     /**
      * Register a broadcast receiver that may accept broadcasts from any UID.
-     * <p>
+     *
      * You should (only) use exported receivers when:
      * <p><ul>
      * <li>You need to receive unprotected broadcasts from other applications.
@@ -244,14 +246,16 @@ public class ContextUtils {
      * <p>
      * You can unregister receivers using the normal {@link Context#unregisterReceiver} method.
      */
-    public static Intent registerExportedBroadcastReceiver(Context context, BroadcastReceiver receiver, IntentFilter filter, String permission) {
-        return registerBroadcastReceiver(context, receiver, filter, permission, /*scheduler=*/null, RECEIVER_EXPORTED);
+    public static Intent registerExportedBroadcastReceiver(
+            Context context, BroadcastReceiver receiver, IntentFilter filter, String permission) {
+        return registerBroadcastReceiver(
+                context, receiver, filter, permission, /*scheduler=*/null, RECEIVER_EXPORTED);
     }
 
     /**
      * Register a broadcast receiver that may only accept broadcasts coming from the root, system,
      * or this app's own UIDs.
-     * <p>
+     *
      * You should generally prefer using this over the exported counterpart,
      * {@link #registerExportedBroadcastReceiver(Context, BroadcastReceiver, IntentFilter, String)},
      * unless you meet a specific requirement specified in that method's documentation.
@@ -280,18 +284,23 @@ public class ContextUtils {
      * <p>
      * You can unregister receivers using the normal {@link Context#unregisterReceiver} method.
      */
-    public static Intent registerNonExportedBroadcastReceiver(Context context, BroadcastReceiver receiver, IntentFilter filter) {
+    public static Intent registerNonExportedBroadcastReceiver(
+            Context context, BroadcastReceiver receiver, IntentFilter filter) {
         return registerBroadcastReceiver(context, receiver, filter, /*permission=*/null,
                 /*scheduler=*/null, RECEIVER_NOT_EXPORTED);
     }
 
-    public static Intent registerNonExportedBroadcastReceiver(Context context, BroadcastReceiver receiver, IntentFilter filter, Handler scheduler) {
-        return registerBroadcastReceiver(context, receiver, filter, /*permission=*/null, scheduler, RECEIVER_NOT_EXPORTED);
+    public static Intent registerNonExportedBroadcastReceiver(
+            Context context, BroadcastReceiver receiver, IntentFilter filter, Handler scheduler) {
+        return registerBroadcastReceiver(
+                context, receiver, filter, /*permission=*/null, scheduler, RECEIVER_NOT_EXPORTED);
     }
 
-    private static Intent registerBroadcastReceiver(Context context, BroadcastReceiver receiver, IntentFilter filter, String permission, Handler scheduler, int flags) {
+    private static Intent registerBroadcastReceiver(Context context, BroadcastReceiver receiver,
+            IntentFilter filter, String permission, Handler scheduler, int flags) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            return ApiHelperForO.registerReceiver(context, receiver, filter, permission, scheduler, flags);
+            return ApiHelperForO.registerReceiver(
+                    context, receiver, filter, permission, scheduler, flags);
         } else {
             return context.registerReceiver(receiver, filter, permission, scheduler);
         }

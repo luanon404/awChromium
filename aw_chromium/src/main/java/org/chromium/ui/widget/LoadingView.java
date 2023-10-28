@@ -78,12 +78,15 @@ public class LoadingView extends ProgressBar {
                 return;
             }
 
-            animate().alpha(0.0f).setInterpolator(Interpolators.FAST_OUT_SLOW_IN_INTERPOLATOR).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    onHideLoadingFinished();
-                }
-            });
+            animate()
+                    .alpha(0.0f)
+                    .setInterpolator(Interpolators.FAST_OUT_SLOW_IN_INTERPOLATOR)
+                    .setListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            onHideLoadingFinished();
+                        }
+                    });
         }
     };
 
@@ -123,7 +126,10 @@ public class LoadingView extends ProgressBar {
         mShouldShow = false;
 
         if (getVisibility() == VISIBLE) {
-            postDelayed(mDelayedHide, Math.max(0, mStartTime + MINIMUM_ANIMATION_SHOW_TIME_MS - SystemClock.elapsedRealtime()));
+            postDelayed(mDelayedHide,
+                    Math.max(0,
+                            mStartTime + MINIMUM_ANIMATION_SHOW_TIME_MS
+                                    - SystemClock.elapsedRealtime()));
         } else {
             onHideLoadingFinished();
         }
@@ -141,9 +147,8 @@ public class LoadingView extends ProgressBar {
     /**
      * Add the listener that will be notified when the spinner is completely hidden with {@link
      * #hideLoadingUI()}.
-     *
      * @param listener {@link Observer} that will be notified when the spinner is
-     *                 completely hidden with {@link #hideLoadingUI()}.
+     *         completely hidden with {@link #hideLoadingUI()}.
      */
     public void addObserver(Observer listener) {
         mObservers.add(listener);
@@ -159,9 +164,8 @@ public class LoadingView extends ProgressBar {
     /**
      * Set disable the fading animation during {@link #hideLoadingUI()}.
      * This function is added as a work around for disable animation during unit tests.
-     *
      * @param disableAnimation Whether the fading animation should be disabled during {@link
-     *                         #hideLoadingUI()}.
+     *         #hideLoadingUI()}.
      */
     public static void setDisableAnimationForTest(boolean disableAnimation) {
         sDisableAnimationForTest = disableAnimation;
@@ -170,7 +174,6 @@ public class LoadingView extends ProgressBar {
 
     /**
      * Check if the Loading View Observer is empty or not.
-     *
      * @return If the observers is empty then return true.
      */
     public boolean isObserverListEmpty() {

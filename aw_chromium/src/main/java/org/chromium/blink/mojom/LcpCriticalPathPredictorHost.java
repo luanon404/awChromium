@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface LcpCriticalPathPredictorHost extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends LcpCriticalPathPredictorHost, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends LcpCriticalPathPredictorHost, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<LcpCriticalPathPredictorHost, LcpCriticalPathPredictorHost.Proxy> MANAGER = LcpCriticalPathPredictorHost_Internal.MANAGER;

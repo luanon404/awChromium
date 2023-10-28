@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class IsolationInfoRequestType {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({IsolationInfoRequestType.MAIN_FRAME, IsolationInfoRequestType.SUB_FRAME, IsolationInfoRequestType.OTHER})
-    public @interface EnumType {
-    }
+        IsolationInfoRequestType.MAIN_FRAME,
+        IsolationInfoRequestType.SUB_FRAME,
+        IsolationInfoRequestType.OTHER})
+    public @interface EnumType {}
 
     public static final int MAIN_FRAME = 0;
     public static final int SUB_FRAME = 1;
@@ -38,9 +40,8 @@ public final class IsolationInfoRequestType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private IsolationInfoRequestType() {
-    }
+    private IsolationInfoRequestType() {}
 }

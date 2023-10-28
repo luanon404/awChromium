@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface PeriodicBackgroundSyncService extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends PeriodicBackgroundSyncService, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends PeriodicBackgroundSyncService, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<PeriodicBackgroundSyncService, PeriodicBackgroundSyncService.Proxy> MANAGER = PeriodicBackgroundSyncService_Internal.MANAGER;

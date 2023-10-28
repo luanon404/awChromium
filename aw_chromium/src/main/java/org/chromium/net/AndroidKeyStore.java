@@ -4,9 +4,10 @@
 
 package org.chromium.net;
 
-import org.chromium.base.Log;
 import org.jni_zero.CalledByNative;
 import org.jni_zero.JNINamespace;
+
+import org.chromium.base.Log;
 
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -32,7 +33,7 @@ public class AndroidKeyStore {
      * Check if a given PrivateKey object supports a signature algorithm.
      *
      * @param privateKey The PrivateKey handle.
-     * @param algorithm  The signature algorithm to use.
+     * @param algorithm The signature algorithm to use.
      * @return whether the algorithm is supported.
      */
     @CalledByNative
@@ -53,7 +54,7 @@ public class AndroidKeyStore {
      * Check if a given PrivateKey object supports an encryption algorithm.
      *
      * @param privateKey The PrivateKey handle.
-     * @param algorithm  The signature algorithm to use.
+     * @param algorithm The signature algorithm to use.
      * @return whether the algorithm is supported.
      */
     @CalledByNative
@@ -74,12 +75,13 @@ public class AndroidKeyStore {
      * Sign a given message with a given PrivateKey object.
      *
      * @param privateKey The PrivateKey handle.
-     * @param algorithm  The signature algorithm to use.
-     * @param message    The message to sign.
+     * @param algorithm The signature algorithm to use.
+     * @param message The message to sign.
      * @return signature as a byte buffer.
      */
     @CalledByNative
-    private static byte[] signWithPrivateKey(PrivateKey privateKey, String algorithm, byte[] message) {
+    private static byte[] signWithPrivateKey(
+            PrivateKey privateKey, String algorithm, byte[] message) {
         // Hint: Algorithm names come from:
         // http://docs.oracle.com/javase/6/docs/technotes/guides/security/StandardNames.html
         Signature signature = null;
@@ -95,7 +97,10 @@ public class AndroidKeyStore {
             signature.update(message);
             return signature.sign();
         } catch (Exception e) {
-            Log.e(TAG, "Exception while signing message with " + algorithm + " and " + privateKey.getAlgorithm() + " private key (" + privateKey.getClass().getName() + "): " + e);
+            Log.e(TAG,
+                    "Exception while signing message with " + algorithm + " and "
+                            + privateKey.getAlgorithm() + " private key ("
+                            + privateKey.getClass().getName() + "): " + e);
             return null;
         }
     }
@@ -104,12 +109,13 @@ public class AndroidKeyStore {
      * Encrypts a given input with a given PrivateKey object.
      *
      * @param privateKey The PrivateKey handle.
-     * @param algorithm  The cipher to use.
-     * @param input      The input to encrypt.
+     * @param algorithm The cipher to use.
+     * @param input The input to encrypt.
      * @return ciphertext as a byte buffer.
      */
     @CalledByNative
-    private static byte[] encryptWithPrivateKey(PrivateKey privateKey, String algorithm, byte[] message) {
+    private static byte[] encryptWithPrivateKey(
+            PrivateKey privateKey, String algorithm, byte[] message) {
         Cipher cipher = null;
         try {
             cipher = Cipher.getInstance(algorithm);
@@ -122,7 +128,10 @@ public class AndroidKeyStore {
             cipher.init(Cipher.ENCRYPT_MODE, privateKey);
             return cipher.doFinal(message);
         } catch (Exception e) {
-            Log.e(TAG, "Exception while encrypting input with " + algorithm + " and " + privateKey.getAlgorithm() + " private key (" + privateKey.getClass().getName() + "): " + e);
+            Log.e(TAG,
+                    "Exception while encrypting input with " + algorithm + " and "
+                            + privateKey.getAlgorithm() + " private key ("
+                            + privateKey.getClass().getName() + "): " + e);
             return null;
         }
     }

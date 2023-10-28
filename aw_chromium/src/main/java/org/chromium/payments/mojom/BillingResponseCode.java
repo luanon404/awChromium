@@ -17,10 +17,16 @@ import androidx.annotation.IntDef;
 
 public final class BillingResponseCode {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({BillingResponseCode.OK, BillingResponseCode.ERROR, BillingResponseCode.ITEM_ALREADY_OWNED, BillingResponseCode.ITEM_NOT_OWNED, BillingResponseCode.ITEM_UNAVAILABLE, BillingResponseCode.CLIENT_APP_UNAVAILABLE, BillingResponseCode.CLIENT_APP_ERROR})
-    public @interface EnumType {
-    }
+        BillingResponseCode.OK,
+        BillingResponseCode.ERROR,
+        BillingResponseCode.ITEM_ALREADY_OWNED,
+        BillingResponseCode.ITEM_NOT_OWNED,
+        BillingResponseCode.ITEM_UNAVAILABLE,
+        BillingResponseCode.CLIENT_APP_UNAVAILABLE,
+        BillingResponseCode.CLIENT_APP_ERROR})
+    public @interface EnumType {}
 
     public static final int OK = 0;
     public static final int ERROR = 1;
@@ -42,9 +48,8 @@ public final class BillingResponseCode {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private BillingResponseCode() {
-    }
+    private BillingResponseCode() {}
 }

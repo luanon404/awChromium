@@ -8,7 +8,7 @@ import org.jni_zero.CalledByNative;
 
 /**
  * This UncaughtExceptionHandler will upload the stacktrace when there is an uncaught exception.
- * <p>
+ *
  * This happens before native is loaded, and will replace by JavaExceptionReporter after native
  * finishes loading.
  */
@@ -18,21 +18,18 @@ public class PureJavaExceptionHandler implements Thread.UncaughtExceptionHandler
     private static boolean sIsEnabled = true;
     private JavaExceptionReporterFactory mReporterFactory;
 
-    /**
-     * Interface to allow uploading reports.
-     */
+    /** Interface to allow uploading reports. */
     public interface JavaExceptionReporter {
         void createAndUploadReport(Throwable e);
     }
 
-    /**
-     * A factory interface to allow creating custom reporters.
-     */
+    /** A factory interface to allow creating custom reporters. */
     public interface JavaExceptionReporterFactory {
         JavaExceptionReporter createJavaExceptionReporter();
     }
 
-    private PureJavaExceptionHandler(Thread.UncaughtExceptionHandler parent, JavaExceptionReporterFactory reporterFactory) {
+    private PureJavaExceptionHandler(
+            Thread.UncaughtExceptionHandler parent, JavaExceptionReporterFactory reporterFactory) {
         mParent = parent;
         mReporterFactory = reporterFactory;
     }
@@ -50,7 +47,8 @@ public class PureJavaExceptionHandler implements Thread.UncaughtExceptionHandler
 
     public static void installHandler(JavaExceptionReporterFactory reporterFactory) {
         if (sIsEnabled) {
-            Thread.setDefaultUncaughtExceptionHandler(new PureJavaExceptionHandler(Thread.getDefaultUncaughtExceptionHandler(), reporterFactory));
+            Thread.setDefaultUncaughtExceptionHandler(new PureJavaExceptionHandler(
+                    Thread.getDefaultUncaughtExceptionHandler(), reporterFactory));
         }
     }
 

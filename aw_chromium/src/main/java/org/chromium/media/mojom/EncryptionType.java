@@ -17,10 +17,13 @@ import androidx.annotation.IntDef;
 
 public final class EncryptionType {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({EncryptionType.NONE, EncryptionType.CLEAR, EncryptionType.ENCRYPTED, EncryptionType.ENCRYPTED_WITH_CLEAR_LEAD})
-    public @interface EnumType {
-    }
+        EncryptionType.NONE,
+        EncryptionType.CLEAR,
+        EncryptionType.ENCRYPTED,
+        EncryptionType.ENCRYPTED_WITH_CLEAR_LEAD})
+    public @interface EnumType {}
 
     public static final int NONE = 0;
     public static final int CLEAR = 1;
@@ -39,9 +42,8 @@ public final class EncryptionType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private EncryptionType() {
-    }
+    private EncryptionType() {}
 }

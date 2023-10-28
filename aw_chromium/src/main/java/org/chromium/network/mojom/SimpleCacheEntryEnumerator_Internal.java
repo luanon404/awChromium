@@ -13,37 +13,40 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 class SimpleCacheEntryEnumerator_Internal {
 
     public static final org.chromium.mojo.bindings.Interface.Manager<SimpleCacheEntryEnumerator, SimpleCacheEntryEnumerator.Proxy> MANAGER =
             new org.chromium.mojo.bindings.Interface.Manager<SimpleCacheEntryEnumerator, SimpleCacheEntryEnumerator.Proxy>() {
 
-                @Override
-                public String getName() {
-                    return "network.mojom.SimpleCacheEntryEnumerator";
-                }
+        @Override
+        public String getName() {
+            return "network.mojom.SimpleCacheEntryEnumerator";
+        }
 
-                @Override
-                public int getVersion() {
-                    return 0;
-                }
+        @Override
+        public int getVersion() {
+          return 0;
+        }
 
-                @Override
-                public Proxy buildProxy(org.chromium.mojo.system.Core core,
-                                        org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
-                    return new Proxy(core, messageReceiver);
-                }
+        @Override
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+            return new Proxy(core, messageReceiver);
+        }
 
-                @Override
-                public Stub buildStub(org.chromium.mojo.system.Core core, SimpleCacheEntryEnumerator impl) {
-                    return new Stub(core, impl);
-                }
+        @Override
+        public Stub buildStub(org.chromium.mojo.system.Core core, SimpleCacheEntryEnumerator impl) {
+            return new Stub(core, impl);
+        }
 
-                @Override
-                public SimpleCacheEntryEnumerator[] buildArray(int size) {
-                    return new SimpleCacheEntryEnumerator[size];
-                }
-            };
+        @Override
+        public SimpleCacheEntryEnumerator[] buildArray(int size) {
+          return new SimpleCacheEntryEnumerator[size];
+        }
+    };
 
 
     private static final int GET_NEXT_ORDINAL = 0;
@@ -60,7 +63,7 @@ class SimpleCacheEntryEnumerator_Internal {
         @Override
         public void getNext(
 
-                GetNext_Response callback) {
+GetNext_Response callback) {
 
             SimpleCacheEntryEnumeratorGetNextParams _message = new SimpleCacheEntryEnumeratorGetNextParams();
 
@@ -98,18 +101,20 @@ class SimpleCacheEntryEnumerator_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
                         return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
                                 SimpleCacheEntryEnumerator_Internal.MANAGER, messageWithHeader);
 
 
+
+
                     default:
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -127,11 +132,16 @@ class SimpleCacheEntryEnumerator_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
                         return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
                                 getCore(), SimpleCacheEntryEnumerator_Internal.MANAGER, messageWithHeader, receiver);
+
+
+
+
+
 
 
                     case GET_NEXT_ORDINAL: {
@@ -147,17 +157,18 @@ class SimpleCacheEntryEnumerator_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class SimpleCacheEntryEnumeratorGetNextParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 8;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(8, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(8, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
 
         private SimpleCacheEntryEnumeratorGetNextParams(int version) {
@@ -208,10 +219,12 @@ class SimpleCacheEntryEnumerator_Internal {
     }
 
 
+
+    
     static final class SimpleCacheEntryEnumeratorGetNextResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public SimpleCacheOpenEntryResult result;
 
@@ -248,11 +261,11 @@ class SimpleCacheEntryEnumerator_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new SimpleCacheEntryEnumeratorGetNextResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.result = SimpleCacheOpenEntryResult.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -264,7 +277,7 @@ class SimpleCacheEntryEnumerator_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.result, 8, false);
         }
     }
@@ -284,7 +297,7 @@ class SimpleCacheEntryEnumerator_Internal {
                         message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 if (!header.validateHeader(GET_NEXT_ORDINAL,
-                        org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -329,6 +342,7 @@ class SimpleCacheEntryEnumerator_Internal {
             mMessageReceiver.accept(_message);
         }
     }
+
 
 
 }

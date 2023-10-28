@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface ImageReleaseCallback extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends ImageReleaseCallback, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends ImageReleaseCallback, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<ImageReleaseCallback, ImageReleaseCallback.Proxy> MANAGER = ImageReleaseCallback_Internal.MANAGER;

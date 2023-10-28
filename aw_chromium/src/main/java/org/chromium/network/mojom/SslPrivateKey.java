@@ -13,18 +13,23 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface SslPrivateKey extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends SslPrivateKey, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends SslPrivateKey, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<SslPrivateKey, SslPrivateKey.Proxy> MANAGER = SslPrivateKey_Internal.MANAGER;
 
-    void sign(short algorithm, byte[] input, Sign_Response callback);
+    void sign(
+short algorithm, byte[] input, 
+Sign_Response callback);
 
-    interface Sign_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<Integer, byte[]> {
-    }
+    interface Sign_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<Integer, byte[]> { }
 
 
 }

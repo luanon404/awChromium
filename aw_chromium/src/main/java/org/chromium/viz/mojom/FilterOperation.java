@@ -13,10 +13,13 @@
 
 package org.chromium.viz.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class FilterOperation extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 64;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(64, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(64, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public int type;
     public float amount;
@@ -32,6 +35,10 @@ public final class FilterOperation extends org.chromium.mojo.bindings.Struct {
         super(STRUCT_SIZE, version);
     }
 
+    public FilterOperation() {
+        this(0);
+    }
+
     public static FilterOperation deserialize(org.chromium.mojo.bindings.Message message) {
         return decode(new org.chromium.mojo.bindings.Decoder(message));
     }
@@ -42,9 +49,11 @@ public final class FilterOperation extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static FilterOperation deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
+    @SuppressWarnings("unchecked")
     public static FilterOperation decode(org.chromium.mojo.bindings.Decoder decoder0) {
         if (decoder0 == null) {
             return null;
@@ -55,45 +64,47 @@ public final class FilterOperation extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new FilterOperation(elementsOrVersion);
-            {
-
+                {
+                    
                 result.type = decoder0.readInt(8);
-                FilterType.validate(result.type);
-            }
-            {
-
+                    FilterType.validate(result.type);
+                    result.type = FilterType.toKnownValue(result.type);
+                }
+                {
+                    
                 result.amount = decoder0.readFloat(12);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                 result.offset = org.chromium.gfx.mojom.Point.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, false);
                 result.dropShadowColor = org.chromium.skia.mojom.SkColor4f.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(32, false);
                 result.imageFilter = PaintFilter.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.matrix = decoder0.readFloats(40, org.chromium.mojo.bindings.BindingsHelper.ARRAY_NULLABLE, 20);
-            }
-            {
-
+                }
+                {
+                    
                 result.zoomInset = decoder0.readInt(48);
-            }
-            {
-
+                }
+                {
+                    
                 result.blurTileMode = decoder0.readInt(52);
-                org.chromium.skia.mojom.TileMode.validate(result.blurTileMode);
-            }
-            {
-
+                    org.chromium.skia.mojom.TileMode.validate(result.blurTileMode);
+                    result.blurTileMode = org.chromium.skia.mojom.TileMode.toKnownValue(result.blurTileMode);
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(56, true);
                 if (decoder1 == null) {
                     result.shape = null;
@@ -101,12 +112,12 @@ public final class FilterOperation extends org.chromium.mojo.bindings.Struct {
                     org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                     result.shape = new org.chromium.gfx.mojom.Rect[si1.elementsOrVersion];
                     for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                        
                         org.chromium.mojo.bindings.Decoder decoder2 = decoder1.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                         result.shape[i1] = org.chromium.gfx.mojom.Rect.decode(decoder2);
                     }
                 }
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -114,32 +125,33 @@ public final class FilterOperation extends org.chromium.mojo.bindings.Struct {
         return result;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
+    protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.type, 8);
-
+        
         encoder0.encode(this.amount, 12);
-
+        
         encoder0.encode(this.offset, 16, false);
-
+        
         encoder0.encode(this.dropShadowColor, 24, false);
-
+        
         encoder0.encode(this.imageFilter, 32, false);
-
+        
         encoder0.encode(this.matrix, 40, org.chromium.mojo.bindings.BindingsHelper.ARRAY_NULLABLE, 20);
-
+        
         encoder0.encode(this.zoomInset, 48);
-
+        
         encoder0.encode(this.blurTileMode, 52);
-
+        
         if (this.shape == null) {
             encoder0.encodeNullPointer(56, true);
         } else {
             org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.shape.length, 56, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
             for (int i0 = 0; i0 < this.shape.length; ++i0) {
-
+                
                 encoder1.encode(this.shape[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
             }
         }

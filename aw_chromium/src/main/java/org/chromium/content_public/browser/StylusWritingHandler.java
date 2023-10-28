@@ -36,30 +36,29 @@ public interface StylusWritingHandler {
 
     /**
      * Update current input state parameters to stylus writing system.
-     *
-     * @param text           the input text
+     *  @param text the input text
      * @param selectionStart the input selection start offset
-     * @param selectionEnd   the input selection end offset
+     * @param selectionEnd the input selection end offset
      */
-    default void updateInputState(String text, int selectionStart, int selectionEnd) {
-    }
+    default void updateInputState(String text, int selectionStart, int selectionEnd) {}
 
     /**
      * Notify focused node has changed in web page.
      *
      * @param editableBoundsOnScreenDip the Editable element bounds Rect in dip
-     * @param isEditable                is true if focused node is of editable type.
-     * @param currentView               the {@link View} in which the focused node changed.
+     * @param isEditable     is true if focused node is of editable type.
+     * @param currentView the {@link View} in which the focused node changed.
      */
     @Nullable
-    default EditorBoundsInfo onFocusedNodeChanged(Rect editableBoundsOnScreenDip, boolean isEditable, View currentView, float scaleFactor, int contentOffsetY) {
+    default EditorBoundsInfo onFocusedNodeChanged(Rect editableBoundsOnScreenDip,
+            boolean isEditable, View currentView, float scaleFactor, int contentOffsetY) {
         return null;
     }
 
     /**
      * Handle touch events if needed for stylus writing.
      *
-     * @param event       {@link MotionEvent} to be handled.
+     * @param event {@link MotionEvent} to be handled.
      * @param currentView the {@link View} which is receiving the events.
      * @return true if event is consumed by stylus writing system.
      */
@@ -70,44 +69,40 @@ public interface StylusWritingHandler {
     /**
      * Handle hover events for Direct writing.
      *
-     * @param event       {@link MotionEvent} to be handled.
+     * @param event {@link MotionEvent} to be handled.
      * @param currentView the {@link View} which is receiving the events.
      */
-    default void handleHoverEvent(MotionEvent event, View currentView) {
-    }
+    default void handleHoverEvent(MotionEvent event, View currentView) {}
 
     /**
      * Update the editor attributes corresponding to current input.
      *
      * @param editorInfo {@link EditorInfo} object
      */
-    default void updateEditorInfo(EditorInfo editorInfo) {
-    }
+    default void updateEditorInfo(EditorInfo editorInfo) {}
 
     /**
      * Notify the view is detached from window.
      *
      * @param context the current context
      */
-    default void onDetachedFromWindow(Context context) {
-    }
+    default void onDetachedFromWindow(Context context) {}
 
     /**
      * Notify current view focus has changed
      *
      * @param hasFocus whether view gained or lost focus
      */
-    default void onFocusChanged(boolean hasFocus) {
-    }
+    default void onFocusChanged(boolean hasFocus) {}
 
     /**
      * This message is sent when the stylus writable element has been focused.
-     *
      * @param focusedEditBounds the input field bounds in view
-     * @param cursorPosition    the input cursor Position point in pix
+     * @param cursorPosition the input cursor Position point in pix
      */
     @Nullable
-    default EditorBoundsInfo onEditElementFocusedForStylusWriting(Rect focusedEditBounds, Point cursorPosition, float scaleFactor, int contentOffsetY) {
+    default EditorBoundsInfo onEditElementFocusedForStylusWriting(
+            Rect focusedEditBounds, Point cursorPosition, float scaleFactor, int contentOffsetY) {
         return null;
     }
 }

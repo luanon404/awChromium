@@ -13,6 +13,8 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public final class TypeSpecificFilePickerOptionsUnion extends org.chromium.mojo.bindings.Union {
 
@@ -20,8 +22,7 @@ public final class TypeSpecificFilePickerOptionsUnion extends org.chromium.mojo.
         public static final int OpenFilePickerOptions = 0;
         public static final int SaveFilePickerOptions = 1;
         public static final int DirectoryPickerOptions = 2;
-    }
-
+    };
     private OpenFilePickerOptions mOpenFilePickerOptions;
     private SaveFilePickerOptions mSaveFilePickerOptions;
     private DirectoryPickerOptions mDirectoryPickerOptions;

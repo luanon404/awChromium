@@ -13,6 +13,8 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 class ClipboardHost_Internal {
 
@@ -690,7 +692,7 @@ org.chromium.mojo_base.mojom.String16 format, org.chromium.mojo_base.mojom.BigBu
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -916,7 +918,7 @@ org.chromium.mojo_base.mojom.String16 format, org.chromium.mojo_base.mojom.BigBu
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }

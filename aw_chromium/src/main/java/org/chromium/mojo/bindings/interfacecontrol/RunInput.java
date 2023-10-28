@@ -13,13 +13,15 @@
 
 package org.chromium.mojo.bindings.interfacecontrol;
 
+import androidx.annotation.IntDef;
+
+
 public final class RunInput extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
         public static final int QueryVersion = 0;
         public static final int FlushForTesting = 1;
-    }
-
+    };
     private QueryVersion mQueryVersion;
     private FlushForTesting mFlushForTesting;
 
@@ -50,12 +52,12 @@ public final class RunInput extends org.chromium.mojo.bindings.Union {
         encoder0.encode(this.mTag, offset + 4);
         switch (mTag) {
             case Tag.QueryVersion: {
-
+                
                 encoder0.encode(this.mQueryVersion, offset + 8, false);
                 break;
             }
             case Tag.FlushForTesting: {
-
+                
                 encoder0.encode(this.mFlushForTesting, offset + 8, false);
                 break;
             }
@@ -77,14 +79,14 @@ public final class RunInput extends org.chromium.mojo.bindings.Union {
         RunInput result = new RunInput();
         switch (dataHeader.elementsOrVersion) {
             case Tag.QueryVersion: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mQueryVersion = QueryVersion.decode(decoder1);
                 result.mTag = Tag.QueryVersion;
                 break;
             }
             case Tag.FlushForTesting: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mFlushForTesting = FlushForTesting.decode(decoder1);
                 result.mTag = Tag.FlushForTesting;

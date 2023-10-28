@@ -27,37 +27,46 @@ import org.chromium.ui.widget.ViewRectProvider;
  * The dropdown popup window for use on Lollipop+. Internally uses an AnchoredPopupWindow
  * anchored to a view to display a list of options.
  */
-class DropdownPopupWindowImpl implements AnchoredPopupWindow.LayoutObserver, DropdownPopupWindowInterface {
+class DropdownPopupWindowImpl
+        implements AnchoredPopupWindow.LayoutObserver, DropdownPopupWindowInterface {
     private final Context mContext;
     private final View mAnchorView;
     private boolean mRtl;
     private int mInitialSelection = -1;
-    private final OnLayoutChangeListener mLayoutChangeListener;
+    private OnLayoutChangeListener mLayoutChangeListener;
     private CharSequence mDescription;
-    private final AnchoredPopupWindow mAnchoredPopupWindow;
+    private AnchoredPopupWindow mAnchoredPopupWindow;
     ListAdapter mAdapter;
 
     private final ListView mListView;
-    private final Drawable mBackground;
-    private final int mHorizontalPadding;
+    private Drawable mBackground;
+    private int mHorizontalPadding;
+
+    public DropdownPopupWindowImpl(Context context, View anchorView) {
+        this(context, anchorView, null);
+    }
 
     /**
      * Creates an DropdownPopupWindowImpl with specified parameters.
-     *
-     * @param context                        Application context.
-     * @param anchorView                     Popup view to be anchored.
+     * @param context Application context.
+     * @param anchorView Popup view to be anchored.
      * @param visibleWebContentsRectProvider The {@link RectProvider} which will be used for {@link
-     *                                       AnchoredPopupWindow}.
+     *         AnchoredPopupWindow}.
      */
-    public DropdownPopupWindowImpl(Context context, View anchorView, @Nullable RectProvider visibleWebContentsRectProvider) {
+    public DropdownPopupWindowImpl(Context context, View anchorView,
+            @Nullable RectProvider visibleWebContentsRectProvider) {
         mContext = context;
         mAnchorView = anchorView;
 
         mAnchorView.setId(R.id.dropdown_popup_window);
         mAnchorView.setTag(this);
 
-        mLayoutChangeListener = (v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
-            if (v == mAnchorView) DropdownPopupWindowImpl.this.show();
+        mLayoutChangeListener = new OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom,
+                    int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                if (v == mAnchorView) DropdownPopupWindowImpl.this.show();
+            }
         };
         mAnchorView.addOnLayoutChangeListener(mLayoutChangeListener);
 
@@ -75,16 +84,18 @@ class DropdownPopupWindowImpl implements AnchoredPopupWindow.LayoutObserver, Dro
         ViewRectProvider rectProvider = new ViewRectProvider(mAnchorView);
         rectProvider.setIncludePadding(true);
         mBackground = AppCompatResources.getDrawable(context, R.drawable.menu_bg_baseline);
-        mAnchoredPopupWindow = new AnchoredPopupWindow(context, mAnchorView, mBackground, mListView, rectProvider, visibleWebContentsRectProvider);
+        mAnchoredPopupWindow = new AnchoredPopupWindow(context, mAnchorView, mBackground, mListView,
+                rectProvider, visibleWebContentsRectProvider);
         mAnchoredPopupWindow.addOnDismissListener(onDismissLitener);
         mAnchoredPopupWindow.setLayoutObserver(this);
-        mAnchoredPopupWindow.setElevation(context.getResources().getDimensionPixelSize(R.dimen.dropdown_elevation));
+        mAnchoredPopupWindow.setElevation(
+                context.getResources().getDimensionPixelSize(R.dimen.dropdown_elevation));
         Rect paddingRect = new Rect();
-        assert mBackground != null;
         mBackground.getPadding(paddingRect);
         rectProvider.setInsetPx(0, /* top= */ paddingRect.bottom, 0, /* bottom= */ paddingRect.top);
         mHorizontalPadding = paddingRect.right + paddingRect.left;
-        mAnchoredPopupWindow.setPreferredHorizontalOrientation(AnchoredPopupWindow.HorizontalOrientation.CENTER);
+        mAnchoredPopupWindow.setPreferredHorizontalOrientation(
+                AnchoredPopupWindow.HorizontalOrientation.CENTER);
         mAnchoredPopupWindow.setUpdateOrientationOnChange(true);
         mAnchoredPopupWindow.setOutsideTouchable(true);
     }
@@ -103,9 +114,11 @@ class DropdownPopupWindowImpl implements AnchoredPopupWindow.LayoutObserver, Dro
     }
 
     @Override
-    public void onPreLayoutChange(boolean positionBelow, int x, int y, int width, int height, Rect anchorRect) {
+    public void onPreLayoutChange(
+            boolean positionBelow, int x, int y, int width, int height, Rect anchorRect) {
         mBackground.setBounds(anchorRect);
-        mAnchoredPopupWindow.setBackgroundDrawable(AppCompatResources.getDrawable(mContext, R.drawable.menu_bg_baseline));
+        mAnchoredPopupWindow.setBackgroundDrawable(
+                AppCompatResources.getDrawable(mContext, R.drawable.menu_bg_baseline));
     }
 
     /**
@@ -164,7 +177,6 @@ class DropdownPopupWindowImpl implements AnchoredPopupWindow.LayoutObserver, Dro
 
     /**
      * Sets the text direction in the dropdown. Should be called before show().
-     *
      * @param isRtl If true, then dropdown text direction is right to left.
      */
     @Override
@@ -184,7 +196,6 @@ class DropdownPopupWindowImpl implements AnchoredPopupWindow.LayoutObserver, Dro
     /**
      * Sets the content description to be announced by accessibility services when the dropdown is
      * shown.
-     *
      * @param description The description of the content to be announced.
      */
     @Override
@@ -237,7 +248,6 @@ class DropdownPopupWindowImpl implements AnchoredPopupWindow.LayoutObserver, Dro
 
     /**
      * Measures the width of the list content. The adapter should not be null.
-     *
      * @return The popup window width in pixels.
      */
     private int measureContentWidth() {

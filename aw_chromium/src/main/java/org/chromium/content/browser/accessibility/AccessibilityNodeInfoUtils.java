@@ -34,11 +34,13 @@ import static androidx.core.view.accessibility.AccessibilityNodeInfoCompat.Acces
 import static androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_SET_SELECTION;
 import static androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_SET_TEXT;
 import static androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_SHOW_ON_SCREEN;
+
 import static org.chromium.content.browser.accessibility.AccessibilityNodeInfoBuilder.EXTRAS_KEY_CSS_DISPLAY;
 import static org.chromium.content.browser.accessibility.AccessibilityNodeInfoBuilder.EXTRAS_KEY_OFFSCREEN;
 import static org.chromium.content.browser.accessibility.AccessibilityNodeInfoBuilder.EXTRAS_KEY_SUPPORTED_ELEMENTS;
 import static org.chromium.content.browser.accessibility.AccessibilityNodeInfoBuilder.EXTRAS_KEY_UNCLIPPED_BOTTOM;
 import static org.chromium.content.browser.accessibility.AccessibilityNodeInfoBuilder.EXTRAS_KEY_UNCLIPPED_TOP;
+
 import static java.lang.String.CASE_INSENSITIVE_ORDER;
 
 import android.os.Bundle;
@@ -76,7 +78,9 @@ public class AccessibilityNodeInfoUtils {
         if (node.getText() == null) {
             builder.append(" text:\"null\"");
         } else if (!node.getText().toString().isEmpty()) {
-            builder.append(" text:\"").append(node.getText().toString().replace("\n", "\\n")).append("\"");
+            builder.append(" text:\"")
+                    .append(node.getText().toString().replace("\n", "\\n"))
+                    .append("\"");
         }
         // Print hint unless it is null or empty.
         if (node.getHintText() != null && !node.getHintText().toString().isEmpty()) {
@@ -85,7 +89,9 @@ public class AccessibilityNodeInfoUtils {
 
         // Text properties - Only print when non-null.
         if (node.getContentDescription() != null) {
-            builder.append(" contentDescription:\"").append(node.getContentDescription().toString().replace("\n", "\\n")).append("\"");
+            builder.append(" contentDescription:\"")
+                    .append(node.getContentDescription().toString().replace("\n", "\\n"))
+                    .append("\"");
         }
         if (node.getPaneTitle() != null) {
             builder.append(" paneTitle:\"").append(node.getPaneTitle()).append("\"");
@@ -96,7 +102,8 @@ public class AccessibilityNodeInfoUtils {
         if (node.getError() != null) {
             builder.append(" error:\"").append(node.getError()).append("\"");
         }
-        if (node.getStateDescription() != null && !node.getStateDescription().toString().isEmpty()) {
+        if (node.getStateDescription() != null
+                && !node.getStateDescription().toString().isEmpty()) {
             builder.append(" stateDescription:\"").append(node.getStateDescription()).append("\"");
         }
 
@@ -188,7 +195,8 @@ public class AccessibilityNodeInfoUtils {
         if (info.isHierarchical()) {
             prefix += "hierarchical, ";
         }
-        return String.format("%srows=%s, cols=%s]", prefix, info.getRowCount(), info.getColumnCount());
+        return String.format(
+                "%srows=%s, cols=%s]", prefix, info.getRowCount(), info.getColumnCount());
     }
 
     private static String toString(AccessibilityNodeInfoCompat.CollectionItemInfoCompat info) {
@@ -207,15 +215,18 @@ public class AccessibilityNodeInfoUtils {
         if (info.getColumnSpan() != 1) {
             prefix += String.format("colSpan=%s, ", info.getColumnSpan());
         }
-        return String.format("%srowIndex=%s, colIndex=%s]", prefix, info.getRowIndex(), info.getColumnIndex());
+        return String.format(
+                "%srowIndex=%s, colIndex=%s]", prefix, info.getRowIndex(), info.getColumnIndex());
     }
 
     private static String toString(AccessibilityNodeInfoCompat.RangeInfoCompat info) {
         // Chrome always uses the float range type, so only print values of RangeInfo.
-        return String.format("[current=%s, min=%s, max=%s]", info.getCurrent(), info.getMin(), info.getMax());
+        return String.format(
+                "[current=%s, min=%s, max=%s]", info.getCurrent(), info.getMin(), info.getMax());
     }
 
-    private static String toString(List<AccessibilityNodeInfoCompat.AccessibilityActionCompat> actionList) {
+    private static String toString(
+            List<AccessibilityNodeInfoCompat.AccessibilityActionCompat> actionList) {
         // Sort actions list to ensure consistent output of tests.
         Collections.sort(actionList, (a1, b2) -> Integer.compare(a1.getId(), b2.getId()));
 
@@ -224,15 +235,21 @@ public class AccessibilityNodeInfoUtils {
         builder.append("[");
         for (AccessibilityNodeInfoCompat.AccessibilityActionCompat action : actionList) {
             // Four actions are set on all nodes, so ignore those when printing the tree.
-            if (action.equals(ACTION_NEXT_HTML_ELEMENT) || action.equals(ACTION_PREVIOUS_HTML_ELEMENT) || action.equals(ACTION_SHOW_ON_SCREEN) || action.equals(ACTION_CONTEXT_CLICK)) {
+            if (action.equals(ACTION_NEXT_HTML_ELEMENT)
+                    || action.equals(ACTION_PREVIOUS_HTML_ELEMENT)
+                    || action.equals(ACTION_SHOW_ON_SCREEN)
+                    || action.equals(ACTION_CONTEXT_CLICK)) {
                 continue;
             }
             // Scroll actions are dependent on screen size, so ignore them to reduce flakiness
-            if (action.equals(ACTION_SCROLL_FORWARD) || action.equals(ACTION_SCROLL_BACKWARD) || action.equals(ACTION_SCROLL_DOWN) || action.equals(ACTION_SCROLL_UP) || action.equals(ACTION_SCROLL_RIGHT) || action.equals(ACTION_SCROLL_LEFT)) {
+            if (action.equals(ACTION_SCROLL_FORWARD) || action.equals(ACTION_SCROLL_BACKWARD)
+                    || action.equals(ACTION_SCROLL_DOWN) || action.equals(ACTION_SCROLL_UP)
+                    || action.equals(ACTION_SCROLL_RIGHT) || action.equals(ACTION_SCROLL_LEFT)) {
                 continue;
             }
             // Page actions are dependent on screen size, so ignore them to reduce flakiness.
-            if (action.equals(ACTION_PAGE_UP) || action.equals(ACTION_PAGE_DOWN) || action.equals(ACTION_PAGE_LEFT) || action.equals(ACTION_PAGE_RIGHT)) {
+            if (action.equals(ACTION_PAGE_UP) || action.equals(ACTION_PAGE_DOWN)
+                    || action.equals(ACTION_PAGE_LEFT) || action.equals(ACTION_PAGE_RIGHT)) {
                 continue;
             }
 
@@ -353,7 +370,8 @@ public class AccessibilityNodeInfoUtils {
             }
 
             // Simplify the key String before printing to make test outputs easier to read.
-            bundleStrings.add(key.replace("AccessibilityNodeInfo.", "") + "=\"" + extras.get(key).toString() + "\"");
+            bundleStrings.add(key.replace("AccessibilityNodeInfo.", "") + "=\""
+                    + extras.get(key).toString() + "\"");
         }
         builder.append(TextUtils.join(", ", bundleStrings)).append("]");
 

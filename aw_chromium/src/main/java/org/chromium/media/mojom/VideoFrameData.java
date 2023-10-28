@@ -13,6 +13,9 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class VideoFrameData extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
@@ -20,8 +23,7 @@ public final class VideoFrameData extends org.chromium.mojo.bindings.Union {
         public static final int SharedMemoryData = 1;
         public static final int GpuMemoryBufferData = 2;
         public static final int MailboxData = 3;
-    }
-
+    };
     private EosVideoFrameData mEosData;
     private SharedMemoryVideoFrameData mSharedMemoryData;
     private GpuMemoryBufferVideoFrameData mGpuMemoryBufferData;
@@ -74,22 +76,22 @@ public final class VideoFrameData extends org.chromium.mojo.bindings.Union {
         encoder0.encode(this.mTag, offset + 4);
         switch (mTag) {
             case Tag.EosData: {
-
+                
                 encoder0.encode(this.mEosData, offset + 8, false);
                 break;
             }
             case Tag.SharedMemoryData: {
-
+                
                 encoder0.encode(this.mSharedMemoryData, offset + 8, false);
                 break;
             }
             case Tag.GpuMemoryBufferData: {
-
+                
                 encoder0.encode(this.mGpuMemoryBufferData, offset + 8, false);
                 break;
             }
             case Tag.MailboxData: {
-
+                
                 encoder0.encode(this.mMailboxData, offset + 8, false);
                 break;
             }
@@ -111,28 +113,28 @@ public final class VideoFrameData extends org.chromium.mojo.bindings.Union {
         VideoFrameData result = new VideoFrameData();
         switch (dataHeader.elementsOrVersion) {
             case Tag.EosData: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mEosData = EosVideoFrameData.decode(decoder1);
                 result.mTag = Tag.EosData;
                 break;
             }
             case Tag.SharedMemoryData: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mSharedMemoryData = SharedMemoryVideoFrameData.decode(decoder1);
                 result.mTag = Tag.SharedMemoryData;
                 break;
             }
             case Tag.GpuMemoryBufferData: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mGpuMemoryBufferData = GpuMemoryBufferVideoFrameData.decode(decoder1);
                 result.mTag = Tag.GpuMemoryBufferData;
                 break;
             }
             case Tag.MailboxData: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mMailboxData = MailboxVideoFrameData.decode(decoder1);
                 result.mTag = Tag.MailboxData;

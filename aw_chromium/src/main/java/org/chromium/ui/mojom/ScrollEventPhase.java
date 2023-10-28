@@ -17,10 +17,13 @@ import androidx.annotation.IntDef;
 
 public final class ScrollEventPhase {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({ScrollEventPhase.NONE, ScrollEventPhase.BEGAN, ScrollEventPhase.UPDATE, ScrollEventPhase.END})
-    public @interface EnumType {
-    }
+        ScrollEventPhase.NONE,
+        ScrollEventPhase.BEGAN,
+        ScrollEventPhase.UPDATE,
+        ScrollEventPhase.END})
+    public @interface EnumType {}
 
     public static final int NONE = 0;
     public static final int BEGAN = 1;
@@ -39,9 +42,8 @@ public final class ScrollEventPhase {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private ScrollEventPhase() {
-    }
+    private ScrollEventPhase() {}
 }

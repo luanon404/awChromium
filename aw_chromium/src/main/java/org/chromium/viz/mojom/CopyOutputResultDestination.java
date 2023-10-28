@@ -17,10 +17,11 @@ import androidx.annotation.IntDef;
 
 public final class CopyOutputResultDestination {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({CopyOutputResultDestination.SYSTEM_MEMORY, CopyOutputResultDestination.NATIVE_TEXTURES})
-    public @interface EnumType {
-    }
+        CopyOutputResultDestination.SYSTEM_MEMORY,
+        CopyOutputResultDestination.NATIVE_TEXTURES})
+    public @interface EnumType {}
 
     public static final int SYSTEM_MEMORY = 0;
     public static final int NATIVE_TEXTURES = 1;
@@ -37,9 +38,8 @@ public final class CopyOutputResultDestination {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private CopyOutputResultDestination() {
-    }
+    private CopyOutputResultDestination() {}
 }

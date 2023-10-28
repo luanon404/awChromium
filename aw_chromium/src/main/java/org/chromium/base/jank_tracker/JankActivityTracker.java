@@ -29,7 +29,8 @@ class JankActivityTracker extends JankTrackerStateController implements Activity
 
     private WeakReference<Activity> mActivityReference;
 
-    JankActivityTracker(Activity context, FrameMetricsListener listener, JankReportingScheduler reportingScheduler) {
+    JankActivityTracker(Activity context, FrameMetricsListener listener,
+            JankReportingScheduler reportingScheduler) {
         super(listener, reportingScheduler);
         mActivityReference = new WeakReference<>(context);
     }
@@ -40,7 +41,8 @@ class JankActivityTracker extends JankTrackerStateController implements Activity
         Activity activity = mActivityReference.get();
         if (activity != null) {
             ApplicationStatus.registerStateListenerForActivity(this, activity);
-            @ActivityState int activityState = ApplicationStatus.getStateForActivity(activity);
+            @ActivityState
+            int activityState = ApplicationStatus.getStateForActivity(activity);
             onActivityStateChange(activity, activityState);
             startMetricCollection(activity.getWindow());
         }

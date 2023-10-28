@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface AdAuctionService extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends AdAuctionService, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends AdAuctionService, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<AdAuctionService, AdAuctionService.Proxy> MANAGER = AdAuctionService_Internal.MANAGER;

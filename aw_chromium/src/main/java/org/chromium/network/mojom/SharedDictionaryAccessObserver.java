@@ -13,18 +13,24 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface SharedDictionaryAccessObserver extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends SharedDictionaryAccessObserver, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends SharedDictionaryAccessObserver, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<SharedDictionaryAccessObserver, SharedDictionaryAccessObserver.Proxy> MANAGER = SharedDictionaryAccessObserver_Internal.MANAGER;
 
-    void onSharedDictionaryAccessed(SharedDictionaryAccessDetails details);
+    void onSharedDictionaryAccessed(
+SharedDictionaryAccessDetails details);
 
 
-    void clone(org.chromium.mojo.bindings.InterfaceRequest<SharedDictionaryAccessObserver> observer);
+    void clone(
+org.chromium.mojo.bindings.InterfaceRequest<SharedDictionaryAccessObserver> observer);
 
 
 }

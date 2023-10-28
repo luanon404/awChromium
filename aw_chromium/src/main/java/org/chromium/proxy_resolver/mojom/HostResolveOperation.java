@@ -17,10 +17,13 @@ import androidx.annotation.IntDef;
 
 public final class HostResolveOperation {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({HostResolveOperation.DNS_RESOLVE, HostResolveOperation.DNS_RESOLVE_EX, HostResolveOperation.MY_IP_ADDRESS, HostResolveOperation.MY_IP_ADDRESS_EX})
-    public @interface EnumType {
-    }
+        HostResolveOperation.DNS_RESOLVE,
+        HostResolveOperation.DNS_RESOLVE_EX,
+        HostResolveOperation.MY_IP_ADDRESS,
+        HostResolveOperation.MY_IP_ADDRESS_EX})
+    public @interface EnumType {}
 
     public static final int DNS_RESOLVE = 0;
     public static final int DNS_RESOLVE_EX = 1;
@@ -39,9 +42,8 @@ public final class HostResolveOperation {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private HostResolveOperation() {
-    }
+    private HostResolveOperation() {}
 }

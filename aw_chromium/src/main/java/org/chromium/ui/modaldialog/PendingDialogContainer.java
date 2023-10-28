@@ -24,14 +24,15 @@ import java.util.function.Consumer;
  */
 class PendingDialogContainer {
     /**
-     * A class representing the attributes of a pending dialog.
+     *  A class representing the attributes of a pending dialog.
      */
     class PendingDialogType {
         public final PropertyModel propertyModel;
         public final @ModalDialogType int dialogType;
         public final @ModalDialogPriority int dialogPriority;
 
-        PendingDialogType(PropertyModel model, @ModalDialogType int type, @ModalDialogPriority int priority) {
+        PendingDialogType(
+                PropertyModel model, @ModalDialogType int type, @ModalDialogPriority int priority) {
             propertyModel = model;
             dialogType = type;
             dialogPriority = priority;
@@ -41,21 +42,21 @@ class PendingDialogContainer {
     /**
      * Mapping of the lists of pending dialogs based on {@link ModalDialogType} and {@link
      * ModalDialogPriority} of the dialogs.
-     * <p>
+     *
      * The key of this map is 10 * {@link ModalDialogType} + {@link ModalDialogPriority}.
      * This allows for efficient retrievals of pending dialogs sliced on {@link ModalDialogType}
      * or {@link ModalDialogType}.
-     * <p>
+     *
      * Iterating over pending dialogs based on {@link ModalDialogType} is useful when suspending
      * dialogs for certain types.
-     * <p>
+     *
      * Iterating over pending dialogs based on {@link ModalDialogPriority} is useful when
      * choosing the next dialog to be shown.
-     * <p>
+     *
      * Please note, this only works if the MAX_RANGE of {@link ModalDialogPriority} is <= 9,
      * otherwise we can have situations where two different dialogs on either {@link
      * ModalDialogType} or {@link ModalDialogPriority} can be mapped to the same key.
-     * <p>
+     *
      * For example:
      * 10 * (ModalDialogType: 2) + (ModalDialogPriority: 9) = 10 * (ModalDialogType: 1) +
      * (ModalDialogPriority: 19) would map to the same key 29.
@@ -66,14 +67,15 @@ class PendingDialogContainer {
      * Queues the {@link PropertyModel} model in the container based on the {@link
      * ModalDialogPriority} and {@link ModalDialogType}.
      *
-     * @param dialogType     The {@link ModalDialogType} of the {@link PropertyModel}.
+     * @param dialogType The {@link ModalDialogType} of the {@link PropertyModel}.
      * @param dialogPriority The {@link ModalDialogPriority} of the {@link PropertyModel}.
-     * @param model          The {@link PropertyModel} which contains the {@link ModalDialogProperties}
-     *                       to launch a dialog.
-     * @param showAsNext     If set to true, the {@link PropertyModel} |model| would be put as first
-     *                       in its list of dialog.
+     * @param model The {@link PropertyModel} which contains the {@link ModalDialogProperties}
+     *         to launch a dialog.
+     * @param showAsNext If set to true, the {@link PropertyModel} |model| would be put as first
+     *         in its list of dialog.
      */
-    void put(@ModalDialogType int dialogType, @ModalDialogPriority int dialogPriority, PropertyModel model, boolean showAsNext) {
+    void put(@ModalDialogType int dialogType, @ModalDialogPriority int dialogPriority,
+            PropertyModel model, boolean showAsNext) {
         Integer key = computeKey(dialogType, dialogPriority);
         List<PropertyModel> dialogs = mPendingDialogs.get(key);
         if (dialogs == null) mPendingDialogs.put(key, dialogs = new ArrayList<>());
@@ -81,20 +83,23 @@ class PendingDialogContainer {
     }
 
     /**
-     * @param dialogType     The {@link ModalDialogType} of the list of pending dialog to fetch.
+     * @param dialogType The {@link ModalDialogType} of the list of pending dialog to fetch.
      * @param dialogPriority The {@link ModalDialogPriority} of the list of pending dialog to fetch.
+     *
      * @return Returns the list of {@link PropertyModel} with matching {@link ModalDialogType} *and*
-     * {@link ModalDialogPriority}, null otherwise.
+     *         {@link ModalDialogPriority}, null otherwise.
      */
     @Nullable
-    List<PropertyModel> get(@ModalDialogType int dialogType, @ModalDialogPriority int dialogPriority) {
+    List<PropertyModel> get(
+            @ModalDialogType int dialogType, @ModalDialogPriority int dialogPriority) {
         Integer key = computeKey(dialogType, dialogPriority);
         return mPendingDialogs.get(key);
     }
 
     /**
      * @param model The {@link PropertyModel} model to check if it contains in the list of
-     *              pending dialogs.
+     *         pending dialogs.
+     *
      * @return Returns true if model found, otherwise false.
      */
     boolean contains(PropertyModel model) {
@@ -126,10 +131,12 @@ class PendingDialogContainer {
 
     /**
      * @param model The {@link PropertyModel} model to remove from pending dialogs.
+     *
      * @return True, if the |model| was found and removed, false otherwise.
      */
     boolean remove(PropertyModel model) {
-        Iterator<Map.Entry<Integer, List<PropertyModel>>> iterator = mPendingDialogs.entrySet().iterator();
+        Iterator<Map.Entry<Integer, List<PropertyModel>>> iterator =
+                mPendingDialogs.entrySet().iterator();
         while (iterator.hasNext()) {
             Map.Entry<Integer, List<PropertyModel>> entry = iterator.next();
             List<PropertyModel> dialogs = entry.getValue();
@@ -151,15 +158,17 @@ class PendingDialogContainer {
      * |consumer| before removing.
      *
      * @param dialogType The {@link ModalDialogType} of the dialog to be removed from the list
-     *                   of pending dialogs.
-     * @param consumer   The {@link Consumer <PropertyModel>} which would be performed before
-     *                   removing the {@link PropertyModel} matching the |dialogType| from the pending
-     *                   dialog list.
+     *         of pending dialogs.
+     * @param consumer The {@link Consumer <PropertyModel>} which would be performed before
+     *         removing the {@link PropertyModel} matching the |dialogType| from the pending
+     *         dialog list.
+     *
      * @return True, if any dialogs were removed, false otherwise.
      */
     boolean remove(@ModalDialogType int dialogType, Consumer<PropertyModel> consumer) {
         boolean dialogRemoved = false;
-        for (@ModalDialogPriority int priority = ModalDialogPriority.RANGE_MIN; priority <= ModalDialogPriority.RANGE_MAX; ++priority) {
+        for (@ModalDialogPriority int priority = ModalDialogPriority.RANGE_MIN;
+                priority <= ModalDialogPriority.RANGE_MAX; ++priority) {
             Integer key = computeKey(dialogType, priority);
             List<PropertyModel> dialogs = mPendingDialogs.get(key);
             // No matching dialogs of type |dialogType| found with |priority|, continue searching
@@ -180,13 +189,15 @@ class PendingDialogContainer {
      * removes it from the pending dialogs.
      *
      * @return The {@link PropertyModel}, the {@link ModalDialogType} and the {@link
-     * ModalDialogPriority} of the model associated with the next dialog to be shown,
-     * otherwise null if not found.
+     *         ModalDialogPriority} of the model associated with the next dialog to be shown,
+     *         otherwise null if not found.
      */
     @Nullable
     PendingDialogType getNextPendingDialog(Set<Integer> suspendedTypes) {
-        for (@ModalDialogPriority int priority = ModalDialogPriority.RANGE_MAX; priority >= ModalDialogPriority.RANGE_MIN; --priority) {
-            for (@ModalDialogType int type = ModalDialogType.RANGE_MAX; type >= ModalDialogType.RANGE_MIN; --type) {
+        for (@ModalDialogPriority int priority = ModalDialogPriority.RANGE_MAX;
+                priority >= ModalDialogPriority.RANGE_MIN; --priority) {
+            for (@ModalDialogType int type = ModalDialogType.RANGE_MAX;
+                    type >= ModalDialogType.RANGE_MIN; --type) {
                 if (suspendedTypes.contains(type)) continue;
                 Integer key = computeKey(type, priority);
                 List<PropertyModel> dialogs = mPendingDialogs.get(key);
@@ -204,7 +215,8 @@ class PendingDialogContainer {
     }
 
     // A method for computing the key of the mPendingDialog HashMap.
-    private Integer computeKey(@ModalDialogType int dialogType, @ModalDialogPriority int dialogPriority) {
+    private Integer computeKey(
+            @ModalDialogType int dialogType, @ModalDialogPriority int dialogPriority) {
         assert dialogPriority >= 1 && dialogPriority <= 9;
         return dialogType * 10 + dialogPriority;
     }

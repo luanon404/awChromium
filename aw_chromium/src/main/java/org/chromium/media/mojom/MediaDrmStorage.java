@@ -13,46 +13,51 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface MediaDrmStorage extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends MediaDrmStorage, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends MediaDrmStorage, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<MediaDrmStorage, MediaDrmStorage.Proxy> MANAGER = MediaDrmStorage_Internal.MANAGER;
 
     void initialize(
 
-            Initialize_Response callback);
+Initialize_Response callback);
 
-    interface Initialize_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<Boolean, org.chromium.mojo_base.mojom.UnguessableToken> {
-    }
+    interface Initialize_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<Boolean, org.chromium.mojo_base.mojom.UnguessableToken> { }
 
 
     void onProvisioned(
 
-            OnProvisioned_Response callback);
+OnProvisioned_Response callback);
 
-    interface OnProvisioned_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> {
-    }
-
-
-    void savePersistentSession(String sessionId, SessionData sessionData, SavePersistentSession_Response callback);
-
-    interface SavePersistentSession_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> {
-    }
+    interface OnProvisioned_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> { }
 
 
-    void loadPersistentSession(String sessionId, LoadPersistentSession_Response callback);
+    void savePersistentSession(
+String sessionId, SessionData sessionData, 
+SavePersistentSession_Response callback);
 
-    interface LoadPersistentSession_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<SessionData> {
-    }
+    interface SavePersistentSession_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> { }
 
 
-    void removePersistentSession(String sessionId, RemovePersistentSession_Response callback);
+    void loadPersistentSession(
+String sessionId, 
+LoadPersistentSession_Response callback);
 
-    interface RemovePersistentSession_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> {
-    }
+    interface LoadPersistentSession_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<SessionData> { }
+
+
+    void removePersistentSession(
+String sessionId, 
+RemovePersistentSession_Response callback);
+
+    interface RemovePersistentSession_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> { }
 
 
 }

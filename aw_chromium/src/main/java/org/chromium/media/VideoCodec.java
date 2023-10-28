@@ -1,3 +1,4 @@
+
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -14,28 +15,32 @@ import androidx.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@IntDef({VideoCodec.UNKNOWN, VideoCodec.H264, VideoCodec.VC1, VideoCodec.MPEG2, VideoCodec.MPEG4, VideoCodec.THEORA, VideoCodec.VP8, VideoCodec.VP9, VideoCodec.HEVC, VideoCodec.DOLBY_VISION, VideoCodec.AV1, VideoCodec.MAX_VALUE})
+@IntDef({
+    VideoCodec.UNKNOWN, VideoCodec.H264, VideoCodec.VC1, VideoCodec.MPEG2, VideoCodec.MPEG4,
+    VideoCodec.THEORA, VideoCodec.VP8, VideoCodec.VP9, VideoCodec.HEVC, VideoCodec.DOLBY_VISION,
+    VideoCodec.AV1, VideoCodec.MAX_VALUE
+})
 @Retention(RetentionPolicy.SOURCE)
 public @interface VideoCodec {
-    /**
-     * These values are histogrammed over time; do not change their ordinal values.  When deleting a
-     * codec replace it with a dummy value; when adding a codec, do so at the bottom (and update
-     * MAX_VALUE).
-     */
-    int UNKNOWN = 0;
-    int H264 = 1;
-    int VC1 = 2;
-    int MPEG2 = 3;
-    int MPEG4 = 4;
-    int THEORA = 5;
-    int VP8 = 6;
-    int VP9 = 7;
-    int HEVC = 8;
-    int DOLBY_VISION = 9;
-    int AV1 = 10;
-    /**
-     * DO NOT ADD RANDOM VIDEO CODECS! The only acceptable time to add a new codec is if there is
-     * production code that uses said codec in the same CL.
-     */
-    int MAX_VALUE = 10;
+  /**
+   * These values are histogrammed over time; do not change their ordinal values.  When deleting a
+   * codec replace it with a dummy value; when adding a codec, do so at the bottom (and update
+   * MAX_VALUE).
+   */
+  int UNKNOWN = 0;
+  int H264 = 1;
+  int VC1 = 2;
+  int MPEG2 = 3;
+  int MPEG4 = 4;
+  int THEORA = 5;
+  int VP8 = 6;
+  int VP9 = 7;
+  int HEVC = 8;
+  int DOLBY_VISION = 9;
+  int AV1 = 10;
+  /**
+   * DO NOT ADD RANDOM VIDEO CODECS! The only acceptable time to add a new codec is if there is
+   * production code that uses said codec in the same CL.
+   */
+  int MAX_VALUE = 10;
 }

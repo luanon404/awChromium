@@ -13,21 +13,28 @@
 
 package org.chromium.viz.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface FrameSinkBundleClient extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends FrameSinkBundleClient, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends FrameSinkBundleClient, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<FrameSinkBundleClient, FrameSinkBundleClient.Proxy> MANAGER = FrameSinkBundleClient_Internal.MANAGER;
 
-    void flushNotifications(BundledReturnedResources[] acks, BeginFrameInfo[] beginFrames, BundledReturnedResources[] reclaimedResources);
+    void flushNotifications(
+BundledReturnedResources[] acks, BeginFrameInfo[] beginFrames, BundledReturnedResources[] reclaimedResources);
 
 
-    void onBeginFramePausedChanged(int sinkId, boolean paused);
+    void onBeginFramePausedChanged(
+int sinkId, boolean paused);
 
 
-    void onCompositorFrameTransitionDirectiveProcessed(int sinkId, int sequenceId);
+    void onCompositorFrameTransitionDirectiveProcessed(
+int sinkId, int sequenceId);
 
 
 }

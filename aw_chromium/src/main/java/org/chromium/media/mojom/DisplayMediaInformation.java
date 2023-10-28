@@ -13,10 +13,13 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class DisplayMediaInformation extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 32;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(32, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(32, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public int displaySurface;
     public boolean logicalSurface;
@@ -41,7 +44,8 @@ public final class DisplayMediaInformation extends org.chromium.mojo.bindings.St
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static DisplayMediaInformation deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -55,27 +59,27 @@ public final class DisplayMediaInformation extends org.chromium.mojo.bindings.St
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new DisplayMediaInformation(elementsOrVersion);
-            {
-
+                {
+                    
                 result.displaySurface = decoder0.readInt(8);
-                DisplayCaptureSurfaceType.validate(result.displaySurface);
-                result.displaySurface = DisplayCaptureSurfaceType.toKnownValue(result.displaySurface);
-            }
-            {
-
+                    DisplayCaptureSurfaceType.validate(result.displaySurface);
+                    result.displaySurface = DisplayCaptureSurfaceType.toKnownValue(result.displaySurface);
+                }
+                {
+                    
                 result.logicalSurface = decoder0.readBoolean(12, 0);
-            }
-            {
-
+                }
+                {
+                    
                 result.cursor = decoder0.readInt(16);
-                CursorCaptureType.validate(result.cursor);
-                result.cursor = CursorCaptureType.toKnownValue(result.cursor);
-            }
-            {
-
+                    CursorCaptureType.validate(result.cursor);
+                    result.cursor = CursorCaptureType.toKnownValue(result.cursor);
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, true);
                 result.captureHandle = CaptureHandle.decode(decoder1);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -87,13 +91,13 @@ public final class DisplayMediaInformation extends org.chromium.mojo.bindings.St
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.displaySurface, 8);
-
+        
         encoder0.encode(this.logicalSurface, 12, 0);
-
+        
         encoder0.encode(this.cursor, 16);
-
+        
         encoder0.encode(this.captureHandle, 24, true);
     }
 }

@@ -13,15 +13,20 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface CookieChangeListener extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends CookieChangeListener, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends CookieChangeListener, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<CookieChangeListener, CookieChangeListener.Proxy> MANAGER = CookieChangeListener_Internal.MANAGER;
 
-    void onCookieChange(CookieChangeInfo change);
+    void onCookieChange(
+CookieChangeInfo change);
 
 
 }

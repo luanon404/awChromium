@@ -22,7 +22,7 @@ public final class ChromiumPlayServicesAvailability {
 
     /**
      * Checks if Play Services is available in this context.
-     * <p>
+     *
      * If at all possible, do not use this. From a GMSCore team member: "we would not recommend
      * checking availability upfront. You should be able to just call the API directly, and it
      * should handle the availability for you. If the API is not available, it should either prompt
@@ -30,17 +30,19 @@ public final class ChromiumPlayServicesAvailability {
      * PM/UX.
      */
     public static boolean isGooglePlayServicesAvailable(final Context context) {
-        return GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(context, GMS_VERSION_NUMBER) == ConnectionResult.SUCCESS;
+        return GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(
+                       context, GMS_VERSION_NUMBER)
+                == ConnectionResult.SUCCESS;
     }
 
     /**
      * Gets Play Services connection result, to be used to see if Play Services are available.
-     * <p>
+     *
      * This is intended to replace anyone manually calling
      * {@link GoogleApiAvailability#isGooglePlayServicesAvailable(context)},
      * as it causes bugs without an appropriate version number (crbug.com/1145211). Use
      * isGooglePlayServicesAvailable if you don't explicitly need the connection result.
-     * <p>
+     *
      * If at all possible, do not use this. From a GMSCore team member: "we would not recommend
      * checking availability upfront. You should be able to just call the API directly, and it
      * should handle the availability for you. If the API is not available, it should either prompt
@@ -48,6 +50,7 @@ public final class ChromiumPlayServicesAvailability {
      * PM/UX.
      */
     public static int getGooglePlayServicesConnectionResult(final Context context) {
-        return GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(context, GMS_VERSION_NUMBER);
+        return GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(
+                context, GMS_VERSION_NUMBER);
     }
 }

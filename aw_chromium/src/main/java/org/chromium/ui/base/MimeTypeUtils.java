@@ -56,9 +56,7 @@ public class MimeTypeUtils {
         int PDF = 5;
     }
 
-    /**
-     * The number of entries in {@link Type}.
-     */
+    /** The number of entries in {@link Type}. */
     public static final int NUM_MIME_TYPE_ENTRIES = 6;
 
     /**
@@ -67,7 +65,8 @@ public class MimeTypeUtils {
      */
     public static @Type int getMimeTypeForUrl(GURL url) {
         String extension = MimeTypeMap.getFileExtensionFromUrl(url.getSpec());
-        @Type int mimeType = Type.UNKNOWN;
+        @Type
+        int mimeType = Type.UNKNOWN;
         if (extension != null) {
             String type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
             if (type != null) {
@@ -91,11 +90,10 @@ public class MimeTypeUtils {
     /**
      * @param mimeType The mime type associated with an operation that needs a permission.
      * @return The name of the Android permission to request. Returns null if no permission will
-     * allow access to the file, for example on Android T+ where READ_EXTERNAL_STORAGE has
-     * been replaced with a handful of READ_MEDIA_* permissions.
+     *         allow access to the file, for example on Android T+ where READ_EXTERNAL_STORAGE has
+     *         been replaced with a handful of READ_MEDIA_* permissions.
      */
-    public @Nullable
-    static String getPermissionNameForMimeType(@MimeTypeUtils.Type int mimeType) {
+    public @Nullable static String getPermissionNameForMimeType(@MimeTypeUtils.Type int mimeType) {
         if (useExternalStoragePermission()) {
             return Manifest.permission.READ_EXTERNAL_STORAGE;
         }

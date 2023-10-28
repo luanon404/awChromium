@@ -13,6 +13,8 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public final class RemoteInvocationArgument extends org.chromium.mojo.bindings.Union {
 
@@ -24,8 +26,7 @@ public final class RemoteInvocationArgument extends org.chromium.mojo.bindings.U
         public static final int ArrayValue = 4;
         public static final int TypedArrayValue = 5;
         public static final int ObjectIdValue = 6;
-    }
-
+    };
     private double mNumberValue;
     private boolean mBooleanValue;
     private org.chromium.mojo_base.mojom.String16 mStringValue;

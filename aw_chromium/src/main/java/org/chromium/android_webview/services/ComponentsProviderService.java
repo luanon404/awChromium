@@ -51,8 +51,10 @@ public class ComponentsProviderService extends Service {
     public static final String KEY_RESULT = "RESULT";
 
     // Histogram names.
-    public static final String HISTOGRAM_GET_FILES_RESULT = "Android.WebView.ComponentUpdater.GetFilesResult";
-    public static final String HISTOGRAM_GET_FILES_DURATION = "Android.WebView.ComponentUpdater.GetFilesDuration";
+    public static final String HISTOGRAM_GET_FILES_RESULT =
+            "Android.WebView.ComponentUpdater.GetFilesResult";
+    public static final String HISTOGRAM_GET_FILES_DURATION =
+            "Android.WebView.ComponentUpdater.GetFilesDuration";
 
     private static final String TAG = "AW_CPS";
 
@@ -68,7 +70,10 @@ public class ComponentsProviderService extends Service {
 
     // UMA constants. These values are persisted to logs. Entries can't be reordered and numbers
     // can't be reused.
-    @IntDef({GetFilesResultCode.SUCCESS, GetFilesResultCode.FAILED_NOT_INSTALLED, GetFilesResultCode.FAILED_NO_VERSIONS, GetFilesResultCode.FAILED_NO_FDS, GetFilesResultCode.FAILED_OPENING_FDS, GetFilesResultCode.FAILED_COMPONENT_UPDATER_SAFEMODE_ENABLED})
+    @IntDef({GetFilesResultCode.SUCCESS, GetFilesResultCode.FAILED_NOT_INSTALLED,
+            GetFilesResultCode.FAILED_NO_VERSIONS, GetFilesResultCode.FAILED_NO_FDS,
+            GetFilesResultCode.FAILED_OPENING_FDS,
+            GetFilesResultCode.FAILED_COMPONENT_UPDATER_SAFEMODE_ENABLED})
     private @interface GetFilesResultCode {
         int SUCCESS = 0;
         int FAILED_NOT_INSTALLED = 1;
@@ -85,10 +90,9 @@ public class ComponentsProviderService extends Service {
      * default implementation is {@code System.currentTimeMillis()}.
      */
     @VisibleForTesting
-    public interface Clock {
+    public static interface Clock {
         long currentTimeMillis();
     }
-
     private static Clock sClockForTesting;
 
     private File mDirectory;
@@ -100,9 +104,12 @@ public class ComponentsProviderService extends Service {
             final long startTime = System.currentTimeMillis();
 
             if (ComponentUpdaterSafeModeUtils.executeSafeModeIfEnabled(mDirectory)) {
-                Log.w(TAG, "Component Updater Reset Mode enabled. Not handing out configs. " + componentId);
+                Log.w(TAG,
+                        "Component Updater Reset Mode enabled. Not handing out configs. "
+                                + componentId);
                 resultReceiver.send(RESULT_FAILED, /* resultData = */ null);
-                recordGetFilesResultAndDuration(GetFilesResultCode.FAILED_COMPONENT_UPDATER_SAFEMODE_ENABLED, startTime);
+                recordGetFilesResultAndDuration(
+                        GetFilesResultCode.FAILED_COMPONENT_UPDATER_SAFEMODE_ENABLED, startTime);
                 return;
             }
 
@@ -116,9 +123,11 @@ public class ComponentsProviderService extends Service {
                 recordGetFilesResultAndDuration(GetFilesResultCode.FAILED_NOT_INSTALLED, startTime);
                 return;
             }
-            assert components.length == 1 : "Only one directory should have the name " + componentId;
+            assert components.length
+                    == 1 : "Only one directory should have the name " + componentId;
 
-            final File[] versions = ComponentsProviderPathUtil.getComponentsNewestFirst(components[0]);
+            final File[] versions =
+                    ComponentsProviderPathUtil.getComponentsNewestFirst(components[0]);
             if (versions == null || versions.length == 0) {
                 // This can happen if CUS created a parent directory but was killed before it could
                 // move content into it. In this case there's nothing old to delete.
@@ -130,7 +139,8 @@ public class ComponentsProviderService extends Service {
 
             final HashMap<String, ParcelFileDescriptor> resultMap = new HashMap<>();
             try {
-                recursivelyGetParcelFileDescriptors(versionDirectory, versionDirectory.getAbsolutePath() + "/", resultMap);
+                recursivelyGetParcelFileDescriptors(
+                        versionDirectory, versionDirectory.getAbsolutePath() + "/", resultMap);
 
                 if (resultMap.isEmpty()) {
                     Log.w(TAG, "No file descriptors found for " + componentId);
@@ -163,7 +173,9 @@ public class ComponentsProviderService extends Service {
     public void onCreate() {
         mDirectory = new File(ComponentsProviderPathUtil.getComponentsServingDirectoryPath());
         if (ComponentUpdaterSafeModeUtils.executeSafeModeIfEnabled(mDirectory)) {
-            JobScheduler jobScheduler = (JobScheduler) ContextUtils.getApplicationContext().getSystemService(Context.JOB_SCHEDULER_SERVICE);
+            JobScheduler jobScheduler =
+                    (JobScheduler) ContextUtils.getApplicationContext().getSystemService(
+                            Context.JOB_SCHEDULER_SERVICE);
             jobScheduler.cancel(JOB_ID);
             return;
         }
@@ -213,7 +225,8 @@ public class ComponentsProviderService extends Service {
         return mDeleteTask;
     }
 
-    private void recursivelyGetParcelFileDescriptors(File file, String pathPrefix, HashMap<String, ParcelFileDescriptor> resultMap) throws IOException {
+    private void recursivelyGetParcelFileDescriptors(File file, String pathPrefix,
+            HashMap<String, ParcelFileDescriptor> resultMap) throws IOException {
         if (file.isDirectory()) {
             File[] files = file.listFiles();
             if (files != null) {
@@ -222,7 +235,8 @@ public class ComponentsProviderService extends Service {
                 }
             }
         } else {
-            resultMap.put(file.getAbsolutePath().replace(pathPrefix, ""), ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_ONLY));
+            resultMap.put(file.getAbsolutePath().replace(pathPrefix, ""),
+                    ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_ONLY));
         }
     }
 
@@ -245,15 +259,19 @@ public class ComponentsProviderService extends Service {
     @VisibleForTesting
     public static void maybeScheduleComponentUpdateService() {
         Context context = ContextUtils.getApplicationContext();
-        JobScheduler jobScheduler = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
+        JobScheduler jobScheduler =
+                (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
 
         if (isJobScheduled(jobScheduler, JOB_ID)) {
             return;
         }
 
         // TODO(crbug.com/1256948): schedule it as a periodic job.
-        final SharedPreferences sharedPreferences = ContextUtils.getApplicationContext().getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
-        long currentTime = sClockForTesting != null ? sClockForTesting.currentTimeMillis() : System.currentTimeMillis();
+        final SharedPreferences sharedPreferences =
+                ContextUtils.getApplicationContext().getSharedPreferences(
+                        SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
+        long currentTime = sClockForTesting != null ? sClockForTesting.currentTimeMillis()
+                                                    : System.currentTimeMillis();
         long lastJobScheduleTime = sharedPreferences.getLong(LAST_SCHEDULED_UPDATE_JOB_TIME, 0L);
         if (lastJobScheduleTime + UPDATE_INTERVAL_MS > currentTime) {
             return;
@@ -263,8 +281,12 @@ public class ComponentsProviderService extends Service {
         editor.putLong(LAST_SCHEDULED_UPDATE_JOB_TIME, currentTime);
         editor.apply();
 
-        ComponentName componentName = new ComponentName(context, ServiceNames.AW_COMPONENT_UPDATE_SERVICE);
-        JobInfo.Builder jobBuilder = new JobInfo.Builder(JOB_ID, componentName).setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY).setBackoffCriteria(JOB_INITIAL_BACKOFF_TIME_IN_MS, JOB_BACKOFF_POLICY);
+        ComponentName componentName =
+                new ComponentName(context, ServiceNames.AW_COMPONENT_UPDATE_SERVICE);
+        JobInfo.Builder jobBuilder =
+                new JobInfo.Builder(JOB_ID, componentName)
+                        .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+                        .setBackoffCriteria(JOB_INITIAL_BACKOFF_TIME_IN_MS, JOB_BACKOFF_POLICY);
 
         if (jobScheduler.schedule(jobBuilder.build()) != JobScheduler.RESULT_SUCCESS) {
             Log.e(TAG, "Failed to schedule job for AwComponentUpdateService");
@@ -283,11 +305,17 @@ public class ComponentsProviderService extends Service {
     }
 
     public static void clearSharedPrefsForTesting() {
-        ContextUtils.getApplicationContext().getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE).edit().clear().apply();
+        ContextUtils.getApplicationContext()
+                .getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
+                .edit()
+                .clear()
+                .apply();
     }
 
     private void recordGetFilesResultAndDuration(@GetFilesResultCode int result, long startTime) {
-        RecordHistogram.recordEnumeratedHistogram(HISTOGRAM_GET_FILES_RESULT, result, GetFilesResultCode.COUNT);
-        RecordHistogram.recordTimesHistogram(HISTOGRAM_GET_FILES_DURATION, System.currentTimeMillis() - startTime);
+        RecordHistogram.recordEnumeratedHistogram(
+                HISTOGRAM_GET_FILES_RESULT, result, GetFilesResultCode.COUNT);
+        RecordHistogram.recordTimesHistogram(
+                HISTOGRAM_GET_FILES_DURATION, System.currentTimeMillis() - startTime);
     }
 }

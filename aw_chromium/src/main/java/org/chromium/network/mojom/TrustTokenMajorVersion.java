@@ -17,10 +17,10 @@ import androidx.annotation.IntDef;
 
 public final class TrustTokenMajorVersion {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({TrustTokenMajorVersion.PRIVATE_STATE_TOKEN_V1})
-    public @interface EnumType {
-    }
+        TrustTokenMajorVersion.PRIVATE_STATE_TOKEN_V1})
+    public @interface EnumType {}
 
     public static final int PRIVATE_STATE_TOKEN_V1 = 0;
     public static final int MIN_VALUE = 0;
@@ -36,9 +36,8 @@ public final class TrustTokenMajorVersion {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private TrustTokenMajorVersion() {
-    }
+    private TrustTokenMajorVersion() {}
 }

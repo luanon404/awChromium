@@ -4,39 +4,62 @@
 package org.chromium.media;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.annotation.SuppressLint;
+import android.media.AudioFormat;
+import android.media.MediaCodec;
+import android.media.MediaCodec.CryptoInfo;
+import android.media.MediaCrypto;
+import android.media.MediaFormat;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Looper;
+import android.view.Surface;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.Log;
+import java.nio.ByteBuffer;
+import java.util.LinkedList;
+import java.util.Queue;
 
 @CheckDiscard("crbug.com/993421")
 class MediaCodecBridgeJni implements MediaCodecBridge.Natives {
-    private static MediaCodecBridge.Natives testInstance;
+  private static MediaCodecBridge.Natives testInstance;
 
-    public static final JniStaticTestMocker<MediaCodecBridge.Natives> TEST_HOOKS = new JniStaticTestMocker<MediaCodecBridge.Natives>() {
-        @Override
-        public void setInstanceForTesting(MediaCodecBridge.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<MediaCodecBridge.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<MediaCodecBridge.Natives>() {
     @Override
-    public void onBuffersAvailable(long nativeMediaCodecBridge, MediaCodecBridge caller) {
-        GEN_JNI.org_chromium_media_MediaCodecBridge_onBuffersAvailable(nativeMediaCodecBridge, caller);
+    public void setInstanceForTesting(MediaCodecBridge.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    public static MediaCodecBridge.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of MediaCodecBridge.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new MediaCodecBridgeJni();
+  @Override
+  public void onBuffersAvailable(long nativeMediaCodecBridge, MediaCodecBridge caller) {
+    GEN_JNI.org_chromium_media_MediaCodecBridge_onBuffersAvailable(nativeMediaCodecBridge, caller);
+  }
+
+  public static MediaCodecBridge.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of MediaCodecBridge.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new MediaCodecBridgeJni();
+  }
 }

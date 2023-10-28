@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface DomStorageClient extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends DomStorageClient, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends DomStorageClient, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<DomStorageClient, DomStorageClient.Proxy> MANAGER = DomStorageClient_Internal.MANAGER;

@@ -40,18 +40,19 @@ public class AutofillDropdownAdapter extends ArrayAdapter<DropdownItem> {
 
     /**
      * Creates an {@code ArrayAdapter} with specified parameters.
-     *
-     * @param context    Application context.
-     * @param items      List of labels and icons to display.
+     * @param context Application context.
+     * @param items List of labels and icons to display.
      * @param separators Set of positions that separate {@code items}.
      */
-    public AutofillDropdownAdapter(Context context, List<? extends DropdownItem> items, Set<Integer> separators) {
+    public AutofillDropdownAdapter(
+            Context context, List<? extends DropdownItem> items, Set<Integer> separators) {
         super(context, R.layout.autofill_dropdown_item);
         mContext = context;
         addAll(items);
         mSeparators = separators;
         mAreAllItemsEnabled = checkAreAllItemsEnabled();
-        mLabelMargin = context.getResources().getDimensionPixelSize(R.dimen.autofill_dropdown_item_label_margin);
+        mLabelMargin = context.getResources().getDimensionPixelSize(
+                R.dimen.autofill_dropdown_item_label_margin);
     }
 
     private boolean checkAreAllItemsEnabled() {
@@ -75,13 +76,15 @@ public class AutofillDropdownAdapter extends ArrayAdapter<DropdownItem> {
 
         DropdownItem item = getItem(position);
 
-        int height = mContext.getResources().getDimensionPixelSize(R.dimen.autofill_dropdown_item_height);
+        int height = mContext.getResources().getDimensionPixelSize(
+                R.dimen.autofill_dropdown_item_height);
 
         DropdownDividerDrawable divider = (DropdownDividerDrawable) layout.getBackground();
         if (position == 0) {
             divider.setDividerColor(Color.TRANSPARENT);
         } else {
-            int dividerHeight = mContext.getResources().getDimensionPixelSize(R.dimen.autofill_dropdown_item_divider_height);
+            int dividerHeight = mContext.getResources().getDimensionPixelSize(
+                    R.dimen.autofill_dropdown_item_divider_height);
             height += dividerHeight;
             divider.setHeight(dividerHeight);
             int dividerColor;
@@ -95,11 +98,14 @@ public class AutofillDropdownAdapter extends ArrayAdapter<DropdownItem> {
 
         // Layout of the item tag view, which has a smaller font and sits below the sub
         // label.
-        TextView itemTagView = populateLabelView(layout, R.id.dropdown_item_tag, item.getItemTag(), false);
+        TextView itemTagView =
+                populateLabelView(layout, R.id.dropdown_item_tag, item.getItemTag(), false);
         if (itemTagView != null) {
-            itemTagView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mContext.getResources().getDimension(item.getSublabelFontSizeResId()));
+            itemTagView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                    mContext.getResources().getDimension(item.getSublabelFontSizeResId()));
             itemTagView.setTextColor(mContext.getColor(item.getSublabelFontColorResId()));
-            height += mContext.getResources().getDimensionPixelSize(R.dimen.autofill_dropdown_item_tag_height);
+            height += mContext.getResources().getDimensionPixelSize(
+                    R.dimen.autofill_dropdown_item_tag_height);
         }
 
         // Note: trying to set the height of the root LinearLayout breaks accessibility,
@@ -112,15 +118,18 @@ public class AutofillDropdownAdapter extends ArrayAdapter<DropdownItem> {
         wrapper.setLayoutParams(new LinearLayout.LayoutParams(0, height, 1));
 
         // Layout of the main label view.
-        TextView labelView = populateLabelView(layout, R.id.dropdown_label, item.getLabel(), item.isEnabled());
-        TextView secondaryLabelView = populateLabelView(layout, R.id.dropdown_secondary_label, item.getSecondaryLabel(), item.isEnabled());
+        TextView labelView =
+                populateLabelView(layout, R.id.dropdown_label, item.getLabel(), item.isEnabled());
+        TextView secondaryLabelView = populateLabelView(
+                layout, R.id.dropdown_secondary_label, item.getSecondaryLabel(), item.isEnabled());
         labelView.setSingleLine(!item.isMultilineLabel());
         if (item.isMultilineLabel()) {
             // If there is a multiline label, we add extra padding at the top and bottom because
             // WRAP_CONTENT, defined above for multiline labels, leaves none.
             int existingStart = ViewCompat.getPaddingStart(labelView);
             int existingEnd = ViewCompat.getPaddingEnd(labelView);
-            ViewCompat.setPaddingRelative(labelView, existingStart, mLabelMargin, existingEnd, mLabelMargin);
+            ViewCompat.setPaddingRelative(
+                    labelView, existingStart, mLabelMargin, existingEnd, mLabelMargin);
         }
 
         if (item.isGroupHeader() || item.isBoldLabel()) {
@@ -135,25 +144,31 @@ public class AutofillDropdownAdapter extends ArrayAdapter<DropdownItem> {
             }
         }
 
-        labelView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mContext.getResources().getDimension(item.getLabelFontSizeResId()));
+        labelView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                mContext.getResources().getDimension(item.getLabelFontSizeResId()));
         labelView.setTextColor(mContext.getColor(item.getLabelFontColorResId()));
 
         if (secondaryLabelView != null) {
-            secondaryLabelView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mContext.getResources().getDimension(item.getLabelFontSizeResId()));
+            secondaryLabelView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                    mContext.getResources().getDimension(item.getLabelFontSizeResId()));
             secondaryLabelView.setTextColor(mContext.getColor(item.getLabelFontColorResId()));
         }
 
         // Layout of the sublabel view, which has a smaller font and usually sits below the main
         // label.
-        TextView sublabelView = populateLabelView(layout, R.id.dropdown_sublabel, item.getSublabel(), false);
+        TextView sublabelView =
+                populateLabelView(layout, R.id.dropdown_sublabel, item.getSublabel(), false);
         if (sublabelView != null) {
-            sublabelView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mContext.getResources().getDimension(item.getSublabelFontSizeResId()));
+            sublabelView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                    mContext.getResources().getDimension(item.getSublabelFontSizeResId()));
             sublabelView.setTextColor(mContext.getColor(item.getSublabelFontColorResId()));
         }
 
-        TextView secondarySublabelView = populateLabelView(layout, R.id.dropdown_secondary_sublabel, item.getSecondarySublabel(), false);
+        TextView secondarySublabelView = populateLabelView(
+                layout, R.id.dropdown_secondary_sublabel, item.getSecondarySublabel(), false);
         if (secondarySublabelView != null) {
-            secondarySublabelView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mContext.getResources().getDimension(item.getSublabelFontSizeResId()));
+            secondarySublabelView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                    mContext.getResources().getDimension(item.getSublabelFontSizeResId()));
             secondarySublabelView.setTextColor(mContext.getColor(item.getSublabelFontColorResId()));
         }
 
@@ -167,7 +182,8 @@ public class AutofillDropdownAdapter extends ArrayAdapter<DropdownItem> {
             iconViewEnd.setVisibility(View.VISIBLE);
         }
 
-        ImageView iconView = populateIconView(item.isIconAtStart() ? iconViewStart : iconViewEnd, item);
+        ImageView iconView =
+                populateIconView(item.isIconAtStart() ? iconViewStart : iconViewEnd, item);
         if (iconView != null) {
             iconView.setLayoutParams(getSizeAndMarginParamsForIconView(iconView, item));
         }
@@ -189,15 +205,15 @@ public class AutofillDropdownAdapter extends ArrayAdapter<DropdownItem> {
 
     /**
      * Sets the text and the enabled state for the dropdown labels.
-     *
-     * @param item      the DropdownItem for this row.
-     * @param layout    the View in which the label can be found.
-     * @param viewId    the ID for the label's view.
-     * @param label     the text to be displayed as the label.
+     * @param item the DropdownItem for this row.
+     * @param layout the View in which the label can be found.
+     * @param viewId the ID for the label's view.
+     * @param label the text to be displayed as the label.
      * @param isEnabled the android:enabled state of the label.
      * @return the View.
      */
-    private TextView populateLabelView(View layout, int viewId, CharSequence label, boolean isEnabled) {
+    private TextView populateLabelView(
+            View layout, int viewId, CharSequence label, boolean isEnabled) {
         TextView labelView = layout.findViewById(viewId);
         if (TextUtils.isEmpty(label)) {
             labelView.setVisibility(View.GONE);
@@ -212,9 +228,8 @@ public class AutofillDropdownAdapter extends ArrayAdapter<DropdownItem> {
     /**
      * Sets the drawable in the given ImageView to the resource identified in the item, or sets
      * iconView to visibility GONE if no icon is given.
-     *
      * @param iconView the ImageView which should be modified.
-     * @param item     the DropdownItem for this row.
+     * @param item the DropdownItem for this row.
      * @return |iconView| if it has been set to be visible; null otherwise.
      */
     @Nullable
@@ -232,13 +247,17 @@ public class AutofillDropdownAdapter extends ArrayAdapter<DropdownItem> {
 
     /**
      * @param iconView the ImageView for which params are being generated.
-     * @param item     the DropdownItem for this row.
+     * @param item the DropdownItem for this row.
      * @return a MarginLayoutParams object with values suitable for sizing iconView.
      */
-    private ViewGroup.MarginLayoutParams getSizeParamsForIconView(ImageView iconView, DropdownItem item) {
-        ViewGroup.MarginLayoutParams iconLayoutParams = (ViewGroup.MarginLayoutParams) iconView.getLayoutParams();
+    private ViewGroup.MarginLayoutParams getSizeParamsForIconView(
+            ImageView iconView, DropdownItem item) {
+        ViewGroup.MarginLayoutParams iconLayoutParams =
+                (ViewGroup.MarginLayoutParams) iconView.getLayoutParams();
         int iconSizeResId = item.getIconSizeResId();
-        int iconSize = iconSizeResId == 0 ? LayoutParams.WRAP_CONTENT : mContext.getResources().getDimensionPixelSize(iconSizeResId);
+        int iconSize = iconSizeResId == 0
+                ? LayoutParams.WRAP_CONTENT
+                : mContext.getResources().getDimensionPixelSize(iconSizeResId);
         iconLayoutParams.width = iconSize;
         iconLayoutParams.height = iconSize;
         return iconLayoutParams;
@@ -246,11 +265,12 @@ public class AutofillDropdownAdapter extends ArrayAdapter<DropdownItem> {
 
     /**
      * @param iconView the ImageView for which params are being generated.
-     * @param item     the DropdownItem for this row.
+     * @param item the DropdownItem for this row.
      * @return the same as |getSizeParamsForIconView|, but with additional margin-related params
      * set.
      */
-    private ViewGroup.MarginLayoutParams getSizeAndMarginParamsForIconView(ImageView iconView, DropdownItem item) {
+    private ViewGroup.MarginLayoutParams getSizeAndMarginParamsForIconView(
+            ImageView iconView, DropdownItem item) {
         ViewGroup.MarginLayoutParams params = getSizeParamsForIconView(iconView, item);
         int iconMargin = mContext.getResources().getDimensionPixelSize(item.getIconMarginResId());
         MarginLayoutParamsCompat.setMarginStart(params, iconMargin);

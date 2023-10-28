@@ -13,9 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 class WebTransportHandshakeClient_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<WebTransportHandshakeClient, WebTransportHandshakeClient.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<WebTransportHandshakeClient, WebTransportHandshakeClient.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<WebTransportHandshakeClient, WebTransportHandshakeClient.Proxy> MANAGER =
+            new org.chromium.mojo.bindings.Interface.Manager<WebTransportHandshakeClient, WebTransportHandshakeClient.Proxy>() {
 
         @Override
         public String getName() {
@@ -24,11 +28,12 @@ class WebTransportHandshakeClient_Internal {
 
         @Override
         public int getVersion() {
-            return 0;
+          return 0;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -39,7 +44,7 @@ class WebTransportHandshakeClient_Internal {
 
         @Override
         public WebTransportHandshakeClient[] buildArray(int size) {
-            return new WebTransportHandshakeClient[size];
+          return new WebTransportHandshakeClient[size];
         }
     };
 
@@ -51,13 +56,15 @@ class WebTransportHandshakeClient_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements WebTransportHandshakeClient.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core,
+              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void onConnectionEstablished(WebTransport transport, org.chromium.mojo.bindings.InterfaceRequest<WebTransportClient> client, HttpResponseHeaders responseHeaders) {
+        public void onConnectionEstablished(
+WebTransport transport, org.chromium.mojo.bindings.InterfaceRequest<WebTransportClient> client, HttpResponseHeaders responseHeaders) {
 
             WebTransportHandshakeClientOnConnectionEstablishedParams _message = new WebTransportHandshakeClientOnConnectionEstablishedParams();
 
@@ -68,20 +75,27 @@ class WebTransportHandshakeClient_Internal {
             _message.responseHeaders = responseHeaders;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_CONNECTION_ESTABLISHED_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_CONNECTION_ESTABLISHED_ORDINAL)));
 
         }
 
 
         @Override
-        public void onHandshakeFailed(WebTransportError error) {
+        public void onHandshakeFailed(
+WebTransportError error) {
 
             WebTransportHandshakeClientOnHandshakeFailedParams _message = new WebTransportHandshakeClientOnHandshakeFailedParams();
 
             _message.error = error;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_HANDSHAKE_FAILED_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_HANDSHAKE_FAILED_ORDINAL)));
 
         }
 
@@ -97,7 +111,8 @@ class WebTransportHandshakeClient_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -106,24 +121,33 @@ class WebTransportHandshakeClient_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(WebTransportHandshakeClient_Internal.MANAGER, messageWithHeader);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
+                                WebTransportHandshakeClient_Internal.MANAGER, messageWithHeader);
+
+
+
 
 
                     case ON_CONNECTION_ESTABLISHED_ORDINAL: {
 
-                        WebTransportHandshakeClientOnConnectionEstablishedParams data = WebTransportHandshakeClientOnConnectionEstablishedParams.deserialize(messageWithHeader.getPayload());
+                        WebTransportHandshakeClientOnConnectionEstablishedParams data =
+                                WebTransportHandshakeClientOnConnectionEstablishedParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onConnectionEstablished(data.transport, data.client, data.responseHeaders);
                         return true;
                     }
 
 
+
+
+
                     case ON_HANDSHAKE_FAILED_ORDINAL: {
 
-                        WebTransportHandshakeClientOnHandshakeFailedParams data = WebTransportHandshakeClientOnHandshakeFailedParams.deserialize(messageWithHeader.getPayload());
+                        WebTransportHandshakeClientOnHandshakeFailedParams data =
+                                WebTransportHandshakeClientOnHandshakeFailedParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onHandshakeFailed(data.error);
                         return true;
@@ -134,7 +158,7 @@ class WebTransportHandshakeClient_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -142,7 +166,8 @@ class WebTransportHandshakeClient_Internal {
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -151,27 +176,33 @@ class WebTransportHandshakeClient_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), WebTransportHandshakeClient_Internal.MANAGER, messageWithHeader, receiver);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
+                                getCore(), WebTransportHandshakeClient_Internal.MANAGER, messageWithHeader, receiver);
+
+
+
+
 
 
                     default:
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class WebTransportHandshakeClientOnConnectionEstablishedParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 32;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(32, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(32, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public WebTransport transport;
         public org.chromium.mojo.bindings.InterfaceRequest<WebTransportClient> client;
@@ -195,7 +226,8 @@ class WebTransportHandshakeClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static WebTransportHandshakeClientOnConnectionEstablishedParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -209,19 +241,19 @@ class WebTransportHandshakeClient_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new WebTransportHandshakeClientOnConnectionEstablishedParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.transport = decoder0.readServiceInterface(8, false, WebTransport.MANAGER);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.client = decoder0.readInterfaceRequest(16, false);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, false);
                     result.responseHeaders = HttpResponseHeaders.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -233,20 +265,22 @@ class WebTransportHandshakeClient_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.transport, 8, false, WebTransport.MANAGER);
-
+            
             encoder0.encode(this.client, 16, false);
-
+            
             encoder0.encode(this.responseHeaders, 24, false);
         }
     }
 
 
+
+    
     static final class WebTransportHandshakeClientOnHandshakeFailedParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public WebTransportError error;
 
@@ -268,7 +302,8 @@ class WebTransportHandshakeClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static WebTransportHandshakeClientOnHandshakeFailedParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -282,11 +317,11 @@ class WebTransportHandshakeClient_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new WebTransportHandshakeClientOnHandshakeFailedParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, true);
                     result.error = WebTransportError.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -298,10 +333,11 @@ class WebTransportHandshakeClient_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.error, 8, true);
         }
     }
+
 
 
 }

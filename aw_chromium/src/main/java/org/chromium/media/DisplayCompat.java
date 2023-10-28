@@ -47,7 +47,8 @@ public final class DisplayCompat {
      */
     @NonNull
     @SuppressLint("ArrayReturn")
-    public static ModeCompat[] getSupportedModes(@NonNull Context context, @NonNull Display display) {
+    public static ModeCompat[] getSupportedModes(
+            @NonNull Context context, @NonNull Display display) {
         Point physicalDisplaySize = getPhysicalDisplaySize(context, display);
         // Display.Mode class and display.getSupportedModes() exist
         Display.Mode[] supportedModes = display.getSupportedModes();
@@ -78,7 +79,8 @@ public final class DisplayCompat {
     public static boolean isTv(@NonNull Context context) {
         // See https://developer.android.com/training/tv/start/hardware.html#runtime-check.
         UiModeManager uiModeManager = (UiModeManager) context.getSystemService(UI_MODE_SERVICE);
-        return uiModeManager != null && uiModeManager.getCurrentModeType() == Configuration.UI_MODE_TYPE_TELEVISION;
+        return uiModeManager != null
+                && uiModeManager.getCurrentModeType() == Configuration.UI_MODE_TYPE_TELEVISION;
     }
 
     /**
@@ -90,7 +92,8 @@ public final class DisplayCompat {
      * @return a Point object containing the size in x and y direction in pixels
      * @throws NumberFormatException in case the integers cannot be parsed
      */
-    private static Point parseDisplaySize(@NonNull String displaySize) throws NumberFormatException {
+    private static Point parseDisplaySize(@NonNull String displaySize)
+            throws NumberFormatException {
         String[] displaySizeParts = displaySize.trim().split("x", -1);
         if (displaySizeParts.length == 2) {
             int width = Integer.parseInt(displaySizeParts[0]);
@@ -111,7 +114,8 @@ public final class DisplayCompat {
     @Nullable
     private static String getSystemProperty(String name) {
         try {
-            @SuppressLint("PrivateApi") Class<?> systemProperties = Class.forName("android.os.SystemProperties");
+            @SuppressLint("PrivateApi")
+            Class<?> systemProperties = Class.forName("android.os.SystemProperties");
             Method getMethod = systemProperties.getMethod("get", String.class);
             return (String) getMethod.invoke(systemProperties, name);
         } catch (Exception e) {
@@ -126,7 +130,8 @@ public final class DisplayCompat {
      * @param size a Point object representing the size in horizontal and vertical direction
      */
     private static boolean physicalSizeEquals(Display.Mode mode, Point size) {
-        return (mode.getPhysicalWidth() == size.x && mode.getPhysicalHeight() == size.y) || (mode.getPhysicalWidth() == size.y && mode.getPhysicalHeight() == size.x);
+        return (mode.getPhysicalWidth() == size.x && mode.getPhysicalHeight() == size.y)
+                || (mode.getPhysicalWidth() == size.y && mode.getPhysicalHeight() == size.x);
     }
 
     /**
@@ -139,7 +144,8 @@ public final class DisplayCompat {
      * @return the physical display size, in pixels or null if the information is not available
      */
     @Nullable
-    private static Point parsePhysicalDisplaySizeFromSystemProperties(@NonNull String property, @NonNull Display display) {
+    private static Point parsePhysicalDisplaySizeFromSystemProperties(
+            @NonNull String property, @NonNull Display display) {
         if (display.getDisplayId() == Display.DEFAULT_DISPLAY) {
             // Check the system property for display size. From API 28 treble may prevent the
             // system from writing sys.display-size so we check vendor.display-size instead.
@@ -168,8 +174,11 @@ public final class DisplayCompat {
      *
      * @return the physical display size, in pixels
      */
-    private static Point getPhysicalDisplaySize(@NonNull Context context, @NonNull Display display) {
-        Point displaySize = Build.VERSION.SDK_INT < Build.VERSION_CODES.P ? parsePhysicalDisplaySizeFromSystemProperties("sys.display-size", display) : parsePhysicalDisplaySizeFromSystemProperties("vendor.display-size", display);
+    private static Point getPhysicalDisplaySize(
+            @NonNull Context context, @NonNull Display display) {
+        Point displaySize = Build.VERSION.SDK_INT < Build.VERSION_CODES.P
+                ? parsePhysicalDisplaySizeFromSystemProperties("sys.display-size", display)
+                : parsePhysicalDisplaySizeFromSystemProperties("vendor.display-size", display);
         if (displaySize != null) {
             return displaySize;
         } else if (isSonyBravia4kTv(context)) {
@@ -193,7 +202,9 @@ public final class DisplayCompat {
      * @return true if the display is a Sony BRAVIA TV that supports 4k
      */
     private static boolean isSonyBravia4kTv(@NonNull Context context) {
-        return isTv(context) && "Sony".equals(Build.MANUFACTURER) && Build.MODEL.startsWith("BRAVIA") && context.getPackageManager().hasSystemFeature("com.sony.dtv.hardware.panel.qfhd");
+        return isTv(context) && "Sony".equals(Build.MANUFACTURER)
+                && Build.MODEL.startsWith("BRAVIA")
+                && context.getPackageManager().hasSystemFeature("com.sony.dtv.hardware.panel.qfhd");
     }
 
     /**

@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class ImageDecodeAcceleratorSubsampling {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({ImageDecodeAcceleratorSubsampling.K420, ImageDecodeAcceleratorSubsampling.K422, ImageDecodeAcceleratorSubsampling.K444})
-    public @interface EnumType {
-    }
+        ImageDecodeAcceleratorSubsampling.K420,
+        ImageDecodeAcceleratorSubsampling.K422,
+        ImageDecodeAcceleratorSubsampling.K444})
+    public @interface EnumType {}
 
     public static final int K420 = 0;
     public static final int K422 = 1;
@@ -38,9 +40,8 @@ public final class ImageDecodeAcceleratorSubsampling {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private ImageDecodeAcceleratorSubsampling() {
-    }
+    private ImageDecodeAcceleratorSubsampling() {}
 }

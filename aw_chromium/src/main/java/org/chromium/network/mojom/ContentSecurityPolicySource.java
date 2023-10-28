@@ -17,10 +17,11 @@ import androidx.annotation.IntDef;
 
 public final class ContentSecurityPolicySource {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({ContentSecurityPolicySource.HTTP, ContentSecurityPolicySource.META})
-    public @interface EnumType {
-    }
+        ContentSecurityPolicySource.HTTP,
+        ContentSecurityPolicySource.META})
+    public @interface EnumType {}
 
     public static final int HTTP = 0;
     public static final int META = 1;
@@ -37,9 +38,8 @@ public final class ContentSecurityPolicySource {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private ContentSecurityPolicySource() {
-    }
+    private ContentSecurityPolicySource() {}
 }

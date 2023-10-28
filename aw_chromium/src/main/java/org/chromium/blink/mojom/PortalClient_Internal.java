@@ -13,6 +13,8 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 class PortalClient_Internal {
 
@@ -151,7 +153,7 @@ TransferableMessage message, org.chromium.url.internal.mojom.Origin sourceOrigin
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -184,7 +186,7 @@ TransferableMessage message, org.chromium.url.internal.mojom.Origin sourceOrigin
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }

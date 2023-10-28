@@ -88,6 +88,5 @@ public final class AwSwitches {
     public static final String WEBVIEW_ENABLE_TRUST_TOKENS_COMPONENT = "webview-enable-trust-tokens-component";
 
     // Do not instantiate this class.
-    private AwSwitches() {
-    }
+    private AwSwitches() {}
 }

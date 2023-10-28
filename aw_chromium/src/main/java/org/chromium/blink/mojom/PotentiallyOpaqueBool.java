@@ -13,14 +13,15 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public final class PotentiallyOpaqueBool extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
         public static final int Transparent = 0;
         public static final int Opaque = 1;
-    }
-
+    };
     private boolean mTransparent;
     private int mOpaque;
 

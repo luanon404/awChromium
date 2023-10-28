@@ -17,10 +17,15 @@ import androidx.annotation.IntDef;
 
 public final class NdefErrorType {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({NdefErrorType.NOT_ALLOWED, NdefErrorType.NOT_SUPPORTED, NdefErrorType.NOT_READABLE, NdefErrorType.INVALID_MESSAGE, NdefErrorType.OPERATION_CANCELLED, NdefErrorType.IO_ERROR})
-    public @interface EnumType {
-    }
+        NdefErrorType.NOT_ALLOWED,
+        NdefErrorType.NOT_SUPPORTED,
+        NdefErrorType.NOT_READABLE,
+        NdefErrorType.INVALID_MESSAGE,
+        NdefErrorType.OPERATION_CANCELLED,
+        NdefErrorType.IO_ERROR})
+    public @interface EnumType {}
 
     public static final int NOT_ALLOWED = 0;
     public static final int NOT_SUPPORTED = 1;
@@ -41,9 +46,8 @@ public final class NdefErrorType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private NdefErrorType() {
-    }
+    private NdefErrorType() {}
 }

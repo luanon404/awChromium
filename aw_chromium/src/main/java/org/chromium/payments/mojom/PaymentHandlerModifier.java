@@ -13,10 +13,13 @@
 
 package org.chromium.payments.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class PaymentHandlerModifier extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 24;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public PaymentCurrencyAmount total;
     public PaymentHandlerMethodData methodData;
@@ -39,7 +42,8 @@ public final class PaymentHandlerModifier extends org.chromium.mojo.bindings.Str
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static PaymentHandlerModifier deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -53,16 +57,16 @@ public final class PaymentHandlerModifier extends org.chromium.mojo.bindings.Str
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new PaymentHandlerModifier(elementsOrVersion);
-            {
-
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, true);
                 result.total = PaymentCurrencyAmount.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                 result.methodData = PaymentHandlerMethodData.decode(decoder1);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -74,9 +78,9 @@ public final class PaymentHandlerModifier extends org.chromium.mojo.bindings.Str
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.total, 8, true);
-
+        
         encoder0.encode(this.methodData, 16, false);
     }
 }

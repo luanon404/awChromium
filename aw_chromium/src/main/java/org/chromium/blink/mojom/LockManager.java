@@ -20,7 +20,7 @@ public interface LockManager extends org.chromium.mojo.bindings.Interface {
 
 
 
-    final class WaitMode {
+    public static final class WaitMode {
         private static final boolean IS_EXTENSIBLE = false;
         @IntDef({
 
@@ -52,7 +52,7 @@ public interface LockManager extends org.chromium.mojo.bindings.Interface {
     }
 
 
-    interface Proxy extends LockManager, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends LockManager, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<LockManager, LockManager.Proxy> MANAGER = LockManager_Internal.MANAGER;

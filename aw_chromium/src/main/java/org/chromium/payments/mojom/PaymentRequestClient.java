@@ -13,51 +13,67 @@
 
 package org.chromium.payments.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface PaymentRequestClient extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends PaymentRequestClient, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends PaymentRequestClient, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<PaymentRequestClient, PaymentRequestClient.Proxy> MANAGER = PaymentRequestClient_Internal.MANAGER;
 
-    void onPaymentMethodChange(String methodName, String stringifiedDetails);
+    void onPaymentMethodChange(
+String methodName, String stringifiedDetails);
 
 
-    void onShippingAddressChange(PaymentAddress address);
+    void onShippingAddressChange(
+PaymentAddress address);
 
 
-    void onShippingOptionChange(String shippingOptionId);
+    void onShippingOptionChange(
+String shippingOptionId);
 
 
-    void onPayerDetailChange(PayerDetail detail);
+    void onPayerDetailChange(
+PayerDetail detail);
 
 
-    void onPaymentResponse(PaymentResponse response);
+    void onPaymentResponse(
+PaymentResponse response);
 
 
-    void onError(int error, String errorMessage);
+    void onError(
+int error, String errorMessage);
 
 
-    void onComplete();
+    void onComplete(
+);
 
 
-    void onAbort(boolean abortedSuccessfully);
+    void onAbort(
+boolean abortedSuccessfully);
 
 
-    void onCanMakePayment(int result);
+    void onCanMakePayment(
+int result);
 
 
-    void onHasEnrolledInstrument(int result);
+    void onHasEnrolledInstrument(
+int result);
 
 
-    void warnNoFavicon();
+    void warnNoFavicon(
+);
 
 
-    void allowConnectToSource(org.chromium.url.mojom.Url url, org.chromium.url.mojom.Url urlBeforeRedirects, boolean didFollowRedirect, AllowConnectToSource_Response callback);
+    void allowConnectToSource(
+org.chromium.url.mojom.Url url, org.chromium.url.mojom.Url urlBeforeRedirects, boolean didFollowRedirect, 
+AllowConnectToSource_Response callback);
 
-    interface AllowConnectToSource_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> {
-    }
+    interface AllowConnectToSource_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> { }
 
 
 }

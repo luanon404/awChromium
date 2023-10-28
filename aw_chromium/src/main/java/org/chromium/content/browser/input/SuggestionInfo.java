@@ -18,7 +18,8 @@ public class SuggestionInfo {
     private final String mSuggestion;
     private final String mSuffix;
 
-    SuggestionInfo(int markerTag, int suggestionIndex, String prefix, String suggestion, String suffix) {
+    SuggestionInfo(
+            int markerTag, int suggestionIndex, String prefix, String suggestion, String suffix) {
         mMarkerTag = markerTag;
         mSuggestionIndex = suggestionIndex;
         mPrefix = prefix;
@@ -70,8 +71,11 @@ public class SuggestionInfo {
     }
 
     @CalledByNative
-    private static void createSuggestionInfoAndPutInArray(SuggestionInfo[] suggestionInfos, int index, int markerTag, int suggestionIndex, String prefix, String suggestion, String suffix) {
-        SuggestionInfo suggestionInfo = new SuggestionInfo(markerTag, suggestionIndex, prefix, suggestion, suffix);
+    private static void createSuggestionInfoAndPutInArray(SuggestionInfo[] suggestionInfos,
+            int index, int markerTag, int suggestionIndex, String prefix, String suggestion,
+            String suffix) {
+        SuggestionInfo suggestionInfo =
+                new SuggestionInfo(markerTag, suggestionIndex, prefix, suggestion, suffix);
         suggestionInfos[index] = suggestionInfo;
     }
 }

@@ -13,10 +13,13 @@
 
 package org.chromium.ui.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class ImeTextSpan extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 56;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(56, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(56, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public int type;
     public int startOffset;
@@ -49,7 +52,8 @@ public final class ImeTextSpan extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static ImeTextSpan deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -63,68 +67,68 @@ public final class ImeTextSpan extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new ImeTextSpan(elementsOrVersion);
-            {
-
+                {
+                    
                 result.type = decoder0.readInt(8);
-                ImeTextSpanType.validate(result.type);
-                result.type = ImeTextSpanType.toKnownValue(result.type);
-            }
-            {
-
+                    ImeTextSpanType.validate(result.type);
+                    result.type = ImeTextSpanType.toKnownValue(result.type);
+                }
+                {
+                    
                 result.startOffset = decoder0.readInt(12);
-            }
-            {
-
+                }
+                {
+                    
                 result.endOffset = decoder0.readInt(16);
-            }
-            {
-
+                }
+                {
+                    
                 result.underlineColor = decoder0.readInt(20);
-            }
-            {
-
+                }
+                {
+                    
                 result.thickness = decoder0.readInt(24);
-                ImeTextSpanThickness.validate(result.thickness);
-                result.thickness = ImeTextSpanThickness.toKnownValue(result.thickness);
-            }
-            {
-
+                    ImeTextSpanThickness.validate(result.thickness);
+                    result.thickness = ImeTextSpanThickness.toKnownValue(result.thickness);
+                }
+                {
+                    
                 result.underlineStyle = decoder0.readInt(28);
-                ImeTextSpanUnderlineStyle.validate(result.underlineStyle);
-                result.underlineStyle = ImeTextSpanUnderlineStyle.toKnownValue(result.underlineStyle);
-            }
-            {
-
+                    ImeTextSpanUnderlineStyle.validate(result.underlineStyle);
+                    result.underlineStyle = ImeTextSpanUnderlineStyle.toKnownValue(result.underlineStyle);
+                }
+                {
+                    
                 result.textColor = decoder0.readInt(32);
-            }
-            {
-
+                }
+                {
+                    
                 result.backgroundColor = decoder0.readInt(36);
-            }
-            {
-
+                }
+                {
+                    
                 result.suggestionHighlightColor = decoder0.readInt(40);
-            }
-            {
-
+                }
+                {
+                    
                 result.removeOnFinishComposing = decoder0.readBoolean(44, 0);
-            }
-            {
-
+                }
+                {
+                    
                 result.interimCharSelection = decoder0.readBoolean(44, 1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(48, false);
                 {
                     org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                     result.suggestions = new String[si1.elementsOrVersion];
                     for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                        
                         result.suggestions[i1] = decoder1.readString(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                     }
                 }
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -136,35 +140,35 @@ public final class ImeTextSpan extends org.chromium.mojo.bindings.Struct {
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.type, 8);
-
+        
         encoder0.encode(this.startOffset, 12);
-
+        
         encoder0.encode(this.endOffset, 16);
-
+        
         encoder0.encode(this.underlineColor, 20);
-
+        
         encoder0.encode(this.thickness, 24);
-
+        
         encoder0.encode(this.underlineStyle, 28);
-
+        
         encoder0.encode(this.textColor, 32);
-
+        
         encoder0.encode(this.backgroundColor, 36);
-
+        
         encoder0.encode(this.suggestionHighlightColor, 40);
-
+        
         encoder0.encode(this.removeOnFinishComposing, 44, 0);
-
+        
         encoder0.encode(this.interimCharSelection, 44, 1);
-
+        
         if (this.suggestions == null) {
             encoder0.encodeNullPointer(48, false);
         } else {
             org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.suggestions.length, 48, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
             for (int i0 = 0; i0 < this.suggestions.length; ++i0) {
-
+                
                 encoder1.encode(this.suggestions[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
             }
         }

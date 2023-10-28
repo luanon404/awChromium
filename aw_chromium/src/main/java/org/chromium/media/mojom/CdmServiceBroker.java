@@ -13,15 +13,20 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface CdmServiceBroker extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends CdmServiceBroker, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends CdmServiceBroker, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<CdmServiceBroker, CdmServiceBroker.Proxy> MANAGER = CdmServiceBroker_Internal.MANAGER;
 
-    void getService(org.chromium.mojo_base.mojom.FilePath cdmPath, org.chromium.mojo.bindings.InterfaceRequest<CdmService> receiver);
+    void getService(
+org.chromium.mojo_base.mojom.FilePath cdmPath, org.chromium.mojo.bindings.InterfaceRequest<CdmService> receiver);
 
 
 }

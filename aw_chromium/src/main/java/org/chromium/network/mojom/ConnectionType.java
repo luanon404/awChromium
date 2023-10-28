@@ -17,10 +17,19 @@ import androidx.annotation.IntDef;
 
 public final class ConnectionType {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({ConnectionType.CONNECTION_UNKNOWN, ConnectionType.CONNECTION_ETHERNET, ConnectionType.CONNECTION_WIFI, ConnectionType.CONNECTION_2G, ConnectionType.CONNECTION_3G, ConnectionType.CONNECTION_4G, ConnectionType.CONNECTION_NONE, ConnectionType.CONNECTION_BLUETOOTH, ConnectionType.CONNECTION_5G, ConnectionType.CONNECTION_LAST})
-    public @interface EnumType {
-    }
+        ConnectionType.CONNECTION_UNKNOWN,
+        ConnectionType.CONNECTION_ETHERNET,
+        ConnectionType.CONNECTION_WIFI,
+        ConnectionType.CONNECTION_2G,
+        ConnectionType.CONNECTION_3G,
+        ConnectionType.CONNECTION_4G,
+        ConnectionType.CONNECTION_NONE,
+        ConnectionType.CONNECTION_BLUETOOTH,
+        ConnectionType.CONNECTION_5G,
+        ConnectionType.CONNECTION_LAST})
+    public @interface EnumType {}
 
     public static final int CONNECTION_UNKNOWN = 0;
     public static final int CONNECTION_ETHERNET = 1;
@@ -31,12 +40,12 @@ public final class ConnectionType {
     public static final int CONNECTION_NONE = 6;
     public static final int CONNECTION_BLUETOOTH = 7;
     public static final int CONNECTION_5G = 8;
-    public static final int CONNECTION_LAST = 9;
+    public static final int CONNECTION_LAST = 8;
     public static final int MIN_VALUE = 0;
-    public static final int MAX_VALUE = 9;
+    public static final int MAX_VALUE = 8;
 
     public static boolean isKnownValue(int value) {
-        return value >= 0 && value <= 9;
+        return value >= 0 && value <= 8;
     }
 
     public static void validate(int value) {
@@ -45,9 +54,8 @@ public final class ConnectionType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private ConnectionType() {
-    }
+    private ConnectionType() {}
 }

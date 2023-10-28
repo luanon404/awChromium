@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class SensorCreationResult {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({SensorCreationResult.SUCCESS, SensorCreationResult.ERROR_NOT_AVAILABLE, SensorCreationResult.ERROR_NOT_ALLOWED})
-    public @interface EnumType {
-    }
+        SensorCreationResult.SUCCESS,
+        SensorCreationResult.ERROR_NOT_AVAILABLE,
+        SensorCreationResult.ERROR_NOT_ALLOWED})
+    public @interface EnumType {}
 
     public static final int SUCCESS = 0;
     public static final int ERROR_NOT_AVAILABLE = 1;
@@ -38,9 +40,8 @@ public final class SensorCreationResult {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private SensorCreationResult() {
-    }
+    private SensorCreationResult() {}
 }

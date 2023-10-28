@@ -13,9 +13,13 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 class VideoCaptureHost_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<VideoCaptureHost, VideoCaptureHost.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<VideoCaptureHost, VideoCaptureHost.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<VideoCaptureHost, VideoCaptureHost.Proxy> MANAGER =
+            new org.chromium.mojo.bindings.Interface.Manager<VideoCaptureHost, VideoCaptureHost.Proxy>() {
 
         @Override
         public String getName() {
@@ -24,11 +28,12 @@ class VideoCaptureHost_Internal {
 
         @Override
         public int getVersion() {
-            return 0;
+          return 0;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -39,7 +44,7 @@ class VideoCaptureHost_Internal {
 
         @Override
         public VideoCaptureHost[] buildArray(int size) {
-            return new VideoCaptureHost[size];
+          return new VideoCaptureHost[size];
         }
     };
 
@@ -65,13 +70,15 @@ class VideoCaptureHost_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements VideoCaptureHost.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core,
+              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void start(org.chromium.mojo_base.mojom.UnguessableToken deviceId, org.chromium.mojo_base.mojom.UnguessableToken sessionId, VideoCaptureParams params, VideoCaptureObserver observer) {
+        public void start(
+org.chromium.mojo_base.mojom.UnguessableToken deviceId, org.chromium.mojo_base.mojom.UnguessableToken sessionId, VideoCaptureParams params, VideoCaptureObserver observer) {
 
             VideoCaptureHostStartParams _message = new VideoCaptureHostStartParams();
 
@@ -84,39 +91,51 @@ class VideoCaptureHost_Internal {
             _message.observer = observer;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(START_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(START_ORDINAL)));
 
         }
 
 
         @Override
-        public void stop(org.chromium.mojo_base.mojom.UnguessableToken deviceId) {
+        public void stop(
+org.chromium.mojo_base.mojom.UnguessableToken deviceId) {
 
             VideoCaptureHostStopParams _message = new VideoCaptureHostStopParams();
 
             _message.deviceId = deviceId;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(STOP_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(STOP_ORDINAL)));
 
         }
 
 
         @Override
-        public void pause(org.chromium.mojo_base.mojom.UnguessableToken deviceId) {
+        public void pause(
+org.chromium.mojo_base.mojom.UnguessableToken deviceId) {
 
             VideoCaptureHostPauseParams _message = new VideoCaptureHostPauseParams();
 
             _message.deviceId = deviceId;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(PAUSE_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(PAUSE_ORDINAL)));
 
         }
 
 
         @Override
-        public void resume(org.chromium.mojo_base.mojom.UnguessableToken deviceId, org.chromium.mojo_base.mojom.UnguessableToken sessionId, VideoCaptureParams params) {
+        public void resume(
+org.chromium.mojo_base.mojom.UnguessableToken deviceId, org.chromium.mojo_base.mojom.UnguessableToken sessionId, VideoCaptureParams params) {
 
             VideoCaptureHostResumeParams _message = new VideoCaptureHostResumeParams();
 
@@ -127,26 +146,34 @@ class VideoCaptureHost_Internal {
             _message.params = params;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(RESUME_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(RESUME_ORDINAL)));
 
         }
 
 
         @Override
-        public void requestRefreshFrame(org.chromium.mojo_base.mojom.UnguessableToken deviceId) {
+        public void requestRefreshFrame(
+org.chromium.mojo_base.mojom.UnguessableToken deviceId) {
 
             VideoCaptureHostRequestRefreshFrameParams _message = new VideoCaptureHostRequestRefreshFrameParams();
 
             _message.deviceId = deviceId;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(REQUEST_REFRESH_FRAME_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(REQUEST_REFRESH_FRAME_ORDINAL)));
 
         }
 
 
         @Override
-        public void releaseBuffer(org.chromium.mojo_base.mojom.UnguessableToken deviceId, int bufferId, VideoCaptureFeedback feedback) {
+        public void releaseBuffer(
+org.chromium.mojo_base.mojom.UnguessableToken deviceId, int bufferId, VideoCaptureFeedback feedback) {
 
             VideoCaptureHostReleaseBufferParams _message = new VideoCaptureHostReleaseBufferParams();
 
@@ -157,13 +184,18 @@ class VideoCaptureHost_Internal {
             _message.feedback = feedback;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(RELEASE_BUFFER_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(RELEASE_BUFFER_ORDINAL)));
 
         }
 
 
         @Override
-        public void getDeviceSupportedFormats(org.chromium.mojo_base.mojom.UnguessableToken deviceId, org.chromium.mojo_base.mojom.UnguessableToken sessionId, GetDeviceSupportedFormats_Response callback) {
+        public void getDeviceSupportedFormats(
+org.chromium.mojo_base.mojom.UnguessableToken deviceId, org.chromium.mojo_base.mojom.UnguessableToken sessionId, 
+GetDeviceSupportedFormats_Response callback) {
 
             VideoCaptureHostGetDeviceSupportedFormatsParams _message = new VideoCaptureHostGetDeviceSupportedFormatsParams();
 
@@ -172,13 +204,22 @@ class VideoCaptureHost_Internal {
             _message.sessionId = sessionId;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(GET_DEVICE_SUPPORTED_FORMATS_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new VideoCaptureHostGetDeviceSupportedFormatsResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    GET_DEVICE_SUPPORTED_FORMATS_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new VideoCaptureHostGetDeviceSupportedFormatsResponseParamsForwardToCallback(callback));
 
         }
 
 
         @Override
-        public void getDeviceFormatsInUse(org.chromium.mojo_base.mojom.UnguessableToken deviceId, org.chromium.mojo_base.mojom.UnguessableToken sessionId, GetDeviceFormatsInUse_Response callback) {
+        public void getDeviceFormatsInUse(
+org.chromium.mojo_base.mojom.UnguessableToken deviceId, org.chromium.mojo_base.mojom.UnguessableToken sessionId, 
+GetDeviceFormatsInUse_Response callback) {
 
             VideoCaptureHostGetDeviceFormatsInUseParams _message = new VideoCaptureHostGetDeviceFormatsInUseParams();
 
@@ -187,13 +228,21 @@ class VideoCaptureHost_Internal {
             _message.sessionId = sessionId;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(GET_DEVICE_FORMATS_IN_USE_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new VideoCaptureHostGetDeviceFormatsInUseResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    GET_DEVICE_FORMATS_IN_USE_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new VideoCaptureHostGetDeviceFormatsInUseResponseParamsForwardToCallback(callback));
 
         }
 
 
         @Override
-        public void onLog(org.chromium.mojo_base.mojom.UnguessableToken deviceId, String message) {
+        public void onLog(
+org.chromium.mojo_base.mojom.UnguessableToken deviceId, String message) {
 
             VideoCaptureHostOnLogParams _message = new VideoCaptureHostOnLogParams();
 
@@ -202,7 +251,10 @@ class VideoCaptureHost_Internal {
             _message.message = message;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_LOG_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_LOG_ORDINAL)));
 
         }
 
@@ -218,7 +270,8 @@ class VideoCaptureHost_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -227,69 +280,102 @@ class VideoCaptureHost_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(VideoCaptureHost_Internal.MANAGER, messageWithHeader);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
+                                VideoCaptureHost_Internal.MANAGER, messageWithHeader);
+
+
+
 
 
                     case START_ORDINAL: {
 
-                        VideoCaptureHostStartParams data = VideoCaptureHostStartParams.deserialize(messageWithHeader.getPayload());
+                        VideoCaptureHostStartParams data =
+                                VideoCaptureHostStartParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().start(data.deviceId, data.sessionId, data.params, data.observer);
                         return true;
                     }
 
 
+
+
+
                     case STOP_ORDINAL: {
 
-                        VideoCaptureHostStopParams data = VideoCaptureHostStopParams.deserialize(messageWithHeader.getPayload());
+                        VideoCaptureHostStopParams data =
+                                VideoCaptureHostStopParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().stop(data.deviceId);
                         return true;
                     }
 
 
+
+
+
                     case PAUSE_ORDINAL: {
 
-                        VideoCaptureHostPauseParams data = VideoCaptureHostPauseParams.deserialize(messageWithHeader.getPayload());
+                        VideoCaptureHostPauseParams data =
+                                VideoCaptureHostPauseParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().pause(data.deviceId);
                         return true;
                     }
 
 
+
+
+
                     case RESUME_ORDINAL: {
 
-                        VideoCaptureHostResumeParams data = VideoCaptureHostResumeParams.deserialize(messageWithHeader.getPayload());
+                        VideoCaptureHostResumeParams data =
+                                VideoCaptureHostResumeParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().resume(data.deviceId, data.sessionId, data.params);
                         return true;
                     }
 
 
+
+
+
                     case REQUEST_REFRESH_FRAME_ORDINAL: {
 
-                        VideoCaptureHostRequestRefreshFrameParams data = VideoCaptureHostRequestRefreshFrameParams.deserialize(messageWithHeader.getPayload());
+                        VideoCaptureHostRequestRefreshFrameParams data =
+                                VideoCaptureHostRequestRefreshFrameParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().requestRefreshFrame(data.deviceId);
                         return true;
                     }
 
 
+
+
+
                     case RELEASE_BUFFER_ORDINAL: {
 
-                        VideoCaptureHostReleaseBufferParams data = VideoCaptureHostReleaseBufferParams.deserialize(messageWithHeader.getPayload());
+                        VideoCaptureHostReleaseBufferParams data =
+                                VideoCaptureHostReleaseBufferParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().releaseBuffer(data.deviceId, data.bufferId, data.feedback);
                         return true;
                     }
 
 
+
+
+
+
+
+
+
                     case ON_LOG_ORDINAL: {
 
-                        VideoCaptureHostOnLogParams data = VideoCaptureHostOnLogParams.deserialize(messageWithHeader.getPayload());
+                        VideoCaptureHostOnLogParams data =
+                                VideoCaptureHostOnLogParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onLog(data.deviceId, data.message);
                         return true;
@@ -300,7 +386,7 @@ class VideoCaptureHost_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -308,7 +394,8 @@ class VideoCaptureHost_Internal {
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -317,45 +404,73 @@ class VideoCaptureHost_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), VideoCaptureHost_Internal.MANAGER, messageWithHeader, receiver);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
+                                getCore(), VideoCaptureHost_Internal.MANAGER, messageWithHeader, receiver);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
                     case GET_DEVICE_SUPPORTED_FORMATS_ORDINAL: {
 
-                        VideoCaptureHostGetDeviceSupportedFormatsParams data = VideoCaptureHostGetDeviceSupportedFormatsParams.deserialize(messageWithHeader.getPayload());
+                        VideoCaptureHostGetDeviceSupportedFormatsParams data =
+                                VideoCaptureHostGetDeviceSupportedFormatsParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().getDeviceSupportedFormats(data.deviceId, data.sessionId, new VideoCaptureHostGetDeviceSupportedFormatsResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
                     }
 
 
+
+
+
+
+
                     case GET_DEVICE_FORMATS_IN_USE_ORDINAL: {
 
-                        VideoCaptureHostGetDeviceFormatsInUseParams data = VideoCaptureHostGetDeviceFormatsInUseParams.deserialize(messageWithHeader.getPayload());
+                        VideoCaptureHostGetDeviceFormatsInUseParams data =
+                                VideoCaptureHostGetDeviceFormatsInUseParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().getDeviceFormatsInUse(data.deviceId, data.sessionId, new VideoCaptureHostGetDeviceFormatsInUseResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
                     }
 
 
+
+
                     default:
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class VideoCaptureHostStartParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 40;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(40, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(40, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.mojo_base.mojom.UnguessableToken deviceId;
         public org.chromium.mojo_base.mojom.UnguessableToken sessionId;
@@ -380,7 +495,8 @@ class VideoCaptureHost_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static VideoCaptureHostStartParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -394,25 +510,25 @@ class VideoCaptureHost_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new VideoCaptureHostStartParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.deviceId = org.chromium.mojo_base.mojom.UnguessableToken.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                     result.sessionId = org.chromium.mojo_base.mojom.UnguessableToken.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, false);
                     result.params = VideoCaptureParams.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.observer = decoder0.readServiceInterface(32, false, VideoCaptureObserver.MANAGER);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -424,22 +540,24 @@ class VideoCaptureHost_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.deviceId, 8, false);
-
+            
             encoder0.encode(this.sessionId, 16, false);
-
+            
             encoder0.encode(this.params, 24, false);
-
+            
             encoder0.encode(this.observer, 32, false, VideoCaptureObserver.MANAGER);
         }
     }
 
 
+
+    
     static final class VideoCaptureHostStopParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.mojo_base.mojom.UnguessableToken deviceId;
 
@@ -461,7 +579,8 @@ class VideoCaptureHost_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static VideoCaptureHostStopParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -475,11 +594,11 @@ class VideoCaptureHost_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new VideoCaptureHostStopParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.deviceId = org.chromium.mojo_base.mojom.UnguessableToken.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -491,16 +610,18 @@ class VideoCaptureHost_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.deviceId, 8, false);
         }
     }
 
 
+
+    
     static final class VideoCaptureHostPauseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.mojo_base.mojom.UnguessableToken deviceId;
 
@@ -522,7 +643,8 @@ class VideoCaptureHost_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static VideoCaptureHostPauseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -536,11 +658,11 @@ class VideoCaptureHost_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new VideoCaptureHostPauseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.deviceId = org.chromium.mojo_base.mojom.UnguessableToken.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -552,16 +674,18 @@ class VideoCaptureHost_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.deviceId, 8, false);
         }
     }
 
 
+
+    
     static final class VideoCaptureHostResumeParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 32;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(32, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(32, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.mojo_base.mojom.UnguessableToken deviceId;
         public org.chromium.mojo_base.mojom.UnguessableToken sessionId;
@@ -585,7 +709,8 @@ class VideoCaptureHost_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static VideoCaptureHostResumeParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -599,21 +724,21 @@ class VideoCaptureHost_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new VideoCaptureHostResumeParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.deviceId = org.chromium.mojo_base.mojom.UnguessableToken.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                     result.sessionId = org.chromium.mojo_base.mojom.UnguessableToken.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, false);
                     result.params = VideoCaptureParams.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -625,20 +750,22 @@ class VideoCaptureHost_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.deviceId, 8, false);
-
+            
             encoder0.encode(this.sessionId, 16, false);
-
+            
             encoder0.encode(this.params, 24, false);
         }
     }
 
 
+
+    
     static final class VideoCaptureHostRequestRefreshFrameParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.mojo_base.mojom.UnguessableToken deviceId;
 
@@ -660,7 +787,8 @@ class VideoCaptureHost_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static VideoCaptureHostRequestRefreshFrameParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -674,11 +802,11 @@ class VideoCaptureHost_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new VideoCaptureHostRequestRefreshFrameParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.deviceId = org.chromium.mojo_base.mojom.UnguessableToken.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -690,16 +818,18 @@ class VideoCaptureHost_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.deviceId, 8, false);
         }
     }
 
 
+
+    
     static final class VideoCaptureHostReleaseBufferParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 32;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(32, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(32, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.mojo_base.mojom.UnguessableToken deviceId;
         public int bufferId;
@@ -723,7 +853,8 @@ class VideoCaptureHost_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static VideoCaptureHostReleaseBufferParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -737,20 +868,20 @@ class VideoCaptureHost_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new VideoCaptureHostReleaseBufferParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.deviceId = org.chromium.mojo_base.mojom.UnguessableToken.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.bufferId = decoder0.readInt(16);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, false);
                     result.feedback = VideoCaptureFeedback.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -762,20 +893,22 @@ class VideoCaptureHost_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.deviceId, 8, false);
-
+            
             encoder0.encode(this.bufferId, 16);
-
+            
             encoder0.encode(this.feedback, 24, false);
         }
     }
 
 
+
+    
     static final class VideoCaptureHostGetDeviceSupportedFormatsParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.mojo_base.mojom.UnguessableToken deviceId;
         public org.chromium.mojo_base.mojom.UnguessableToken sessionId;
@@ -798,7 +931,8 @@ class VideoCaptureHost_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static VideoCaptureHostGetDeviceSupportedFormatsParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -812,16 +946,16 @@ class VideoCaptureHost_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new VideoCaptureHostGetDeviceSupportedFormatsParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.deviceId = org.chromium.mojo_base.mojom.UnguessableToken.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                     result.sessionId = org.chromium.mojo_base.mojom.UnguessableToken.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -833,18 +967,20 @@ class VideoCaptureHost_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.deviceId, 8, false);
-
+            
             encoder0.encode(this.sessionId, 16, false);
         }
     }
 
 
+
+    
     static final class VideoCaptureHostGetDeviceSupportedFormatsResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public VideoCaptureFormat[] formatsSupported;
 
@@ -866,7 +1002,8 @@ class VideoCaptureHost_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static VideoCaptureHostGetDeviceSupportedFormatsResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -880,19 +1017,19 @@ class VideoCaptureHost_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new VideoCaptureHostGetDeviceSupportedFormatsResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     {
                         org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                         result.formatsSupported = new VideoCaptureFormat[si1.elementsOrVersion];
                         for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                            
                             org.chromium.mojo.bindings.Decoder decoder2 = decoder1.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                             result.formatsSupported[i1] = VideoCaptureFormat.decode(decoder2);
                         }
                     }
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -904,20 +1041,21 @@ class VideoCaptureHost_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             if (this.formatsSupported == null) {
                 encoder0.encodeNullPointer(8, false);
             } else {
                 org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.formatsSupported.length, 8, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                 for (int i0 = 0; i0 < this.formatsSupported.length; ++i0) {
-
+                    
                     encoder1.encode(this.formatsSupported[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
                 }
             }
         }
     }
 
-    static class VideoCaptureHostGetDeviceSupportedFormatsResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class VideoCaptureHostGetDeviceSupportedFormatsResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final VideoCaptureHost.GetDeviceSupportedFormats_Response mCallback;
 
         VideoCaptureHostGetDeviceSupportedFormatsResponseParamsForwardToCallback(VideoCaptureHost.GetDeviceSupportedFormats_Response callback) {
@@ -927,9 +1065,11 @@ class VideoCaptureHost_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(GET_DEVICE_SUPPORTED_FORMATS_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(GET_DEVICE_SUPPORTED_FORMATS_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -949,7 +1089,10 @@ class VideoCaptureHost_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        VideoCaptureHostGetDeviceSupportedFormatsResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        VideoCaptureHostGetDeviceSupportedFormatsResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -961,16 +1104,24 @@ class VideoCaptureHost_Internal {
 
             _response.formatsSupported = formatsSupported;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(GET_DEVICE_SUPPORTED_FORMATS_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    GET_DEVICE_SUPPORTED_FORMATS_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
 
 
+
+    
     static final class VideoCaptureHostGetDeviceFormatsInUseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.mojo_base.mojom.UnguessableToken deviceId;
         public org.chromium.mojo_base.mojom.UnguessableToken sessionId;
@@ -993,7 +1144,8 @@ class VideoCaptureHost_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static VideoCaptureHostGetDeviceFormatsInUseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1007,16 +1159,16 @@ class VideoCaptureHost_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new VideoCaptureHostGetDeviceFormatsInUseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.deviceId = org.chromium.mojo_base.mojom.UnguessableToken.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                     result.sessionId = org.chromium.mojo_base.mojom.UnguessableToken.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1028,18 +1180,20 @@ class VideoCaptureHost_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.deviceId, 8, false);
-
+            
             encoder0.encode(this.sessionId, 16, false);
         }
     }
 
 
+
+    
     static final class VideoCaptureHostGetDeviceFormatsInUseResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public VideoCaptureFormat[] formatsInUse;
 
@@ -1061,7 +1215,8 @@ class VideoCaptureHost_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static VideoCaptureHostGetDeviceFormatsInUseResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1075,19 +1230,19 @@ class VideoCaptureHost_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new VideoCaptureHostGetDeviceFormatsInUseResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     {
                         org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                         result.formatsInUse = new VideoCaptureFormat[si1.elementsOrVersion];
                         for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                            
                             org.chromium.mojo.bindings.Decoder decoder2 = decoder1.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                             result.formatsInUse[i1] = VideoCaptureFormat.decode(decoder2);
                         }
                     }
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1099,20 +1254,21 @@ class VideoCaptureHost_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             if (this.formatsInUse == null) {
                 encoder0.encodeNullPointer(8, false);
             } else {
                 org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.formatsInUse.length, 8, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                 for (int i0 = 0; i0 < this.formatsInUse.length; ++i0) {
-
+                    
                     encoder1.encode(this.formatsInUse[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
                 }
             }
         }
     }
 
-    static class VideoCaptureHostGetDeviceFormatsInUseResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class VideoCaptureHostGetDeviceFormatsInUseResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final VideoCaptureHost.GetDeviceFormatsInUse_Response mCallback;
 
         VideoCaptureHostGetDeviceFormatsInUseResponseParamsForwardToCallback(VideoCaptureHost.GetDeviceFormatsInUse_Response callback) {
@@ -1122,9 +1278,11 @@ class VideoCaptureHost_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(GET_DEVICE_FORMATS_IN_USE_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(GET_DEVICE_FORMATS_IN_USE_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -1144,7 +1302,10 @@ class VideoCaptureHost_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        VideoCaptureHostGetDeviceFormatsInUseResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        VideoCaptureHostGetDeviceFormatsInUseResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -1156,16 +1317,24 @@ class VideoCaptureHost_Internal {
 
             _response.formatsInUse = formatsInUse;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(GET_DEVICE_FORMATS_IN_USE_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    GET_DEVICE_FORMATS_IN_USE_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
 
 
+
+    
     static final class VideoCaptureHostOnLogParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.mojo_base.mojom.UnguessableToken deviceId;
         public String message;
@@ -1188,7 +1357,8 @@ class VideoCaptureHost_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static VideoCaptureHostOnLogParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1202,15 +1372,15 @@ class VideoCaptureHost_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new VideoCaptureHostOnLogParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.deviceId = org.chromium.mojo_base.mojom.UnguessableToken.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.message = decoder0.readString(16, false);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1222,12 +1392,13 @@ class VideoCaptureHost_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.deviceId, 8, false);
-
+            
             encoder0.encode(this.message, 16, false);
         }
     }
+
 
 
 }

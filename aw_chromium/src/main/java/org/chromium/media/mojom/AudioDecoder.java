@@ -13,38 +13,45 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface AudioDecoder extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends AudioDecoder, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends AudioDecoder, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<AudioDecoder, AudioDecoder.Proxy> MANAGER = AudioDecoder_Internal.MANAGER;
 
-    void construct(org.chromium.mojo.bindings.AssociatedInterfaceNotSupported client, MediaLog mediaLog);
+    void construct(
+org.chromium.mojo.bindings.AssociatedInterfaceNotSupported client, MediaLog mediaLog);
 
 
-    void initialize(AudioDecoderConfig config, org.chromium.mojo_base.mojom.UnguessableToken cdmId, Initialize_Response callback);
+    void initialize(
+AudioDecoderConfig config, org.chromium.mojo_base.mojom.UnguessableToken cdmId, 
+Initialize_Response callback);
 
-    interface Initialize_Response extends org.chromium.mojo.bindings.Callbacks.Callback3<DecoderStatus, Boolean, Integer> {
-    }
-
-
-    void setDataSource(org.chromium.mojo.system.DataPipe.ConsumerHandle receivePipe);
+    interface Initialize_Response extends org.chromium.mojo.bindings.Callbacks.Callback3<DecoderStatus, Boolean, Integer> { }
 
 
-    void decode(DecoderBuffer buffer, Decode_Response callback);
+    void setDataSource(
+org.chromium.mojo.system.DataPipe.ConsumerHandle receivePipe);
 
-    interface Decode_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<DecoderStatus> {
-    }
+
+    void decode(
+DecoderBuffer buffer, 
+Decode_Response callback);
+
+    interface Decode_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<DecoderStatus> { }
 
 
     void reset(
 
-            Reset_Response callback);
+Reset_Response callback);
 
-    interface Reset_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 {
-    }
+    interface Reset_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 { }
 
 
 }

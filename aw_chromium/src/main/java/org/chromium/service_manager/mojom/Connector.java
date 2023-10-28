@@ -13,39 +13,48 @@
 
 package org.chromium.service_manager.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface Connector extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends Connector, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends Connector, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<Connector, Connector.Proxy> MANAGER = Connector_Internal.MANAGER;
 
-    void bindInterface(ServiceFilter filter, String interfaceName, org.chromium.mojo.system.MessagePipeHandle interfacePipe, int priority, BindInterface_Response callback);
+    void bindInterface(
+ServiceFilter filter, String interfaceName, org.chromium.mojo.system.MessagePipeHandle interfacePipe, int priority, 
+BindInterface_Response callback);
 
-    interface BindInterface_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<Integer, Identity> {
-    }
-
-
-    void queryService(String serviceName, QueryService_Response callback);
-
-    interface QueryService_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<ServiceInfo> {
-    }
+    interface BindInterface_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<Integer, Identity> { }
 
 
-    void warmService(ServiceFilter filter, WarmService_Response callback);
+    void queryService(
+String serviceName, 
+QueryService_Response callback);
 
-    interface WarmService_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<Integer, Identity> {
-    }
-
-
-    void registerServiceInstance(Identity identity, org.chromium.mojo.system.MessagePipeHandle service, org.chromium.mojo.bindings.InterfaceRequest<ProcessMetadata> metadataReceiver, RegisterServiceInstance_Response callback);
-
-    interface RegisterServiceInstance_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> {
-    }
+    interface QueryService_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<ServiceInfo> { }
 
 
-    void clone(org.chromium.mojo.bindings.InterfaceRequest<Connector> receiver);
+    void warmService(
+ServiceFilter filter, 
+WarmService_Response callback);
+
+    interface WarmService_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<Integer, Identity> { }
+
+
+    void registerServiceInstance(
+Identity identity, org.chromium.mojo.system.MessagePipeHandle service, org.chromium.mojo.bindings.InterfaceRequest<ProcessMetadata> metadataReceiver, 
+RegisterServiceInstance_Response callback);
+
+    interface RegisterServiceInstance_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> { }
+
+
+    void clone(
+org.chromium.mojo.bindings.InterfaceRequest<Connector> receiver);
 
 
 }

@@ -10,8 +10,9 @@ import android.util.Pair;
 
 import androidx.annotation.Nullable;
 
-import org.chromium.base.Callback;
 import org.jni_zero.NativeMethods;
+
+import org.chromium.base.Callback;
 
 /**
  * Reflects the Android parts of the C++ class <code>WebAuthenticationDelegate</code>.
@@ -36,11 +37,11 @@ public class WebAuthenticationDelegate {
      */
     public interface IntentSender {
         /**
-         * @param intent   the intent to be started to complete a WebAuthn operation.
+         * @param intent the intent to be started to complete a WebAuthn operation.
          * @param callback receives the response code and {@link Intent} resulting from the starting
-         *                 the {@link PendingIntent}.
+         *         the {@link PendingIntent}.
          * @return true to indicate that the {@link PendingIntent} was started and false if it could
-         * not be.
+         *         not be.
          */
         boolean showIntent(PendingIntent intent, Callback<Pair<Integer, Intent>> callback);
     }
@@ -56,7 +57,6 @@ public class WebAuthenticationDelegate {
     @NativeMethods
     interface Natives {
         long getNativeDelegate();
-
         IntentSender getIntentSender(long delegatePtr, WebContents webContents);
     }
 }

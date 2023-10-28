@@ -67,16 +67,12 @@ public class TimeUtils {
 
     interface FakeClock {
         long uptimeMillis();
-
         long elapsedRealtimeNanos();
-
         long currentThreadTimeMillis();
-
         long currentTimeMillis();
     }
 
-    private TimeUtils() {
-    }
+    private TimeUtils() {}
 
     // Use these in favor of TimeUnit.convert() in order to avoid the overhead of a
     // static-get / static-invoke.

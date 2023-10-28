@@ -13,77 +13,84 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface Fingerprint extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends Fingerprint, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends Fingerprint, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<Fingerprint, Fingerprint.Proxy> MANAGER = Fingerprint_Internal.MANAGER;
 
-    void getRecordsForUser(String userId, GetRecordsForUser_Response callback);
+    void getRecordsForUser(
+String userId, 
+GetRecordsForUser_Response callback);
 
-    interface GetRecordsForUser_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<java.util.Map<String, String>, Boolean> {
-    }
+    interface GetRecordsForUser_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<java.util.Map<String, String>, Boolean> { }
 
 
-    void startEnrollSession(String userId, String label);
+    void startEnrollSession(
+String userId, String label);
 
 
     void cancelCurrentEnrollSession(
 
-            CancelCurrentEnrollSession_Response callback);
+CancelCurrentEnrollSession_Response callback);
 
-    interface CancelCurrentEnrollSession_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> {
-    }
-
-
-    void requestRecordLabel(String recordPath, RequestRecordLabel_Response callback);
-
-    interface RequestRecordLabel_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<String> {
-    }
+    interface CancelCurrentEnrollSession_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> { }
 
 
-    void setRecordLabel(String recordPath, String newLabel, SetRecordLabel_Response callback);
+    void requestRecordLabel(
+String recordPath, 
+RequestRecordLabel_Response callback);
 
-    interface SetRecordLabel_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> {
-    }
-
-
-    void removeRecord(String recordPath, RemoveRecord_Response callback);
-
-    interface RemoveRecord_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> {
-    }
+    interface RequestRecordLabel_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<String> { }
 
 
-    void startAuthSession();
+    void setRecordLabel(
+String recordPath, String newLabel, 
+SetRecordLabel_Response callback);
+
+    interface SetRecordLabel_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> { }
+
+
+    void removeRecord(
+String recordPath, 
+RemoveRecord_Response callback);
+
+    interface RemoveRecord_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> { }
+
+
+    void startAuthSession(
+);
 
 
     void endCurrentAuthSession(
 
-            EndCurrentAuthSession_Response callback);
+EndCurrentAuthSession_Response callback);
 
-    interface EndCurrentAuthSession_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> {
-    }
+    interface EndCurrentAuthSession_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> { }
 
 
     void destroyAllRecords(
 
-            DestroyAllRecords_Response callback);
+DestroyAllRecords_Response callback);
 
-    interface DestroyAllRecords_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> {
-    }
+    interface DestroyAllRecords_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> { }
 
 
-    void addFingerprintObserver(FingerprintObserver observer);
+    void addFingerprintObserver(
+FingerprintObserver observer);
 
 
     void requestType(
 
-            RequestType_Response callback);
+RequestType_Response callback);
 
-    interface RequestType_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> {
-    }
+    interface RequestType_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> { }
 
 
 }

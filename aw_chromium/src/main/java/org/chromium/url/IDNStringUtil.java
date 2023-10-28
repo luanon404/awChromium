@@ -18,10 +18,9 @@ public class IDNStringUtil {
     /**
      * Attempts to convert a Unicode string to an ASCII string using IDN rules.
      * As of May 2014, the underlying Java function IDNA2003.
-     *
      * @param src String to convert.
      * @return: String containing only ASCII characters on success, null on
-     * failure.
+     *                 failure.
      */
     @CalledByNative
     private static String idnToASCII(String src) {

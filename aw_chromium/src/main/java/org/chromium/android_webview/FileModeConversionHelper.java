@@ -21,7 +21,7 @@ public final class FileModeConversionHelper {
                 return WebChromeClient.FileChooserParams.MODE_OPEN_MULTIPLE;
             case FileChooserParams.Mode.SAVE:
                 assert false : "Save file chooser mode deprecated.";
-                // fall through
+            // fall through
             default:
                 assert false : "Unexpected file chooser mode encountered.";
         }
@@ -29,6 +29,5 @@ public final class FileModeConversionHelper {
     }
 
     // Do not instantiate this class.
-    private FileModeConversionHelper() {
-    }
+    private FileModeConversionHelper() {}
 }

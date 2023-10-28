@@ -13,10 +13,13 @@
 
 package org.chromium.viz.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class BeginFrameAck extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 40;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(40, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(40, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public long sourceId;
     public long sequenceNumber;
@@ -25,6 +28,10 @@ public final class BeginFrameAck extends org.chromium.mojo.bindings.Struct {
 
     private BeginFrameAck(int version) {
         super(STRUCT_SIZE, version);
+    }
+
+    public BeginFrameAck() {
+        this(0);
     }
 
     public static BeginFrameAck deserialize(org.chromium.mojo.bindings.Message message) {
@@ -37,9 +44,11 @@ public final class BeginFrameAck extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static BeginFrameAck deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
+    @SuppressWarnings("unchecked")
     public static BeginFrameAck decode(org.chromium.mojo.bindings.Decoder decoder0) {
         if (decoder0 == null) {
             return null;
@@ -50,22 +59,22 @@ public final class BeginFrameAck extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new BeginFrameAck(elementsOrVersion);
-            {
-
+                {
+                    
                 result.sourceId = decoder0.readLong(8);
-            }
-            {
-
+                }
+                {
+                    
                 result.sequenceNumber = decoder0.readLong(16);
-            }
-            {
-
+                }
+                {
+                    
                 result.traceId = decoder0.readLong(24);
-            }
-            {
-
+                }
+                {
+                    
                 result.hasDamage = decoder0.readBoolean(32, 0);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -73,16 +82,17 @@ public final class BeginFrameAck extends org.chromium.mojo.bindings.Struct {
         return result;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
+    protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.sourceId, 8);
-
+        
         encoder0.encode(this.sequenceNumber, 16);
-
+        
         encoder0.encode(this.traceId, 24);
-
+        
         encoder0.encode(this.hasDamage, 32, 0);
     }
 }

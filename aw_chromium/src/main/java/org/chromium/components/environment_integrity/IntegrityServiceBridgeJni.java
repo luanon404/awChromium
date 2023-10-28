@@ -4,44 +4,59 @@
 package org.chromium.components.environment_integrity;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import androidx.annotation.NonNull;
+import androidx.core.os.ExecutorCompat;
+import com.google.common.util.concurrent.FutureCallback;
+import com.google.common.util.concurrent.Futures;
+import com.google.common.util.concurrent.ListenableFuture;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.ResettersForTesting;
+import org.chromium.base.ThreadUtils;
+import org.chromium.components.environment_integrity.enums.IntegrityResponse;
 
 @CheckDiscard("crbug.com/993421")
 class IntegrityServiceBridgeJni implements IntegrityServiceBridge.Natives {
-    private static IntegrityServiceBridge.Natives testInstance;
+  private static IntegrityServiceBridge.Natives testInstance;
 
-    public static final JniStaticTestMocker<IntegrityServiceBridge.Natives> TEST_HOOKS = new JniStaticTestMocker<IntegrityServiceBridge.Natives>() {
-        @Override
-        public void setInstanceForTesting(IntegrityServiceBridge.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<IntegrityServiceBridge.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<IntegrityServiceBridge.Natives>() {
     @Override
-    public void onCreateHandleResult(long callbackId, int responseCode, long handle, String errorMsg) {
-        GEN_JNI.org_chromium_components_environment_1integrity_IntegrityServiceBridge_onCreateHandleResult(callbackId, responseCode, handle, errorMsg);
+    public void setInstanceForTesting(IntegrityServiceBridge.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public void onGetIntegrityTokenResult(long callbackId, int responseCode, byte[] token, String errorMsg) {
-        GEN_JNI.org_chromium_components_environment_1integrity_IntegrityServiceBridge_onGetIntegrityTokenResult(callbackId, responseCode, token, errorMsg);
-    }
+  @Override
+  public void onCreateHandleResult(long callbackId, int responseCode, long handle, String errorMsg) {
+    GEN_JNI.org_chromium_components_environment_1integrity_IntegrityServiceBridge_onCreateHandleResult(callbackId, responseCode, handle, errorMsg);
+  }
 
-    public static IntegrityServiceBridge.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of IntegrityServiceBridge.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new IntegrityServiceBridgeJni();
+  @Override
+  public void onGetIntegrityTokenResult(long callbackId, int responseCode, byte[] token, String errorMsg) {
+    GEN_JNI.org_chromium_components_environment_1integrity_IntegrityServiceBridge_onGetIntegrityTokenResult(callbackId, responseCode, token, errorMsg);
+  }
+
+  public static IntegrityServiceBridge.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of IntegrityServiceBridge.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new IntegrityServiceBridgeJni();
+  }
 }

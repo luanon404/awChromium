@@ -17,10 +17,30 @@ import androidx.annotation.IntDef;
 
 public final class MediaSessionAction {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({MediaSessionAction.PLAY, MediaSessionAction.PAUSE, MediaSessionAction.PREVIOUS_TRACK, MediaSessionAction.NEXT_TRACK, MediaSessionAction.SEEK_BACKWARD, MediaSessionAction.SEEK_FORWARD, MediaSessionAction.SKIP_AD, MediaSessionAction.STOP, MediaSessionAction.SEEK_TO, MediaSessionAction.SCRUB_TO, MediaSessionAction.ENTER_PICTURE_IN_PICTURE, MediaSessionAction.EXIT_PICTURE_IN_PICTURE, MediaSessionAction.SWITCH_AUDIO_DEVICE, MediaSessionAction.TOGGLE_MICROPHONE, MediaSessionAction.TOGGLE_CAMERA, MediaSessionAction.HANG_UP, MediaSessionAction.RAISE, MediaSessionAction.SET_MUTE, MediaSessionAction.PREVIOUS_SLIDE, MediaSessionAction.NEXT_SLIDE, MediaSessionAction.ENTER_AUTO_PICTURE_IN_PICTURE})
-    public @interface EnumType {
-    }
+        MediaSessionAction.PLAY,
+        MediaSessionAction.PAUSE,
+        MediaSessionAction.PREVIOUS_TRACK,
+        MediaSessionAction.NEXT_TRACK,
+        MediaSessionAction.SEEK_BACKWARD,
+        MediaSessionAction.SEEK_FORWARD,
+        MediaSessionAction.SKIP_AD,
+        MediaSessionAction.STOP,
+        MediaSessionAction.SEEK_TO,
+        MediaSessionAction.SCRUB_TO,
+        MediaSessionAction.ENTER_PICTURE_IN_PICTURE,
+        MediaSessionAction.EXIT_PICTURE_IN_PICTURE,
+        MediaSessionAction.SWITCH_AUDIO_DEVICE,
+        MediaSessionAction.TOGGLE_MICROPHONE,
+        MediaSessionAction.TOGGLE_CAMERA,
+        MediaSessionAction.HANG_UP,
+        MediaSessionAction.RAISE,
+        MediaSessionAction.SET_MUTE,
+        MediaSessionAction.PREVIOUS_SLIDE,
+        MediaSessionAction.NEXT_SLIDE,
+        MediaSessionAction.ENTER_AUTO_PICTURE_IN_PICTURE})
+    public @interface EnumType {}
 
     public static final int PLAY = 0;
     public static final int PAUSE = 1;
@@ -56,9 +76,8 @@ public final class MediaSessionAction {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private MediaSessionAction() {
-    }
+    private MediaSessionAction() {}
 }

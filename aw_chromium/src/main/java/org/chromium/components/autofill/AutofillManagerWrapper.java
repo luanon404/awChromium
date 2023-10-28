@@ -31,14 +31,12 @@ public class AutofillManagerWrapper {
     // NOTE: As a result of the above, the tag below still references the name of this class from
     // when it was originally developed specifically for Android WebView.
     public static final String TAG = "AwAutofillManager";
-    private static final String AWG_COMPONENT_NAME = "com.google.android.gms/com.google.android.gms.autofill.service.AutofillService";
-
+    private static final String AWG_COMPONENT_NAME =
+            "com.google.android.gms/com.google.android.gms.autofill.service.AutofillService";
     /**
      * The observer of suggestion window.
      */
-    public interface InputUIObserver {
-        void onInputUIShown();
-    }
+    public static interface InputUIObserver { void onInputUIShown(); }
 
     private static class AutofillInputUIMonitor extends AutofillManager.AutofillCallback {
         private WeakReference<AutofillManagerWrapper> mManager;
@@ -91,7 +89,8 @@ public class AutofillManagerWrapper {
                 Log.e(TAG, "getAutofillServiceComponentName", e);
             }
             if (componentName != null) {
-                mIsAwGCurrentAutofillService = AWG_COMPONENT_NAME.equals(componentName.flattenToString());
+                mIsAwGCurrentAutofillService =
+                        AWG_COMPONENT_NAME.equals(componentName.flattenToString());
                 AutofillProviderUMA.logCurrentProvider(componentName.getPackageName());
             } else {
                 mIsAwGCurrentAutofillService = false;
@@ -182,7 +181,6 @@ public class AutofillManagerWrapper {
 
     /**
      * Only work for Android P and beyond. Always return false for Android O.
-     *
      * @return if the Autofill with Google is the current autofill service.
      */
     public boolean isAwGCurrentAutofillService() {
@@ -191,7 +189,8 @@ public class AutofillManagerWrapper {
 
     private boolean checkAndWarnIfDestroyed() {
         if (mDestroyed) {
-            Log.w(TAG, "Application attempted to call on a destroyed AutofillManagerWrapper", new Throwable());
+            Log.w(TAG, "Application attempted to call on a destroyed AutofillManagerWrapper",
+                    new Throwable());
         }
         return mDestroyed;
     }

@@ -1,3 +1,4 @@
+
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -14,13 +15,15 @@ import androidx.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@IntDef({SchemeDisplay.SHOW, SchemeDisplay.OMIT_HTTP_AND_HTTPS, SchemeDisplay.OMIT_CRYPTOGRAPHIC})
+@IntDef({
+    SchemeDisplay.SHOW, SchemeDisplay.OMIT_HTTP_AND_HTTPS, SchemeDisplay.OMIT_CRYPTOGRAPHIC
+})
 @Retention(RetentionPolicy.SOURCE)
 public @interface SchemeDisplay {
-    int SHOW = 0;
-    int OMIT_HTTP_AND_HTTPS = 1;
-    /**
-     * Omit cryptographic (i.e. https and wss).
-     */
-    int OMIT_CRYPTOGRAPHIC = 2;
+  int SHOW = 0;
+  int OMIT_HTTP_AND_HTTPS = 1;
+  /**
+   * Omit cryptographic (i.e. https and wss).
+   */
+  int OMIT_CRYPTOGRAPHIC = 2;
 }

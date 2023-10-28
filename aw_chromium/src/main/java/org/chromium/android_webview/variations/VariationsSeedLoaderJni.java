@@ -4,49 +4,84 @@
 package org.chromium.android_webview.variations;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.os.Bundle;
+import android.os.IBinder;
+import android.os.ParcelFileDescriptor;
+import android.os.RemoteException;
+import android.os.SystemClock;
+import androidx.annotation.VisibleForTesting;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.android_webview.AwBrowserProcess;
+import org.chromium.android_webview.common.AwSwitches;
+import org.chromium.android_webview.common.services.IVariationsSeedServer;
+import org.chromium.android_webview.common.services.IVariationsSeedServerCallback;
+import org.chromium.android_webview.common.services.ServiceConnectionDelayRecorder;
+import org.chromium.android_webview.common.services.ServiceNames;
+import org.chromium.android_webview.common.variations.VariationsServiceMetricsHelper;
+import org.chromium.android_webview.common.variations.VariationsUtils;
+import org.chromium.base.ContextUtils;
+import org.chromium.base.Log;
+import org.chromium.base.metrics.RecordHistogram;
+import org.chromium.components.variations.LoadSeedResult;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Date;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 @CheckDiscard("crbug.com/993421")
 class VariationsSeedLoaderJni implements VariationsSeedLoader.Natives {
-    private static VariationsSeedLoader.Natives testInstance;
+  private static VariationsSeedLoader.Natives testInstance;
 
-    public static final JniStaticTestMocker<VariationsSeedLoader.Natives> TEST_HOOKS = new JniStaticTestMocker<VariationsSeedLoader.Natives>() {
-        @Override
-        public void setInstanceForTesting(VariationsSeedLoader.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<VariationsSeedLoader.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<VariationsSeedLoader.Natives>() {
     @Override
-    public long getSavedSeedDate() {
-        return (long) GEN_JNI.org_chromium_android_1webview_variations_VariationsSeedLoader_getSavedSeedDate();
+    public void setInstanceForTesting(VariationsSeedLoader.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public boolean parseAndSaveSeedProto(String path) {
-        return (boolean) GEN_JNI.org_chromium_android_1webview_variations_VariationsSeedLoader_parseAndSaveSeedProto(path);
-    }
+  @Override
+  public long getSavedSeedDate() {
+    return (long) GEN_JNI.org_chromium_android_1webview_variations_VariationsSeedLoader_getSavedSeedDate();
+  }
 
-    @Override
-    public boolean parseAndSaveSeedProtoFromByteArray(byte[] seedAsByteArray) {
-        return (boolean) GEN_JNI.org_chromium_android_1webview_variations_VariationsSeedLoader_parseAndSaveSeedProtoFromByteArray(seedAsByteArray);
-    }
+  @Override
+  public boolean parseAndSaveSeedProto(String path) {
+    return (boolean) GEN_JNI.org_chromium_android_1webview_variations_VariationsSeedLoader_parseAndSaveSeedProto(path);
+  }
 
-    public static VariationsSeedLoader.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of VariationsSeedLoader.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new VariationsSeedLoaderJni();
+  @Override
+  public boolean parseAndSaveSeedProtoFromByteArray(byte[] seedAsByteArray) {
+    return (boolean) GEN_JNI.org_chromium_android_1webview_variations_VariationsSeedLoader_parseAndSaveSeedProtoFromByteArray(seedAsByteArray);
+  }
+
+  public static VariationsSeedLoader.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of VariationsSeedLoader.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new VariationsSeedLoaderJni();
+  }
 }

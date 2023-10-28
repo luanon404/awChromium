@@ -17,10 +17,15 @@ import androidx.annotation.IntDef;
 
 public final class RequestPriority {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({RequestPriority.THROTTLED, RequestPriority.IDLE, RequestPriority.LOWEST, RequestPriority.LOW, RequestPriority.MEDIUM, RequestPriority.HIGHEST})
-    public @interface EnumType {
-    }
+        RequestPriority.THROTTLED,
+        RequestPriority.IDLE,
+        RequestPriority.LOWEST,
+        RequestPriority.LOW,
+        RequestPriority.MEDIUM,
+        RequestPriority.HIGHEST})
+    public @interface EnumType {}
 
     public static final int THROTTLED = 0;
     public static final int IDLE = 1;
@@ -41,9 +46,8 @@ public final class RequestPriority {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private RequestPriority() {
-    }
+    private RequestPriority() {}
 }

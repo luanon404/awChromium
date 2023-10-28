@@ -6,7 +6,7 @@ package org.chromium.base.library_loader;
 
 /**
  * This is interface to preload the native library before calling System.loadLibrary.
- * <p>
+ *
  * Preloading shouldn't call System.loadLibrary() or otherwise cause any Chromium
  * code to be run, because it can be called before Chromium command line is known.
  * It can however open the library via dlopen() or android_dlopen_ext() so that

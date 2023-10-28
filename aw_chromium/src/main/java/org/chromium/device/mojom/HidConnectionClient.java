@@ -13,15 +13,20 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface HidConnectionClient extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends HidConnectionClient, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends HidConnectionClient, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<HidConnectionClient, HidConnectionClient.Proxy> MANAGER = HidConnectionClient_Internal.MANAGER;
 
-    void onInputReport(byte reportId, byte[] buffer);
+    void onInputReport(
+byte reportId, byte[] buffer);
 
 
 }

@@ -13,18 +13,24 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface FirstPartySetsAccessDelegate extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends FirstPartySetsAccessDelegate, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends FirstPartySetsAccessDelegate, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<FirstPartySetsAccessDelegate, FirstPartySetsAccessDelegate.Proxy> MANAGER = FirstPartySetsAccessDelegate_Internal.MANAGER;
 
-    void notifyReady(FirstPartySetsReadyEvent readyEvent);
+    void notifyReady(
+FirstPartySetsReadyEvent readyEvent);
 
 
-    void setEnabled(boolean enabled);
+    void setEnabled(
+boolean enabled);
 
 
 }

@@ -13,21 +13,28 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface PowerMonitorClient extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends PowerMonitorClient, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends PowerMonitorClient, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<PowerMonitorClient, PowerMonitorClient.Proxy> MANAGER = PowerMonitorClient_Internal.MANAGER;
 
-    void powerStateChange(boolean onBatteryPower);
+    void powerStateChange(
+boolean onBatteryPower);
 
 
-    void suspend();
+    void suspend(
+);
 
 
-    void resume();
+    void resume(
+);
 
 
 }

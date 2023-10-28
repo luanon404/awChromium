@@ -13,10 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class TrustTokenParams extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 72;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(72, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(72, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public int version;
     public int operation;
@@ -50,7 +53,8 @@ public final class TrustTokenParams extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static TrustTokenParams deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -64,72 +68,72 @@ public final class TrustTokenParams extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new TrustTokenParams(elementsOrVersion);
-            {
-
+                {
+                    
                 result.version = decoder0.readInt(8);
-                TrustTokenMajorVersion.validate(result.version);
-                result.version = TrustTokenMajorVersion.toKnownValue(result.version);
-            }
-            {
-
+                    TrustTokenMajorVersion.validate(result.version);
+                    result.version = TrustTokenMajorVersion.toKnownValue(result.version);
+                }
+                {
+                    
                 result.operation = decoder0.readInt(12);
-                TrustTokenOperationType.validate(result.operation);
-                result.operation = TrustTokenOperationType.toKnownValue(result.operation);
-            }
-            {
-
+                    TrustTokenOperationType.validate(result.operation);
+                    result.operation = TrustTokenOperationType.toKnownValue(result.operation);
+                }
+                {
+                    
                 result.refreshPolicy = decoder0.readInt(16);
-                TrustTokenRefreshPolicy.validate(result.refreshPolicy);
-                result.refreshPolicy = TrustTokenRefreshPolicy.toKnownValue(result.refreshPolicy);
-            }
-            {
-
+                    TrustTokenRefreshPolicy.validate(result.refreshPolicy);
+                    result.refreshPolicy = TrustTokenRefreshPolicy.toKnownValue(result.refreshPolicy);
+                }
+                {
+                    
                 result.signRequestData = decoder0.readInt(20);
-                TrustTokenSignRequestData.validate(result.signRequestData);
-                result.signRequestData = TrustTokenSignRequestData.toKnownValue(result.signRequestData);
-            }
-            {
-
+                    TrustTokenSignRequestData.validate(result.signRequestData);
+                    result.signRequestData = TrustTokenSignRequestData.toKnownValue(result.signRequestData);
+                }
+                {
+                    
                 result.customKeyCommitment = decoder0.readString(24, true);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(32, true);
                 result.customIssuer = org.chromium.url.internal.mojom.Origin.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.includeTimestampHeader = decoder0.readBoolean(40, 0);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(48, false);
                 {
                     org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                     result.issuers = new org.chromium.url.internal.mojom.Origin[si1.elementsOrVersion];
                     for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                        
                         org.chromium.mojo.bindings.Decoder decoder2 = decoder1.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                         result.issuers[i1] = org.chromium.url.internal.mojom.Origin.decode(decoder2);
                     }
                 }
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(56, false);
                 {
                     org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                     result.additionalSignedHeaders = new String[si1.elementsOrVersion];
                     for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                        
                         result.additionalSignedHeaders[i1] = decoder1.readString(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                     }
                 }
-            }
-            {
-
+                }
+                {
+                    
                 result.possiblyUnsafeAdditionalSigningData = decoder0.readString(64, true);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -141,41 +145,41 @@ public final class TrustTokenParams extends org.chromium.mojo.bindings.Struct {
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.version, 8);
-
+        
         encoder0.encode(this.operation, 12);
-
+        
         encoder0.encode(this.refreshPolicy, 16);
-
+        
         encoder0.encode(this.signRequestData, 20);
-
+        
         encoder0.encode(this.customKeyCommitment, 24, true);
-
+        
         encoder0.encode(this.customIssuer, 32, true);
-
+        
         encoder0.encode(this.includeTimestampHeader, 40, 0);
-
+        
         if (this.issuers == null) {
             encoder0.encodeNullPointer(48, false);
         } else {
             org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.issuers.length, 48, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
             for (int i0 = 0; i0 < this.issuers.length; ++i0) {
-
+                
                 encoder1.encode(this.issuers[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
             }
         }
-
+        
         if (this.additionalSignedHeaders == null) {
             encoder0.encodeNullPointer(56, false);
         } else {
             org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.additionalSignedHeaders.length, 56, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
             for (int i0 = 0; i0 < this.additionalSignedHeaders.length; ++i0) {
-
+                
                 encoder1.encode(this.additionalSignedHeaders[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
             }
         }
-
+        
         encoder0.encode(this.possiblyUnsafeAdditionalSigningData, 64, true);
     }
 }

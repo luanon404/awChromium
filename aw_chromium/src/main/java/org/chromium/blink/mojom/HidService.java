@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface HidService extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends HidService, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends HidService, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<HidService, HidService.Proxy> MANAGER = HidService_Internal.MANAGER;

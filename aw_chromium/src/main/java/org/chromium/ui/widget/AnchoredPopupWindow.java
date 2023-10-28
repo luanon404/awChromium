@@ -26,9 +26,9 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 import androidx.annotation.VisibleForTesting;
 
-import org.chromium.android_webview.R;
 import org.chromium.base.ObserverList;
 import org.chromium.base.metrics.RecordUserAction;
+import org.chromium.android_webview.R;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -47,21 +47,20 @@ public class AnchoredPopupWindow implements OnTouchListener, RectProvider.Observ
     public interface LayoutObserver {
         /**
          * Called immediately before the popup layout changes.
-         *
          * @param positionBelow Whether the popup is positioned below its anchor rect.
-         * @param x             The x position for the popup.
-         * @param y             The y position for the popup.
-         * @param width         The width of the popup.
-         * @param height        The height of the popup.
-         * @param anchorRect    The {@link Rect} used to anchor the popup.
+         * @param x The x position for the popup.
+         * @param y The y position for the popup.
+         * @param width The width of the popup.
+         * @param height The height of the popup.
+         * @param anchorRect The {@link Rect} used to anchor the popup.
          */
-        void onPreLayoutChange(boolean positionBelow, int x, int y, int width, int height, Rect anchorRect);
+        void onPreLayoutChange(
+                boolean positionBelow, int x, int y, int width, int height, Rect anchorRect);
     }
 
-    /**
-     * VerticalOrientation preferences for the popup
-     */
-    @IntDef({VerticalOrientation.MAX_AVAILABLE_SPACE, VerticalOrientation.BELOW, VerticalOrientation.ABOVE})
+    /** VerticalOrientation preferences for the popup */
+    @IntDef({VerticalOrientation.MAX_AVAILABLE_SPACE, VerticalOrientation.BELOW,
+            VerticalOrientation.ABOVE})
     @Retention(RetentionPolicy.SOURCE)
     public @interface VerticalOrientation {
         /**
@@ -69,19 +68,13 @@ public class AnchoredPopupWindow implements OnTouchListener, RectProvider.Observ
          * will be sized to ensure it fits on screen.
          */
         int MAX_AVAILABLE_SPACE = 0;
-        /**
-         * Position below the anchor if there is enough space.
-         */
+        /** Position below the anchor if there is enough space. */
         int BELOW = 1;
-        /**
-         * Position above the anchor if there is enough space.
-         */
+        /** Position above the anchor if there is enough space. */
         int ABOVE = 2;
     }
 
-    /**
-     * HorizontalOrientation preferences for the popup
-     */
+    /** HorizontalOrientation preferences for the popup */
     @IntDef({HorizontalOrientation.MAX_AVAILABLE_SPACE, HorizontalOrientation.CENTER})
     @Retention(RetentionPolicy.SOURCE)
     public @interface HorizontalOrientation {
@@ -122,7 +115,8 @@ public class AnchoredPopupWindow implements OnTouchListener, RectProvider.Observ
         }
     }
 
-    private static class RootViewRectProvider extends RectProvider implements View.OnLayoutChangeListener {
+    private static class RootViewRectProvider
+            extends RectProvider implements View.OnLayoutChangeListener {
         private final View mRootView;
 
         RootViewRectProvider(View rootView) {
@@ -132,7 +126,8 @@ public class AnchoredPopupWindow implements OnTouchListener, RectProvider.Observ
         }
 
         @Override
-        public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+        public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft,
+                int oldTop, int oldRight, int oldBottom) {
             cacheWindowVisibleDisplayFrameRect();
             // TODO(crbug.com/1408360): call notifyRectChanged() if consumers don't do it.
         }
@@ -155,18 +150,15 @@ public class AnchoredPopupWindow implements OnTouchListener, RectProvider.Observ
     // Spec of last shown popup window, or place holder value if the popup hasn't been shown yet.
     private PopupSpec mPopupSpec;
 
+    private final Context mContext;
     private final Handler mHandler;
     private final View mRootView;
     private final RectProvider mViewportRectProvider;
 
-    /**
-     * The actual {@link PopupWindow}.  Internalized to prevent API leakage.
-     */
+    /** The actual {@link PopupWindow}.  Internalized to prevent API leakage. */
     private final PopupWindow mPopupWindow;
 
-    /**
-     * Provides the {@link Rect} to anchor the popup to in screen space.
-     */
+    /** Provides the {@link Rect} to anchor the popup to in screen space. */
     private final RectProvider mRectProvider;
 
     private final Runnable mDismissRunnable = new Runnable() {
@@ -176,17 +168,28 @@ public class AnchoredPopupWindow implements OnTouchListener, RectProvider.Observ
         }
     };
 
+    private final OnDismissListener mDismissListener = new OnDismissListener() {
+        @Override
+        public void onDismiss() {
+            if (mIgnoreDismissal) return;
+
+            mHandler.removeCallbacks(mDismissRunnable);
+            for (OnDismissListener listener : mDismissListeners) listener.onDismiss();
+
+            mRectProvider.stopObserving();
+            mViewportRectProvider.stopObserving();
+        }
+    };
+
     private boolean mDismissOnTouchInteraction;
 
     // Pass through for the internal PopupWindow.  This class needs to intercept these for API
     // purposes, but they are still useful to callers.
-    private final ObserverList<OnDismissListener> mDismissListeners = new ObserverList<>();
+    private ObserverList<OnDismissListener> mDismissListeners = new ObserverList<>();
     private OnTouchListener mTouchListener;
     private LayoutObserver mLayoutObserver;
 
-    /**
-     * The margin to add to the popup so it doesn't bump against the edges of the screen.
-     */
+    /** The margin to add to the popup so it doesn't bump against the edges of the screen. */
     private int mMarginPx;
 
     /**
@@ -222,27 +225,31 @@ public class AnchoredPopupWindow implements OnTouchListener, RectProvider.Observ
     private @StyleRes int mAnimationStyleId;
     private boolean mAnimateFromAnchor;
 
-    public AnchoredPopupWindow(Context context, View rootView, Drawable background, View contentView, RectProvider anchorRectProvider) {
+    public AnchoredPopupWindow(Context context, View rootView, Drawable background,
+            View contentView, RectProvider anchorRectProvider) {
         this(context, rootView, background, contentView, anchorRectProvider, null);
     }
 
     /**
      * Constructs an {@link AnchoredPopupWindow} instance.
-     *
-     * @param context              Context to draw resources from.
-     * @param rootView             The {@link View} to use for size calculations and for display.
-     * @param background           The background {@link Drawable} to use for the popup.
-     * @param contentView          The content view to set on the popup. Expected to be a {@link ViewGroup}.
-     * @param anchorRectProvider   The {@link RectProvider} that will provide the {@link Rect} this
-     *                             popup attaches and orients to. The coordinates in the {@link Rect}
-     *                             are expected to be screen coordinates.
+     * @param context  Context to draw resources from.
+     * @param rootView The {@link View} to use for size calculations and for display.
+     * @param background The background {@link Drawable} to use for the popup.
+     * @param contentView The content view to set on the popup. Expected to be a {@link ViewGroup}.
+     * @param anchorRectProvider The {@link RectProvider} that will provide the {@link Rect} this
+     *                           popup attaches and orients to. The coordinates in the {@link Rect}
+     *                           are expected to be screen coordinates.
      * @param viewportRectProvider The {@link RectProvider} that provides the {@link Rect} for the
-     *                             visible viewpoint. If null, the window coordinates of the root view will be used.
+     *         visible viewpoint. If null, the window coordinates of the root view will be used.
      */
-    public AnchoredPopupWindow(Context context, View rootView, Drawable background, View contentView, RectProvider anchorRectProvider, @Nullable RectProvider viewportRectProvider) {
+    public AnchoredPopupWindow(Context context, View rootView, Drawable background,
+            View contentView, RectProvider anchorRectProvider,
+            @Nullable RectProvider viewportRectProvider) {
+        mContext = context;
         mRootView = rootView.getRootView();
-        mViewportRectProvider = viewportRectProvider != null ? viewportRectProvider : new RootViewRectProvider(mRootView);
-        mPopupWindow = UiWidgetFactory.getInstance().createPopupWindow(context);
+        mViewportRectProvider = viewportRectProvider != null ? viewportRectProvider
+                                                             : new RootViewRectProvider(mRootView);
+        mPopupWindow = UiWidgetFactory.getInstance().createPopupWindow(mContext);
         mHandler = new Handler();
         mRectProvider = anchorRectProvider;
         mPopupSpec = new PopupSpec(new Rect(), false, false);
@@ -253,21 +260,10 @@ public class AnchoredPopupWindow implements OnTouchListener, RectProvider.Observ
         mPopupWindow.setContentView(contentView);
 
         mPopupWindow.setTouchInterceptor(this);
-        OnDismissListener mDismissListener = () -> {
-            if (mIgnoreDismissal) return;
-
-            mHandler.removeCallbacks(mDismissRunnable);
-            for (OnDismissListener listener : mDismissListeners) listener.onDismiss();
-
-            mRectProvider.stopObserving();
-            mViewportRectProvider.stopObserving();
-        };
         mPopupWindow.setOnDismissListener(mDismissListener);
     }
 
-    /**
-     * Shows the popup. Will have no effect if the popup is already showing.
-     */
+    /** Shows the popup. Will have no effect if the popup is already showing. */
     public void show() {
         if (mPopupWindow.isShowing()) return;
 
@@ -280,7 +276,6 @@ public class AnchoredPopupWindow implements OnTouchListener, RectProvider.Observ
 
     /**
      * Disposes of the popup window.  Will have no effect if the popup isn't showing.
-     *
      * @see PopupWindow#dismiss()
      */
     public void dismiss() {
@@ -296,7 +291,6 @@ public class AnchoredPopupWindow implements OnTouchListener, RectProvider.Observ
 
     /**
      * Sets the {@link LayoutObserver} for this AnchoredPopupWindow.
-     *
      * @param layoutObserver The observer to be notified of layout changes.
      */
     public void setLayoutObserver(LayoutObserver layoutObserver) {
@@ -353,7 +347,6 @@ public class AnchoredPopupWindow implements OnTouchListener, RectProvider.Observ
     /**
      * Sets the preferred vertical orientation of the popup with respect to the anchor Rect such as
      * above or below the anchor.  This should be called before the popup is shown.
-     *
      * @param orientation The vertical orientation preferred.
      */
     public void setPreferredVerticalOrientation(@VerticalOrientation int orientation) {
@@ -363,7 +356,6 @@ public class AnchoredPopupWindow implements OnTouchListener, RectProvider.Observ
     /**
      * Sets the preferred horizontal orientation of the popup with respect to the anchor Rect such
      * as centered with respect to the anchor.  This should be called before the popup is shown.
-     *
      * @param orientation The horizontal orientation preferred.
      */
     public void setPreferredHorizontalOrientation(@HorizontalOrientation int orientation) {
@@ -373,7 +365,6 @@ public class AnchoredPopupWindow implements OnTouchListener, RectProvider.Observ
     /**
      * Sets the animation style for the popup. This should be called before the popup is shown.
      * Setting this style will take precedence over {@link #setAnimateFromAnchor(boolean)}.
-     *
      * @param animationStyleId The id of the animation style.
      */
     public void setAnimationStyle(int animationStyleId) {
@@ -385,7 +376,6 @@ public class AnchoredPopupWindow implements OnTouchListener, RectProvider.Observ
      * Set whether the popup should enter from / exit to the anchor point. This should be
      * called before the popup is shown. If an animation style is specified by
      * {@link #setAnimationStyle(int)}, this method will have no effect.
-     *
      * @param animateFromAnchor Whether the popup should animator from anchor point.
      */
     public void setAnimateFromAnchor(boolean animateFromAnchor) {
@@ -402,7 +392,6 @@ public class AnchoredPopupWindow implements OnTouchListener, RectProvider.Observ
 
     /**
      * Changes the focusability of the popup. See {@link PopupWindow#setFocusable(boolean)}.
-     *
      * @param focusable True if the popup is focusable, false otherwise.
      */
     public void setFocusable(boolean focusable) {
@@ -411,7 +400,6 @@ public class AnchoredPopupWindow implements OnTouchListener, RectProvider.Observ
 
     /**
      * Sets the margin for the popup window.  This should be called before the popup is shown.
-     *
      * @param margin The margin in pixels.
      */
     public void setMargin(int margin) {
@@ -420,7 +408,6 @@ public class AnchoredPopupWindow implements OnTouchListener, RectProvider.Observ
 
     /**
      * Sets the max width for the popup.  This should be called before the popup is shown.
-     *
      * @param maxWidth The max width for the popup.
      */
     public void setMaxWidth(int maxWidth) {
@@ -431,7 +418,6 @@ public class AnchoredPopupWindow implements OnTouchListener, RectProvider.Observ
     /**
      * Sets whether the popup should horizontally overlap the anchor {@link Rect}.
      * Defaults to false.  This should be called before the popup is shown.
-     *
      * @param overlap Whether the popup should overlap the anchor.
      */
     public void setHorizontalOverlapAnchor(boolean overlap) {
@@ -441,7 +427,6 @@ public class AnchoredPopupWindow implements OnTouchListener, RectProvider.Observ
     /**
      * Sets whether the popup should vertically overlap the anchor {@link Rect}.
      * Defaults to false.  This should be called before the popup is shown.
-     *
      * @param overlap Whether the popup should overlap the anchor.
      */
     public void setVerticalOverlapAnchor(boolean overlap) {
@@ -450,13 +435,12 @@ public class AnchoredPopupWindow implements OnTouchListener, RectProvider.Observ
 
     /**
      * Set whether we want position the context menu around the anchor to maximize its width.
-     * <p>
+     *
      * If this is set, in some cases the popup will be shown differently than the settings for
      * {@link #setVerticalOverlapAnchor} and {@link #setHorizontalOverlapAnchor}.
      * (e.g. Side of anchor is too narrow to make it not horizontally smartAnchor).
-     * <p>
-     * This should be called before the popup is shown.
      *
+     * This should be called before the popup is shown.
      * @param smartAnchor Whether the popup should smartAnchor the anchor.
      */
     public void setSmartAnchorWithMaxWidth(boolean smartAnchor) {
@@ -465,7 +449,6 @@ public class AnchoredPopupWindow implements OnTouchListener, RectProvider.Observ
 
     /**
      * Changes the background of the popup.
-     *
      * @param background The {@link Drawable} that is set to be background.
      */
     public void setBackgroundDrawable(Drawable background) {
@@ -521,12 +504,18 @@ public class AnchoredPopupWindow implements OnTouchListener, RectProvider.Observ
         // Aggressively try to put it below the anchor.  Put it above only if it would fit better.
         View contentView = mPopupWindow.getContentView();
 
-        mPopupSpec = calculatePopupWindowSpec(mViewportRectProvider.getRect(), anchorRect, contentView, mRootView.getWidth(), paddingX, paddingY, mMarginPx, mMaxWidthPx, mDesiredContentWidth, mPreferredHorizontalOrientation, mPreferredVerticalOrientation, currentPositionBelow, currentPositionToLeft, preferCurrentOrientation, mHorizontalOverlapAnchor, mVerticalOverlapAnchor, mSmartAnchorWithMaxWidth);
+        mPopupSpec = calculatePopupWindowSpec(mViewportRectProvider.getRect(), anchorRect,
+                contentView, mRootView.getWidth(), paddingX, paddingY, mMarginPx, mMaxWidthPx,
+                mDesiredContentWidth, mPreferredHorizontalOrientation,
+                mPreferredVerticalOrientation, currentPositionBelow, currentPositionToLeft,
+                preferCurrentOrientation, mHorizontalOverlapAnchor, mVerticalOverlapAnchor,
+                mSmartAnchorWithMaxWidth);
 
         boolean isPositionBelow = mPopupSpec.isPositionBelow;
         Rect popupRect = mPopupSpec.popupRect;
         if (mLayoutObserver != null) {
-            mLayoutObserver.onPreLayoutChange(isPositionBelow, popupRect.left, popupRect.top, popupRect.width(), popupRect.height(), anchorRect);
+            mLayoutObserver.onPreLayoutChange(isPositionBelow, popupRect.left, popupRect.top,
+                    popupRect.width(), popupRect.height(), anchorRect);
         }
 
         if (mPopupWindow.isShowing() && !hasMinimalSize()) {
@@ -545,55 +534,67 @@ public class AnchoredPopupWindow implements OnTouchListener, RectProvider.Observ
         }
 
         if (hasMinimalSize()) {
-            mPopupWindow.update(popupRect.left, popupRect.top, popupRect.width(), popupRect.height());
+            mPopupWindow.update(
+                    popupRect.left, popupRect.top, popupRect.width(), popupRect.height());
         }
     }
 
     /**
      * Helps to figure out whether the actual pixel size is sufficient that users see what they are
      * tapping. Popups can be very narrow (e.g. in landscape) and still be interactive.
-     *
      * @return True iff the popup is large enough to be safely shown to users.
      */
     private boolean hasMinimalSize() {
         final float density = mRootView.getResources().getDisplayMetrics().density;
-        return mPopupSpec.popupRect.height() >= density * MINIMAL_POPUP_HEIGHT_DIP && mPopupSpec.popupRect.width() >= density * MINIMAL_POPUP_WIDTH_DIP;
+        return mPopupSpec.popupRect.height() >= density * MINIMAL_POPUP_HEIGHT_DIP
+                && mPopupSpec.popupRect.width() >= density * MINIMAL_POPUP_WIDTH_DIP;
     }
 
     /**
      * Calculate the Rect where the popup window will displayed on the current application window.
      *
-     * @param freeSpaceRect                  The rect representing the window size. Always starts from (0,0) as top
-     *                                       left.
-     * @param anchorRect                     The rect that popup anchored to in the window.
-     * @param contentView                    The content view of popup window. Expected to be a {@link ViewGroup}.
-     * @param rootViewWidth                  The width of root view.
-     * @param paddingX                       The padding on the X axis of popup window.
-     * @param paddingY                       The padding on the Y axis of popup window.
-     * @param marginPx                       Value set by {@link #setMargin(int)}.
-     * @param maxWidthPx                     Value set by  {@link #setMaxWidth(int)}.
-     * @param desiredContentWidth            Value set by {@link #setDesiredContentWidth(int)}.
+     * @param freeSpaceRect The rect representing the window size. Always starts from (0,0) as top
+     *        left.
+     * @param anchorRect The rect that popup anchored to in the window.
+     * @param contentView The content view of popup window. Expected to be a {@link ViewGroup}.
+     * @param rootViewWidth The width of root view.
+     * @param paddingX The padding on the X axis of popup window.
+     * @param paddingY The padding on the Y axis of popup window.
+     * @param marginPx Value set by {@link #setMargin(int)}.
+     * @param maxWidthPx Value set by  {@link #setMaxWidth(int)}.
+     * @param desiredContentWidth Value set by {@link #setDesiredContentWidth(int)}.
      * @param preferredHorizontalOrientation Value set by {@link
-     *                                       #setPreferredHorizontalOrientation(int)}.
-     * @param preferredVerticalOrientation   Value set by  {@link
-     *                                       #setPreferredVerticalOrientation(int)}.
-     * @param currentPositionBelow           Whether the currently shown popup window is presented below
-     *                                       anchored rect.
-     * @param currentPositionToLeft          Whether the currently shown popup window is presented to the
-     *                                       left of anchored rect.
-     * @param preferCurrentOrientation       Whether prefer to reserve the popup orientation. If this set
-     *                                       to true, popup window will prefer to show below / to left of anchored window the same
-     *                                       way as |currentPositionBelow| and |currentPositionToLeft|.
-     * @param horizontalOverlapAnchor        Value set by {@link #setHorizontalOverlapAnchor(boolean)}.
-     * @param verticalOverlapAnchor          Value set by {@link #setVerticalOverlapAnchor(boolean)}.
-     * @param smartAnchorWithMaxWidth        Value set by {@link #setSmartAnchorWithMaxWidth(boolean)}.
+     *         #setPreferredHorizontalOrientation(int)}.
+     * @param preferredVerticalOrientation Value set by  {@link
+     *         #setPreferredVerticalOrientation(int)}.
+     * @param currentPositionBelow Whether the currently shown popup window is presented below
+     *         anchored rect.
+     * @param currentPositionToLeft Whether the currently shown popup window is presented to the
+     *         left of anchored rect.
+     * @param preferCurrentOrientation Whether prefer to reserve the popup orientation. If this set
+     *         to true, popup window will prefer to show below / to left of anchored window the same
+     *         way as |currentPositionBelow| and |currentPositionToLeft|.
+     * @param horizontalOverlapAnchor Value set by {@link #setHorizontalOverlapAnchor(boolean)}.
+     * @param verticalOverlapAnchor Value set by {@link #setVerticalOverlapAnchor(boolean)}.
+     * @param smartAnchorWithMaxWidth Value set by {@link #setSmartAnchorWithMaxWidth(boolean)}.
      * @return {@link PopupSpec} that includes the popup specs (e.g. location in window)
      */
     @VisibleForTesting
-    static PopupSpec calculatePopupWindowSpec(final Rect freeSpaceRect, final Rect anchorRect, final View contentView, final int rootViewWidth, int paddingX, int paddingY, int marginPx, int maxWidthPx, int desiredContentWidth, @HorizontalOrientation int preferredHorizontalOrientation, @VerticalOrientation int preferredVerticalOrientation, boolean currentPositionBelow, boolean currentPositionToLeft, boolean preferCurrentOrientation, boolean horizontalOverlapAnchor, boolean verticalOverlapAnchor, boolean smartAnchorWithMaxWidth) {
+    static PopupSpec calculatePopupWindowSpec(final Rect freeSpaceRect, final Rect anchorRect,
+            final View contentView, final int rootViewWidth, int paddingX, int paddingY,
+            int marginPx, int maxWidthPx, int desiredContentWidth,
+            @HorizontalOrientation int preferredHorizontalOrientation,
+            @VerticalOrientation int preferredVerticalOrientation, boolean currentPositionBelow,
+            boolean currentPositionToLeft, boolean preferCurrentOrientation,
+            boolean horizontalOverlapAnchor, boolean verticalOverlapAnchor,
+            boolean smartAnchorWithMaxWidth) {
         // Determine the size of the text popup.
-        final int maxContentWidth = getMaxContentWidth(maxWidthPx, rootViewWidth, marginPx, paddingX);
-        final int widthSpec = desiredContentWidth > 0 ? MeasureSpec.makeMeasureSpec(Math.min(desiredContentWidth, maxContentWidth), MeasureSpec.EXACTLY) : MeasureSpec.makeMeasureSpec(maxContentWidth, MeasureSpec.AT_MOST);
+        final int maxContentWidth =
+                getMaxContentWidth(maxWidthPx, rootViewWidth, marginPx, paddingX);
+        final int widthSpec = desiredContentWidth > 0
+                ? MeasureSpec.makeMeasureSpec(
+                        Math.min(desiredContentWidth, maxContentWidth), MeasureSpec.EXACTLY)
+                : MeasureSpec.makeMeasureSpec(maxContentWidth, MeasureSpec.AT_MOST);
 
         contentView.measure(widthSpec, MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
         final int idealContentHeight = contentView.getMeasuredHeight();
@@ -604,9 +605,13 @@ public class AnchoredPopupWindow implements OnTouchListener, RectProvider.Observ
         boolean allowHorizontalOverlap = horizontalOverlapAnchor;
         boolean allowVerticalOverlap = verticalOverlapAnchor;
         if (preferredHorizontalOrientation == HorizontalOrientation.MAX_AVAILABLE_SPACE) {
-            int spaceLeftOfAnchor = getSpaceLeftOfAnchor(anchorRect, freeSpaceRect, allowHorizontalOverlap);
-            int spaceRightOfAnchor = getSpaceRightOfAnchor(anchorRect, freeSpaceRect, allowHorizontalOverlap);
-            isPositionToLeft = shouldPositionLeftOfAnchor(spaceLeftOfAnchor, spaceRightOfAnchor, idealContentWidth + paddingX + marginPx, currentPositionToLeft, preferCurrentOrientation);
+            int spaceLeftOfAnchor =
+                    getSpaceLeftOfAnchor(anchorRect, freeSpaceRect, allowHorizontalOverlap);
+            int spaceRightOfAnchor =
+                    getSpaceRightOfAnchor(anchorRect, freeSpaceRect, allowHorizontalOverlap);
+            isPositionToLeft = shouldPositionLeftOfAnchor(spaceLeftOfAnchor, spaceRightOfAnchor,
+                    idealContentWidth + paddingX + marginPx, currentPositionToLeft,
+                    preferCurrentOrientation);
 
             int idealWidthAroundAnchor = isPositionToLeft ? spaceLeftOfAnchor : spaceRightOfAnchor;
             if (idealWidthAroundAnchor < maxContentWidth && smartAnchorWithMaxWidth) {
@@ -620,8 +625,10 @@ public class AnchoredPopupWindow implements OnTouchListener, RectProvider.Observ
         // TODO(dtrainor): This follows the previous logic.  But we should look into if we want to
         // use the root view dimensions instead of the window dimensions here so the popup can't
         // bleed onto the decorations.
-        final int spaceAboveAnchor = (allowVerticalOverlap ? anchorRect.bottom : anchorRect.top) - freeSpaceRect.top - paddingY - marginPx;
-        final int spaceBelowAnchor = freeSpaceRect.bottom - (allowVerticalOverlap ? anchorRect.top : anchorRect.bottom) - paddingY - marginPx;
+        final int spaceAboveAnchor = (allowVerticalOverlap ? anchorRect.bottom : anchorRect.top)
+                - freeSpaceRect.top - paddingY - marginPx;
+        final int spaceBelowAnchor = freeSpaceRect.bottom
+                - (allowVerticalOverlap ? anchorRect.top : anchorRect.bottom) - paddingY - marginPx;
 
         // Bias based on the center of the popup and where it is on the screen.
         final boolean idealFitsBelow = idealContentHeight <= spaceBelowAnchor;
@@ -631,7 +638,8 @@ public class AnchoredPopupWindow implements OnTouchListener, RectProvider.Observ
         // popups to show below the anchor if it will not fit in either place.
         // TODO(https://crbug.com/1311849): Address cases where spaceBelowAnchor = 0, popup is still
         // biased to anchored below the rect.
-        boolean isPositionBelow = (idealFitsBelow && spaceBelowAnchor >= spaceAboveAnchor) || !idealFitsAbove;
+        boolean isPositionBelow =
+                (idealFitsBelow && spaceBelowAnchor >= spaceAboveAnchor) || !idealFitsAbove;
 
         // Override the ideal popup orientation if we are trying to maintain the current one.
         if (preferCurrentOrientation && currentPositionBelow != isPositionBelow) {
@@ -647,7 +655,8 @@ public class AnchoredPopupWindow implements OnTouchListener, RectProvider.Observ
         }
 
         final int maxContentHeight = isPositionBelow ? spaceBelowAnchor : spaceAboveAnchor;
-        final int heightMeasureSpec = MeasureSpec.makeMeasureSpec(maxContentHeight, MeasureSpec.AT_MOST);
+        final int heightMeasureSpec =
+                MeasureSpec.makeMeasureSpec(maxContentHeight, MeasureSpec.AT_MOST);
         contentView.measure(widthSpec, heightMeasureSpec);
 
         int width = contentView.getMeasuredWidth() + paddingX;
@@ -658,7 +667,8 @@ public class AnchoredPopupWindow implements OnTouchListener, RectProvider.Observ
         // because the contentView(parent) would return the maximum available width, which is larger
         // than the actual needed width.
         ViewGroup parent = (ViewGroup) contentView;
-        boolean isHorizontalLinearLayout = parent instanceof LinearLayout && ((LinearLayout) parent).getOrientation() == LinearLayout.HORIZONTAL;
+        boolean isHorizontalLinearLayout = parent instanceof LinearLayout
+                && ((LinearLayout) parent).getOrientation() == LinearLayout.HORIZONTAL;
         if (isHorizontalLinearLayout && parent.getChildCount() > 0) {
             int contentMeasuredWidth = contentView.getPaddingStart() + contentView.getPaddingEnd();
             for (int index = 0; index < parent.getChildCount(); index++) {
@@ -674,14 +684,17 @@ public class AnchoredPopupWindow implements OnTouchListener, RectProvider.Observ
         }
 
         // Determine the position of the text popup.
-        final int popupX = getPopupX(anchorRect, freeSpaceRect, width, marginPx, allowHorizontalOverlap, preferredHorizontalOrientation, isPositionToLeft);
+        final int popupX = getPopupX(anchorRect, freeSpaceRect, width, marginPx,
+                allowHorizontalOverlap, preferredHorizontalOrientation, isPositionToLeft);
         final int popupY = getPopupY(anchorRect, height, allowVerticalOverlap, isPositionBelow);
 
-        return new PopupSpec(new Rect(popupX, popupY, popupX + width, popupY + height), isPositionBelow, isPositionToLeft);
+        return new PopupSpec(new Rect(popupX, popupY, popupX + width, popupY + height),
+                isPositionBelow, isPositionToLeft);
     }
 
     @VisibleForTesting
-    static int getMaxContentWidth(int desiredMaxWidthPx, int rootViewWidth, int marginPx, int paddingX) {
+    static int getMaxContentWidth(
+            int desiredMaxWidthPx, int rootViewWidth, int marginPx, int paddingX) {
         int maxWidthBasedOnRootView = rootViewWidth - marginPx * 2;
         int maxWidth;
         if (desiredMaxWidthPx != 0 && desiredMaxWidthPx < maxWidthBasedOnRootView) {
@@ -704,7 +717,8 @@ public class AnchoredPopupWindow implements OnTouchListener, RectProvider.Observ
     }
 
     @VisibleForTesting
-    static boolean shouldPositionLeftOfAnchor(int spaceToLeftOfAnchor, int spaceToRightOfAnchor, int idealPopupWidth, boolean currentPositionToLeft, boolean preferCurrentOrientation) {
+    static boolean shouldPositionLeftOfAnchor(int spaceToLeftOfAnchor, int spaceToRightOfAnchor,
+            int idealPopupWidth, boolean currentPositionToLeft, boolean preferCurrentOrientation) {
         boolean positionToLeft = spaceToLeftOfAnchor >= spaceToRightOfAnchor;
 
         // Override the ideal popup orientation if we are trying to maintain the current one.
@@ -721,7 +735,9 @@ public class AnchoredPopupWindow implements OnTouchListener, RectProvider.Observ
     }
 
     @VisibleForTesting
-    static int getPopupX(Rect anchorRect, Rect windowRect, int popupWidth, int marginPx, boolean overlapAnchor, @HorizontalOrientation int horizontalOrientation, boolean positionToLeft) {
+    static int getPopupX(Rect anchorRect, Rect windowRect, int popupWidth, int marginPx,
+            boolean overlapAnchor, @HorizontalOrientation int horizontalOrientation,
+            boolean positionToLeft) {
         int x;
 
         if (horizontalOrientation == HorizontalOrientation.CENTER) {
@@ -739,7 +755,8 @@ public class AnchoredPopupWindow implements OnTouchListener, RectProvider.Observ
 
     // TODO(https://crbug.com/1311850): Account margin when position above the anchor.
     @VisibleForTesting
-    static int getPopupY(Rect anchorRect, int popupHeight, boolean overlapAnchor, boolean positionBelow) {
+    static int getPopupY(
+            Rect anchorRect, int popupHeight, boolean overlapAnchor, boolean positionBelow) {
         if (positionBelow) {
             return overlapAnchor ? anchorRect.top : anchorRect.bottom;
         } else {
@@ -751,16 +768,20 @@ public class AnchoredPopupWindow implements OnTouchListener, RectProvider.Observ
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        boolean touchInterceptedByClient = mTouchListener != null && mTouchListener.onTouch(v, event);
+        boolean touchInterceptedByClient =
+                mTouchListener != null && mTouchListener.onTouch(v, event);
 
-        RecordUserAction.record(event.getAction() == MotionEvent.ACTION_OUTSIDE ? "InProductHelp.OutsideTouch" : "InProductHelp.InsideTouch");
+        RecordUserAction.record(event.getAction() == MotionEvent.ACTION_OUTSIDE
+                        ? "InProductHelp.OutsideTouch"
+                        : "InProductHelp.InsideTouch");
 
         if (mDismissOnTouchInteraction) {
             // Pass down the touch event to child views. If the content view has clickable children,
             // make sure we give them the opportunity to trigger.
             // TODO(crbug.com/1273021): Revisit handling touches on content when
             // mDismissOnTouchInteraction is true.
-            boolean touchInterceptedByChild = !touchInterceptedByClient && mPopupWindow.getContentView().dispatchTouchEvent(event);
+            boolean touchInterceptedByChild = !touchInterceptedByClient
+                    && mPopupWindow.getContentView().dispatchTouchEvent(event);
             if (!touchInterceptedByChild) dismiss();
         }
 
@@ -768,8 +789,8 @@ public class AnchoredPopupWindow implements OnTouchListener, RectProvider.Observ
     }
 
     private static int clamp(int value, int a, int b) {
-        int min = Math.min(a, b);
-        int max = Math.max(a, b);
+        int min = (a > b) ? b : a;
+        int max = (a > b) ? a : b;
         if (value < min) {
             value = min;
         } else if (value > max) {
@@ -781,32 +802,36 @@ public class AnchoredPopupWindow implements OnTouchListener, RectProvider.Observ
     /**
      * Calculate the style Id to use when showing the popup window,
      * when {@link #setAnimateFromAnchor(true)}.
-     *
-     * @param isPositionBelow  Whether the popup is positioned below the anchor rect.
+     * @param isPositionBelow Whether the popup is positioned below the anchor rect.
      * @param isPositionToLeft Whether the popup is positioned below the anchor rect.
      * @return The style resource Id to use for {@link PopupWindow#setAnimationStyle}
      */
     @VisibleForTesting
-    static @StyleRes int calculateAnimationStyle(boolean isPositionBelow, boolean isPositionToLeft) {
+    static @StyleRes int calculateAnimationStyle(
+            boolean isPositionBelow, boolean isPositionToLeft) {
         if (isPositionToLeft) {
-            return isPositionBelow ? R.style.AnchoredPopupAnimEndTop // Left + below -> enter top right (end)
+            return isPositionBelow
+                    ? R.style.AnchoredPopupAnimEndTop // Left + below -> enter top right (end)
                     : R.style.AnchoredPopupAnimEndBottom; // Left + above -> enter bottom right
-            // (end)
+                                                          // (end)
         }
-        return isPositionBelow ? R.style.AnchoredPopupAnimStartTop // Right & below -> enter top left (start)
+        return isPositionBelow
+                ? R.style.AnchoredPopupAnimStartTop // Right & below -> enter top left (start)
                 : R.style.AnchoredPopupAnimStartBottom; // Right & above -> enter bottom left
-        // (start)
+                                                        // (start)
     }
 
     @VisibleForTesting
     void showPopupWindow() {
         if (mAnimateFromAnchor && mAnimationStyleId == 0) {
-            int animationStyle = calculateAnimationStyle(mPopupSpec.isPositionBelow, mPopupSpec.isPositionToLeft);
+            int animationStyle = calculateAnimationStyle(
+                    mPopupSpec.isPositionBelow, mPopupSpec.isPositionToLeft);
             mPopupWindow.setAnimationStyle(animationStyle);
         }
         try {
             assert hasMinimalSize();
-            mPopupWindow.showAtLocation(mRootView, Gravity.TOP | Gravity.START, mPopupSpec.popupRect.left, mPopupSpec.popupRect.top);
+            mPopupWindow.showAtLocation(mRootView, Gravity.TOP | Gravity.START,
+                    mPopupSpec.popupRect.left, mPopupSpec.popupRect.top);
         } catch (WindowManager.BadTokenException e) {
             // Intentionally ignore BadTokenException. This can happen in a real edge case where
             // parent.getWindowToken is not valid. See http://crbug.com/826052.

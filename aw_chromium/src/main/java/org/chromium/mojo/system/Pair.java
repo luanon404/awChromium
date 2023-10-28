@@ -19,7 +19,7 @@ public class Pair<F, S> {
     /**
      * Dedicated constructor.
      *
-     * @param first  the first element of the pair.
+     * @param first the first element of the pair.
      * @param second the second element of the pair.
      */
     public Pair(F first, S second) {

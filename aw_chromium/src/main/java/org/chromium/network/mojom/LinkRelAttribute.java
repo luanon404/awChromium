@@ -17,10 +17,13 @@ import androidx.annotation.IntDef;
 
 public final class LinkRelAttribute {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({LinkRelAttribute.DNS_PREFETCH, LinkRelAttribute.PRECONNECT, LinkRelAttribute.PRELOAD, LinkRelAttribute.MODULE_PRELOAD})
-    public @interface EnumType {
-    }
+        LinkRelAttribute.DNS_PREFETCH,
+        LinkRelAttribute.PRECONNECT,
+        LinkRelAttribute.PRELOAD,
+        LinkRelAttribute.MODULE_PRELOAD})
+    public @interface EnumType {}
 
     public static final int DNS_PREFETCH = 0;
     public static final int PRECONNECT = 1;
@@ -39,9 +42,8 @@ public final class LinkRelAttribute {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private LinkRelAttribute() {
-    }
+    private LinkRelAttribute() {}
 }

@@ -19,12 +19,15 @@ import androidx.annotation.IntDef;
 public interface MediaSession extends org.chromium.mojo.bindings.Interface {
 
 
-    final class SuspendType {
-        private static final boolean IS_EXTENSIBLE = true;
 
-        @IntDef({SuspendType.SYSTEM, SuspendType.UI, SuspendType.CONTENT})
-        public @interface EnumType {
-        }
+    public static final class SuspendType {
+        private static final boolean IS_EXTENSIBLE = true;
+        @IntDef({
+
+            SuspendType.SYSTEM,
+            SuspendType.UI,
+            SuspendType.CONTENT})
+        public @interface EnumType {}
 
         public static final int SYSTEM = 0;
         public static final int UI = 1;
@@ -42,111 +45,133 @@ public interface MediaSession extends org.chromium.mojo.bindings.Interface {
         }
 
         public static int toKnownValue(int value) {
-            return value;
+          return value;
         }
 
-        private SuspendType() {
-        }
+        private SuspendType() {}
     }
 
 
-    interface Proxy extends MediaSession, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends MediaSession, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<MediaSession, MediaSession.Proxy> MANAGER = MediaSession_Internal.MANAGER;
 
     void getMediaSessionInfo(
 
-            GetMediaSessionInfo_Response callback);
+GetMediaSessionInfo_Response callback);
 
-    interface GetMediaSessionInfo_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<MediaSessionInfo> {
-    }
+    interface GetMediaSessionInfo_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<MediaSessionInfo> { }
 
 
     void getDebugInfo(
 
-            GetDebugInfo_Response callback);
+GetDebugInfo_Response callback);
 
-    interface GetDebugInfo_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<MediaSessionDebugInfo> {
-    }
-
-
-    void startDucking();
+    interface GetDebugInfo_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<MediaSessionDebugInfo> { }
 
 
-    void stopDucking();
+    void startDucking(
+);
 
 
-    void suspend(int suspendType);
+    void stopDucking(
+);
 
 
-    void resume(int suspendType);
+    void suspend(
+int suspendType);
 
 
-    void addObserver(MediaSessionObserver observer);
+    void resume(
+int suspendType);
 
 
-    void previousTrack();
+    void addObserver(
+MediaSessionObserver observer);
 
 
-    void nextTrack();
+    void previousTrack(
+);
 
 
-    void seek(org.chromium.mojo_base.mojom.TimeDelta seekTime);
+    void nextTrack(
+);
 
 
-    void stop(int suspendType);
+    void seek(
+org.chromium.mojo_base.mojom.TimeDelta seekTime);
 
 
-    void skipAd();
+    void stop(
+int suspendType);
 
 
-    void getMediaImageBitmap(MediaImage image, int minimumSizePx, int desiredSizePx, GetMediaImageBitmap_Response callback);
-
-    interface GetMediaImageBitmap_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<MediaImageBitmap> {
-    }
+    void skipAd(
+);
 
 
-    void seekTo(org.chromium.mojo_base.mojom.TimeDelta seekTime);
+    void getMediaImageBitmap(
+MediaImage image, int minimumSizePx, int desiredSizePx, 
+GetMediaImageBitmap_Response callback);
+
+    interface GetMediaImageBitmap_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<MediaImageBitmap> { }
 
 
-    void scrubTo(org.chromium.mojo_base.mojom.TimeDelta seekTime);
+    void seekTo(
+org.chromium.mojo_base.mojom.TimeDelta seekTime);
 
 
-    void enterPictureInPicture();
+    void scrubTo(
+org.chromium.mojo_base.mojom.TimeDelta seekTime);
 
 
-    void exitPictureInPicture();
+    void enterPictureInPicture(
+);
 
 
-    void setAudioSinkId(String id);
+    void exitPictureInPicture(
+);
 
 
-    void toggleMicrophone();
+    void setAudioSinkId(
+String id);
 
 
-    void toggleCamera();
+    void toggleMicrophone(
+);
 
 
-    void hangUp();
+    void toggleCamera(
+);
 
 
-    void raise();
+    void hangUp(
+);
 
 
-    void setMute(boolean mute);
+    void raise(
+);
 
 
-    void requestMediaRemoting();
+    void setMute(
+boolean mute);
 
 
-    void previousSlide();
+    void requestMediaRemoting(
+);
 
 
-    void nextSlide();
+    void previousSlide(
+);
 
 
-    void enterAutoPictureInPicture();
+    void nextSlide(
+);
+
+
+    void enterAutoPictureInPicture(
+);
 
 
 }

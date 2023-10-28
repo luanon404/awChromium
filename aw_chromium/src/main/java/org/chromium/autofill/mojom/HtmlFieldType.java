@@ -18,6 +18,7 @@ import androidx.annotation.IntDef;
 public final class HtmlFieldType {
     private static final boolean IS_EXTENSIBLE = false;
     @IntDef({
+
         HtmlFieldType.UNSPECIFIED,
         HtmlFieldType.NAME,
         HtmlFieldType.HONORIFIC_PREFIX,

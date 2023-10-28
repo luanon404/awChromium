@@ -13,10 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class TrustTokenOperationResult extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 40;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(40, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(40, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public int operation;
     public int status;
@@ -43,7 +46,8 @@ public final class TrustTokenOperationResult extends org.chromium.mojo.bindings.
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static TrustTokenOperationResult deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -57,32 +61,32 @@ public final class TrustTokenOperationResult extends org.chromium.mojo.bindings.
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new TrustTokenOperationResult(elementsOrVersion);
-            {
-
+                {
+                    
                 result.operation = decoder0.readInt(8);
-                TrustTokenOperationType.validate(result.operation);
-                result.operation = TrustTokenOperationType.toKnownValue(result.operation);
-            }
-            {
-
+                    TrustTokenOperationType.validate(result.operation);
+                    result.operation = TrustTokenOperationType.toKnownValue(result.operation);
+                }
+                {
+                    
                 result.status = decoder0.readInt(12);
-                TrustTokenOperationStatus.validate(result.status);
-                result.status = TrustTokenOperationStatus.toKnownValue(result.status);
-            }
-            {
-
+                    TrustTokenOperationStatus.validate(result.status);
+                    result.status = TrustTokenOperationStatus.toKnownValue(result.status);
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, true);
                 result.issuer = org.chromium.url.internal.mojom.Origin.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, true);
                 result.topLevelOrigin = org.chromium.url.internal.mojom.Origin.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.issuedTokenCount = decoder0.readInt(32);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -94,15 +98,15 @@ public final class TrustTokenOperationResult extends org.chromium.mojo.bindings.
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.operation, 8);
-
+        
         encoder0.encode(this.status, 12);
-
+        
         encoder0.encode(this.issuer, 16, true);
-
+        
         encoder0.encode(this.topLevelOrigin, 24, true);
-
+        
         encoder0.encode(this.issuedTokenCount, 32);
     }
 }

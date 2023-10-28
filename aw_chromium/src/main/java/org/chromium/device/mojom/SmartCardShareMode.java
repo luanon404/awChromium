@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class SmartCardShareMode {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({SmartCardShareMode.SHARED, SmartCardShareMode.EXCLUSIVE, SmartCardShareMode.DIRECT})
-    public @interface EnumType {
-    }
+        SmartCardShareMode.SHARED,
+        SmartCardShareMode.EXCLUSIVE,
+        SmartCardShareMode.DIRECT})
+    public @interface EnumType {}
 
     public static final int SHARED = 0;
     public static final int EXCLUSIVE = 1;
@@ -38,9 +40,8 @@ public final class SmartCardShareMode {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private SmartCardShareMode() {
-    }
+    private SmartCardShareMode() {}
 }

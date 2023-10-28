@@ -17,10 +17,68 @@ import androidx.annotation.IntDef;
 
 public final class Event {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({Event.NONE, Event.ACTIVE_DESCENDANT_CHANGED, Event.ALERT, Event.ARIA_ATTRIBUTE_CHANGED_DEPRECATED, Event.AUTOCORRECTION_OCCURED, Event.BLUR, Event.CHECKED_STATE_CHANGED, Event.CHILDREN_CHANGED, Event.CLICKED, Event.CONTROLS_CHANGED, Event.DOCUMENT_SELECTION_CHANGED, Event.DOCUMENT_TITLE_CHANGED, Event.END_OF_TEST, Event.EXPANDED_CHANGED, Event.FOCUS, Event.FOCUS_AFTER_MENU_CLOSE, Event.FOCUS_CONTEXT, Event.HIDE, Event.HIT_TEST_RESULT, Event.HOVER, Event.IMAGE_FRAME_UPDATED, Event.LAYOUT_COMPLETE, Event.LIVE_REGION_CREATED, Event.LIVE_REGION_CHANGED, Event.LOAD_COMPLETE, Event.LOAD_START, Event.LOCATION_CHANGED, Event.MEDIA_STARTED_PLAYING, Event.MEDIA_STOPPED_PLAYING, Event.MENU_END, Event.MENU_LIST_VALUE_CHANGED, Event.MENU_POPUP_END, Event.MENU_POPUP_START, Event.MENU_START, Event.MOUSE_CANCELED, Event.MOUSE_DRAGGED, Event.MOUSE_MOVED, Event.MOUSE_PRESSED, Event.MOUSE_RELEASED, Event.ROW_COLLAPSED, Event.ROW_COUNT_CHANGED, Event.ROW_EXPANDED, Event.SCROLL_POSITION_CHANGED, Event.SCROLLED_TO_ANCHOR, Event.SELECTED_CHILDREN_CHANGED, Event.SELECTION, Event.SELECTION_ADD, Event.SELECTION_REMOVE, Event.SHOW, Event.STATE_CHANGED, Event.TEXT_CHANGED, Event.TEXT_SELECTION_CHANGED, Event.TOOLTIP_CLOSED, Event.TOOLTIP_OPENED, Event.TREE_CHANGED, Event.VALUE_CHANGED, Event.WINDOW_ACTIVATED, Event.WINDOW_DEACTIVATED, Event.WINDOW_VISIBILITY_CHANGED})
-    public @interface EnumType {
-    }
+        Event.NONE,
+        Event.ACTIVE_DESCENDANT_CHANGED,
+        Event.ALERT,
+        Event.ARIA_ATTRIBUTE_CHANGED_DEPRECATED,
+        Event.AUTOCORRECTION_OCCURED,
+        Event.BLUR,
+        Event.CHECKED_STATE_CHANGED,
+        Event.CHILDREN_CHANGED,
+        Event.CLICKED,
+        Event.CONTROLS_CHANGED,
+        Event.DOCUMENT_SELECTION_CHANGED,
+        Event.DOCUMENT_TITLE_CHANGED,
+        Event.END_OF_TEST,
+        Event.EXPANDED_CHANGED,
+        Event.FOCUS,
+        Event.FOCUS_AFTER_MENU_CLOSE,
+        Event.FOCUS_CONTEXT,
+        Event.HIDE,
+        Event.HIT_TEST_RESULT,
+        Event.HOVER,
+        Event.IMAGE_FRAME_UPDATED,
+        Event.LAYOUT_COMPLETE,
+        Event.LIVE_REGION_CREATED,
+        Event.LIVE_REGION_CHANGED,
+        Event.LOAD_COMPLETE,
+        Event.LOAD_START,
+        Event.LOCATION_CHANGED,
+        Event.MEDIA_STARTED_PLAYING,
+        Event.MEDIA_STOPPED_PLAYING,
+        Event.MENU_END,
+        Event.MENU_LIST_VALUE_CHANGED,
+        Event.MENU_POPUP_END,
+        Event.MENU_POPUP_START,
+        Event.MENU_START,
+        Event.MOUSE_CANCELED,
+        Event.MOUSE_DRAGGED,
+        Event.MOUSE_MOVED,
+        Event.MOUSE_PRESSED,
+        Event.MOUSE_RELEASED,
+        Event.ROW_COLLAPSED,
+        Event.ROW_COUNT_CHANGED,
+        Event.ROW_EXPANDED,
+        Event.SCROLL_POSITION_CHANGED,
+        Event.SCROLLED_TO_ANCHOR,
+        Event.SELECTED_CHILDREN_CHANGED,
+        Event.SELECTION,
+        Event.SELECTION_ADD,
+        Event.SELECTION_REMOVE,
+        Event.SHOW,
+        Event.STATE_CHANGED,
+        Event.TEXT_CHANGED,
+        Event.TEXT_SELECTION_CHANGED,
+        Event.TOOLTIP_CLOSED,
+        Event.TOOLTIP_OPENED,
+        Event.TREE_CHANGED,
+        Event.VALUE_CHANGED,
+        Event.WINDOW_ACTIVATED,
+        Event.WINDOW_DEACTIVATED,
+        Event.WINDOW_VISIBILITY_CHANGED})
+    public @interface EnumType {}
 
     public static final int NONE = 0;
     public static final int ACTIVE_DESCENDANT_CHANGED = 1;
@@ -95,12 +153,11 @@ public final class Event {
     }
 
     public static int toKnownValue(int value) {
-        if (isKnownValue(value)) {
-            return value;
-        }
-        return DEFAULT_VALUE;
+      if (isKnownValue(value)) {
+        return value;
+      }
+      return DEFAULT_VALUE;
     }
 
-    private Event() {
-    }
+    private Event() {}
 }

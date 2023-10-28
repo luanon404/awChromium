@@ -11,13 +11,13 @@ public interface SystemCaptioningBridge {
     /**
      * Interface for listening to changed from SystemCaptioningBridge.
      */
-    interface SystemCaptioningBridgeListener {
+    public interface SystemCaptioningBridgeListener {
         /**
          * Called when system captioning settings change.
          *
          * @param settings The TextTrackSettings object containing the new settings.
          */
-        void onSystemCaptioningChanged(TextTrackSettings settings);
+        public void onSystemCaptioningChanged(TextTrackSettings settings);
     }
 
     /**
@@ -25,19 +25,19 @@ public interface SystemCaptioningBridge {
      *
      * @param listener The SystemCaptioningBridgeListener object to receive all settings.
      */
-    void syncToListener(SystemCaptioningBridgeListener listener);
+    public void syncToListener(SystemCaptioningBridgeListener listener);
 
     /**
      * Add a listener for changes with the system CaptioningManager.
      *
      * @param listener The SystemCaptioningBridgeListener object to add.
      */
-    void addListener(SystemCaptioningBridgeListener listener);
+    public void addListener(SystemCaptioningBridgeListener listener);
 
     /**
      * Remove a listener from system CaptionManager.
      *
      * @param listener The SystemCaptioningBridgeListener object to remove.
      */
-    void removeListener(SystemCaptioningBridgeListener listener);
+    public void removeListener(SystemCaptioningBridgeListener listener);
 }

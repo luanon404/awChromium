@@ -13,9 +13,13 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 class DevicePostureProvider_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<DevicePostureProvider, DevicePostureProvider.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<DevicePostureProvider, DevicePostureProvider.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<DevicePostureProvider, DevicePostureProvider.Proxy> MANAGER =
+            new org.chromium.mojo.bindings.Interface.Manager<DevicePostureProvider, DevicePostureProvider.Proxy>() {
 
         @Override
         public String getName() {
@@ -24,11 +28,12 @@ class DevicePostureProvider_Internal {
 
         @Override
         public int getVersion() {
-            return 0;
+          return 0;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -39,7 +44,7 @@ class DevicePostureProvider_Internal {
 
         @Override
         public DevicePostureProvider[] buildArray(int size) {
-            return new DevicePostureProvider[size];
+          return new DevicePostureProvider[size];
         }
     };
 
@@ -51,33 +56,52 @@ class DevicePostureProvider_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements DevicePostureProvider.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core,
+              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void addListenerAndGetCurrentPosture(DevicePostureClient client, AddListenerAndGetCurrentPosture_Response callback) {
+        public void addListenerAndGetCurrentPosture(
+DevicePostureClient client, 
+AddListenerAndGetCurrentPosture_Response callback) {
 
             DevicePostureProviderAddListenerAndGetCurrentPostureParams _message = new DevicePostureProviderAddListenerAndGetCurrentPostureParams();
 
             _message.client = client;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ADD_LISTENER_AND_GET_CURRENT_POSTURE_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new DevicePostureProviderAddListenerAndGetCurrentPostureResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    ADD_LISTENER_AND_GET_CURRENT_POSTURE_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new DevicePostureProviderAddListenerAndGetCurrentPostureResponseParamsForwardToCallback(callback));
 
         }
 
 
         @Override
-        public void addListenerAndGetCurrentViewportSegments(DeviceViewportSegmentsClient client, AddListenerAndGetCurrentViewportSegments_Response callback) {
+        public void addListenerAndGetCurrentViewportSegments(
+DeviceViewportSegmentsClient client, 
+AddListenerAndGetCurrentViewportSegments_Response callback) {
 
             DevicePostureProviderAddListenerAndGetCurrentViewportSegmentsParams _message = new DevicePostureProviderAddListenerAndGetCurrentViewportSegmentsParams();
 
             _message.client = client;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ADD_LISTENER_AND_GET_CURRENT_VIEWPORT_SEGMENTS_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new DevicePostureProviderAddListenerAndGetCurrentViewportSegmentsResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    ADD_LISTENER_AND_GET_CURRENT_VIEWPORT_SEGMENTS_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new DevicePostureProviderAddListenerAndGetCurrentViewportSegmentsResponseParamsForwardToCallback(callback));
 
         }
 
@@ -93,7 +117,8 @@ class DevicePostureProvider_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -102,17 +127,22 @@ class DevicePostureProvider_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(DevicePostureProvider_Internal.MANAGER, messageWithHeader);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
+                                DevicePostureProvider_Internal.MANAGER, messageWithHeader);
+
+
+
+
 
 
                     default:
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -120,7 +150,8 @@ class DevicePostureProvider_Internal {
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -129,24 +160,37 @@ class DevicePostureProvider_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), DevicePostureProvider_Internal.MANAGER, messageWithHeader, receiver);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
+                                getCore(), DevicePostureProvider_Internal.MANAGER, messageWithHeader, receiver);
+
+
+
+
+
 
 
                     case ADD_LISTENER_AND_GET_CURRENT_POSTURE_ORDINAL: {
 
-                        DevicePostureProviderAddListenerAndGetCurrentPostureParams data = DevicePostureProviderAddListenerAndGetCurrentPostureParams.deserialize(messageWithHeader.getPayload());
+                        DevicePostureProviderAddListenerAndGetCurrentPostureParams data =
+                                DevicePostureProviderAddListenerAndGetCurrentPostureParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().addListenerAndGetCurrentPosture(data.client, new DevicePostureProviderAddListenerAndGetCurrentPostureResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
                     }
 
 
+
+
+
+
+
                     case ADD_LISTENER_AND_GET_CURRENT_VIEWPORT_SEGMENTS_ORDINAL: {
 
-                        DevicePostureProviderAddListenerAndGetCurrentViewportSegmentsParams data = DevicePostureProviderAddListenerAndGetCurrentViewportSegmentsParams.deserialize(messageWithHeader.getPayload());
+                        DevicePostureProviderAddListenerAndGetCurrentViewportSegmentsParams data =
+                                DevicePostureProviderAddListenerAndGetCurrentViewportSegmentsParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().addListenerAndGetCurrentViewportSegments(data.client, new DevicePostureProviderAddListenerAndGetCurrentViewportSegmentsResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
@@ -157,17 +201,18 @@ class DevicePostureProvider_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class DevicePostureProviderAddListenerAndGetCurrentPostureParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public DevicePostureClient client;
 
@@ -189,7 +234,8 @@ class DevicePostureProvider_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static DevicePostureProviderAddListenerAndGetCurrentPostureParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -203,10 +249,10 @@ class DevicePostureProvider_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new DevicePostureProviderAddListenerAndGetCurrentPostureParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.client = decoder0.readServiceInterface(8, false, DevicePostureClient.MANAGER);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -218,16 +264,18 @@ class DevicePostureProvider_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.client, 8, false, DevicePostureClient.MANAGER);
         }
     }
 
 
+
+    
     static final class DevicePostureProviderAddListenerAndGetCurrentPostureResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int posture;
 
@@ -249,7 +297,8 @@ class DevicePostureProvider_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static DevicePostureProviderAddListenerAndGetCurrentPostureResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -263,12 +312,12 @@ class DevicePostureProvider_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new DevicePostureProviderAddListenerAndGetCurrentPostureResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.posture = decoder0.readInt(8);
-                    DevicePostureType.validate(result.posture);
-                    result.posture = DevicePostureType.toKnownValue(result.posture);
-                }
+                        DevicePostureType.validate(result.posture);
+                        result.posture = DevicePostureType.toKnownValue(result.posture);
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -280,12 +329,13 @@ class DevicePostureProvider_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.posture, 8);
         }
     }
 
-    static class DevicePostureProviderAddListenerAndGetCurrentPostureResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class DevicePostureProviderAddListenerAndGetCurrentPostureResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final DevicePostureProvider.AddListenerAndGetCurrentPosture_Response mCallback;
 
         DevicePostureProviderAddListenerAndGetCurrentPostureResponseParamsForwardToCallback(DevicePostureProvider.AddListenerAndGetCurrentPosture_Response callback) {
@@ -295,9 +345,11 @@ class DevicePostureProvider_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(ADD_LISTENER_AND_GET_CURRENT_POSTURE_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(ADD_LISTENER_AND_GET_CURRENT_POSTURE_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -317,7 +369,10 @@ class DevicePostureProvider_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        DevicePostureProviderAddListenerAndGetCurrentPostureResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        DevicePostureProviderAddListenerAndGetCurrentPostureResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -329,16 +384,24 @@ class DevicePostureProvider_Internal {
 
             _response.posture = posture;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(ADD_LISTENER_AND_GET_CURRENT_POSTURE_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    ADD_LISTENER_AND_GET_CURRENT_POSTURE_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
 
 
+
+    
     static final class DevicePostureProviderAddListenerAndGetCurrentViewportSegmentsParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public DeviceViewportSegmentsClient client;
 
@@ -360,7 +423,8 @@ class DevicePostureProvider_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static DevicePostureProviderAddListenerAndGetCurrentViewportSegmentsParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -374,10 +438,10 @@ class DevicePostureProvider_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new DevicePostureProviderAddListenerAndGetCurrentViewportSegmentsParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.client = decoder0.readServiceInterface(8, false, DeviceViewportSegmentsClient.MANAGER);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -389,16 +453,18 @@ class DevicePostureProvider_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.client, 8, false, DeviceViewportSegmentsClient.MANAGER);
         }
     }
 
 
+
+    
     static final class DevicePostureProviderAddListenerAndGetCurrentViewportSegmentsResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.gfx.mojom.Rect[] segments;
 
@@ -420,7 +486,8 @@ class DevicePostureProvider_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static DevicePostureProviderAddListenerAndGetCurrentViewportSegmentsResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -434,19 +501,19 @@ class DevicePostureProvider_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new DevicePostureProviderAddListenerAndGetCurrentViewportSegmentsResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     {
                         org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                         result.segments = new org.chromium.gfx.mojom.Rect[si1.elementsOrVersion];
                         for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                            
                             org.chromium.mojo.bindings.Decoder decoder2 = decoder1.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                             result.segments[i1] = org.chromium.gfx.mojom.Rect.decode(decoder2);
                         }
                     }
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -458,20 +525,21 @@ class DevicePostureProvider_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             if (this.segments == null) {
                 encoder0.encodeNullPointer(8, false);
             } else {
                 org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.segments.length, 8, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                 for (int i0 = 0; i0 < this.segments.length; ++i0) {
-
+                    
                     encoder1.encode(this.segments[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
                 }
             }
         }
     }
 
-    static class DevicePostureProviderAddListenerAndGetCurrentViewportSegmentsResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class DevicePostureProviderAddListenerAndGetCurrentViewportSegmentsResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final DevicePostureProvider.AddListenerAndGetCurrentViewportSegments_Response mCallback;
 
         DevicePostureProviderAddListenerAndGetCurrentViewportSegmentsResponseParamsForwardToCallback(DevicePostureProvider.AddListenerAndGetCurrentViewportSegments_Response callback) {
@@ -481,9 +549,11 @@ class DevicePostureProvider_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(ADD_LISTENER_AND_GET_CURRENT_VIEWPORT_SEGMENTS_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(ADD_LISTENER_AND_GET_CURRENT_VIEWPORT_SEGMENTS_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -503,7 +573,10 @@ class DevicePostureProvider_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        DevicePostureProviderAddListenerAndGetCurrentViewportSegmentsResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        DevicePostureProviderAddListenerAndGetCurrentViewportSegmentsResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -515,10 +588,17 @@ class DevicePostureProvider_Internal {
 
             _response.segments = segments;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(ADD_LISTENER_AND_GET_CURRENT_VIEWPORT_SEGMENTS_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    ADD_LISTENER_AND_GET_CURRENT_VIEWPORT_SEGMENTS_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
+
 
 
 }

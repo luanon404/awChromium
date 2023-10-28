@@ -12,17 +12,17 @@ public interface ExceptionHandler {
     /**
      * Receives a notification that an unhandled {@link RuntimeException} has been thrown in an
      * {@link Interface} implementation or one of the {@link Callbacks} internal classes.
-     * <p>
+     *
      * Normal implementations should either throw the exception or return whether the connection
      * should be kept alive or terminated.
      */
-    boolean handleException(RuntimeException e);
+    public boolean handleException(RuntimeException e);
 
     /**
      * The default ExceptionHandler, which simply throws the exception upon receiving it. It can
      * also delegate the handling of the exceptions to another instance of ExceptionHandler.
      */
-    class DefaultExceptionHandler implements ExceptionHandler {
+    public static class DefaultExceptionHandler implements ExceptionHandler {
         private ExceptionHandler mDelegate;
 
         @Override
@@ -33,8 +33,7 @@ public interface ExceptionHandler {
             throw e;
         }
 
-        private DefaultExceptionHandler() {
-        }
+        private DefaultExceptionHandler() {}
 
         /**
          * Static class that implements the initialization-on-demand holder idiom.

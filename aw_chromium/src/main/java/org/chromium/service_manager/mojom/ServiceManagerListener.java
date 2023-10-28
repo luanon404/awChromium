@@ -13,30 +13,40 @@
 
 package org.chromium.service_manager.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface ServiceManagerListener extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends ServiceManagerListener, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends ServiceManagerListener, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<ServiceManagerListener, ServiceManagerListener.Proxy> MANAGER = ServiceManagerListener_Internal.MANAGER;
 
-    void onInit(RunningServiceInfo[] runningServices);
+    void onInit(
+RunningServiceInfo[] runningServices);
 
 
-    void onServiceCreated(RunningServiceInfo service);
+    void onServiceCreated(
+RunningServiceInfo service);
 
 
-    void onServiceStarted(Identity identity, int pidDeprecated);
+    void onServiceStarted(
+Identity identity, int pidDeprecated);
 
 
-    void onServicePidReceived(Identity identity, int pid);
+    void onServicePidReceived(
+Identity identity, int pid);
 
 
-    void onServiceFailedToStart(Identity identity);
+    void onServiceFailedToStart(
+Identity identity);
 
 
-    void onServiceStopped(Identity identity);
+    void onServiceStopped(
+Identity identity);
 
 
 }

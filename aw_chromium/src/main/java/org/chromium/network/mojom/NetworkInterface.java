@@ -13,10 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class NetworkInterface extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 56;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(56, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(56, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public String name;
     public String friendlyName;
@@ -45,7 +48,8 @@ public final class NetworkInterface extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static NetworkInterface deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -59,41 +63,41 @@ public final class NetworkInterface extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new NetworkInterface(elementsOrVersion);
-            {
-
+                {
+                    
                 result.name = decoder0.readString(8, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.friendlyName = decoder0.readString(16, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.interfaceIndex = decoder0.readInt(24);
-            }
-            {
-
+                }
+                {
+                    
                 result.type = decoder0.readInt(28);
-                ConnectionType.validate(result.type);
-                result.type = ConnectionType.toKnownValue(result.type);
-            }
-            {
-
+                    ConnectionType.validate(result.type);
+                    result.type = ConnectionType.toKnownValue(result.type);
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(32, false);
                 result.address = IpAddress.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.prefixLength = decoder0.readInt(40);
-            }
-            {
-
+                }
+                {
+                    
                 result.ipAddressAttributes = decoder0.readInt(44);
-            }
-            {
-
+                }
+                {
+                    
                 result.macAddress = decoder0.readBytes(48, org.chromium.mojo.bindings.BindingsHelper.ARRAY_NULLABLE, 6);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -105,21 +109,21 @@ public final class NetworkInterface extends org.chromium.mojo.bindings.Struct {
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.name, 8, false);
-
+        
         encoder0.encode(this.friendlyName, 16, false);
-
+        
         encoder0.encode(this.interfaceIndex, 24);
-
+        
         encoder0.encode(this.type, 28);
-
+        
         encoder0.encode(this.address, 32, false);
-
+        
         encoder0.encode(this.prefixLength, 40);
-
+        
         encoder0.encode(this.ipAddressAttributes, 44);
-
+        
         encoder0.encode(this.macAddress, 48, org.chromium.mojo.bindings.BindingsHelper.ARRAY_NULLABLE, 6);
     }
 }

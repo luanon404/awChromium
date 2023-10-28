@@ -17,10 +17,18 @@ import androidx.annotation.IntDef;
 
 public final class FloatAttribute {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({FloatAttribute.NONE, FloatAttribute.VALUE_FOR_RANGE, FloatAttribute.MIN_VALUE_FOR_RANGE, FloatAttribute.MAX_VALUE_FOR_RANGE, FloatAttribute.STEP_VALUE_FOR_RANGE, FloatAttribute.FONT_SIZE, FloatAttribute.FONT_WEIGHT, FloatAttribute.TEXT_INDENT, FloatAttribute.CHILD_TREE_SCALE})
-    public @interface EnumType {
-    }
+        FloatAttribute.NONE,
+        FloatAttribute.VALUE_FOR_RANGE,
+        FloatAttribute.MIN_VALUE_FOR_RANGE,
+        FloatAttribute.MAX_VALUE_FOR_RANGE,
+        FloatAttribute.STEP_VALUE_FOR_RANGE,
+        FloatAttribute.FONT_SIZE,
+        FloatAttribute.FONT_WEIGHT,
+        FloatAttribute.TEXT_INDENT,
+        FloatAttribute.CHILD_TREE_SCALE})
+    public @interface EnumType {}
 
     public static final int NONE = 0;
     public static final int VALUE_FOR_RANGE = 1;
@@ -45,12 +53,11 @@ public final class FloatAttribute {
     }
 
     public static int toKnownValue(int value) {
-        if (isKnownValue(value)) {
-            return value;
-        }
-        return DEFAULT_VALUE;
+      if (isKnownValue(value)) {
+        return value;
+      }
+      return DEFAULT_VALUE;
     }
 
-    private FloatAttribute() {
-    }
+    private FloatAttribute() {}
 }

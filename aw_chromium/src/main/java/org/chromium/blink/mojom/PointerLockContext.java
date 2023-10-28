@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface PointerLockContext extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends PointerLockContext, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends PointerLockContext, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<PointerLockContext, PointerLockContext.Proxy> MANAGER = PointerLockContext_Internal.MANAGER;

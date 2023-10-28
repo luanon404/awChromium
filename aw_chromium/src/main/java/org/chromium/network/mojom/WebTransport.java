@@ -13,63 +13,71 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface WebTransport extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends WebTransport, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends WebTransport, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<WebTransport, WebTransport.Proxy> MANAGER = WebTransport_Internal.MANAGER;
 
-    void sendDatagram(org.chromium.mojo_base.mojom.ReadOnlyBuffer data, SendDatagram_Response callback);
+    void sendDatagram(
+org.chromium.mojo_base.mojom.ReadOnlyBuffer data, 
+SendDatagram_Response callback);
 
-    interface SendDatagram_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> {
-    }
+    interface SendDatagram_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> { }
 
 
-    void createStream(org.chromium.mojo.system.DataPipe.ConsumerHandle readable, org.chromium.mojo.system.DataPipe.ProducerHandle writable, CreateStream_Response callback);
+    void createStream(
+org.chromium.mojo.system.DataPipe.ConsumerHandle readable, org.chromium.mojo.system.DataPipe.ProducerHandle writable, 
+CreateStream_Response callback);
 
-    interface CreateStream_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<Boolean, Integer> {
-    }
+    interface CreateStream_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<Boolean, Integer> { }
 
 
     void acceptBidirectionalStream(
 
-            AcceptBidirectionalStream_Response callback);
+AcceptBidirectionalStream_Response callback);
 
-    interface AcceptBidirectionalStream_Response extends org.chromium.mojo.bindings.Callbacks.Callback3<Integer, org.chromium.mojo.system.DataPipe.ConsumerHandle, org.chromium.mojo.system.DataPipe.ProducerHandle> {
-    }
+    interface AcceptBidirectionalStream_Response extends org.chromium.mojo.bindings.Callbacks.Callback3<Integer, org.chromium.mojo.system.DataPipe.ConsumerHandle, org.chromium.mojo.system.DataPipe.ProducerHandle> { }
 
 
     void acceptUnidirectionalStream(
 
-            AcceptUnidirectionalStream_Response callback);
+AcceptUnidirectionalStream_Response callback);
 
-    interface AcceptUnidirectionalStream_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<Integer, org.chromium.mojo.system.DataPipe.ConsumerHandle> {
-    }
-
-
-    void sendFin(int streamId);
+    interface AcceptUnidirectionalStream_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<Integer, org.chromium.mojo.system.DataPipe.ConsumerHandle> { }
 
 
-    void abortStream(int streamId, byte code);
+    void sendFin(
+int streamId);
 
 
-    void stopSending(int streamId, byte code);
+    void abortStream(
+int streamId, byte code);
 
 
-    void setOutgoingDatagramExpirationDuration(org.chromium.mojo_base.mojom.TimeDelta duration);
+    void stopSending(
+int streamId, byte code);
+
+
+    void setOutgoingDatagramExpirationDuration(
+org.chromium.mojo_base.mojom.TimeDelta duration);
 
 
     void getStats(
 
-            GetStats_Response callback);
+GetStats_Response callback);
 
-    interface GetStats_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<WebTransportStats> {
-    }
+    interface GetStats_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<WebTransportStats> { }
 
 
-    void close(WebTransportCloseInfo closeInfo);
+    void close(
+WebTransportCloseInfo closeInfo);
 
 
 }

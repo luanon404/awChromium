@@ -13,20 +13,23 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface BatteryMonitor extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends BatteryMonitor, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends BatteryMonitor, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<BatteryMonitor, BatteryMonitor.Proxy> MANAGER = BatteryMonitor_Internal.MANAGER;
 
     void queryNextStatus(
 
-            QueryNextStatus_Response callback);
+QueryNextStatus_Response callback);
 
-    interface QueryNextStatus_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<BatteryStatus> {
-    }
+    interface QueryNextStatus_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<BatteryStatus> { }
 
 
 }

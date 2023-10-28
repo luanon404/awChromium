@@ -1,3 +1,4 @@
+
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -14,11 +15,14 @@ import androidx.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@IntDef({PrimaryCpuAbiBitness.UNKNOWN, PrimaryCpuAbiBitness.k32bit, PrimaryCpuAbiBitness.k64bit, PrimaryCpuAbiBitness.MAX_VALUE})
+@IntDef({
+    PrimaryCpuAbiBitness.UNKNOWN, PrimaryCpuAbiBitness.k32bit, PrimaryCpuAbiBitness.k64bit,
+    PrimaryCpuAbiBitness.MAX_VALUE
+})
 @Retention(RetentionPolicy.SOURCE)
 public @interface PrimaryCpuAbiBitness {
-    int UNKNOWN = 0;
-    int k32bit = 1;
-    int k64bit = 2;
-    int MAX_VALUE = k64bit;
+  int UNKNOWN = 0;
+  int k32bit = 1;
+  int k64bit = 2;
+  int MAX_VALUE = k64bit;
 }

@@ -17,10 +17,13 @@ import androidx.annotation.IntDef;
 
 public final class ReportingApiReportStatus {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({ReportingApiReportStatus.QUEUED, ReportingApiReportStatus.PENDING, ReportingApiReportStatus.DOOMED, ReportingApiReportStatus.SUCCESS})
-    public @interface EnumType {
-    }
+        ReportingApiReportStatus.QUEUED,
+        ReportingApiReportStatus.PENDING,
+        ReportingApiReportStatus.DOOMED,
+        ReportingApiReportStatus.SUCCESS})
+    public @interface EnumType {}
 
     public static final int QUEUED = 0;
     public static final int PENDING = 1;
@@ -39,9 +42,8 @@ public final class ReportingApiReportStatus {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private ReportingApiReportStatus() {
-    }
+    private ReportingApiReportStatus() {}
 }

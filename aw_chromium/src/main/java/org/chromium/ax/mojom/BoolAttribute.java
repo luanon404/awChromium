@@ -17,10 +17,32 @@ import androidx.annotation.IntDef;
 
 public final class BoolAttribute {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({BoolAttribute.NONE, BoolAttribute.BUSY, BoolAttribute.NON_ATOMIC_TEXT_FIELD_ROOT, BoolAttribute.CONTAINER_LIVE_ATOMIC, BoolAttribute.CONTAINER_LIVE_BUSY, BoolAttribute.LIVE_ATOMIC, BoolAttribute.MODAL, BoolAttribute.UPDATE_LOCATION_ONLY, BoolAttribute.CANVAS_HAS_FALLBACK, BoolAttribute.SCROLLABLE, BoolAttribute.CLICKABLE, BoolAttribute.CLIPS_CHILDREN, BoolAttribute.NOT_USER_SELECTABLE_STYLE, BoolAttribute.SELECTED, BoolAttribute.SELECTED_FROM_FOCUS, BoolAttribute.SUPPORTS_TEXT_LOCATION, BoolAttribute.GRABBED_DEPRECATED, BoolAttribute.IS_LINE_BREAKING_OBJECT, BoolAttribute.IS_PAGE_BREAKING_OBJECT, BoolAttribute.HAS_ARIA_ATTRIBUTE, BoolAttribute.TOUCH_PASSTHROUGH_DEPRECATED, BoolAttribute.LONG_CLICKABLE, BoolAttribute.HAS_HIDDEN_OFFSCREEN_NODES})
-    public @interface EnumType {
-    }
+        BoolAttribute.NONE,
+        BoolAttribute.BUSY,
+        BoolAttribute.NON_ATOMIC_TEXT_FIELD_ROOT,
+        BoolAttribute.CONTAINER_LIVE_ATOMIC,
+        BoolAttribute.CONTAINER_LIVE_BUSY,
+        BoolAttribute.LIVE_ATOMIC,
+        BoolAttribute.MODAL,
+        BoolAttribute.UPDATE_LOCATION_ONLY,
+        BoolAttribute.CANVAS_HAS_FALLBACK,
+        BoolAttribute.SCROLLABLE,
+        BoolAttribute.CLICKABLE,
+        BoolAttribute.CLIPS_CHILDREN,
+        BoolAttribute.NOT_USER_SELECTABLE_STYLE,
+        BoolAttribute.SELECTED,
+        BoolAttribute.SELECTED_FROM_FOCUS,
+        BoolAttribute.SUPPORTS_TEXT_LOCATION,
+        BoolAttribute.GRABBED_DEPRECATED,
+        BoolAttribute.IS_LINE_BREAKING_OBJECT,
+        BoolAttribute.IS_PAGE_BREAKING_OBJECT,
+        BoolAttribute.HAS_ARIA_ATTRIBUTE,
+        BoolAttribute.TOUCH_PASSTHROUGH_DEPRECATED,
+        BoolAttribute.LONG_CLICKABLE,
+        BoolAttribute.HAS_HIDDEN_OFFSCREEN_NODES})
+    public @interface EnumType {}
 
     public static final int NONE = 0;
     public static final int BUSY = 1;
@@ -59,12 +81,11 @@ public final class BoolAttribute {
     }
 
     public static int toKnownValue(int value) {
-        if (isKnownValue(value)) {
-            return value;
-        }
-        return DEFAULT_VALUE;
+      if (isKnownValue(value)) {
+        return value;
+      }
+      return DEFAULT_VALUE;
     }
 
-    private BoolAttribute() {
-    }
+    private BoolAttribute() {}
 }

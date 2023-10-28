@@ -11,8 +11,9 @@ import android.os.Process;
 
 import androidx.annotation.Nullable;
 
-import org.chromium.base.ContextUtils;
 import org.jni_zero.CalledByNative;
+
+import org.chromium.base.ContextUtils;
 
 /**
  * Allows calling ActivityManager#getProcessMemoryInfo() from native.
@@ -20,17 +21,19 @@ import org.jni_zero.CalledByNative;
 public class MemoryInfoBridge {
     /**
      * Returns the result of ActivityManager#getProcessMemoryInfo() on itself.
-     * <p>
+     *
      * Calls to this method are heavily throttled in ActivityManager, with stale results silently
      * returned when called too often. Should not be called outside of the native caller, as the
      * throttling handling code there would become incorrect otherwise.
      */
     @CalledByNative
     public static @Nullable Debug.MemoryInfo getActivityManagerMemoryInfoForSelf() {
-        ActivityManager activityManager = (ActivityManager) ContextUtils.getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
+        ActivityManager activityManager =
+                (ActivityManager) ContextUtils.getApplicationContext().getSystemService(
+                        Context.ACTIVITY_SERVICE);
         int pid = Process.myPid();
         try {
-            Debug.MemoryInfo[] infos = activityManager.getProcessMemoryInfo(new int[]{pid});
+            Debug.MemoryInfo[] infos = activityManager.getProcessMemoryInfo(new int[] {pid});
             return infos == null ? null : infos[0];
         } catch (SecurityException e) {
             // Isolated callers are not allowed. Since this is used for logging only, don't crash in

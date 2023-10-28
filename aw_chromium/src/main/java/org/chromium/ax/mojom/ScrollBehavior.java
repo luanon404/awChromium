@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class ScrollBehavior {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({ScrollBehavior.NONE, ScrollBehavior.DO_NOT_SCROLL_IF_VISIBLE, ScrollBehavior.SCROLL_IF_VISIBLE})
-    public @interface EnumType {
-    }
+        ScrollBehavior.NONE,
+        ScrollBehavior.DO_NOT_SCROLL_IF_VISIBLE,
+        ScrollBehavior.SCROLL_IF_VISIBLE})
+    public @interface EnumType {}
 
     public static final int NONE = 0;
     public static final int DO_NOT_SCROLL_IF_VISIBLE = 1;
@@ -39,12 +41,11 @@ public final class ScrollBehavior {
     }
 
     public static int toKnownValue(int value) {
-        if (isKnownValue(value)) {
-            return value;
-        }
-        return DEFAULT_VALUE;
+      if (isKnownValue(value)) {
+        return value;
+      }
+      return DEFAULT_VALUE;
     }
 
-    private ScrollBehavior() {
-    }
+    private ScrollBehavior() {}
 }

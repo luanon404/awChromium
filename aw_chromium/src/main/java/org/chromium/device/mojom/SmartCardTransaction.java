@@ -13,18 +13,23 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface SmartCardTransaction extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends SmartCardTransaction, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends SmartCardTransaction, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<SmartCardTransaction, SmartCardTransaction.Proxy> MANAGER = SmartCardTransaction_Internal.MANAGER;
 
-    void endTransaction(int disposition, EndTransaction_Response callback);
+    void endTransaction(
+int disposition, 
+EndTransaction_Response callback);
 
-    interface EndTransaction_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<SmartCardResult> {
-    }
+    interface EndTransaction_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<SmartCardResult> { }
 
 
 }

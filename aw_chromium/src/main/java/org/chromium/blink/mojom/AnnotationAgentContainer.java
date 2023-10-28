@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface AnnotationAgentContainer extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends AnnotationAgentContainer, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends AnnotationAgentContainer, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<AnnotationAgentContainer, AnnotationAgentContainer.Proxy> MANAGER = AnnotationAgentContainer_Internal.MANAGER;

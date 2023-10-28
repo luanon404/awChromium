@@ -9,7 +9,7 @@ import org.jni_zero.JNINamespace;
 
 /**
  * Delegate for handling callbacks. All methods are called on the IO thread.
- * <p>
+ *
  * You should create a separate instance for every WebContents that requires the
  * provided functionality.
  */

@@ -13,10 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class WebSocketHandshakeResponse extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 80;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(80, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(80, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public org.chromium.url.mojom.Url url;
     public HttpVersion httpVersion;
@@ -46,7 +49,8 @@ public final class WebSocketHandshakeResponse extends org.chromium.mojo.bindings
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static WebSocketHandshakeResponse deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -60,54 +64,54 @@ public final class WebSocketHandshakeResponse extends org.chromium.mojo.bindings
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new WebSocketHandshakeResponse(elementsOrVersion);
-            {
-
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                 result.url = org.chromium.url.mojom.Url.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                 result.httpVersion = HttpVersion.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.statusCode = decoder0.readInt(24);
-            }
-            {
-
+                }
+                {
+                    
                 result.statusText = decoder0.readString(32, false);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(40, false);
                 result.remoteEndpoint = IpEndPoint.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(48, false);
                 {
                     org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                     result.headers = new HttpHeader[si1.elementsOrVersion];
                     for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                        
                         org.chromium.mojo.bindings.Decoder decoder2 = decoder1.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                         result.headers[i1] = HttpHeader.decode(decoder2);
                     }
                 }
-            }
-            {
-
+                }
+                {
+                    
                 result.headersText = decoder0.readString(56, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.selectedProtocol = decoder0.readString(64, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.extensions = decoder0.readString(72, false);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -119,31 +123,31 @@ public final class WebSocketHandshakeResponse extends org.chromium.mojo.bindings
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.url, 8, false);
-
+        
         encoder0.encode(this.httpVersion, 16, false);
-
+        
         encoder0.encode(this.statusCode, 24);
-
+        
         encoder0.encode(this.statusText, 32, false);
-
+        
         encoder0.encode(this.remoteEndpoint, 40, false);
-
+        
         if (this.headers == null) {
             encoder0.encodeNullPointer(48, false);
         } else {
             org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.headers.length, 48, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
             for (int i0 = 0; i0 < this.headers.length; ++i0) {
-
+                
                 encoder1.encode(this.headers[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
             }
         }
-
+        
         encoder0.encode(this.headersText, 56, false);
-
+        
         encoder0.encode(this.selectedProtocol, 64, false);
-
+        
         encoder0.encode(this.extensions, 72, false);
     }
 }

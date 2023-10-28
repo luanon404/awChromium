@@ -17,9 +17,7 @@ import java.util.List;
  * Controls all the popup views on content view.
  */
 public class PopupController implements UserData {
-    /**
-     * Interface for popup views that expose a method for hiding itself.
-     */
+    /** Interface for popup views that expose a method for hiding itself. */
     public interface HideablePopup {
         /**
          * Called when the popup needs to be hidden.
@@ -34,15 +32,14 @@ public class PopupController implements UserData {
     private final List<HideablePopup> mHideablePopups = new ArrayList<>();
 
     public static PopupController fromWebContents(WebContents webContents) {
-        return ((WebContentsImpl) webContents).getOrSetUserData(PopupController.class, UserDataFactoryLazyHolder.INSTANCE);
+        return ((WebContentsImpl) webContents)
+                .getOrSetUserData(PopupController.class, UserDataFactoryLazyHolder.INSTANCE);
     }
 
-    private PopupController(WebContents webContents) {
-    }
+    private PopupController(WebContents webContents) {}
 
     /**
      * Hide all popup views.
-     *
      * @param webContents {@link WebContents} for current content.
      */
     public static void hideAll(WebContents webContents) {
@@ -53,22 +50,21 @@ public class PopupController implements UserData {
 
     /**
      * Hide all popup views and clear text selection UI.
-     *
      * @param webContents {@link WebContents} for current content.
      */
     public static void hidePopupsAndClearSelection(WebContents webContents) {
         if (webContents == null) return;
 
-        SelectionPopupControllerImpl controller = SelectionPopupControllerImpl.fromWebContentsNoCreate(webContents);
+        SelectionPopupControllerImpl controller =
+                SelectionPopupControllerImpl.fromWebContentsNoCreate(webContents);
         if (controller != null) controller.destroyActionModeAndUnselect();
         PopupController.hideAll(webContents);
     }
 
     /**
      * Register a hideable popup.
-     *
      * @param webContents {@link WebContents} for current content.
-     * @param popup       {@link Hideable} popup view object.
+     * @param popup {@link Hideable} popup view object.
      */
     public static void register(WebContents webContents, HideablePopup popup) {
         if (webContents == null) return;

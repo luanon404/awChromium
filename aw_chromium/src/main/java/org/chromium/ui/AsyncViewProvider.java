@@ -14,7 +14,6 @@ import org.chromium.base.ThreadUtils;
 /**
  * A provider that encapsulates a {@link View} that is in the view hierarchy to be inflated by
  * an {@link AsyncViewStub}.
- *
  * @param <T> type of the {@link View} that this provider encapsulates.
  */
 public class AsyncViewProvider<T extends View> implements Callback<View>, ViewProvider<T> {
@@ -39,10 +38,9 @@ public class AsyncViewProvider<T extends View> implements Callback<View>, ViewPr
     /**
      * Returns a provider for a view in the view hierarchy that is to be inflated by {@param
      * viewStub}.
-     *
      * @param viewStub the {@link AsyncViewStub} that will inflate the view hierarchy containing the
      *                 {@link View}.
-     * @param resId    The resource id of the view that this provider should provide/encapsulate.
+     * @param resId The resource id of the view that this provider should provide/encapsulate.
      * @return an {@link AsyncViewProvider} that encapsulates a view with id {@param resId}.
      */
     public static <E extends View> AsyncViewProvider<E> of(AsyncViewStub viewStub, int resId) {
@@ -58,18 +56,18 @@ public class AsyncViewProvider<T extends View> implements Callback<View>, ViewPr
     /**
      * Get a provider for a view with id {@param viewResId} that is (or going to be) in the view
      * hierarchy inflated by the AsyncViewStub with id {@param viewStubResId}.
-     *
-     * @param root          the {@link View} to use as the context for finding the View/ViewStub that the
-     *                      provider encapsulates.
+     * @param root the {@link View} to use as the context for finding the View/ViewStub that the
+     *             provider encapsulates.
      * @param viewStubResId the resource id of the AsyncViewStub that inflates the view hierarchy
      *                      where the encapsulated View lives.
-     * @param viewResId     the resource id of the view that the provider should provide/encapsulate.
+     * @param viewResId the resource id of the view that the provider should provide/encapsulate.
      * @return an {@link AsyncViewProvider} that encapsulates a view with id {@param viewResId}.
      */
-    public static <E extends View> AsyncViewProvider<E> of(View root, int viewStubResId, int viewResId) {
+    public static <E extends View> AsyncViewProvider<E> of(
+            View root, int viewStubResId, int viewResId) {
         ThreadUtils.assertOnUiThread();
         View viewStub = root.findViewById(viewStubResId);
-        if (viewStub instanceof AsyncViewStub) {
+        if (viewStub != null && viewStub instanceof AsyncViewStub) {
             // view stub not yet inflated
             return of((AsyncViewStub) viewStub, viewResId);
         }
@@ -90,6 +88,20 @@ public class AsyncViewProvider<T extends View> implements Callback<View>, ViewPr
     @Nullable
     public T get() {
         return mView;
+    }
+
+    /**
+     * @param resId resource id of the {@link View} that the returned provider would
+     *              encapsulate.
+     * @param <E> type of the {@link View} that the returned provider would encapsulate
+     * @return a provider for a {@link View} with resource id {@param resId} that is in the view
+     * hierarchy of the {@link View} encapsulated by this provider.
+     */
+    public <E extends View> AsyncViewProvider<E> getChildProvider(int resId) {
+        if (mView != null) {
+            return new AsyncViewProvider<>(mView.findViewById(resId));
+        }
+        return of(mViewStub, resId);
     }
 
     @Override
@@ -132,7 +144,7 @@ public class AsyncViewProvider<T extends View> implements Callback<View>, ViewPr
             mView = null;
         }
         if (mViewStub != null) {
-            mViewStub.addOnInflateListener((View view) -> destroyCallback.onResult(mView));
+            mViewStub.addOnInflateListener((View view) -> { destroyCallback.onResult(mView); });
             mViewStub = null;
         }
     }

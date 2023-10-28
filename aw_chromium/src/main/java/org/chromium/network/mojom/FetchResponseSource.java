@@ -17,10 +17,13 @@ import androidx.annotation.IntDef;
 
 public final class FetchResponseSource {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({FetchResponseSource.UNSPECIFIED, FetchResponseSource.NETWORK, FetchResponseSource.HTTP_CACHE, FetchResponseSource.CACHE_STORAGE})
-    public @interface EnumType {
-    }
+        FetchResponseSource.UNSPECIFIED,
+        FetchResponseSource.NETWORK,
+        FetchResponseSource.HTTP_CACHE,
+        FetchResponseSource.CACHE_STORAGE})
+    public @interface EnumType {}
 
     public static final int UNSPECIFIED = 0;
     public static final int NETWORK = 1;
@@ -39,9 +42,8 @@ public final class FetchResponseSource {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private FetchResponseSource() {
-    }
+    private FetchResponseSource() {}
 }

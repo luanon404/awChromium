@@ -13,6 +13,8 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public final class PermissionDescriptorExtension extends org.chromium.mojo.bindings.Union {
 
@@ -21,8 +23,7 @@ public final class PermissionDescriptorExtension extends org.chromium.mojo.bindi
         public static final int Clipboard = 1;
         public static final int CameraDevice = 2;
         public static final int TopLevelStorageAccess = 3;
-    }
-
+    };
     private MidiPermissionDescriptor mMidi;
     private ClipboardPermissionDescriptor mClipboard;
     private CameraDevicePermissionDescriptor mCameraDevice;

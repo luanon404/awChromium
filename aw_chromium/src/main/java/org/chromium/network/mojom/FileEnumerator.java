@@ -13,18 +13,23 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface FileEnumerator extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends FileEnumerator, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends FileEnumerator, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<FileEnumerator, FileEnumerator.Proxy> MANAGER = FileEnumerator_Internal.MANAGER;
 
-    void getNext(int numEntries, GetNext_Response callback);
+    void getNext(
+int numEntries, 
+GetNext_Response callback);
 
-    interface GetNext_Response extends org.chromium.mojo.bindings.Callbacks.Callback3<FileEnumerationEntry[], Boolean, Boolean> {
-    }
+    interface GetNext_Response extends org.chromium.mojo.bindings.Callbacks.Callback3<FileEnumerationEntry[], Boolean, Boolean> { }
 
 
 }

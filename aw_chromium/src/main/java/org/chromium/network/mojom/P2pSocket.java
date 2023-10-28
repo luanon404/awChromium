@@ -13,21 +13,28 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface P2pSocket extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends P2pSocket, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends P2pSocket, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<P2pSocket, P2pSocket.Proxy> MANAGER = P2pSocket_Internal.MANAGER;
 
-    void send(org.chromium.mojo_base.mojom.ReadOnlyBuffer data, P2pPacketInfo packetInfo);
+    void send(
+org.chromium.mojo_base.mojom.ReadOnlyBuffer data, P2pPacketInfo packetInfo);
 
 
-    void sendBatch(P2pSendPacket[] packetBatch);
+    void sendBatch(
+P2pSendPacket[] packetBatch);
 
 
-    void setOption(int option, int value);
+    void setOption(
+int option, int value);
 
 
 }

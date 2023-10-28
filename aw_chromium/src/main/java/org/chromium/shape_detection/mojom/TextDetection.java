@@ -13,18 +13,23 @@
 
 package org.chromium.shape_detection.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface TextDetection extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends TextDetection, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends TextDetection, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<TextDetection, TextDetection.Proxy> MANAGER = TextDetection_Internal.MANAGER;
 
-    void detect(org.chromium.skia.mojom.BitmapN32 bitmapData, Detect_Response callback);
+    void detect(
+org.chromium.skia.mojom.BitmapN32 bitmapData, 
+Detect_Response callback);
 
-    interface Detect_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<TextDetectionResult[]> {
-    }
+    interface Detect_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<TextDetectionResult[]> { }
 
 
 }

@@ -17,10 +17,23 @@ import androidx.annotation.IntDef;
 
 public final class BarcodeFormat {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({BarcodeFormat.AZTEC, BarcodeFormat.CODE_128, BarcodeFormat.CODE_39, BarcodeFormat.CODE_93, BarcodeFormat.CODABAR, BarcodeFormat.DATA_MATRIX, BarcodeFormat.EAN_13, BarcodeFormat.EAN_8, BarcodeFormat.ITF, BarcodeFormat.PDF417, BarcodeFormat.QR_CODE, BarcodeFormat.UNKNOWN, BarcodeFormat.UPC_A, BarcodeFormat.UPC_E})
-    public @interface EnumType {
-    }
+        BarcodeFormat.AZTEC,
+        BarcodeFormat.CODE_128,
+        BarcodeFormat.CODE_39,
+        BarcodeFormat.CODE_93,
+        BarcodeFormat.CODABAR,
+        BarcodeFormat.DATA_MATRIX,
+        BarcodeFormat.EAN_13,
+        BarcodeFormat.EAN_8,
+        BarcodeFormat.ITF,
+        BarcodeFormat.PDF417,
+        BarcodeFormat.QR_CODE,
+        BarcodeFormat.UNKNOWN,
+        BarcodeFormat.UPC_A,
+        BarcodeFormat.UPC_E})
+    public @interface EnumType {}
 
     public static final int AZTEC = 0;
     public static final int CODE_128 = 1;
@@ -49,9 +62,8 @@ public final class BarcodeFormat {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private BarcodeFormat() {
-    }
+    private BarcodeFormat() {}
 }

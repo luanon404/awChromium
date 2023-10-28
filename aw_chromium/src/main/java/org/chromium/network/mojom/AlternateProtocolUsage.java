@@ -17,10 +17,17 @@ import androidx.annotation.IntDef;
 
 public final class AlternateProtocolUsage {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({AlternateProtocolUsage.NO_RACE, AlternateProtocolUsage.WON_RACE, AlternateProtocolUsage.MAIN_JOB_WON_RACE, AlternateProtocolUsage.MAPPING_MISSING, AlternateProtocolUsage.BROKEN, AlternateProtocolUsage.DNS_ALPN_H3_JOB_WON_WITHOUT_RACE, AlternateProtocolUsage.DNS_ALPN_H3_JOB_WON_RACE, AlternateProtocolUsage.UNSPECIFIED_REASON})
-    public @interface EnumType {
-    }
+        AlternateProtocolUsage.NO_RACE,
+        AlternateProtocolUsage.WON_RACE,
+        AlternateProtocolUsage.MAIN_JOB_WON_RACE,
+        AlternateProtocolUsage.MAPPING_MISSING,
+        AlternateProtocolUsage.BROKEN,
+        AlternateProtocolUsage.DNS_ALPN_H3_JOB_WON_WITHOUT_RACE,
+        AlternateProtocolUsage.DNS_ALPN_H3_JOB_WON_RACE,
+        AlternateProtocolUsage.UNSPECIFIED_REASON})
+    public @interface EnumType {}
 
     public static final int NO_RACE = 0;
     public static final int WON_RACE = 1;
@@ -43,9 +50,8 @@ public final class AlternateProtocolUsage {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private AlternateProtocolUsage() {
-    }
+    private AlternateProtocolUsage() {}
 }

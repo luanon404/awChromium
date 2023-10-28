@@ -4,9 +4,10 @@
 
 package org.chromium.content_public.browser;
 
-import org.chromium.url.GURL;
 import org.jni_zero.CalledByNative;
 import org.jni_zero.JNINamespace;
+
+import org.chromium.url.GURL;
 
 /**
  * Provides the details of a committed navigation entry for the
@@ -22,7 +23,9 @@ public class LoadCommittedDetails {
     private final int mHttpStatusCode;
 
     @CalledByNative
-    public LoadCommittedDetails(int previousEntryIndex, GURL previousMainFrameUrl, boolean didReplaceEntry, boolean isSameDocument, boolean isMainFrame, int httpStatusCode) {
+    public LoadCommittedDetails(int previousEntryIndex, GURL previousMainFrameUrl,
+            boolean didReplaceEntry, boolean isSameDocument, boolean isMainFrame,
+            int httpStatusCode) {
         mPreviousEntryIndex = previousEntryIndex;
         mPreviousMainFrameUrl = previousMainFrameUrl;
         mDidReplaceEntry = didReplaceEntry;

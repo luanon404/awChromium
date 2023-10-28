@@ -23,14 +23,19 @@ import java.util.List;
 public class JsSandboxService extends Service {
     private static final String TAG = "JsSandboxService";
 
-    static final List<String> SUPPORTED_FEATURES = Arrays.asList(IJsSandboxService.ISOLATE_TERMINATION, IJsSandboxService.WASM_FROM_ARRAY_BUFFER, IJsSandboxService.ISOLATE_MAX_HEAP_SIZE_LIMIT, IJsSandboxService.EVALUATE_WITHOUT_TRANSACTION_LIMIT, IJsSandboxService.CONSOLE_MESSAGING, IJsSandboxService.ISOLATE_CLIENT, IJsSandboxService.CONSOLE_MESSAGING, IJsSandboxService.EVALUATE_FROM_FD);
+    static final List<String> SUPPORTED_FEATURES = Arrays.asList(
+            IJsSandboxService.ISOLATE_TERMINATION, IJsSandboxService.WASM_FROM_ARRAY_BUFFER,
+            IJsSandboxService.ISOLATE_MAX_HEAP_SIZE_LIMIT,
+            IJsSandboxService.EVALUATE_WITHOUT_TRANSACTION_LIMIT,
+            IJsSandboxService.CONSOLE_MESSAGING, IJsSandboxService.ISOLATE_CLIENT,
+            IJsSandboxService.CONSOLE_MESSAGING,
+            IJsSandboxService.EVALUATE_FROM_FD);
 
     /**
      * Feature for {@link #isClientSideFeatureSupported(String)}.
      * <p>
      * When this feature is present, consoleMessage and consoleClear notifications are supported by
      * the client.
-     *
      * @hide
      */
     public static final String JS_FEATURE_CONSOLE_MESSAGING = "JS_FEATURE_CONSOLE_MESSAGING";
@@ -47,7 +52,8 @@ public class JsSandboxService extends Service {
         }
 
         @Override
-        public IJsSandboxIsolate createIsolate2(long maxHeapSizeBytes, IJsSandboxIsolateClient isolateClient) {
+        public IJsSandboxIsolate createIsolate2(
+                long maxHeapSizeBytes, IJsSandboxIsolateClient isolateClient) {
             return new JsSandboxIsolate(JsSandboxService.this, maxHeapSizeBytes, isolateClient);
         }
 

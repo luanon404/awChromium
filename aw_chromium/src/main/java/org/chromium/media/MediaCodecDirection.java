@@ -1,3 +1,4 @@
+
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -14,9 +15,11 @@ import androidx.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@IntDef({MediaCodecDirection.DECODER, MediaCodecDirection.ENCODER})
+@IntDef({
+    MediaCodecDirection.DECODER, MediaCodecDirection.ENCODER
+})
 @Retention(RetentionPolicy.SOURCE)
 public @interface MediaCodecDirection {
-    int DECODER = 0;
-    int ENCODER = 1;
+  int DECODER = 0;
+  int ENCODER = 1;
 }

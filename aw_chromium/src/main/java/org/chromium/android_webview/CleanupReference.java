@@ -129,8 +129,8 @@ public class CleanupReference extends WeakReference<Object> {
     private Runnable mCleanupTask;
 
     /**
-     * @param obj         the object whose loss of reachability should trigger the
-     *                    cleanup task.
+     * @param obj the object whose loss of reachability should trigger the
+     *            cleanup task.
      * @param cleanupTask the task to run once obj loses reachability.
      */
     public CleanupReference(Object obj, Runnable cleanupTask) {

@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface SubAppsService extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends SubAppsService, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends SubAppsService, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<SubAppsService, SubAppsService.Proxy> MANAGER = SubAppsService_Internal.MANAGER;

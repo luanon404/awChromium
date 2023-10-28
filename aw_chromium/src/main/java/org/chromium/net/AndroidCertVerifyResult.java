@@ -34,7 +34,9 @@ public class AndroidCertVerifyResult {
      */
     private final List<X509Certificate> mCertificateChain;
 
-    public AndroidCertVerifyResult(int status, boolean isIssuedByKnownRoot, List<X509Certificate> certificateChain) {
+    public AndroidCertVerifyResult(int status,
+                                   boolean isIssuedByKnownRoot,
+                                   List<X509Certificate> certificateChain) {
         mStatus = status;
         mIsIssuedByKnownRoot = isIssuedByKnownRoot;
         mCertificateChain = new ArrayList<X509Certificate>(certificateChain);

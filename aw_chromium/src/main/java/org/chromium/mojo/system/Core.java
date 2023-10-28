@@ -15,12 +15,12 @@ public interface Core {
     /**
      * Used to indicate an infinite deadline (timeout).
      */
-    long DEADLINE_INFINITE = -1;
+    public static final long DEADLINE_INFINITE = -1;
 
     /**
      * Signals for the wait operations on handles.
      */
-    class HandleSignals extends Flags<HandleSignals> {
+    public static class HandleSignals extends Flags<HandleSignals> {
         /**
          * Constructor.
          *
@@ -39,8 +39,10 @@ public interface Core {
          * Immutable signals.
          */
         public static final HandleSignals NONE = HandleSignals.none().immutable();
-        public static final HandleSignals READABLE = HandleSignals.none().setReadable(true).immutable();
-        public static final HandleSignals WRITABLE = HandleSignals.none().setWritable(true).immutable();
+        public static final HandleSignals READABLE =
+                HandleSignals.none().setReadable(true).immutable();
+        public static final HandleSignals WRITABLE =
+                HandleSignals.none().setWritable(true).immutable();
 
         /**
          * Change the readable bit of this signal.
@@ -84,12 +86,12 @@ public interface Core {
     /**
      * Returns a platform-dependent monotonically increasing tick count representing "right now."
      */
-    long getTimeTicksNow();
+    public long getTimeTicksNow();
 
     /**
      * Returned by wait functions to indicate the signaling state of handles.
      */
-    class HandleSignalsState {
+    public static class HandleSignalsState {
         /**
          * Signals that were satisfied at some time // before the call returned.
          */
@@ -105,7 +107,8 @@ public interface Core {
         /**
          * Constructor.
          */
-        public HandleSignalsState(HandleSignals satisfiedSignals, HandleSignals satisfiableSignals) {
+        public HandleSignalsState(
+                HandleSignals satisfiedSignals, HandleSignals satisfiableSignals) {
             mSatisfiedSignals = satisfiedSignals;
             mSatisfiableSignals = satisfiableSignals;
         }
@@ -131,7 +134,8 @@ public interface Core {
      *
      * @return the set of handles for the two endpoints (ports) of the message pipe.
      */
-    Pair<MessagePipeHandle, MessagePipeHandle> createMessagePipe(MessagePipeHandle.CreateOptions options);
+    public Pair<MessagePipeHandle, MessagePipeHandle> createMessagePipe(
+            MessagePipeHandle.CreateOptions options);
 
     /**
      * Creates a data pipe, which is a unidirectional communication channel for unframed data, with
@@ -143,7 +147,8 @@ public interface Core {
      *
      * @return the set of handles for the two endpoints of the data pipe.
      */
-    Pair<DataPipe.ProducerHandle, DataPipe.ConsumerHandle> createDataPipe(DataPipe.CreateOptions options);
+    public Pair<DataPipe.ProducerHandle, DataPipe.ConsumerHandle> createDataPipe(
+            DataPipe.CreateOptions options);
 
     /**
      * Creates a buffer that can be shared between applications (by duplicating the handle -- see
@@ -152,7 +157,8 @@ public interface Core {
      *
      * @return the new |SharedBufferHandle|.
      */
-    SharedBufferHandle createSharedBuffer(SharedBufferHandle.CreateOptions options, long numBytes);
+    public SharedBufferHandle createSharedBuffer(SharedBufferHandle.CreateOptions options,
+            long numBytes);
 
     /**
      * Acquires a handle from the native side. The handle will be owned by the returned object and
@@ -160,7 +166,7 @@ public interface Core {
      *
      * @return a new {@link UntypedHandle} representing the native handle.
      */
-    UntypedHandle acquireNativeHandle(long handle);
+    public UntypedHandle acquireNativeHandle(long handle);
 
     /**
      * Creates and acquires a handle from the native side. The handle will be owned by the returned
@@ -169,20 +175,20 @@ public interface Core {
      * @param fd Java file descriptor to be wrapped as a native platform handle.
      * @return a new {@link UntypedHandle} representing the native handle.
      */
-    UntypedHandle wrapFileDescriptor(ParcelFileDescriptor fd);
+    public UntypedHandle wrapFileDescriptor(ParcelFileDescriptor fd);
 
     /**
      * Returns an implementation of {@link Watcher}.
      */
-    Watcher getWatcher();
+    public Watcher getWatcher();
 
     /**
      * Returns a new run loop.
      */
-    RunLoop createDefaultRunLoop();
+    public RunLoop createDefaultRunLoop();
 
     /**
      * Returns the current run loop if it exists.
      */
-    RunLoop getCurrentRunLoop();
+    public RunLoop getCurrentRunLoop();
 }

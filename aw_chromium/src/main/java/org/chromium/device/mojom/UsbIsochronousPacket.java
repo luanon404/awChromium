@@ -13,10 +13,13 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class UsbIsochronousPacket extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 24;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public int length;
     public int transferredLength;
@@ -40,7 +43,8 @@ public final class UsbIsochronousPacket extends org.chromium.mojo.bindings.Struc
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static UsbIsochronousPacket deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -54,20 +58,20 @@ public final class UsbIsochronousPacket extends org.chromium.mojo.bindings.Struc
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new UsbIsochronousPacket(elementsOrVersion);
-            {
-
+                {
+                    
                 result.length = decoder0.readInt(8);
-            }
-            {
-
+                }
+                {
+                    
                 result.transferredLength = decoder0.readInt(12);
-            }
-            {
-
+                }
+                {
+                    
                 result.status = decoder0.readInt(16);
-                UsbTransferStatus.validate(result.status);
-                result.status = UsbTransferStatus.toKnownValue(result.status);
-            }
+                    UsbTransferStatus.validate(result.status);
+                    result.status = UsbTransferStatus.toKnownValue(result.status);
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -79,11 +83,11 @@ public final class UsbIsochronousPacket extends org.chromium.mojo.bindings.Struc
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.length, 8);
-
+        
         encoder0.encode(this.transferredLength, 12);
-
+        
         encoder0.encode(this.status, 16);
     }
 }

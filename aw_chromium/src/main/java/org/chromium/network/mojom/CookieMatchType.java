@@ -17,10 +17,11 @@ import androidx.annotation.IntDef;
 
 public final class CookieMatchType {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({CookieMatchType.EQUALS, CookieMatchType.STARTS_WITH})
-    public @interface EnumType {
-    }
+        CookieMatchType.EQUALS,
+        CookieMatchType.STARTS_WITH})
+    public @interface EnumType {}
 
     public static final int EQUALS = 0;
     public static final int STARTS_WITH = 1;
@@ -37,9 +38,8 @@ public final class CookieMatchType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private CookieMatchType() {
-    }
+    private CookieMatchType() {}
 }

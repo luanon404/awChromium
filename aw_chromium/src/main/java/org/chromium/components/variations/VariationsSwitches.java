@@ -107,6 +107,5 @@ public final class VariationsSwitches {
     public static final String ACCEPT_EMPTY_SEED_SIGNATURE_FOR_TESTING = "accept-empty-variations-seed-signature";
 
     // Prevents instantiation.
-    private VariationsSwitches() {
-    }
+    private VariationsSwitches() {}
 }

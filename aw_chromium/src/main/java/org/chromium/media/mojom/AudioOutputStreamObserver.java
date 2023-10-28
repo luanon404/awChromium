@@ -19,12 +19,17 @@ import androidx.annotation.IntDef;
 public interface AudioOutputStreamObserver extends org.chromium.mojo.bindings.Interface {
 
 
-    final class DisconnectReason {
-        private static final boolean IS_EXTENSIBLE = false;
 
-        @IntDef({DisconnectReason.DEFAULT, DisconnectReason.PLATFORM_ERROR, DisconnectReason.TERMINATED_BY_CLIENT, DisconnectReason.STREAM_CREATION_FAILED, DisconnectReason.DOCUMENT_DESTROYED})
-        public @interface EnumType {
-        }
+    public static final class DisconnectReason {
+        private static final boolean IS_EXTENSIBLE = false;
+        @IntDef({
+
+            DisconnectReason.DEFAULT,
+            DisconnectReason.PLATFORM_ERROR,
+            DisconnectReason.TERMINATED_BY_CLIENT,
+            DisconnectReason.STREAM_CREATION_FAILED,
+            DisconnectReason.DOCUMENT_DESTROYED})
+        public @interface EnumType {}
 
         public static final int DEFAULT = 0;
         public static final int PLATFORM_ERROR = 1;
@@ -44,26 +49,28 @@ public interface AudioOutputStreamObserver extends org.chromium.mojo.bindings.In
         }
 
         public static int toKnownValue(int value) {
-            return value;
+          return value;
         }
 
-        private DisconnectReason() {
-        }
+        private DisconnectReason() {}
     }
 
 
-    interface Proxy extends AudioOutputStreamObserver, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends AudioOutputStreamObserver, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<AudioOutputStreamObserver, AudioOutputStreamObserver.Proxy> MANAGER = AudioOutputStreamObserver_Internal.MANAGER;
 
-    void didStartPlaying();
+    void didStartPlaying(
+);
 
 
-    void didStopPlaying();
+    void didStopPlaying(
+);
 
 
-    void didChangeAudibleState(boolean isAudible);
+    void didChangeAudibleState(
+boolean isAudible);
 
 
 }

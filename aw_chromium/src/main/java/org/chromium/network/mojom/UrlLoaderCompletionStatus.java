@@ -13,10 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class UrlLoaderCompletionStatus extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 104;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(104, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(104, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public int errorCode;
     public int extendedErrorCode;
@@ -65,7 +68,8 @@ public final class UrlLoaderCompletionStatus extends org.chromium.mojo.bindings.
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static UrlLoaderCompletionStatus deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -79,84 +83,84 @@ public final class UrlLoaderCompletionStatus extends org.chromium.mojo.bindings.
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new UrlLoaderCompletionStatus(elementsOrVersion);
-            {
-
+                {
+                    
                 result.errorCode = decoder0.readInt(8);
-            }
-            {
-
+                }
+                {
+                    
                 result.extendedErrorCode = decoder0.readInt(12);
-            }
-            {
-
+                }
+                {
+                    
                 result.existsInCache = decoder0.readBoolean(16, 0);
-            }
-            {
-
+                }
+                {
+                    
                 result.existsInMemoryCache = decoder0.readBoolean(16, 1);
-            }
-            {
-
+                }
+                {
+                    
                 result.shouldReportCorbBlocking = decoder0.readBoolean(16, 2);
-            }
-            {
-
+                }
+                {
+                    
                 result.shouldCollapseInitiator = decoder0.readBoolean(16, 3);
-            }
-            {
-
+                }
+                {
+                    
                 result.privateNetworkAccessPreflightResult = decoder0.readInt(20);
-                PrivateNetworkAccessPreflightResult.validate(result.privateNetworkAccessPreflightResult);
-                result.privateNetworkAccessPreflightResult = PrivateNetworkAccessPreflightResult.toKnownValue(result.privateNetworkAccessPreflightResult);
-            }
-            {
-
+                    PrivateNetworkAccessPreflightResult.validate(result.privateNetworkAccessPreflightResult);
+                    result.privateNetworkAccessPreflightResult = PrivateNetworkAccessPreflightResult.toKnownValue(result.privateNetworkAccessPreflightResult);
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, false);
                 result.completionTime = org.chromium.mojo_base.mojom.TimeTicks.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.encodedDataLength = decoder0.readLong(32);
-            }
-            {
-
+                }
+                {
+                    
                 result.encodedBodyLength = decoder0.readLong(40);
-            }
-            {
-
+                }
+                {
+                    
                 result.decodedBodyLength = decoder0.readLong(48);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(56, true);
                 result.corsErrorStatus = CorsErrorStatus.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.trustTokenOperationStatus = decoder0.readInt(64);
-                TrustTokenOperationStatus.validate(result.trustTokenOperationStatus);
-                result.trustTokenOperationStatus = TrustTokenOperationStatus.toKnownValue(result.trustTokenOperationStatus);
-            }
-            {
-
+                    TrustTokenOperationStatus.validate(result.trustTokenOperationStatus);
+                    result.trustTokenOperationStatus = TrustTokenOperationStatus.toKnownValue(result.trustTokenOperationStatus);
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(72, true);
                 result.sslInfo = SslInfo.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(80, true);
                 result.blockedByResponseReason = BlockedByResponseReasonWrapper.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(88, false);
                 result.proxyServer = ProxyServer.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(96, false);
                 result.resolveErrorInfo = ResolveErrorInfo.decode(decoder1);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -168,39 +172,39 @@ public final class UrlLoaderCompletionStatus extends org.chromium.mojo.bindings.
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.errorCode, 8);
-
+        
         encoder0.encode(this.extendedErrorCode, 12);
-
+        
         encoder0.encode(this.existsInCache, 16, 0);
-
+        
         encoder0.encode(this.existsInMemoryCache, 16, 1);
-
+        
         encoder0.encode(this.shouldReportCorbBlocking, 16, 2);
-
+        
         encoder0.encode(this.shouldCollapseInitiator, 16, 3);
-
+        
         encoder0.encode(this.privateNetworkAccessPreflightResult, 20);
-
+        
         encoder0.encode(this.completionTime, 24, false);
-
+        
         encoder0.encode(this.encodedDataLength, 32);
-
+        
         encoder0.encode(this.encodedBodyLength, 40);
-
+        
         encoder0.encode(this.decodedBodyLength, 48);
-
+        
         encoder0.encode(this.corsErrorStatus, 56, true);
-
+        
         encoder0.encode(this.trustTokenOperationStatus, 64);
-
+        
         encoder0.encode(this.sslInfo, 72, true);
-
+        
         encoder0.encode(this.blockedByResponseReason, 80, true);
-
+        
         encoder0.encode(this.proxyServer, 88, false);
-
+        
         encoder0.encode(this.resolveErrorInfo, 96, false);
     }
 }

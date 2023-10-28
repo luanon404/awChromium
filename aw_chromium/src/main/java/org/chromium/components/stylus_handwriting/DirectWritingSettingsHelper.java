@@ -16,8 +16,7 @@ import org.chromium.base.metrics.RecordHistogram;
  * Helper class for Direct writing feature support and settings.
  */
 public class DirectWritingSettingsHelper {
-    private DirectWritingSettingsHelper() {
-    }
+    private DirectWritingSettingsHelper() {}
 
     // System setting for direct writing service. This setting is currently found under
     // Settings->Advanced features->S Pen->"S Pen to text".
@@ -28,7 +27,8 @@ public class DirectWritingSettingsHelper {
     private static @Nullable Boolean sDirectWritingServiceCallbackAvailable;
 
     // Samsung keyboard package names.
-    private static final String HONEYBOARD_SERVICE_PKG_NAME = DirectWritingConstants.SERVICE_PKG_NAME + "/.service.HoneyBoardService";
+    private static final String HONEYBOARD_SERVICE_PKG_NAME =
+            DirectWritingConstants.SERVICE_PKG_NAME + "/.service.HoneyBoardService";
 
     public static boolean isEnabled(Context context) {
         // Samsung keyboard supports handwriting in Chrome and Webview from Android S onwards.
@@ -48,7 +48,8 @@ public class DirectWritingSettingsHelper {
         if (context != null) {
             try {
                 return Settings.System.getInt(context.getContentResolver(), URI_DIRECT_WRITING,
-                        /* default */ DIRECT_WRITING_DISABLED) == DIRECT_WRITING_ENABLED;
+                               /* default */ DIRECT_WRITING_DISABLED)
+                        == DIRECT_WRITING_ENABLED;
             } catch (SecurityException e) {
                 // On some devices, URI_DIRECT_WRITING is not readable and trying to do so will
                 // throw a security exception. https://crbug.com/1356155.
@@ -61,7 +62,8 @@ public class DirectWritingSettingsHelper {
     private static boolean isHoneyboardDefault(Context context) {
         if (context != null) {
             try {
-                String defaultIme = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.DEFAULT_INPUT_METHOD);
+                String defaultIme = Settings.Secure.getString(
+                        context.getContentResolver(), Settings.Secure.DEFAULT_INPUT_METHOD);
                 return HONEYBOARD_SERVICE_PKG_NAME.equals(defaultIme);
             } catch (SecurityException e) {
                 return false;
@@ -73,7 +75,8 @@ public class DirectWritingSettingsHelper {
     private static boolean isDirectWritingServiceCallbackAvailable() {
         if (sDirectWritingServiceCallbackAvailable == null) {
             try {
-                Class dwCallbackClass = Class.forName("org.chromium.components.stylus_handwriting.DirectWritingServiceCallback");
+                Class dwCallbackClass = Class.forName(
+                        "org.chromium.components.stylus_handwriting.DirectWritingServiceCallback");
                 // On some devices, the DirectWritingServiceCallback constructor is not available
                 // so this throws a NoSuchMethodException.
                 dwCallbackClass.getConstructor().isAccessible();
@@ -88,6 +91,7 @@ public class DirectWritingSettingsHelper {
     }
 
     private static void logDWServiceCallbackFailed(boolean didFail) {
-        RecordHistogram.recordBooleanHistogram("InputMethod.VirtualKeyboard.Handwriting.DWServiceCallbackFailed", didFail);
+        RecordHistogram.recordBooleanHistogram(
+                "InputMethod.VirtualKeyboard.Handwriting.DWServiceCallbackFailed", didFail);
     }
 }

@@ -13,10 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class CspSource extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 40;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(40, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(40, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public String scheme;
     public String host;
@@ -46,7 +49,8 @@ public final class CspSource extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static CspSource deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -60,30 +64,30 @@ public final class CspSource extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new CspSource(elementsOrVersion);
-            {
-
+                {
+                    
                 result.scheme = decoder0.readString(8, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.host = decoder0.readString(16, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.port = decoder0.readInt(24);
-            }
-            {
-
+                }
+                {
+                    
                 result.isHostWildcard = decoder0.readBoolean(28, 0);
-            }
-            {
-
+                }
+                {
+                    
                 result.isPortWildcard = decoder0.readBoolean(28, 1);
-            }
-            {
-
+                }
+                {
+                    
                 result.path = decoder0.readString(32, false);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -95,17 +99,17 @@ public final class CspSource extends org.chromium.mojo.bindings.Struct {
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.scheme, 8, false);
-
+        
         encoder0.encode(this.host, 16, false);
-
+        
         encoder0.encode(this.port, 24);
-
+        
         encoder0.encode(this.isHostWildcard, 28, 0);
-
+        
         encoder0.encode(this.isPortWildcard, 28, 1);
-
+        
         encoder0.encode(this.path, 32, false);
     }
 }

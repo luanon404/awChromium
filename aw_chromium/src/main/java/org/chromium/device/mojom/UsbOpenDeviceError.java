@@ -17,10 +17,11 @@ import androidx.annotation.IntDef;
 
 public final class UsbOpenDeviceError {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({UsbOpenDeviceError.ACCESS_DENIED, UsbOpenDeviceError.ALREADY_OPEN})
-    public @interface EnumType {
-    }
+        UsbOpenDeviceError.ACCESS_DENIED,
+        UsbOpenDeviceError.ALREADY_OPEN})
+    public @interface EnumType {}
 
     public static final int ACCESS_DENIED = 0;
     public static final int ALREADY_OPEN = 1;
@@ -37,9 +38,8 @@ public final class UsbOpenDeviceError {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private UsbOpenDeviceError() {
-    }
+    private UsbOpenDeviceError() {}
 }

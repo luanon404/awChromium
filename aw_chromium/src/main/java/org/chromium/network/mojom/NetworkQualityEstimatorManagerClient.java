@@ -13,15 +13,20 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface NetworkQualityEstimatorManagerClient extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends NetworkQualityEstimatorManagerClient, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends NetworkQualityEstimatorManagerClient, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<NetworkQualityEstimatorManagerClient, NetworkQualityEstimatorManagerClient.Proxy> MANAGER = NetworkQualityEstimatorManagerClient_Internal.MANAGER;
 
-    void onNetworkQualityChanged(int type, org.chromium.mojo_base.mojom.TimeDelta httpRtt, org.chromium.mojo_base.mojom.TimeDelta transportRtt, int downlinkBandwidthKbps);
+    void onNetworkQualityChanged(
+int type, org.chromium.mojo_base.mojom.TimeDelta httpRtt, org.chromium.mojo_base.mojom.TimeDelta transportRtt, int downlinkBandwidthKbps);
 
 
 }

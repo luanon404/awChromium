@@ -15,7 +15,7 @@ import org.jni_zero.CalledByNative;
  * This class mirrors unguessable_token.h .  Since tokens are passed by value,
  * we don't bother to maintain a native token.  This implements Parcelable so
  * that it may be sent via binder.
- * <p>
+ *
  * To get one of these from native, one must start with a
  * base::UnguessableToken, then create a Java object from it.  See
  * jni_unguessable_token.h for information.
@@ -69,23 +69,24 @@ public class UnguessableToken implements Parcelable {
         return 31 * mLowHash + mHighHash;
     }
 
-    public static final Parcelable.Creator<UnguessableToken> CREATOR = new Parcelable.Creator<UnguessableToken>() {
-        @Override
-        public UnguessableToken createFromParcel(Parcel source) {
-            long high = source.readLong();
-            long low = source.readLong();
-            if (high == 0 || low == 0) {
-                // Refuse to create an empty UnguessableToken.
-                return null;
-            }
-            return new UnguessableToken(high, low);
-        }
+    public static final Parcelable.Creator<UnguessableToken> CREATOR =
+            new Parcelable.Creator<UnguessableToken>() {
+                @Override
+                public UnguessableToken createFromParcel(Parcel source) {
+                    long high = source.readLong();
+                    long low = source.readLong();
+                    if (high == 0 || low == 0) {
+                        // Refuse to create an empty UnguessableToken.
+                        return null;
+                    }
+                    return new UnguessableToken(high, low);
+                }
 
-        @Override
-        public UnguessableToken[] newArray(int size) {
-            return new UnguessableToken[size];
-        }
-    };
+                @Override
+                public UnguessableToken[] newArray(int size) {
+                    return new UnguessableToken[size];
+                }
+            };
 
     // To avoid unwieldy calls in JNI for tests, parcel and unparcel.
     // TODO(liberato): It would be nice if we could include this only with a
@@ -103,4 +104,4 @@ public class UnguessableToken implements Parcelable {
 
         return token;
     }
-}
+};

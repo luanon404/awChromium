@@ -13,10 +13,13 @@
 
 package org.chromium.payments.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class AddressErrors extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 88;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(88, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(88, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public String addressLine;
     public String city;
@@ -47,7 +50,8 @@ public final class AddressErrors extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static AddressErrors deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -61,46 +65,46 @@ public final class AddressErrors extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new AddressErrors(elementsOrVersion);
-            {
-
+                {
+                    
                 result.addressLine = decoder0.readString(8, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.city = decoder0.readString(16, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.country = decoder0.readString(24, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.dependentLocality = decoder0.readString(32, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.organization = decoder0.readString(40, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.phone = decoder0.readString(48, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.postalCode = decoder0.readString(56, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.recipient = decoder0.readString(64, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.region = decoder0.readString(72, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.sortingCode = decoder0.readString(80, false);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -112,25 +116,25 @@ public final class AddressErrors extends org.chromium.mojo.bindings.Struct {
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.addressLine, 8, false);
-
+        
         encoder0.encode(this.city, 16, false);
-
+        
         encoder0.encode(this.country, 24, false);
-
+        
         encoder0.encode(this.dependentLocality, 32, false);
-
+        
         encoder0.encode(this.organization, 40, false);
-
+        
         encoder0.encode(this.phone, 48, false);
-
+        
         encoder0.encode(this.postalCode, 56, false);
-
+        
         encoder0.encode(this.recipient, 64, false);
-
+        
         encoder0.encode(this.region, 72, false);
-
+        
         encoder0.encode(this.sortingCode, 80, false);
     }
 }

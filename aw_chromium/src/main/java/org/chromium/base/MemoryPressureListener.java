@@ -7,22 +7,23 @@ package org.chromium.base;
 import android.app.Activity;
 import android.content.ComponentCallbacks2;
 
-import org.chromium.base.memory.MemoryPressureCallback;
 import org.jni_zero.CalledByNative;
 import org.jni_zero.NativeMethods;
+
+import org.chromium.base.memory.MemoryPressureCallback;
 
 /**
  * This class is Java equivalent of base::MemoryPressureListener: it distributes pressure
  * signals to callbacks.
- * <p>
+ *
  * The class also serves as an entry point to the native side - once native code is ready,
  * it adds native callback.
- * <p>
+ *
  * notifyMemoryPressure() is called exclusively by MemoryPressureMonitor, which
  * monitors and throttles pressure signals.
- * <p>
+ *
  * NOTE: this class should only be used on UiThread as defined by ThreadUtils (which is
- * Android main thread for Chrome, but can be some other thread for WebView).
+ *       Android main thread for Chrome, but can be some other thread for WebView).
  */
 public class MemoryPressureListener {
     /**
@@ -41,13 +42,15 @@ public class MemoryPressureListener {
      * Sending an intent with this action to Chrome will cause it to issue a call to onTrimMemory
      * with notification level TRIM_MEMORY_RUNNING_CRITICAL thus simulating a low memory situation
      */
-    private static final String ACTION_TRIM_MEMORY_RUNNING_CRITICAL = "org.chromium.base.ACTION_TRIM_MEMORY_RUNNING_CRITICAL";
+    private static final String ACTION_TRIM_MEMORY_RUNNING_CRITICAL =
+            "org.chromium.base.ACTION_TRIM_MEMORY_RUNNING_CRITICAL";
 
     /**
      * Sending an intent with this action to Chrome will cause it to issue a call to onTrimMemory
      * with notification level TRIM_MEMORY_MODERATE thus simulating a low memory situation
      */
-    private static final String ACTION_TRIM_MEMORY_MODERATE = "org.chromium.base.ACTION_TRIM_MEMORY_MODERATE";
+    private static final String ACTION_TRIM_MEMORY_MODERATE =
+            "org.chromium.base.ACTION_TRIM_MEMORY_MODERATE";
 
     private static ObserverList<MemoryPressureCallback> sCallbacks;
 
@@ -84,7 +87,7 @@ public class MemoryPressureListener {
     /**
      * Distributes |pressure| to all callbacks.
      * This method should be called only on ThreadUtils.UiThread.
-     * <p>
+     *
      * This includes sending the notification to the native side, provided that addNativeCallback()
      * has been called. It does not trigger all the clients listening directly to
      * ComponentCallbacks2 notifications.
@@ -108,7 +111,8 @@ public class MemoryPressureListener {
         } else if (ACTION_TRIM_MEMORY.equals(action)) {
             simulateTrimMemoryPressureSignal(activity, ComponentCallbacks2.TRIM_MEMORY_COMPLETE);
         } else if (ACTION_TRIM_MEMORY_RUNNING_CRITICAL.equals(action)) {
-            simulateTrimMemoryPressureSignal(activity, ComponentCallbacks2.TRIM_MEMORY_RUNNING_CRITICAL);
+            simulateTrimMemoryPressureSignal(activity,
+                    ComponentCallbacks2.TRIM_MEMORY_RUNNING_CRITICAL);
         } else if (ACTION_TRIM_MEMORY_MODERATE.equals(action)) {
             simulateTrimMemoryPressureSignal(activity, ComponentCallbacks2.TRIM_MEMORY_MODERATE);
         } else {

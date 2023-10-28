@@ -4,44 +4,73 @@
 package org.chromium.content.browser;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.content.Context;
+import android.os.StrictMode;
+import androidx.annotation.IntDef;
+import androidx.annotation.VisibleForTesting;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.BuildInfo;
+import org.chromium.base.ContextUtils;
+import org.chromium.base.Log;
+import org.chromium.base.ThreadUtils;
+import org.chromium.base.library_loader.LibraryLoader;
+import org.chromium.base.library_loader.LibraryProcessType;
+import org.chromium.base.library_loader.LoaderErrors;
+import org.chromium.base.library_loader.ProcessInitException;
+import org.chromium.base.metrics.ScopedSysTraceEvent;
+import org.chromium.base.task.PostTask;
+import org.chromium.base.task.TaskTraits;
+import org.chromium.content.app.ContentMain;
+import org.chromium.content.browser.ServicificationStartupUma.ServicificationStartup;
+import org.chromium.content_public.browser.BrowserStartupController;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.util.ArrayList;
+import java.util.List;
 
 @CheckDiscard("crbug.com/993421")
 class BrowserStartupControllerImplJni implements BrowserStartupControllerImpl.Natives {
-    private static BrowserStartupControllerImpl.Natives testInstance;
+  private static BrowserStartupControllerImpl.Natives testInstance;
 
-    public static final JniStaticTestMocker<BrowserStartupControllerImpl.Natives> TEST_HOOKS = new JniStaticTestMocker<BrowserStartupControllerImpl.Natives>() {
-        @Override
-        public void setInstanceForTesting(BrowserStartupControllerImpl.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<BrowserStartupControllerImpl.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<BrowserStartupControllerImpl.Natives>() {
     @Override
-    public void flushStartupTasks() {
-        GEN_JNI.org_chromium_content_browser_BrowserStartupControllerImpl_flushStartupTasks();
+    public void setInstanceForTesting(BrowserStartupControllerImpl.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public void setCommandLineFlags(boolean singleProcess) {
-        GEN_JNI.org_chromium_content_browser_BrowserStartupControllerImpl_setCommandLineFlags(singleProcess);
-    }
+  @Override
+  public void flushStartupTasks() {
+    GEN_JNI.org_chromium_content_browser_BrowserStartupControllerImpl_flushStartupTasks();
+  }
 
-    public static BrowserStartupControllerImpl.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of BrowserStartupControllerImpl.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new BrowserStartupControllerImplJni();
+  @Override
+  public void setCommandLineFlags(boolean singleProcess) {
+    GEN_JNI.org_chromium_content_browser_BrowserStartupControllerImpl_setCommandLineFlags(singleProcess);
+  }
+
+  public static BrowserStartupControllerImpl.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of BrowserStartupControllerImpl.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new BrowserStartupControllerImplJni();
+  }
 }

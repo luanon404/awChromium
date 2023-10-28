@@ -17,10 +17,48 @@ import androidx.annotation.IntDef;
 
 public final class InputEventType {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({InputEventType.NONE, InputEventType.INSERT_TEXT, InputEventType.INSERT_LINE_BREAK, InputEventType.INSERT_PARAGRAPH, InputEventType.INSERT_ORDERED_LIST, InputEventType.INSERT_UNORDERED_LIST, InputEventType.INSERT_HORIZONTAL_RULE, InputEventType.INSERT_FROM_PASTE, InputEventType.INSERT_FROM_DROP, InputEventType.INSERT_FROM_YANK, InputEventType.INSERT_TRANSPOSE, InputEventType.INSERT_REPLACEMENT_TEXT, InputEventType.INSERT_COMPOSITION_TEXT, InputEventType.DELETE_WORD_BACKWARD, InputEventType.DELETE_WORD_FORWARD, InputEventType.DELETE_SOFT_LINE_BACKWARD, InputEventType.DELETE_SOFT_LINE_FORWARD, InputEventType.DELETE_HARD_LINE_BACKWARD, InputEventType.DELETE_HARD_LINE_FORWARD, InputEventType.DELETE_CONTENT_BACKWARD, InputEventType.DELETE_CONTENT_FORWARD, InputEventType.DELETE_BY_CUT, InputEventType.DELETE_BY_DRAG, InputEventType.HISTORY_UNDO, InputEventType.HISTORY_REDO, InputEventType.FORMAT_BOLD, InputEventType.FORMAT_ITALIC, InputEventType.FORMAT_UNDERLINE, InputEventType.FORMAT_STRIKE_THROUGH, InputEventType.FORMAT_SUPERSCRIPT, InputEventType.FORMAT_SUBSCRIPT, InputEventType.FORMAT_JUSTIFY_CENTER, InputEventType.FORMAT_JUSTIFY_FULL, InputEventType.FORMAT_JUSTIFY_RIGHT, InputEventType.FORMAT_JUSTIFY_LEFT, InputEventType.FORMAT_INDENT, InputEventType.FORMAT_OUTDENT, InputEventType.FORMAT_REMOVE, InputEventType.FORMAT_SET_BLOCK_TEXT_DIRECTION})
-    public @interface EnumType {
-    }
+        InputEventType.NONE,
+        InputEventType.INSERT_TEXT,
+        InputEventType.INSERT_LINE_BREAK,
+        InputEventType.INSERT_PARAGRAPH,
+        InputEventType.INSERT_ORDERED_LIST,
+        InputEventType.INSERT_UNORDERED_LIST,
+        InputEventType.INSERT_HORIZONTAL_RULE,
+        InputEventType.INSERT_FROM_PASTE,
+        InputEventType.INSERT_FROM_DROP,
+        InputEventType.INSERT_FROM_YANK,
+        InputEventType.INSERT_TRANSPOSE,
+        InputEventType.INSERT_REPLACEMENT_TEXT,
+        InputEventType.INSERT_COMPOSITION_TEXT,
+        InputEventType.DELETE_WORD_BACKWARD,
+        InputEventType.DELETE_WORD_FORWARD,
+        InputEventType.DELETE_SOFT_LINE_BACKWARD,
+        InputEventType.DELETE_SOFT_LINE_FORWARD,
+        InputEventType.DELETE_HARD_LINE_BACKWARD,
+        InputEventType.DELETE_HARD_LINE_FORWARD,
+        InputEventType.DELETE_CONTENT_BACKWARD,
+        InputEventType.DELETE_CONTENT_FORWARD,
+        InputEventType.DELETE_BY_CUT,
+        InputEventType.DELETE_BY_DRAG,
+        InputEventType.HISTORY_UNDO,
+        InputEventType.HISTORY_REDO,
+        InputEventType.FORMAT_BOLD,
+        InputEventType.FORMAT_ITALIC,
+        InputEventType.FORMAT_UNDERLINE,
+        InputEventType.FORMAT_STRIKE_THROUGH,
+        InputEventType.FORMAT_SUPERSCRIPT,
+        InputEventType.FORMAT_SUBSCRIPT,
+        InputEventType.FORMAT_JUSTIFY_CENTER,
+        InputEventType.FORMAT_JUSTIFY_FULL,
+        InputEventType.FORMAT_JUSTIFY_RIGHT,
+        InputEventType.FORMAT_JUSTIFY_LEFT,
+        InputEventType.FORMAT_INDENT,
+        InputEventType.FORMAT_OUTDENT,
+        InputEventType.FORMAT_REMOVE,
+        InputEventType.FORMAT_SET_BLOCK_TEXT_DIRECTION})
+    public @interface EnumType {}
 
     public static final int NONE = 0;
     public static final int INSERT_TEXT = 1;
@@ -75,12 +113,11 @@ public final class InputEventType {
     }
 
     public static int toKnownValue(int value) {
-        if (isKnownValue(value)) {
-            return value;
-        }
-        return DEFAULT_VALUE;
+      if (isKnownValue(value)) {
+        return value;
+      }
+      return DEFAULT_VALUE;
     }
 
-    private InputEventType() {
-    }
+    private InputEventType() {}
 }

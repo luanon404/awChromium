@@ -13,9 +13,13 @@
 
 package org.chromium.payments.mojom;
 
+import androidx.annotation.IntDef;
+
+
 class DigitalGoodsFactory_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<DigitalGoodsFactory, DigitalGoodsFactory.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<DigitalGoodsFactory, DigitalGoodsFactory.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<DigitalGoodsFactory, DigitalGoodsFactory.Proxy> MANAGER =
+            new org.chromium.mojo.bindings.Interface.Manager<DigitalGoodsFactory, DigitalGoodsFactory.Proxy>() {
 
         @Override
         public String getName() {
@@ -24,11 +28,12 @@ class DigitalGoodsFactory_Internal {
 
         @Override
         public int getVersion() {
-            return 0;
+          return 0;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -39,7 +44,7 @@ class DigitalGoodsFactory_Internal {
 
         @Override
         public DigitalGoodsFactory[] buildArray(int size) {
-            return new DigitalGoodsFactory[size];
+          return new DigitalGoodsFactory[size];
         }
     };
 
@@ -49,20 +54,30 @@ class DigitalGoodsFactory_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements DigitalGoodsFactory.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core,
+              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void createDigitalGoods(String paymentMethod, CreateDigitalGoods_Response callback) {
+        public void createDigitalGoods(
+String paymentMethod, 
+CreateDigitalGoods_Response callback) {
 
             DigitalGoodsFactoryCreateDigitalGoodsParams _message = new DigitalGoodsFactoryCreateDigitalGoodsParams();
 
             _message.paymentMethod = paymentMethod;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(CREATE_DIGITAL_GOODS_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new DigitalGoodsFactoryCreateDigitalGoodsResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    CREATE_DIGITAL_GOODS_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new DigitalGoodsFactoryCreateDigitalGoodsResponseParamsForwardToCallback(callback));
 
         }
 
@@ -78,7 +93,8 @@ class DigitalGoodsFactory_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -87,17 +103,20 @@ class DigitalGoodsFactory_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(DigitalGoodsFactory_Internal.MANAGER, messageWithHeader);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
+                                DigitalGoodsFactory_Internal.MANAGER, messageWithHeader);
+
+
 
 
                     default:
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -105,7 +124,8 @@ class DigitalGoodsFactory_Internal {
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -114,15 +134,22 @@ class DigitalGoodsFactory_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), DigitalGoodsFactory_Internal.MANAGER, messageWithHeader, receiver);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
+                                getCore(), DigitalGoodsFactory_Internal.MANAGER, messageWithHeader, receiver);
+
+
+
+
+
 
 
                     case CREATE_DIGITAL_GOODS_ORDINAL: {
 
-                        DigitalGoodsFactoryCreateDigitalGoodsParams data = DigitalGoodsFactoryCreateDigitalGoodsParams.deserialize(messageWithHeader.getPayload());
+                        DigitalGoodsFactoryCreateDigitalGoodsParams data =
+                                DigitalGoodsFactoryCreateDigitalGoodsParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().createDigitalGoods(data.paymentMethod, new DigitalGoodsFactoryCreateDigitalGoodsResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
@@ -133,17 +160,18 @@ class DigitalGoodsFactory_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class DigitalGoodsFactoryCreateDigitalGoodsParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public String paymentMethod;
 
@@ -165,7 +193,8 @@ class DigitalGoodsFactory_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static DigitalGoodsFactoryCreateDigitalGoodsParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -179,10 +208,10 @@ class DigitalGoodsFactory_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new DigitalGoodsFactoryCreateDigitalGoodsParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.paymentMethod = decoder0.readString(8, false);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -194,16 +223,18 @@ class DigitalGoodsFactory_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.paymentMethod, 8, false);
         }
     }
 
 
+
+    
     static final class DigitalGoodsFactoryCreateDigitalGoodsResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int code;
         public DigitalGoods digitalGoods;
@@ -226,7 +257,8 @@ class DigitalGoodsFactory_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static DigitalGoodsFactoryCreateDigitalGoodsResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -240,16 +272,16 @@ class DigitalGoodsFactory_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new DigitalGoodsFactoryCreateDigitalGoodsResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.code = decoder0.readInt(8);
-                    CreateDigitalGoodsResponseCode.validate(result.code);
-                    result.code = CreateDigitalGoodsResponseCode.toKnownValue(result.code);
-                }
-                {
-
+                        CreateDigitalGoodsResponseCode.validate(result.code);
+                        result.code = CreateDigitalGoodsResponseCode.toKnownValue(result.code);
+                    }
+                    {
+                        
                     result.digitalGoods = decoder0.readServiceInterface(12, true, DigitalGoods.MANAGER);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -261,14 +293,15 @@ class DigitalGoodsFactory_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.code, 8);
-
+            
             encoder0.encode(this.digitalGoods, 12, true, DigitalGoods.MANAGER);
         }
     }
 
-    static class DigitalGoodsFactoryCreateDigitalGoodsResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class DigitalGoodsFactoryCreateDigitalGoodsResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final DigitalGoodsFactory.CreateDigitalGoods_Response mCallback;
 
         DigitalGoodsFactoryCreateDigitalGoodsResponseParamsForwardToCallback(DigitalGoodsFactory.CreateDigitalGoods_Response callback) {
@@ -278,9 +311,11 @@ class DigitalGoodsFactory_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(CREATE_DIGITAL_GOODS_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(CREATE_DIGITAL_GOODS_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -300,7 +335,10 @@ class DigitalGoodsFactory_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        DigitalGoodsFactoryCreateDigitalGoodsResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        DigitalGoodsFactoryCreateDigitalGoodsResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -314,10 +352,17 @@ class DigitalGoodsFactory_Internal {
 
             _response.digitalGoods = digitalGoods;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(CREATE_DIGITAL_GOODS_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    CREATE_DIGITAL_GOODS_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
+
 
 
 }

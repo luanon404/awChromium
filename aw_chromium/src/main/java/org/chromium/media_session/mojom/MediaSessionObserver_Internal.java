@@ -13,9 +13,13 @@
 
 package org.chromium.media_session.mojom;
 
+import androidx.annotation.IntDef;
+
+
 class MediaSessionObserver_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<MediaSessionObserver, MediaSessionObserver.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<MediaSessionObserver, MediaSessionObserver.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<MediaSessionObserver, MediaSessionObserver.Proxy> MANAGER =
+            new org.chromium.mojo.bindings.Interface.Manager<MediaSessionObserver, MediaSessionObserver.Proxy>() {
 
         @Override
         public String getName() {
@@ -24,11 +28,12 @@ class MediaSessionObserver_Internal {
 
         @Override
         public int getVersion() {
-            return 0;
+          return 0;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -39,7 +44,7 @@ class MediaSessionObserver_Internal {
 
         @Override
         public MediaSessionObserver[] buildArray(int size) {
-            return new MediaSessionObserver[size];
+          return new MediaSessionObserver[size];
         }
     };
 
@@ -57,72 +62,93 @@ class MediaSessionObserver_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements MediaSessionObserver.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core,
+              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void mediaSessionInfoChanged(MediaSessionInfo info) {
+        public void mediaSessionInfoChanged(
+MediaSessionInfo info) {
 
             MediaSessionObserverMediaSessionInfoChangedParams _message = new MediaSessionObserverMediaSessionInfoChangedParams();
 
             _message.info = info;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(MEDIA_SESSION_INFO_CHANGED_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(MEDIA_SESSION_INFO_CHANGED_ORDINAL)));
 
         }
 
 
         @Override
-        public void mediaSessionMetadataChanged(MediaMetadata metadata) {
+        public void mediaSessionMetadataChanged(
+MediaMetadata metadata) {
 
             MediaSessionObserverMediaSessionMetadataChangedParams _message = new MediaSessionObserverMediaSessionMetadataChangedParams();
 
             _message.metadata = metadata;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(MEDIA_SESSION_METADATA_CHANGED_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(MEDIA_SESSION_METADATA_CHANGED_ORDINAL)));
 
         }
 
 
         @Override
-        public void mediaSessionActionsChanged(int[] action) {
+        public void mediaSessionActionsChanged(
+int[] action) {
 
             MediaSessionObserverMediaSessionActionsChangedParams _message = new MediaSessionObserverMediaSessionActionsChangedParams();
 
             _message.action = action;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(MEDIA_SESSION_ACTIONS_CHANGED_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(MEDIA_SESSION_ACTIONS_CHANGED_ORDINAL)));
 
         }
 
 
         @Override
-        public void mediaSessionImagesChanged(java.util.Map<Integer, MediaImage[]> images) {
+        public void mediaSessionImagesChanged(
+java.util.Map<Integer, MediaImage[]> images) {
 
             MediaSessionObserverMediaSessionImagesChangedParams _message = new MediaSessionObserverMediaSessionImagesChangedParams();
 
             _message.images = images;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(MEDIA_SESSION_IMAGES_CHANGED_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(MEDIA_SESSION_IMAGES_CHANGED_ORDINAL)));
 
         }
 
 
         @Override
-        public void mediaSessionPositionChanged(MediaPosition position) {
+        public void mediaSessionPositionChanged(
+MediaPosition position) {
 
             MediaSessionObserverMediaSessionPositionChangedParams _message = new MediaSessionObserverMediaSessionPositionChangedParams();
 
             _message.position = position;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(MEDIA_SESSION_POSITION_CHANGED_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(MEDIA_SESSION_POSITION_CHANGED_ORDINAL)));
 
         }
 
@@ -138,7 +164,8 @@ class MediaSessionObserver_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -147,51 +174,72 @@ class MediaSessionObserver_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(MediaSessionObserver_Internal.MANAGER, messageWithHeader);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
+                                MediaSessionObserver_Internal.MANAGER, messageWithHeader);
+
+
+
 
 
                     case MEDIA_SESSION_INFO_CHANGED_ORDINAL: {
 
-                        MediaSessionObserverMediaSessionInfoChangedParams data = MediaSessionObserverMediaSessionInfoChangedParams.deserialize(messageWithHeader.getPayload());
+                        MediaSessionObserverMediaSessionInfoChangedParams data =
+                                MediaSessionObserverMediaSessionInfoChangedParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().mediaSessionInfoChanged(data.info);
                         return true;
                     }
 
 
+
+
+
                     case MEDIA_SESSION_METADATA_CHANGED_ORDINAL: {
 
-                        MediaSessionObserverMediaSessionMetadataChangedParams data = MediaSessionObserverMediaSessionMetadataChangedParams.deserialize(messageWithHeader.getPayload());
+                        MediaSessionObserverMediaSessionMetadataChangedParams data =
+                                MediaSessionObserverMediaSessionMetadataChangedParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().mediaSessionMetadataChanged(data.metadata);
                         return true;
                     }
 
 
+
+
+
                     case MEDIA_SESSION_ACTIONS_CHANGED_ORDINAL: {
 
-                        MediaSessionObserverMediaSessionActionsChangedParams data = MediaSessionObserverMediaSessionActionsChangedParams.deserialize(messageWithHeader.getPayload());
+                        MediaSessionObserverMediaSessionActionsChangedParams data =
+                                MediaSessionObserverMediaSessionActionsChangedParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().mediaSessionActionsChanged(data.action);
                         return true;
                     }
 
 
+
+
+
                     case MEDIA_SESSION_IMAGES_CHANGED_ORDINAL: {
 
-                        MediaSessionObserverMediaSessionImagesChangedParams data = MediaSessionObserverMediaSessionImagesChangedParams.deserialize(messageWithHeader.getPayload());
+                        MediaSessionObserverMediaSessionImagesChangedParams data =
+                                MediaSessionObserverMediaSessionImagesChangedParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().mediaSessionImagesChanged(data.images);
                         return true;
                     }
 
 
+
+
+
                     case MEDIA_SESSION_POSITION_CHANGED_ORDINAL: {
 
-                        MediaSessionObserverMediaSessionPositionChangedParams data = MediaSessionObserverMediaSessionPositionChangedParams.deserialize(messageWithHeader.getPayload());
+                        MediaSessionObserverMediaSessionPositionChangedParams data =
+                                MediaSessionObserverMediaSessionPositionChangedParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().mediaSessionPositionChanged(data.position);
                         return true;
@@ -202,7 +250,7 @@ class MediaSessionObserver_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -210,7 +258,8 @@ class MediaSessionObserver_Internal {
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -219,27 +268,39 @@ class MediaSessionObserver_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), MediaSessionObserver_Internal.MANAGER, messageWithHeader, receiver);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
+                                getCore(), MediaSessionObserver_Internal.MANAGER, messageWithHeader, receiver);
+
+
+
+
+
+
+
+
+
+
 
 
                     default:
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class MediaSessionObserverMediaSessionInfoChangedParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public MediaSessionInfo info;
 
@@ -261,7 +322,8 @@ class MediaSessionObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static MediaSessionObserverMediaSessionInfoChangedParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -275,11 +337,11 @@ class MediaSessionObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new MediaSessionObserverMediaSessionInfoChangedParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.info = MediaSessionInfo.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -291,16 +353,18 @@ class MediaSessionObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.info, 8, false);
         }
     }
 
 
+
+    
     static final class MediaSessionObserverMediaSessionMetadataChangedParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public MediaMetadata metadata;
 
@@ -322,7 +386,8 @@ class MediaSessionObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static MediaSessionObserverMediaSessionMetadataChangedParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -336,11 +401,11 @@ class MediaSessionObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new MediaSessionObserverMediaSessionMetadataChangedParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, true);
                     result.metadata = MediaMetadata.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -352,16 +417,18 @@ class MediaSessionObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.metadata, 8, true);
         }
     }
 
 
+
+    
     static final class MediaSessionObserverMediaSessionActionsChangedParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int[] action;
 
@@ -383,7 +450,8 @@ class MediaSessionObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static MediaSessionObserverMediaSessionActionsChangedParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -397,15 +465,15 @@ class MediaSessionObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new MediaSessionObserverMediaSessionActionsChangedParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.action = decoder0.readInts(8, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                     {
                         for (int i1 = 0; i1 < result.action.length; ++i1) {
                             MediaSessionAction.validate(result.action[i1]);
                         }
                     }
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -417,16 +485,18 @@ class MediaSessionObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.action, 8, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
         }
     }
 
 
+
+    
     static final class MediaSessionObserverMediaSessionImagesChangedParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public java.util.Map<Integer, MediaImage[]> images;
 
@@ -448,7 +518,8 @@ class MediaSessionObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static MediaSessionObserverMediaSessionImagesChangedParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -462,15 +533,15 @@ class MediaSessionObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new MediaSessionObserverMediaSessionImagesChangedParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     {
                         decoder1.readDataHeaderForMap();
                         int[] keys0;
                         MediaImage[][] values0;
                         {
-
+                            
                             keys0 = decoder1.readInts(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                             {
                                 for (int i2 = 0; i2 < keys0.length; ++i2) {
@@ -479,19 +550,19 @@ class MediaSessionObserver_Internal {
                             }
                         }
                         {
-
+                            
                             org.chromium.mojo.bindings.Decoder decoder2 = decoder1.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE, false);
                             {
                                 org.chromium.mojo.bindings.DataHeader si2 = decoder2.readDataHeaderForPointerArray(keys0.length);
                                 values0 = new MediaImage[si2.elementsOrVersion][];
                                 for (int i2 = 0; i2 < si2.elementsOrVersion; ++i2) {
-
+                                    
                                     org.chromium.mojo.bindings.Decoder decoder3 = decoder2.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i2, false);
                                     {
                                         org.chromium.mojo.bindings.DataHeader si3 = decoder3.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                                         values0[i2] = new MediaImage[si3.elementsOrVersion];
                                         for (int i3 = 0; i3 < si3.elementsOrVersion; ++i3) {
-
+                                            
                                             org.chromium.mojo.bindings.Decoder decoder4 = decoder3.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i3, false);
                                             values0[i2][i3] = MediaImage.decode(decoder4);
                                         }
@@ -501,10 +572,10 @@ class MediaSessionObserver_Internal {
                         }
                         result.images = new java.util.HashMap<Integer, MediaImage[]>();
                         for (int index0 = 0; index0 < keys0.length; ++index0) {
-                            result.images.put(keys0[index0], values0[index0]);
+                            result.images.put(keys0[index0],  values0[index0]);
                         }
                     }
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -516,7 +587,7 @@ class MediaSessionObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             if (this.images == null) {
                 encoder0.encodeNullPointer(8, false);
             } else {
@@ -530,19 +601,19 @@ class MediaSessionObserver_Internal {
                     values0[index0] = entry0.getValue();
                     ++index0;
                 }
-
+                
                 encoder1.encode(keys0, org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
-
+                
                 {
                     org.chromium.mojo.bindings.Encoder encoder2 = encoder1.encodePointerArray(values0.length, org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                     for (int i1 = 0; i1 < values0.length; ++i1) {
-
+                        
                         if (values0[i1] == null) {
                             encoder2.encodeNullPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                         } else {
                             org.chromium.mojo.bindings.Encoder encoder3 = encoder2.encodePointerArray(values0[i1].length, org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                             for (int i2 = 0; i2 < values0[i1].length; ++i2) {
-
+                                
                                 encoder3.encode(values0[i1][i2], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i2, false);
                             }
                         }
@@ -553,10 +624,12 @@ class MediaSessionObserver_Internal {
     }
 
 
+
+    
     static final class MediaSessionObserverMediaSessionPositionChangedParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public MediaPosition position;
 
@@ -578,7 +651,8 @@ class MediaSessionObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static MediaSessionObserverMediaSessionPositionChangedParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -592,11 +666,11 @@ class MediaSessionObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new MediaSessionObserverMediaSessionPositionChangedParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, true);
                     result.position = MediaPosition.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -608,10 +682,11 @@ class MediaSessionObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.position, 8, true);
         }
     }
+
 
 
 }

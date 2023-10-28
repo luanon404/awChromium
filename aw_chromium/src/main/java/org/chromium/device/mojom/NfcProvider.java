@@ -13,21 +13,28 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface NfcProvider extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends NfcProvider, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends NfcProvider, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<NfcProvider, NfcProvider.Proxy> MANAGER = NfcProvider_Internal.MANAGER;
 
-    void getNfcForHost(int hostId, org.chromium.mojo.bindings.InterfaceRequest<Nfc> receiver);
+    void getNfcForHost(
+int hostId, org.chromium.mojo.bindings.InterfaceRequest<Nfc> receiver);
 
 
-    void suspendNfcOperations();
+    void suspendNfcOperations(
+);
 
 
-    void resumeNfcOperations();
+    void resumeNfcOperations(
+);
 
 
 }

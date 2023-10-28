@@ -13,24 +13,32 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface VideoEncoderMetricsProvider extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends VideoEncoderMetricsProvider, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends VideoEncoderMetricsProvider, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<VideoEncoderMetricsProvider, VideoEncoderMetricsProvider.Proxy> MANAGER = VideoEncoderMetricsProvider_Internal.MANAGER;
 
-    void initialize(long encoderId, int encoderUseCase, int profile, org.chromium.gfx.mojom.Size encodeSize, boolean isHardwareEncoder, int svcMode);
+    void initialize(
+long encoderId, int encoderUseCase, int profile, org.chromium.gfx.mojom.Size encodeSize, boolean isHardwareEncoder, int svcMode);
 
 
-    void setEncodedFrameCount(long encoderId, long numEncodedFrames);
+    void setEncodedFrameCount(
+long encoderId, long numEncodedFrames);
 
 
-    void setError(long encoderId, EncoderStatus status);
+    void setError(
+long encoderId, EncoderStatus status);
 
 
-    void complete(long encoderId);
+    void complete(
+long encoderId);
 
 
 }

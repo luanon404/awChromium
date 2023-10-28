@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface TextSuggestionHost extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends TextSuggestionHost, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends TextSuggestionHost, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<TextSuggestionHost, TextSuggestionHost.Proxy> MANAGER = TextSuggestionHost_Internal.MANAGER;

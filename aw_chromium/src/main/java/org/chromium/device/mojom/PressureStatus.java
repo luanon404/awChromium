@@ -17,10 +17,11 @@ import androidx.annotation.IntDef;
 
 public final class PressureStatus {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({PressureStatus.OK, PressureStatus.NOT_SUPPORTED})
-    public @interface EnumType {
-    }
+        PressureStatus.OK,
+        PressureStatus.NOT_SUPPORTED})
+    public @interface EnumType {}
 
     public static final int OK = 0;
     public static final int NOT_SUPPORTED = 1;
@@ -37,9 +38,8 @@ public final class PressureStatus {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private PressureStatus() {
-    }
+    private PressureStatus() {}
 }

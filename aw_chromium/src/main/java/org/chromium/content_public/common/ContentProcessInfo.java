@@ -11,12 +11,10 @@ public final class ContentProcessInfo {
     private static boolean sIsChildProcess;
 
     // Static members only, prevent instantiation.
-    private ContentProcessInfo() {
-    }
+    private ContentProcessInfo() {}
 
     /**
      * Set this as a child process; should be called as early as possible in process startup.
-     *
      * @param inChildProcess true if in child process.
      */
     public static void setInChildProcess(boolean inChildProcess) {

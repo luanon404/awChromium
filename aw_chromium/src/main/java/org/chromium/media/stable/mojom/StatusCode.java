@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class StatusCode {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({StatusCode.OK_DEPRECATED, StatusCode.ABORTED, StatusCode.ERROR})
-    public @interface EnumType {
-    }
+        StatusCode.OK_DEPRECATED,
+        StatusCode.ABORTED,
+        StatusCode.ERROR})
+    public @interface EnumType {}
 
     public static final int OK_DEPRECATED = 0;
     public static final int ABORTED = 1;
@@ -39,12 +41,11 @@ public final class StatusCode {
     }
 
     public static int toKnownValue(int value) {
-        if (isKnownValue(value)) {
-            return value;
-        }
-        return DEFAULT_VALUE;
+      if (isKnownValue(value)) {
+        return value;
+      }
+      return DEFAULT_VALUE;
     }
 
-    private StatusCode() {
-    }
+    private StatusCode() {}
 }

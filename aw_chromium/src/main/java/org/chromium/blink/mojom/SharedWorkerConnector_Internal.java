@@ -13,6 +13,8 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 class SharedWorkerConnector_Internal {
 
@@ -130,7 +132,7 @@ SharedWorkerInfo info, SharedWorkerClient client, int creationContextType, Messa
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -161,7 +163,7 @@ SharedWorkerInfo info, SharedWorkerClient client, int creationContextType, Messa
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }

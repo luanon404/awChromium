@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface CookieStore extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends CookieStore, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends CookieStore, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<CookieStore, CookieStore.Proxy> MANAGER = CookieStore_Internal.MANAGER;

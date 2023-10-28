@@ -17,39 +17,32 @@ public interface WindowEventObserver extends DisplayAndroidObserver {
     /**
      * This is called when the container view is attached to a window.
      */
-    default void onAttachedToWindow() {
-    }
+    default void onAttachedToWindow() {}
 
     /**
      * This is called when the container view is detached from a window.
      */
-    default void onDetachedFromWindow() {
-    }
+    default void onDetachedFromWindow() {}
 
     /**
      * @param gainFocus {@code true} if we're gaining focus.
      */
-    default void onWindowFocusChanged(boolean gainFocus) {
-    }
+    default void onWindowFocusChanged(boolean gainFocus) {}
 
     /**
      * Notifies observer when WindowAndroid is changed.
      */
-    default void onWindowAndroidChanged(WindowAndroid newWindowAndroid) {
-    }
+    default void onWindowAndroidChanged(WindowAndroid newWindowAndroid) {}
 
     /**
      * @see View#onConfigurationChanged()
      */
-    default void onConfigurationChanged(Configuration newConfig) {
-    }
+    default void onConfigurationChanged(Configuration newConfig) {}
 
     /**
      * Call this when view's focus has changed.
-     *
-     * @param gainFocus          True if we're gaining focus.
+     * @param gainFocus True if we're gaining focus.
      * @param hideKeyboardOnBlur True if we should hide soft keyboard when losing focus.
      */
-    default void onViewFocusChanged(boolean gainFocus, boolean hideKeyboardOnBlur) {
-    }
+    default void onViewFocusChanged(boolean gainFocus, boolean hideKeyboardOnBlur) {}
 }

@@ -13,18 +13,23 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface WebrtcVideoPerfHistory extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends WebrtcVideoPerfHistory, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends WebrtcVideoPerfHistory, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<WebrtcVideoPerfHistory, WebrtcVideoPerfHistory.Proxy> MANAGER = WebrtcVideoPerfHistory_Internal.MANAGER;
 
-    void getPerfInfo(WebrtcPredictionFeatures features, int framesPerSecond, GetPerfInfo_Response callback);
+    void getPerfInfo(
+WebrtcPredictionFeatures features, int framesPerSecond, 
+GetPerfInfo_Response callback);
 
-    interface GetPerfInfo_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> {
-    }
+    interface GetPerfInfo_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> { }
 
 
 }

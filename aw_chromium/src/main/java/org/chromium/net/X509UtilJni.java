@@ -4,44 +4,85 @@
 package org.chromium.net;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.http.X509TrustManagerExtensions;
+import android.os.Build;
+import android.security.KeyChain;
+import android.util.Pair;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.ContextUtils;
+import org.chromium.base.Log;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.PublicKey;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateEncodingException;
+import java.security.cert.CertificateException;
+import java.security.cert.CertificateExpiredException;
+import java.security.cert.CertificateFactory;
+import java.security.cert.CertificateNotYetValidException;
+import java.security.cert.X509Certificate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.TrustManagerFactory;
+import javax.net.ssl.X509TrustManager;
+import javax.security.auth.x500.X500Principal;
 
 @CheckDiscard("crbug.com/993421")
 class X509UtilJni implements X509Util.Natives {
-    private static X509Util.Natives testInstance;
+  private static X509Util.Natives testInstance;
 
-    public static final JniStaticTestMocker<X509Util.Natives> TEST_HOOKS = new JniStaticTestMocker<X509Util.Natives>() {
-        @Override
-        public void setInstanceForTesting(X509Util.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<X509Util.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<X509Util.Natives>() {
     @Override
-    public void notifyClientCertStoreChanged() {
-        GEN_JNI.org_chromium_net_X509Util_notifyClientCertStoreChanged();
+    public void setInstanceForTesting(X509Util.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public void notifyTrustStoreChanged() {
-        GEN_JNI.org_chromium_net_X509Util_notifyTrustStoreChanged();
-    }
+  @Override
+  public void notifyClientCertStoreChanged() {
+    GEN_JNI.org_chromium_net_X509Util_notifyClientCertStoreChanged();
+  }
 
-    public static X509Util.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of X509Util.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new X509UtilJni();
+  @Override
+  public void notifyTrustStoreChanged() {
+    GEN_JNI.org_chromium_net_X509Util_notifyTrustStoreChanged();
+  }
+
+  public static X509Util.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of X509Util.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new X509UtilJni();
+  }
 }

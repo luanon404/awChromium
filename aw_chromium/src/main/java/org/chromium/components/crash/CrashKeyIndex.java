@@ -1,3 +1,4 @@
+
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -14,16 +15,21 @@ import androidx.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@IntDef({CrashKeyIndex.LOADED_DYNAMIC_MODULE, CrashKeyIndex.ACTIVE_DYNAMIC_MODULE, CrashKeyIndex.APPLICATION_STATUS, CrashKeyIndex.INSTALLED_MODULES, CrashKeyIndex.EMULATED_MODULES, CrashKeyIndex.DYNAMIC_MODULE_DEX_NAME, CrashKeyIndex.PARTNER_CUSTOMIZATION_CONFIG, CrashKeyIndex.FIRST_RUN})
+@IntDef({
+    CrashKeyIndex.LOADED_DYNAMIC_MODULE, CrashKeyIndex.ACTIVE_DYNAMIC_MODULE,
+    CrashKeyIndex.APPLICATION_STATUS, CrashKeyIndex.INSTALLED_MODULES,
+    CrashKeyIndex.EMULATED_MODULES, CrashKeyIndex.DYNAMIC_MODULE_DEX_NAME,
+    CrashKeyIndex.PARTNER_CUSTOMIZATION_CONFIG, CrashKeyIndex.FIRST_RUN
+})
 @Retention(RetentionPolicy.SOURCE)
 public @interface CrashKeyIndex {
-    int LOADED_DYNAMIC_MODULE = 0;
-    int ACTIVE_DYNAMIC_MODULE = 1;
-    int APPLICATION_STATUS = 2;
-    int INSTALLED_MODULES = 3;
-    int EMULATED_MODULES = 4;
-    int DYNAMIC_MODULE_DEX_NAME = 5;
-    int PARTNER_CUSTOMIZATION_CONFIG = 6;
-    int FIRST_RUN = 7;
-    int NUM_ENTRIES = 8;
+  int LOADED_DYNAMIC_MODULE = 0;
+  int ACTIVE_DYNAMIC_MODULE = 1;
+  int APPLICATION_STATUS = 2;
+  int INSTALLED_MODULES = 3;
+  int EMULATED_MODULES = 4;
+  int DYNAMIC_MODULE_DEX_NAME = 5;
+  int PARTNER_CUSTOMIZATION_CONFIG = 6;
+  int FIRST_RUN = 7;
+  int NUM_ENTRIES = 8;
 }

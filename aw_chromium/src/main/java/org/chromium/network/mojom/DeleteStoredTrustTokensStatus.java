@@ -17,10 +17,13 @@ import androidx.annotation.IntDef;
 
 public final class DeleteStoredTrustTokensStatus {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({DeleteStoredTrustTokensStatus.SUCCESS_TOKENS_DELETED, DeleteStoredTrustTokensStatus.SUCCESS_NO_TOKENS_DELETED, DeleteStoredTrustTokensStatus.FAILURE_FEATURE_DISABLED, DeleteStoredTrustTokensStatus.FAILURE_INVALID_ORIGIN})
-    public @interface EnumType {
-    }
+        DeleteStoredTrustTokensStatus.SUCCESS_TOKENS_DELETED,
+        DeleteStoredTrustTokensStatus.SUCCESS_NO_TOKENS_DELETED,
+        DeleteStoredTrustTokensStatus.FAILURE_FEATURE_DISABLED,
+        DeleteStoredTrustTokensStatus.FAILURE_INVALID_ORIGIN})
+    public @interface EnumType {}
 
     public static final int SUCCESS_TOKENS_DELETED = 0;
     public static final int SUCCESS_NO_TOKENS_DELETED = 1;
@@ -39,9 +42,8 @@ public final class DeleteStoredTrustTokensStatus {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private DeleteStoredTrustTokensStatus() {
-    }
+    private DeleteStoredTrustTokensStatus() {}
 }

@@ -13,10 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class FileEnumerationEntry extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 40;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(40, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(40, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public org.chromium.mojo_base.mojom.FilePath path;
     public long size;
@@ -41,7 +44,8 @@ public final class FileEnumerationEntry extends org.chromium.mojo.bindings.Struc
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static FileEnumerationEntry deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -55,25 +59,25 @@ public final class FileEnumerationEntry extends org.chromium.mojo.bindings.Struc
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new FileEnumerationEntry(elementsOrVersion);
-            {
-
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                 result.path = org.chromium.mojo_base.mojom.FilePath.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.size = decoder0.readLong(16);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, false);
                 result.lastAccessed = org.chromium.mojo_base.mojom.Time.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(32, false);
                 result.lastModified = org.chromium.mojo_base.mojom.Time.decode(decoder1);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -85,13 +89,13 @@ public final class FileEnumerationEntry extends org.chromium.mojo.bindings.Struc
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.path, 8, false);
-
+        
         encoder0.encode(this.size, 16);
-
+        
         encoder0.encode(this.lastAccessed, 24, false);
-
+        
         encoder0.encode(this.lastModified, 32, false);
     }
 }

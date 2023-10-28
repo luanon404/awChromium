@@ -13,21 +13,28 @@
 
 package org.chromium.media_session.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface MediaControllerManager extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends MediaControllerManager, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends MediaControllerManager, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<MediaControllerManager, MediaControllerManager.Proxy> MANAGER = MediaControllerManager_Internal.MANAGER;
 
-    void createMediaControllerForSession(org.chromium.mojo.bindings.InterfaceRequest<MediaController> receiver, org.chromium.mojo_base.mojom.UnguessableToken requestId);
+    void createMediaControllerForSession(
+org.chromium.mojo.bindings.InterfaceRequest<MediaController> receiver, org.chromium.mojo_base.mojom.UnguessableToken requestId);
 
 
-    void createActiveMediaController(org.chromium.mojo.bindings.InterfaceRequest<MediaController> receiver);
+    void createActiveMediaController(
+org.chromium.mojo.bindings.InterfaceRequest<MediaController> receiver);
 
 
-    void suspendAllSessions();
+    void suspendAllSessions(
+);
 
 
 }

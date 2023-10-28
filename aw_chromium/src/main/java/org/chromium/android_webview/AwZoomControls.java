@@ -80,8 +80,10 @@ public class AwZoomControls {
     @SuppressLint("RtlHardcoded")
     @SuppressWarnings("deprecation")
     private android.widget.ZoomButtonsController getZoomController() {
-        if (mZoomButtonsController == null && mAwContents.getSettings().shouldDisplayZoomControls()) {
-            mZoomButtonsController = new android.widget.ZoomButtonsController(mAwContents.getContainerView());
+        if (mZoomButtonsController == null
+                && mAwContents.getSettings().shouldDisplayZoomControls()) {
+            mZoomButtonsController =
+                    new android.widget.ZoomButtonsController(mAwContents.getContainerView());
             mZoomButtonsController.setOnZoomListener(new ZoomListener());
             // ZoomButtonsController positions the buttons at the bottom, but in
             // the middle. Change their layout parameters so they appear on the

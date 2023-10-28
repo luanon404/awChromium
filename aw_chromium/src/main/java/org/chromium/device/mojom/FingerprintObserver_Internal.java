@@ -13,9 +13,13 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 class FingerprintObserver_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<FingerprintObserver, FingerprintObserver.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<FingerprintObserver, FingerprintObserver.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<FingerprintObserver, FingerprintObserver.Proxy> MANAGER =
+            new org.chromium.mojo.bindings.Interface.Manager<FingerprintObserver, FingerprintObserver.Proxy>() {
 
         @Override
         public String getName() {
@@ -24,11 +28,12 @@ class FingerprintObserver_Internal {
 
         @Override
         public int getVersion() {
-            return 0;
+          return 0;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -39,7 +44,7 @@ class FingerprintObserver_Internal {
 
         @Override
         public FingerprintObserver[] buildArray(int size) {
-            return new FingerprintObserver[size];
+          return new FingerprintObserver[size];
         }
     };
 
@@ -57,37 +62,47 @@ class FingerprintObserver_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements FingerprintObserver.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core,
+              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void onRestarted() {
+        public void onRestarted(
+) {
 
             FingerprintObserverOnRestartedParams _message = new FingerprintObserverOnRestartedParams();
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_RESTARTED_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_RESTARTED_ORDINAL)));
 
         }
 
 
         @Override
-        public void onStatusChanged(int status) {
+        public void onStatusChanged(
+int status) {
 
             FingerprintObserverOnStatusChangedParams _message = new FingerprintObserverOnStatusChangedParams();
 
             _message.status = status;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_STATUS_CHANGED_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_STATUS_CHANGED_ORDINAL)));
 
         }
 
 
         @Override
-        public void onEnrollScanDone(int scanResult, boolean isComplete, int percentComplete) {
+        public void onEnrollScanDone(
+int scanResult, boolean isComplete, int percentComplete) {
 
             FingerprintObserverOnEnrollScanDoneParams _message = new FingerprintObserverOnEnrollScanDoneParams();
 
@@ -98,13 +113,17 @@ class FingerprintObserver_Internal {
             _message.percentComplete = percentComplete;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_ENROLL_SCAN_DONE_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_ENROLL_SCAN_DONE_ORDINAL)));
 
         }
 
 
         @Override
-        public void onAuthScanDone(FingerprintMessage msg, java.util.Map<String, String[]> matches) {
+        public void onAuthScanDone(
+FingerprintMessage msg, java.util.Map<String, String[]> matches) {
 
             FingerprintObserverOnAuthScanDoneParams _message = new FingerprintObserverOnAuthScanDoneParams();
 
@@ -113,18 +132,25 @@ class FingerprintObserver_Internal {
             _message.matches = matches;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_AUTH_SCAN_DONE_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_AUTH_SCAN_DONE_ORDINAL)));
 
         }
 
 
         @Override
-        public void onSessionFailed() {
+        public void onSessionFailed(
+) {
 
             FingerprintObserverOnSessionFailedParams _message = new FingerprintObserverOnSessionFailedParams();
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_SESSION_FAILED_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_SESSION_FAILED_ORDINAL)));
 
         }
 
@@ -140,7 +166,8 @@ class FingerprintObserver_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -149,10 +176,14 @@ class FingerprintObserver_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(FingerprintObserver_Internal.MANAGER, messageWithHeader);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
+                                FingerprintObserver_Internal.MANAGER, messageWithHeader);
+
+
+
 
 
                     case ON_RESTARTED_ORDINAL: {
@@ -164,31 +195,46 @@ class FingerprintObserver_Internal {
                     }
 
 
+
+
+
                     case ON_STATUS_CHANGED_ORDINAL: {
 
-                        FingerprintObserverOnStatusChangedParams data = FingerprintObserverOnStatusChangedParams.deserialize(messageWithHeader.getPayload());
+                        FingerprintObserverOnStatusChangedParams data =
+                                FingerprintObserverOnStatusChangedParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onStatusChanged(data.status);
                         return true;
                     }
 
 
+
+
+
                     case ON_ENROLL_SCAN_DONE_ORDINAL: {
 
-                        FingerprintObserverOnEnrollScanDoneParams data = FingerprintObserverOnEnrollScanDoneParams.deserialize(messageWithHeader.getPayload());
+                        FingerprintObserverOnEnrollScanDoneParams data =
+                                FingerprintObserverOnEnrollScanDoneParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onEnrollScanDone(data.scanResult, data.isComplete, data.percentComplete);
                         return true;
                     }
 
 
+
+
+
                     case ON_AUTH_SCAN_DONE_ORDINAL: {
 
-                        FingerprintObserverOnAuthScanDoneParams data = FingerprintObserverOnAuthScanDoneParams.deserialize(messageWithHeader.getPayload());
+                        FingerprintObserverOnAuthScanDoneParams data =
+                                FingerprintObserverOnAuthScanDoneParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onAuthScanDone(data.msg, data.matches);
                         return true;
                     }
+
+
+
 
 
                     case ON_SESSION_FAILED_ORDINAL: {
@@ -204,7 +250,7 @@ class FingerprintObserver_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -212,7 +258,8 @@ class FingerprintObserver_Internal {
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -221,27 +268,39 @@ class FingerprintObserver_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), FingerprintObserver_Internal.MANAGER, messageWithHeader, receiver);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
+                                getCore(), FingerprintObserver_Internal.MANAGER, messageWithHeader, receiver);
+
+
+
+
+
+
+
+
+
+
 
 
                     default:
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class FingerprintObserverOnRestartedParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 8;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(8, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(8, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
 
         private FingerprintObserverOnRestartedParams(int version) {
@@ -262,7 +321,8 @@ class FingerprintObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static FingerprintObserverOnRestartedParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -291,10 +351,12 @@ class FingerprintObserver_Internal {
     }
 
 
+
+    
     static final class FingerprintObserverOnStatusChangedParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int status;
 
@@ -316,7 +378,8 @@ class FingerprintObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static FingerprintObserverOnStatusChangedParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -330,12 +393,12 @@ class FingerprintObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new FingerprintObserverOnStatusChangedParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.status = decoder0.readInt(8);
-                    BiometricsManagerStatus.validate(result.status);
-                    result.status = BiometricsManagerStatus.toKnownValue(result.status);
-                }
+                        BiometricsManagerStatus.validate(result.status);
+                        result.status = BiometricsManagerStatus.toKnownValue(result.status);
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -347,16 +410,18 @@ class FingerprintObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.status, 8);
         }
     }
 
 
+
+    
     static final class FingerprintObserverOnEnrollScanDoneParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int scanResult;
         public boolean isComplete;
@@ -380,7 +445,8 @@ class FingerprintObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static FingerprintObserverOnEnrollScanDoneParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -394,20 +460,20 @@ class FingerprintObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new FingerprintObserverOnEnrollScanDoneParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.scanResult = decoder0.readInt(8);
-                    ScanResult.validate(result.scanResult);
-                    result.scanResult = ScanResult.toKnownValue(result.scanResult);
-                }
-                {
-
+                        ScanResult.validate(result.scanResult);
+                        result.scanResult = ScanResult.toKnownValue(result.scanResult);
+                    }
+                    {
+                        
                     result.isComplete = decoder0.readBoolean(12, 0);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.percentComplete = decoder0.readInt(16);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -419,20 +485,22 @@ class FingerprintObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.scanResult, 8);
-
+            
             encoder0.encode(this.isComplete, 12, 0);
-
+            
             encoder0.encode(this.percentComplete, 16);
         }
     }
 
 
+
+    
     static final class FingerprintObserverOnAuthScanDoneParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 32;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(32, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(32, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public FingerprintMessage msg;
         public java.util.Map<String, String[]> matches;
@@ -455,7 +523,8 @@ class FingerprintObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static FingerprintObserverOnAuthScanDoneParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -469,43 +538,43 @@ class FingerprintObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new FingerprintObserverOnAuthScanDoneParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.msg = FingerprintMessage.decode(decoder0, 8);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, false);
                     {
                         decoder1.readDataHeaderForMap();
                         String[] keys0;
                         String[][] values0;
                         {
-
+                            
                             org.chromium.mojo.bindings.Decoder decoder2 = decoder1.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                             {
                                 org.chromium.mojo.bindings.DataHeader si2 = decoder2.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                                 keys0 = new String[si2.elementsOrVersion];
                                 for (int i2 = 0; i2 < si2.elementsOrVersion; ++i2) {
-
+                                    
                                     keys0[i2] = decoder2.readString(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i2, false);
                                 }
                             }
                         }
                         {
-
+                            
                             org.chromium.mojo.bindings.Decoder decoder2 = decoder1.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE, false);
                             {
                                 org.chromium.mojo.bindings.DataHeader si2 = decoder2.readDataHeaderForPointerArray(keys0.length);
                                 values0 = new String[si2.elementsOrVersion][];
                                 for (int i2 = 0; i2 < si2.elementsOrVersion; ++i2) {
-
+                                    
                                     org.chromium.mojo.bindings.Decoder decoder3 = decoder2.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i2, false);
                                     {
                                         org.chromium.mojo.bindings.DataHeader si3 = decoder3.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                                         values0[i2] = new String[si3.elementsOrVersion];
                                         for (int i3 = 0; i3 < si3.elementsOrVersion; ++i3) {
-
+                                            
                                             values0[i2][i3] = decoder3.readString(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i3, false);
                                         }
                                     }
@@ -514,10 +583,10 @@ class FingerprintObserver_Internal {
                         }
                         result.matches = new java.util.HashMap<String, String[]>();
                         for (int index0 = 0; index0 < keys0.length; ++index0) {
-                            result.matches.put(keys0[index0], values0[index0]);
+                            result.matches.put(keys0[index0],  values0[index0]);
                         }
                     }
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -529,9 +598,9 @@ class FingerprintObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.msg, 8, false);
-
+            
             if (this.matches == null) {
                 encoder0.encodeNullPointer(24, false);
             } else {
@@ -545,25 +614,25 @@ class FingerprintObserver_Internal {
                     values0[index0] = entry0.getValue();
                     ++index0;
                 }
-
+                
                 {
                     org.chromium.mojo.bindings.Encoder encoder2 = encoder1.encodePointerArray(keys0.length, org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                     for (int i1 = 0; i1 < keys0.length; ++i1) {
-
+                        
                         encoder2.encode(keys0[i1], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                     }
                 }
-
+                
                 {
                     org.chromium.mojo.bindings.Encoder encoder2 = encoder1.encodePointerArray(values0.length, org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                     for (int i1 = 0; i1 < values0.length; ++i1) {
-
+                        
                         if (values0[i1] == null) {
                             encoder2.encodeNullPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                         } else {
                             org.chromium.mojo.bindings.Encoder encoder3 = encoder2.encodePointerArray(values0[i1].length, org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                             for (int i2 = 0; i2 < values0[i1].length; ++i2) {
-
+                                
                                 encoder3.encode(values0[i1][i2], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i2, false);
                             }
                         }
@@ -574,10 +643,12 @@ class FingerprintObserver_Internal {
     }
 
 
+
+    
     static final class FingerprintObserverOnSessionFailedParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 8;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(8, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(8, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
 
         private FingerprintObserverOnSessionFailedParams(int version) {
@@ -598,7 +669,8 @@ class FingerprintObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static FingerprintObserverOnSessionFailedParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -625,6 +697,7 @@ class FingerprintObserver_Internal {
             encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
         }
     }
+
 
 
 }

@@ -9,11 +9,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 
-import org.chromium.base.ContextUtils;
-import org.chromium.base.Log;
 import org.jni_zero.CalledByNative;
 import org.jni_zero.JNINamespace;
 import org.jni_zero.NativeMethods;
+
+import org.chromium.base.ContextUtils;
+import org.chromium.base.Log;
 
 /**
  * Android implementation details for device::TimeZoneMonitorAndroid.
@@ -39,12 +40,12 @@ class TimeZoneMonitor {
 
     /**
      * Start listening for intents.
-     *
      * @param nativePtr The native device::TimeZoneMonitorAndroid to notify of time zone changes.
      */
     private TimeZoneMonitor(long nativePtr) {
         mNativePtr = nativePtr;
-        ContextUtils.registerProtectedBroadcastReceiver(ContextUtils.getApplicationContext(), mBroadcastReceiver, mFilter);
+        ContextUtils.registerProtectedBroadcastReceiver(
+                ContextUtils.getApplicationContext(), mBroadcastReceiver, mFilter);
     }
 
     @CalledByNative

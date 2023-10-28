@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class AccelerometerSupport {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({AccelerometerSupport.UNKNOWN, AccelerometerSupport.AVAILABLE, AccelerometerSupport.UNAVAILABLE})
-    public @interface EnumType {
-    }
+        AccelerometerSupport.UNKNOWN,
+        AccelerometerSupport.AVAILABLE,
+        AccelerometerSupport.UNAVAILABLE})
+    public @interface EnumType {}
 
     public static final int UNKNOWN = 0;
     public static final int AVAILABLE = 1;
@@ -38,9 +40,8 @@ public final class AccelerometerSupport {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private AccelerometerSupport() {
-    }
+    private AccelerometerSupport() {}
 }

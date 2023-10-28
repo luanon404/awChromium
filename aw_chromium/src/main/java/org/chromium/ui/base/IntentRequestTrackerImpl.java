@@ -38,7 +38,6 @@ import java.util.HashMap;
 
     /**
      * Creates an instance of the class.
-     *
      * @param delegate The delegate that wraps the activity that owns the tracker.
      */
     /* package */ IntentRequestTrackerImpl(Delegate delegate) {
@@ -47,7 +46,8 @@ import java.util.HashMap;
         mDelegate = delegate;
     }
 
-    /* package */ int showCancelableIntent(PendingIntent intent, IntentCallback callback, Integer errorId) {
+    /* package */ int showCancelableIntent(
+            PendingIntent intent, IntentCallback callback, Integer errorId) {
         int requestCode = generateNextRequestCode();
 
         if (!mDelegate.startIntentSenderForResult(intent.getIntentSender(), requestCode)) {
@@ -58,7 +58,8 @@ import java.util.HashMap;
         return requestCode;
     }
 
-    /* package */ int showCancelableIntent(Intent intent, IntentCallback callback, Integer errorId) {
+    /* package */ int showCancelableIntent(
+            Intent intent, IntentCallback callback, Integer errorId) {
         int requestCode = generateNextRequestCode();
 
         if (!mDelegate.startActivityForResult(intent, requestCode)) {
@@ -69,7 +70,8 @@ import java.util.HashMap;
         return requestCode;
     }
 
-    /* package */ int showCancelableIntent(Callback<Integer> intentTrigger, IntentCallback callback, Integer errorId) {
+    /* package */ int showCancelableIntent(
+            Callback<Integer> intentTrigger, IntentCallback callback, Integer errorId) {
         int requestCode = generateNextRequestCode();
 
         intentTrigger.onResult(requestCode);
@@ -123,7 +125,8 @@ import java.util.HashMap;
 
         Object errors = bundle.getSerializable(WindowAndroid.WINDOW_CALLBACK_ERRORS);
         if (errors instanceof HashMap) {
-            @SuppressWarnings("unchecked") HashMap<Integer, String> intentErrors = (HashMap<Integer, String>) errors;
+            @SuppressWarnings("unchecked")
+            HashMap<Integer, String> intentErrors = (HashMap<Integer, String>) errors;
             mIntentErrors = intentErrors;
         }
     }
@@ -136,7 +139,8 @@ import java.util.HashMap;
 
     private void storeCallbackData(int requestCode, IntentCallback callback, Integer errorId) {
         mOutstandingIntents.put(requestCode, callback);
-        mIntentErrors.put(requestCode, errorId == null ? null : ContextUtils.getApplicationContext().getString(errorId));
+        mIntentErrors.put(requestCode,
+                errorId == null ? null : ContextUtils.getApplicationContext().getString(errorId));
     }
 
     private SparseArray<IntentCallback> getOutstandingIntents() {

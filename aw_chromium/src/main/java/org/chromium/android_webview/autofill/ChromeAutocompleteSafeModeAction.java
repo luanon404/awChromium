@@ -11,7 +11,7 @@ import org.chromium.android_webview.common.SafeModeAction;
 
 /**
  * A {@link SafeModeAction} to disable autocomplete provided by Chrome.
- * <p>
+ *
  * This action itself is a NOOP. The actual work is done in
  * AwContents.isChromeAutocompleteSafeModeEnabled()
  */

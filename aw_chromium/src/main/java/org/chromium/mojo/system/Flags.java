@@ -45,7 +45,8 @@ public abstract class Flags<F extends Flags<F>> {
         } else {
             mFlags &= ~flag;
         }
-        @SuppressWarnings("unchecked") F f = (F) this;
+        @SuppressWarnings("unchecked")
+        F f = (F) this;
         return f;
     }
 
@@ -54,7 +55,8 @@ public abstract class Flags<F extends Flags<F>> {
      */
     protected F immutable() {
         mImmutable = true;
-        @SuppressWarnings("unchecked") F f = (F) this;
+        @SuppressWarnings("unchecked")
+        F f = (F) this;
         return f;
     }
 

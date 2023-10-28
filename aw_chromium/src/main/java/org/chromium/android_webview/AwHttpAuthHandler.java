@@ -4,10 +4,11 @@
 
 package org.chromium.android_webview;
 
-import org.chromium.base.ThreadUtils;
 import org.jni_zero.CalledByNative;
 import org.jni_zero.JNINamespace;
 import org.jni_zero.NativeMethods;
+
+import org.chromium.base.ThreadUtils;
 
 /**
  * See {@link android.webkit.HttpAuthHandler}.
@@ -22,7 +23,8 @@ public class AwHttpAuthHandler {
     public void proceed(String username, String password) {
         checkOnUiThread();
         if (mNativeAwHttpAuthHandler != 0) {
-            AwHttpAuthHandlerJni.get().proceed(mNativeAwHttpAuthHandler, AwHttpAuthHandler.this, username, password);
+            AwHttpAuthHandlerJni.get().proceed(
+                    mNativeAwHttpAuthHandler, AwHttpAuthHandler.this, username, password);
             mNativeAwHttpAuthHandler = 0;
         }
     }
@@ -52,7 +54,8 @@ public class AwHttpAuthHandler {
 
     private void checkOnUiThread() {
         if (!ThreadUtils.runningOnUiThread()) {
-            throw new IllegalStateException("Either proceed(), cancel, or isFirstAttempt() should be called on UI thread");
+            throw new IllegalStateException(
+                    "Either proceed(), cancel, or isFirstAttempt() should be called on UI thread");
         }
     }
 
@@ -63,8 +66,8 @@ public class AwHttpAuthHandler {
 
     @NativeMethods
     interface Natives {
-        void proceed(long nativeAwHttpAuthHandler, AwHttpAuthHandler caller, String username, String password);
-
+        void proceed(long nativeAwHttpAuthHandler, AwHttpAuthHandler caller, String username,
+                String password);
         void cancel(long nativeAwHttpAuthHandler, AwHttpAuthHandler caller);
     }
 }

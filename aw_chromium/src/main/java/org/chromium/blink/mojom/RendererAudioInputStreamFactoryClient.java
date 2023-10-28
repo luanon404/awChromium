@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface RendererAudioInputStreamFactoryClient extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends RendererAudioInputStreamFactoryClient, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends RendererAudioInputStreamFactoryClient, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<RendererAudioInputStreamFactoryClient, RendererAudioInputStreamFactoryClient.Proxy> MANAGER = RendererAudioInputStreamFactoryClient_Internal.MANAGER;

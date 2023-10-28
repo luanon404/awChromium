@@ -18,7 +18,6 @@ public class PolicyMap {
 
     /**
      * Returns the value of integer policy.
-     *
      * @param policy The name of policy.
      */
     public Integer getIntValue(String policy) {
@@ -32,7 +31,6 @@ public class PolicyMap {
 
     /**
      * Returns the value of boolean policy.
-     *
      * @param policy The name of policy.
      */
     public Boolean getBooleanValue(String policy) {
@@ -46,7 +44,6 @@ public class PolicyMap {
 
     /**
      * Returns the value of string policy.
-     *
      * @param policy The name of policy.
      */
     public String getStringValue(String policy) {
@@ -55,7 +52,6 @@ public class PolicyMap {
 
     /**
      * Returns tha JSON string of list policy.
-     *
      * @param policy The name of policy.
      */
     public String getListValueAsString(String policy) {
@@ -64,7 +60,6 @@ public class PolicyMap {
 
     /**
      * Returns tha JSON string of dictionary policy.
-     *
      * @param policy The name of policy.
      */
     public String getDictValueAsString(String policy) {
@@ -85,22 +80,16 @@ public class PolicyMap {
     public interface Natives {
         @NativeClassQualifiedName("PolicyMapAndroid")
         boolean hasValue(long nativePolicyMap, PolicyMap caller, String policy);
-
         @NativeClassQualifiedName("PolicyMapAndroid")
         int getIntValue(long nativePolicyMap, PolicyMap caller, String policy);
-
         @NativeClassQualifiedName("PolicyMapAndroid")
         boolean getBooleanValue(long nativePolicyMap, PolicyMap caller, String policy);
-
         @NativeClassQualifiedName("PolicyMapAndroid")
         String getStringValue(long nativePolicyMap, PolicyMap caller, String policy);
-
         @NativeClassQualifiedName("PolicyMapAndroid")
         String getListValue(long nativePolicyMap, PolicyMap caller, String policy);
-
         @NativeClassQualifiedName("PolicyMapAndroid")
         String getDictValue(long nativePolicyMap, PolicyMap caller, String policy);
-
         @NativeClassQualifiedName("PolicyMapAndroid")
         boolean equals(long nativePolicyMap, PolicyMap caller, long nativeOtherPolicyMap);
     }

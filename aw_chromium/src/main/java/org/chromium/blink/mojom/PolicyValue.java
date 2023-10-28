@@ -13,6 +13,8 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public final class PolicyValue extends org.chromium.mojo.bindings.Union {
 
@@ -21,8 +23,7 @@ public final class PolicyValue extends org.chromium.mojo.bindings.Union {
         public static final int BoolValue = 1;
         public static final int DecDoubleValue = 2;
         public static final int EnumValue = 3;
-    }
-
+    };
     private boolean mNullValue;
     private boolean mBoolValue;
     private double mDecDoubleValue;

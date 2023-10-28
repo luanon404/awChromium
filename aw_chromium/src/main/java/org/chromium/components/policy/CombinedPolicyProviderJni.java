@@ -4,39 +4,54 @@
 package org.chromium.components.policy;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.os.Bundle;
+import androidx.annotation.VisibleForTesting;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.Log;
+import org.chromium.base.ResettersForTesting;
+import org.chromium.base.ThreadUtils;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @CheckDiscard("crbug.com/993421")
 class CombinedPolicyProviderJni implements CombinedPolicyProvider.Natives {
-    private static CombinedPolicyProvider.Natives testInstance;
+  private static CombinedPolicyProvider.Natives testInstance;
 
-    public static final JniStaticTestMocker<CombinedPolicyProvider.Natives> TEST_HOOKS = new JniStaticTestMocker<CombinedPolicyProvider.Natives>() {
-        @Override
-        public void setInstanceForTesting(CombinedPolicyProvider.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<CombinedPolicyProvider.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<CombinedPolicyProvider.Natives>() {
     @Override
-    public void flushPolicies(long nativeAndroidCombinedPolicyProvider, CombinedPolicyProvider caller) {
-        GEN_JNI.org_chromium_components_policy_CombinedPolicyProvider_flushPolicies(nativeAndroidCombinedPolicyProvider, caller);
+    public void setInstanceForTesting(CombinedPolicyProvider.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    public static CombinedPolicyProvider.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of CombinedPolicyProvider.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new CombinedPolicyProviderJni();
+  @Override
+  public void flushPolicies(long nativeAndroidCombinedPolicyProvider, CombinedPolicyProvider caller) {
+    GEN_JNI.org_chromium_components_policy_CombinedPolicyProvider_flushPolicies(nativeAndroidCombinedPolicyProvider, caller);
+  }
+
+  public static CombinedPolicyProvider.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of CombinedPolicyProvider.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new CombinedPolicyProviderJni();
+  }
 }

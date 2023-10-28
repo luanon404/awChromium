@@ -13,27 +13,36 @@
 
 package org.chromium.media_session.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface MediaSessionObserver extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends MediaSessionObserver, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends MediaSessionObserver, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<MediaSessionObserver, MediaSessionObserver.Proxy> MANAGER = MediaSessionObserver_Internal.MANAGER;
 
-    void mediaSessionInfoChanged(MediaSessionInfo info);
+    void mediaSessionInfoChanged(
+MediaSessionInfo info);
 
 
-    void mediaSessionMetadataChanged(MediaMetadata metadata);
+    void mediaSessionMetadataChanged(
+MediaMetadata metadata);
 
 
-    void mediaSessionActionsChanged(int[] action);
+    void mediaSessionActionsChanged(
+int[] action);
 
 
-    void mediaSessionImagesChanged(java.util.Map<Integer, MediaImage[]> images);
+    void mediaSessionImagesChanged(
+java.util.Map<Integer, MediaImage[]> images);
 
 
-    void mediaSessionPositionChanged(MediaPosition position);
+    void mediaSessionPositionChanged(
+MediaPosition position);
 
 
 }

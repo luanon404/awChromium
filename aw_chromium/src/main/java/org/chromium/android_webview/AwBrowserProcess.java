@@ -19,6 +19,10 @@ import androidx.annotation.Nullable;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+
 import org.chromium.android_webview.common.AwFeatures;
 import org.chromium.android_webview.common.AwSwitches;
 import org.chromium.android_webview.common.Lifetime;
@@ -61,9 +65,6 @@ import org.chromium.components.policy.CombinedPolicyProvider;
 import org.chromium.content_public.browser.BrowserStartupController;
 import org.chromium.content_public.browser.ChildProcessCreationParams;
 import org.chromium.content_public.browser.ChildProcessLauncherHelper;
-import org.jni_zero.CalledByNative;
-import org.jni_zero.JNINamespace;
-import org.jni_zero.NativeMethods;
 
 import java.io.File;
 import java.io.IOException;
@@ -113,15 +114,15 @@ public final class AwBrowserProcess {
      * to run webview in this process. Does not create threads; safe to call from zygote.
      * Note: it is up to the caller to ensure this is only called once.
      *
-     * @param processDataDirBasePath  The base path to use when setting the data directory for this
-     *                                process; null to use default base path.
+     * @param processDataDirBasePath The base path to use when setting the data directory for this
+     *                             process; null to use default base path.
      * @param processCacheDirBasePath The base path to use when setting the cache directory for this
-     *                                process; null to use default base path.
-     * @param processDataDirSuffix    The suffix to use when setting the data directory for this
-     *                                process; null to use no suffix.
+     *                             process; null to use default base path.
+     * @param processDataDirSuffix The suffix to use when setting the data directory for this
+     *                             process; null to use no suffix.
      */
     public static void loadLibrary(String processDataDirBasePath, String processCacheDirBasePath,
-                                   String processDataDirSuffix) {
+            String processDataDirSuffix) {
         LibraryLoader.getInstance().setLibraryProcessType(LibraryProcessType.PROCESS_WEBVIEW);
         sProcessDataDirSuffix = processDataDirSuffix;
         if (processDataDirSuffix == null) {
@@ -184,12 +185,12 @@ public final class AwBrowserProcess {
 
                 // Check android settings but only when safebrowsing is enabled.
                 try (ScopedSysTraceEvent e2 =
-                             ScopedSysTraceEvent.scoped("AwBrowserProcess.maybeEnable")) {
+                                ScopedSysTraceEvent.scoped("AwBrowserProcess.maybeEnable")) {
                     AwSafeBrowsingConfigHelper.maybeEnableSafeBrowsingFromManifest();
                 }
 
                 try (ScopedSysTraceEvent e2 = ScopedSysTraceEvent.scoped(
-                        "AwBrowserProcess.startBrowserProcessesSync")) {
+                             "AwBrowserProcess.startBrowserProcessesSync")) {
                     BrowserStartupController.getInstance().startBrowserProcessesSync(
                             LibraryProcessType.PROCESS_WEBVIEW, !multiProcess,
                             /*startGpuProcess=*/false);
@@ -263,13 +264,12 @@ public final class AwBrowserProcess {
     /**
      * Trigger minidump uploading, and optionaly also update the metrics-consent value depending on
      * whether the Android Checkbox is toggled on.
-     *
      * @param updateMetricsConsent whether to update the metrics-consent value to represent the
-     *                             Android Checkbox toggle.
+     * Android Checkbox toggle.
      */
     public static void handleMinidumpsAndSetMetricsConsent(final boolean updateMetricsConsent) {
         try (ScopedSysTraceEvent e1 = ScopedSysTraceEvent.scoped(
-                "AwBrowserProcess.handleMinidumpsAndSetMetricsConsent")) {
+                     "AwBrowserProcess.handleMinidumpsAndSetMetricsConsent")) {
             final boolean enableMinidumpUploadingForTesting = CommandLine.getInstance().hasSwitch(
                     BaseSwitches.ENABLE_CRASH_REPORTER_FOR_TESTING);
             if (enableMinidumpUploadingForTesting) {
@@ -309,8 +309,8 @@ public final class AwBrowserProcess {
     }
 
     private static void transmitMinidumps(final File[] minidumpFiles,
-                                          final Map<String, Map<String, String>> crashesInfoMap,
-                                          final ICrashReceiverService service) {
+            final Map<String, Map<String, String>> crashesInfoMap,
+            final ICrashReceiverService service) {
         // Pass file descriptors pointing to our minidumps to the
         // minidump-copying service, allowing it to copy contents of the
         // minidumps to WebView's data directory.
@@ -355,9 +355,8 @@ public final class AwBrowserProcess {
      * Pass Minidumps to a separate Service declared in the WebView provider package.
      * That Service will copy the Minidumps to its own data directory - at which point we can delete
      * our copies in the app directory.
-     *
      * @param userApproved whether we have user consent to upload crash data - if we do, copy the
-     *                     minidumps, if we don't, delete them.
+     * minidumps, if we don't, delete them.
      */
     public static void handleMinidumps(final boolean userApproved) {
         sSequencedTaskRunner.postTask(() -> {
@@ -400,11 +399,10 @@ public final class AwBrowserProcess {
                     }
 
                     @Override
-                    public void onServiceDisconnected(ComponentName className) {
-                    }
+                    public void onServiceDisconnected(ComponentName className) {}
                 };
                 if (!ServiceHelper.bindService(
-                        appContext, intent, connection, Context.BIND_AUTO_CREATE)) {
+                            appContext, intent, connection, Context.BIND_AUTO_CREATE)) {
                     Log.w(TAG, "Could not bind to Minidump-copying Service " + intent);
                 }
             } catch (RuntimeException e) {
@@ -514,8 +512,7 @@ public final class AwBrowserProcess {
             }
 
             @Override
-            public void onServiceDisconnected(ComponentName className) {
-            }
+            public void onServiceDisconnected(ComponentName className) {}
         };
 
         if (!connection.bind(appContext, intent, Context.BIND_AUTO_CREATE)) {
@@ -552,7 +549,7 @@ public final class AwBrowserProcess {
         boolean metricServiceEnabledOnlySdkRuntime =
                 ContextUtils.isSdkSandboxProcess()
                         && AwFeatureMap.isEnabled(
-                        AwFeatures.WEBVIEW_USE_METRICS_UPLOAD_SERVICE_ONLY_SDK_RUNTIME);
+                                AwFeatures.WEBVIEW_USE_METRICS_UPLOAD_SERVICE_ONLY_SDK_RUNTIME);
 
         if (metricServiceEnabledOnlySdkRuntime
                 || AwFeatureMap.isEnabled(AwFeatures.WEBVIEW_USE_METRICS_UPLOAD_SERVICE)) {
@@ -574,13 +571,11 @@ public final class AwBrowserProcess {
     }
 
     // Do not instantiate this class.
-    private AwBrowserProcess() {
-    }
+    private AwBrowserProcess() {}
 
     @NativeMethods
     interface Natives {
         void setProcessNameCrashKey(String processName);
-
         ComponentLoaderPolicyBridge[] getComponentLoaderPolicies();
     }
 }

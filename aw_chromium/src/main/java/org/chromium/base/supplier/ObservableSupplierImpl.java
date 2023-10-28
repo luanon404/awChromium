@@ -15,13 +15,13 @@ import org.chromium.base.ResettersForTesting;
 /**
  * Concrete implementation of {@link ObservableSupplier} to be used by classes owning the
  * ObservableSupplier and providing it as a dependency to others.
- * <p>
+ *
  * This class must only be accessed from a single thread.
- * <p>
+ *
  * To use:
- * 1. Create a new ObservableSupplierImpl<E> to pass as a dependency
- * 2. Call {@link #set(Object)} when the real object becomes available. {@link #set(Object)} may
- * be called multiple times. Observers will be notified each time a new object is set.
+ *   1. Create a new ObservableSupplierImpl<E> to pass as a dependency
+ *   2. Call {@link #set(Object)} when the real object becomes available. {@link #set(Object)} may
+ *      be called multiple times. Observers will be notified each time a new object is set.
  *
  * @param <E> The type of the wrapped object.
  */
@@ -34,8 +34,7 @@ public class ObservableSupplierImpl<E> implements ObservableSupplier<E> {
     private E mObject;
     private final ObserverList<Callback<E>> mObservers = new ObserverList<>();
 
-    public ObservableSupplierImpl() {
-    }
+    public ObservableSupplierImpl() {}
 
     public ObservableSupplierImpl(E initialValue) {
         mObject = initialValue;
@@ -66,7 +65,6 @@ public class ObservableSupplierImpl<E> implements ObservableSupplier<E> {
     /**
      * Set the object supplied by this supplier. This will notify registered callbacks that the
      * dependency is available.
-     *
      * @param object The object to supply.
      */
     public void set(E object) {
@@ -87,12 +85,13 @@ public class ObservableSupplierImpl<E> implements ObservableSupplier<E> {
     }
 
     private void checkThread() {
-        assert sIgnoreThreadChecksForTesting || mThread == Thread.currentThread() : "ObservableSupplierImpl must only be used on a single Thread.";
+        assert sIgnoreThreadChecksForTesting
+                || mThread
+                        == Thread.currentThread()
+            : "ObservableSupplierImpl must only be used on a single Thread.";
     }
 
-    /**
-     * Used to allow developers to access supplier values on the instrumentation thread.
-     */
+    /** Used to allow developers to access supplier values on the instrumentation thread. */
     public static void setIgnoreThreadChecksForTesting(boolean ignoreThreadChecks) {
         sIgnoreThreadChecksForTesting = ignoreThreadChecks;
         ResettersForTesting.register(() -> sIgnoreThreadChecksForTesting = false);

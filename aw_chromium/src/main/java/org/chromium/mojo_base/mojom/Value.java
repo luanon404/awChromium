@@ -13,6 +13,9 @@
 
 package org.chromium.mojo_base.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class Value extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
@@ -24,8 +27,7 @@ public final class Value extends org.chromium.mojo.bindings.Union {
         public static final int BinaryValue = 5;
         public static final int DictionaryValue = 6;
         public static final int ListValue = 7;
-    }
-
+    };
     private byte mNullValue;
     private boolean mBoolValue;
     private int mIntValue;
@@ -122,42 +124,42 @@ public final class Value extends org.chromium.mojo.bindings.Union {
         encoder0.encode(this.mTag, offset + 4);
         switch (mTag) {
             case Tag.NullValue: {
-
+                
                 encoder0.encode(this.mNullValue, offset + 8);
                 break;
             }
             case Tag.BoolValue: {
-
+                
                 encoder0.encode(this.mBoolValue, offset + 8, 0);
                 break;
             }
             case Tag.IntValue: {
-
+                
                 encoder0.encode(this.mIntValue, offset + 8);
                 break;
             }
             case Tag.DoubleValue: {
-
+                
                 encoder0.encode(this.mDoubleValue, offset + 8);
                 break;
             }
             case Tag.StringValue: {
-
+                
                 encoder0.encode(this.mStringValue, offset + 8, false);
                 break;
             }
             case Tag.BinaryValue: {
-
+                
                 encoder0.encode(this.mBinaryValue, offset + 8, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                 break;
             }
             case Tag.DictionaryValue: {
-
+                
                 encoder0.encode(this.mDictionaryValue, offset + 8, false);
                 break;
             }
             case Tag.ListValue: {
-
+                
                 encoder0.encode(this.mListValue, offset + 8, false);
                 break;
             }
@@ -179,50 +181,50 @@ public final class Value extends org.chromium.mojo.bindings.Union {
         Value result = new Value();
         switch (dataHeader.elementsOrVersion) {
             case Tag.NullValue: {
-
+                
                 result.mNullValue = decoder0.readByte(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE);
                 result.mTag = Tag.NullValue;
                 break;
             }
             case Tag.BoolValue: {
-
+                
                 result.mBoolValue = decoder0.readBoolean(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, 0);
                 result.mTag = Tag.BoolValue;
                 break;
             }
             case Tag.IntValue: {
-
+                
                 result.mIntValue = decoder0.readInt(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE);
                 result.mTag = Tag.IntValue;
                 break;
             }
             case Tag.DoubleValue: {
-
+                
                 result.mDoubleValue = decoder0.readDouble(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE);
                 result.mTag = Tag.DoubleValue;
                 break;
             }
             case Tag.StringValue: {
-
+                
                 result.mStringValue = decoder0.readString(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mTag = Tag.StringValue;
                 break;
             }
             case Tag.BinaryValue: {
-
+                
                 result.mBinaryValue = decoder0.readBytes(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                 result.mTag = Tag.BinaryValue;
                 break;
             }
             case Tag.DictionaryValue: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mDictionaryValue = DictionaryValue.decode(decoder1);
                 result.mTag = Tag.DictionaryValue;
                 break;
             }
             case Tag.ListValue: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mListValue = ListValue.decode(decoder1);
                 result.mTag = Tag.ListValue;

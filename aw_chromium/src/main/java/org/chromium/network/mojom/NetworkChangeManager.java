@@ -13,18 +13,24 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface NetworkChangeManager extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends NetworkChangeManager, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends NetworkChangeManager, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<NetworkChangeManager, NetworkChangeManager.Proxy> MANAGER = NetworkChangeManager_Internal.MANAGER;
 
-    void requestNotifications(NetworkChangeManagerClient clientRemote);
+    void requestNotifications(
+NetworkChangeManagerClient clientRemote);
 
 
-    void onNetworkChanged(boolean dnsChanged, boolean ipAddressChanged, boolean connectionTypeChanged, int newConnectionType, boolean connectionSubtypeChanged, int newConnectionSubtype);
+    void onNetworkChanged(
+boolean dnsChanged, boolean ipAddressChanged, boolean connectionTypeChanged, int newConnectionType, boolean connectionSubtypeChanged, int newConnectionSubtype);
 
 
 }

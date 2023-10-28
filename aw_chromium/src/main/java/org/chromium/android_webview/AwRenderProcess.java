@@ -4,10 +4,11 @@
 
 package org.chromium.android_webview;
 
-import org.chromium.android_webview.common.Lifetime;
 import org.jni_zero.CalledByNative;
 import org.jni_zero.JNINamespace;
 import org.jni_zero.NativeMethods;
+
+import org.chromium.android_webview.common.Lifetime;
 
 /**
  * Java-side representation of the renderer process.
@@ -18,19 +19,20 @@ import org.jni_zero.NativeMethods;
 public final class AwRenderProcess extends AwSupportLibIsomorphic {
     private long mNativeRenderProcess;
 
-    private AwRenderProcess() {
-    }
+    private AwRenderProcess() {}
 
     public boolean terminate() {
         if (mNativeRenderProcess == 0) return false;
 
-        return AwRenderProcessJni.get().terminateChildProcess(mNativeRenderProcess, AwRenderProcess.this);
+        return AwRenderProcessJni.get().terminateChildProcess(
+                mNativeRenderProcess, AwRenderProcess.this);
     }
 
     public boolean isProcessLockedToSiteForTesting() {
         if (mNativeRenderProcess == 0) return false;
 
-        return AwRenderProcessJni.get().isProcessLockedToSiteForTesting(mNativeRenderProcess, AwRenderProcess.this);
+        return AwRenderProcessJni.get().isProcessLockedToSiteForTesting(
+                mNativeRenderProcess, AwRenderProcess.this);
     }
 
     @CalledByNative
@@ -46,7 +48,6 @@ public final class AwRenderProcess extends AwSupportLibIsomorphic {
     @NativeMethods
     interface Natives {
         boolean terminateChildProcess(long nativeAwRenderProcess, AwRenderProcess caller);
-
         boolean isProcessLockedToSiteForTesting(long nativeAwRenderProcess, AwRenderProcess caller);
     }
 }

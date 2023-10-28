@@ -17,10 +17,14 @@ import androidx.annotation.IntDef;
 
 public final class SubpixelRendering {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({SubpixelRendering.NONE, SubpixelRendering.RGB, SubpixelRendering.BGR, SubpixelRendering.VRGB, SubpixelRendering.VBGR})
-    public @interface EnumType {
-    }
+        SubpixelRendering.NONE,
+        SubpixelRendering.RGB,
+        SubpixelRendering.BGR,
+        SubpixelRendering.VRGB,
+        SubpixelRendering.VBGR})
+    public @interface EnumType {}
 
     public static final int NONE = 0;
     public static final int RGB = 1;
@@ -40,9 +44,8 @@ public final class SubpixelRendering {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private SubpixelRendering() {
-    }
+    private SubpixelRendering() {}
 }

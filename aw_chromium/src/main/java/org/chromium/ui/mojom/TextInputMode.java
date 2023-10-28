@@ -17,10 +17,18 @@ import androidx.annotation.IntDef;
 
 public final class TextInputMode {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({TextInputMode.DEFAULT, TextInputMode.NONE, TextInputMode.TEXT, TextInputMode.TEL, TextInputMode.URL, TextInputMode.EMAIL, TextInputMode.NUMERIC, TextInputMode.DECIMAL, TextInputMode.SEARCH})
-    public @interface EnumType {
-    }
+        TextInputMode.DEFAULT,
+        TextInputMode.NONE,
+        TextInputMode.TEXT,
+        TextInputMode.TEL,
+        TextInputMode.URL,
+        TextInputMode.EMAIL,
+        TextInputMode.NUMERIC,
+        TextInputMode.DECIMAL,
+        TextInputMode.SEARCH})
+    public @interface EnumType {}
 
     public static final int DEFAULT = 0;
     public static final int NONE = 1;
@@ -44,9 +52,8 @@ public final class TextInputMode {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private TextInputMode() {
-    }
+    private TextInputMode() {}
 }

@@ -13,18 +13,23 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface CdmFactory extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends CdmFactory, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends CdmFactory, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<CdmFactory, CdmFactory.Proxy> MANAGER = CdmFactory_Internal.MANAGER;
 
-    void createCdm(CdmConfig cdmConfig, CreateCdm_Response callback);
+    void createCdm(
+CdmConfig cdmConfig, 
+CreateCdm_Response callback);
 
-    interface CreateCdm_Response extends org.chromium.mojo.bindings.Callbacks.Callback3<ContentDecryptionModule, CdmContext, String> {
-    }
+    interface CreateCdm_Response extends org.chromium.mojo.bindings.Callbacks.Callback3<ContentDecryptionModule, CdmContext, String> { }
 
 
 }

@@ -9,6 +9,10 @@ import android.os.Process;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.VisibleForTesting;
 
+import org.jni_zero.JNINamespace;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import org.chromium.android_webview.AppState;
 import org.chromium.base.Callback;
 import org.chromium.base.FileUtils;
@@ -19,9 +23,6 @@ import org.chromium.base.task.PostTask;
 import org.chromium.base.task.TaskRunner;
 import org.chromium.base.task.TaskTraits;
 import org.chromium.components.crash.browser.ProcessExitReasonFromSystem;
-import org.jni_zero.JNINamespace;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -43,7 +44,8 @@ public class TrackExitReasonsOfInterest {
     public static final String TAG = "TrackExitReasons";
     public static final String LAST_EXIT_INFO_FILENAME = "last-exit-info";
     public static final String LAST_EXIT_INFO_PID = "exitInfoPid";
-    public static final String TIMESTAMP_AT_LAST_RECORDING_IN_MILLIS = "timestampAtLastRecordingInMillis";
+    public static final String TIMESTAMP_AT_LAST_RECORDING_IN_MILLIS =
+            "timestampAtLastRecordingInMillis";
     public static final String LAST_STATE_KEY = "appState";
     public static final String UMA_DELTA = "Android.WebView.HistoricalApplicationExitInfo.Delta";
     public static final String UMA_COUNTS = "Android.WebView.HistoricalApplicationExitInfo.Counts";
@@ -55,7 +57,6 @@ public class TrackExitReasonsOfInterest {
 
     @VisibleForTesting
     public static final Map<Integer, String> sUmaSuffixMap = createMap();
-
     private static Map<Integer, String> createMap() {
         Map<Integer, String> umaSuffixMap = new HashMap<Integer, String>();
         umaSuffixMap.put(AppState.UNKNOWN, "UNKNOWN");
@@ -70,21 +71,22 @@ public class TrackExitReasonsOfInterest {
     // the same sequence to be run serially. This should also guarantee that the #run method
     // always runs prior to any #writeLastWebViewState invocations, since the run method is
     // called at startup.
-    private static final TaskRunner sSequencedTaskRunner = PostTask.createSequencedTaskRunner(TaskTraits.BEST_EFFORT_MAY_BLOCK);
+    private static final TaskRunner sSequencedTaskRunner =
+            PostTask.createSequencedTaskRunner(TaskTraits.BEST_EFFORT_MAY_BLOCK);
     private static Supplier<Integer> sAppStateSupplier;
     private static @AppState int sLastStateWritten;
 
     /**
+     *
      * Posts the exit reason tracker work in task runner queue.
      */
     public static void init(Supplier<Integer> stateSupplier) {
         sAppStateSupplier = stateSupplier;
-        sSequencedTaskRunner.postTask(() -> {
-            run();
-        });
+        sSequencedTaskRunner.postTask(() -> { run(); });
     }
 
     /**
+     *
      * @return The latest exit reason matching the last process's PID
      */
     @VisibleForTesting
@@ -97,27 +99,32 @@ public class TrackExitReasonsOfInterest {
 
         sTimestampAtLastRecording = currentTimeMillis();
         if (previousInfoData != null) {
-            systemExitReason = ProcessExitReasonFromSystem.getExitReason(previousInfoData.mExitInfoPid);
-            Integer mappedExitReasonData = ProcessExitReasonFromSystem.convertApplicationExitInfoToExitReason(systemExitReason);
+            systemExitReason =
+                    ProcessExitReasonFromSystem.getExitReason(previousInfoData.mExitInfoPid);
+            Integer mappedExitReasonData =
+                    ProcessExitReasonFromSystem.convertApplicationExitInfoToExitReason(
+                            systemExitReason);
 
             // Log the new record
             if (mappedExitReasonData != null) {
                 if (previousInfoData.mTimestampAtLastRecordingInMillis > 0L) {
-                    long delta = sTimestampAtLastRecording - previousInfoData.mTimestampAtLastRecordingInMillis;
+                    long delta = sTimestampAtLastRecording
+                            - previousInfoData.mTimestampAtLastRecordingInMillis;
                     RecordHistogram.recordLongTimesHistogram100(UMA_DELTA, delta);
                 }
                 ProcessExitReasonFromSystem.recordAsEnumHistogram(UMA_COUNTS, systemExitReason);
-                ProcessExitReasonFromSystem.recordAsEnumHistogram(UMA_COUNTS + "." + sUmaSuffixMap.get(previousInfoData.mState), systemExitReason);
+                ProcessExitReasonFromSystem.recordAsEnumHistogram(
+                        UMA_COUNTS + "." + sUmaSuffixMap.get(previousInfoData.mState),
+                        systemExitReason);
             }
         }
-        writeLastExitInfo(new ExitReasonData(pid, sTimestampAtLastRecording, sAppStateSupplier.get()));
+        writeLastExitInfo(
+                new ExitReasonData(pid, sTimestampAtLastRecording, sAppStateSupplier.get()));
 
         return systemExitReason;
     }
 
-    /**
-     * Data class for tracking exit reasons
-     */
+    /** Data class for tracking exit reasons */
     public static class ExitReasonData {
         public final int mExitInfoPid;
         public final long mTimestampAtLastRecordingInMillis;
@@ -140,8 +147,10 @@ public class TrackExitReasonsOfInterest {
             if (!jsonObj.has(LAST_EXIT_INFO_PID)) return null;
             int exitInfoPid = jsonObj.getInt(LAST_EXIT_INFO_PID);
 
-            long timestampAtLastRecordingInMillis = jsonObj.optLong(TIMESTAMP_AT_LAST_RECORDING_IN_MILLIS);
-            @AppState int state = jsonObj.optInt(LAST_STATE_KEY);
+            long timestampAtLastRecordingInMillis =
+                    jsonObj.optLong(TIMESTAMP_AT_LAST_RECORDING_IN_MILLIS);
+            @AppState
+            int state = jsonObj.optInt(LAST_STATE_KEY);
 
             return new ExitReasonData(exitInfoPid, timestampAtLastRecordingInMillis, state);
         } catch (JSONException | IOException e) {
@@ -165,11 +174,14 @@ public class TrackExitReasonsOfInterest {
     }
 
     @VisibleForTesting
-    public static boolean writeLastExitInfo(final ExitReasonData newData, final Callback<Boolean> callbackResult) {
-        try (FileOutputStream writer = new FileOutputStream(getLastExitInfoFile(), /*append=*/false)) {
+    public static boolean writeLastExitInfo(
+            final ExitReasonData newData, final Callback<Boolean> callbackResult) {
+        try (FileOutputStream writer =
+                        new FileOutputStream(getLastExitInfoFile(), /*append=*/false)) {
             JSONObject jsonObj = new JSONObject();
             jsonObj.put(LAST_EXIT_INFO_PID, newData.mExitInfoPid);
-            jsonObj.put(TIMESTAMP_AT_LAST_RECORDING_IN_MILLIS, newData.mTimestampAtLastRecordingInMillis);
+            jsonObj.put(TIMESTAMP_AT_LAST_RECORDING_IN_MILLIS,
+                    newData.mTimestampAtLastRecordingInMillis);
             jsonObj.put(LAST_STATE_KEY, newData.mState);
             String jsonString = jsonObj.toString();
             writer.write(jsonString.getBytes());
@@ -210,9 +222,11 @@ public class TrackExitReasonsOfInterest {
     public static void writeLastWebViewState(final Callback<Boolean> callbackResult) {
         int pid = sPid != 0 ? sPid : Process.myPid();
         sSequencedTaskRunner.postTask(() -> {
-            @AppState int currentState = sAppStateSupplier.get();
+            @AppState
+            int currentState = sAppStateSupplier.get();
             if (sLastStateWritten != currentState) {
-                writeLastExitInfo(new ExitReasonData(pid, sTimestampAtLastRecording, currentState), callbackResult);
+                writeLastExitInfo(new ExitReasonData(pid, sTimestampAtLastRecording, currentState),
+                        callbackResult);
             }
         });
     }

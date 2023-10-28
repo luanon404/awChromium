@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface ColorChooserFactory extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends ColorChooserFactory, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends ColorChooserFactory, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<ColorChooserFactory, ColorChooserFactory.Proxy> MANAGER = ColorChooserFactory_Internal.MANAGER;

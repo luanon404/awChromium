@@ -13,10 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class UrlResponseHeadDevToolsInfo extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 96;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(96, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(96, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public org.chromium.mojo_base.mojom.Time responseTime;
     public HttpResponseHeaders headers;
@@ -53,7 +56,8 @@ public final class UrlResponseHeadDevToolsInfo extends org.chromium.mojo.binding
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static UrlResponseHeadDevToolsInfo deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -67,79 +71,79 @@ public final class UrlResponseHeadDevToolsInfo extends org.chromium.mojo.binding
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new UrlResponseHeadDevToolsInfo(elementsOrVersion);
-            {
-
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                 result.responseTime = org.chromium.mojo_base.mojom.Time.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                 result.headers = HttpResponseHeaders.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.mimeType = decoder0.readString(24, false);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(32, false);
                 result.loadTiming = LoadTimingInfo.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.certStatus = decoder0.readInt(40);
-            }
-            {
-
+                }
+                {
+                    
                 result.wasInPrefetchCache = decoder0.readBoolean(44, 0);
-            }
-            {
-
+                }
+                {
+                    
                 result.wasFetchedViaServiceWorker = decoder0.readBoolean(44, 1);
-            }
-            {
-
+                }
+                {
+                    
                 result.wasFetchedViaSpdy = decoder0.readBoolean(44, 2);
-            }
-            {
-
+                }
+                {
+                    
                 result.emittedExtraInfo = decoder0.readBoolean(44, 3);
-            }
-            {
-
+                }
+                {
+                    
                 result.encodedDataLength = decoder0.readLong(48);
-            }
-            {
-
+                }
+                {
+                    
                 result.cacheStorageCacheName = decoder0.readString(56, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.alpnNegotiatedProtocol = decoder0.readString(64, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.alternateProtocolUsage = decoder0.readInt(72);
-                AlternateProtocolUsage.validate(result.alternateProtocolUsage);
-                result.alternateProtocolUsage = AlternateProtocolUsage.toKnownValue(result.alternateProtocolUsage);
-            }
-            {
-
+                    AlternateProtocolUsage.validate(result.alternateProtocolUsage);
+                    result.alternateProtocolUsage = AlternateProtocolUsage.toKnownValue(result.alternateProtocolUsage);
+                }
+                {
+                    
                 result.serviceWorkerResponseSource = decoder0.readInt(76);
-                FetchResponseSource.validate(result.serviceWorkerResponseSource);
-                result.serviceWorkerResponseSource = FetchResponseSource.toKnownValue(result.serviceWorkerResponseSource);
-            }
-            {
-
+                    FetchResponseSource.validate(result.serviceWorkerResponseSource);
+                    result.serviceWorkerResponseSource = FetchResponseSource.toKnownValue(result.serviceWorkerResponseSource);
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(80, true);
                 result.sslInfo = SslInfo.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(88, false);
                 result.remoteEndpoint = IpEndPoint.decode(decoder1);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -151,37 +155,37 @@ public final class UrlResponseHeadDevToolsInfo extends org.chromium.mojo.binding
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.responseTime, 8, false);
-
+        
         encoder0.encode(this.headers, 16, false);
-
+        
         encoder0.encode(this.mimeType, 24, false);
-
+        
         encoder0.encode(this.loadTiming, 32, false);
-
+        
         encoder0.encode(this.certStatus, 40);
-
+        
         encoder0.encode(this.wasInPrefetchCache, 44, 0);
-
+        
         encoder0.encode(this.wasFetchedViaServiceWorker, 44, 1);
-
+        
         encoder0.encode(this.wasFetchedViaSpdy, 44, 2);
-
+        
         encoder0.encode(this.emittedExtraInfo, 44, 3);
-
+        
         encoder0.encode(this.encodedDataLength, 48);
-
+        
         encoder0.encode(this.cacheStorageCacheName, 56, false);
-
+        
         encoder0.encode(this.alpnNegotiatedProtocol, 64, false);
-
+        
         encoder0.encode(this.alternateProtocolUsage, 72);
-
+        
         encoder0.encode(this.serviceWorkerResponseSource, 76);
-
+        
         encoder0.encode(this.sslInfo, 80, true);
-
+        
         encoder0.encode(this.remoteEndpoint, 88, false);
     }
 }

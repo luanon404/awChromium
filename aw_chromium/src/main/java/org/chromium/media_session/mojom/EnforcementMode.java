@@ -17,10 +17,13 @@ import androidx.annotation.IntDef;
 
 public final class EnforcementMode {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({EnforcementMode.DEFAULT, EnforcementMode.NONE, EnforcementMode.SINGLE_GROUP, EnforcementMode.SINGLE_SESSION})
-    public @interface EnumType {
-    }
+        EnforcementMode.DEFAULT,
+        EnforcementMode.NONE,
+        EnforcementMode.SINGLE_GROUP,
+        EnforcementMode.SINGLE_SESSION})
+    public @interface EnumType {}
 
     public static final int DEFAULT = 0;
     public static final int NONE = 1;
@@ -39,9 +42,8 @@ public final class EnforcementMode {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private EnforcementMode() {
-    }
+    private EnforcementMode() {}
 }

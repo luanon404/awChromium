@@ -12,15 +12,18 @@ import org.jni_zero.NativeMethods;
  */
 @JNINamespace("base::android")
 public class JankMetricUMARecorder {
-    public static void recordJankMetricsToUMA(JankMetrics metric, long reportingIntervalStartTime, long reportingIntervalDuration, @JankScenario int scenario) {
+    public static void recordJankMetricsToUMA(JankMetrics metric, long reportingIntervalStartTime,
+            long reportingIntervalDuration, @JankScenario int scenario) {
         if (metric == null) {
             return;
         }
-        JankMetricUMARecorderJni.get().recordJankMetrics(metric.durationsNs, metric.isJanky, reportingIntervalStartTime, reportingIntervalDuration, scenario);
+        JankMetricUMARecorderJni.get().recordJankMetrics(metric.durationsNs, metric.isJanky,
+                reportingIntervalStartTime, reportingIntervalDuration, scenario);
     }
 
     @NativeMethods
     public interface Natives {
-        void recordJankMetrics(long[] durationsNs, boolean[] jankStatus, long reportingIntervalStartTime, long reportingIntervalDuration, int scenario);
+        void recordJankMetrics(long[] durationsNs, boolean[] jankStatus,
+                long reportingIntervalStartTime, long reportingIntervalDuration, int scenario);
     }
 }

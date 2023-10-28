@@ -17,10 +17,15 @@ import androidx.annotation.IntDef;
 
 public final class WindowShowState {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({WindowShowState.SHOW_STATE_DEFAULT, WindowShowState.SHOW_STATE_NORMAL, WindowShowState.SHOW_STATE_MINIMIZED, WindowShowState.SHOW_STATE_MAXIMIZED, WindowShowState.SHOW_STATE_INACTIVE, WindowShowState.SHOW_STATE_FULLSCREEN})
-    public @interface EnumType {
-    }
+        WindowShowState.SHOW_STATE_DEFAULT,
+        WindowShowState.SHOW_STATE_NORMAL,
+        WindowShowState.SHOW_STATE_MINIMIZED,
+        WindowShowState.SHOW_STATE_MAXIMIZED,
+        WindowShowState.SHOW_STATE_INACTIVE,
+        WindowShowState.SHOW_STATE_FULLSCREEN})
+    public @interface EnumType {}
 
     public static final int SHOW_STATE_DEFAULT = 0;
     public static final int SHOW_STATE_NORMAL = 1;
@@ -42,12 +47,11 @@ public final class WindowShowState {
     }
 
     public static int toKnownValue(int value) {
-        if (isKnownValue(value)) {
-            return value;
-        }
-        return DEFAULT_VALUE;
+      if (isKnownValue(value)) {
+        return value;
+      }
+      return DEFAULT_VALUE;
     }
 
-    private WindowShowState() {
-    }
+    private WindowShowState() {}
 }

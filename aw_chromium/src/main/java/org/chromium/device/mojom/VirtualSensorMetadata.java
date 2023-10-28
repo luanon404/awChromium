@@ -13,10 +13,13 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class VirtualSensorMetadata extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 40;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(40, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(40, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public boolean available;
     public NullableDouble maximumFrequency;
@@ -42,7 +45,8 @@ public final class VirtualSensorMetadata extends org.chromium.mojo.bindings.Stru
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static VirtualSensorMetadata deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -56,25 +60,25 @@ public final class VirtualSensorMetadata extends org.chromium.mojo.bindings.Stru
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new VirtualSensorMetadata(elementsOrVersion);
-            {
-
+                {
+                    
                 result.available = decoder0.readBoolean(8, 0);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, true);
                 result.maximumFrequency = NullableDouble.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, true);
                 result.minimumFrequency = NullableDouble.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(32, true);
                 result.reportingMode = NullableReportingMode.decode(decoder1);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -86,13 +90,13 @@ public final class VirtualSensorMetadata extends org.chromium.mojo.bindings.Stru
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.available, 8, 0);
-
+        
         encoder0.encode(this.maximumFrequency, 16, true);
-
+        
         encoder0.encode(this.minimumFrequency, 24, true);
-
+        
         encoder0.encode(this.reportingMode, 32, true);
     }
 }

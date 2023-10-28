@@ -4,84 +4,138 @@
 package org.chromium.ui.base;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.PendingIntent;
+import android.app.UiModeManager;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
+import android.content.res.Configuration;
+import android.os.Build;
+import android.os.IBinder;
+import android.os.Process;
+import android.util.TypedValue;
+import android.view.Display;
+import android.view.Surface;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.annotation.VisibleForTesting;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.ActivityState;
+import org.chromium.base.ApiCompatibilityUtils;
+import org.chromium.base.Callback;
+import org.chromium.base.ContextUtils;
+import org.chromium.base.LifetimeAssert;
+import org.chromium.base.Log;
+import org.chromium.base.ObserverList;
+import org.chromium.base.PackageManagerUtils;
+import org.chromium.base.TraceEvent;
+import org.chromium.base.UnownedUserDataHost;
+import org.chromium.base.compat.ApiHelperForO;
+import org.chromium.base.compat.ApiHelperForOMR1;
+import org.chromium.ui.KeyboardVisibilityDelegate;
+import org.chromium.ui.display.DisplayAndroid;
+import org.chromium.ui.display.DisplayAndroid.DisplayAndroidObserver;
+import org.chromium.ui.gfx.OverlayTransform;
+import org.chromium.ui.modaldialog.ModalDialogManager;
+import org.chromium.ui.permissions.AndroidPermissionDelegate;
+import org.chromium.ui.permissions.PermissionCallback;
+import org.chromium.ui.widget.Toast;
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 
 @CheckDiscard("crbug.com/993421")
 class WindowAndroidJni implements WindowAndroid.Natives {
-    private static WindowAndroid.Natives testInstance;
+  private static WindowAndroid.Natives testInstance;
 
-    public static final JniStaticTestMocker<WindowAndroid.Natives> TEST_HOOKS = new JniStaticTestMocker<WindowAndroid.Natives>() {
-        @Override
-        public void setInstanceForTesting(WindowAndroid.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<WindowAndroid.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<WindowAndroid.Natives>() {
     @Override
-    public void destroy(long nativeWindowAndroid, WindowAndroid caller) {
-        GEN_JNI.org_chromium_ui_base_WindowAndroid_destroy(nativeWindowAndroid, caller);
+    public void setInstanceForTesting(WindowAndroid.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public long init(WindowAndroid caller, int displayId, float scrollFactor, boolean windowIsWideColorGamut) {
-        return (long) GEN_JNI.org_chromium_ui_base_WindowAndroid_init(caller, displayId, scrollFactor, windowIsWideColorGamut);
-    }
+  @Override
+  public void destroy(long nativeWindowAndroid, WindowAndroid caller) {
+    GEN_JNI.org_chromium_ui_base_WindowAndroid_destroy(nativeWindowAndroid, caller);
+  }
 
-    @Override
-    public void onActivityStarted(long nativeWindowAndroid, WindowAndroid caller) {
-        GEN_JNI.org_chromium_ui_base_WindowAndroid_onActivityStarted(nativeWindowAndroid, caller);
-    }
+  @Override
+  public long init(WindowAndroid caller, int displayId, float scrollFactor, boolean windowIsWideColorGamut) {
+    return (long) GEN_JNI.org_chromium_ui_base_WindowAndroid_init(caller, displayId, scrollFactor, windowIsWideColorGamut);
+  }
 
-    @Override
-    public void onActivityStopped(long nativeWindowAndroid, WindowAndroid caller) {
-        GEN_JNI.org_chromium_ui_base_WindowAndroid_onActivityStopped(nativeWindowAndroid, caller);
-    }
+  @Override
+  public void onActivityStarted(long nativeWindowAndroid, WindowAndroid caller) {
+    GEN_JNI.org_chromium_ui_base_WindowAndroid_onActivityStarted(nativeWindowAndroid, caller);
+  }
 
-    @Override
-    public void onOverlayTransformUpdated(long nativeWindowAndroid, WindowAndroid caller) {
-        GEN_JNI.org_chromium_ui_base_WindowAndroid_onOverlayTransformUpdated(nativeWindowAndroid, caller);
-    }
+  @Override
+  public void onActivityStopped(long nativeWindowAndroid, WindowAndroid caller) {
+    GEN_JNI.org_chromium_ui_base_WindowAndroid_onActivityStopped(nativeWindowAndroid, caller);
+  }
 
-    @Override
-    public void onSupportedRefreshRatesUpdated(long nativeWindowAndroid, WindowAndroid caller, float[] supportedRefreshRates) {
-        GEN_JNI.org_chromium_ui_base_WindowAndroid_onSupportedRefreshRatesUpdated(nativeWindowAndroid, caller, supportedRefreshRates);
-    }
+  @Override
+  public void onOverlayTransformUpdated(long nativeWindowAndroid, WindowAndroid caller) {
+    GEN_JNI.org_chromium_ui_base_WindowAndroid_onOverlayTransformUpdated(nativeWindowAndroid, caller);
+  }
 
-    @Override
-    public void onUpdateRefreshRate(long nativeWindowAndroid, WindowAndroid caller, float refreshRate) {
-        GEN_JNI.org_chromium_ui_base_WindowAndroid_onUpdateRefreshRate(nativeWindowAndroid, caller, refreshRate);
-    }
+  @Override
+  public void onSupportedRefreshRatesUpdated(long nativeWindowAndroid, WindowAndroid caller, float[] supportedRefreshRates) {
+    GEN_JNI.org_chromium_ui_base_WindowAndroid_onSupportedRefreshRatesUpdated(nativeWindowAndroid, caller, supportedRefreshRates);
+  }
 
-    @Override
-    public void onVisibilityChanged(long nativeWindowAndroid, WindowAndroid caller, boolean visible) {
-        GEN_JNI.org_chromium_ui_base_WindowAndroid_onVisibilityChanged(nativeWindowAndroid, caller, visible);
-    }
+  @Override
+  public void onUpdateRefreshRate(long nativeWindowAndroid, WindowAndroid caller, float refreshRate) {
+    GEN_JNI.org_chromium_ui_base_WindowAndroid_onUpdateRefreshRate(nativeWindowAndroid, caller, refreshRate);
+  }
 
-    @Override
-    public void sendUnfoldLatencyBeginTimestamp(long nativeWindowAndroid, long beginTimestampMs) {
-        GEN_JNI.org_chromium_ui_base_WindowAndroid_sendUnfoldLatencyBeginTimestamp(nativeWindowAndroid, beginTimestampMs);
-    }
+  @Override
+  public void onVisibilityChanged(long nativeWindowAndroid, WindowAndroid caller, boolean visible) {
+    GEN_JNI.org_chromium_ui_base_WindowAndroid_onVisibilityChanged(nativeWindowAndroid, caller, visible);
+  }
 
-    @Override
-    public void setVSyncPaused(long nativeWindowAndroid, WindowAndroid caller, boolean paused) {
-        GEN_JNI.org_chromium_ui_base_WindowAndroid_setVSyncPaused(nativeWindowAndroid, caller, paused);
-    }
+  @Override
+  public void sendUnfoldLatencyBeginTimestamp(long nativeWindowAndroid, long beginTimestampMs) {
+    GEN_JNI.org_chromium_ui_base_WindowAndroid_sendUnfoldLatencyBeginTimestamp(nativeWindowAndroid, beginTimestampMs);
+  }
 
-    public static WindowAndroid.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of WindowAndroid.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new WindowAndroidJni();
+  @Override
+  public void setVSyncPaused(long nativeWindowAndroid, WindowAndroid caller, boolean paused) {
+    GEN_JNI.org_chromium_ui_base_WindowAndroid_setVSyncPaused(nativeWindowAndroid, caller, paused);
+  }
+
+  public static WindowAndroid.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of WindowAndroid.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new WindowAndroidJni();
+  }
 }

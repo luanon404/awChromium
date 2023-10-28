@@ -52,13 +52,11 @@ public interface AccessibilityDelegate {
         return 0;
     }
 
-    default void setOnScrollPositionChangedCallback(Runnable onScrollCallback) {
-    }
+    default void setOnScrollPositionChangedCallback(Runnable onScrollCallback) {}
 
     /**
      * This provides an opportunity to override the behavior when a click action occurs. If it
      * returns false, the click will be sent to WebContents.
-     *
      * @param nodeRect The Rect where the click action happened for.
      * @return Whether this event was handled.
      */
@@ -68,7 +66,6 @@ public interface AccessibilityDelegate {
 
     /**
      * Called when the content needs to be scrolled to make a region visible.
-     *
      * @param nodeRect The designated Rect that should become visible.
      * @return Whether this delegate performed the scroll. If false, the scroll request will be sent
      * to WebContents.

@@ -13,6 +13,9 @@
 
 package org.chromium.viz.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class DrawQuadState extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
@@ -25,8 +28,7 @@ public final class DrawQuadState extends org.chromium.mojo.bindings.Union {
         public static final int YuvVideoQuadState = 6;
         public static final int VideoHoleQuadState = 7;
         public static final int SharedElementQuadState = 8;
-    }
-
+    };
     private DebugBorderQuadState mDebugBorderQuadState;
     private CompositorRenderPassQuadState mRenderPassQuadState;
     private SolidColorQuadState mSolidColorQuadState;
@@ -37,54 +39,144 @@ public final class DrawQuadState extends org.chromium.mojo.bindings.Union {
     private VideoHoleQuadState mVideoHoleQuadState;
     private SharedElementQuadState mSharedElementQuadState;
 
+    public void setDebugBorderQuadState(DebugBorderQuadState debugBorderQuadState) {
+        this.mTag = Tag.DebugBorderQuadState;
+        this.mDebugBorderQuadState = debugBorderQuadState;
+    }
+
+    public DebugBorderQuadState getDebugBorderQuadState() {
+        assert this.mTag == Tag.DebugBorderQuadState;
+        return this.mDebugBorderQuadState;
+    }
+
+    public void setRenderPassQuadState(CompositorRenderPassQuadState renderPassQuadState) {
+        this.mTag = Tag.RenderPassQuadState;
+        this.mRenderPassQuadState = renderPassQuadState;
+    }
+
+    public CompositorRenderPassQuadState getRenderPassQuadState() {
+        assert this.mTag == Tag.RenderPassQuadState;
+        return this.mRenderPassQuadState;
+    }
+
+    public void setSolidColorQuadState(SolidColorQuadState solidColorQuadState) {
+        this.mTag = Tag.SolidColorQuadState;
+        this.mSolidColorQuadState = solidColorQuadState;
+    }
+
+    public SolidColorQuadState getSolidColorQuadState() {
+        assert this.mTag == Tag.SolidColorQuadState;
+        return this.mSolidColorQuadState;
+    }
+
+    public void setSurfaceQuadState(SurfaceQuadState surfaceQuadState) {
+        this.mTag = Tag.SurfaceQuadState;
+        this.mSurfaceQuadState = surfaceQuadState;
+    }
+
+    public SurfaceQuadState getSurfaceQuadState() {
+        assert this.mTag == Tag.SurfaceQuadState;
+        return this.mSurfaceQuadState;
+    }
+
+    public void setTextureQuadState(TextureQuadState textureQuadState) {
+        this.mTag = Tag.TextureQuadState;
+        this.mTextureQuadState = textureQuadState;
+    }
+
+    public TextureQuadState getTextureQuadState() {
+        assert this.mTag == Tag.TextureQuadState;
+        return this.mTextureQuadState;
+    }
+
+    public void setTileQuadState(TileQuadState tileQuadState) {
+        this.mTag = Tag.TileQuadState;
+        this.mTileQuadState = tileQuadState;
+    }
+
+    public TileQuadState getTileQuadState() {
+        assert this.mTag == Tag.TileQuadState;
+        return this.mTileQuadState;
+    }
+
+    public void setYuvVideoQuadState(YuvVideoQuadState yuvVideoQuadState) {
+        this.mTag = Tag.YuvVideoQuadState;
+        this.mYuvVideoQuadState = yuvVideoQuadState;
+    }
+
+    public YuvVideoQuadState getYuvVideoQuadState() {
+        assert this.mTag == Tag.YuvVideoQuadState;
+        return this.mYuvVideoQuadState;
+    }
+
+    public void setVideoHoleQuadState(VideoHoleQuadState videoHoleQuadState) {
+        this.mTag = Tag.VideoHoleQuadState;
+        this.mVideoHoleQuadState = videoHoleQuadState;
+    }
+
+    public VideoHoleQuadState getVideoHoleQuadState() {
+        assert this.mTag == Tag.VideoHoleQuadState;
+        return this.mVideoHoleQuadState;
+    }
+
+    public void setSharedElementQuadState(SharedElementQuadState sharedElementQuadState) {
+        this.mTag = Tag.SharedElementQuadState;
+        this.mSharedElementQuadState = sharedElementQuadState;
+    }
+
+    public SharedElementQuadState getSharedElementQuadState() {
+        assert this.mTag == Tag.SharedElementQuadState;
+        return this.mSharedElementQuadState;
+    }
+
 
     @Override
-    protected void encode(org.chromium.mojo.bindings.Encoder encoder0, int offset) {
+    protected final void encode(org.chromium.mojo.bindings.Encoder encoder0, int offset) {
         encoder0.encode(org.chromium.mojo.bindings.BindingsHelper.UNION_SIZE, offset);
         encoder0.encode(this.mTag, offset + 4);
         switch (mTag) {
             case Tag.DebugBorderQuadState: {
-
+                
                 encoder0.encode(this.mDebugBorderQuadState, offset + 8, false);
                 break;
             }
             case Tag.RenderPassQuadState: {
-
+                
                 encoder0.encode(this.mRenderPassQuadState, offset + 8, false);
                 break;
             }
             case Tag.SolidColorQuadState: {
-
+                
                 encoder0.encode(this.mSolidColorQuadState, offset + 8, false);
                 break;
             }
             case Tag.SurfaceQuadState: {
-
+                
                 encoder0.encode(this.mSurfaceQuadState, offset + 8, false);
                 break;
             }
             case Tag.TextureQuadState: {
-
+                
                 encoder0.encode(this.mTextureQuadState, offset + 8, false);
                 break;
             }
             case Tag.TileQuadState: {
-
+                
                 encoder0.encode(this.mTileQuadState, offset + 8, false);
                 break;
             }
             case Tag.YuvVideoQuadState: {
-
+                
                 encoder0.encode(this.mYuvVideoQuadState, offset + 8, false);
                 break;
             }
             case Tag.VideoHoleQuadState: {
-
+                
                 encoder0.encode(this.mVideoHoleQuadState, offset + 8, false);
                 break;
             }
             case Tag.SharedElementQuadState: {
-
+                
                 encoder0.encode(this.mSharedElementQuadState, offset + 8, false);
                 break;
             }
@@ -98,7 +190,7 @@ public final class DrawQuadState extends org.chromium.mojo.bindings.Union {
         return decode(new org.chromium.mojo.bindings.Decoder(message).decoderForSerializedUnion(), 0);
     }
 
-    public static DrawQuadState decode(org.chromium.mojo.bindings.Decoder decoder0, int offset) {
+    public static final DrawQuadState decode(org.chromium.mojo.bindings.Decoder decoder0, int offset) {
         org.chromium.mojo.bindings.DataHeader dataHeader = decoder0.readDataHeaderForUnion(offset);
         if (dataHeader.size == 0) {
             return null;
@@ -106,63 +198,63 @@ public final class DrawQuadState extends org.chromium.mojo.bindings.Union {
         DrawQuadState result = new DrawQuadState();
         switch (dataHeader.elementsOrVersion) {
             case Tag.DebugBorderQuadState: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mDebugBorderQuadState = DebugBorderQuadState.decode(decoder1);
                 result.mTag = Tag.DebugBorderQuadState;
                 break;
             }
             case Tag.RenderPassQuadState: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mRenderPassQuadState = CompositorRenderPassQuadState.decode(decoder1);
                 result.mTag = Tag.RenderPassQuadState;
                 break;
             }
             case Tag.SolidColorQuadState: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mSolidColorQuadState = SolidColorQuadState.decode(decoder1);
                 result.mTag = Tag.SolidColorQuadState;
                 break;
             }
             case Tag.SurfaceQuadState: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mSurfaceQuadState = SurfaceQuadState.decode(decoder1);
                 result.mTag = Tag.SurfaceQuadState;
                 break;
             }
             case Tag.TextureQuadState: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mTextureQuadState = TextureQuadState.decode(decoder1);
                 result.mTag = Tag.TextureQuadState;
                 break;
             }
             case Tag.TileQuadState: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mTileQuadState = TileQuadState.decode(decoder1);
                 result.mTag = Tag.TileQuadState;
                 break;
             }
             case Tag.YuvVideoQuadState: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mYuvVideoQuadState = YuvVideoQuadState.decode(decoder1);
                 result.mTag = Tag.YuvVideoQuadState;
                 break;
             }
             case Tag.VideoHoleQuadState: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mVideoHoleQuadState = VideoHoleQuadState.decode(decoder1);
                 result.mTag = Tag.VideoHoleQuadState;
                 break;
             }
             case Tag.SharedElementQuadState: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mSharedElementQuadState = SharedElementQuadState.decode(decoder1);
                 result.mTag = Tag.SharedElementQuadState;

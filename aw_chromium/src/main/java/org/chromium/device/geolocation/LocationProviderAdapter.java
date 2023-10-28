@@ -6,10 +6,11 @@ package org.chromium.device.geolocation;
 
 import android.location.Location;
 
-import org.chromium.base.Log;
-import org.chromium.base.ThreadUtils;
 import org.jni_zero.CalledByNative;
 import org.jni_zero.NativeMethods;
+
+import org.chromium.base.Log;
+import org.chromium.base.ThreadUtils;
 
 import java.util.concurrent.FutureTask;
 
@@ -38,7 +39,6 @@ public class LocationProviderAdapter {
 
     /**
      * Start listening for location updates until we're told to quit. May be called in any thread.
-     *
      * @param enableHighAccuracy Whether or not to enable high accuracy location providers.
      */
     @CalledByNative
@@ -76,7 +76,11 @@ public class LocationProviderAdapter {
     }
 
     public static void onNewLocationAvailable(Location location) {
-        LocationProviderAdapterJni.get().newLocationAvailable(location.getLatitude(), location.getLongitude(), location.getTime() / 1000.0, location.hasAltitude(), location.getAltitude(), location.hasAccuracy(), location.getAccuracy(), location.hasBearing(), location.getBearing(), location.hasSpeed(), location.getSpeed());
+        LocationProviderAdapterJni.get().newLocationAvailable(location.getLatitude(),
+                location.getLongitude(), location.getTime() / 1000.0, location.hasAltitude(),
+                location.getAltitude(), location.hasAccuracy(), location.getAccuracy(),
+                location.hasBearing(), location.getBearing(), location.hasSpeed(),
+                location.getSpeed());
     }
 
     public static void newErrorAvailable(String message) {
@@ -86,7 +90,9 @@ public class LocationProviderAdapter {
 
     @NativeMethods
     interface Natives {
-        void newLocationAvailable(double latitude, double longitude, double timeStamp, boolean hasAltitude, double altitude, boolean hasAccuracy, double accuracy, boolean hasHeading, double heading, boolean hasSpeed, double speed);
+        void newLocationAvailable(double latitude, double longitude, double timeStamp,
+                boolean hasAltitude, double altitude, boolean hasAccuracy, double accuracy,
+                boolean hasHeading, double heading, boolean hasSpeed, double speed);
 
         void newErrorAvailable(String message);
     }

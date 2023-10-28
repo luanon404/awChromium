@@ -17,10 +17,11 @@ import androidx.annotation.IntDef;
 
 public final class CanMakePaymentQueryResult {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({CanMakePaymentQueryResult.CAN_MAKE_PAYMENT, CanMakePaymentQueryResult.CANNOT_MAKE_PAYMENT})
-    public @interface EnumType {
-    }
+        CanMakePaymentQueryResult.CAN_MAKE_PAYMENT,
+        CanMakePaymentQueryResult.CANNOT_MAKE_PAYMENT})
+    public @interface EnumType {}
 
     public static final int CAN_MAKE_PAYMENT = 0;
     public static final int CANNOT_MAKE_PAYMENT = 1;
@@ -37,9 +38,8 @@ public final class CanMakePaymentQueryResult {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private CanMakePaymentQueryResult() {
-    }
+    private CanMakePaymentQueryResult() {}
 }

@@ -13,9 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 class ProxyResolvingSocketFactory_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<ProxyResolvingSocketFactory, ProxyResolvingSocketFactory.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<ProxyResolvingSocketFactory, ProxyResolvingSocketFactory.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<ProxyResolvingSocketFactory, ProxyResolvingSocketFactory.Proxy> MANAGER =
+            new org.chromium.mojo.bindings.Interface.Manager<ProxyResolvingSocketFactory, ProxyResolvingSocketFactory.Proxy>() {
 
         @Override
         public String getName() {
@@ -24,11 +28,12 @@ class ProxyResolvingSocketFactory_Internal {
 
         @Override
         public int getVersion() {
-            return 0;
+          return 0;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -39,7 +44,7 @@ class ProxyResolvingSocketFactory_Internal {
 
         @Override
         public ProxyResolvingSocketFactory[] buildArray(int size) {
-            return new ProxyResolvingSocketFactory[size];
+          return new ProxyResolvingSocketFactory[size];
         }
     };
 
@@ -49,13 +54,16 @@ class ProxyResolvingSocketFactory_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements ProxyResolvingSocketFactory.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core,
+              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void createProxyResolvingSocket(org.chromium.url.mojom.Url url, NetworkAnonymizationKey networkAnonymizationKey, ProxyResolvingSocketOptions options, MutableNetworkTrafficAnnotationTag trafficAnnotation, org.chromium.mojo.bindings.InterfaceRequest<ProxyResolvingSocket> socket, SocketObserver observer, CreateProxyResolvingSocket_Response callback) {
+        public void createProxyResolvingSocket(
+org.chromium.url.mojom.Url url, NetworkAnonymizationKey networkAnonymizationKey, ProxyResolvingSocketOptions options, MutableNetworkTrafficAnnotationTag trafficAnnotation, org.chromium.mojo.bindings.InterfaceRequest<ProxyResolvingSocket> socket, SocketObserver observer, 
+CreateProxyResolvingSocket_Response callback) {
 
             ProxyResolvingSocketFactoryCreateProxyResolvingSocketParams _message = new ProxyResolvingSocketFactoryCreateProxyResolvingSocketParams();
 
@@ -72,7 +80,14 @@ class ProxyResolvingSocketFactory_Internal {
             _message.observer = observer;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(CREATE_PROXY_RESOLVING_SOCKET_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new ProxyResolvingSocketFactoryCreateProxyResolvingSocketResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    CREATE_PROXY_RESOLVING_SOCKET_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new ProxyResolvingSocketFactoryCreateProxyResolvingSocketResponseParamsForwardToCallback(callback));
 
         }
 
@@ -88,7 +103,8 @@ class ProxyResolvingSocketFactory_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -97,17 +113,20 @@ class ProxyResolvingSocketFactory_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(ProxyResolvingSocketFactory_Internal.MANAGER, messageWithHeader);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
+                                ProxyResolvingSocketFactory_Internal.MANAGER, messageWithHeader);
+
+
 
 
                     default:
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -115,7 +134,8 @@ class ProxyResolvingSocketFactory_Internal {
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -124,15 +144,22 @@ class ProxyResolvingSocketFactory_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), ProxyResolvingSocketFactory_Internal.MANAGER, messageWithHeader, receiver);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
+                                getCore(), ProxyResolvingSocketFactory_Internal.MANAGER, messageWithHeader, receiver);
+
+
+
+
+
 
 
                     case CREATE_PROXY_RESOLVING_SOCKET_ORDINAL: {
 
-                        ProxyResolvingSocketFactoryCreateProxyResolvingSocketParams data = ProxyResolvingSocketFactoryCreateProxyResolvingSocketParams.deserialize(messageWithHeader.getPayload());
+                        ProxyResolvingSocketFactoryCreateProxyResolvingSocketParams data =
+                                ProxyResolvingSocketFactoryCreateProxyResolvingSocketParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().createProxyResolvingSocket(data.url, data.networkAnonymizationKey, data.options, data.trafficAnnotation, data.socket, data.observer, new ProxyResolvingSocketFactoryCreateProxyResolvingSocketResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
@@ -143,17 +170,18 @@ class ProxyResolvingSocketFactory_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class ProxyResolvingSocketFactoryCreateProxyResolvingSocketParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 64;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(64, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(64, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.url.mojom.Url url;
         public NetworkAnonymizationKey networkAnonymizationKey;
@@ -180,7 +208,8 @@ class ProxyResolvingSocketFactory_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static ProxyResolvingSocketFactoryCreateProxyResolvingSocketParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -194,33 +223,33 @@ class ProxyResolvingSocketFactory_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new ProxyResolvingSocketFactoryCreateProxyResolvingSocketParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.url = org.chromium.url.mojom.Url.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.networkAnonymizationKey = NetworkAnonymizationKey.decode(decoder0, 16);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(32, true);
                     result.options = ProxyResolvingSocketOptions.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(40, false);
                     result.trafficAnnotation = MutableNetworkTrafficAnnotationTag.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.socket = decoder0.readInterfaceRequest(48, false);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.observer = decoder0.readServiceInterface(52, true, SocketObserver.MANAGER);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -232,26 +261,28 @@ class ProxyResolvingSocketFactory_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.url, 8, false);
-
+            
             encoder0.encode(this.networkAnonymizationKey, 16, false);
-
+            
             encoder0.encode(this.options, 32, true);
-
+            
             encoder0.encode(this.trafficAnnotation, 40, false);
-
+            
             encoder0.encode(this.socket, 48, false);
-
+            
             encoder0.encode(this.observer, 52, true, SocketObserver.MANAGER);
         }
     }
 
 
+
+    
     static final class ProxyResolvingSocketFactoryCreateProxyResolvingSocketResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 40;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(40, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(40, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int result;
         public IpEndPoint localAddr;
@@ -279,7 +310,8 @@ class ProxyResolvingSocketFactory_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static ProxyResolvingSocketFactoryCreateProxyResolvingSocketResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -293,28 +325,28 @@ class ProxyResolvingSocketFactory_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new ProxyResolvingSocketFactoryCreateProxyResolvingSocketResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.result = decoder0.readInt(8);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.receiveStream = decoder0.readConsumerHandle(12, true);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, true);
                     result.localAddr = IpEndPoint.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, true);
                     result.peerAddr = IpEndPoint.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.sendStream = decoder0.readProducerHandle(32, true);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -326,20 +358,21 @@ class ProxyResolvingSocketFactory_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.result, 8);
-
+            
             encoder0.encode(this.receiveStream, 12, true);
-
+            
             encoder0.encode(this.localAddr, 16, true);
-
+            
             encoder0.encode(this.peerAddr, 24, true);
-
+            
             encoder0.encode(this.sendStream, 32, true);
         }
     }
 
-    static class ProxyResolvingSocketFactoryCreateProxyResolvingSocketResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class ProxyResolvingSocketFactoryCreateProxyResolvingSocketResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final ProxyResolvingSocketFactory.CreateProxyResolvingSocket_Response mCallback;
 
         ProxyResolvingSocketFactoryCreateProxyResolvingSocketResponseParamsForwardToCallback(ProxyResolvingSocketFactory.CreateProxyResolvingSocket_Response callback) {
@@ -349,9 +382,11 @@ class ProxyResolvingSocketFactory_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(CREATE_PROXY_RESOLVING_SOCKET_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(CREATE_PROXY_RESOLVING_SOCKET_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -371,7 +406,10 @@ class ProxyResolvingSocketFactory_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        ProxyResolvingSocketFactoryCreateProxyResolvingSocketResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        ProxyResolvingSocketFactoryCreateProxyResolvingSocketResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -391,10 +429,17 @@ class ProxyResolvingSocketFactory_Internal {
 
             _response.sendStream = sendStream;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(CREATE_PROXY_RESOLVING_SOCKET_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    CREATE_PROXY_RESOLVING_SOCKET_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
+
 
 
 }

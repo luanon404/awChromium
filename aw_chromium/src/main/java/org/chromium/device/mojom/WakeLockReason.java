@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class WakeLockReason {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({WakeLockReason.AUDIO_PLAYBACK, WakeLockReason.VIDEO_PLAYBACK, WakeLockReason.OTHER})
-    public @interface EnumType {
-    }
+        WakeLockReason.AUDIO_PLAYBACK,
+        WakeLockReason.VIDEO_PLAYBACK,
+        WakeLockReason.OTHER})
+    public @interface EnumType {}
 
     public static final int AUDIO_PLAYBACK = 0;
     public static final int VIDEO_PLAYBACK = 1;
@@ -38,9 +40,8 @@ public final class WakeLockReason {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private WakeLockReason() {
-    }
+    private WakeLockReason() {}
 }

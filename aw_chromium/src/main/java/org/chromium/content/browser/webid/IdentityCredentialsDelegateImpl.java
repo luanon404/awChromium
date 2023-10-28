@@ -6,7 +6,7 @@ package org.chromium.content.browser.webid;
 
 /**
  * Public no-op implementation of IdentityCredentialsDelegate.
- * <p>
+ *
  * TODO(crbug.com/1475970) upstream the private version of this.
  */
 public class IdentityCredentialsDelegateImpl implements IdentityCredentialsDelegate {

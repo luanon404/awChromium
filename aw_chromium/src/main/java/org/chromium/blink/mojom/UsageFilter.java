@@ -13,14 +13,15 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public final class UsageFilter extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
         public static final int Page = 0;
         public static final int UsageAndPage = 1;
-    }
-
+    };
     private short mPage;
     private org.chromium.device.mojom.HidUsageAndPage mUsageAndPage;
 

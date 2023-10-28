@@ -4,49 +4,54 @@
 package org.chromium.components.heap_profiling.multi_process;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import org.jni_zero.NativeMethods;
 
 @CheckDiscard("crbug.com/993421")
 class HeapProfilingTestShimJni implements HeapProfilingTestShim.Natives {
-    private static HeapProfilingTestShim.Natives testInstance;
+  private static HeapProfilingTestShim.Natives testInstance;
 
-    public static final JniStaticTestMocker<HeapProfilingTestShim.Natives> TEST_HOOKS = new JniStaticTestMocker<HeapProfilingTestShim.Natives>() {
-        @Override
-        public void setInstanceForTesting(HeapProfilingTestShim.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<HeapProfilingTestShim.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<HeapProfilingTestShim.Natives>() {
     @Override
-    public void destroy(long nativeHeapProfilingTestShim) {
-        GEN_JNI.org_chromium_components_heap_1profiling_multi_1process_HeapProfilingTestShim_destroy(nativeHeapProfilingTestShim);
+    public void setInstanceForTesting(HeapProfilingTestShim.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public long init(HeapProfilingTestShim obj) {
-        return (long) GEN_JNI.org_chromium_components_heap_1profiling_multi_1process_HeapProfilingTestShim_init(obj);
-    }
+  @Override
+  public void destroy(long nativeHeapProfilingTestShim) {
+    GEN_JNI.org_chromium_components_heap_1profiling_multi_1process_HeapProfilingTestShim_destroy(nativeHeapProfilingTestShim);
+  }
 
-    @Override
-    public boolean runTestForMode(long nativeHeapProfilingTestShim, String mode, boolean dynamicallyStartProfiling, String stackMode, boolean shouldSample, boolean sampleEverything) {
-        return (boolean) GEN_JNI.org_chromium_components_heap_1profiling_multi_1process_HeapProfilingTestShim_runTestForMode(nativeHeapProfilingTestShim, mode, dynamicallyStartProfiling, stackMode, shouldSample, sampleEverything);
-    }
+  @Override
+  public long init(HeapProfilingTestShim obj) {
+    return (long) GEN_JNI.org_chromium_components_heap_1profiling_multi_1process_HeapProfilingTestShim_init(obj);
+  }
 
-    public static HeapProfilingTestShim.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of HeapProfilingTestShim.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new HeapProfilingTestShimJni();
+  @Override
+  public boolean runTestForMode(long nativeHeapProfilingTestShim, String mode, boolean dynamicallyStartProfiling, String stackMode, boolean shouldSample, boolean sampleEverything) {
+    return (boolean) GEN_JNI.org_chromium_components_heap_1profiling_multi_1process_HeapProfilingTestShim_runTestForMode(nativeHeapProfilingTestShim, mode, dynamicallyStartProfiling, stackMode, shouldSample, sampleEverything);
+  }
+
+  public static HeapProfilingTestShim.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of HeapProfilingTestShim.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new HeapProfilingTestShimJni();
+  }
 }

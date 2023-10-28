@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface MediaDevicesDispatcherHost extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends MediaDevicesDispatcherHost, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends MediaDevicesDispatcherHost, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<MediaDevicesDispatcherHost, MediaDevicesDispatcherHost.Proxy> MANAGER = MediaDevicesDispatcherHost_Internal.MANAGER;

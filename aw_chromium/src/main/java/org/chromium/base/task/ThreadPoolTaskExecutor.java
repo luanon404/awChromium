@@ -10,7 +10,8 @@ package org.chromium.base.task;
  * task posting instead of sharding based on {@link TaskTraits}.
  */
 class ThreadPoolTaskExecutor implements TaskExecutor {
-    private static final int TRAITS_COUNT = TaskTraits.THREAD_POOL_TRAITS_END - TaskTraits.THREAD_POOL_TRAITS_START + 1;
+    private static final int TRAITS_COUNT =
+            TaskTraits.THREAD_POOL_TRAITS_END - TaskTraits.THREAD_POOL_TRAITS_START + 1;
     private final TaskRunner mTraitsToRunnerMap[] = new TaskRunner[TRAITS_COUNT];
 
     public ThreadPoolTaskExecutor() {

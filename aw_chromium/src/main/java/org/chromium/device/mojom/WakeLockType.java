@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class WakeLockType {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({WakeLockType.PREVENT_APP_SUSPENSION, WakeLockType.PREVENT_DISPLAY_SLEEP, WakeLockType.PREVENT_DISPLAY_SLEEP_ALLOW_DIMMING})
-    public @interface EnumType {
-    }
+        WakeLockType.PREVENT_APP_SUSPENSION,
+        WakeLockType.PREVENT_DISPLAY_SLEEP,
+        WakeLockType.PREVENT_DISPLAY_SLEEP_ALLOW_DIMMING})
+    public @interface EnumType {}
 
     public static final int PREVENT_APP_SUSPENSION = 0;
     public static final int PREVENT_DISPLAY_SLEEP = 1;
@@ -38,9 +40,8 @@ public final class WakeLockType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private WakeLockType() {
-    }
+    private WakeLockType() {}
 }

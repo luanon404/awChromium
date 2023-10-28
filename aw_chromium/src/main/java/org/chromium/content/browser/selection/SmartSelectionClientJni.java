@@ -3,51 +3,72 @@
 //
 package org.chromium.content.browser.selection;
 
-import org.chromium.content_public.browser.WebContents;
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.content.Context;
+import android.os.Build;
+import android.provider.Settings;
+import android.text.TextUtils;
+import android.view.textclassifier.TextClassifier;
+import androidx.annotation.IntDef;
+import androidx.annotation.Nullable;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.content_public.browser.SelectAroundCaretResult;
+import org.chromium.content_public.browser.SelectionClient;
+import org.chromium.content_public.browser.SelectionEventProcessor;
+import org.chromium.content_public.browser.WebContents;
+import org.chromium.ui.base.WindowAndroid;
+import org.chromium.ui.touch_selection.SelectionEventType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 @CheckDiscard("crbug.com/993421")
 class SmartSelectionClientJni implements SmartSelectionClient.Natives {
-    private static SmartSelectionClient.Natives testInstance;
+  private static SmartSelectionClient.Natives testInstance;
 
-    public static final JniStaticTestMocker<SmartSelectionClient.Natives> TEST_HOOKS = new JniStaticTestMocker<SmartSelectionClient.Natives>() {
-        @Override
-        public void setInstanceForTesting(SmartSelectionClient.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<SmartSelectionClient.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<SmartSelectionClient.Natives>() {
     @Override
-    public void cancelAllRequests(long nativeSmartSelectionClient, SmartSelectionClient caller) {
-        GEN_JNI.org_chromium_content_browser_selection_SmartSelectionClient_cancelAllRequests(nativeSmartSelectionClient, caller);
+    public void setInstanceForTesting(SmartSelectionClient.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public long init(SmartSelectionClient caller, WebContents webContents) {
-        return (long) GEN_JNI.org_chromium_content_browser_selection_SmartSelectionClient_init(caller, webContents);
-    }
+  @Override
+  public void cancelAllRequests(long nativeSmartSelectionClient, SmartSelectionClient caller) {
+    GEN_JNI.org_chromium_content_browser_selection_SmartSelectionClient_cancelAllRequests(nativeSmartSelectionClient, caller);
+  }
 
-    @Override
-    public void requestSurroundingText(long nativeSmartSelectionClient, SmartSelectionClient caller, int numExtraCharacters, int callbackData) {
-        GEN_JNI.org_chromium_content_browser_selection_SmartSelectionClient_requestSurroundingText(nativeSmartSelectionClient, caller, numExtraCharacters, callbackData);
-    }
+  @Override
+  public long init(SmartSelectionClient caller, WebContents webContents) {
+    return (long) GEN_JNI.org_chromium_content_browser_selection_SmartSelectionClient_init(caller, webContents);
+  }
 
-    public static SmartSelectionClient.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of SmartSelectionClient.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new SmartSelectionClientJni();
+  @Override
+  public void requestSurroundingText(long nativeSmartSelectionClient, SmartSelectionClient caller, int numExtraCharacters, int callbackData) {
+    GEN_JNI.org_chromium_content_browser_selection_SmartSelectionClient_requestSurroundingText(nativeSmartSelectionClient, caller, numExtraCharacters, callbackData);
+  }
+
+  public static SmartSelectionClient.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of SmartSelectionClient.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new SmartSelectionClientJni();
+  }
 }

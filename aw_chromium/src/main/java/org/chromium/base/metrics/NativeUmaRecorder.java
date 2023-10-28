@@ -4,10 +4,11 @@
 
 package org.chromium.base.metrics;
 
-import org.chromium.base.Callback;
-import org.chromium.base.TimeUtils;
 import org.jni_zero.JNINamespace;
 import org.jni_zero.NativeMethods;
+
+import org.chromium.base.Callback;
+import org.chromium.base.TimeUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,7 +18,7 @@ import java.util.Map;
 
 /**
  * An implementation of {@link UmaRecorder} which forwards all calls through JNI.
- * <p>
+ *
  * Note: the JNI calls are relatively costly - avoid calling these methods in performance-critical
  * code.
  */
@@ -29,7 +30,8 @@ import java.util.Map;
      * are never freed. Caching them on the Java side prevents needing to do costly
      * Java String to C++ string conversions on the C++ side during lookup.
      */
-    private final Map<String, Long> mNativeHints = Collections.synchronizedMap(new HashMap<String, Long>());
+    private final Map<String, Long> mNativeHints =
+            Collections.synchronizedMap(new HashMap<String, Long>());
     private Map<Callback<String>, Long> mUserActionTestingCallbackNativePtrs;
 
     @Override
@@ -40,16 +42,19 @@ import java.util.Map;
     }
 
     @Override
-    public void recordExponentialHistogram(String name, int sample, int min, int max, int numBuckets) {
+    public void recordExponentialHistogram(
+            String name, int sample, int min, int max, int numBuckets) {
         long oldHint = getNativeHint(name);
-        long newHint = NativeUmaRecorderJni.get().recordExponentialHistogram(name, oldHint, sample, min, max, numBuckets);
+        long newHint = NativeUmaRecorderJni.get().recordExponentialHistogram(
+                name, oldHint, sample, min, max, numBuckets);
         maybeUpdateNativeHint(name, oldHint, newHint);
     }
 
     @Override
     public void recordLinearHistogram(String name, int sample, int min, int max, int numBuckets) {
         long oldHint = getNativeHint(name);
-        long newHint = NativeUmaRecorderJni.get().recordLinearHistogram(name, oldHint, sample, min, max, numBuckets);
+        long newHint = NativeUmaRecorderJni.get().recordLinearHistogram(
+                name, oldHint, sample, min, max, numBuckets);
         maybeUpdateNativeHint(name, oldHint, newHint);
     }
 
@@ -102,12 +107,14 @@ import java.util.Map;
     @Override
     public void removeUserActionCallbackForTesting(Callback<String> callback) {
         if (mUserActionTestingCallbackNativePtrs == null) {
-            assert false : "Attempting to remove a user action callback without previously registering any.";
+            assert false
+                : "Attempting to remove a user action callback without previously registering any.";
             return;
         }
         Long ptr = mUserActionTestingCallbackNativePtrs.remove(callback);
         if (ptr == null) {
-            assert false : "Attempting to remove a user action callback that was never previously" + " registered.";
+            assert false : "Attempting to remove a user action callback that was never previously"
+                           + " registered.";
             return;
         }
         NativeUmaRecorderJni.get().removeActionCallbackForTesting(ptr);
@@ -128,17 +135,14 @@ import java.util.Map;
         }
     }
 
-    /**
-     * Natives API to record metrics.
-     */
+    /** Natives API to record metrics. */
     @NativeMethods
     public interface Natives {
         long recordBooleanHistogram(String name, long nativeHint, boolean sample);
-
-        long recordExponentialHistogram(String name, long nativeHint, int sample, int min, int max, int numBuckets);
-
-        long recordLinearHistogram(String name, long nativeHint, int sample, int min, int max, int numBuckets);
-
+        long recordExponentialHistogram(
+                String name, long nativeHint, int sample, int min, int max, int numBuckets);
+        long recordLinearHistogram(
+                String name, long nativeHint, int sample, int min, int max, int numBuckets);
         long recordSparseHistogram(String name, long nativeHint, int sample);
 
         /**
@@ -146,24 +150,20 @@ import java.util.Map;
          * <p>
          * Uses relative time, because Java and native code can use different clocks.
          *
-         * @param name             Name of the user-generated event.
+         * @param name Name of the user-generated event.
          * @param millisSinceEvent difference between now and the time when the event was observed.
-         *                         Should be positive.
+         *         Should be positive.
          */
         void recordUserAction(String name, long millisSinceEvent);
 
         int getHistogramValueCountForTesting(String name, int sample, long snapshotPtr);
-
         int getHistogramTotalCountForTesting(String name, long snapshotPtr);
-
         long[] getHistogramSamplesForTesting(String name);
 
         long createHistogramSnapshotForTesting();
-
         void destroyHistogramSnapshotForTesting(long snapshotPtr);
 
         long addActionCallbackForTesting(Callback<String> callback);
-
         void removeActionCallbackForTesting(long callbackId);
     }
 }

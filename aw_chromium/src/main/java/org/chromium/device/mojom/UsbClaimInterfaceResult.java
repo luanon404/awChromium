@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class UsbClaimInterfaceResult {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({UsbClaimInterfaceResult.SUCCESS, UsbClaimInterfaceResult.PROTECTED_CLASS, UsbClaimInterfaceResult.FAILURE})
-    public @interface EnumType {
-    }
+        UsbClaimInterfaceResult.SUCCESS,
+        UsbClaimInterfaceResult.PROTECTED_CLASS,
+        UsbClaimInterfaceResult.FAILURE})
+    public @interface EnumType {}
 
     public static final int SUCCESS = 0;
     public static final int PROTECTED_CLASS = 1;
@@ -38,9 +40,8 @@ public final class UsbClaimInterfaceResult {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private UsbClaimInterfaceResult() {
-    }
+    private UsbClaimInterfaceResult() {}
 }

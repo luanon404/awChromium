@@ -44,11 +44,10 @@ class GamepadDevice {
     static final int MIN_BTN_TRIGGER_HAPPY = 0x2c0;
     static final int MAX_BTN_TRIGGER_HAPPY = 0x2cf;
 
-    /**
-     * Keycodes which might be mapped by {@link GamepadMappings}. Keep sorted by keycode.
-     */
+    /** Keycodes which might be mapped by {@link GamepadMappings}. Keep sorted by keycode. */
     @VisibleForTesting
-    static final int RELEVANT_KEYCODES[] = {KeyEvent.KEYCODE_DPAD_UP, // 0x13
+    static final int RELEVANT_KEYCODES[] = {
+            KeyEvent.KEYCODE_DPAD_UP, // 0x13
             KeyEvent.KEYCODE_DPAD_DOWN, // 0x14
             KeyEvent.KEYCODE_DPAD_LEFT, // 0x15
             KeyEvent.KEYCODE_DPAD_RIGHT, // 0x16
@@ -163,7 +162,11 @@ class GamepadDevice {
             VibratorManager vibratorManager = inputDevice.getVibratorManager();
             int[] vibratorIds = vibratorManager.getVibratorIds();
             if (vibratorIds.length >= 2) {
-                mSupportsDualRumble = vibratorManager.getVibrator(vibratorIds[FF_STRONG_MAGNITUDE_CHANNEL_IDX]).hasAmplitudeControl() && vibratorManager.getVibrator(vibratorIds[FF_WEAK_MAGNITUDE_CHANNEL_IDX]).hasAmplitudeControl();
+                mSupportsDualRumble =
+                        vibratorManager.getVibrator(vibratorIds[FF_STRONG_MAGNITUDE_CHANNEL_IDX])
+                                .hasAmplitudeControl()
+                        && vibratorManager.getVibrator(vibratorIds[FF_WEAK_MAGNITUDE_CHANNEL_IDX])
+                                   .hasAmplitudeControl();
                 if (mSupportsDualRumble) {
                     mVibratorManager = vibratorManager;
                 }
@@ -271,10 +274,12 @@ class GamepadDevice {
         }
         CombinedVibration.ParallelCombination effect = CombinedVibration.startParallel();
         if (strong > 0) {
-            effect.addVibrator(FF_STRONG_MAGNITUDE_CHANNEL_IDX, VibrationEffect.createOneShot(VIBRATION_DEFAULT_DURATION_MILLIS, strong));
+            effect.addVibrator(FF_STRONG_MAGNITUDE_CHANNEL_IDX,
+                    VibrationEffect.createOneShot(VIBRATION_DEFAULT_DURATION_MILLIS, strong));
         }
         if (weak > 0) {
-            effect.addVibrator(FF_WEAK_MAGNITUDE_CHANNEL_IDX, VibrationEffect.createOneShot(VIBRATION_DEFAULT_DURATION_MILLIS, weak));
+            effect.addVibrator(FF_WEAK_MAGNITUDE_CHANNEL_IDX,
+                    VibrationEffect.createOneShot(VIBRATION_DEFAULT_DURATION_MILLIS, weak));
         }
         mVibratorManager.vibrate(effect.combine());
     }
@@ -304,7 +309,6 @@ class GamepadDevice {
 
     /**
      * Handles key event from the gamepad device.
-     *
      * @return True if the key event from the gamepad device has been consumed.
      */
     public boolean handleKeyEvent(KeyEvent event) {
@@ -313,7 +317,8 @@ class GamepadDevice {
         // first 16 extra buttons as if they had KEYCODE_BUTTON_# keycodes.
         int keyCode = event.getKeyCode();
         int scanCode = event.getScanCode();
-        if (keyCode == KeyEvent.KEYCODE_UNKNOWN && scanCode >= MIN_BTN_TRIGGER_HAPPY && scanCode <= MAX_BTN_TRIGGER_HAPPY) {
+        if (keyCode == KeyEvent.KEYCODE_UNKNOWN && scanCode >= MIN_BTN_TRIGGER_HAPPY
+                && scanCode <= MAX_BTN_TRIGGER_HAPPY) {
             keyCode = KeyEvent.KEYCODE_BUTTON_1 + scanCode - MIN_BTN_TRIGGER_HAPPY;
         }
 
@@ -333,7 +338,6 @@ class GamepadDevice {
 
     /**
      * Handles motion event from the gamepad device.
-     *
      * @return True if the motion event from the gamepad device has been consumed.
      */
     public boolean handleMotionEvent(MotionEvent event) {

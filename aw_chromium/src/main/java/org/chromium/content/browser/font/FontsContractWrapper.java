@@ -18,7 +18,9 @@ import androidx.core.provider.FontsContractCompat;
  */
 public class FontsContractWrapper {
     @NonNull
-    FontsContractCompat.FontFamilyResult fetchFonts(@NonNull Context context, @Nullable CancellationSignal cancellationSignal, @NonNull FontRequest request) throws NameNotFoundException {
+    FontsContractCompat.FontFamilyResult fetchFonts(@NonNull Context context,
+            @Nullable CancellationSignal cancellationSignal, @NonNull FontRequest request)
+            throws NameNotFoundException {
         return FontsContractCompat.fetchFonts(context, cancellationSignal, request);
     }
 }

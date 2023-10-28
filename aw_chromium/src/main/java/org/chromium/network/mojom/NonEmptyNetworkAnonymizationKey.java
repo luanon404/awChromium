@@ -13,10 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class NonEmptyNetworkAnonymizationKey extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 32;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(32, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(32, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public SchemefulSite topFrameSite;
     public boolean isCrossSite;
@@ -40,7 +43,8 @@ public final class NonEmptyNetworkAnonymizationKey extends org.chromium.mojo.bin
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static NonEmptyNetworkAnonymizationKey deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -54,20 +58,20 @@ public final class NonEmptyNetworkAnonymizationKey extends org.chromium.mojo.bin
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new NonEmptyNetworkAnonymizationKey(elementsOrVersion);
-            {
-
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                 result.topFrameSite = SchemefulSite.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.isCrossSite = decoder0.readBoolean(16, 0);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, true);
                 result.nonce = org.chromium.mojo_base.mojom.UnguessableToken.decode(decoder1);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -79,11 +83,11 @@ public final class NonEmptyNetworkAnonymizationKey extends org.chromium.mojo.bin
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.topFrameSite, 8, false);
-
+        
         encoder0.encode(this.isCrossSite, 16, 0);
-
+        
         encoder0.encode(this.nonce, 24, true);
     }
 }

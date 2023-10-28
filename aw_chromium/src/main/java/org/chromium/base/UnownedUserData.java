@@ -29,8 +29,7 @@ public interface UnownedUserData {
      *
      * @param host from which host the UnownedUserData was detached.
      */
-    default void onDetachedFromHost(UnownedUserDataHost host) {
-    }
+    default void onDetachedFromHost(UnownedUserDataHost host) {}
 
     /**
      * WARNING: This may be invoked in a re-entrant way, but will be invoked on the correct thread.

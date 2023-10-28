@@ -17,10 +17,10 @@ import androidx.annotation.IntDef;
 
 public final class SmartCardSuccess {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({SmartCardSuccess.OK})
-    public @interface EnumType {
-    }
+        SmartCardSuccess.OK})
+    public @interface EnumType {}
 
     public static final int OK = 0;
     public static final int MIN_VALUE = 0;
@@ -36,9 +36,8 @@ public final class SmartCardSuccess {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private SmartCardSuccess() {
-    }
+    private SmartCardSuccess() {}
 }

@@ -13,24 +13,30 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface CdmDocumentService extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends CdmDocumentService, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends CdmDocumentService, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<CdmDocumentService, CdmDocumentService.Proxy> MANAGER = CdmDocumentService_Internal.MANAGER;
 
-    void challengePlatform(String serviceId, String challenge, ChallengePlatform_Response callback);
+    void challengePlatform(
+String serviceId, String challenge, 
+ChallengePlatform_Response callback);
 
-    interface ChallengePlatform_Response extends org.chromium.mojo.bindings.Callbacks.Callback4<Boolean, String, String, String> {
-    }
+    interface ChallengePlatform_Response extends org.chromium.mojo.bindings.Callbacks.Callback4<Boolean, String, String, String> { }
 
 
-    void getStorageId(int version, GetStorageId_Response callback);
+    void getStorageId(
+int version, 
+GetStorageId_Response callback);
 
-    interface GetStorageId_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<Integer, byte[]> {
-    }
+    interface GetStorageId_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<Integer, byte[]> { }
 
 
 }

@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface ContactsManager extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends ContactsManager, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends ContactsManager, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<ContactsManager, ContactsManager.Proxy> MANAGER = ContactsManager_Internal.MANAGER;

@@ -13,15 +13,20 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface DeviceViewportSegmentsClient extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends DeviceViewportSegmentsClient, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends DeviceViewportSegmentsClient, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<DeviceViewportSegmentsClient, DeviceViewportSegmentsClient.Proxy> MANAGER = DeviceViewportSegmentsClient_Internal.MANAGER;
 
-    void onViewportSegmentsChanged(org.chromium.gfx.mojom.Rect[] segments);
+    void onViewportSegmentsChanged(
+org.chromium.gfx.mojom.Rect[] segments);
 
 
 }

@@ -12,8 +12,9 @@
 
 # Note
 
-- > **_Under development_**
-- Current WebView version: [120.0.6076.4](https://chromium.googlesource.com/chromium/src.git/+/refs/tags/120.0.6076.4).
+- > **_Under development_** <= READ THIS PLEASE
+- Current WebView
+  version: [120.0.6076.4](https://chromium.googlesource.com/chromium/src.git/+/refs/tags/120.0.6076.4).
 - Do not modify classes or functions with the `@JNINamespace` or `@CalledByNative` annotations.
 
 # Goal
@@ -27,8 +28,13 @@
 
 - Each version will include at least 3 releases:
 
-| Release | To-Do                                              |
-|---------|----------------------------------------------------|
-| CP      | Copy and paste the new source into the old source. |
-| 3R      | Review, reformat, and remove unused resources.     |
-| TR      | Testing and release.                               |
+| Release | JniLibs.zip | AwChromium.aar | Moe-Moe.apk |
+|:-------:|:-----------:|:--------------:|:-----------:|
+|   CP    |     Yes     |       No       |     No      |
+|   3R    |     Yes     |       No       |     No      |
+|   TR    |     Yes     |      Yes       |     Yes     |
+
+- Note
+    - CP: Copy and paste the new source into the old source.
+    - 3R: Review, reformat, and remove unused resources.
+    - TR: Testing and release.

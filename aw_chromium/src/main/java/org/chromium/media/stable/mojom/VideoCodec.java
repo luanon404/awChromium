@@ -17,10 +17,20 @@ import androidx.annotation.IntDef;
 
 public final class VideoCodec {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({VideoCodec.UNKNOWN, VideoCodec.H264, VideoCodec.VC1, VideoCodec.MPEG2, VideoCodec.MPEG4, VideoCodec.THEORA, VideoCodec.VP8, VideoCodec.VP9, VideoCodec.HEVC, VideoCodec.DOLBY_VISION, VideoCodec.AV1})
-    public @interface EnumType {
-    }
+        VideoCodec.UNKNOWN,
+        VideoCodec.H264,
+        VideoCodec.VC1,
+        VideoCodec.MPEG2,
+        VideoCodec.MPEG4,
+        VideoCodec.THEORA,
+        VideoCodec.VP8,
+        VideoCodec.VP9,
+        VideoCodec.HEVC,
+        VideoCodec.DOLBY_VISION,
+        VideoCodec.AV1})
+    public @interface EnumType {}
 
     public static final int UNKNOWN = 0;
     public static final int H264 = 1;
@@ -47,12 +57,11 @@ public final class VideoCodec {
     }
 
     public static int toKnownValue(int value) {
-        if (isKnownValue(value)) {
-            return value;
-        }
-        return DEFAULT_VALUE;
+      if (isKnownValue(value)) {
+        return value;
+      }
+      return DEFAULT_VALUE;
     }
 
-    private VideoCodec() {
-    }
+    private VideoCodec() {}
 }

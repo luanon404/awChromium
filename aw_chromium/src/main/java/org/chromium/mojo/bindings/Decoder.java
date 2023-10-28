@@ -65,7 +65,8 @@ public class Decoder {
 
         public void claimHandle(int handle) {
             if (handle < mMinNextClaimedHandle) {
-                throw new DeserializationException("Trying to access handle out of order.");
+                throw new DeserializationException(
+                        "Trying to access handle out of order.");
             }
             if (handle >= mNumberOfHandles) {
                 throw new DeserializationException("Trying to access non present handle.");
@@ -151,10 +152,14 @@ public class Decoder {
         DataHeader result = readDataHeaderAtOffset(offset, true);
         if (result.size == 0) {
             if (result.elementsOrVersion != 0) {
-                throw new DeserializationException("Unexpected version tag for a null union. Expecting 0, found: " + result.elementsOrVersion);
+                throw new DeserializationException(
+                        "Unexpected version tag for a null union. Expecting 0, found: "
+                        + result.elementsOrVersion);
             }
         } else if (result.size != BindingsHelper.UNION_SIZE) {
-            throw new DeserializationException("Unexpected size of an union. The size must be 0 for a null union, or 16 for " + "a non-null union.");
+            throw new DeserializationException(
+                    "Unexpected size of an union. The size must be 0 for a null union, or 16 for "
+                    + "a non-null union.");
         }
         return result;
     }
@@ -174,10 +179,12 @@ public class Decoder {
         int size = readInt(offset + DataHeader.SIZE_OFFSET);
         int elementsOrVersion = readInt(offset + DataHeader.ELEMENTS_OR_VERSION_OFFSET);
         if (size < 0) {
-            throw new DeserializationException("Negative size. Unsigned integers are not valid for java.");
+            throw new DeserializationException(
+                    "Negative size. Unsigned integers are not valid for java.");
         }
         if (elementsOrVersion < 0 && (!isUnion || elementsOrVersion != -1)) {
-            throw new DeserializationException("Negative elements or version. Unsigned integers are not valid for java.");
+            throw new DeserializationException(
+                    "Negative elements or version. Unsigned integers are not valid for java.");
         }
 
         return new DataHeader(size, elementsOrVersion);
@@ -196,11 +203,13 @@ public class Decoder {
                 }
             }
             if (referenceHeader == null || referenceHeader.size != header.size) {
-                throw new DeserializationException("Header doesn't correspond to any known version.");
+                throw new DeserializationException(
+                        "Header doesn't correspond to any known version.");
             }
         } else {
             if (header.size < versionArray[maxVersionIndex].size) {
-                throw new DeserializationException("Message newer than the last known version" + " cannot be shorter than required by the last known version.");
+                throw new DeserializationException("Message newer than the last known version"
+                        + " cannot be shorter than required by the last known version.");
             }
         }
         return header;
@@ -228,10 +237,12 @@ public class Decoder {
     public void readDataHeaderForMap() {
         DataHeader si = readDataHeader();
         if (si.size != BindingsHelper.MAP_STRUCT_HEADER.size) {
-            throw new DeserializationException("Incorrect header for map. The size is incorrect.");
+            throw new DeserializationException(
+                    "Incorrect header for map. The size is incorrect.");
         }
         if (si.elementsOrVersion != BindingsHelper.MAP_STRUCT_HEADER.elementsOrVersion) {
-            throw new DeserializationException("Incorrect header for map. The version is incorrect.");
+            throw new DeserializationException(
+                    "Incorrect header for map. The version is incorrect.");
         }
     }
 
@@ -300,7 +311,8 @@ public class Decoder {
         long pointerOffset = readLong(offset);
         if (pointerOffset == 0) {
             if (!nullable) {
-                throw new DeserializationException("Trying to decode null pointer for a non-nullable type.");
+                throw new DeserializationException(
+                        "Trying to decode null pointer for a non-nullable type.");
             }
             return null;
         }
@@ -431,7 +443,8 @@ public class Decoder {
         int index = readInt(offset);
         if (index == -1) {
             if (!nullable) {
-                throw new DeserializationException("Trying to decode an invalid handle for a non-nullable type.");
+                throw new DeserializationException(
+                        "Trying to decode an invalid handle for a non-nullable type.");
             }
             return InvalidHandle.INSTANCE;
         }
@@ -479,7 +492,8 @@ public class Decoder {
      *
      * @return a proxy to the service.
      */
-    public <P extends Proxy> P readServiceInterface(int offset, boolean nullable, Interface.Manager<?, P> manager) {
+    public <P extends Proxy> P readServiceInterface(int offset, boolean nullable,
+            Interface.Manager<?, P> manager) {
         MessagePipeHandle handle = readMessagePipeHandle(offset, nullable);
         if (!handle.isValid()) {
             return null;
@@ -491,7 +505,8 @@ public class Decoder {
     /**
      * Deserializes a |InterfaceRequest| at the given offset.
      */
-    public <I extends Interface> InterfaceRequest<I> readInterfaceRequest(int offset, boolean nullable) {
+    public <I extends Interface> InterfaceRequest<I> readInterfaceRequest(int offset,
+            boolean nullable) {
         MessagePipeHandle handle = readMessagePipeHandle(offset, nullable);
         if (handle == null) {
             return null;
@@ -502,14 +517,16 @@ public class Decoder {
     /**
      * Deserializes an associated interface at the given offset. Not yet supported.
      */
-    public AssociatedInterfaceNotSupported readAssociatedServiceInterfaceNotSupported(int offset, boolean nullable) {
+    public AssociatedInterfaceNotSupported readAssociatedServiceInterfaceNotSupported(int offset,
+            boolean nullable) {
         return null;
     }
 
     /**
      * Deserializes an associated interface request at the given offset. Not yet supported.
      */
-    public AssociatedInterfaceRequestNotSupported readAssociatedInterfaceRequestNotSupported(int offset, boolean nullable) {
+    public AssociatedInterfaceRequestNotSupported readAssociatedInterfaceRequestNotSupported(
+            int offset, boolean nullable) {
         return null;
     }
 
@@ -536,7 +553,9 @@ public class Decoder {
         DataHeader si = d.readDataHeaderForArray(4, expectedLength);
         Handle[] result = new Handle[si.elementsOrVersion];
         for (int i = 0; i < result.length; ++i) {
-            result[i] = d.readHandle(DataHeader.HEADER_SIZE + BindingsHelper.SERIALIZED_HANDLE_SIZE * i, BindingsHelper.isElementNullable(arrayNullability));
+            result[i] = d.readHandle(
+                    DataHeader.HEADER_SIZE + BindingsHelper.SERIALIZED_HANDLE_SIZE * i,
+                    BindingsHelper.isElementNullable(arrayNullability));
         }
         return result;
     }
@@ -544,7 +563,8 @@ public class Decoder {
     /**
      * Deserializes an array of |UntypedHandle| at the given offset.
      */
-    public UntypedHandle[] readUntypedHandles(int offset, int arrayNullability, int expectedLength) {
+    public UntypedHandle[] readUntypedHandles(
+            int offset, int arrayNullability, int expectedLength) {
         Decoder d = readPointer(offset, BindingsHelper.isArrayNullable(arrayNullability));
         if (d == null) {
             return null;
@@ -552,7 +572,9 @@ public class Decoder {
         DataHeader si = d.readDataHeaderForArray(4, expectedLength);
         UntypedHandle[] result = new UntypedHandle[si.elementsOrVersion];
         for (int i = 0; i < result.length; ++i) {
-            result[i] = d.readUntypedHandle(DataHeader.HEADER_SIZE + BindingsHelper.SERIALIZED_HANDLE_SIZE * i, BindingsHelper.isElementNullable(arrayNullability));
+            result[i] = d.readUntypedHandle(
+                    DataHeader.HEADER_SIZE + BindingsHelper.SERIALIZED_HANDLE_SIZE * i,
+                    BindingsHelper.isElementNullable(arrayNullability));
         }
         return result;
     }
@@ -560,7 +582,8 @@ public class Decoder {
     /**
      * Deserializes an array of |ConsumerHandle| at the given offset.
      */
-    public DataPipe.ConsumerHandle[] readConsumerHandles(int offset, int arrayNullability, int expectedLength) {
+    public DataPipe.ConsumerHandle[] readConsumerHandles(
+            int offset, int arrayNullability, int expectedLength) {
         Decoder d = readPointer(offset, BindingsHelper.isArrayNullable(arrayNullability));
         if (d == null) {
             return null;
@@ -568,7 +591,9 @@ public class Decoder {
         DataHeader si = d.readDataHeaderForArray(4, expectedLength);
         DataPipe.ConsumerHandle[] result = new DataPipe.ConsumerHandle[si.elementsOrVersion];
         for (int i = 0; i < result.length; ++i) {
-            result[i] = d.readConsumerHandle(DataHeader.HEADER_SIZE + BindingsHelper.SERIALIZED_HANDLE_SIZE * i, BindingsHelper.isElementNullable(arrayNullability));
+            result[i] = d.readConsumerHandle(
+                    DataHeader.HEADER_SIZE + BindingsHelper.SERIALIZED_HANDLE_SIZE * i,
+                    BindingsHelper.isElementNullable(arrayNullability));
         }
         return result;
     }
@@ -576,7 +601,8 @@ public class Decoder {
     /**
      * Deserializes an array of |ProducerHandle| at the given offset.
      */
-    public DataPipe.ProducerHandle[] readProducerHandles(int offset, int arrayNullability, int expectedLength) {
+    public DataPipe.ProducerHandle[] readProducerHandles(
+            int offset, int arrayNullability, int expectedLength) {
         Decoder d = readPointer(offset, BindingsHelper.isArrayNullable(arrayNullability));
         if (d == null) {
             return null;
@@ -584,7 +610,9 @@ public class Decoder {
         DataHeader si = d.readDataHeaderForArray(4, expectedLength);
         DataPipe.ProducerHandle[] result = new DataPipe.ProducerHandle[si.elementsOrVersion];
         for (int i = 0; i < result.length; ++i) {
-            result[i] = d.readProducerHandle(DataHeader.HEADER_SIZE + BindingsHelper.SERIALIZED_HANDLE_SIZE * i, BindingsHelper.isElementNullable(arrayNullability));
+            result[i] = d.readProducerHandle(
+                    DataHeader.HEADER_SIZE + BindingsHelper.SERIALIZED_HANDLE_SIZE * i,
+                    BindingsHelper.isElementNullable(arrayNullability));
         }
         return result;
 
@@ -593,7 +621,8 @@ public class Decoder {
     /**
      * Deserializes an array of |MessagePipeHandle| at the given offset.
      */
-    public MessagePipeHandle[] readMessagePipeHandles(int offset, int arrayNullability, int expectedLength) {
+    public MessagePipeHandle[] readMessagePipeHandles(
+            int offset, int arrayNullability, int expectedLength) {
         Decoder d = readPointer(offset, BindingsHelper.isArrayNullable(arrayNullability));
         if (d == null) {
             return null;
@@ -601,7 +630,9 @@ public class Decoder {
         DataHeader si = d.readDataHeaderForArray(4, expectedLength);
         MessagePipeHandle[] result = new MessagePipeHandle[si.elementsOrVersion];
         for (int i = 0; i < result.length; ++i) {
-            result[i] = d.readMessagePipeHandle(DataHeader.HEADER_SIZE + BindingsHelper.SERIALIZED_HANDLE_SIZE * i, BindingsHelper.isElementNullable(arrayNullability));
+            result[i] = d.readMessagePipeHandle(
+                    DataHeader.HEADER_SIZE + BindingsHelper.SERIALIZED_HANDLE_SIZE * i,
+                    BindingsHelper.isElementNullable(arrayNullability));
         }
         return result;
 
@@ -610,7 +641,8 @@ public class Decoder {
     /**
      * Deserializes an array of |SharedBufferHandle| at the given offset.
      */
-    public SharedBufferHandle[] readSharedBufferHandles(int offset, int arrayNullability, int expectedLength) {
+    public SharedBufferHandle[] readSharedBufferHandles(
+            int offset, int arrayNullability, int expectedLength) {
         Decoder d = readPointer(offset, BindingsHelper.isArrayNullable(arrayNullability));
         if (d == null) {
             return null;
@@ -618,7 +650,9 @@ public class Decoder {
         DataHeader si = d.readDataHeaderForArray(4, expectedLength);
         SharedBufferHandle[] result = new SharedBufferHandle[si.elementsOrVersion];
         for (int i = 0; i < result.length; ++i) {
-            result[i] = d.readSharedBufferHandle(DataHeader.HEADER_SIZE + BindingsHelper.SERIALIZED_HANDLE_SIZE * i, BindingsHelper.isElementNullable(arrayNullability));
+            result[i] = d.readSharedBufferHandle(
+                    DataHeader.HEADER_SIZE + BindingsHelper.SERIALIZED_HANDLE_SIZE * i,
+                    BindingsHelper.isElementNullable(arrayNullability));
         }
         return result;
 
@@ -627,17 +661,22 @@ public class Decoder {
     /**
      * Deserializes an array of |ServiceHandle| at the given offset.
      */
-    public <S extends Interface, P extends Proxy> S[] readServiceInterfaces(int offset, int arrayNullability, int expectedLength, Interface.Manager<S, P> manager) {
+    public <S extends Interface, P extends Proxy> S[] readServiceInterfaces(
+            int offset, int arrayNullability, int expectedLength, Interface.Manager<S, P> manager) {
         Decoder d = readPointer(offset, BindingsHelper.isArrayNullable(arrayNullability));
         if (d == null) {
             return null;
         }
-        DataHeader si = d.readDataHeaderForArray(BindingsHelper.SERIALIZED_INTERFACE_SIZE, expectedLength);
+        DataHeader si =
+                d.readDataHeaderForArray(BindingsHelper.SERIALIZED_INTERFACE_SIZE, expectedLength);
         S[] result = manager.buildArray(si.elementsOrVersion);
         for (int i = 0; i < result.length; ++i) {
             // This cast is necessary because java 6 doesn't handle wildcard correctly when using
             // Manager<S, ? extends S>
-            @SuppressWarnings("unchecked") S value = (S) d.readServiceInterface(DataHeader.HEADER_SIZE + BindingsHelper.SERIALIZED_INTERFACE_SIZE * i, BindingsHelper.isElementNullable(arrayNullability), manager);
+            @SuppressWarnings("unchecked")
+            S value = (S) d.readServiceInterface(
+                    DataHeader.HEADER_SIZE + BindingsHelper.SERIALIZED_INTERFACE_SIZE * i,
+                    BindingsHelper.isElementNullable(arrayNullability), manager);
             result[i] = value;
         }
         return result;
@@ -646,15 +685,19 @@ public class Decoder {
     /**
      * Deserializes an array of |InterfaceRequest| at the given offset.
      */
-    public <I extends Interface> InterfaceRequest<I>[] readInterfaceRequests(int offset, int arrayNullability, int expectedLength) {
+    public <I extends Interface> InterfaceRequest<I>[] readInterfaceRequests(
+            int offset, int arrayNullability, int expectedLength) {
         Decoder d = readPointer(offset, BindingsHelper.isArrayNullable(arrayNullability));
         if (d == null) {
             return null;
         }
         DataHeader si = d.readDataHeaderForArray(4, expectedLength);
-        @SuppressWarnings("unchecked") InterfaceRequest<I>[] result = new InterfaceRequest[si.elementsOrVersion];
+        @SuppressWarnings("unchecked")
+        InterfaceRequest<I>[] result = new InterfaceRequest[si.elementsOrVersion];
         for (int i = 0; i < result.length; ++i) {
-            result[i] = d.readInterfaceRequest(DataHeader.HEADER_SIZE + BindingsHelper.SERIALIZED_HANDLE_SIZE * i, BindingsHelper.isElementNullable(arrayNullability));
+            result[i] = d.readInterfaceRequest(
+                    DataHeader.HEADER_SIZE + BindingsHelper.SERIALIZED_HANDLE_SIZE * i,
+                    BindingsHelper.isElementNullable(arrayNullability));
         }
         return result;
     }
@@ -662,7 +705,8 @@ public class Decoder {
     /**
      * Deserializes an array of associated interfaces at the given offset. Not yet supported.
      */
-    public AssociatedInterfaceNotSupported[] readAssociatedServiceInterfaceNotSupporteds(int offset, int arrayNullability, int expectedLength) {
+    public AssociatedInterfaceNotSupported[] readAssociatedServiceInterfaceNotSupporteds(
+            int offset, int arrayNullability, int expectedLength) {
         return null;
     }
 
@@ -670,7 +714,8 @@ public class Decoder {
      * Deserializes an array of associated interface requests at the given offset. Not yet
      * supported.
      */
-    public AssociatedInterfaceRequestNotSupported[] readAssociatedInterfaceRequestNotSupporteds(int offset, int arrayNullability, int expectedLength) {
+    public AssociatedInterfaceRequestNotSupported[] readAssociatedInterfaceRequestNotSupporteds(
+            int offset, int arrayNullability, int expectedLength) {
         return null;
     }
 
@@ -690,8 +735,10 @@ public class Decoder {
         if (dataHeader.size < DataHeader.HEADER_SIZE + (dataHeader.elementsOrVersion + 7) / 8) {
             throw new DeserializationException("Array header is incorrect.");
         }
-        if (expectedLength != BindingsHelper.UNSPECIFIED_ARRAY_LENGTH && dataHeader.elementsOrVersion != expectedLength) {
-            throw new DeserializationException("Incorrect array length. Expected: " + expectedLength + ", but got: " + dataHeader.elementsOrVersion + ".");
+        if (expectedLength != BindingsHelper.UNSPECIFIED_ARRAY_LENGTH
+                && dataHeader.elementsOrVersion != expectedLength) {
+            throw new DeserializationException("Incorrect array length. Expected: " + expectedLength
+                    + ", but got: " + dataHeader.elementsOrVersion + ".");
         }
         return dataHeader;
     }
@@ -701,11 +748,14 @@ public class Decoder {
      */
     private DataHeader readDataHeaderForArray(long elementSize, int expectedLength) {
         DataHeader dataHeader = readDataHeader();
-        if (dataHeader.size < (DataHeader.HEADER_SIZE + elementSize * dataHeader.elementsOrVersion)) {
+        if (dataHeader.size
+                < (DataHeader.HEADER_SIZE + elementSize * dataHeader.elementsOrVersion)) {
             throw new DeserializationException("Array header is incorrect.");
         }
-        if (expectedLength != BindingsHelper.UNSPECIFIED_ARRAY_LENGTH && dataHeader.elementsOrVersion != expectedLength) {
-            throw new DeserializationException("Incorrect array length. Expected: " + expectedLength + ", but got: " + dataHeader.elementsOrVersion + ".");
+        if (expectedLength != BindingsHelper.UNSPECIFIED_ARRAY_LENGTH
+                && dataHeader.elementsOrVersion != expectedLength) {
+            throw new DeserializationException("Incorrect array length. Expected: " + expectedLength
+                    + ", but got: " + dataHeader.elementsOrVersion + ".");
         }
         return dataHeader;
     }

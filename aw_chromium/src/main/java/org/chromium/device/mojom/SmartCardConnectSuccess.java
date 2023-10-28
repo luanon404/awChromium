@@ -13,10 +13,13 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class SmartCardConnectSuccess extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 24;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public SmartCardConnection connection;
     public int activeProtocol;
@@ -39,7 +42,8 @@ public final class SmartCardConnectSuccess extends org.chromium.mojo.bindings.St
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static SmartCardConnectSuccess deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -53,16 +57,16 @@ public final class SmartCardConnectSuccess extends org.chromium.mojo.bindings.St
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new SmartCardConnectSuccess(elementsOrVersion);
-            {
-
+                {
+                    
                 result.connection = decoder0.readServiceInterface(8, false, SmartCardConnection.MANAGER);
-            }
-            {
-
+                }
+                {
+                    
                 result.activeProtocol = decoder0.readInt(16);
-                SmartCardProtocol.validate(result.activeProtocol);
-                result.activeProtocol = SmartCardProtocol.toKnownValue(result.activeProtocol);
-            }
+                    SmartCardProtocol.validate(result.activeProtocol);
+                    result.activeProtocol = SmartCardProtocol.toKnownValue(result.activeProtocol);
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -74,9 +78,9 @@ public final class SmartCardConnectSuccess extends org.chromium.mojo.bindings.St
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.connection, 8, false, SmartCardConnection.MANAGER);
-
+        
         encoder0.encode(this.activeProtocol, 16);
     }
 }

@@ -13,18 +13,23 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface ProxyResolvingSocketFactory extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends ProxyResolvingSocketFactory, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends ProxyResolvingSocketFactory, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<ProxyResolvingSocketFactory, ProxyResolvingSocketFactory.Proxy> MANAGER = ProxyResolvingSocketFactory_Internal.MANAGER;
 
-    void createProxyResolvingSocket(org.chromium.url.mojom.Url url, NetworkAnonymizationKey networkAnonymizationKey, ProxyResolvingSocketOptions options, MutableNetworkTrafficAnnotationTag trafficAnnotation, org.chromium.mojo.bindings.InterfaceRequest<ProxyResolvingSocket> socket, SocketObserver observer, CreateProxyResolvingSocket_Response callback);
+    void createProxyResolvingSocket(
+org.chromium.url.mojom.Url url, NetworkAnonymizationKey networkAnonymizationKey, ProxyResolvingSocketOptions options, MutableNetworkTrafficAnnotationTag trafficAnnotation, org.chromium.mojo.bindings.InterfaceRequest<ProxyResolvingSocket> socket, SocketObserver observer, 
+CreateProxyResolvingSocket_Response callback);
 
-    interface CreateProxyResolvingSocket_Response extends org.chromium.mojo.bindings.Callbacks.Callback5<Integer, IpEndPoint, IpEndPoint, org.chromium.mojo.system.DataPipe.ConsumerHandle, org.chromium.mojo.system.DataPipe.ProducerHandle> {
-    }
+    interface CreateProxyResolvingSocket_Response extends org.chromium.mojo.bindings.Callbacks.Callback5<Integer, IpEndPoint, IpEndPoint, org.chromium.mojo.system.DataPipe.ConsumerHandle, org.chromium.mojo.system.DataPipe.ProducerHandle> { }
 
 
 }

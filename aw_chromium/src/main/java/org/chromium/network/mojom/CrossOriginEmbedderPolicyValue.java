@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class CrossOriginEmbedderPolicyValue {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({CrossOriginEmbedderPolicyValue.NONE, CrossOriginEmbedderPolicyValue.REQUIRE_CORP, CrossOriginEmbedderPolicyValue.CREDENTIALLESS})
-    public @interface EnumType {
-    }
+        CrossOriginEmbedderPolicyValue.NONE,
+        CrossOriginEmbedderPolicyValue.REQUIRE_CORP,
+        CrossOriginEmbedderPolicyValue.CREDENTIALLESS})
+    public @interface EnumType {}
 
     public static final int NONE = 0;
     public static final int REQUIRE_CORP = 1;
@@ -38,9 +40,8 @@ public final class CrossOriginEmbedderPolicyValue {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private CrossOriginEmbedderPolicyValue() {
-    }
+    private CrossOriginEmbedderPolicyValue() {}
 }

@@ -13,6 +13,8 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 class LocalMainFrame_Internal {
 
@@ -467,7 +469,7 @@ org.chromium.mojo_base.mojom.ReadOnlySharedMemoryRegion data) {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -557,7 +559,7 @@ org.chromium.mojo_base.mojom.ReadOnlySharedMemoryRegion data) {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }

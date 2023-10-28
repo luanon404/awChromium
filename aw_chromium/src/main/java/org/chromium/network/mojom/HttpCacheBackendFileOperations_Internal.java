@@ -13,9 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 class HttpCacheBackendFileOperations_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<HttpCacheBackendFileOperations, HttpCacheBackendFileOperations.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<HttpCacheBackendFileOperations, HttpCacheBackendFileOperations.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<HttpCacheBackendFileOperations, HttpCacheBackendFileOperations.Proxy> MANAGER =
+            new org.chromium.mojo.bindings.Interface.Manager<HttpCacheBackendFileOperations, HttpCacheBackendFileOperations.Proxy>() {
 
         @Override
         public String getName() {
@@ -24,11 +28,12 @@ class HttpCacheBackendFileOperations_Internal {
 
         @Override
         public int getVersion() {
-            return 0;
+          return 0;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -39,7 +44,7 @@ class HttpCacheBackendFileOperations_Internal {
 
         @Override
         public HttpCacheBackendFileOperations[] buildArray(int size) {
-            return new HttpCacheBackendFileOperations[size];
+          return new HttpCacheBackendFileOperations[size];
         }
     };
 
@@ -65,52 +70,82 @@ class HttpCacheBackendFileOperations_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements HttpCacheBackendFileOperations.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core,
+              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void createDirectory(org.chromium.mojo_base.mojom.FilePath path, CreateDirectory_Response callback) {
+        public void createDirectory(
+org.chromium.mojo_base.mojom.FilePath path, 
+CreateDirectory_Response callback) {
 
             HttpCacheBackendFileOperationsCreateDirectoryParams _message = new HttpCacheBackendFileOperationsCreateDirectoryParams();
 
             _message.path = path;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(CREATE_DIRECTORY_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new HttpCacheBackendFileOperationsCreateDirectoryResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    CREATE_DIRECTORY_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new HttpCacheBackendFileOperationsCreateDirectoryResponseParamsForwardToCallback(callback));
 
         }
 
 
         @Override
-        public void pathExists(org.chromium.mojo_base.mojom.FilePath path, PathExists_Response callback) {
+        public void pathExists(
+org.chromium.mojo_base.mojom.FilePath path, 
+PathExists_Response callback) {
 
             HttpCacheBackendFileOperationsPathExistsParams _message = new HttpCacheBackendFileOperationsPathExistsParams();
 
             _message.path = path;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(PATH_EXISTS_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new HttpCacheBackendFileOperationsPathExistsResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    PATH_EXISTS_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new HttpCacheBackendFileOperationsPathExistsResponseParamsForwardToCallback(callback));
 
         }
 
 
         @Override
-        public void directoryExists(org.chromium.mojo_base.mojom.FilePath path, DirectoryExists_Response callback) {
+        public void directoryExists(
+org.chromium.mojo_base.mojom.FilePath path, 
+DirectoryExists_Response callback) {
 
             HttpCacheBackendFileOperationsDirectoryExistsParams _message = new HttpCacheBackendFileOperationsDirectoryExistsParams();
 
             _message.path = path;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(DIRECTORY_EXISTS_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new HttpCacheBackendFileOperationsDirectoryExistsResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    DIRECTORY_EXISTS_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new HttpCacheBackendFileOperationsDirectoryExistsResponseParamsForwardToCallback(callback));
 
         }
 
 
         @Override
-        public void openFile(org.chromium.mojo_base.mojom.FilePath path, int flags, OpenFile_Response callback) {
+        public void openFile(
+org.chromium.mojo_base.mojom.FilePath path, int flags, 
+OpenFile_Response callback) {
 
             HttpCacheBackendFileOperationsOpenFileParams _message = new HttpCacheBackendFileOperationsOpenFileParams();
 
@@ -119,13 +154,22 @@ class HttpCacheBackendFileOperations_Internal {
             _message.flags = flags;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(OPEN_FILE_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new HttpCacheBackendFileOperationsOpenFileResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    OPEN_FILE_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new HttpCacheBackendFileOperationsOpenFileResponseParamsForwardToCallback(callback));
 
         }
 
 
         @Override
-        public void deleteFile(org.chromium.mojo_base.mojom.FilePath path, int mode, DeleteFile_Response callback) {
+        public void deleteFile(
+org.chromium.mojo_base.mojom.FilePath path, int mode, 
+DeleteFile_Response callback) {
 
             HttpCacheBackendFileOperationsDeleteFileParams _message = new HttpCacheBackendFileOperationsDeleteFileParams();
 
@@ -134,13 +178,22 @@ class HttpCacheBackendFileOperations_Internal {
             _message.mode = mode;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(DELETE_FILE_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new HttpCacheBackendFileOperationsDeleteFileResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    DELETE_FILE_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new HttpCacheBackendFileOperationsDeleteFileResponseParamsForwardToCallback(callback));
 
         }
 
 
         @Override
-        public void renameFile(org.chromium.mojo_base.mojom.FilePath fromPath, org.chromium.mojo_base.mojom.FilePath toPath, RenameFile_Response callback) {
+        public void renameFile(
+org.chromium.mojo_base.mojom.FilePath fromPath, org.chromium.mojo_base.mojom.FilePath toPath, 
+RenameFile_Response callback) {
 
             HttpCacheBackendFileOperationsRenameFileParams _message = new HttpCacheBackendFileOperationsRenameFileParams();
 
@@ -149,26 +202,43 @@ class HttpCacheBackendFileOperations_Internal {
             _message.toPath = toPath;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(RENAME_FILE_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new HttpCacheBackendFileOperationsRenameFileResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    RENAME_FILE_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new HttpCacheBackendFileOperationsRenameFileResponseParamsForwardToCallback(callback));
 
         }
 
 
         @Override
-        public void getFileInfo(org.chromium.mojo_base.mojom.FilePath path, GetFileInfo_Response callback) {
+        public void getFileInfo(
+org.chromium.mojo_base.mojom.FilePath path, 
+GetFileInfo_Response callback) {
 
             HttpCacheBackendFileOperationsGetFileInfoParams _message = new HttpCacheBackendFileOperationsGetFileInfoParams();
 
             _message.path = path;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(GET_FILE_INFO_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new HttpCacheBackendFileOperationsGetFileInfoResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    GET_FILE_INFO_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new HttpCacheBackendFileOperationsGetFileInfoResponseParamsForwardToCallback(callback));
 
         }
 
 
         @Override
-        public void enumerateFiles(org.chromium.mojo_base.mojom.FilePath path, org.chromium.mojo.bindings.InterfaceRequest<FileEnumerator> receiver) {
+        public void enumerateFiles(
+org.chromium.mojo_base.mojom.FilePath path, org.chromium.mojo.bindings.InterfaceRequest<FileEnumerator> receiver) {
 
             HttpCacheBackendFileOperationsEnumerateFilesParams _message = new HttpCacheBackendFileOperationsEnumerateFilesParams();
 
@@ -177,20 +247,32 @@ class HttpCacheBackendFileOperations_Internal {
             _message.receiver = receiver;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ENUMERATE_FILES_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ENUMERATE_FILES_ORDINAL)));
 
         }
 
 
         @Override
-        public void cleanupDirectory(org.chromium.mojo_base.mojom.FilePath path, CleanupDirectory_Response callback) {
+        public void cleanupDirectory(
+org.chromium.mojo_base.mojom.FilePath path, 
+CleanupDirectory_Response callback) {
 
             HttpCacheBackendFileOperationsCleanupDirectoryParams _message = new HttpCacheBackendFileOperationsCleanupDirectoryParams();
 
             _message.path = path;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(CLEANUP_DIRECTORY_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new HttpCacheBackendFileOperationsCleanupDirectoryResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    CLEANUP_DIRECTORY_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new HttpCacheBackendFileOperationsCleanupDirectoryResponseParamsForwardToCallback(callback));
 
         }
 
@@ -206,7 +288,8 @@ class HttpCacheBackendFileOperations_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -215,26 +298,47 @@ class HttpCacheBackendFileOperations_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(HttpCacheBackendFileOperations_Internal.MANAGER, messageWithHeader);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
+                                HttpCacheBackendFileOperations_Internal.MANAGER, messageWithHeader);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
                     case ENUMERATE_FILES_ORDINAL: {
 
-                        HttpCacheBackendFileOperationsEnumerateFilesParams data = HttpCacheBackendFileOperationsEnumerateFilesParams.deserialize(messageWithHeader.getPayload());
+                        HttpCacheBackendFileOperationsEnumerateFilesParams data =
+                                HttpCacheBackendFileOperationsEnumerateFilesParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().enumerateFiles(data.path, data.receiver);
                         return true;
                     }
 
 
+
+
                     default:
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -242,7 +346,8 @@ class HttpCacheBackendFileOperations_Internal {
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -251,78 +356,129 @@ class HttpCacheBackendFileOperations_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), HttpCacheBackendFileOperations_Internal.MANAGER, messageWithHeader, receiver);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
+                                getCore(), HttpCacheBackendFileOperations_Internal.MANAGER, messageWithHeader, receiver);
+
+
+
+
+
 
 
                     case CREATE_DIRECTORY_ORDINAL: {
 
-                        HttpCacheBackendFileOperationsCreateDirectoryParams data = HttpCacheBackendFileOperationsCreateDirectoryParams.deserialize(messageWithHeader.getPayload());
+                        HttpCacheBackendFileOperationsCreateDirectoryParams data =
+                                HttpCacheBackendFileOperationsCreateDirectoryParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().createDirectory(data.path, new HttpCacheBackendFileOperationsCreateDirectoryResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
                     }
 
 
+
+
+
+
+
                     case PATH_EXISTS_ORDINAL: {
 
-                        HttpCacheBackendFileOperationsPathExistsParams data = HttpCacheBackendFileOperationsPathExistsParams.deserialize(messageWithHeader.getPayload());
+                        HttpCacheBackendFileOperationsPathExistsParams data =
+                                HttpCacheBackendFileOperationsPathExistsParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().pathExists(data.path, new HttpCacheBackendFileOperationsPathExistsResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
                     }
 
 
+
+
+
+
+
                     case DIRECTORY_EXISTS_ORDINAL: {
 
-                        HttpCacheBackendFileOperationsDirectoryExistsParams data = HttpCacheBackendFileOperationsDirectoryExistsParams.deserialize(messageWithHeader.getPayload());
+                        HttpCacheBackendFileOperationsDirectoryExistsParams data =
+                                HttpCacheBackendFileOperationsDirectoryExistsParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().directoryExists(data.path, new HttpCacheBackendFileOperationsDirectoryExistsResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
                     }
 
 
+
+
+
+
+
                     case OPEN_FILE_ORDINAL: {
 
-                        HttpCacheBackendFileOperationsOpenFileParams data = HttpCacheBackendFileOperationsOpenFileParams.deserialize(messageWithHeader.getPayload());
+                        HttpCacheBackendFileOperationsOpenFileParams data =
+                                HttpCacheBackendFileOperationsOpenFileParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().openFile(data.path, data.flags, new HttpCacheBackendFileOperationsOpenFileResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
                     }
 
 
+
+
+
+
+
                     case DELETE_FILE_ORDINAL: {
 
-                        HttpCacheBackendFileOperationsDeleteFileParams data = HttpCacheBackendFileOperationsDeleteFileParams.deserialize(messageWithHeader.getPayload());
+                        HttpCacheBackendFileOperationsDeleteFileParams data =
+                                HttpCacheBackendFileOperationsDeleteFileParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().deleteFile(data.path, data.mode, new HttpCacheBackendFileOperationsDeleteFileResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
                     }
 
 
+
+
+
+
+
                     case RENAME_FILE_ORDINAL: {
 
-                        HttpCacheBackendFileOperationsRenameFileParams data = HttpCacheBackendFileOperationsRenameFileParams.deserialize(messageWithHeader.getPayload());
+                        HttpCacheBackendFileOperationsRenameFileParams data =
+                                HttpCacheBackendFileOperationsRenameFileParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().renameFile(data.fromPath, data.toPath, new HttpCacheBackendFileOperationsRenameFileResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
                     }
 
 
+
+
+
+
+
                     case GET_FILE_INFO_ORDINAL: {
 
-                        HttpCacheBackendFileOperationsGetFileInfoParams data = HttpCacheBackendFileOperationsGetFileInfoParams.deserialize(messageWithHeader.getPayload());
+                        HttpCacheBackendFileOperationsGetFileInfoParams data =
+                                HttpCacheBackendFileOperationsGetFileInfoParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().getFileInfo(data.path, new HttpCacheBackendFileOperationsGetFileInfoResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
                     }
 
 
+
+
+
+
+
+
+
                     case CLEANUP_DIRECTORY_ORDINAL: {
 
-                        HttpCacheBackendFileOperationsCleanupDirectoryParams data = HttpCacheBackendFileOperationsCleanupDirectoryParams.deserialize(messageWithHeader.getPayload());
+                        HttpCacheBackendFileOperationsCleanupDirectoryParams data =
+                                HttpCacheBackendFileOperationsCleanupDirectoryParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().cleanupDirectory(data.path, new HttpCacheBackendFileOperationsCleanupDirectoryResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
@@ -333,17 +489,18 @@ class HttpCacheBackendFileOperations_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class HttpCacheBackendFileOperationsCreateDirectoryParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.mojo_base.mojom.FilePath path;
 
@@ -365,7 +522,8 @@ class HttpCacheBackendFileOperations_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static HttpCacheBackendFileOperationsCreateDirectoryParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -379,11 +537,11 @@ class HttpCacheBackendFileOperations_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new HttpCacheBackendFileOperationsCreateDirectoryParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.path = org.chromium.mojo_base.mojom.FilePath.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -395,16 +553,18 @@ class HttpCacheBackendFileOperations_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.path, 8, false);
         }
     }
 
 
+
+    
     static final class HttpCacheBackendFileOperationsCreateDirectoryResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public boolean result;
 
@@ -426,7 +586,8 @@ class HttpCacheBackendFileOperations_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static HttpCacheBackendFileOperationsCreateDirectoryResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -440,10 +601,10 @@ class HttpCacheBackendFileOperations_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new HttpCacheBackendFileOperationsCreateDirectoryResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.result = decoder0.readBoolean(8, 0);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -455,12 +616,13 @@ class HttpCacheBackendFileOperations_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.result, 8, 0);
         }
     }
 
-    static class HttpCacheBackendFileOperationsCreateDirectoryResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class HttpCacheBackendFileOperationsCreateDirectoryResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final HttpCacheBackendFileOperations.CreateDirectory_Response mCallback;
 
         HttpCacheBackendFileOperationsCreateDirectoryResponseParamsForwardToCallback(HttpCacheBackendFileOperations.CreateDirectory_Response callback) {
@@ -470,9 +632,11 @@ class HttpCacheBackendFileOperations_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(CREATE_DIRECTORY_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG | org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
+                if (!header.validateHeader(CREATE_DIRECTORY_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG| org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
                     return false;
                 }
 
@@ -492,7 +656,10 @@ class HttpCacheBackendFileOperations_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        HttpCacheBackendFileOperationsCreateDirectoryResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        HttpCacheBackendFileOperationsCreateDirectoryResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -504,16 +671,24 @@ class HttpCacheBackendFileOperations_Internal {
 
             _response.result = result;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(CREATE_DIRECTORY_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG | org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    CREATE_DIRECTORY_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG| org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
 
 
+
+    
     static final class HttpCacheBackendFileOperationsPathExistsParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.mojo_base.mojom.FilePath path;
 
@@ -535,7 +710,8 @@ class HttpCacheBackendFileOperations_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static HttpCacheBackendFileOperationsPathExistsParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -549,11 +725,11 @@ class HttpCacheBackendFileOperations_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new HttpCacheBackendFileOperationsPathExistsParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.path = org.chromium.mojo_base.mojom.FilePath.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -565,16 +741,18 @@ class HttpCacheBackendFileOperations_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.path, 8, false);
         }
     }
 
 
+
+    
     static final class HttpCacheBackendFileOperationsPathExistsResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public boolean result;
 
@@ -596,7 +774,8 @@ class HttpCacheBackendFileOperations_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static HttpCacheBackendFileOperationsPathExistsResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -610,10 +789,10 @@ class HttpCacheBackendFileOperations_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new HttpCacheBackendFileOperationsPathExistsResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.result = decoder0.readBoolean(8, 0);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -625,12 +804,13 @@ class HttpCacheBackendFileOperations_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.result, 8, 0);
         }
     }
 
-    static class HttpCacheBackendFileOperationsPathExistsResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class HttpCacheBackendFileOperationsPathExistsResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final HttpCacheBackendFileOperations.PathExists_Response mCallback;
 
         HttpCacheBackendFileOperationsPathExistsResponseParamsForwardToCallback(HttpCacheBackendFileOperations.PathExists_Response callback) {
@@ -640,9 +820,11 @@ class HttpCacheBackendFileOperations_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(PATH_EXISTS_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG | org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
+                if (!header.validateHeader(PATH_EXISTS_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG| org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
                     return false;
                 }
 
@@ -662,7 +844,10 @@ class HttpCacheBackendFileOperations_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        HttpCacheBackendFileOperationsPathExistsResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        HttpCacheBackendFileOperationsPathExistsResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -674,16 +859,24 @@ class HttpCacheBackendFileOperations_Internal {
 
             _response.result = result;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(PATH_EXISTS_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG | org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    PATH_EXISTS_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG| org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
 
 
+
+    
     static final class HttpCacheBackendFileOperationsDirectoryExistsParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.mojo_base.mojom.FilePath path;
 
@@ -705,7 +898,8 @@ class HttpCacheBackendFileOperations_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static HttpCacheBackendFileOperationsDirectoryExistsParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -719,11 +913,11 @@ class HttpCacheBackendFileOperations_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new HttpCacheBackendFileOperationsDirectoryExistsParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.path = org.chromium.mojo_base.mojom.FilePath.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -735,16 +929,18 @@ class HttpCacheBackendFileOperations_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.path, 8, false);
         }
     }
 
 
+
+    
     static final class HttpCacheBackendFileOperationsDirectoryExistsResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public boolean result;
 
@@ -766,7 +962,8 @@ class HttpCacheBackendFileOperations_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static HttpCacheBackendFileOperationsDirectoryExistsResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -780,10 +977,10 @@ class HttpCacheBackendFileOperations_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new HttpCacheBackendFileOperationsDirectoryExistsResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.result = decoder0.readBoolean(8, 0);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -795,12 +992,13 @@ class HttpCacheBackendFileOperations_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.result, 8, 0);
         }
     }
 
-    static class HttpCacheBackendFileOperationsDirectoryExistsResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class HttpCacheBackendFileOperationsDirectoryExistsResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final HttpCacheBackendFileOperations.DirectoryExists_Response mCallback;
 
         HttpCacheBackendFileOperationsDirectoryExistsResponseParamsForwardToCallback(HttpCacheBackendFileOperations.DirectoryExists_Response callback) {
@@ -810,9 +1008,11 @@ class HttpCacheBackendFileOperations_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(DIRECTORY_EXISTS_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG | org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
+                if (!header.validateHeader(DIRECTORY_EXISTS_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG| org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
                     return false;
                 }
 
@@ -832,7 +1032,10 @@ class HttpCacheBackendFileOperations_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        HttpCacheBackendFileOperationsDirectoryExistsResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        HttpCacheBackendFileOperationsDirectoryExistsResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -844,16 +1047,24 @@ class HttpCacheBackendFileOperations_Internal {
 
             _response.result = result;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(DIRECTORY_EXISTS_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG | org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    DIRECTORY_EXISTS_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG| org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
 
 
+
+    
     static final class HttpCacheBackendFileOperationsOpenFileParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.mojo_base.mojom.FilePath path;
         public int flags;
@@ -876,7 +1087,8 @@ class HttpCacheBackendFileOperations_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static HttpCacheBackendFileOperationsOpenFileParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -890,17 +1102,17 @@ class HttpCacheBackendFileOperations_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new HttpCacheBackendFileOperationsOpenFileParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.path = org.chromium.mojo_base.mojom.FilePath.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.flags = decoder0.readInt(16);
-                    HttpCacheBackendOpenFileFlags.validate(result.flags);
-                    result.flags = HttpCacheBackendOpenFileFlags.toKnownValue(result.flags);
-                }
+                        HttpCacheBackendOpenFileFlags.validate(result.flags);
+                        result.flags = HttpCacheBackendOpenFileFlags.toKnownValue(result.flags);
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -912,18 +1124,20 @@ class HttpCacheBackendFileOperations_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.path, 8, false);
-
+            
             encoder0.encode(this.flags, 16);
         }
     }
 
 
+
+    
     static final class HttpCacheBackendFileOperationsOpenFileResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.mojo_base.mojom.File file;
         public int error;
@@ -946,7 +1160,8 @@ class HttpCacheBackendFileOperations_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static HttpCacheBackendFileOperationsOpenFileResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -960,17 +1175,17 @@ class HttpCacheBackendFileOperations_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new HttpCacheBackendFileOperationsOpenFileResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, true);
                     result.file = org.chromium.mojo_base.mojom.File.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.error = decoder0.readInt(16);
-                    org.chromium.mojo_base.mojom.FileError.validate(result.error);
-                    result.error = org.chromium.mojo_base.mojom.FileError.toKnownValue(result.error);
-                }
+                        org.chromium.mojo_base.mojom.FileError.validate(result.error);
+                        result.error = org.chromium.mojo_base.mojom.FileError.toKnownValue(result.error);
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -982,14 +1197,15 @@ class HttpCacheBackendFileOperations_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.file, 8, true);
-
+            
             encoder0.encode(this.error, 16);
         }
     }
 
-    static class HttpCacheBackendFileOperationsOpenFileResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class HttpCacheBackendFileOperationsOpenFileResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final HttpCacheBackendFileOperations.OpenFile_Response mCallback;
 
         HttpCacheBackendFileOperationsOpenFileResponseParamsForwardToCallback(HttpCacheBackendFileOperations.OpenFile_Response callback) {
@@ -999,9 +1215,11 @@ class HttpCacheBackendFileOperations_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(OPEN_FILE_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG | org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
+                if (!header.validateHeader(OPEN_FILE_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG| org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
                     return false;
                 }
 
@@ -1021,7 +1239,10 @@ class HttpCacheBackendFileOperations_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        HttpCacheBackendFileOperationsOpenFileResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        HttpCacheBackendFileOperationsOpenFileResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -1035,16 +1256,24 @@ class HttpCacheBackendFileOperations_Internal {
 
             _response.error = error;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(OPEN_FILE_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG | org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    OPEN_FILE_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG| org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
 
 
+
+    
     static final class HttpCacheBackendFileOperationsDeleteFileParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.mojo_base.mojom.FilePath path;
         public int mode;
@@ -1067,7 +1296,8 @@ class HttpCacheBackendFileOperations_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static HttpCacheBackendFileOperationsDeleteFileParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1081,17 +1311,17 @@ class HttpCacheBackendFileOperations_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new HttpCacheBackendFileOperationsDeleteFileParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.path = org.chromium.mojo_base.mojom.FilePath.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.mode = decoder0.readInt(16);
-                    HttpCacheBackendDeleteFileMode.validate(result.mode);
-                    result.mode = HttpCacheBackendDeleteFileMode.toKnownValue(result.mode);
-                }
+                        HttpCacheBackendDeleteFileMode.validate(result.mode);
+                        result.mode = HttpCacheBackendDeleteFileMode.toKnownValue(result.mode);
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1103,18 +1333,20 @@ class HttpCacheBackendFileOperations_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.path, 8, false);
-
+            
             encoder0.encode(this.mode, 16);
         }
     }
 
 
+
+    
     static final class HttpCacheBackendFileOperationsDeleteFileResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public boolean result;
 
@@ -1136,7 +1368,8 @@ class HttpCacheBackendFileOperations_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static HttpCacheBackendFileOperationsDeleteFileResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1150,10 +1383,10 @@ class HttpCacheBackendFileOperations_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new HttpCacheBackendFileOperationsDeleteFileResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.result = decoder0.readBoolean(8, 0);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1165,12 +1398,13 @@ class HttpCacheBackendFileOperations_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.result, 8, 0);
         }
     }
 
-    static class HttpCacheBackendFileOperationsDeleteFileResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class HttpCacheBackendFileOperationsDeleteFileResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final HttpCacheBackendFileOperations.DeleteFile_Response mCallback;
 
         HttpCacheBackendFileOperationsDeleteFileResponseParamsForwardToCallback(HttpCacheBackendFileOperations.DeleteFile_Response callback) {
@@ -1180,9 +1414,11 @@ class HttpCacheBackendFileOperations_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(DELETE_FILE_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG | org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
+                if (!header.validateHeader(DELETE_FILE_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG| org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
                     return false;
                 }
 
@@ -1202,7 +1438,10 @@ class HttpCacheBackendFileOperations_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        HttpCacheBackendFileOperationsDeleteFileResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        HttpCacheBackendFileOperationsDeleteFileResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -1214,16 +1453,24 @@ class HttpCacheBackendFileOperations_Internal {
 
             _response.result = result;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(DELETE_FILE_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG | org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    DELETE_FILE_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG| org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
 
 
+
+    
     static final class HttpCacheBackendFileOperationsRenameFileParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.mojo_base.mojom.FilePath fromPath;
         public org.chromium.mojo_base.mojom.FilePath toPath;
@@ -1246,7 +1493,8 @@ class HttpCacheBackendFileOperations_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static HttpCacheBackendFileOperationsRenameFileParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1260,16 +1508,16 @@ class HttpCacheBackendFileOperations_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new HttpCacheBackendFileOperationsRenameFileParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.fromPath = org.chromium.mojo_base.mojom.FilePath.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                     result.toPath = org.chromium.mojo_base.mojom.FilePath.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1281,18 +1529,20 @@ class HttpCacheBackendFileOperations_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.fromPath, 8, false);
-
+            
             encoder0.encode(this.toPath, 16, false);
         }
     }
 
 
+
+    
     static final class HttpCacheBackendFileOperationsRenameFileResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int error;
 
@@ -1314,7 +1564,8 @@ class HttpCacheBackendFileOperations_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static HttpCacheBackendFileOperationsRenameFileResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1328,12 +1579,12 @@ class HttpCacheBackendFileOperations_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new HttpCacheBackendFileOperationsRenameFileResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.error = decoder0.readInt(8);
-                    org.chromium.mojo_base.mojom.FileError.validate(result.error);
-                    result.error = org.chromium.mojo_base.mojom.FileError.toKnownValue(result.error);
-                }
+                        org.chromium.mojo_base.mojom.FileError.validate(result.error);
+                        result.error = org.chromium.mojo_base.mojom.FileError.toKnownValue(result.error);
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1345,12 +1596,13 @@ class HttpCacheBackendFileOperations_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.error, 8);
         }
     }
 
-    static class HttpCacheBackendFileOperationsRenameFileResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class HttpCacheBackendFileOperationsRenameFileResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final HttpCacheBackendFileOperations.RenameFile_Response mCallback;
 
         HttpCacheBackendFileOperationsRenameFileResponseParamsForwardToCallback(HttpCacheBackendFileOperations.RenameFile_Response callback) {
@@ -1360,9 +1612,11 @@ class HttpCacheBackendFileOperations_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(RENAME_FILE_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG | org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
+                if (!header.validateHeader(RENAME_FILE_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG| org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
                     return false;
                 }
 
@@ -1382,7 +1636,10 @@ class HttpCacheBackendFileOperations_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        HttpCacheBackendFileOperationsRenameFileResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        HttpCacheBackendFileOperationsRenameFileResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -1394,16 +1651,24 @@ class HttpCacheBackendFileOperations_Internal {
 
             _response.error = error;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(RENAME_FILE_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG | org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    RENAME_FILE_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG| org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
 
 
+
+    
     static final class HttpCacheBackendFileOperationsGetFileInfoParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.mojo_base.mojom.FilePath path;
 
@@ -1425,7 +1690,8 @@ class HttpCacheBackendFileOperations_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static HttpCacheBackendFileOperationsGetFileInfoParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1439,11 +1705,11 @@ class HttpCacheBackendFileOperations_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new HttpCacheBackendFileOperationsGetFileInfoParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.path = org.chromium.mojo_base.mojom.FilePath.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1455,16 +1721,18 @@ class HttpCacheBackendFileOperations_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.path, 8, false);
         }
     }
 
 
+
+    
     static final class HttpCacheBackendFileOperationsGetFileInfoResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.mojo_base.mojom.FileInfo info;
 
@@ -1486,7 +1754,8 @@ class HttpCacheBackendFileOperations_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static HttpCacheBackendFileOperationsGetFileInfoResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1500,11 +1769,11 @@ class HttpCacheBackendFileOperations_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new HttpCacheBackendFileOperationsGetFileInfoResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, true);
                     result.info = org.chromium.mojo_base.mojom.FileInfo.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1516,12 +1785,13 @@ class HttpCacheBackendFileOperations_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.info, 8, true);
         }
     }
 
-    static class HttpCacheBackendFileOperationsGetFileInfoResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class HttpCacheBackendFileOperationsGetFileInfoResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final HttpCacheBackendFileOperations.GetFileInfo_Response mCallback;
 
         HttpCacheBackendFileOperationsGetFileInfoResponseParamsForwardToCallback(HttpCacheBackendFileOperations.GetFileInfo_Response callback) {
@@ -1531,9 +1801,11 @@ class HttpCacheBackendFileOperations_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(GET_FILE_INFO_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG | org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
+                if (!header.validateHeader(GET_FILE_INFO_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG| org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
                     return false;
                 }
 
@@ -1553,7 +1825,10 @@ class HttpCacheBackendFileOperations_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        HttpCacheBackendFileOperationsGetFileInfoResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        HttpCacheBackendFileOperationsGetFileInfoResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -1565,16 +1840,24 @@ class HttpCacheBackendFileOperations_Internal {
 
             _response.info = info;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(GET_FILE_INFO_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG | org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    GET_FILE_INFO_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG| org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
 
 
+
+    
     static final class HttpCacheBackendFileOperationsEnumerateFilesParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.mojo_base.mojom.FilePath path;
         public org.chromium.mojo.bindings.InterfaceRequest<FileEnumerator> receiver;
@@ -1597,7 +1880,8 @@ class HttpCacheBackendFileOperations_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static HttpCacheBackendFileOperationsEnumerateFilesParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1611,15 +1895,15 @@ class HttpCacheBackendFileOperations_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new HttpCacheBackendFileOperationsEnumerateFilesParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.path = org.chromium.mojo_base.mojom.FilePath.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.receiver = decoder0.readInterfaceRequest(16, false);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1631,18 +1915,20 @@ class HttpCacheBackendFileOperations_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.path, 8, false);
-
+            
             encoder0.encode(this.receiver, 16, false);
         }
     }
 
 
+
+    
     static final class HttpCacheBackendFileOperationsCleanupDirectoryParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.mojo_base.mojom.FilePath path;
 
@@ -1664,7 +1950,8 @@ class HttpCacheBackendFileOperations_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static HttpCacheBackendFileOperationsCleanupDirectoryParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1678,11 +1965,11 @@ class HttpCacheBackendFileOperations_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new HttpCacheBackendFileOperationsCleanupDirectoryParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.path = org.chromium.mojo_base.mojom.FilePath.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1694,16 +1981,18 @@ class HttpCacheBackendFileOperations_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.path, 8, false);
         }
     }
 
 
+
+    
     static final class HttpCacheBackendFileOperationsCleanupDirectoryResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public boolean result;
 
@@ -1725,7 +2014,8 @@ class HttpCacheBackendFileOperations_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static HttpCacheBackendFileOperationsCleanupDirectoryResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1739,10 +2029,10 @@ class HttpCacheBackendFileOperations_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new HttpCacheBackendFileOperationsCleanupDirectoryResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.result = decoder0.readBoolean(8, 0);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1754,12 +2044,13 @@ class HttpCacheBackendFileOperations_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.result, 8, 0);
         }
     }
 
-    static class HttpCacheBackendFileOperationsCleanupDirectoryResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class HttpCacheBackendFileOperationsCleanupDirectoryResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final HttpCacheBackendFileOperations.CleanupDirectory_Response mCallback;
 
         HttpCacheBackendFileOperationsCleanupDirectoryResponseParamsForwardToCallback(HttpCacheBackendFileOperations.CleanupDirectory_Response callback) {
@@ -1769,9 +2060,11 @@ class HttpCacheBackendFileOperations_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(CLEANUP_DIRECTORY_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(CLEANUP_DIRECTORY_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -1791,7 +2084,10 @@ class HttpCacheBackendFileOperations_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        HttpCacheBackendFileOperationsCleanupDirectoryResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        HttpCacheBackendFileOperationsCleanupDirectoryResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -1803,10 +2099,17 @@ class HttpCacheBackendFileOperations_Internal {
 
             _response.result = result;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(CLEANUP_DIRECTORY_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    CLEANUP_DIRECTORY_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
+
 
 
 }

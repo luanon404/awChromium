@@ -160,14 +160,15 @@ public final class UnownedUserDataHost {
     /**
      * The core data structure within this host.
      */
-    private HashMap<UnownedUserDataKey<?>, WeakReference<? extends UnownedUserData>> mUnownedUserDataMap = new HashMap<>();
+    private HashMap<UnownedUserDataKey<?>, WeakReference<? extends UnownedUserData>>
+            mUnownedUserDataMap = new HashMap<>();
 
     public UnownedUserDataHost() {
         this(new Handler(retrieveNonNullLooperOrThrow()));
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-        /* package */ UnownedUserDataHost(Handler handler) {
+    /* package */ UnownedUserDataHost(Handler handler) {
         mHandler = handler;
     }
 
@@ -176,11 +177,12 @@ public final class UnownedUserDataHost {
      * <p>
      * If the key is already attached to a different host, it is detached from that host.
      *
-     * @param key      the key to use for the object.
+     * @param key    the key to use for the object.
      * @param newValue the object to store.
-     * @param <T>      the type of {@link UnownedUserData}.
+     * @param <T>    the type of {@link UnownedUserData}.
      */
-    /* package */<T extends UnownedUserData> void set(@NonNull UnownedUserDataKey<T> key, @NonNull T newValue) {
+    /* package */<T extends UnownedUserData> void set(
+            @NonNull UnownedUserDataKey<T> key, @NonNull T newValue) {
         checkState();
 
         // If we already have data, we might want to detach that first.
@@ -266,7 +268,7 @@ public final class UnownedUserDataHost {
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.NONE)
-        /* package */ int getMapSize() {
+    /* package */ int getMapSize() {
         checkState();
 
         return mUnownedUserDataMap.size();

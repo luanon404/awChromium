@@ -20,7 +20,7 @@ public interface V8DetailedMemoryReporter extends org.chromium.mojo.bindings.Int
 
 
 
-    final class Mode {
+    public static final class Mode {
         private static final boolean IS_EXTENSIBLE = false;
         @IntDef({
 
@@ -52,7 +52,7 @@ public interface V8DetailedMemoryReporter extends org.chromium.mojo.bindings.Int
     }
 
 
-    interface Proxy extends V8DetailedMemoryReporter, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends V8DetailedMemoryReporter, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<V8DetailedMemoryReporter, V8DetailedMemoryReporter.Proxy> MANAGER = V8DetailedMemoryReporter_Internal.MANAGER;

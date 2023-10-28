@@ -13,10 +13,13 @@
 
 package org.chromium.attribution_reporting.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class AggregatableDedupKey extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 24;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public TriggerDedupKey dedupKey;
     public FilterPair filters;
@@ -39,7 +42,8 @@ public final class AggregatableDedupKey extends org.chromium.mojo.bindings.Struc
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static AggregatableDedupKey deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -53,16 +57,16 @@ public final class AggregatableDedupKey extends org.chromium.mojo.bindings.Struc
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new AggregatableDedupKey(elementsOrVersion);
-            {
-
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, true);
                 result.dedupKey = TriggerDedupKey.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                 result.filters = FilterPair.decode(decoder1);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -74,9 +78,9 @@ public final class AggregatableDedupKey extends org.chromium.mojo.bindings.Struc
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.dedupKey, 8, true);
-
+        
         encoder0.encode(this.filters, 16, false);
     }
 }

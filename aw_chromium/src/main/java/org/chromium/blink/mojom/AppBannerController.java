@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface AppBannerController extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends AppBannerController, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends AppBannerController, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<AppBannerController, AppBannerController.Proxy> MANAGER = AppBannerController_Internal.MANAGER;

@@ -15,8 +15,7 @@ public class DisableOriginTrialsSafeModeUtils {
     private static final String TAG = "AwDisableOriginTrialsSafeMode";
 
     // Don't instantiate this class.
-    private DisableOriginTrialsSafeModeUtils() {
-    }
+    private DisableOriginTrialsSafeModeUtils() {}
 
     @CalledByNative
     public static boolean isDisableOriginTrialsEnabled() {

@@ -13,58 +13,65 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface SmartCardConnection extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends SmartCardConnection, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends SmartCardConnection, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<SmartCardConnection, SmartCardConnection.Proxy> MANAGER = SmartCardConnection_Internal.MANAGER;
 
-    void disconnect(int disposition, Disconnect_Response callback);
+    void disconnect(
+int disposition, 
+Disconnect_Response callback);
 
-    interface Disconnect_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<SmartCardResult> {
-    }
-
-
-    void transmit(int protocol, byte[] data, Transmit_Response callback);
-
-    interface Transmit_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<SmartCardDataResult> {
-    }
+    interface Disconnect_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<SmartCardResult> { }
 
 
-    void control(int controlCode, byte[] data, Control_Response callback);
+    void transmit(
+int protocol, byte[] data, 
+Transmit_Response callback);
 
-    interface Control_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<SmartCardDataResult> {
-    }
-
-
-    void getAttrib(int id, GetAttrib_Response callback);
-
-    interface GetAttrib_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<SmartCardDataResult> {
-    }
+    interface Transmit_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<SmartCardDataResult> { }
 
 
-    void setAttrib(int id, byte[] data, SetAttrib_Response callback);
+    void control(
+int controlCode, byte[] data, 
+Control_Response callback);
 
-    interface SetAttrib_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<SmartCardResult> {
-    }
+    interface Control_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<SmartCardDataResult> { }
+
+
+    void getAttrib(
+int id, 
+GetAttrib_Response callback);
+
+    interface GetAttrib_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<SmartCardDataResult> { }
+
+
+    void setAttrib(
+int id, byte[] data, 
+SetAttrib_Response callback);
+
+    interface SetAttrib_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<SmartCardResult> { }
 
 
     void status(
 
-            Status_Response callback);
+Status_Response callback);
 
-    interface Status_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<SmartCardStatusResult> {
-    }
+    interface Status_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<SmartCardStatusResult> { }
 
 
     void beginTransaction(
 
-            BeginTransaction_Response callback);
+BeginTransaction_Response callback);
 
-    interface BeginTransaction_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<SmartCardTransactionResult> {
-    }
+    interface BeginTransaction_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<SmartCardTransactionResult> { }
 
 
 }

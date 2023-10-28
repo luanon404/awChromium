@@ -33,7 +33,7 @@ import java.io.OutputStream;
  * each class loader, the chromium one {@link DropDataContentProvider}.
  *
  * @see DropDataProviderImpl#FULL_AUTH_URI
- * <p>
+ *
  * TODO(https://crbug.com/1353048): Add the reference to //android_webview/support_library content
  * provider to this java doc.
  */
@@ -54,7 +54,9 @@ public class DropDataProviderImpl {
      * This variable is being used to be able to access the correct content provider, any content
      * provider using this class should declare the same authority in order for it to work.
      */
-    public static final Uri FULL_AUTH_URI = Uri.parse("content://" + ContextUtils.getApplicationContext().getPackageName() + DropDataProviderImpl.URI_AUTHORITY_SUFFIX);
+    public static final Uri FULL_AUTH_URI =
+            Uri.parse("content://" + ContextUtils.getApplicationContext().getPackageName()
+                    + DropDataProviderImpl.URI_AUTHORITY_SUFFIX);
 
     /**
      * Implement {@link ContentProvider.PipeDataWriter} to be used by {@link
@@ -62,7 +64,8 @@ public class DropDataProviderImpl {
      */
     private static class DropPipeDataWriter implements ContentProvider.PipeDataWriter<byte[]> {
         @Override
-        public void writeDataToPipe(ParcelFileDescriptor output, Uri uri, String mimeType, Bundle opts, byte[] imageBytes) {
+        public void writeDataToPipe(ParcelFileDescriptor output, Uri uri, String mimeType,
+                Bundle opts, byte[] imageBytes) {
             try (OutputStream out = new FileOutputStream(output.getFileDescriptor())) {
                 if (imageBytes != null) {
                     out.write(imageBytes);
@@ -118,7 +121,12 @@ public class DropDataProviderImpl {
 
     private Uri generateUri() {
         String timestamp = String.valueOf(System.currentTimeMillis());
-        return new Uri.Builder().scheme(ContentResolver.SCHEME_CONTENT).authority(ContextUtils.getApplicationContext().getPackageName() + URI_AUTHORITY_SUFFIX).path(timestamp).build();
+        return new Uri.Builder()
+                .scheme(ContentResolver.SCHEME_CONTENT)
+                .authority(ContextUtils.getApplicationContext().getPackageName()
+                        + URI_AUTHORITY_SUFFIX)
+                .path(timestamp)
+                .build();
     }
 
     /**
@@ -146,10 +154,12 @@ public class DropDataProviderImpl {
 
         if (lastUriCreatedTimestamp > 0) {
             long duration = elapsedRealtime - lastUriCreatedTimestamp;
-            RecordHistogram.recordMediumTimesHistogram("Android.DragDrop.Image.UriCreatedInterval", duration);
+            RecordHistogram.recordMediumTimesHistogram(
+                    "Android.DragDrop.Image.UriCreatedInterval", duration);
         }
         int sizeInKB = imageBytes.length / BYTES_PER_KILOBYTE;
-        RecordHistogram.recordCustomCountHistogram("Android.DragDrop.Image.Size", sizeInKB, 1, 100_000, 50);
+        RecordHistogram.recordCustomCountHistogram(
+                "Android.DragDrop.Image.Size", sizeInKB, 1, 100_000, 50);
         return newUri;
     }
 
@@ -157,8 +167,8 @@ public class DropDataProviderImpl {
      * Clear the image data of Drag and Drop when event ACTION_DRAG_ENDED is received.
      *
      * @param imageInUse Indicate if the image is needed by the drop target app. This is true when
-     *                   the image is dropped outside of Chrome AND the drop target app returns true for event
-     *                   ACTION_DROP.
+     *        the image is dropped outside of Chrome AND the drop target app returns true for event
+     *        ACTION_DROP.
      */
     public void onDragEnd(boolean imageInUse) {
         if (!imageInUse) {
@@ -185,7 +195,8 @@ public class DropDataProviderImpl {
                 // If ContentProvider#openFile is received before Android Drag End event, set the
                 // duration to 0 to avoid negative value.
                 long duration = Math.max(0, mOpenFileLastAccessTime - mDragEndTime);
-                RecordHistogram.recordMediumTimesHistogram("Android.DragDrop.Image.OpenFileTime.LastAttempt", duration);
+                RecordHistogram.recordMediumTimesHistogram(
+                        "Android.DragDrop.Image.OpenFileTime.LastAttempt", duration);
             }
         }
     }
@@ -259,7 +270,7 @@ public class DropDataProviderImpl {
             }
             mimeType = mMimeType;
         }
-        return matchMimeType(mimeType, mimeTypeFilter) ? new String[]{mimeType} : null;
+        return matchMimeType(mimeType, mimeTypeFilter) ? new String[] {mimeType} : null;
     }
 
     private boolean matchMimeType(String mimeType, String mimeTypeFilter) {
@@ -282,7 +293,8 @@ public class DropDataProviderImpl {
     /**
      * @see ContentProvider#openFile(Uri, String)
      */
-    public ParcelFileDescriptor openFile(ContentProvider providerWrapper, Uri uri) throws FileNotFoundException {
+    public ParcelFileDescriptor openFile(ContentProvider providerWrapper, Uri uri)
+            throws FileNotFoundException {
         if (uri == null) {
             return null;
         }
@@ -292,9 +304,11 @@ public class DropDataProviderImpl {
             if (!uri.equals(mContentProviderUri)) {
                 if (uri.equals(mLastUri)) {
                     long duration = elapsedRealtime - mLastUriClearedTimestamp;
-                    RecordHistogram.recordMediumTimesHistogram("Android.DragDrop.Image.OpenFileTime.AllExpired", duration);
+                    RecordHistogram.recordMediumTimesHistogram(
+                            "Android.DragDrop.Image.OpenFileTime.AllExpired", duration);
                     if (!mLastUriRecorded) {
-                        RecordHistogram.recordMediumTimesHistogram("Android.DragDrop.Image.OpenFileTime.FirstExpired", duration);
+                        RecordHistogram.recordMediumTimesHistogram(
+                                "Android.DragDrop.Image.OpenFileTime.FirstExpired", duration);
                         mLastUriRecorded = true;
                     }
                 }
@@ -303,12 +317,14 @@ public class DropDataProviderImpl {
             if (mOpenFileLastAccessTime == 0) {
                 // If Android Drag End event has not been received yet, treat the duration as 0 ms.
                 long duration = mDragEndTime == 0 ? 0 : elapsedRealtime - mDragEndTime;
-                RecordHistogram.recordMediumTimesHistogram("Android.DragDrop.Image.OpenFileTime.FirstAttempt", duration);
+                RecordHistogram.recordMediumTimesHistogram(
+                        "Android.DragDrop.Image.OpenFileTime.FirstAttempt", duration);
             }
             mOpenFileLastAccessTime = elapsedRealtime;
             imageBytes = this.mImageBytes;
         }
-        return providerWrapper.openPipeHelper(uri, getType(uri), null, imageBytes, mDropPipeDataWriter);
+        return providerWrapper.openPipeHelper(
+                uri, getType(uri), null, imageBytes, mDropPipeDataWriter);
     }
 
     /**
@@ -366,11 +382,14 @@ public class DropDataProviderImpl {
         switch (method) {
             case CACHE_METHOD_NAME:
                 Bundle bundleToReturn = new Bundle();
-                Uri uri = cache((byte[]) extras.getSerializable(BYTES_PARAM), extras.getString(IMAGE_CONTENT_EXTENSION_PARAM), extras.getString(IMAGE_FILE_PARAM));
+                Uri uri = cache((byte[]) extras.getSerializable(BYTES_PARAM),
+                        extras.getString(IMAGE_CONTENT_EXTENSION_PARAM),
+                        extras.getString(IMAGE_FILE_PARAM));
                 bundleToReturn.putParcelable("uri", uri);
                 return bundleToReturn;
             case SET_INTERVAL_METHOD_NAME:
-                setClearCachedDataIntervalMs(extras.getInt(CLEAR_CACHE_PARAM, DropDataProviderImpl.DEFAULT_CLEAR_CACHED_DATA_INTERVAL_MS));
+                setClearCachedDataIntervalMs(extras.getInt(CLEAR_CACHE_PARAM,
+                        DropDataProviderImpl.DEFAULT_CLEAR_CACHED_DATA_INTERVAL_MS));
                 break;
             case ON_DRAG_END_METHOD_NAME:
                 onDragEnd(extras.getBoolean(IMAGE_USAGE_PARAM));

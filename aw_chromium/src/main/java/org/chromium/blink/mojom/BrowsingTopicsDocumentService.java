@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface BrowsingTopicsDocumentService extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends BrowsingTopicsDocumentService, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends BrowsingTopicsDocumentService, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<BrowsingTopicsDocumentService, BrowsingTopicsDocumentService.Proxy> MANAGER = BrowsingTopicsDocumentService_Internal.MANAGER;

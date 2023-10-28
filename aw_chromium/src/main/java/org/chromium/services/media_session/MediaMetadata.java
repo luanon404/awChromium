@@ -49,7 +49,6 @@ public final class MediaMetadata {
 
     /**
      * Sets the title associated with the media session.
-     *
      * @param title The title to use for the media session.
      */
     public void setTitle(@NonNull String title) {
@@ -58,7 +57,6 @@ public final class MediaMetadata {
 
     /**
      * Sets the arstist name associated with the media session.
-     *
      * @param arstist The artist name to use for the media session.
      */
     public void setArtist(@NonNull String artist) {
@@ -67,7 +65,6 @@ public final class MediaMetadata {
 
     /**
      * Sets the album name associated with the media session.
-     *
      * @param album The album name to use for the media session.
      */
     public void setAlbum(@NonNull String album) {
@@ -101,7 +98,8 @@ public final class MediaMetadata {
         if (!(obj instanceof MediaMetadata)) return false;
 
         MediaMetadata other = (MediaMetadata) obj;
-        return TextUtils.equals(mTitle, other.mTitle) && TextUtils.equals(mArtist, other.mArtist) && TextUtils.equals(mAlbum, other.mAlbum);
+        return TextUtils.equals(mTitle, other.mTitle) && TextUtils.equals(mArtist, other.mArtist)
+                && TextUtils.equals(mAlbum, other.mAlbum);
     }
 
     /**

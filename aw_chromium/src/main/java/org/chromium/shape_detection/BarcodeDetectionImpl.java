@@ -69,7 +69,9 @@ public class BarcodeDetectionImpl implements BarcodeDetection {
                 }
             }
         }
-        mBarcodeDetector = new BarcodeDetector.Builder(ContextUtils.getApplicationContext()).setBarcodeFormats(formats).build();
+        mBarcodeDetector = new BarcodeDetector.Builder(ContextUtils.getApplicationContext())
+                                   .setBarcodeFormats(formats)
+                                   .build();
     }
 
     @Override

@@ -17,10 +17,14 @@ import androidx.annotation.IntDef;
 
 public final class ImeTextSpanUnderlineStyle {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({ImeTextSpanUnderlineStyle.NONE, ImeTextSpanUnderlineStyle.SOLID, ImeTextSpanUnderlineStyle.DOT, ImeTextSpanUnderlineStyle.DASH, ImeTextSpanUnderlineStyle.SQUIGGLE})
-    public @interface EnumType {
-    }
+        ImeTextSpanUnderlineStyle.NONE,
+        ImeTextSpanUnderlineStyle.SOLID,
+        ImeTextSpanUnderlineStyle.DOT,
+        ImeTextSpanUnderlineStyle.DASH,
+        ImeTextSpanUnderlineStyle.SQUIGGLE})
+    public @interface EnumType {}
 
     public static final int NONE = 0;
     public static final int SOLID = 1;
@@ -40,9 +44,8 @@ public final class ImeTextSpanUnderlineStyle {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private ImeTextSpanUnderlineStyle() {
-    }
+    private ImeTextSpanUnderlineStyle() {}
 }

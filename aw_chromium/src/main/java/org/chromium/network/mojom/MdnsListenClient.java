@@ -19,12 +19,15 @@ import androidx.annotation.IntDef;
 public interface MdnsListenClient extends org.chromium.mojo.bindings.Interface {
 
 
-    final class UpdateType {
-        private static final boolean IS_EXTENSIBLE = false;
 
-        @IntDef({UpdateType.ADDED, UpdateType.CHANGED, UpdateType.REMOVED})
-        public @interface EnumType {
-        }
+    public static final class UpdateType {
+        private static final boolean IS_EXTENSIBLE = false;
+        @IntDef({
+
+            UpdateType.ADDED,
+            UpdateType.CHANGED,
+            UpdateType.REMOVED})
+        public @interface EnumType {}
 
         public static final int ADDED = 0;
         public static final int CHANGED = 1;
@@ -42,29 +45,32 @@ public interface MdnsListenClient extends org.chromium.mojo.bindings.Interface {
         }
 
         public static int toKnownValue(int value) {
-            return value;
+          return value;
         }
 
-        private UpdateType() {
-        }
+        private UpdateType() {}
     }
 
 
-    interface Proxy extends MdnsListenClient, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends MdnsListenClient, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<MdnsListenClient, MdnsListenClient.Proxy> MANAGER = MdnsListenClient_Internal.MANAGER;
 
-    void onAddressResult(int updateType, int queryType, IpEndPoint endpoint);
+    void onAddressResult(
+int updateType, int queryType, IpEndPoint endpoint);
 
 
-    void onTextResult(int updateType, int queryType, String[] textRecords);
+    void onTextResult(
+int updateType, int queryType, String[] textRecords);
 
 
-    void onHostnameResult(int updateType, int queryType, HostPortPair host);
+    void onHostnameResult(
+int updateType, int queryType, HostPortPair host);
 
 
-    void onUnhandledResult(int updateType, int queryType);
+    void onUnhandledResult(
+int updateType, int queryType);
 
 
 }

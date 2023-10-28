@@ -13,9 +13,13 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 class UsbDeviceManager_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<UsbDeviceManager, UsbDeviceManager.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<UsbDeviceManager, UsbDeviceManager.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<UsbDeviceManager, UsbDeviceManager.Proxy> MANAGER =
+            new org.chromium.mojo.bindings.Interface.Manager<UsbDeviceManager, UsbDeviceManager.Proxy>() {
 
         @Override
         public String getName() {
@@ -24,11 +28,12 @@ class UsbDeviceManager_Internal {
 
         @Override
         public int getVersion() {
-            return 0;
+          return 0;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -39,7 +44,7 @@ class UsbDeviceManager_Internal {
 
         @Override
         public UsbDeviceManager[] buildArray(int size) {
-            return new UsbDeviceManager[size];
+          return new UsbDeviceManager[size];
         }
     };
 
@@ -59,39 +64,59 @@ class UsbDeviceManager_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements UsbDeviceManager.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core,
+              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void enumerateDevicesAndSetClient(org.chromium.mojo.bindings.AssociatedInterfaceNotSupported client, EnumerateDevicesAndSetClient_Response callback) {
+        public void enumerateDevicesAndSetClient(
+org.chromium.mojo.bindings.AssociatedInterfaceNotSupported client, 
+EnumerateDevicesAndSetClient_Response callback) {
 
             UsbDeviceManagerEnumerateDevicesAndSetClientParams _message = new UsbDeviceManagerEnumerateDevicesAndSetClientParams();
 
             _message.client = client;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ENUMERATE_DEVICES_AND_SET_CLIENT_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new UsbDeviceManagerEnumerateDevicesAndSetClientResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    ENUMERATE_DEVICES_AND_SET_CLIENT_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new UsbDeviceManagerEnumerateDevicesAndSetClientResponseParamsForwardToCallback(callback));
 
         }
 
 
         @Override
-        public void getDevices(UsbEnumerationOptions options, GetDevices_Response callback) {
+        public void getDevices(
+UsbEnumerationOptions options, 
+GetDevices_Response callback) {
 
             UsbDeviceManagerGetDevicesParams _message = new UsbDeviceManagerGetDevicesParams();
 
             _message.options = options;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(GET_DEVICES_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new UsbDeviceManagerGetDevicesResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    GET_DEVICES_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new UsbDeviceManagerGetDevicesResponseParamsForwardToCallback(callback));
 
         }
 
 
         @Override
-        public void getDevice(String guid, byte[] blockedInterfaceClasses, org.chromium.mojo.bindings.InterfaceRequest<UsbDevice> deviceReceiver, UsbDeviceClient deviceClient) {
+        public void getDevice(
+String guid, byte[] blockedInterfaceClasses, org.chromium.mojo.bindings.InterfaceRequest<UsbDevice> deviceReceiver, UsbDeviceClient deviceClient) {
 
             UsbDeviceManagerGetDeviceParams _message = new UsbDeviceManagerGetDeviceParams();
 
@@ -104,13 +129,17 @@ class UsbDeviceManager_Internal {
             _message.deviceClient = deviceClient;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(GET_DEVICE_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(GET_DEVICE_ORDINAL)));
 
         }
 
 
         @Override
-        public void getSecurityKeyDevice(String guid, org.chromium.mojo.bindings.InterfaceRequest<UsbDevice> deviceReceiver, UsbDeviceClient deviceClient) {
+        public void getSecurityKeyDevice(
+String guid, org.chromium.mojo.bindings.InterfaceRequest<UsbDevice> deviceReceiver, UsbDeviceClient deviceClient) {
 
             UsbDeviceManagerGetSecurityKeyDeviceParams _message = new UsbDeviceManagerGetSecurityKeyDeviceParams();
 
@@ -121,33 +150,49 @@ class UsbDeviceManager_Internal {
             _message.deviceClient = deviceClient;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(GET_SECURITY_KEY_DEVICE_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(GET_SECURITY_KEY_DEVICE_ORDINAL)));
 
         }
 
 
         @Override
-        public void refreshDeviceInfo(String guid, RefreshDeviceInfo_Response callback) {
+        public void refreshDeviceInfo(
+String guid, 
+RefreshDeviceInfo_Response callback) {
 
             UsbDeviceManagerRefreshDeviceInfoParams _message = new UsbDeviceManagerRefreshDeviceInfoParams();
 
             _message.guid = guid;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(REFRESH_DEVICE_INFO_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new UsbDeviceManagerRefreshDeviceInfoResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    REFRESH_DEVICE_INFO_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new UsbDeviceManagerRefreshDeviceInfoResponseParamsForwardToCallback(callback));
 
         }
 
 
         @Override
-        public void setClient(org.chromium.mojo.bindings.AssociatedInterfaceNotSupported client) {
+        public void setClient(
+org.chromium.mojo.bindings.AssociatedInterfaceNotSupported client) {
 
             UsbDeviceManagerSetClientParams _message = new UsbDeviceManagerSetClientParams();
 
             _message.client = client;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(SET_CLIENT_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(SET_CLIENT_ORDINAL)));
 
         }
 
@@ -163,7 +208,8 @@ class UsbDeviceManager_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -172,33 +218,52 @@ class UsbDeviceManager_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(UsbDeviceManager_Internal.MANAGER, messageWithHeader);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
+                                UsbDeviceManager_Internal.MANAGER, messageWithHeader);
+
+
+
+
+
+
+
 
 
                     case GET_DEVICE_ORDINAL: {
 
-                        UsbDeviceManagerGetDeviceParams data = UsbDeviceManagerGetDeviceParams.deserialize(messageWithHeader.getPayload());
+                        UsbDeviceManagerGetDeviceParams data =
+                                UsbDeviceManagerGetDeviceParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().getDevice(data.guid, data.blockedInterfaceClasses, data.deviceReceiver, data.deviceClient);
                         return true;
                     }
 
 
+
+
+
                     case GET_SECURITY_KEY_DEVICE_ORDINAL: {
 
-                        UsbDeviceManagerGetSecurityKeyDeviceParams data = UsbDeviceManagerGetSecurityKeyDeviceParams.deserialize(messageWithHeader.getPayload());
+                        UsbDeviceManagerGetSecurityKeyDeviceParams data =
+                                UsbDeviceManagerGetSecurityKeyDeviceParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().getSecurityKeyDevice(data.guid, data.deviceReceiver, data.deviceClient);
                         return true;
                     }
 
 
+
+
+
+
+
                     case SET_CLIENT_ORDINAL: {
 
-                        UsbDeviceManagerSetClientParams data = UsbDeviceManagerSetClientParams.deserialize(messageWithHeader.getPayload());
+                        UsbDeviceManagerSetClientParams data =
+                                UsbDeviceManagerSetClientParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().setClient(data.client);
                         return true;
@@ -209,7 +274,7 @@ class UsbDeviceManager_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -217,7 +282,8 @@ class UsbDeviceManager_Internal {
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -226,54 +292,80 @@ class UsbDeviceManager_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), UsbDeviceManager_Internal.MANAGER, messageWithHeader, receiver);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
+                                getCore(), UsbDeviceManager_Internal.MANAGER, messageWithHeader, receiver);
+
+
+
+
+
 
 
                     case ENUMERATE_DEVICES_AND_SET_CLIENT_ORDINAL: {
 
-                        UsbDeviceManagerEnumerateDevicesAndSetClientParams data = UsbDeviceManagerEnumerateDevicesAndSetClientParams.deserialize(messageWithHeader.getPayload());
+                        UsbDeviceManagerEnumerateDevicesAndSetClientParams data =
+                                UsbDeviceManagerEnumerateDevicesAndSetClientParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().enumerateDevicesAndSetClient(data.client, new UsbDeviceManagerEnumerateDevicesAndSetClientResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
                     }
 
 
+
+
+
+
+
                     case GET_DEVICES_ORDINAL: {
 
-                        UsbDeviceManagerGetDevicesParams data = UsbDeviceManagerGetDevicesParams.deserialize(messageWithHeader.getPayload());
+                        UsbDeviceManagerGetDevicesParams data =
+                                UsbDeviceManagerGetDevicesParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().getDevices(data.options, new UsbDeviceManagerGetDevicesResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
                     }
 
 
+
+
+
+
+
+
+
+
+
                     case REFRESH_DEVICE_INFO_ORDINAL: {
 
-                        UsbDeviceManagerRefreshDeviceInfoParams data = UsbDeviceManagerRefreshDeviceInfoParams.deserialize(messageWithHeader.getPayload());
+                        UsbDeviceManagerRefreshDeviceInfoParams data =
+                                UsbDeviceManagerRefreshDeviceInfoParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().refreshDeviceInfo(data.guid, new UsbDeviceManagerRefreshDeviceInfoResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
                     }
 
 
+
+
                     default:
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class UsbDeviceManagerEnumerateDevicesAndSetClientParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.mojo.bindings.AssociatedInterfaceNotSupported client;
 
@@ -295,7 +387,8 @@ class UsbDeviceManager_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static UsbDeviceManagerEnumerateDevicesAndSetClientParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -309,10 +402,10 @@ class UsbDeviceManager_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new UsbDeviceManagerEnumerateDevicesAndSetClientParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.client = decoder0.readAssociatedServiceInterfaceNotSupported(8, false);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -324,16 +417,18 @@ class UsbDeviceManager_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.client, 8, false);
         }
     }
 
 
+
+    
     static final class UsbDeviceManagerEnumerateDevicesAndSetClientResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public UsbDeviceInfo[] results;
 
@@ -355,7 +450,8 @@ class UsbDeviceManager_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static UsbDeviceManagerEnumerateDevicesAndSetClientResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -369,19 +465,19 @@ class UsbDeviceManager_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new UsbDeviceManagerEnumerateDevicesAndSetClientResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     {
                         org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                         result.results = new UsbDeviceInfo[si1.elementsOrVersion];
                         for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                            
                             org.chromium.mojo.bindings.Decoder decoder2 = decoder1.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                             result.results[i1] = UsbDeviceInfo.decode(decoder2);
                         }
                     }
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -393,20 +489,21 @@ class UsbDeviceManager_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             if (this.results == null) {
                 encoder0.encodeNullPointer(8, false);
             } else {
                 org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.results.length, 8, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                 for (int i0 = 0; i0 < this.results.length; ++i0) {
-
+                    
                     encoder1.encode(this.results[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
                 }
             }
         }
     }
 
-    static class UsbDeviceManagerEnumerateDevicesAndSetClientResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class UsbDeviceManagerEnumerateDevicesAndSetClientResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final UsbDeviceManager.EnumerateDevicesAndSetClient_Response mCallback;
 
         UsbDeviceManagerEnumerateDevicesAndSetClientResponseParamsForwardToCallback(UsbDeviceManager.EnumerateDevicesAndSetClient_Response callback) {
@@ -416,9 +513,11 @@ class UsbDeviceManager_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(ENUMERATE_DEVICES_AND_SET_CLIENT_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(ENUMERATE_DEVICES_AND_SET_CLIENT_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -438,7 +537,10 @@ class UsbDeviceManager_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        UsbDeviceManagerEnumerateDevicesAndSetClientResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        UsbDeviceManagerEnumerateDevicesAndSetClientResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -450,16 +552,24 @@ class UsbDeviceManager_Internal {
 
             _response.results = results;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(ENUMERATE_DEVICES_AND_SET_CLIENT_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    ENUMERATE_DEVICES_AND_SET_CLIENT_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
 
 
+
+    
     static final class UsbDeviceManagerGetDevicesParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public UsbEnumerationOptions options;
 
@@ -481,7 +591,8 @@ class UsbDeviceManager_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static UsbDeviceManagerGetDevicesParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -495,11 +606,11 @@ class UsbDeviceManager_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new UsbDeviceManagerGetDevicesParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, true);
                     result.options = UsbEnumerationOptions.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -511,16 +622,18 @@ class UsbDeviceManager_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.options, 8, true);
         }
     }
 
 
+
+    
     static final class UsbDeviceManagerGetDevicesResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public UsbDeviceInfo[] results;
 
@@ -542,7 +655,8 @@ class UsbDeviceManager_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static UsbDeviceManagerGetDevicesResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -556,19 +670,19 @@ class UsbDeviceManager_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new UsbDeviceManagerGetDevicesResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     {
                         org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                         result.results = new UsbDeviceInfo[si1.elementsOrVersion];
                         for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                            
                             org.chromium.mojo.bindings.Decoder decoder2 = decoder1.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                             result.results[i1] = UsbDeviceInfo.decode(decoder2);
                         }
                     }
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -580,20 +694,21 @@ class UsbDeviceManager_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             if (this.results == null) {
                 encoder0.encodeNullPointer(8, false);
             } else {
                 org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.results.length, 8, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                 for (int i0 = 0; i0 < this.results.length; ++i0) {
-
+                    
                     encoder1.encode(this.results[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
                 }
             }
         }
     }
 
-    static class UsbDeviceManagerGetDevicesResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class UsbDeviceManagerGetDevicesResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final UsbDeviceManager.GetDevices_Response mCallback;
 
         UsbDeviceManagerGetDevicesResponseParamsForwardToCallback(UsbDeviceManager.GetDevices_Response callback) {
@@ -603,9 +718,11 @@ class UsbDeviceManager_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(GET_DEVICES_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(GET_DEVICES_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -625,7 +742,10 @@ class UsbDeviceManager_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        UsbDeviceManagerGetDevicesResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        UsbDeviceManagerGetDevicesResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -637,16 +757,24 @@ class UsbDeviceManager_Internal {
 
             _response.results = results;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(GET_DEVICES_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    GET_DEVICES_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
 
 
+
+    
     static final class UsbDeviceManagerGetDeviceParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 40;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(40, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(40, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public String guid;
         public byte[] blockedInterfaceClasses;
@@ -671,7 +799,8 @@ class UsbDeviceManager_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static UsbDeviceManagerGetDeviceParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -685,22 +814,22 @@ class UsbDeviceManager_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new UsbDeviceManagerGetDeviceParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.guid = decoder0.readString(8, false);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.blockedInterfaceClasses = decoder0.readBytes(16, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.deviceReceiver = decoder0.readInterfaceRequest(24, false);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.deviceClient = decoder0.readServiceInterface(28, true, UsbDeviceClient.MANAGER);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -712,22 +841,24 @@ class UsbDeviceManager_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.guid, 8, false);
-
+            
             encoder0.encode(this.blockedInterfaceClasses, 16, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
-
+            
             encoder0.encode(this.deviceReceiver, 24, false);
-
+            
             encoder0.encode(this.deviceClient, 28, true, UsbDeviceClient.MANAGER);
         }
     }
 
 
+
+    
     static final class UsbDeviceManagerGetSecurityKeyDeviceParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 32;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(32, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(32, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public String guid;
         public org.chromium.mojo.bindings.InterfaceRequest<UsbDevice> deviceReceiver;
@@ -751,7 +882,8 @@ class UsbDeviceManager_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static UsbDeviceManagerGetSecurityKeyDeviceParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -765,18 +897,18 @@ class UsbDeviceManager_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new UsbDeviceManagerGetSecurityKeyDeviceParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.guid = decoder0.readString(8, false);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.deviceReceiver = decoder0.readInterfaceRequest(16, false);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.deviceClient = decoder0.readServiceInterface(20, true, UsbDeviceClient.MANAGER);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -788,20 +920,22 @@ class UsbDeviceManager_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.guid, 8, false);
-
+            
             encoder0.encode(this.deviceReceiver, 16, false);
-
+            
             encoder0.encode(this.deviceClient, 20, true, UsbDeviceClient.MANAGER);
         }
     }
 
 
+
+    
     static final class UsbDeviceManagerRefreshDeviceInfoParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public String guid;
 
@@ -823,7 +957,8 @@ class UsbDeviceManager_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static UsbDeviceManagerRefreshDeviceInfoParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -837,10 +972,10 @@ class UsbDeviceManager_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new UsbDeviceManagerRefreshDeviceInfoParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.guid = decoder0.readString(8, false);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -852,16 +987,18 @@ class UsbDeviceManager_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.guid, 8, false);
         }
     }
 
 
+
+    
     static final class UsbDeviceManagerRefreshDeviceInfoResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public UsbDeviceInfo deviceInfo;
 
@@ -883,7 +1020,8 @@ class UsbDeviceManager_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static UsbDeviceManagerRefreshDeviceInfoResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -897,11 +1035,11 @@ class UsbDeviceManager_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new UsbDeviceManagerRefreshDeviceInfoResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, true);
                     result.deviceInfo = UsbDeviceInfo.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -913,12 +1051,13 @@ class UsbDeviceManager_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.deviceInfo, 8, true);
         }
     }
 
-    static class UsbDeviceManagerRefreshDeviceInfoResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class UsbDeviceManagerRefreshDeviceInfoResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final UsbDeviceManager.RefreshDeviceInfo_Response mCallback;
 
         UsbDeviceManagerRefreshDeviceInfoResponseParamsForwardToCallback(UsbDeviceManager.RefreshDeviceInfo_Response callback) {
@@ -928,9 +1067,11 @@ class UsbDeviceManager_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(REFRESH_DEVICE_INFO_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(REFRESH_DEVICE_INFO_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -950,7 +1091,10 @@ class UsbDeviceManager_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        UsbDeviceManagerRefreshDeviceInfoResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        UsbDeviceManagerRefreshDeviceInfoResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -962,16 +1106,24 @@ class UsbDeviceManager_Internal {
 
             _response.deviceInfo = deviceInfo;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(REFRESH_DEVICE_INFO_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    REFRESH_DEVICE_INFO_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
 
 
+
+    
     static final class UsbDeviceManagerSetClientParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.mojo.bindings.AssociatedInterfaceNotSupported client;
 
@@ -993,7 +1145,8 @@ class UsbDeviceManager_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static UsbDeviceManagerSetClientParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1007,10 +1160,10 @@ class UsbDeviceManager_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new UsbDeviceManagerSetClientParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.client = decoder0.readAssociatedServiceInterfaceNotSupported(8, false);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1022,10 +1175,11 @@ class UsbDeviceManager_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.client, 8, false);
         }
     }
+
 
 
 }

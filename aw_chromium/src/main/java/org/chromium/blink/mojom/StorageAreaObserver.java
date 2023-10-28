@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface StorageAreaObserver extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends StorageAreaObserver, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends StorageAreaObserver, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<StorageAreaObserver, StorageAreaObserver.Proxy> MANAGER = StorageAreaObserver_Internal.MANAGER;

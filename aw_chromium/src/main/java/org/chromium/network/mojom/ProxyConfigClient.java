@@ -13,23 +13,27 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface ProxyConfigClient extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends ProxyConfigClient, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends ProxyConfigClient, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<ProxyConfigClient, ProxyConfigClient.Proxy> MANAGER = ProxyConfigClient_Internal.MANAGER;
 
-    void onProxyConfigUpdated(ProxyConfigWithAnnotation proxyConfig);
+    void onProxyConfigUpdated(
+ProxyConfigWithAnnotation proxyConfig);
 
 
     void flushProxyConfig(
 
-            FlushProxyConfig_Response callback);
+FlushProxyConfig_Response callback);
 
-    interface FlushProxyConfig_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 {
-    }
+    interface FlushProxyConfig_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 { }
 
 
 }

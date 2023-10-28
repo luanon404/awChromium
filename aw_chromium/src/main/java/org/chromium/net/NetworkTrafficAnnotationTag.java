@@ -11,43 +11,43 @@ import java.nio.charset.StandardCharsets;
 /**
  * Network Traffic Annotations document the purpose of a particular network request, and its impact
  * on privacy.
- * <p>
+ *
  * This documentation is typically meant for system administrators in an enterprise setting. It
  * should be easy for them to read and understand, and answer the following questions:
- * <p>
- * 1. When and why does Chrome make this network request?
- * 2. Does this network request send any sensitive data?
- * 3. Where does the request go? (e.g. a Google server, a website the user is viewing...)
- * 4. How can I disable it if I don't like it?
+ *
+ *   1. When and why does Chrome make this network request?
+ *   2. Does this network request send any sensitive data?
+ *   3. Where does the request go? (e.g. a Google server, a website the user is viewing...)
+ *   4. How can I disable it if I don't like it?
  */
 public class NetworkTrafficAnnotationTag {
     /**
      * For network requests that aren't documented yet. These should be
      * accompanied with a TODO with a bug/owner to write their documentation.
      */
-    public static final NetworkTrafficAnnotationTag NO_TRAFFIC_ANNOTATION_YET = createComplete("undefined", "Nothing here yet.");
+    public static final NetworkTrafficAnnotationTag NO_TRAFFIC_ANNOTATION_YET =
+            createComplete("undefined", "Nothing here yet.");
 
     /**
      * For network requests that don't need an annotation, because they're in an
      * allowlisted file (see tools/traffic_annotation/safe_list.txt).
      */
-    public static final NetworkTrafficAnnotationTag MISSING_TRAFFIC_ANNOTATION = createComplete("undefined", "Function called without traffic annotation.");
+    public static final NetworkTrafficAnnotationTag MISSING_TRAFFIC_ANNOTATION =
+            createComplete("undefined", "Function called without traffic annotation.");
 
-    /**
-     * For network requests made in tests, don't bother writing documentation.
-     */
-    public static final NetworkTrafficAnnotationTag TRAFFIC_ANNOTATION_FOR_TESTS = createComplete("test", "Traffic annotation for unit, browser and other tests");
-
+    /** For network requests made in tests, don't bother writing documentation. */
+    public static final NetworkTrafficAnnotationTag TRAFFIC_ANNOTATION_FOR_TESTS =
+            createComplete("test", "Traffic annotation for unit, browser and other tests");
     /**
      * Create a self-contained tag describing a network request made by Chromium. This is the most
      * common factory method.
-     * <p>
+     *
      * The C++ equivalent is DefineNetworkTrafficAnnotation().
      *
      * @param uniqueId a String that uniquely identifies this annotations across all of Chromium
-     *                 source code.
-     * @param proto    a text-encoded NetworkTrafficAnnotation protobuf (see
-     *                 chrome/browser/privacy/traffic_annotation.proto).
+     *         source code.
+     * @param proto a text-encoded NetworkTrafficAnnotation protobuf (see
+     *         chrome/browser/privacy/traffic_annotation.proto).
      */
     public static NetworkTrafficAnnotationTag createComplete(String uniqueId, String proto) {
         return new NetworkTrafficAnnotationTag(uniqueId);
@@ -59,7 +59,7 @@ public class NetworkTrafficAnnotationTag {
     /**
      * At runtime, an annotation tag is just a hashCode. Most of the validation is done on CQ, so
      * there's no point keeping track of everything at runtime.
-     * <p>
+     *
      * This field is referenced from C++, so don't change it without updating
      * net/traffic_annotation/network_traffic_annotation.h.
      */
@@ -80,7 +80,7 @@ public class NetworkTrafficAnnotationTag {
      * CreateComplete() instead.
      *
      * @param uniqueId a String that uniquely identifies this annotation across all of Chromium
-     *                 source code.
+     *         source code.
      */
     private NetworkTrafficAnnotationTag(String uniqueId) {
         mHashCode = iterativeHash(uniqueId);
@@ -88,7 +88,7 @@ public class NetworkTrafficAnnotationTag {
 
     /**
      * Returns the hashcode of a string, as per the recursive_hash() function used in C++ code.
-     * <p>
+     *
      * This is NOT the same as Java's built-in hashCode() function, because we really want to
      * produce the same hashcode that auditor.py produces.
      *

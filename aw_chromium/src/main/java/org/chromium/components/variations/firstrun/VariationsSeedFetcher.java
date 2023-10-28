@@ -45,9 +45,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-/**
- * Fetches the variations seed before the actual first run of Chrome.
- */
+/** Fetches the variations seed before the actual first run of Chrome. */
 public class VariationsSeedFetcher {
     private static final String TAG = "VariationsSeedFetch";
 
@@ -132,9 +130,7 @@ public class VariationsSeedFetcher {
         int NUM_ENTRIES = 4;
     }
 
-    /**
-     * For mocking the Date in tests.
-     */
+    /** For mocking the Date in tests. */
     @VisibleForTesting
     public interface DateTime {
         Date newDate();
@@ -153,9 +149,7 @@ public class VariationsSeedFetcher {
         mDateTime = dateTime;
     }
 
-    /**
-     * Get the dateTime, for testing only.
-     */
+    /** Get the dateTime, for testing only. */
     @VisibleForTesting
     public DateTime getDateTime() {
         return mDateTime;
@@ -167,8 +161,7 @@ public class VariationsSeedFetcher {
     private static VariationsSeedFetcher sInstance;
 
     @VisibleForTesting
-    public VariationsSeedFetcher() {
-    }
+    public VariationsSeedFetcher() {}
 
     public static VariationsSeedFetcher get() {
         // TODO(aberent) Check not running on UI thread. Doing so however makes Robolectric testing
@@ -205,7 +198,7 @@ public class VariationsSeedFetcher {
     protected List<String> getAvailableInstanceManipulations() {
         List<String> compressions = new ArrayList<String>();
         if (CommandLine.getInstance().hasSwitch(
-                VariationsSwitches.ENABLE_FINCH_SEED_DELTA_COMPRESSION)) {
+                    VariationsSwitches.ENABLE_FINCH_SEED_DELTA_COMPRESSION)) {
             compressions.add(VariationsCompressionUtils.DELTA_COMPRESSION_HEADER);
         }
         compressions.add(VariationsCompressionUtils.GZIP_COMPRESSION_HEADER);
@@ -255,9 +248,7 @@ public class VariationsSeedFetcher {
         return urlString;
     }
 
-    /**
-     * Object holding information about the seed download parameters.
-     */
+    /** Object holding information about the seed download parameters. */
     public static class SeedFetchParameters {
         private @VariationsPlatform int mPlatform;
         private String mRestrictMode;
@@ -286,7 +277,7 @@ public class VariationsSeedFetcher {
         }
 
         private SeedFetchParameters(@VariationsPlatform int platform, String restrictMode,
-                                    String milestone, String channel, boolean isFastFetchMode) {
+                String milestone, String channel, boolean isFastFetchMode) {
             this.mPlatform = platform;
             this.mRestrictMode = restrictMode;
             this.mMilestone = milestone;
@@ -294,9 +285,7 @@ public class VariationsSeedFetcher {
             this.mIsFastFetchMode = isFastFetchMode;
         }
 
-        /**
-         * Builder class for {@link SeedFetchParameters}.
-         */
+        /** Builder class for {@link SeedFetchParameters}. */
         public static class Builder {
             private @VariationsPlatform int mPlatform;
             private String mRestrictMode;
@@ -366,9 +355,7 @@ public class VariationsSeedFetcher {
         }
     }
 
-    /**
-     * Object holding information about the status of a seed download attempt.
-     */
+    /** Object holding information about the status of a seed download attempt. */
     public static class SeedFetchInfo {
         // The result of the download, containing either an HTTP status code or a negative
         // value representing a specific error. This value is suitable for recording to the
@@ -380,9 +367,7 @@ public class VariationsSeedFetcher {
         public SeedInfo seedInfo;
     }
 
-    /**
-     * Object holding the seed data and related fields retrieved from HTTP headers.
-     */
+    /** Object holding the seed data and related fields retrieved from HTTP headers. */
     public static class SeedInfo {
         // If you add fields, see VariationsTestUtils.
         public String signature;
@@ -396,10 +381,10 @@ public class VariationsSeedFetcher {
         // seed.
         @VisibleForTesting
         public static byte[] resolveDeltaCompression(byte[] deltaPatch, byte[] previousSeedData,
-                                                     boolean isGzipCompressed) throws DeltaPatchException {
+                boolean isGzipCompressed) throws DeltaPatchException {
             assert CommandLine.getInstance().hasSwitch(
                     VariationsSwitches.ENABLE_FINCH_SEED_DELTA_COMPRESSION)
-                    : "Delta compression not enabled";
+                : "Delta compression not enabled";
             try {
                 if (isGzipCompressed) {
                     // Resolve gzip compression before applying the delta patch.
@@ -463,8 +448,8 @@ public class VariationsSeedFetcher {
      * Fetch the first run variations seed.
      *
      * @param restrictMode The restrict mode parameter to pass to the server via a URL param.
-     * @param milestone    The milestone parameter to pass to the server via a URL param.
-     * @param channel      The channel parameter to pass to the server via a URL param.
+     * @param milestone The milestone parameter to pass to the server via a URL param.
+     * @param channel The channel parameter to pass to the server via a URL param.
      */
     public void fetchSeed(String restrictMode, String milestone, String channel) {
         assert !ThreadUtils.runningOnUiThread();
@@ -532,12 +517,12 @@ public class VariationsSeedFetcher {
     /**
      * Download the variations seed data with platform and restrictMode.
      *
-     * @param platform     the platform parameter to let server only return experiments which can be run
-     *                     on that platform.
+     * @param platform the platform parameter to let server only return experiments which can be run
+     *     on that platform.
      * @param restrictMode the restrict mode parameter to pass to the server via a URL param.
-     * @param milestone    the milestone parameter to pass to the server via a URL param.
-     * @param channel      the channel parameter to pass to the server via a URL param.
-     * @param curSeedInfo  optional currently saved seed info to set the `If-None-Match` header.
+     * @param milestone the milestone parameter to pass to the server via a URL param.
+     * @param channel the channel parameter to pass to the server via a URL param.
+     * @param curSeedInfo optional currently saved seed info to set the `If-None-Match` header.
      * @return the object holds the request result and seed data with its related header fields.
      */
     public SeedFetchInfo downloadContent(SeedFetchParameters params, SeedInfo currInfo) {

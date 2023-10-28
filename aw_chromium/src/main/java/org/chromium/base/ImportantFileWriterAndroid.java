@@ -16,11 +16,11 @@ public class ImportantFileWriterAndroid {
 
     /**
      * Write a binary file atomically.
-     * <p>
+     *
      * This either writes all the data or leaves the file unchanged.
      *
      * @param fileName The complete path of the file to be written
-     * @param data     The data to be written to the file
+     * @param data The data to be written to the file
      * @return true if the data was written to the file, false if not.
      */
     public static boolean writeFileAtomically(String fileName, byte[] data) {

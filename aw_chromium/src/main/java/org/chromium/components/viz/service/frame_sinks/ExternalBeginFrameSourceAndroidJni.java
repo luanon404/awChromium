@@ -4,39 +4,48 @@
 package org.chromium.components.viz.service.frame_sinks;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.view.Choreographer;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.TraceEvent;
 
 @CheckDiscard("crbug.com/993421")
 class ExternalBeginFrameSourceAndroidJni implements ExternalBeginFrameSourceAndroid.Natives {
-    private static ExternalBeginFrameSourceAndroid.Natives testInstance;
+  private static ExternalBeginFrameSourceAndroid.Natives testInstance;
 
-    public static final JniStaticTestMocker<ExternalBeginFrameSourceAndroid.Natives> TEST_HOOKS = new JniStaticTestMocker<ExternalBeginFrameSourceAndroid.Natives>() {
-        @Override
-        public void setInstanceForTesting(ExternalBeginFrameSourceAndroid.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<ExternalBeginFrameSourceAndroid.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<ExternalBeginFrameSourceAndroid.Natives>() {
     @Override
-    public void onVSync(long nativeExternalBeginFrameSourceAndroid, ExternalBeginFrameSourceAndroid caller, long vsyncTimeMicros, long vsyncPeriodMicros) {
-        GEN_JNI.org_chromium_components_viz_service_frame_1sinks_ExternalBeginFrameSourceAndroid_onVSync(nativeExternalBeginFrameSourceAndroid, caller, vsyncTimeMicros, vsyncPeriodMicros);
+    public void setInstanceForTesting(ExternalBeginFrameSourceAndroid.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    public static ExternalBeginFrameSourceAndroid.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of ExternalBeginFrameSourceAndroid.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new ExternalBeginFrameSourceAndroidJni();
+  @Override
+  public void onVSync(long nativeExternalBeginFrameSourceAndroid, ExternalBeginFrameSourceAndroid caller, long vsyncTimeMicros, long vsyncPeriodMicros) {
+    GEN_JNI.org_chromium_components_viz_service_frame_1sinks_ExternalBeginFrameSourceAndroid_onVSync(nativeExternalBeginFrameSourceAndroid, caller, vsyncTimeMicros, vsyncPeriodMicros);
+  }
+
+  public static ExternalBeginFrameSourceAndroid.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of ExternalBeginFrameSourceAndroid.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new ExternalBeginFrameSourceAndroidJni();
+  }
 }

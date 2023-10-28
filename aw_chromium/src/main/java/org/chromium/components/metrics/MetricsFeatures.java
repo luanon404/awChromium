@@ -36,6 +36,5 @@ public final class MetricsFeatures {
     public static final String METRICS_SERVICE_DELTA_SNAPSHOT_IN_BG = "MetricsServiceDeltaSnapshotInBg";
 
     // Prevents instantiation.
-    private MetricsFeatures() {
-    }
+    private MetricsFeatures() {}
 }

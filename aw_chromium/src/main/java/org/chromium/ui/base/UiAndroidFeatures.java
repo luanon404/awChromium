@@ -33,6 +33,5 @@ public final class UiAndroidFeatures {
     public static final String REPORT_ALL_AVAILABLE_POINTER_TYPES = "ReportAllAvailablePointerTypes";
 
     // Do not instantiate this class.
-    private UiAndroidFeatures() {
-    }
+    private UiAndroidFeatures() {}
 }

@@ -4,39 +4,48 @@
 package org.chromium.base;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.app.Activity;
+import android.content.ComponentCallbacks2;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.memory.MemoryPressureCallback;
 
 @CheckDiscard("crbug.com/993421")
 class MemoryPressureListenerJni implements MemoryPressureListener.Natives {
-    private static MemoryPressureListener.Natives testInstance;
+  private static MemoryPressureListener.Natives testInstance;
 
-    public static final JniStaticTestMocker<MemoryPressureListener.Natives> TEST_HOOKS = new JniStaticTestMocker<MemoryPressureListener.Natives>() {
-        @Override
-        public void setInstanceForTesting(MemoryPressureListener.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<MemoryPressureListener.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<MemoryPressureListener.Natives>() {
     @Override
-    public void onMemoryPressure(int pressure) {
-        GEN_JNI.org_chromium_base_MemoryPressureListener_onMemoryPressure(pressure);
+    public void setInstanceForTesting(MemoryPressureListener.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    public static MemoryPressureListener.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of MemoryPressureListener.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new MemoryPressureListenerJni();
+  @Override
+  public void onMemoryPressure(int pressure) {
+    GEN_JNI.org_chromium_base_MemoryPressureListener_onMemoryPressure(pressure);
+  }
+
+  public static MemoryPressureListener.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of MemoryPressureListener.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new MemoryPressureListenerJni();
+  }
 }

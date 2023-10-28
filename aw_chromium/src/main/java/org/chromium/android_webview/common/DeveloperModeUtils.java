@@ -28,10 +28,10 @@ import java.util.Map;
  */
 public final class DeveloperModeUtils {
     // Do not instantiate this class.
-    private DeveloperModeUtils() {
-    }
+    private DeveloperModeUtils() {}
 
-    public static final String DEVELOPER_MODE_STATE_COMPONENT = "org.chromium.android_webview.devui.DeveloperModeState";
+    public static final String DEVELOPER_MODE_STATE_COMPONENT =
+            "org.chromium.android_webview.devui.DeveloperModeState";
     public static final String URI_AUTHORITY_SUFFIX = ".DeveloperModeContentProvider";
     public static final String FLAG_OVERRIDE_URI_PATH = "/flag-overrides";
     public static final String FLAG_OVERRIDE_NAME_COLUMN = "flagName";
@@ -46,12 +46,14 @@ public final class DeveloperModeUtils {
      * developer mode.
      *
      * @param webViewPackageName the package name of the WebView implementation to fetch the flags
-     *                           from (generally this is the current WebView provider).
+     *     from (generally this is the current WebView provider).
      */
     public static boolean isDeveloperModeEnabled(String webViewPackageName) {
         final Context context = ContextUtils.getApplicationContext();
-        ComponentName developerModeComponent = new ComponentName(webViewPackageName, DEVELOPER_MODE_STATE_COMPONENT);
-        int enabledState = context.getPackageManager().getComponentEnabledSetting(developerModeComponent);
+        ComponentName developerModeComponent =
+                new ComponentName(webViewPackageName, DEVELOPER_MODE_STATE_COMPONENT);
+        int enabledState =
+                context.getPackageManager().getComponentEnabledSetting(developerModeComponent);
         return enabledState == PackageManager.COMPONENT_ENABLED_STATE_ENABLED;
     }
 
@@ -64,7 +66,8 @@ public final class DeveloperModeUtils {
         try {
             context.startForegroundService(intent);
         } catch (IllegalStateException e) {
-            assert Build.VERSION.SDK_INT >= Build.VERSION_CODES.S : "Unable to start DeveloperUiService, this is only expected on Android S";
+            assert Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+                : "Unable to start DeveloperUiService, this is only expected on Android S";
         }
     }
 
@@ -74,18 +77,22 @@ public final class DeveloperModeUtils {
      * unnecessary IPC or start up processes unnecessarily.
      *
      * @param webViewPackageName the package name of the WebView implementation to fetch the flags
-     *                           from (generally this is the current WebView provider).
+     *     from (generally this is the current WebView provider).
      */
     public static Map<String, Boolean> getFlagOverrides(String webViewPackageName) {
         Map<String, Boolean> flagOverrides = new HashMap<>();
 
-        Uri uri = new Uri.Builder().scheme("content").authority(webViewPackageName + URI_AUTHORITY_SUFFIX).path(FLAG_OVERRIDE_URI_PATH).build();
+        Uri uri = new Uri.Builder()
+                          .scheme("content")
+                          .authority(webViewPackageName + URI_AUTHORITY_SUFFIX)
+                          .path(FLAG_OVERRIDE_URI_PATH)
+                          .build();
         final Context appContext = ContextUtils.getApplicationContext();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             startDeveloperUiService(webViewPackageName);
         }
         try (Cursor cursor = appContext.getContentResolver().query(uri, /* projection */ null,
-                /* selection */ null, /* selectionArgs */ null, /* sortOrder */ null)) {
+                     /* selection */ null, /* selectionArgs */ null, /* sortOrder */ null)) {
             assert cursor != null : "ContentProvider doesn't support querying '" + uri + "'";
             int flagNameColumnIndex = cursor.getColumnIndexOrThrow(FLAG_OVERRIDE_NAME_COLUMN);
             int flagStateColumnIndex = cursor.getColumnIndexOrThrow(FLAG_OVERRIDE_STATE_COLUMN);

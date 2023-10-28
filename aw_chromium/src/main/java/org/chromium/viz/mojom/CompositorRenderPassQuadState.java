@@ -13,10 +13,13 @@
 
 package org.chromium.viz.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class CompositorRenderPassQuadState extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 72;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(72, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(72, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public CompositorRenderPassId renderPassId;
     public ResourceId maskResourceId;
@@ -33,6 +36,10 @@ public final class CompositorRenderPassQuadState extends org.chromium.mojo.bindi
         super(STRUCT_SIZE, version);
     }
 
+    public CompositorRenderPassQuadState() {
+        this(0);
+    }
+
     public static CompositorRenderPassQuadState deserialize(org.chromium.mojo.bindings.Message message) {
         return decode(new org.chromium.mojo.bindings.Decoder(message));
     }
@@ -43,9 +50,11 @@ public final class CompositorRenderPassQuadState extends org.chromium.mojo.bindi
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static CompositorRenderPassQuadState deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
+    @SuppressWarnings("unchecked")
     public static CompositorRenderPassQuadState decode(org.chromium.mojo.bindings.Decoder decoder0) {
         if (decoder0 == null) {
             return null;
@@ -56,53 +65,53 @@ public final class CompositorRenderPassQuadState extends org.chromium.mojo.bindi
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new CompositorRenderPassQuadState(elementsOrVersion);
-            {
-
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                 result.renderPassId = CompositorRenderPassId.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                 result.maskResourceId = ResourceId.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, false);
                 result.maskUvRect = org.chromium.gfx.mojom.RectF.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(32, false);
                 result.maskTextureSize = org.chromium.gfx.mojom.Size.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(40, false);
                 result.filtersScale = org.chromium.gfx.mojom.Vector2dF.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(48, false);
                 result.filtersOrigin = org.chromium.gfx.mojom.PointF.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(56, false);
                 result.texCoordRect = org.chromium.gfx.mojom.RectF.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.forceAntiAliasingOff = decoder0.readBoolean(64, 0);
-            }
-            {
-
+                }
+                {
+                    
                 result.intersectsDamageUnder = decoder0.readBoolean(64, 1);
-            }
-            {
-
+                }
+                {
+                    
                 result.backdropFilterQuality = decoder0.readFloat(68);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -110,28 +119,29 @@ public final class CompositorRenderPassQuadState extends org.chromium.mojo.bindi
         return result;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
+    protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.renderPassId, 8, false);
-
+        
         encoder0.encode(this.maskResourceId, 16, false);
-
+        
         encoder0.encode(this.maskUvRect, 24, false);
-
+        
         encoder0.encode(this.maskTextureSize, 32, false);
-
+        
         encoder0.encode(this.filtersScale, 40, false);
-
+        
         encoder0.encode(this.filtersOrigin, 48, false);
-
+        
         encoder0.encode(this.texCoordRect, 56, false);
-
+        
         encoder0.encode(this.forceAntiAliasingOff, 64, 0);
-
+        
         encoder0.encode(this.intersectsDamageUnder, 64, 1);
-
+        
         encoder0.encode(this.backdropFilterQuality, 68);
     }
 }

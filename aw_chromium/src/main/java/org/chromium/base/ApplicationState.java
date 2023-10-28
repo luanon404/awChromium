@@ -1,3 +1,4 @@
+
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -14,12 +15,16 @@ import androidx.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@IntDef({ApplicationState.UNKNOWN, ApplicationState.HAS_RUNNING_ACTIVITIES, ApplicationState.HAS_PAUSED_ACTIVITIES, ApplicationState.HAS_STOPPED_ACTIVITIES, ApplicationState.HAS_DESTROYED_ACTIVITIES})
+@IntDef({
+    ApplicationState.UNKNOWN, ApplicationState.HAS_RUNNING_ACTIVITIES,
+    ApplicationState.HAS_PAUSED_ACTIVITIES, ApplicationState.HAS_STOPPED_ACTIVITIES,
+    ApplicationState.HAS_DESTROYED_ACTIVITIES
+})
 @Retention(RetentionPolicy.SOURCE)
 public @interface ApplicationState {
-    int UNKNOWN = 0;
-    int HAS_RUNNING_ACTIVITIES = 1;
-    int HAS_PAUSED_ACTIVITIES = 2;
-    int HAS_STOPPED_ACTIVITIES = 3;
-    int HAS_DESTROYED_ACTIVITIES = 4;
+  int UNKNOWN = 0;
+  int HAS_RUNNING_ACTIVITIES = 1;
+  int HAS_PAUSED_ACTIVITIES = 2;
+  int HAS_STOPPED_ACTIVITIES = 3;
+  int HAS_DESTROYED_ACTIVITIES = 4;
 }

@@ -19,8 +19,7 @@ import android.view.View;
  * Utility class for creating Direct Writing service Bundle for various service calls as needed.
  */
 class DirectWritingBundleUtil {
-    private DirectWritingBundleUtil() {
-    }
+    private DirectWritingBundleUtil() {}
 
     static Bundle buildBundle(MotionEvent me, View rootView) {
         Bundle bundle = new Bundle();

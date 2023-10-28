@@ -4,44 +4,56 @@
 package org.chromium.ui.base;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.view.View;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.ContextUtils;
+import org.chromium.base.LocaleUtils;
+import org.chromium.base.ResettersForTesting;
+import java.util.Locale;
 
 @CheckDiscard("crbug.com/993421")
 class LocalizationUtilsJni implements LocalizationUtils.Natives {
-    private static LocalizationUtils.Natives testInstance;
+  private static LocalizationUtils.Natives testInstance;
 
-    public static final JniStaticTestMocker<LocalizationUtils.Natives> TEST_HOOKS = new JniStaticTestMocker<LocalizationUtils.Natives>() {
-        @Override
-        public void setInstanceForTesting(LocalizationUtils.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<LocalizationUtils.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<LocalizationUtils.Natives>() {
     @Override
-    public int getFirstStrongCharacterDirection(String string) {
-        return (int) GEN_JNI.org_chromium_ui_base_LocalizationUtils_getFirstStrongCharacterDirection(string);
+    public void setInstanceForTesting(LocalizationUtils.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public String getNativeUiLocale() {
-        return (String) GEN_JNI.org_chromium_ui_base_LocalizationUtils_getNativeUiLocale();
-    }
+  @Override
+  public int getFirstStrongCharacterDirection(String string) {
+    return (int) GEN_JNI.org_chromium_ui_base_LocalizationUtils_getFirstStrongCharacterDirection(string);
+  }
 
-    public static LocalizationUtils.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of LocalizationUtils.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new LocalizationUtilsJni();
+  @Override
+  public String getNativeUiLocale() {
+    return (String) GEN_JNI.org_chromium_ui_base_LocalizationUtils_getNativeUiLocale();
+  }
+
+  public static LocalizationUtils.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of LocalizationUtils.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new LocalizationUtilsJni();
+  }
 }

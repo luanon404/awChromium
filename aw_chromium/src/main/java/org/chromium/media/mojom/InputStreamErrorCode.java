@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class InputStreamErrorCode {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({InputStreamErrorCode.UNKNOWN, InputStreamErrorCode.SYSTEM_PERMISSIONS, InputStreamErrorCode.DEVICE_IN_USE})
-    public @interface EnumType {
-    }
+        InputStreamErrorCode.UNKNOWN,
+        InputStreamErrorCode.SYSTEM_PERMISSIONS,
+        InputStreamErrorCode.DEVICE_IN_USE})
+    public @interface EnumType {}
 
     public static final int UNKNOWN = 0;
     public static final int SYSTEM_PERMISSIONS = 1;
@@ -38,9 +40,8 @@ public final class InputStreamErrorCode {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private InputStreamErrorCode() {
-    }
+    private InputStreamErrorCode() {}
 }

@@ -1,3 +1,4 @@
+
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -14,12 +15,14 @@ import androidx.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@IntDef({NetId.INVALID})
+@IntDef({
+    NetId.INVALID
+})
 @Retention(RetentionPolicy.SOURCE)
 public @interface NetId {
-    /**
-     * Cannot use |handles::kInvalidNetworkHandle| here as the Java generator fails, instead enforce
-     * their equality with CHECK in NetworkChangeNotifierAndroid().
-     */
-    int INVALID = -1;
+  /**
+   * Cannot use |handles::kInvalidNetworkHandle| here as the Java generator fails, instead enforce
+   * their equality with CHECK in NetworkChangeNotifierAndroid().
+   */
+  int INVALID = -1;
 }

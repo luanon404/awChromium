@@ -18,7 +18,6 @@ import java.lang.annotation.Target;
 public @interface CheckDiscard {
     /**
      * Describes why the element should be discarded.
-     *
      * @return reason for discarding (crbug links are preferred unless reason is trivial).
      */
     String value();

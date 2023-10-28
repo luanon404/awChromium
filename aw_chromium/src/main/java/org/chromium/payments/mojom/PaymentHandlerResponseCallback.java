@@ -13,21 +13,28 @@
 
 package org.chromium.payments.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface PaymentHandlerResponseCallback extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends PaymentHandlerResponseCallback, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends PaymentHandlerResponseCallback, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<PaymentHandlerResponseCallback, PaymentHandlerResponseCallback.Proxy> MANAGER = PaymentHandlerResponseCallback_Internal.MANAGER;
 
-    void onResponseForAbortPayment(boolean paymentAborted);
+    void onResponseForAbortPayment(
+boolean paymentAborted);
 
 
-    void onResponseForCanMakePayment(CanMakePaymentResponse response);
+    void onResponseForCanMakePayment(
+CanMakePaymentResponse response);
 
 
-    void onResponseForPaymentRequest(PaymentHandlerResponse response);
+    void onResponseForPaymentRequest(
+PaymentHandlerResponse response);
 
 
 }

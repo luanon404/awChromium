@@ -13,15 +13,20 @@
 
 package org.chromium.mojo_base.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface Binder extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends Binder, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends Binder, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<Binder, Binder.Proxy> MANAGER = Binder_Internal.MANAGER;
 
-    void bind(GenericPendingReceiver receiver);
+    void bind(
+GenericPendingReceiver receiver);
 
 
 }

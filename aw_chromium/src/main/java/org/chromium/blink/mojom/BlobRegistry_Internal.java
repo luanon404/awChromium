@@ -13,6 +13,8 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 class BlobRegistry_Internal {
 
@@ -218,7 +220,7 @@ org.chromium.url.internal.mojom.Origin origin, org.chromium.mojo.bindings.Associ
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -294,7 +296,7 @@ org.chromium.url.internal.mojom.Origin origin, org.chromium.mojo.bindings.Associ
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }

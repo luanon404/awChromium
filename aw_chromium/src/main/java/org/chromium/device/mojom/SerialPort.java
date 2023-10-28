@@ -13,66 +13,73 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface SerialPort extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends SerialPort, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends SerialPort, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<SerialPort, SerialPort.Proxy> MANAGER = SerialPort_Internal.MANAGER;
 
-    void startWriting(org.chromium.mojo.system.DataPipe.ConsumerHandle consumer);
+    void startWriting(
+org.chromium.mojo.system.DataPipe.ConsumerHandle consumer);
 
 
-    void startReading(org.chromium.mojo.system.DataPipe.ProducerHandle producer);
+    void startReading(
+org.chromium.mojo.system.DataPipe.ProducerHandle producer);
 
 
-    void flush(int mode, Flush_Response callback);
+    void flush(
+int mode, 
+Flush_Response callback);
 
-    interface Flush_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 {
-    }
+    interface Flush_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 { }
 
 
     void drain(
 
-            Drain_Response callback);
+Drain_Response callback);
 
-    interface Drain_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 {
-    }
+    interface Drain_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 { }
 
 
     void getControlSignals(
 
-            GetControlSignals_Response callback);
+GetControlSignals_Response callback);
 
-    interface GetControlSignals_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<SerialPortControlSignals> {
-    }
-
-
-    void setControlSignals(SerialHostControlSignals signals, SetControlSignals_Response callback);
-
-    interface SetControlSignals_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> {
-    }
+    interface GetControlSignals_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<SerialPortControlSignals> { }
 
 
-    void configurePort(SerialConnectionOptions options, ConfigurePort_Response callback);
+    void setControlSignals(
+SerialHostControlSignals signals, 
+SetControlSignals_Response callback);
 
-    interface ConfigurePort_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> {
-    }
+    interface SetControlSignals_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> { }
+
+
+    void configurePort(
+SerialConnectionOptions options, 
+ConfigurePort_Response callback);
+
+    interface ConfigurePort_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> { }
 
 
     void getPortInfo(
 
-            GetPortInfo_Response callback);
+GetPortInfo_Response callback);
 
-    interface GetPortInfo_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<SerialConnectionInfo> {
-    }
+    interface GetPortInfo_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<SerialConnectionInfo> { }
 
 
-    void close(boolean flush, Close_Response callback);
+    void close(
+boolean flush, 
+Close_Response callback);
 
-    interface Close_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 {
-    }
+    interface Close_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 { }
 
 
 }

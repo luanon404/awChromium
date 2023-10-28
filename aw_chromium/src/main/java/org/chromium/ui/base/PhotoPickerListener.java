@@ -18,9 +18,10 @@ public interface PhotoPickerListener {
     /**
      * The action the user took in the picker.
      */
-    @IntDef({PhotoPickerAction.CANCEL, PhotoPickerAction.PHOTOS_SELECTED, PhotoPickerAction.LAUNCH_CAMERA, PhotoPickerAction.LAUNCH_GALLERY})
+    @IntDef({PhotoPickerAction.CANCEL, PhotoPickerAction.PHOTOS_SELECTED,
+            PhotoPickerAction.LAUNCH_CAMERA, PhotoPickerAction.LAUNCH_GALLERY})
     @Retention(RetentionPolicy.SOURCE)
-    @interface PhotoPickerAction {
+    public @interface PhotoPickerAction {
         int CANCEL = 0;
         int PHOTOS_SELECTED = 1;
         int LAUNCH_CAMERA = 2;
@@ -31,8 +32,8 @@ public interface PhotoPickerListener {
     /**
      * The types of requests supported.
      */
-    int TAKE_PHOTO_REQUEST = 1;
-    int SHOW_GALLERY = 2;
+    static final int TAKE_PHOTO_REQUEST = 1;
+    static final int SHOW_GALLERY = 2;
 
     /**
      * Called when the user has selected an action. For possible actions see above.
@@ -41,8 +42,6 @@ public interface PhotoPickerListener {
      */
     void onPhotoPickerUserAction(@PhotoPickerAction int action, Uri[] photos);
 
-    /**
-     * Called when the dialog has been dismissed.
-     */
+    /** Called when the dialog has been dismissed. */
     void onPhotoPickerDismissed();
 }

@@ -23,7 +23,7 @@ import org.chromium.ui.base.WindowAndroid;
 
 /**
  * Provides methods for querying Chrome's ability to use Android's location services.
- * <p>
+ *
  * This class should be used only on the UI thread.
  */
 public class LocationUtils {
@@ -32,8 +32,7 @@ public class LocationUtils {
 
     private static LocationUtils sInstance;
 
-    protected LocationUtils() {
-    }
+    protected LocationUtils() {}
 
     /**
      * Returns the singleton instance of LocationUtils, creating it if needed.
@@ -52,17 +51,20 @@ public class LocationUtils {
 
     private boolean hasPermission(String name) {
         Context context = ContextUtils.getApplicationContext();
-        return ApiCompatibilityUtils.checkPermission(context, name, Process.myPid(), Process.myUid()) == PackageManager.PERMISSION_GRANTED;
+        return ApiCompatibilityUtils.checkPermission(
+                context, name, Process.myPid(), Process.myUid())
+                == PackageManager.PERMISSION_GRANTED;
     }
 
     /**
      * Returns true if Chromium has permission to access location.
-     * <p>
+     *
      * Callers should check both hasAndroidLocationPermission() and isSystemLocationSettingEnabled()
      * to determine if Chromium's location requests will return results.
      */
     public boolean hasAndroidLocationPermission() {
-        return hasPermission(Manifest.permission.ACCESS_COARSE_LOCATION) || hasAndroidFineLocationPermission();
+        return hasPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
+                || hasAndroidFineLocationPermission();
     }
 
     /**
@@ -86,11 +88,14 @@ public class LocationUtils {
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+            LocationManager locationManager =
+                    (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
             return locationManager != null && ApiHelperForP.isLocationEnabled(locationManager);
         }
 
-        return Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_OFF) != Settings.Secure.LOCATION_MODE_OFF;
+        return Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE,
+                       Settings.Secure.LOCATION_MODE_OFF)
+                != Settings.Secure.LOCATION_MODE_OFF;
     }
 
     /**
@@ -111,11 +116,13 @@ public class LocationUtils {
      *
      * <p>The callback is guaranteed to be called unless the user never replies to the prompt
      * dialog, which in practice happens very infrequently since the dialog is modal.
-     * <p>
+     *
      * TODO(crbug/730711): Add back @LocationSettingsDialogOutcome to the callback when type
      *     annotations are allowed in Java 8.
      */
-    public void promptToEnableSystemLocationSetting(@LocationSettingsDialogContext int promptContext, WindowAndroid window, Callback<Integer> callback) {
+    public void promptToEnableSystemLocationSetting(
+            @LocationSettingsDialogContext int promptContext, WindowAndroid window,
+            Callback<Integer> callback) {
         callback.onResult(LocationSettingsDialogOutcome.NO_PROMPT);
     }
 
@@ -132,9 +139,7 @@ public class LocationUtils {
      * Instantiate this to explain how to create a LocationUtils instance in
      * LocationUtils.getInstance().
      */
-    public interface Factory {
-        LocationUtils create();
-    }
+    public interface Factory { public LocationUtils create(); }
 
     /**
      * Call this to use a different subclass of LocationUtils throughout the program.

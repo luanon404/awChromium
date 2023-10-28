@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface Widget extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends Widget, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends Widget, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<Widget, Widget.Proxy> MANAGER = Widget_Internal.MANAGER;

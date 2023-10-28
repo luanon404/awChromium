@@ -17,10 +17,11 @@ import androidx.annotation.IntDef;
 
 public final class BindInterfacePriority {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({BindInterfacePriority.IMPORTANT, BindInterfacePriority.BEST_EFFORT})
-    public @interface EnumType {
-    }
+        BindInterfacePriority.IMPORTANT,
+        BindInterfacePriority.BEST_EFFORT})
+    public @interface EnumType {}
 
     public static final int IMPORTANT = 0;
     public static final int BEST_EFFORT = 1;
@@ -37,9 +38,8 @@ public final class BindInterfacePriority {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private BindInterfacePriority() {
-    }
+    private BindInterfacePriority() {}
 }

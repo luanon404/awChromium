@@ -6,9 +6,10 @@ package org.chromium.content.browser;
 
 import android.app.Activity;
 
+import org.jni_zero.CalledByNative;
+
 import org.chromium.base.Callback;
 import org.chromium.device.nfc.NfcDelegate;
-import org.jni_zero.CalledByNative;
 
 /**
  * A //content-specific implementation of the NfcDelegate interface. Maps NFC host IDs to their

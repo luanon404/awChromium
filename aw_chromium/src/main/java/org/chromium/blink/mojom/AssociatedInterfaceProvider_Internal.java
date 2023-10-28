@@ -13,6 +13,8 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 class AssociatedInterfaceProvider_Internal {
 
@@ -122,7 +124,7 @@ String name, org.chromium.mojo.bindings.AssociatedInterfaceRequestNotSupported r
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -153,7 +155,7 @@ String name, org.chromium.mojo.bindings.AssociatedInterfaceRequestNotSupported r
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }

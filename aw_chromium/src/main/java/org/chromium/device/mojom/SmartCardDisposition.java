@@ -17,10 +17,13 @@ import androidx.annotation.IntDef;
 
 public final class SmartCardDisposition {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({SmartCardDisposition.LEAVE, SmartCardDisposition.RESET, SmartCardDisposition.UNPOWER, SmartCardDisposition.EJECT})
-    public @interface EnumType {
-    }
+        SmartCardDisposition.LEAVE,
+        SmartCardDisposition.RESET,
+        SmartCardDisposition.UNPOWER,
+        SmartCardDisposition.EJECT})
+    public @interface EnumType {}
 
     public static final int LEAVE = 0;
     public static final int RESET = 1;
@@ -39,9 +42,8 @@ public final class SmartCardDisposition {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private SmartCardDisposition() {
-    }
+    private SmartCardDisposition() {}
 }

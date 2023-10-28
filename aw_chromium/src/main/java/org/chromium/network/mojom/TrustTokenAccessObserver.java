@@ -13,18 +13,24 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface TrustTokenAccessObserver extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends TrustTokenAccessObserver, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends TrustTokenAccessObserver, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<TrustTokenAccessObserver, TrustTokenAccessObserver.Proxy> MANAGER = TrustTokenAccessObserver_Internal.MANAGER;
 
-    void onTrustTokensAccessed(TrustTokenAccessDetails details);
+    void onTrustTokensAccessed(
+TrustTokenAccessDetails details);
 
 
-    void clone(org.chromium.mojo.bindings.InterfaceRequest<TrustTokenAccessObserver> listener);
+    void clone(
+org.chromium.mojo.bindings.InterfaceRequest<TrustTokenAccessObserver> listener);
 
 
 }

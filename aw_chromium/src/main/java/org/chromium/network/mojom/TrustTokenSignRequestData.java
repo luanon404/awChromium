@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class TrustTokenSignRequestData {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({TrustTokenSignRequestData.OMIT, TrustTokenSignRequestData.HEADERS_ONLY, TrustTokenSignRequestData.INCLUDE})
-    public @interface EnumType {
-    }
+        TrustTokenSignRequestData.OMIT,
+        TrustTokenSignRequestData.HEADERS_ONLY,
+        TrustTokenSignRequestData.INCLUDE})
+    public @interface EnumType {}
 
     public static final int OMIT = 0;
     public static final int HEADERS_ONLY = 1;
@@ -38,9 +40,8 @@ public final class TrustTokenSignRequestData {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private TrustTokenSignRequestData() {
-    }
+    private TrustTokenSignRequestData() {}
 }

@@ -10,20 +10,21 @@ import android.os.Looper;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 
-import org.chromium.base.Callback;
-import org.chromium.base.library_loader.LibraryLoader;
 import org.jni_zero.CalledByNative;
 import org.jni_zero.JNINamespace;
 import org.jni_zero.NativeMethods;
+
+import org.chromium.base.Callback;
+import org.chromium.base.library_loader.LibraryLoader;
 
 import java.util.Arrays;
 import java.util.List;
 
 /**
  * AwCookieManager manages cookies according to RFC2109 spec.
- * <p>
+ *
  * Methods in this class are thread safe.
- * <p>
+ *
  * The default profile's cookie manager has a singleton lifetime, whereas a non-default
  * profile has a cookie manager that is lifetime scoped to the profile.
  */
@@ -62,20 +63,20 @@ public final class AwCookieManager {
 
     /**
      * Control whether cookie is enabled or disabled
-     *
      * @param accept TRUE if accept cookie
      */
     public void setAcceptCookie(boolean accept) {
-        AwCookieManagerJni.get().setShouldAcceptCookies(mNativeCookieManager, AwCookieManager.this, accept);
+        AwCookieManagerJni.get().setShouldAcceptCookies(
+                mNativeCookieManager, AwCookieManager.this, accept);
     }
 
     /**
      * Return whether cookie is enabled
-     *
      * @return TRUE if accept cookie
      */
     public boolean acceptCookie() {
-        return AwCookieManagerJni.get().getShouldAcceptCookies(mNativeCookieManager, AwCookieManager.this);
+        return AwCookieManagerJni.get().getShouldAcceptCookies(
+                mNativeCookieManager, AwCookieManager.this);
     }
 
     /**
@@ -83,14 +84,16 @@ public final class AwCookieManager {
      */
     public void setCookie(String url, String value) {
         UrlValue pair = fixupUrlValue(url, value);
-        AwCookieManagerJni.get().setCookieSync(mNativeCookieManager, AwCookieManager.this, pair.mUrl, pair.mValue);
+        AwCookieManagerJni.get().setCookieSync(
+                mNativeCookieManager, AwCookieManager.this, pair.mUrl, pair.mValue);
     }
 
     /**
      * Deprecated synchronous version of removeSessionCookies.
      */
     public void removeSessionCookies() {
-        AwCookieManagerJni.get().removeSessionCookiesSync(mNativeCookieManager, AwCookieManager.this);
+        AwCookieManagerJni.get().removeSessionCookiesSync(
+                mNativeCookieManager, AwCookieManager.this);
     }
 
     /**
@@ -104,74 +107,77 @@ public final class AwCookieManager {
      * Set cookie for a given url. The old cookie with same host/path/name will
      * be removed. The new cookie will be added if it is not expired or it does
      * not have expiration which implies it is session cookie.
-     *
-     * @param url      The url which cookie is set for.
-     * @param value    The value for set-cookie: in http response header.
+     * @param url The url which cookie is set for.
+     * @param value The value for set-cookie: in http response header.
      * @param callback A callback called with the success status after the cookie is set.
      */
     public void setCookie(final String url, final String value, final Callback<Boolean> callback) {
         try {
             UrlValue pair = fixupUrlValue(url, value);
-            AwCookieManagerJni.get().setCookie(mNativeCookieManager, AwCookieManager.this, pair.mUrl, pair.mValue, new CookieCallback(callback));
+            AwCookieManagerJni.get().setCookie(mNativeCookieManager, AwCookieManager.this,
+                    pair.mUrl, pair.mValue, new CookieCallback(callback));
         } catch (IllegalStateException e) {
-            throw new IllegalStateException("SetCookie must be called on a thread with a running Looper.");
+            throw new IllegalStateException(
+                    "SetCookie must be called on a thread with a running Looper.");
         }
     }
 
     /**
      * Get cookie(s) for a given url so that it can be set to "cookie:" in http
      * request header.
-     *
      * @param url The url needs cookie
      * @return The cookies in the format of NAME=VALUE [; NAME=VALUE]
      */
     public String getCookie(final String url) {
-        String cookie = AwCookieManagerJni.get().getCookie(mNativeCookieManager, AwCookieManager.this, url);
+        String cookie =
+                AwCookieManagerJni.get().getCookie(mNativeCookieManager, AwCookieManager.this, url);
         // Return null if the string is empty to match legacy behavior
         return cookie == null || cookie.trim().isEmpty() ? null : cookie;
     }
 
     /**
      * Get the attributes of any cookie(s) for a given url.
-     *
      * @param url The url for which the cookies are set.
      * @return The cookies as a list of Strings formatted like http set cookie headers.
      */
     public List<String> getCookieInfo(final String url) {
-        String[] cookies = AwCookieManagerJni.get().getCookieInfo(mNativeCookieManager, AwCookieManager.this, url);
+        String[] cookies = AwCookieManagerJni.get().getCookieInfo(
+                mNativeCookieManager, AwCookieManager.this, url);
         return Arrays.asList(cookies);
     }
 
     /**
      * Remove all session cookies, the cookies without an expiration date.
      * The value of the callback is true iff at least one cookie was removed.
-     *
      * @param callback A callback called after the cookies (if any) are removed.
      */
     public void removeSessionCookies(Callback<Boolean> callback) {
         try {
-            AwCookieManagerJni.get().removeSessionCookies(mNativeCookieManager, AwCookieManager.this, new CookieCallback(callback));
+            AwCookieManagerJni.get().removeSessionCookies(
+                    mNativeCookieManager, AwCookieManager.this, new CookieCallback(callback));
         } catch (IllegalStateException e) {
-            throw new IllegalStateException("removeSessionCookies must be called on a thread with a running Looper.");
+            throw new IllegalStateException(
+                    "removeSessionCookies must be called on a thread with a running Looper.");
         }
     }
 
     /**
      * Remove all cookies.
      * The value of the callback is true iff at least one cookie was removed.
-     *
      * @param callback A callback called after the cookies (if any) are removed.
      */
     public void removeAllCookies(Callback<Boolean> callback) {
         try {
-            AwCookieManagerJni.get().removeAllCookies(mNativeCookieManager, AwCookieManager.this, new CookieCallback(callback));
+            AwCookieManagerJni.get().removeAllCookies(
+                    mNativeCookieManager, AwCookieManager.this, new CookieCallback(callback));
         } catch (IllegalStateException e) {
-            throw new IllegalStateException("removeAllCookies must be called on a thread with a running Looper.");
+            throw new IllegalStateException(
+                    "removeAllCookies must be called on a thread with a running Looper.");
         }
     }
 
     /**
-     * Return true if there are stored cookies.
+     *  Return true if there are stored cookies.
      */
     public boolean hasCookies() {
         return AwCookieManagerJni.get().hasCookies(mNativeCookieManager, AwCookieManager.this);
@@ -192,12 +198,13 @@ public final class AwCookieManager {
      * Whether cookies are accepted for file scheme URLs.
      */
     public boolean allowFileSchemeCookies() {
-        return AwCookieManagerJni.get().getAllowFileSchemeCookies(mNativeCookieManager, AwCookieManager.this);
+        return AwCookieManagerJni.get().getAllowFileSchemeCookies(
+                mNativeCookieManager, AwCookieManager.this);
     }
 
     /**
      * Sets whether cookies are accepted for file scheme URLs.
-     * <p>
+     *
      * Use of cookies with file scheme URLs is potentially insecure. Do not use this feature unless
      * you can be sure that no unintentional sharing of cookie data can take place.
      * <p>
@@ -205,7 +212,8 @@ public final class AwCookieManager {
      * instance has been created.
      */
     public void setAcceptFileSchemeCookies(boolean accept) {
-        AwCookieManagerJni.get().setAllowFileSchemeCookies(mNativeCookieManager, AwCookieManager.this, accept);
+        AwCookieManagerJni.get().setAllowFileSchemeCookies(
+                mNativeCookieManager, AwCookieManager.this, accept);
     }
 
     /**
@@ -213,7 +221,8 @@ public final class AwCookieManager {
      * directive.
      */
     public void setWorkaroundHttpSecureCookiesForTesting(boolean allow) {
-        AwCookieManagerJni.get().setWorkaroundHttpSecureCookiesForTesting(mNativeCookieManager, AwCookieManager.this, allow);
+        AwCookieManagerJni.get().setWorkaroundHttpSecureCookiesForTesting(
+                mNativeCookieManager, AwCookieManager.this, allow);
     }
 
     /**
@@ -233,7 +242,8 @@ public final class AwCookieManager {
         public CookieCallback(@Nullable Callback<Boolean> callback) {
             if (callback != null) {
                 if (Looper.myLooper() == null) {
-                    throw new IllegalStateException("new CookieCallback should be called on " + "a thread with a running Looper.");
+                    throw new IllegalStateException("new CookieCallback should be called on "
+                            + "a thread with a running Looper.");
                 }
                 mCallback = callback;
                 mHandler = new Handler();
@@ -288,37 +298,28 @@ public final class AwCookieManager {
     @NativeMethods
     interface Natives {
         long getDefaultCookieManager();
-
-        void setShouldAcceptCookies(long nativeCookieManager, AwCookieManager caller, boolean accept);
-
+        void setShouldAcceptCookies(
+                long nativeCookieManager, AwCookieManager caller, boolean accept);
         boolean getShouldAcceptCookies(long nativeCookieManager, AwCookieManager caller);
-
-        void setCookie(long nativeCookieManager, AwCookieManager caller, String url, String value, CookieCallback callback);
-
-        void setCookieSync(long nativeCookieManager, AwCookieManager caller, String url, String value);
-
+        void setCookie(long nativeCookieManager, AwCookieManager caller, String url, String value,
+                CookieCallback callback);
+        void setCookieSync(
+                long nativeCookieManager, AwCookieManager caller, String url, String value);
         String getCookie(long nativeCookieManager, AwCookieManager caller, String url);
-
         String[] getCookieInfo(long nativeCookieManager, AwCookieManager caller, String url);
-
-        void removeSessionCookies(long nativeCookieManager, AwCookieManager caller, CookieCallback callback);
-
+        void removeSessionCookies(
+                long nativeCookieManager, AwCookieManager caller, CookieCallback callback);
         void removeSessionCookiesSync(long nativeCookieManager, AwCookieManager caller);
-
-        void removeAllCookies(long nativeCookieManager, AwCookieManager caller, CookieCallback callback);
-
+        void removeAllCookies(
+                long nativeCookieManager, AwCookieManager caller, CookieCallback callback);
         void removeAllCookiesSync(long nativeCookieManager, AwCookieManager caller);
-
         void removeExpiredCookies(long nativeCookieManager, AwCookieManager caller);
-
         void flushCookieStore(long nativeCookieManager, AwCookieManager caller);
-
         boolean hasCookies(long nativeCookieManager, AwCookieManager caller);
-
         boolean getAllowFileSchemeCookies(long nativeCookieManager, AwCookieManager caller);
-
-        void setAllowFileSchemeCookies(long nativeCookieManager, AwCookieManager caller, boolean allow);
-
-        void setWorkaroundHttpSecureCookiesForTesting(long nativeCookieManager, AwCookieManager caller, boolean allow);
+        void setAllowFileSchemeCookies(
+                long nativeCookieManager, AwCookieManager caller, boolean allow);
+        void setWorkaroundHttpSecureCookiesForTesting(
+                long nativeCookieManager, AwCookieManager caller, boolean allow);
     }
 }

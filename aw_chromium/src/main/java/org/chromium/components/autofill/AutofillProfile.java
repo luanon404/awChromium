@@ -82,7 +82,8 @@ public class AutofillProfile {
         }
 
         public Builder setHonorificPrefix(String honorificPrefix) {
-            mHonorificPrefix = new ValueWithStatus(honorificPrefix, VerificationStatus.USER_VERIFIED);
+            mHonorificPrefix =
+                    new ValueWithStatus(honorificPrefix, VerificationStatus.USER_VERIFIED);
             return this;
         }
 
@@ -142,11 +143,13 @@ public class AutofillProfile {
         }
 
         public Builder setDependentLocality(String dependentLocality) {
-            mDependentLocality = new ValueWithStatus(dependentLocality, VerificationStatus.USER_VERIFIED);
+            mDependentLocality =
+                    new ValueWithStatus(dependentLocality, VerificationStatus.USER_VERIFIED);
             return this;
         }
 
-        public Builder setDependentLocality(String dependentLocality, @VerificationStatus int status) {
+        public Builder setDependentLocality(
+                String dependentLocality, @VerificationStatus int status) {
             mDependentLocality = new ValueWithStatus(dependentLocality, status);
             return this;
         }
@@ -212,7 +215,22 @@ public class AutofillProfile {
         }
 
         public AutofillProfile build() {
-            return new AutofillProfile(mGUID, mSource, mHonorificPrefix, mFullName, mCompanyName, mStreetAddress, mRegion, mLocality, mDependentLocality, mPostalCode, mSortingCode, mCountryCode, mPhoneNumber, mEmailAddress, mLanguageCode);
+            return new AutofillProfile(
+                    mGUID,
+                    mSource,
+                    mHonorificPrefix,
+                    mFullName,
+                    mCompanyName,
+                    mStreetAddress,
+                    mRegion,
+                    mLocality,
+                    mDependentLocality,
+                    mPostalCode,
+                    mSortingCode,
+                    mCountryCode,
+                    mPhoneNumber,
+                    mEmailAddress,
+                    mLanguageCode);
         }
     }
 
@@ -228,7 +246,22 @@ public class AutofillProfile {
         mFields = new HashMap<>();
     }
 
-    private AutofillProfile(String guid, @Source int source, ValueWithStatus honorificPrefix, ValueWithStatus fullName, ValueWithStatus companyName, ValueWithStatus streetAddress, ValueWithStatus region, ValueWithStatus locality, ValueWithStatus dependentLocality, ValueWithStatus postalCode, ValueWithStatus sortingCode, ValueWithStatus countryCode, ValueWithStatus phoneNumber, ValueWithStatus emailAddress, String languageCode) {
+    private AutofillProfile(
+            String guid,
+            @Source int source,
+            ValueWithStatus honorificPrefix,
+            ValueWithStatus fullName,
+            ValueWithStatus companyName,
+            ValueWithStatus streetAddress,
+            ValueWithStatus region,
+            ValueWithStatus locality,
+            ValueWithStatus dependentLocality,
+            ValueWithStatus postalCode,
+            ValueWithStatus sortingCode,
+            ValueWithStatus countryCode,
+            ValueWithStatus phoneNumber,
+            ValueWithStatus emailAddress,
+            String languageCode) {
         this(guid, source, languageCode);
         mFields.put(ServerFieldType.NAME_HONORIFIC_PREFIX, honorificPrefix);
         mFields.put(ServerFieldType.NAME_FULL, fullName);
@@ -415,7 +448,8 @@ public class AutofillProfile {
     }
 
     @CalledByNative
-    public void setInfo(@ServerFieldType int fieldType, @Nullable String value, @VerificationStatus int status) {
+    public void setInfo(@ServerFieldType int fieldType, @Nullable String value,
+            @VerificationStatus int status) {
         value = value == null ? "" : value;
         mFields.put(fieldType, new ValueWithStatus(value, status));
     }
@@ -476,9 +510,7 @@ public class AutofillProfile {
         mLanguageCode = languageCode;
     }
 
-    /**
-     * Used by ArrayAdapter in credit card settings.
-     */
+    /** Used by ArrayAdapter in credit card settings. */
     @Override
     public String toString() {
         return mLabel;

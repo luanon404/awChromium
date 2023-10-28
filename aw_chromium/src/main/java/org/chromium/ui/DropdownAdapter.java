@@ -4,7 +4,6 @@
 
 package org.chromium.ui;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -19,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.view.MarginLayoutParamsCompat;
 import androidx.core.view.ViewCompat;
@@ -58,7 +56,6 @@ public class DropdownAdapter extends ArrayAdapter<DropdownItem> {
     private boolean checkAreAllItemsEnabled() {
         for (int i = 0; i < getCount(); i++) {
             DropdownItem item = getItem(i);
-            assert item != null;
             if (item.isEnabled() && !item.isGroupHeader()) {
                 return false;
             }
@@ -66,10 +63,8 @@ public class DropdownAdapter extends ArrayAdapter<DropdownItem> {
         return true;
     }
 
-    @NonNull
-    @SuppressLint("InflateParams")
     @Override
-    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent) {
         View layout = convertView;
         if (convertView == null) {
             LayoutInflater inflater =
@@ -104,7 +99,6 @@ public class DropdownAdapter extends ArrayAdapter<DropdownItem> {
         // it doesn't regress.
         // http://crbug.com/429364
         LinearLayout wrapper = (LinearLayout) layout.findViewById(R.id.dropdown_label_wrapper);
-        assert item != null;
         if (item.isMultilineLabel()) height = LayoutParams.WRAP_CONTENT;
         wrapper.setOrientation(LinearLayout.VERTICAL);
         wrapper.setLayoutParams(new LinearLayout.LayoutParams(0, height, 1));
@@ -187,7 +181,6 @@ public class DropdownAdapter extends ArrayAdapter<DropdownItem> {
     public boolean isEnabled(int position) {
         if (position < 0 || position >= getCount()) return false;
         DropdownItem item = getItem(position);
-        assert item != null;
         return item.isEnabled() && !item.isGroupHeader();
     }
 }

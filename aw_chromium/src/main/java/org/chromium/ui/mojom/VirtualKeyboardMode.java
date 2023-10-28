@@ -17,10 +17,13 @@ import androidx.annotation.IntDef;
 
 public final class VirtualKeyboardMode {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({VirtualKeyboardMode.UNSET, VirtualKeyboardMode.RESIZES_VISUAL, VirtualKeyboardMode.RESIZES_CONTENT, VirtualKeyboardMode.OVERLAYS_CONTENT})
-    public @interface EnumType {
-    }
+        VirtualKeyboardMode.UNSET,
+        VirtualKeyboardMode.RESIZES_VISUAL,
+        VirtualKeyboardMode.RESIZES_CONTENT,
+        VirtualKeyboardMode.OVERLAYS_CONTENT})
+    public @interface EnumType {}
 
     public static final int UNSET = 0;
     public static final int RESIZES_VISUAL = 1;
@@ -39,9 +42,8 @@ public final class VirtualKeyboardMode {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private VirtualKeyboardMode() {
-    }
+    private VirtualKeyboardMode() {}
 }

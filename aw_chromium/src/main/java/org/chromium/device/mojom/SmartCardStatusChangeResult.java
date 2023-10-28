@@ -13,13 +13,15 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class SmartCardStatusChangeResult extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
         public static final int ReaderStates = 0;
         public static final int Error = 1;
-    }
-
+    };
     private SmartCardReaderStateOut[] mReaderStates;
     private int mError;
 
@@ -50,20 +52,20 @@ public final class SmartCardStatusChangeResult extends org.chromium.mojo.binding
         encoder0.encode(this.mTag, offset + 4);
         switch (mTag) {
             case Tag.ReaderStates: {
-
+                
                 if (this.mReaderStates == null) {
                     encoder0.encodeNullPointer(offset + 8, false);
                 } else {
                     org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.mReaderStates.length, offset + 8, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                     for (int i0 = 0; i0 < this.mReaderStates.length; ++i0) {
-
+                        
                         encoder1.encode(this.mReaderStates[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
                     }
                 }
                 break;
             }
             case Tag.Error: {
-
+                
                 encoder0.encode(this.mError, offset + 8);
                 break;
             }
@@ -85,13 +87,13 @@ public final class SmartCardStatusChangeResult extends org.chromium.mojo.binding
         SmartCardStatusChangeResult result = new SmartCardStatusChangeResult();
         switch (dataHeader.elementsOrVersion) {
             case Tag.ReaderStates: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 {
                     org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                     result.mReaderStates = new SmartCardReaderStateOut[si1.elementsOrVersion];
                     for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                        
                         org.chromium.mojo.bindings.Decoder decoder2 = decoder1.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                         result.mReaderStates[i1] = SmartCardReaderStateOut.decode(decoder2);
                     }
@@ -100,10 +102,10 @@ public final class SmartCardStatusChangeResult extends org.chromium.mojo.binding
                 break;
             }
             case Tag.Error: {
-
+                
                 result.mError = decoder0.readInt(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE);
-                SmartCardError.validate(result.mError);
-                result.mError = SmartCardError.toKnownValue(result.mError);
+                    SmartCardError.validate(result.mError);
+                    result.mError = SmartCardError.toKnownValue(result.mError);
                 result.mTag = Tag.Error;
                 break;
             }

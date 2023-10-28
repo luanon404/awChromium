@@ -13,27 +13,34 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface CustomProxyConfigClient extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends CustomProxyConfigClient, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends CustomProxyConfigClient, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<CustomProxyConfigClient, CustomProxyConfigClient.Proxy> MANAGER = CustomProxyConfigClient_Internal.MANAGER;
 
-    void onCustomProxyConfigUpdated(CustomProxyConfig proxyConfig, OnCustomProxyConfigUpdated_Response callback);
+    void onCustomProxyConfigUpdated(
+CustomProxyConfig proxyConfig, 
+OnCustomProxyConfigUpdated_Response callback);
 
-    interface OnCustomProxyConfigUpdated_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 {
-    }
-
-
-    void markProxiesAsBad(org.chromium.mojo_base.mojom.TimeDelta bypassDuration, ProxyList badProxies, MarkProxiesAsBad_Response callback);
-
-    interface MarkProxiesAsBad_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 {
-    }
+    interface OnCustomProxyConfigUpdated_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 { }
 
 
-    void clearBadProxiesCache();
+    void markProxiesAsBad(
+org.chromium.mojo_base.mojom.TimeDelta bypassDuration, ProxyList badProxies, 
+MarkProxiesAsBad_Response callback);
+
+    interface MarkProxiesAsBad_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 { }
+
+
+    void clearBadProxiesCache(
+);
 
 
 }

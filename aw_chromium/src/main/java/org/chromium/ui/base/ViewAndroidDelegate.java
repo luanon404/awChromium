@@ -20,6 +20,9 @@ import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.core.view.MarginLayoutParamsCompat;
 
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+
 import org.chromium.base.Callback;
 import org.chromium.base.ObserverList;
 import org.chromium.base.ResettersForTesting;
@@ -28,8 +31,6 @@ import org.chromium.ui.dragdrop.DragAndDropDelegateImpl;
 import org.chromium.ui.dragdrop.DragStateTracker;
 import org.chromium.ui.dragdrop.DropDataAndroid;
 import org.chromium.ui.mojom.CursorType;
-import org.jni_zero.CalledByNative;
-import org.jni_zero.JNINamespace;
 
 /**
  * Class to acquire, position, and remove anchor views from the implementing View.
@@ -51,9 +52,7 @@ public class ViewAndroidDelegate {
     /**
      * Notifies the observer when container view is updated.
      */
-    public interface ContainerViewObserver {
-        void onUpdateContainerView(ViewGroup view);
-    }
+    public interface ContainerViewObserver { void onUpdateContainerView(ViewGroup view); }
 
     private ObserverList<ContainerViewObserver> mContainerViewObservers = new ObserverList<>();
 
@@ -63,21 +62,20 @@ public class ViewAndroidDelegate {
     public interface VerticalScrollDirectionChangeListener {
         /**
          * Called when the vertical scroll direction changes.
-         *
-         * @param directionUp        Whether the scroll direction is up, i.e. swiping down.
+         * @param directionUp Whether the scroll direction is up, i.e. swiping down.
          * @param currentScrollRatio The current scroll ratio of the page.
          */
         void onVerticalScrollDirectionChanged(boolean directionUp, float currentScrollRatio);
     }
 
-    private final ObserverList<VerticalScrollDirectionChangeListener> mVerticalScrollDirectionChangeListeners = new ObserverList<>();
+    private final ObserverList<VerticalScrollDirectionChangeListener>
+            mVerticalScrollDirectionChangeListeners = new ObserverList<>();
 
     private Callback<Boolean> mUpdateShouldShowStylusHoverIcon;
 
     /**
      * Sets a callback which should be called with the latest value of whether the element being
      * hovered over is editable.
-     *
      * @param callback the callback object.
      */
     public void setShouldShowStylusHoverIconCallback(Callback<Boolean> callback) {
@@ -86,7 +84,6 @@ public class ViewAndroidDelegate {
 
     /**
      * Create and return a basic implementation of {@link ViewAndroidDelegate}.
-     *
      * @param containerView {@link ViewGroup} to be used as a container view.
      * @return a new instance of {@link ViewAndroidDelegate}.
      */
@@ -103,25 +100,22 @@ public class ViewAndroidDelegate {
      * Adds observer that needs notification when container view is updated. Note that
      * there is no {@code removObserver} since the added observers are all supposed to
      * go away with this object together.
-     *
      * @param observer {@link ContainerViewObserver} object. The object should have
-     *                 the lifetime same as this {@link ViewAndroidDelegate} to avoid gc issues.
+     *        the lifetime same as this {@link ViewAndroidDelegate} to avoid gc issues.
      */
     public final void addObserver(ContainerViewObserver observer) {
         mContainerViewObservers.addObserver(observer);
     }
 
-    /**
-     * Adds the provided {@link VerticalScrollDirectionChangeListener}.
-     */
-    public final void addVerticalScrollDirectionChangeListener(VerticalScrollDirectionChangeListener listener) {
+    /** Adds the provided {@link VerticalScrollDirectionChangeListener}. */
+    public final void addVerticalScrollDirectionChangeListener(
+            VerticalScrollDirectionChangeListener listener) {
         mVerticalScrollDirectionChangeListeners.addObserver(listener);
     }
 
-    /**
-     * Removes the provided {@link VerticalScrollDirectionChangeListener}.
-     */
-    public final void removeVerticalScrollDirectionChangeListener(VerticalScrollDirectionChangeListener listener) {
+    /** Removes the provided {@link VerticalScrollDirectionChangeListener}. */
+    public final void removeVerticalScrollDirectionChangeListener(
+            VerticalScrollDirectionChangeListener listener) {
         mVerticalScrollDirectionChangeListeners.removeObserver(listener);
     }
 
@@ -153,7 +147,8 @@ public class ViewAndroidDelegate {
     }
 
     protected DragAndDropDelegate getDragAndDropDelegate() {
-        return sDragAndDropDelegateForTesting != null ? sDragAndDropDelegateForTesting : mDragAndDropDelegateImpl;
+        return sDragAndDropDelegateForTesting != null ? sDragAndDropDelegateForTesting
+                                                      : mDragAndDropDelegateImpl;
     }
 
     /**
@@ -164,9 +159,7 @@ public class ViewAndroidDelegate {
         return null;
     }
 
-    /**
-     * Return the {@link DragAndDropDelegateImpl} instance for this delegate class.
-     */
+    /** Return the {@link DragAndDropDelegateImpl} instance for this delegate class. */
     protected DragStateTracker getDragStateTrackerInternal() {
         return mDragAndDropDelegateImpl;
     }
@@ -174,11 +167,9 @@ public class ViewAndroidDelegate {
     /**
      * Transfer existing anchor views from the old to the new container view. Called by
      * {@link setContainerView} only.
-     *
      * @param oldContainerView Old container view just replaced by a new one.
      */
-    public void updateAnchorViews(ViewGroup oldContainerView) {
-    }
+    public void updateAnchorViews(ViewGroup oldContainerView) {}
 
     /**
      * @return An anchor view that can be used to anchor decoration views like Autofill popup.
@@ -194,7 +185,6 @@ public class ViewAndroidDelegate {
 
     /**
      * Release given anchor view.
-     *
      * @param anchorView The anchor view that needs to be released.
      */
     @CalledByNative
@@ -206,16 +196,16 @@ public class ViewAndroidDelegate {
 
     /**
      * Set the anchor view to specified position and size (all units in px).
-     *
      * @param anchorView The view that needs to be positioned. This must be the result of a previous
-     *                   call to {@link acquireView} which has not yet been removed via {@link removeView}.
-     * @param x          X coordinate of the top left corner of the anchor view.
-     * @param y          Y coordinate of the top left corner of the anchor view.
-     * @param width      The width of the anchor view.
-     * @param height     The height of the anchor view.
+     *         call to {@link acquireView} which has not yet been removed via {@link removeView}.
+     * @param x X coordinate of the top left corner of the anchor view.
+     * @param y Y coordinate of the top left corner of the anchor view.
+     * @param width The width of the anchor view.
+     * @param height The height of the anchor view.
      */
     @CalledByNative
-    public void setViewPosition(View anchorView, float x, float y, float width, float height, int leftMargin, int topMargin) {
+    public void setViewPosition(View anchorView, float x, float y, float width, float height,
+            int leftMargin, int topMargin) {
         ViewGroup containerView = getContainerViewGroup();
         if (containerView == null) return;
         assert anchorView.getParent() == containerView;
@@ -244,19 +234,21 @@ public class ViewAndroidDelegate {
      * Start {@link View#startDragAndDrop(ClipData, DragShadowBuilder, Object, int)} with
      * {@link DropDataAndroid} from the web content.
      *
-     * @param shadowImage       The shadow image for the dragged object.
-     * @param dropData          The drop data presenting the drag target.
-     * @param cursorOffsetX     The x offset of the cursor w.r.t. to top-left corner of the drag-image.
-     * @param cursorOffsetY     The y offset of the cursor w.r.t. to top-left corner of the drag-image.
-     * @param dragObjRectWidth  The width of the drag object.
+     * @param shadowImage The shadow image for the dragged object.
+     * @param dropData The drop data presenting the drag target.
+     * @param cursorOffsetX The x offset of the cursor w.r.t. to top-left corner of the drag-image.
+     * @param cursorOffsetY The y offset of the cursor w.r.t. to top-left corner of the drag-image.
+     * @param dragObjRectWidth The width of the drag object.
      * @param dragObjRectHeight The height of the drag object.
      */
     @CalledByNative
-    private boolean startDragAndDrop(Bitmap shadowImage, DropDataAndroid dropData, int cursorOffsetX, int cursorOffsetY, int dragObjRectWidth, int dragObjRectHeight) {
+    private boolean startDragAndDrop(Bitmap shadowImage, DropDataAndroid dropData,
+            int cursorOffsetX, int cursorOffsetY, int dragObjRectWidth, int dragObjRectHeight) {
         ViewGroup containerView = getContainerViewGroup();
         if (containerView == null) return false;
 
-        return getDragAndDropDelegate().startDragAndDrop(containerView, shadowImage, dropData, cursorOffsetX, cursorOffsetY, dragObjRectWidth, dragObjRectHeight);
+        return getDragAndDropDelegate().startDragAndDrop(containerView, shadowImage, dropData,
+                cursorOffsetX, cursorOffsetY, dragObjRectWidth, dragObjRectHeight);
     }
 
     @VisibleForTesting
@@ -407,34 +399,30 @@ public class ViewAndroidDelegate {
 
     /**
      * Called whenever the background color of the page changes as notified by Blink.
-     *
      * @param color The new ARGB color of the page background.
      */
     @CalledByNative
-    public void onBackgroundColorChanged(int color) {
-    }
+    public void onBackgroundColorChanged(int color) {}
 
     /**
      * Notify the client of the position of the top controls.
-     *
-     * @param topControlsOffsetY          The Y offset of the top controls in physical pixels.
-     * @param topContentOffsetY           The Y offset of the content in physical pixels.
+     * @param topControlsOffsetY The Y offset of the top controls in physical pixels.
+     * @param topContentOffsetY The Y offset of the content in physical pixels.
      * @param topControlsMinHeightOffsetY The current top controls min-height in physical pixels.
      */
     @CalledByNative
-    public void onTopControlsChanged(int topControlsOffsetY, int topContentOffsetY, int topControlsMinHeightOffsetY) {
-    }
+    public void onTopControlsChanged(
+            int topControlsOffsetY, int topContentOffsetY, int topControlsMinHeightOffsetY) {}
 
     /**
      * Notify the client of the position of the bottom controls.
-     *
-     * @param bottomControlsOffsetY          The Y offset of the bottom controls in physical pixels.
+     * @param bottomControlsOffsetY The Y offset of the bottom controls in physical pixels.
      * @param bottomControlsMinHeightOffsetY The current bottom controls min-height in physical
      *                                       pixels.
      */
     @CalledByNative
-    public void onBottomControlsChanged(int bottomControlsOffsetY, int bottomControlsMinHeightOffsetY) {
-    }
+    public void onBottomControlsChanged(
+            int bottomControlsOffsetY, int bottomControlsMinHeightOffsetY) {}
 
     /**
      * @return The Visual Viewport bottom inset in pixels.
@@ -446,11 +434,10 @@ public class ViewAndroidDelegate {
 
     /**
      * Called when root scroll direction changes.
-     *
-     * @param directionUp          whether the new scroll direction is up (true) or down (false).
+     * @param directionUp whether the new scroll direction is up (true) or down (false).
      * @param current_scroll_ratio the ratio of vertical scroll in [0, 1] range.
-     *                             Scroll at top of page is 0, and bottom of page is 1. It is defined as 0
-     *                             if page is not scrollable, though this should not be called in that case.
+     * Scroll at top of page is 0, and bottom of page is 1. It is defined as 0
+     * if page is not scrollable, though this should not be called in that case.
      */
     @CalledByNative
     @CallSuper
@@ -547,7 +534,7 @@ public class ViewAndroidDelegate {
     @CalledByNative
     private boolean hasFocus() {
         View containerView = getContainerView();
-        return containerView != null && ViewUtils.hasFocus(containerView);
+        return containerView == null ? false : ViewUtils.hasFocus(containerView);
     }
 
     @CalledByNative
@@ -559,31 +546,30 @@ public class ViewAndroidDelegate {
     /**
      * @see InputConnection#performPrivateCommand(java.lang.String, android.os.Bundle)
      */
-    public void performPrivateImeCommand(String action, Bundle data) {
-    }
+    public void performPrivateImeCommand(String action, Bundle data) {}
 
     /**
      * @return Array of ints with 4 values, the top, left, right, and bottom of
-     * the display feature. A display feature is a distinctive physical attribute
-     * located within the display panel of the device that creates a logical or
-     * physical separation of the Window's space. The display feature is expressed
-     * in physical pixels, with coordinates relative to the Window. If no
-     * DisplayFeature exists, or if it is not currently available, returns null.
+     *         the display feature. A display feature is a distinctive physical attribute
+     *         located within the display panel of the device that creates a logical or
+     *         physical separation of the Window's space. The display feature is expressed
+     *         in physical pixels, with coordinates relative to the Window. If no
+     *         DisplayFeature exists, or if it is not currently available, returns null.
      */
     @CalledByNative
     protected int[] getDisplayFeature() {
         return null;
     }
 
-    private void notifyVerticalScrollDirectionChangeListeners(boolean directionUp, float currentScrollRatio) {
-        for (VerticalScrollDirectionChangeListener listener : mVerticalScrollDirectionChangeListeners) {
+    private void notifyVerticalScrollDirectionChangeListeners(
+            boolean directionUp, float currentScrollRatio) {
+        for (VerticalScrollDirectionChangeListener listener :
+                mVerticalScrollDirectionChangeListeners) {
             listener.onVerticalScrollDirectionChanged(directionUp, currentScrollRatio);
         }
     }
 
-    /**
-     * Destroy and clean up dependencies (e.g. drag state tracker if set).
-     */
+    /** Destroy and clean up dependencies (e.g. drag state tracker if set). */
     public void destroy() {
         // TODO(https://crbug.com/1297354): Call this in when destroying WebContents.
         mDragAndDropDelegateImpl.destroy();

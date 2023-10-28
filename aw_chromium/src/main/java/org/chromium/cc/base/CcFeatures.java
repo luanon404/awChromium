@@ -111,6 +111,5 @@ public final class CcFeatures {
     public static final String USE_MAP_RECT_FOR_PIXEL_MOVEMENT = "UseMapRectForPixelMovement";
 
     // Prevent instantiation.
-    private CcFeatures() {
-    }
+    private CcFeatures() {}
 }

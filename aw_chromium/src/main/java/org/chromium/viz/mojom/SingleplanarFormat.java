@@ -17,10 +17,31 @@ import androidx.annotation.IntDef;
 
 public final class SingleplanarFormat {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({SingleplanarFormat.RGBA_8888, SingleplanarFormat.RGBA_4444, SingleplanarFormat.BGRA_8888, SingleplanarFormat.ALPHA_8, SingleplanarFormat.LUMINANCE_8, SingleplanarFormat.RGB_565, SingleplanarFormat.BGR_565, SingleplanarFormat.ETC1, SingleplanarFormat.RED_8, SingleplanarFormat.RG_88, SingleplanarFormat.LUMINANCE_F16, SingleplanarFormat.RGBA_F16, SingleplanarFormat.R16_EXT, SingleplanarFormat.RG16_EXT, SingleplanarFormat.RGBX_8888, SingleplanarFormat.BGRX_8888, SingleplanarFormat.RGBX_1010102, SingleplanarFormat.BGRX_1010102, SingleplanarFormat.YV12_LEGACY, SingleplanarFormat.NV12_LEGACY, SingleplanarFormat.NV12A_LEGACY, SingleplanarFormat.P010_LEGACY})
-    public @interface EnumType {
-    }
+        SingleplanarFormat.RGBA_8888,
+        SingleplanarFormat.RGBA_4444,
+        SingleplanarFormat.BGRA_8888,
+        SingleplanarFormat.ALPHA_8,
+        SingleplanarFormat.LUMINANCE_8,
+        SingleplanarFormat.RGB_565,
+        SingleplanarFormat.BGR_565,
+        SingleplanarFormat.ETC1,
+        SingleplanarFormat.RED_8,
+        SingleplanarFormat.RG_88,
+        SingleplanarFormat.LUMINANCE_F16,
+        SingleplanarFormat.RGBA_F16,
+        SingleplanarFormat.R16_EXT,
+        SingleplanarFormat.RG16_EXT,
+        SingleplanarFormat.RGBX_8888,
+        SingleplanarFormat.BGRX_8888,
+        SingleplanarFormat.RGBX_1010102,
+        SingleplanarFormat.BGRX_1010102,
+        SingleplanarFormat.YV12_LEGACY,
+        SingleplanarFormat.NV12_LEGACY,
+        SingleplanarFormat.NV12A_LEGACY,
+        SingleplanarFormat.P010_LEGACY})
+    public @interface EnumType {}
 
     public static final int RGBA_8888 = 0;
     public static final int RGBA_4444 = 1;
@@ -57,9 +78,8 @@ public final class SingleplanarFormat {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private SingleplanarFormat() {
-    }
+    private SingleplanarFormat() {}
 }

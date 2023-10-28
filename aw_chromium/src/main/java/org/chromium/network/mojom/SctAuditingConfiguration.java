@@ -13,10 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class SctAuditingConfiguration extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 64;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(64, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(64, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public double samplingRate;
     public org.chromium.mojo_base.mojom.TimeDelta logExpectedIngestionDelay;
@@ -44,7 +47,8 @@ public final class SctAuditingConfiguration extends org.chromium.mojo.bindings.S
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static SctAuditingConfiguration deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -58,40 +62,40 @@ public final class SctAuditingConfiguration extends org.chromium.mojo.bindings.S
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new SctAuditingConfiguration(elementsOrVersion);
-            {
-
+                {
+                    
                 result.samplingRate = decoder0.readDouble(8);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                 result.logExpectedIngestionDelay = org.chromium.mojo_base.mojom.TimeDelta.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, false);
                 result.logMaxIngestionRandomDelay = org.chromium.mojo_base.mojom.TimeDelta.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(32, false);
                 result.reportUri = org.chromium.url.mojom.Url.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(40, false);
                 result.hashdanceLookupUri = org.chromium.url.mojom.Url.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(48, false);
                 result.trafficAnnotation = MutableNetworkTrafficAnnotationTag.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(56, false);
                 result.hashdanceTrafficAnnotation = MutableNetworkTrafficAnnotationTag.decode(decoder1);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -103,19 +107,19 @@ public final class SctAuditingConfiguration extends org.chromium.mojo.bindings.S
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.samplingRate, 8);
-
+        
         encoder0.encode(this.logExpectedIngestionDelay, 16, false);
-
+        
         encoder0.encode(this.logMaxIngestionRandomDelay, 24, false);
-
+        
         encoder0.encode(this.reportUri, 32, false);
-
+        
         encoder0.encode(this.hashdanceLookupUri, 40, false);
-
+        
         encoder0.encode(this.trafficAnnotation, 48, false);
-
+        
         encoder0.encode(this.hashdanceTrafficAnnotation, 56, false);
     }
 }

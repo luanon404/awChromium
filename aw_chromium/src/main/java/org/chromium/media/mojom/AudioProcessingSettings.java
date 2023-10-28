@@ -13,10 +13,13 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class AudioProcessingSettings extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 16;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public boolean echoCancellation;
     public boolean noiseSuppression;
@@ -45,7 +48,8 @@ public final class AudioProcessingSettings extends org.chromium.mojo.bindings.St
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static AudioProcessingSettings deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -59,38 +63,38 @@ public final class AudioProcessingSettings extends org.chromium.mojo.bindings.St
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new AudioProcessingSettings(elementsOrVersion);
-            {
-
+                {
+                    
                 result.echoCancellation = decoder0.readBoolean(8, 0);
-            }
-            {
-
+                }
+                {
+                    
                 result.noiseSuppression = decoder0.readBoolean(8, 1);
-            }
-            {
-
+                }
+                {
+                    
                 result.transientNoiseSuppression = decoder0.readBoolean(8, 2);
-            }
-            {
-
+                }
+                {
+                    
                 result.automaticGainControl = decoder0.readBoolean(8, 3);
-            }
-            {
-
+                }
+                {
+                    
                 result.highPassFilter = decoder0.readBoolean(8, 4);
-            }
-            {
-
+                }
+                {
+                    
                 result.multiChannelCaptureProcessing = decoder0.readBoolean(8, 5);
-            }
-            {
-
+                }
+                {
+                    
                 result.stereoMirroring = decoder0.readBoolean(8, 6);
-            }
-            {
-
+                }
+                {
+                    
                 result.forceApmCreation = decoder0.readBoolean(8, 7);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -102,21 +106,21 @@ public final class AudioProcessingSettings extends org.chromium.mojo.bindings.St
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.echoCancellation, 8, 0);
-
+        
         encoder0.encode(this.noiseSuppression, 8, 1);
-
+        
         encoder0.encode(this.transientNoiseSuppression, 8, 2);
-
+        
         encoder0.encode(this.automaticGainControl, 8, 3);
-
+        
         encoder0.encode(this.highPassFilter, 8, 4);
-
+        
         encoder0.encode(this.multiChannelCaptureProcessing, 8, 5);
-
+        
         encoder0.encode(this.stereoMirroring, 8, 6);
-
+        
         encoder0.encode(this.forceApmCreation, 8, 7);
     }
 }

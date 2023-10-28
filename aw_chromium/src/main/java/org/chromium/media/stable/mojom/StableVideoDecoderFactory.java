@@ -13,15 +13,20 @@
 
 package org.chromium.media.stable.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface StableVideoDecoderFactory extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends StableVideoDecoderFactory, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends StableVideoDecoderFactory, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<StableVideoDecoderFactory, StableVideoDecoderFactory.Proxy> MANAGER = StableVideoDecoderFactory_Internal.MANAGER;
 
-    void createStableVideoDecoder(org.chromium.mojo.bindings.InterfaceRequest<StableVideoDecoder> receiver, StableVideoDecoderTracker tracker);
+    void createStableVideoDecoder(
+org.chromium.mojo.bindings.InterfaceRequest<StableVideoDecoder> receiver, StableVideoDecoderTracker tracker);
 
 
 }

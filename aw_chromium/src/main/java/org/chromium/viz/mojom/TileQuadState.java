@@ -13,10 +13,13 @@
 
 package org.chromium.viz.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class TileQuadState extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 40;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(40, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(40, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public org.chromium.gfx.mojom.RectF texCoordRect;
     public org.chromium.gfx.mojom.Size textureSize;
@@ -29,6 +32,10 @@ public final class TileQuadState extends org.chromium.mojo.bindings.Struct {
         super(STRUCT_SIZE, version);
     }
 
+    public TileQuadState() {
+        this(0);
+    }
+
     public static TileQuadState deserialize(org.chromium.mojo.bindings.Message message) {
         return decode(new org.chromium.mojo.bindings.Decoder(message));
     }
@@ -39,9 +46,11 @@ public final class TileQuadState extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static TileQuadState deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
+    @SuppressWarnings("unchecked")
     public static TileQuadState decode(org.chromium.mojo.bindings.Decoder decoder0) {
         if (decoder0 == null) {
             return null;
@@ -52,33 +61,33 @@ public final class TileQuadState extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new TileQuadState(elementsOrVersion);
-            {
-
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                 result.texCoordRect = org.chromium.gfx.mojom.RectF.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                 result.textureSize = org.chromium.gfx.mojom.Size.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.isPremultiplied = decoder0.readBoolean(24, 0);
-            }
-            {
-
+                }
+                {
+                    
                 result.nearestNeighbor = decoder0.readBoolean(24, 1);
-            }
-            {
-
+                }
+                {
+                    
                 result.forceAntiAliasingOff = decoder0.readBoolean(24, 2);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(32, false);
                 result.resourceId = ResourceId.decode(decoder1);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -86,20 +95,21 @@ public final class TileQuadState extends org.chromium.mojo.bindings.Struct {
         return result;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
+    protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.texCoordRect, 8, false);
-
+        
         encoder0.encode(this.textureSize, 16, false);
-
+        
         encoder0.encode(this.isPremultiplied, 24, 0);
-
+        
         encoder0.encode(this.nearestNeighbor, 24, 1);
-
+        
         encoder0.encode(this.forceAntiAliasingOff, 24, 2);
-
+        
         encoder0.encode(this.resourceId, 32, false);
     }
 }

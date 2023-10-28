@@ -17,10 +17,13 @@ import androidx.annotation.IntDef;
 
 public final class Rotation {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({Rotation.VALUE_0, Rotation.VALUE_90, Rotation.VALUE_180, Rotation.VALUE_270})
-    public @interface EnumType {
-    }
+        Rotation.VALUE_0,
+        Rotation.VALUE_90,
+        Rotation.VALUE_180,
+        Rotation.VALUE_270})
+    public @interface EnumType {}
 
     public static final int VALUE_0 = 0;
     public static final int VALUE_90 = 1;
@@ -39,9 +42,8 @@ public final class Rotation {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private Rotation() {
-    }
+    private Rotation() {}
 }

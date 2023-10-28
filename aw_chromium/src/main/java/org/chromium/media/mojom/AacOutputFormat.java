@@ -17,10 +17,11 @@ import androidx.annotation.IntDef;
 
 public final class AacOutputFormat {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({AacOutputFormat.AAC, AacOutputFormat.ADTS})
-    public @interface EnumType {
-    }
+        AacOutputFormat.AAC,
+        AacOutputFormat.ADTS})
+    public @interface EnumType {}
 
     public static final int AAC = 0;
     public static final int ADTS = 1;
@@ -37,9 +38,8 @@ public final class AacOutputFormat {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private AacOutputFormat() {
-    }
+    private AacOutputFormat() {}
 }

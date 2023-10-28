@@ -13,13 +13,15 @@
 
 package org.chromium.gfx.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class GpuMemoryBufferPlatformHandle extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
         public static final int SharedMemoryHandle = 0;
         public static final int AndroidHardwareBufferHandle = 1;
-    }
-
+    };
     private org.chromium.mojo_base.mojom.UnsafeSharedMemoryRegion mSharedMemoryHandle;
     private AHardwareBufferHandle mAndroidHardwareBufferHandle;
 
@@ -50,12 +52,12 @@ public final class GpuMemoryBufferPlatformHandle extends org.chromium.mojo.bindi
         encoder0.encode(this.mTag, offset + 4);
         switch (mTag) {
             case Tag.SharedMemoryHandle: {
-
+                
                 encoder0.encode(this.mSharedMemoryHandle, offset + 8, false);
                 break;
             }
             case Tag.AndroidHardwareBufferHandle: {
-
+                
                 encoder0.encode(this.mAndroidHardwareBufferHandle, offset + 8, false);
                 break;
             }
@@ -77,14 +79,14 @@ public final class GpuMemoryBufferPlatformHandle extends org.chromium.mojo.bindi
         GpuMemoryBufferPlatformHandle result = new GpuMemoryBufferPlatformHandle();
         switch (dataHeader.elementsOrVersion) {
             case Tag.SharedMemoryHandle: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mSharedMemoryHandle = org.chromium.mojo_base.mojom.UnsafeSharedMemoryRegion.decode(decoder1);
                 result.mTag = Tag.SharedMemoryHandle;
                 break;
             }
             case Tag.AndroidHardwareBufferHandle: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mAndroidHardwareBufferHandle = AHardwareBufferHandle.decode(decoder1);
                 result.mTag = Tag.AndroidHardwareBufferHandle;

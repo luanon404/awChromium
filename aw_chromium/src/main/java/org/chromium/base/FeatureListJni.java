@@ -4,39 +4,52 @@
 package org.chromium.base;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.util.ArrayMap;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.library_loader.LibraryLoader;
+import java.util.HashMap;
+import java.util.Map;
 
 @CheckDiscard("crbug.com/993421")
 public class FeatureListJni implements FeatureList.Natives {
-    private static FeatureList.Natives testInstance;
+  private static FeatureList.Natives testInstance;
 
-    public static final JniStaticTestMocker<FeatureList.Natives> TEST_HOOKS = new JniStaticTestMocker<FeatureList.Natives>() {
-        @Override
-        public void setInstanceForTesting(FeatureList.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<FeatureList.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<FeatureList.Natives>() {
     @Override
-    public boolean isInitialized() {
-        return (boolean) GEN_JNI.org_chromium_base_FeatureList_isInitialized();
+    public void setInstanceForTesting(FeatureList.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    public static FeatureList.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of FeatureList.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new FeatureListJni();
+  @Override
+  public boolean isInitialized() {
+    return (boolean) GEN_JNI.org_chromium_base_FeatureList_isInitialized();
+  }
+
+  public static FeatureList.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of FeatureList.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new FeatureListJni();
+  }
 }

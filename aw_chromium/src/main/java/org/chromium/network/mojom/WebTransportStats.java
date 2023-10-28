@@ -13,10 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class WebTransportStats extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 64;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(64, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(64, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public org.chromium.mojo_base.mojom.Time timestamp;
     public org.chromium.mojo_base.mojom.TimeDelta minRtt;
@@ -44,7 +47,8 @@ public final class WebTransportStats extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static WebTransportStats deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -58,38 +62,38 @@ public final class WebTransportStats extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new WebTransportStats(elementsOrVersion);
-            {
-
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                 result.timestamp = org.chromium.mojo_base.mojom.Time.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                 result.minRtt = org.chromium.mojo_base.mojom.TimeDelta.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, false);
                 result.smoothedRtt = org.chromium.mojo_base.mojom.TimeDelta.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(32, false);
                 result.rttVariation = org.chromium.mojo_base.mojom.TimeDelta.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.estimatedSendRateBps = decoder0.readLong(40);
-            }
-            {
-
+                }
+                {
+                    
                 result.datagramsExpiredOutgoing = decoder0.readLong(48);
-            }
-            {
-
+                }
+                {
+                    
                 result.datagramsLostOutgoing = decoder0.readLong(56);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -101,19 +105,19 @@ public final class WebTransportStats extends org.chromium.mojo.bindings.Struct {
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.timestamp, 8, false);
-
+        
         encoder0.encode(this.minRtt, 16, false);
-
+        
         encoder0.encode(this.smoothedRtt, 24, false);
-
+        
         encoder0.encode(this.rttVariation, 32, false);
-
+        
         encoder0.encode(this.estimatedSendRateBps, 40);
-
+        
         encoder0.encode(this.datagramsExpiredOutgoing, 48);
-
+        
         encoder0.encode(this.datagramsLostOutgoing, 56);
     }
 }

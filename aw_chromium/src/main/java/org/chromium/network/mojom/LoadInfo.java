@@ -13,10 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class LoadInfo extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 56;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(56, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(56, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public org.chromium.mojo_base.mojom.TimeTicks timestamp;
     public String host;
@@ -43,7 +46,8 @@ public final class LoadInfo extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static LoadInfo deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -57,32 +61,32 @@ public final class LoadInfo extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new LoadInfo(elementsOrVersion);
-            {
-
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                 result.timestamp = org.chromium.mojo_base.mojom.TimeTicks.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.host = decoder0.readString(16, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.loadState = decoder0.readInt(24);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(32, false);
                 result.stateParam = org.chromium.mojo_base.mojom.String16.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.uploadPosition = decoder0.readLong(40);
-            }
-            {
-
+                }
+                {
+                    
                 result.uploadSize = decoder0.readLong(48);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -94,17 +98,17 @@ public final class LoadInfo extends org.chromium.mojo.bindings.Struct {
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.timestamp, 8, false);
-
+        
         encoder0.encode(this.host, 16, false);
-
+        
         encoder0.encode(this.loadState, 24);
-
+        
         encoder0.encode(this.stateParam, 32, false);
-
+        
         encoder0.encode(this.uploadPosition, 40);
-
+        
         encoder0.encode(this.uploadSize, 48);
     }
 }

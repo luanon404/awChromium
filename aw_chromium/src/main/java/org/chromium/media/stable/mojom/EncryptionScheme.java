@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class EncryptionScheme {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({EncryptionScheme.UNENCRYPTED, EncryptionScheme.CENC, EncryptionScheme.CBCS})
-    public @interface EnumType {
-    }
+        EncryptionScheme.UNENCRYPTED,
+        EncryptionScheme.CENC,
+        EncryptionScheme.CBCS})
+    public @interface EnumType {}
 
     public static final int UNENCRYPTED = 0;
     public static final int CENC = 1;
@@ -39,12 +41,11 @@ public final class EncryptionScheme {
     }
 
     public static int toKnownValue(int value) {
-        if (isKnownValue(value)) {
-            return value;
-        }
-        return DEFAULT_VALUE;
+      if (isKnownValue(value)) {
+        return value;
+      }
+      return DEFAULT_VALUE;
     }
 
-    private EncryptionScheme() {
-    }
+    private EncryptionScheme() {}
 }

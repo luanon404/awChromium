@@ -19,15 +19,17 @@ import androidx.annotation.IntDef;
 public final class DnsConfigOverrides extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 72;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(72, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(72, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
 
     public static final class Tristate {
         private static final boolean IS_EXTENSIBLE = false;
+        @IntDef({
 
-        @IntDef({Tristate.NO_OVERRIDE, Tristate.TRISTATE_TRUE, Tristate.TRISTATE_FALSE})
-        public @interface EnumType {
-        }
+            Tristate.NO_OVERRIDE,
+            Tristate.TRISTATE_TRUE,
+            Tristate.TRISTATE_FALSE})
+        public @interface EnumType {}
 
         public static final int NO_OVERRIDE = 0;
         public static final int TRISTATE_TRUE = 1;
@@ -45,13 +47,11 @@ public final class DnsConfigOverrides extends org.chromium.mojo.bindings.Struct 
         }
 
         public static int toKnownValue(int value) {
-            return value;
+          return value;
         }
 
-        private Tristate() {
-        }
+        private Tristate() {}
     }
-
     public IpEndPoint[] nameservers;
     public String[] search;
     public int appendToMultiLabelName;
@@ -91,7 +91,8 @@ public final class DnsConfigOverrides extends org.chromium.mojo.bindings.Struct 
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static DnsConfigOverrides deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -105,8 +106,8 @@ public final class DnsConfigOverrides extends org.chromium.mojo.bindings.Struct 
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new DnsConfigOverrides(elementsOrVersion);
-            {
-
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, true);
                 if (decoder1 == null) {
                     result.nameservers = null;
@@ -114,14 +115,14 @@ public final class DnsConfigOverrides extends org.chromium.mojo.bindings.Struct 
                     org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                     result.nameservers = new IpEndPoint[si1.elementsOrVersion];
                     for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                        
                         org.chromium.mojo.bindings.Decoder decoder2 = decoder1.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                         result.nameservers[i1] = IpEndPoint.decode(decoder2);
                     }
                 }
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, true);
                 if (decoder1 == null) {
                     result.search = null;
@@ -129,63 +130,63 @@ public final class DnsConfigOverrides extends org.chromium.mojo.bindings.Struct 
                     org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                     result.search = new String[si1.elementsOrVersion];
                     for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                        
                         result.search[i1] = decoder1.readString(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                     }
                 }
-            }
-            {
-
+                }
+                {
+                    
                 result.appendToMultiLabelName = decoder0.readInt(24);
-                DnsConfigOverrides.Tristate.validate(result.appendToMultiLabelName);
-                result.appendToMultiLabelName = DnsConfigOverrides.Tristate.toKnownValue(result.appendToMultiLabelName);
-            }
-            {
-
+                    DnsConfigOverrides.Tristate.validate(result.appendToMultiLabelName);
+                    result.appendToMultiLabelName = DnsConfigOverrides.Tristate.toKnownValue(result.appendToMultiLabelName);
+                }
+                {
+                    
                 result.ndots = decoder0.readByte(28);
-            }
-            {
-
+                }
+                {
+                    
                 result.clearHosts = decoder0.readBoolean(29, 0);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(32, true);
                 result.fallbackPeriod = org.chromium.mojo_base.mojom.TimeDelta.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.attempts = decoder0.readInt(40);
-            }
-            {
-
+                }
+                {
+                    
                 result.rotate = decoder0.readInt(44);
-                DnsConfigOverrides.Tristate.validate(result.rotate);
-                result.rotate = DnsConfigOverrides.Tristate.toKnownValue(result.rotate);
-            }
-            {
-
+                    DnsConfigOverrides.Tristate.validate(result.rotate);
+                    result.rotate = DnsConfigOverrides.Tristate.toKnownValue(result.rotate);
+                }
+                {
+                    
                 result.useLocalIpv6 = decoder0.readInt(48);
-                DnsConfigOverrides.Tristate.validate(result.useLocalIpv6);
-                result.useLocalIpv6 = DnsConfigOverrides.Tristate.toKnownValue(result.useLocalIpv6);
-            }
-            {
-
+                    DnsConfigOverrides.Tristate.validate(result.useLocalIpv6);
+                    result.useLocalIpv6 = DnsConfigOverrides.Tristate.toKnownValue(result.useLocalIpv6);
+                }
+                {
+                    
                 result.secureDnsMode = decoder0.readInt(52);
-                OptionalSecureDnsMode.validate(result.secureDnsMode);
-                result.secureDnsMode = OptionalSecureDnsMode.toKnownValue(result.secureDnsMode);
-            }
-            {
-
+                    OptionalSecureDnsMode.validate(result.secureDnsMode);
+                    result.secureDnsMode = OptionalSecureDnsMode.toKnownValue(result.secureDnsMode);
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(56, true);
                 result.dnsOverHttpsConfig = DnsOverHttpsConfig.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.allowDnsOverHttpsUpgrade = decoder0.readInt(64);
-                DnsConfigOverrides.Tristate.validate(result.allowDnsOverHttpsUpgrade);
-                result.allowDnsOverHttpsUpgrade = DnsConfigOverrides.Tristate.toKnownValue(result.allowDnsOverHttpsUpgrade);
-            }
+                    DnsConfigOverrides.Tristate.validate(result.allowDnsOverHttpsUpgrade);
+                    result.allowDnsOverHttpsUpgrade = DnsConfigOverrides.Tristate.toKnownValue(result.allowDnsOverHttpsUpgrade);
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -197,45 +198,45 @@ public final class DnsConfigOverrides extends org.chromium.mojo.bindings.Struct 
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         if (this.nameservers == null) {
             encoder0.encodeNullPointer(8, true);
         } else {
             org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.nameservers.length, 8, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
             for (int i0 = 0; i0 < this.nameservers.length; ++i0) {
-
+                
                 encoder1.encode(this.nameservers[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
             }
         }
-
+        
         if (this.search == null) {
             encoder0.encodeNullPointer(16, true);
         } else {
             org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.search.length, 16, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
             for (int i0 = 0; i0 < this.search.length; ++i0) {
-
+                
                 encoder1.encode(this.search[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
             }
         }
-
+        
         encoder0.encode(this.appendToMultiLabelName, 24);
-
+        
         encoder0.encode(this.ndots, 28);
-
+        
         encoder0.encode(this.clearHosts, 29, 0);
-
+        
         encoder0.encode(this.fallbackPeriod, 32, true);
-
+        
         encoder0.encode(this.attempts, 40);
-
+        
         encoder0.encode(this.rotate, 44);
-
+        
         encoder0.encode(this.useLocalIpv6, 48);
-
+        
         encoder0.encode(this.secureDnsMode, 52);
-
+        
         encoder0.encode(this.dnsOverHttpsConfig, 56, true);
-
+        
         encoder0.encode(this.allowDnsOverHttpsUpgrade, 64);
     }
 }

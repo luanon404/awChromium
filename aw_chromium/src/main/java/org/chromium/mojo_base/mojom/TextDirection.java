@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class TextDirection {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({TextDirection.UNKNOWN_DIRECTION, TextDirection.RIGHT_TO_LEFT, TextDirection.LEFT_TO_RIGHT})
-    public @interface EnumType {
-    }
+        TextDirection.UNKNOWN_DIRECTION,
+        TextDirection.RIGHT_TO_LEFT,
+        TextDirection.LEFT_TO_RIGHT})
+    public @interface EnumType {}
 
     public static final int UNKNOWN_DIRECTION = 0;
     public static final int RIGHT_TO_LEFT = 1;
@@ -38,9 +40,8 @@ public final class TextDirection {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private TextDirection() {
-    }
+    private TextDirection() {}
 }

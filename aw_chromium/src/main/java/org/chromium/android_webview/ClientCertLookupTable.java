@@ -23,7 +23,6 @@ public class ClientCertLookupTable {
     public static class Cert {
         PrivateKey mPrivateKey;
         byte[][] mCertChain;
-
         public Cert(PrivateKey privateKey, byte[][] certChain) {
             this.mPrivateKey = privateKey;
             byte[][] newChain = new byte[certChain.length][];

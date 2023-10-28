@@ -67,18 +67,19 @@ public final class SafeModeService extends Service {
         /**
          * Represents the identity of a package trusted by this service.
          *
-         * @param packageName     The package name of the trusted caller.
+         * @param packageName The package name of the trusted caller.
          * @param releaseCertHash The SHA256 hash of the caller's <b>release</b> (production)
-         *                        certificate. This is honored on any type of Android build. This value is required. If
-         *                        the trusted caller
-         * @param debugCertHash   This is similar to {@code releaseCertHash}, but for the <b>debug</b>
-         *                        (development)
-         *                        certificate. This is honored on userdebug/eng Android images but not on user Android
-         *                        builds. If the caller always uses the same signing certificate, this parameter should
-         *                        be {@code null} and the certificate hash should be passed into {@code
-         *                        releaseCertHash} instead.
+         *     certificate. This is honored on any type of Android build. This value is required. If
+         *     the trusted caller
+         * @param debugCertHash This is similar to {@code releaseCertHash}, but for the <b>debug</b>
+         *         (development)
+         *     certificate. This is honored on userdebug/eng Android images but not on user Android
+         *     builds. If the caller always uses the same signing certificate, this parameter should
+         *     be {@code null} and the certificate hash should be passed into {@code
+         *     releaseCertHash} instead.
          */
-        public TrustedPackage(@NonNull String packageName, @NonNull byte[] releaseCertHash, @Nullable byte[] debugCertHash) {
+        public TrustedPackage(@NonNull String packageName, @NonNull byte[] releaseCertHash,
+                @Nullable byte[] debugCertHash) {
             mPackageName = packageName;
             mReleaseCertHash = releaseCertHash;
             mDebugCertHash = debugCertHash;
@@ -92,20 +93,24 @@ public final class SafeModeService extends Service {
         public boolean verify(String packageName) {
             if (!mPackageName.equals(packageName)) return false;
 
-            return hasSigningCertificate(packageName, mReleaseCertHash) || (isDebugAndroid() && hasSigningCertificate(packageName, mDebugCertHash));
+            return hasSigningCertificate(packageName, mReleaseCertHash)
+                    || (isDebugAndroid() && hasSigningCertificate(packageName, mDebugCertHash));
         }
 
         @SuppressLint("PackageManagerGetSignatures")
         // https://stackoverflow.com/questions/39192844/android-studio-warning-when-using-packagemanager-get-signatures
-        private static boolean hasSigningCertificate(@NonNull String packageName, @Nullable byte[] expectedCertHash) {
+        private static boolean hasSigningCertificate(
+                @NonNull String packageName, @Nullable byte[] expectedCertHash) {
             if (expectedCertHash == null) {
                 return false;
             }
             final Context context = ContextUtils.getApplicationContext();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                return ApiHelperForP.hasSigningCertificate(context.getPackageManager(), packageName, expectedCertHash, PackageManager.CERT_INPUT_SHA256);
+                return ApiHelperForP.hasSigningCertificate(context.getPackageManager(), packageName,
+                        expectedCertHash, PackageManager.CERT_INPUT_SHA256);
             }
-            PackageInfo info = PackageUtils.getPackageInfo(packageName, PackageManager.GET_SIGNATURES);
+            PackageInfo info =
+                    PackageUtils.getPackageInfo(packageName, PackageManager.GET_SIGNATURES);
             if (info != null) {
                 Signature[] signatures = info.signatures;
                 if (signatures == null) {
@@ -132,7 +137,23 @@ public final class SafeModeService extends Service {
         }
     }
 
-    private static final TrustedPackage[] sTrustedPackages = {new TrustedPackage("com.android.vending", new byte[]{(byte) 0xf0, (byte) 0xfd, (byte) 0x6c, (byte) 0x5b, (byte) 0x41, (byte) 0x0f, (byte) 0x25, (byte) 0xcb, (byte) 0x25, (byte) 0xc3, (byte) 0xb5, (byte) 0x33, (byte) 0x46, (byte) 0xc8, (byte) 0x97, (byte) 0x2f, (byte) 0xae, (byte) 0x30, (byte) 0xf8, (byte) 0xee, (byte) 0x74, (byte) 0x11, (byte) 0xdf, (byte) 0x91, (byte) 0x04, (byte) 0x80, (byte) 0xad, (byte) 0x6b, (byte) 0x2d, (byte) 0x60, (byte) 0xdb, (byte) 0x83}, new byte[]{(byte) 0x19, (byte) 0x75, (byte) 0xb2, (byte) 0xf1, (byte) 0x71, (byte) 0x77, (byte) 0xbc, (byte) 0x89, (byte) 0xa5, (byte) 0xdf, (byte) 0xf3, (byte) 0x1f, (byte) 0x9e, (byte) 0x64, (byte) 0xa6, (byte) 0xca, (byte) 0xe2, (byte) 0x81, (byte) 0xa5, (byte) 0x3d, (byte) 0xc1, (byte) 0xd1, (byte) 0xd5, (byte) 0x9b, (byte) 0x1d, (byte) 0x14, (byte) 0x7f, (byte) 0xe1, (byte) 0xc8, (byte) 0x2a, (byte) 0xfa, (byte) 0x00}),};
+    private static final TrustedPackage[] sTrustedPackages = {
+            new TrustedPackage("com.android.vending",
+                    new byte[] {(byte) 0xf0, (byte) 0xfd, (byte) 0x6c, (byte) 0x5b, (byte) 0x41,
+                            (byte) 0x0f, (byte) 0x25, (byte) 0xcb, (byte) 0x25, (byte) 0xc3,
+                            (byte) 0xb5, (byte) 0x33, (byte) 0x46, (byte) 0xc8, (byte) 0x97,
+                            (byte) 0x2f, (byte) 0xae, (byte) 0x30, (byte) 0xf8, (byte) 0xee,
+                            (byte) 0x74, (byte) 0x11, (byte) 0xdf, (byte) 0x91, (byte) 0x04,
+                            (byte) 0x80, (byte) 0xad, (byte) 0x6b, (byte) 0x2d, (byte) 0x60,
+                            (byte) 0xdb, (byte) 0x83},
+                    new byte[] {(byte) 0x19, (byte) 0x75, (byte) 0xb2, (byte) 0xf1, (byte) 0x71,
+                            (byte) 0x77, (byte) 0xbc, (byte) 0x89, (byte) 0xa5, (byte) 0xdf,
+                            (byte) 0xf3, (byte) 0x1f, (byte) 0x9e, (byte) 0x64, (byte) 0xa6,
+                            (byte) 0xca, (byte) 0xe2, (byte) 0x81, (byte) 0xa5, (byte) 0x3d,
+                            (byte) 0xc1, (byte) 0xd1, (byte) 0xd5, (byte) 0x9b, (byte) 0x1d,
+                            (byte) 0x14, (byte) 0x7f, (byte) 0xe1, (byte) 0xc8, (byte) 0x2a,
+                            (byte) 0xfa, (byte) 0x00}),
+    };
 
     // Auto-disable SafeMode after 30 days.
     @VisibleForTesting
@@ -161,7 +182,9 @@ public final class SafeModeService extends Service {
         String[] packagesInUid = pm.getPackagesForUid(Binder.getCallingUid());
 
         if (packagesInUid == null) {
-            Log.e(TAG, "Unable to find any packages associated with calling UID (" + Binder.getCallingUid() + ")");
+            Log.e(TAG,
+                    "Unable to find any packages associated with calling UID ("
+                            + Binder.getCallingUid() + ")");
             return false;
         }
 
@@ -233,7 +256,8 @@ public final class SafeModeService extends Service {
         boolean enableSafeMode = actions != null && !actions.isEmpty();
 
         Set<String> oldActions = new HashSet<>();
-        oldActions.addAll(getSharedPreferences().getStringSet(SAFEMODE_ACTIONS_KEY, Collections.emptySet()));
+        oldActions.addAll(
+                getSharedPreferences().getStringSet(SAFEMODE_ACTIONS_KEY, Collections.emptySet()));
         Set<String> actionsToPersist = new HashSet<>(actions);
         SharedPreferences.Editor editor = getSharedPreferences().edit();
         if (enableSafeMode) {
@@ -250,12 +274,16 @@ public final class SafeModeService extends Service {
         editor.apply();
 
         final Context context = ContextUtils.getApplicationContext();
-        ComponentName safeModeComponent = new ComponentName(context, SafeModeController.SAFE_MODE_STATE_COMPONENT);
+        ComponentName safeModeComponent =
+                new ComponentName(context, SafeModeController.SAFE_MODE_STATE_COMPONENT);
 
-        int newState = enableSafeMode ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED : PackageManager.COMPONENT_ENABLED_STATE_DEFAULT;
-        context.getPackageManager().setComponentEnabledSetting(safeModeComponent, newState, PackageManager.DONT_KILL_APP);
+        int newState = enableSafeMode ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED
+                                      : PackageManager.COMPONENT_ENABLED_STATE_DEFAULT;
+        context.getPackageManager().setComponentEnabledSetting(
+                safeModeComponent, newState, PackageManager.DONT_KILL_APP);
         if (SafeModeController.getInstance().getRegisteredActions() != null) {
-            NonEmbeddedSafeModeActionsSetupCleanup.executeNonEmbeddedActionsOnStateChange(oldActions, actionsToPersist);
+            NonEmbeddedSafeModeActionsSetupCleanup.executeNonEmbeddedActionsOnStateChange(
+                    oldActions, actionsToPersist);
         }
     }
 
@@ -274,7 +302,8 @@ public final class SafeModeService extends Service {
         // currentTime). The user may have changed the clock on their device. Treat the config as
         // expired in this case because we don't want to be in SafeMode arbitrarily long.
         if (timeSinceLastSafeModeConfig < 0) {
-            Log.w(TAG, "Config timestamp is (%d) but current time is (%d); disabling SafeMode", lastModifiedTime, currentTime);
+            Log.w(TAG, "Config timestamp is (%d) but current time is (%d); disabling SafeMode",
+                    lastModifiedTime, currentTime);
             return true;
         }
 
@@ -301,7 +330,8 @@ public final class SafeModeService extends Service {
 
             // Returning an empty Set in the absence of persisted actions ensures the caller
             // doesn't crash when iterating over the return value.
-            Set<String> actions = getSharedPreferences().getStringSet(SAFEMODE_ACTIONS_KEY, Collections.emptySet());
+            Set<String> actions = getSharedPreferences().getStringSet(
+                    SAFEMODE_ACTIONS_KEY, Collections.emptySet());
             if (actions.isEmpty()) {
                 Log.w(TAG, "Config is empty even though SafeMode is enabled; disabling SafeMode");
                 disableSafeMode();

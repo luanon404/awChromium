@@ -29,7 +29,9 @@ class NullAwViewMethods implements AwViewMethods {
     private InternalAccessDelegate mInternalAccessAdapter;
     private View mContainerView;
 
-    public NullAwViewMethods(AwContents awContents, InternalAccessDelegate internalAccessAdapter, View containerView) {
+    public NullAwViewMethods(
+            AwContents awContents, InternalAccessDelegate internalAccessAdapter,
+            View containerView) {
         mAwContents = awContents;
         mInternalAccessAdapter = internalAccessAdapter;
         mContainerView = containerView;
@@ -45,7 +47,8 @@ class NullAwViewMethods implements AwViewMethods {
         // When the containerView is using the NullAwViewMethods then it is not
         // attached to the AwContents. As such, we don't have any contents to measure
         // and using the last measured dimension is the best we can do.
-        mInternalAccessAdapter.setMeasuredDimension(mContainerView.getMeasuredWidth(), mContainerView.getMeasuredHeight());
+        mInternalAccessAdapter.setMeasuredDimension(
+                mContainerView.getMeasuredWidth(), mContainerView.getMeasuredHeight());
     }
 
     @Override
@@ -67,7 +70,6 @@ class NullAwViewMethods implements AwViewMethods {
     public boolean onDragEvent(DragEvent event) {
         return false; // Intentional no-op.
     }
-
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         return false; // Intentional no-op.
@@ -139,7 +141,8 @@ class NullAwViewMethods implements AwViewMethods {
     }
 
     @Override
-    public void onContainerViewOverScrolled(int scrollX, int scrollY, boolean clampedX, boolean clampedY) {
+    public void onContainerViewOverScrolled(int scrollX, int scrollY, boolean clampedX,
+            boolean clampedY) {
         // Intentional no-op.
     }
 

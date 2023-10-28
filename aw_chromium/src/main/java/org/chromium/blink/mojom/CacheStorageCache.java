@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface CacheStorageCache extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends CacheStorageCache, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends CacheStorageCache, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<CacheStorageCache, CacheStorageCache.Proxy> MANAGER = CacheStorageCache_Internal.MANAGER;

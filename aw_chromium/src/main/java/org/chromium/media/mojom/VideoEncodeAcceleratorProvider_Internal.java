@@ -13,9 +13,13 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 class VideoEncodeAcceleratorProvider_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<VideoEncodeAcceleratorProvider, VideoEncodeAcceleratorProvider.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<VideoEncodeAcceleratorProvider, VideoEncodeAcceleratorProvider.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<VideoEncodeAcceleratorProvider, VideoEncodeAcceleratorProvider.Proxy> MANAGER =
+            new org.chromium.mojo.bindings.Interface.Manager<VideoEncodeAcceleratorProvider, VideoEncodeAcceleratorProvider.Proxy>() {
 
         @Override
         public String getName() {
@@ -24,11 +28,12 @@ class VideoEncodeAcceleratorProvider_Internal {
 
         @Override
         public int getVersion() {
-            return 0;
+          return 0;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -39,7 +44,7 @@ class VideoEncodeAcceleratorProvider_Internal {
 
         @Override
         public VideoEncodeAcceleratorProvider[] buildArray(int size) {
-            return new VideoEncodeAcceleratorProvider[size];
+          return new VideoEncodeAcceleratorProvider[size];
         }
     };
 
@@ -51,20 +56,25 @@ class VideoEncodeAcceleratorProvider_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements VideoEncodeAcceleratorProvider.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core,
+              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void createVideoEncodeAccelerator(org.chromium.mojo.bindings.InterfaceRequest<VideoEncodeAccelerator> receiver) {
+        public void createVideoEncodeAccelerator(
+org.chromium.mojo.bindings.InterfaceRequest<VideoEncodeAccelerator> receiver) {
 
             VideoEncodeAcceleratorProviderCreateVideoEncodeAcceleratorParams _message = new VideoEncodeAcceleratorProviderCreateVideoEncodeAcceleratorParams();
 
             _message.receiver = receiver;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(CREATE_VIDEO_ENCODE_ACCELERATOR_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(CREATE_VIDEO_ENCODE_ACCELERATOR_ORDINAL)));
 
         }
 
@@ -72,12 +82,19 @@ class VideoEncodeAcceleratorProvider_Internal {
         @Override
         public void getVideoEncodeAcceleratorSupportedProfiles(
 
-                GetVideoEncodeAcceleratorSupportedProfiles_Response callback) {
+GetVideoEncodeAcceleratorSupportedProfiles_Response callback) {
 
             VideoEncodeAcceleratorProviderGetVideoEncodeAcceleratorSupportedProfilesParams _message = new VideoEncodeAcceleratorProviderGetVideoEncodeAcceleratorSupportedProfilesParams();
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(GET_VIDEO_ENCODE_ACCELERATOR_SUPPORTED_PROFILES_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new VideoEncodeAcceleratorProviderGetVideoEncodeAcceleratorSupportedProfilesResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    GET_VIDEO_ENCODE_ACCELERATOR_SUPPORTED_PROFILES_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new VideoEncodeAcceleratorProviderGetVideoEncodeAcceleratorSupportedProfilesResponseParamsForwardToCallback(callback));
 
         }
 
@@ -93,7 +110,8 @@ class VideoEncodeAcceleratorProvider_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -102,26 +120,33 @@ class VideoEncodeAcceleratorProvider_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(VideoEncodeAcceleratorProvider_Internal.MANAGER, messageWithHeader);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
+                                VideoEncodeAcceleratorProvider_Internal.MANAGER, messageWithHeader);
+
+
+
 
 
                     case CREATE_VIDEO_ENCODE_ACCELERATOR_ORDINAL: {
 
-                        VideoEncodeAcceleratorProviderCreateVideoEncodeAcceleratorParams data = VideoEncodeAcceleratorProviderCreateVideoEncodeAcceleratorParams.deserialize(messageWithHeader.getPayload());
+                        VideoEncodeAcceleratorProviderCreateVideoEncodeAcceleratorParams data =
+                                VideoEncodeAcceleratorProviderCreateVideoEncodeAcceleratorParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().createVideoEncodeAccelerator(data.receiver);
                         return true;
                     }
 
 
+
+
                     default:
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -129,7 +154,8 @@ class VideoEncodeAcceleratorProvider_Internal {
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -138,10 +164,18 @@ class VideoEncodeAcceleratorProvider_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), VideoEncodeAcceleratorProvider_Internal.MANAGER, messageWithHeader, receiver);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
+                                getCore(), VideoEncodeAcceleratorProvider_Internal.MANAGER, messageWithHeader, receiver);
+
+
+
+
+
+
+
 
 
                     case GET_VIDEO_ENCODE_ACCELERATOR_SUPPORTED_PROFILES_ORDINAL: {
@@ -157,17 +191,18 @@ class VideoEncodeAcceleratorProvider_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class VideoEncodeAcceleratorProviderCreateVideoEncodeAcceleratorParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.mojo.bindings.InterfaceRequest<VideoEncodeAccelerator> receiver;
 
@@ -189,7 +224,8 @@ class VideoEncodeAcceleratorProvider_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static VideoEncodeAcceleratorProviderCreateVideoEncodeAcceleratorParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -203,10 +239,10 @@ class VideoEncodeAcceleratorProvider_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new VideoEncodeAcceleratorProviderCreateVideoEncodeAcceleratorParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.receiver = decoder0.readInterfaceRequest(8, false);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -218,16 +254,18 @@ class VideoEncodeAcceleratorProvider_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.receiver, 8, false);
         }
     }
 
 
+
+    
     static final class VideoEncodeAcceleratorProviderGetVideoEncodeAcceleratorSupportedProfilesParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 8;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(8, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(8, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
 
         private VideoEncodeAcceleratorProviderGetVideoEncodeAcceleratorSupportedProfilesParams(int version) {
@@ -248,7 +286,8 @@ class VideoEncodeAcceleratorProvider_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static VideoEncodeAcceleratorProviderGetVideoEncodeAcceleratorSupportedProfilesParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -277,10 +316,12 @@ class VideoEncodeAcceleratorProvider_Internal {
     }
 
 
+
+    
     static final class VideoEncodeAcceleratorProviderGetVideoEncodeAcceleratorSupportedProfilesResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public VideoEncodeAcceleratorSupportedProfile[] profiles;
 
@@ -302,7 +343,8 @@ class VideoEncodeAcceleratorProvider_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static VideoEncodeAcceleratorProviderGetVideoEncodeAcceleratorSupportedProfilesResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -316,19 +358,19 @@ class VideoEncodeAcceleratorProvider_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new VideoEncodeAcceleratorProviderGetVideoEncodeAcceleratorSupportedProfilesResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     {
                         org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                         result.profiles = new VideoEncodeAcceleratorSupportedProfile[si1.elementsOrVersion];
                         for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                            
                             org.chromium.mojo.bindings.Decoder decoder2 = decoder1.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                             result.profiles[i1] = VideoEncodeAcceleratorSupportedProfile.decode(decoder2);
                         }
                     }
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -340,20 +382,21 @@ class VideoEncodeAcceleratorProvider_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             if (this.profiles == null) {
                 encoder0.encodeNullPointer(8, false);
             } else {
                 org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.profiles.length, 8, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                 for (int i0 = 0; i0 < this.profiles.length; ++i0) {
-
+                    
                     encoder1.encode(this.profiles[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
                 }
             }
         }
     }
 
-    static class VideoEncodeAcceleratorProviderGetVideoEncodeAcceleratorSupportedProfilesResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class VideoEncodeAcceleratorProviderGetVideoEncodeAcceleratorSupportedProfilesResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final VideoEncodeAcceleratorProvider.GetVideoEncodeAcceleratorSupportedProfiles_Response mCallback;
 
         VideoEncodeAcceleratorProviderGetVideoEncodeAcceleratorSupportedProfilesResponseParamsForwardToCallback(VideoEncodeAcceleratorProvider.GetVideoEncodeAcceleratorSupportedProfiles_Response callback) {
@@ -363,9 +406,11 @@ class VideoEncodeAcceleratorProvider_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(GET_VIDEO_ENCODE_ACCELERATOR_SUPPORTED_PROFILES_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(GET_VIDEO_ENCODE_ACCELERATOR_SUPPORTED_PROFILES_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -385,7 +430,10 @@ class VideoEncodeAcceleratorProvider_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        VideoEncodeAcceleratorProviderGetVideoEncodeAcceleratorSupportedProfilesResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        VideoEncodeAcceleratorProviderGetVideoEncodeAcceleratorSupportedProfilesResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -397,10 +445,17 @@ class VideoEncodeAcceleratorProvider_Internal {
 
             _response.profiles = profiles;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(GET_VIDEO_ENCODE_ACCELERATOR_SUPPORTED_PROFILES_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    GET_VIDEO_ENCODE_ACCELERATOR_SUPPORTED_PROFILES_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
+
 
 
 }

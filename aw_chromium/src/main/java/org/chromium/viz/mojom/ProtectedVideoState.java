@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class ProtectedVideoState {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({ProtectedVideoState.CLEAR, ProtectedVideoState.SOFTWARE_PROTECTED, ProtectedVideoState.HARDWARE_PROTECTED})
-    public @interface EnumType {
-    }
+        ProtectedVideoState.CLEAR,
+        ProtectedVideoState.SOFTWARE_PROTECTED,
+        ProtectedVideoState.HARDWARE_PROTECTED})
+    public @interface EnumType {}
 
     public static final int CLEAR = 0;
     public static final int SOFTWARE_PROTECTED = 1;
@@ -38,9 +40,8 @@ public final class ProtectedVideoState {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private ProtectedVideoState() {
-    }
+    private ProtectedVideoState() {}
 }

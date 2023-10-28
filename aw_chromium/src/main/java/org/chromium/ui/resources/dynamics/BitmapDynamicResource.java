@@ -47,7 +47,8 @@ public class BitmapDynamicResource implements DynamicResource {
     @Override
     public void onResourceRequested() {
         if (!mOnResourceReadyObservers.isEmpty() && mBitmap != null) {
-            Resource resource = new DynamicResourceSnapshot(mBitmap, false, mSize, ResourceFactory.createBitmapResource(null));
+            Resource resource = new DynamicResourceSnapshot(
+                    mBitmap, false, mSize, ResourceFactory.createBitmapResource(null));
             for (Callback<Resource> observer : mOnResourceReadyObservers) {
                 observer.onResult(resource);
             }

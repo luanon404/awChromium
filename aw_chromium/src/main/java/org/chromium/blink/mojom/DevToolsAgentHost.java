@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface DevToolsAgentHost extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends DevToolsAgentHost, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends DevToolsAgentHost, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<DevToolsAgentHost, DevToolsAgentHost.Proxy> MANAGER = DevToolsAgentHost_Internal.MANAGER;

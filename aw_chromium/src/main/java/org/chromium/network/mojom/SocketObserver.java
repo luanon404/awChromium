@@ -13,18 +13,24 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface SocketObserver extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends SocketObserver, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends SocketObserver, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<SocketObserver, SocketObserver.Proxy> MANAGER = SocketObserver_Internal.MANAGER;
 
-    void onReadError(int netError);
+    void onReadError(
+int netError);
 
 
-    void onWriteError(int netError);
+    void onWriteError(
+int netError);
 
 
 }

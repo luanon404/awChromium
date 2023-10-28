@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface GpuDataManager extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends GpuDataManager, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends GpuDataManager, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<GpuDataManager, GpuDataManager.Proxy> MANAGER = GpuDataManager_Internal.MANAGER;

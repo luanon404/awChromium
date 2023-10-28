@@ -4,124 +4,143 @@
 package org.chromium.base;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.app.Activity;
+import android.content.res.Resources.NotFoundException;
+import android.os.Looper;
+import android.os.MessageQueue;
+import android.util.Log;
+import android.util.Printer;
+import android.view.View;
+import android.view.ViewGroup;
+import androidx.annotation.VisibleForTesting;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.task.PostTask;
+import org.chromium.base.task.TaskTraits;
+import java.util.ArrayList;
 
 @CheckDiscard("crbug.com/993421")
 class TraceEventJni implements TraceEvent.Natives {
-    private static TraceEvent.Natives testInstance;
+  private static TraceEvent.Natives testInstance;
 
-    public static final JniStaticTestMocker<TraceEvent.Natives> TEST_HOOKS = new JniStaticTestMocker<TraceEvent.Natives>() {
-        @Override
-        public void setInstanceForTesting(TraceEvent.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<TraceEvent.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<TraceEvent.Natives>() {
     @Override
-    public void addViewDump(int id, int parentId, boolean isShown, boolean isDirty, String className, String resourceName, long activityProtoPtr) {
-        GEN_JNI.org_chromium_base_TraceEvent_addViewDump(id, parentId, isShown, isDirty, className, resourceName, activityProtoPtr);
+    public void setInstanceForTesting(TraceEvent.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public void begin(String name, String arg) {
-        GEN_JNI.org_chromium_base_TraceEvent_begin(name, arg);
-    }
+  @Override
+  public void addViewDump(int id, int parentId, boolean isShown, boolean isDirty, String className, String resourceName, long activityProtoPtr) {
+    GEN_JNI.org_chromium_base_TraceEvent_addViewDump(id, parentId, isShown, isDirty, className, resourceName, activityProtoPtr);
+  }
 
-    @Override
-    public void beginToplevel(String target) {
-        GEN_JNI.org_chromium_base_TraceEvent_beginToplevel(target);
-    }
+  @Override
+  public void begin(String name, String arg) {
+    GEN_JNI.org_chromium_base_TraceEvent_begin(name, arg);
+  }
 
-    @Override
-    public void beginWithIntArg(String name, int arg) {
-        GEN_JNI.org_chromium_base_TraceEvent_beginWithIntArg(name, arg);
-    }
+  @Override
+  public void beginToplevel(String target) {
+    GEN_JNI.org_chromium_base_TraceEvent_beginToplevel(target);
+  }
 
-    @Override
-    public void end(String name, String arg, long flow) {
-        GEN_JNI.org_chromium_base_TraceEvent_end(name, arg, flow);
-    }
+  @Override
+  public void beginWithIntArg(String name, int arg) {
+    GEN_JNI.org_chromium_base_TraceEvent_beginWithIntArg(name, arg);
+  }
 
-    @Override
-    public void endToplevel(String target) {
-        GEN_JNI.org_chromium_base_TraceEvent_endToplevel(target);
-    }
+  @Override
+  public void end(String name, String arg, long flow) {
+    GEN_JNI.org_chromium_base_TraceEvent_end(name, arg, flow);
+  }
 
-    @Override
-    public void finishAsync(String name, long id) {
-        GEN_JNI.org_chromium_base_TraceEvent_finishAsync(name, id);
-    }
+  @Override
+  public void endToplevel(String target) {
+    GEN_JNI.org_chromium_base_TraceEvent_endToplevel(target);
+  }
 
-    @Override
-    public void initViewHierarchyDump(long id, Object list) {
-        GEN_JNI.org_chromium_base_TraceEvent_initViewHierarchyDump(id, list);
-    }
+  @Override
+  public void finishAsync(String name, long id) {
+    GEN_JNI.org_chromium_base_TraceEvent_finishAsync(name, id);
+  }
 
-    @Override
-    public void instant(String name, String arg) {
-        GEN_JNI.org_chromium_base_TraceEvent_instant(name, arg);
-    }
+  @Override
+  public void initViewHierarchyDump(long id, Object list) {
+    GEN_JNI.org_chromium_base_TraceEvent_initViewHierarchyDump(id, list);
+  }
 
-    @Override
-    public void instantAndroidIPC(String name, long durMs) {
-        GEN_JNI.org_chromium_base_TraceEvent_instantAndroidIPC(name, durMs);
-    }
+  @Override
+  public void instant(String name, String arg) {
+    GEN_JNI.org_chromium_base_TraceEvent_instant(name, arg);
+  }
 
-    @Override
-    public void instantAndroidToolbar(int blockReason, int allowReason, int snapshotDiff) {
-        GEN_JNI.org_chromium_base_TraceEvent_instantAndroidToolbar(blockReason, allowReason, snapshotDiff);
-    }
+  @Override
+  public void instantAndroidIPC(String name, long durMs) {
+    GEN_JNI.org_chromium_base_TraceEvent_instantAndroidIPC(name, durMs);
+  }
 
-    @Override
-    public void registerEnabledObserver() {
-        GEN_JNI.org_chromium_base_TraceEvent_registerEnabledObserver();
-    }
+  @Override
+  public void instantAndroidToolbar(int blockReason, int allowReason, int snapshotDiff) {
+    GEN_JNI.org_chromium_base_TraceEvent_instantAndroidToolbar(blockReason, allowReason, snapshotDiff);
+  }
 
-    @Override
-    public long startActivityDump(String name, long dumpProtoPtr) {
-        return (long) GEN_JNI.org_chromium_base_TraceEvent_startActivityDump(name, dumpProtoPtr);
-    }
+  @Override
+  public void registerEnabledObserver() {
+    GEN_JNI.org_chromium_base_TraceEvent_registerEnabledObserver();
+  }
 
-    @Override
-    public void startAsync(String name, long id) {
-        GEN_JNI.org_chromium_base_TraceEvent_startAsync(name, id);
-    }
+  @Override
+  public long startActivityDump(String name, long dumpProtoPtr) {
+    return (long) GEN_JNI.org_chromium_base_TraceEvent_startActivityDump(name, dumpProtoPtr);
+  }
 
-    @Override
-    public boolean viewHierarchyDumpEnabled() {
-        return (boolean) GEN_JNI.org_chromium_base_TraceEvent_viewHierarchyDumpEnabled();
-    }
+  @Override
+  public void startAsync(String name, long id) {
+    GEN_JNI.org_chromium_base_TraceEvent_startAsync(name, id);
+  }
 
-    @Override
-    public void webViewStartupStage1(long startTimeMs, long durationMs) {
-        GEN_JNI.org_chromium_base_TraceEvent_webViewStartupStage1(startTimeMs, durationMs);
-    }
+  @Override
+  public boolean viewHierarchyDumpEnabled() {
+    return (boolean) GEN_JNI.org_chromium_base_TraceEvent_viewHierarchyDumpEnabled();
+  }
 
-    @Override
-    public void webViewStartupStage2(long startTimeMs, long durationMs, boolean isColdStartup) {
-        GEN_JNI.org_chromium_base_TraceEvent_webViewStartupStage2(startTimeMs, durationMs, isColdStartup);
-    }
+  @Override
+  public void webViewStartupStage1(long startTimeMs, long durationMs) {
+    GEN_JNI.org_chromium_base_TraceEvent_webViewStartupStage1(startTimeMs, durationMs);
+  }
 
-    @Override
-    public void webViewStartupTotalFactoryInit(long startTimeMs, long durationMs) {
-        GEN_JNI.org_chromium_base_TraceEvent_webViewStartupTotalFactoryInit(startTimeMs, durationMs);
-    }
+  @Override
+  public void webViewStartupStage2(long startTimeMs, long durationMs, boolean isColdStartup) {
+    GEN_JNI.org_chromium_base_TraceEvent_webViewStartupStage2(startTimeMs, durationMs, isColdStartup);
+  }
 
-    public static TraceEvent.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of TraceEvent.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new TraceEventJni();
+  @Override
+  public void webViewStartupTotalFactoryInit(long startTimeMs, long durationMs) {
+    GEN_JNI.org_chromium_base_TraceEvent_webViewStartupTotalFactoryInit(startTimeMs, durationMs);
+  }
+
+  public static TraceEvent.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of TraceEvent.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new TraceEventJni();
+  }
 }

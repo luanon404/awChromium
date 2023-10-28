@@ -13,7 +13,8 @@ import java.lang.annotation.RetentionPolicy;
  * A set of states that represent the last state change of an Activity.
  */
 @Retention(RetentionPolicy.SOURCE)
-@IntDef({ActivityState.CREATED, ActivityState.STARTED, ActivityState.RESUMED, ActivityState.PAUSED, ActivityState.STOPPED, ActivityState.DESTROYED})
+@IntDef({ActivityState.CREATED, ActivityState.STARTED, ActivityState.RESUMED, ActivityState.PAUSED,
+        ActivityState.STOPPED, ActivityState.DESTROYED})
 public @interface ActivityState {
     /**
      * Represents Activity#onCreate().

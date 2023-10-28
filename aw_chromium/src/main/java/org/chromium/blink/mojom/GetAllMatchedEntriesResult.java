@@ -13,14 +13,15 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public final class GetAllMatchedEntriesResult extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
         public static final int Status = 0;
         public static final int Entries = 1;
-    }
-
+    };
     private int mStatus;
     private CacheEntry[] mEntries;
 

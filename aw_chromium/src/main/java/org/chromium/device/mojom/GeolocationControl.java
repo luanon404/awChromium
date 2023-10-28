@@ -13,15 +13,20 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface GeolocationControl extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends GeolocationControl, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends GeolocationControl, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<GeolocationControl, GeolocationControl.Proxy> MANAGER = GeolocationControl_Internal.MANAGER;
 
-    void userDidOptIntoLocationServices();
+    void userDidOptIntoLocationServices(
+);
 
 
 }

@@ -4,49 +4,55 @@
 package org.chromium.base;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
 
 @CheckDiscard("crbug.com/993421")
 class FeaturesJni implements Features.Natives {
-    private static Features.Natives testInstance;
+  private static Features.Natives testInstance;
 
-    public static final JniStaticTestMocker<Features.Natives> TEST_HOOKS = new JniStaticTestMocker<Features.Natives>() {
-        @Override
-        public void setInstanceForTesting(Features.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<Features.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<Features.Natives>() {
     @Override
-    public boolean getFieldTrialParamByFeatureAsBoolean(long featurePointer, String paramName, boolean defaultValue) {
-        return (boolean) GEN_JNI.org_chromium_base_Features_getFieldTrialParamByFeatureAsBoolean(featurePointer, paramName, defaultValue);
+    public void setInstanceForTesting(Features.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public String getFieldTrialParamByFeatureAsString(long featurePointer, String paramName) {
-        return (String) GEN_JNI.org_chromium_base_Features_getFieldTrialParamByFeatureAsString(featurePointer, paramName);
-    }
+  @Override
+  public boolean getFieldTrialParamByFeatureAsBoolean(long featurePointer, String paramName, boolean defaultValue) {
+    return (boolean) GEN_JNI.org_chromium_base_Features_getFieldTrialParamByFeatureAsBoolean(featurePointer, paramName, defaultValue);
+  }
 
-    @Override
-    public boolean isEnabled(long featurePointer) {
-        return (boolean) GEN_JNI.org_chromium_base_Features_isEnabled(featurePointer);
-    }
+  @Override
+  public String getFieldTrialParamByFeatureAsString(long featurePointer, String paramName) {
+    return (String) GEN_JNI.org_chromium_base_Features_getFieldTrialParamByFeatureAsString(featurePointer, paramName);
+  }
 
-    public static Features.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of Features.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new FeaturesJni();
+  @Override
+  public boolean isEnabled(long featurePointer) {
+    return (boolean) GEN_JNI.org_chromium_base_Features_isEnabled(featurePointer);
+  }
+
+  public static Features.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of Features.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new FeaturesJni();
+  }
 }

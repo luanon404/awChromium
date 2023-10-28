@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface SpeculationHost extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends SpeculationHost, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends SpeculationHost, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<SpeculationHost, SpeculationHost.Proxy> MANAGER = SpeculationHost_Internal.MANAGER;

@@ -4,54 +4,72 @@
 package org.chromium.base.task;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.os.Process;
+import android.util.Pair;
+import androidx.annotation.Nullable;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.TraceEvent;
+import java.lang.ref.ReferenceQueue;
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+import javax.annotation.concurrent.GuardedBy;
 
 @CheckDiscard("crbug.com/993421")
 class TaskRunnerImplJni implements TaskRunnerImpl.Natives {
-    private static TaskRunnerImpl.Natives testInstance;
+  private static TaskRunnerImpl.Natives testInstance;
 
-    public static final JniStaticTestMocker<TaskRunnerImpl.Natives> TEST_HOOKS = new JniStaticTestMocker<TaskRunnerImpl.Natives>() {
-        @Override
-        public void setInstanceForTesting(TaskRunnerImpl.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<TaskRunnerImpl.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<TaskRunnerImpl.Natives>() {
     @Override
-    public boolean belongsToCurrentThread(long nativeTaskRunnerAndroid) {
-        return (boolean) GEN_JNI.org_chromium_base_task_TaskRunnerImpl_belongsToCurrentThread(nativeTaskRunnerAndroid);
+    public void setInstanceForTesting(TaskRunnerImpl.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public void destroy(long nativeTaskRunnerAndroid) {
-        GEN_JNI.org_chromium_base_task_TaskRunnerImpl_destroy(nativeTaskRunnerAndroid);
-    }
+  @Override
+  public boolean belongsToCurrentThread(long nativeTaskRunnerAndroid) {
+    return (boolean) GEN_JNI.org_chromium_base_task_TaskRunnerImpl_belongsToCurrentThread(nativeTaskRunnerAndroid);
+  }
 
-    @Override
-    public long init(int taskRunnerType, int taskTraits) {
-        return (long) GEN_JNI.org_chromium_base_task_TaskRunnerImpl_init(taskRunnerType, taskTraits);
-    }
+  @Override
+  public void destroy(long nativeTaskRunnerAndroid) {
+    GEN_JNI.org_chromium_base_task_TaskRunnerImpl_destroy(nativeTaskRunnerAndroid);
+  }
 
-    @Override
-    public void postDelayedTask(long nativeTaskRunnerAndroid, Runnable task, long delay, String runnableClassName) {
-        GEN_JNI.org_chromium_base_task_TaskRunnerImpl_postDelayedTask(nativeTaskRunnerAndroid, task, delay, runnableClassName);
-    }
+  @Override
+  public long init(int taskRunnerType, int taskTraits) {
+    return (long) GEN_JNI.org_chromium_base_task_TaskRunnerImpl_init(taskRunnerType, taskTraits);
+  }
 
-    public static TaskRunnerImpl.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of TaskRunnerImpl.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new TaskRunnerImplJni();
+  @Override
+  public void postDelayedTask(long nativeTaskRunnerAndroid, Runnable task, long delay, String runnableClassName) {
+    GEN_JNI.org_chromium_base_task_TaskRunnerImpl_postDelayedTask(nativeTaskRunnerAndroid, task, delay, runnableClassName);
+  }
+
+  public static TaskRunnerImpl.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of TaskRunnerImpl.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new TaskRunnerImplJni();
+  }
 }

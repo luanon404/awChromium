@@ -10,20 +10,19 @@ import android.os.Process;
 
 import androidx.annotation.VisibleForTesting;
 
-import org.chromium.base.JavaHandlerThread;
 import org.jni_zero.CalledByNative;
 import org.jni_zero.JNINamespace;
 
-/**
- * This is the process launcher thread. It is available before native library is loaded.
- */
+import org.chromium.base.JavaHandlerThread;
+
+/** This is the process launcher thread. It is available before native library is loaded. */
 @JNINamespace("content::android")
 public final class LauncherThread {
-    private static final JavaHandlerThread sThread = new JavaHandlerThread("Chrome_ProcessLauncherThread", Process.THREAD_PRIORITY_DEFAULT);
+    private static final JavaHandlerThread sThread =
+            new JavaHandlerThread("Chrome_ProcessLauncherThread", Process.THREAD_PRIORITY_DEFAULT);
     private static final Handler sThreadHandler;
     // Can be overwritten in tests.
     private static Handler sHandler;
-
     static {
         sThread.maybeStart();
         sThreadHandler = new Handler(sThread.getLooper());
@@ -65,6 +64,5 @@ public final class LauncherThread {
         return sThread;
     }
 
-    private LauncherThread() {
-    }
+    private LauncherThread() {}
 }

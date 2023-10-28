@@ -13,6 +13,8 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public final class WorkerToken extends org.chromium.mojo.bindings.Union {
 
@@ -20,8 +22,7 @@ public final class WorkerToken extends org.chromium.mojo.bindings.Union {
         public static final int DedicatedWorkerToken = 0;
         public static final int ServiceWorkerToken = 1;
         public static final int SharedWorkerToken = 2;
-    }
-
+    };
     private DedicatedWorkerToken mDedicatedWorkerToken;
     private ServiceWorkerToken mServiceWorkerToken;
     private SharedWorkerToken mSharedWorkerToken;

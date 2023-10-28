@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class DecryptStatus {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({DecryptStatus.SUCCESS, DecryptStatus.NO_KEY, DecryptStatus.FAILURE})
-    public @interface EnumType {
-    }
+        DecryptStatus.SUCCESS,
+        DecryptStatus.NO_KEY,
+        DecryptStatus.FAILURE})
+    public @interface EnumType {}
 
     public static final int SUCCESS = 0;
     public static final int NO_KEY = 1;
@@ -39,12 +41,11 @@ public final class DecryptStatus {
     }
 
     public static int toKnownValue(int value) {
-        if (isKnownValue(value)) {
-            return value;
-        }
-        return DEFAULT_VALUE;
+      if (isKnownValue(value)) {
+        return value;
+      }
+      return DEFAULT_VALUE;
     }
 
-    private DecryptStatus() {
-    }
+    private DecryptStatus() {}
 }

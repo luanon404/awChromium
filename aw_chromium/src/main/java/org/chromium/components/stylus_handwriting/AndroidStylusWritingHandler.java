@@ -42,9 +42,11 @@ public class AndroidStylusWritingHandler implements StylusWritingHandler, Stylus
 
         int value = -1;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            value = Settings.Secure.getInt(context.getContentResolver(), "stylus_handwriting_enabled", 1);
+            value = Settings.Secure.getInt(
+                    context.getContentResolver(), "stylus_handwriting_enabled", 1);
         } else {
-            value = Settings.Global.getInt(context.getContentResolver(), "stylus_handwriting_enabled", -1);
+            value = Settings.Global.getInt(
+                    context.getContentResolver(), "stylus_handwriting_enabled", -1);
         }
 
         if (value != 1) {
@@ -54,10 +56,13 @@ public class AndroidStylusWritingHandler implements StylusWritingHandler, Stylus
 
         InputMethodManager inputMethodManager = context.getSystemService(InputMethodManager.class);
         List<InputMethodInfo> inputMethods = inputMethodManager.getInputMethodList();
-        String defaultIme = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.DEFAULT_INPUT_METHOD);
+        String defaultIme = Settings.Secure.getString(
+                context.getContentResolver(), Settings.Secure.DEFAULT_INPUT_METHOD);
 
         if (defaultIme == null) {
-            Log.d(TAG, "Stylus handwriting feature is not supported as " + "default IME could not be fetched.");
+            Log.d(TAG,
+                    "Stylus handwriting feature is not supported as "
+                            + "default IME could not be fetched.");
             return false;
         }
 
@@ -112,15 +117,25 @@ public class AndroidStylusWritingHandler implements StylusWritingHandler, Stylus
     }
 
     @Override
-    public EditorBoundsInfo onEditElementFocusedForStylusWriting(Rect focusedEditBounds, Point cursorPosition, float scaleFactor, int contentOffsetY) {
-        RectF bounds = new RectF(focusedEditBounds.left / scaleFactor, focusedEditBounds.top / scaleFactor, focusedEditBounds.right / scaleFactor, focusedEditBounds.bottom / scaleFactor);
-        return new EditorBoundsInfo.Builder().setEditorBounds(bounds).setHandwritingBounds(bounds).build();
+    public EditorBoundsInfo onEditElementFocusedForStylusWriting(
+            Rect focusedEditBounds, Point cursorPosition, float scaleFactor, int contentOffsetY) {
+        RectF bounds = new RectF(focusedEditBounds.left / scaleFactor,
+                focusedEditBounds.top / scaleFactor, focusedEditBounds.right / scaleFactor,
+                focusedEditBounds.bottom / scaleFactor);
+        return new EditorBoundsInfo.Builder()
+                .setEditorBounds(bounds)
+                .setHandwritingBounds(bounds)
+                .build();
     }
 
     @Override
-    public EditorBoundsInfo onFocusedNodeChanged(Rect editableBoundsOnScreenDip, boolean isEditable, View currentView, float scaleFactor, int contentOffsetY) {
+    public EditorBoundsInfo onFocusedNodeChanged(Rect editableBoundsOnScreenDip, boolean isEditable,
+            View currentView, float scaleFactor, int contentOffsetY) {
         RectF bounds = new RectF(editableBoundsOnScreenDip);
-        return new EditorBoundsInfo.Builder().setEditorBounds(bounds).setHandwritingBounds(bounds).build();
+        return new EditorBoundsInfo.Builder()
+                .setEditorBounds(bounds)
+                .setHandwritingBounds(bounds)
+                .build();
     }
 
     @Override

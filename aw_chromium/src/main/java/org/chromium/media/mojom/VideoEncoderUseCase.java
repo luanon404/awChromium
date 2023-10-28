@@ -17,10 +17,13 @@ import androidx.annotation.IntDef;
 
 public final class VideoEncoderUseCase {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({VideoEncoderUseCase.CAST_MIRRORING, VideoEncoderUseCase.MEDIA_RECORDER, VideoEncoderUseCase.WEB_CODECS, VideoEncoderUseCase.WEB_RTC})
-    public @interface EnumType {
-    }
+        VideoEncoderUseCase.CAST_MIRRORING,
+        VideoEncoderUseCase.MEDIA_RECORDER,
+        VideoEncoderUseCase.WEB_CODECS,
+        VideoEncoderUseCase.WEB_RTC})
+    public @interface EnumType {}
 
     public static final int CAST_MIRRORING = 0;
     public static final int MEDIA_RECORDER = 1;
@@ -39,9 +42,8 @@ public final class VideoEncoderUseCase {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private VideoEncoderUseCase() {
-    }
+    private VideoEncoderUseCase() {}
 }

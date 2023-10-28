@@ -13,14 +13,15 @@ import android.util.Base64;
 import android.util.Base64InputStream;
 import android.view.Surface;
 
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+
 import org.chromium.base.ApiCompatibilityUtils;
 import org.chromium.base.ContextUtils;
 import org.chromium.base.Log;
 import org.chromium.base.StreamUtil;
 import org.chromium.base.task.AsyncTask;
-import org.jni_zero.CalledByNative;
-import org.jni_zero.JNINamespace;
-import org.jni_zero.NativeMethods;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -32,9 +33,9 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 
 /**
- * A wrapper around android.media.MediaPlayer that allows the native code to use it.
- * See media/base/android/media_player_bridge.cc for the corresponding native code.
- */
+* A wrapper around android.media.MediaPlayer that allows the native code to use it.
+* See media/base/android/media_player_bridge.cc for the corresponding native code.
+*/
 @JNINamespace("media")
 public class MediaPlayerBridge {
     private static final String TAG = "media";
@@ -152,7 +153,8 @@ public class MediaPlayerBridge {
     }
 
     @CalledByNative
-    protected boolean setDataSource(String url, String cookies, String userAgent, boolean hideUrlLog) {
+    protected boolean setDataSource(
+            String url, String cookies, String userAgent, boolean hideUrlLog) {
         Uri uri = Uri.parse(url);
         HashMap<String, String> headersMap = new HashMap<String, String>();
         if (hideUrlLog) headersMap.put("x-hide-urls-from-log", "true");
@@ -216,7 +218,8 @@ public class MediaPlayerBridge {
             try {
                 mTempFile = File.createTempFile("decoded", "mediadata");
                 fos = new FileOutputStream(mTempFile);
-                InputStream stream = new ByteArrayInputStream(ApiCompatibilityUtils.getBytesUtf8(mData));
+                InputStream stream =
+                        new ByteArrayInputStream(ApiCompatibilityUtils.getBytesUtf8(mData));
                 Base64InputStream decoder = new Base64InputStream(stream, Base64.DEFAULT);
                 byte[] buffer = new byte[1024];
                 int len;
@@ -241,7 +244,8 @@ public class MediaPlayerBridge {
 
             if (result) {
                 try {
-                    getLocalPlayer().setDataSource(ContextUtils.getApplicationContext(), Uri.fromFile(mTempFile));
+                    getLocalPlayer().setDataSource(
+                            ContextUtils.getApplicationContext(), Uri.fromFile(mTempFile));
                 } catch (IOException e) {
                     result = false;
                 }
@@ -249,7 +253,8 @@ public class MediaPlayerBridge {
 
             deleteFile();
             assert (mNativeMediaPlayerBridge != 0);
-            MediaPlayerBridgeJni.get().onDidSetDataUriDataSource(mNativeMediaPlayerBridge, MediaPlayerBridge.this, result);
+            MediaPlayerBridgeJni.get().onDidSetDataUriDataSource(
+                    mNativeMediaPlayerBridge, MediaPlayerBridge.this, result);
         }
 
         private void deleteFile() {
@@ -308,7 +313,9 @@ public class MediaPlayerBridge {
         boolean canSeekForward = true;
         boolean canSeekBackward = true;
         try {
-            @SuppressLint({"DiscouragedPrivateApi", "PrivateApi"}) Method getMetadata = player.getClass().getDeclaredMethod("getMetadata", boolean.class, boolean.class);
+            @SuppressLint({"DiscouragedPrivateApi", "PrivateApi"})
+            Method getMetadata = player.getClass().getDeclaredMethod(
+                    "getMetadata", boolean.class, boolean.class);
             getMetadata.setAccessible(true);
             Object data = getMetadata.invoke(player, false, false);
             if (data != null) {
@@ -316,12 +323,16 @@ public class MediaPlayerBridge {
                 Method hasMethod = metadataClass.getDeclaredMethod("has", int.class);
                 Method getBooleanMethod = metadataClass.getDeclaredMethod("getBoolean", int.class);
 
-                int seekForward = (Integer) metadataClass.getField("SEEK_FORWARD_AVAILABLE").get(null);
-                int seekBackward = (Integer) metadataClass.getField("SEEK_BACKWARD_AVAILABLE").get(null);
+                int seekForward =
+                        (Integer) metadataClass.getField("SEEK_FORWARD_AVAILABLE").get(null);
+                int seekBackward =
+                        (Integer) metadataClass.getField("SEEK_BACKWARD_AVAILABLE").get(null);
                 hasMethod.setAccessible(true);
                 getBooleanMethod.setAccessible(true);
-                canSeekForward = !((Boolean) hasMethod.invoke(data, seekForward)) || ((Boolean) getBooleanMethod.invoke(data, seekForward));
-                canSeekBackward = !((Boolean) hasMethod.invoke(data, seekBackward)) || ((Boolean) getBooleanMethod.invoke(data, seekBackward));
+                canSeekForward = !((Boolean) hasMethod.invoke(data, seekForward))
+                        || ((Boolean) getBooleanMethod.invoke(data, seekForward));
+                canSeekBackward = !((Boolean) hasMethod.invoke(data, seekBackward))
+                        || ((Boolean) getBooleanMethod.invoke(data, seekBackward));
             }
         } catch (NoSuchMethodException e) {
             Log.e(TAG, "Cannot find getMetadata() method: " + e);
@@ -344,6 +355,7 @@ public class MediaPlayerBridge {
 
     @NativeMethods
     interface Natives {
-        void onDidSetDataUriDataSource(long nativeMediaPlayerBridge, MediaPlayerBridge caller, boolean success);
+        void onDidSetDataUriDataSource(
+                long nativeMediaPlayerBridge, MediaPlayerBridge caller, boolean success);
     }
 }

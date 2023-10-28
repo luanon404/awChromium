@@ -13,9 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 class P2pSocketManager_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<P2pSocketManager, P2pSocketManager.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<P2pSocketManager, P2pSocketManager.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<P2pSocketManager, P2pSocketManager.Proxy> MANAGER =
+            new org.chromium.mojo.bindings.Interface.Manager<P2pSocketManager, P2pSocketManager.Proxy>() {
 
         @Override
         public String getName() {
@@ -24,11 +28,12 @@ class P2pSocketManager_Internal {
 
         @Override
         public int getVersion() {
-            return 0;
+          return 0;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -39,7 +44,7 @@ class P2pSocketManager_Internal {
 
         @Override
         public P2pSocketManager[] buildArray(int size) {
-            return new P2pSocketManager[size];
+          return new P2pSocketManager[size];
         }
     };
 
@@ -55,26 +60,33 @@ class P2pSocketManager_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements P2pSocketManager.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core,
+              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void startNetworkNotifications(P2pNetworkNotificationClient client) {
+        public void startNetworkNotifications(
+P2pNetworkNotificationClient client) {
 
             P2pSocketManagerStartNetworkNotificationsParams _message = new P2pSocketManagerStartNetworkNotificationsParams();
 
             _message.client = client;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(START_NETWORK_NOTIFICATIONS_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(START_NETWORK_NOTIFICATIONS_ORDINAL)));
 
         }
 
 
         @Override
-        public void getHostAddress(String hostName, boolean enableMdns, GetHostAddress_Response callback) {
+        public void getHostAddress(
+String hostName, boolean enableMdns, 
+GetHostAddress_Response callback) {
 
             P2pSocketManagerGetHostAddressParams _message = new P2pSocketManagerGetHostAddressParams();
 
@@ -83,13 +95,22 @@ class P2pSocketManager_Internal {
             _message.enableMdns = enableMdns;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(GET_HOST_ADDRESS_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new P2pSocketManagerGetHostAddressResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    GET_HOST_ADDRESS_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new P2pSocketManagerGetHostAddressResponseParamsForwardToCallback(callback));
 
         }
 
 
         @Override
-        public void getHostAddressWithFamily(String hostName, int addressFamily, boolean enableMdns, GetHostAddressWithFamily_Response callback) {
+        public void getHostAddressWithFamily(
+String hostName, int addressFamily, boolean enableMdns, 
+GetHostAddressWithFamily_Response callback) {
 
             P2pSocketManagerGetHostAddressWithFamilyParams _message = new P2pSocketManagerGetHostAddressWithFamilyParams();
 
@@ -100,13 +121,21 @@ class P2pSocketManager_Internal {
             _message.enableMdns = enableMdns;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(GET_HOST_ADDRESS_WITH_FAMILY_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new P2pSocketManagerGetHostAddressWithFamilyResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    GET_HOST_ADDRESS_WITH_FAMILY_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new P2pSocketManagerGetHostAddressWithFamilyResponseParamsForwardToCallback(callback));
 
         }
 
 
         @Override
-        public void createSocket(int type, IpEndPoint localAddress, P2pPortRange portRange, P2pHostAndIpEndPoint remoteAddress, MutableNetworkTrafficAnnotationTag trafficAnnotation, P2pSocketClient client, org.chromium.mojo.bindings.InterfaceRequest<P2pSocket> socket) {
+        public void createSocket(
+int type, IpEndPoint localAddress, P2pPortRange portRange, P2pHostAndIpEndPoint remoteAddress, MutableNetworkTrafficAnnotationTag trafficAnnotation, P2pSocketClient client, org.chromium.mojo.bindings.InterfaceRequest<P2pSocket> socket) {
 
             P2pSocketManagerCreateSocketParams _message = new P2pSocketManagerCreateSocketParams();
 
@@ -125,7 +154,10 @@ class P2pSocketManager_Internal {
             _message.socket = socket;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(CREATE_SOCKET_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(CREATE_SOCKET_ORDINAL)));
 
         }
 
@@ -141,7 +173,8 @@ class P2pSocketManager_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -150,24 +183,37 @@ class P2pSocketManager_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(P2pSocketManager_Internal.MANAGER, messageWithHeader);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
+                                P2pSocketManager_Internal.MANAGER, messageWithHeader);
+
+
+
 
 
                     case START_NETWORK_NOTIFICATIONS_ORDINAL: {
 
-                        P2pSocketManagerStartNetworkNotificationsParams data = P2pSocketManagerStartNetworkNotificationsParams.deserialize(messageWithHeader.getPayload());
+                        P2pSocketManagerStartNetworkNotificationsParams data =
+                                P2pSocketManagerStartNetworkNotificationsParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().startNetworkNotifications(data.client);
                         return true;
                     }
 
 
+
+
+
+
+
+
+
                     case CREATE_SOCKET_ORDINAL: {
 
-                        P2pSocketManagerCreateSocketParams data = P2pSocketManagerCreateSocketParams.deserialize(messageWithHeader.getPayload());
+                        P2pSocketManagerCreateSocketParams data =
+                                P2pSocketManagerCreateSocketParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().createSocket(data.type, data.localAddress, data.portRange, data.remoteAddress, data.trafficAnnotation, data.client, data.socket);
                         return true;
@@ -178,7 +224,7 @@ class P2pSocketManager_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -186,7 +232,8 @@ class P2pSocketManager_Internal {
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -195,45 +242,63 @@ class P2pSocketManager_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), P2pSocketManager_Internal.MANAGER, messageWithHeader, receiver);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
+                                getCore(), P2pSocketManager_Internal.MANAGER, messageWithHeader, receiver);
+
+
+
+
+
+
+
 
 
                     case GET_HOST_ADDRESS_ORDINAL: {
 
-                        P2pSocketManagerGetHostAddressParams data = P2pSocketManagerGetHostAddressParams.deserialize(messageWithHeader.getPayload());
+                        P2pSocketManagerGetHostAddressParams data =
+                                P2pSocketManagerGetHostAddressParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().getHostAddress(data.hostName, data.enableMdns, new P2pSocketManagerGetHostAddressResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
                     }
 
 
+
+
+
+
+
                     case GET_HOST_ADDRESS_WITH_FAMILY_ORDINAL: {
 
-                        P2pSocketManagerGetHostAddressWithFamilyParams data = P2pSocketManagerGetHostAddressWithFamilyParams.deserialize(messageWithHeader.getPayload());
+                        P2pSocketManagerGetHostAddressWithFamilyParams data =
+                                P2pSocketManagerGetHostAddressWithFamilyParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().getHostAddressWithFamily(data.hostName, data.addressFamily, data.enableMdns, new P2pSocketManagerGetHostAddressWithFamilyResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
                     }
 
 
+
+
                     default:
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class P2pSocketManagerStartNetworkNotificationsParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public P2pNetworkNotificationClient client;
 
@@ -255,7 +320,8 @@ class P2pSocketManager_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static P2pSocketManagerStartNetworkNotificationsParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -269,10 +335,10 @@ class P2pSocketManager_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new P2pSocketManagerStartNetworkNotificationsParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.client = decoder0.readServiceInterface(8, false, P2pNetworkNotificationClient.MANAGER);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -284,16 +350,18 @@ class P2pSocketManager_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.client, 8, false, P2pNetworkNotificationClient.MANAGER);
         }
     }
 
 
+
+    
     static final class P2pSocketManagerGetHostAddressParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public String hostName;
         public boolean enableMdns;
@@ -316,7 +384,8 @@ class P2pSocketManager_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static P2pSocketManagerGetHostAddressParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -330,14 +399,14 @@ class P2pSocketManager_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new P2pSocketManagerGetHostAddressParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.hostName = decoder0.readString(8, false);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.enableMdns = decoder0.readBoolean(16, 0);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -349,18 +418,20 @@ class P2pSocketManager_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.hostName, 8, false);
-
+            
             encoder0.encode(this.enableMdns, 16, 0);
         }
     }
 
 
+
+    
     static final class P2pSocketManagerGetHostAddressResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public IpAddress[] addresses;
 
@@ -382,7 +453,8 @@ class P2pSocketManager_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static P2pSocketManagerGetHostAddressResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -396,19 +468,19 @@ class P2pSocketManager_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new P2pSocketManagerGetHostAddressResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     {
                         org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                         result.addresses = new IpAddress[si1.elementsOrVersion];
                         for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                            
                             org.chromium.mojo.bindings.Decoder decoder2 = decoder1.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                             result.addresses[i1] = IpAddress.decode(decoder2);
                         }
                     }
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -420,20 +492,21 @@ class P2pSocketManager_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             if (this.addresses == null) {
                 encoder0.encodeNullPointer(8, false);
             } else {
                 org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.addresses.length, 8, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                 for (int i0 = 0; i0 < this.addresses.length; ++i0) {
-
+                    
                     encoder1.encode(this.addresses[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
                 }
             }
         }
     }
 
-    static class P2pSocketManagerGetHostAddressResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class P2pSocketManagerGetHostAddressResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final P2pSocketManager.GetHostAddress_Response mCallback;
 
         P2pSocketManagerGetHostAddressResponseParamsForwardToCallback(P2pSocketManager.GetHostAddress_Response callback) {
@@ -443,9 +516,11 @@ class P2pSocketManager_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(GET_HOST_ADDRESS_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(GET_HOST_ADDRESS_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -465,7 +540,10 @@ class P2pSocketManager_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        P2pSocketManagerGetHostAddressResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        P2pSocketManagerGetHostAddressResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -477,16 +555,24 @@ class P2pSocketManager_Internal {
 
             _response.addresses = addresses;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(GET_HOST_ADDRESS_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    GET_HOST_ADDRESS_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
 
 
+
+    
     static final class P2pSocketManagerGetHostAddressWithFamilyParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public String hostName;
         public int addressFamily;
@@ -510,7 +596,8 @@ class P2pSocketManager_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static P2pSocketManagerGetHostAddressWithFamilyParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -524,18 +611,18 @@ class P2pSocketManager_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new P2pSocketManagerGetHostAddressWithFamilyParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.hostName = decoder0.readString(8, false);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.addressFamily = decoder0.readInt(16);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.enableMdns = decoder0.readBoolean(20, 0);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -547,20 +634,22 @@ class P2pSocketManager_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.hostName, 8, false);
-
+            
             encoder0.encode(this.addressFamily, 16);
-
+            
             encoder0.encode(this.enableMdns, 20, 0);
         }
     }
 
 
+
+    
     static final class P2pSocketManagerGetHostAddressWithFamilyResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public IpAddress[] addresses;
 
@@ -582,7 +671,8 @@ class P2pSocketManager_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static P2pSocketManagerGetHostAddressWithFamilyResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -596,19 +686,19 @@ class P2pSocketManager_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new P2pSocketManagerGetHostAddressWithFamilyResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     {
                         org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                         result.addresses = new IpAddress[si1.elementsOrVersion];
                         for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                            
                             org.chromium.mojo.bindings.Decoder decoder2 = decoder1.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                             result.addresses[i1] = IpAddress.decode(decoder2);
                         }
                     }
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -620,20 +710,21 @@ class P2pSocketManager_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             if (this.addresses == null) {
                 encoder0.encodeNullPointer(8, false);
             } else {
                 org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.addresses.length, 8, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                 for (int i0 = 0; i0 < this.addresses.length; ++i0) {
-
+                    
                     encoder1.encode(this.addresses[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
                 }
             }
         }
     }
 
-    static class P2pSocketManagerGetHostAddressWithFamilyResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class P2pSocketManagerGetHostAddressWithFamilyResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final P2pSocketManager.GetHostAddressWithFamily_Response mCallback;
 
         P2pSocketManagerGetHostAddressWithFamilyResponseParamsForwardToCallback(P2pSocketManager.GetHostAddressWithFamily_Response callback) {
@@ -643,9 +734,11 @@ class P2pSocketManager_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(GET_HOST_ADDRESS_WITH_FAMILY_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(GET_HOST_ADDRESS_WITH_FAMILY_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -665,7 +758,10 @@ class P2pSocketManager_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        P2pSocketManagerGetHostAddressWithFamilyResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        P2pSocketManagerGetHostAddressWithFamilyResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -677,16 +773,24 @@ class P2pSocketManager_Internal {
 
             _response.addresses = addresses;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(GET_HOST_ADDRESS_WITH_FAMILY_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    GET_HOST_ADDRESS_WITH_FAMILY_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
 
 
+
+    
     static final class P2pSocketManagerCreateSocketParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 56;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(56, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(56, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int type;
         public IpEndPoint localAddress;
@@ -714,7 +818,8 @@ class P2pSocketManager_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static P2pSocketManagerCreateSocketParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -728,40 +833,40 @@ class P2pSocketManager_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new P2pSocketManagerCreateSocketParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.type = decoder0.readInt(8);
-                    P2pSocketType.validate(result.type);
-                    result.type = P2pSocketType.toKnownValue(result.type);
-                }
-                {
-
+                        P2pSocketType.validate(result.type);
+                        result.type = P2pSocketType.toKnownValue(result.type);
+                    }
+                    {
+                        
                     result.socket = decoder0.readInterfaceRequest(12, false);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                     result.localAddress = IpEndPoint.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, false);
                     result.portRange = P2pPortRange.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(32, false);
                     result.remoteAddress = P2pHostAndIpEndPoint.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(40, false);
                     result.trafficAnnotation = MutableNetworkTrafficAnnotationTag.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.client = decoder0.readServiceInterface(48, false, P2pSocketClient.MANAGER);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -773,22 +878,23 @@ class P2pSocketManager_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.type, 8);
-
+            
             encoder0.encode(this.socket, 12, false);
-
+            
             encoder0.encode(this.localAddress, 16, false);
-
+            
             encoder0.encode(this.portRange, 24, false);
-
+            
             encoder0.encode(this.remoteAddress, 32, false);
-
+            
             encoder0.encode(this.trafficAnnotation, 40, false);
-
+            
             encoder0.encode(this.client, 48, false, P2pSocketClient.MANAGER);
         }
     }
+
 
 
 }

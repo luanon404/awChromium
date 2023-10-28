@@ -85,8 +85,7 @@ class BindingManager implements ComponentCallbacks2 {
     }
 
     @Override
-    public void onConfigurationChanged(Configuration configuration) {
-    }
+    public void onConfigurationChanged(Configuration configuration) {}
 
     private void reduce(float reduceRatio) {
         int oldSize = mConnections.size();
@@ -140,22 +139,22 @@ class BindingManager implements ComponentCallbacks2 {
     /**
      * Called when the embedding application is sent to background.
      * The embedder needs to ensure that:
-     * - every onBroughtToForeground() is followed by onSentToBackground()
-     * - pairs of consecutive onBroughtToForeground() / onSentToBackground() calls do not overlap
+     *  - every onBroughtToForeground() is followed by onSentToBackground()
+     *  - pairs of consecutive onBroughtToForeground() / onSentToBackground() calls do not overlap
      */
     void onSentToBackground() {
         assert LauncherThread.runningOnLauncherThread();
 
-        RecordHistogram.recordCount1000Histogram("Android.BindingManger.ConnectionsDroppedDueToMaxSize", mConnectionsDroppedDueToMaxSize);
+        RecordHistogram.recordCount1000Histogram(
+                "Android.BindingManger.ConnectionsDroppedDueToMaxSize",
+                mConnectionsDroppedDueToMaxSize);
         mConnectionsDroppedDueToMaxSize = 0;
 
         if (mConnections.isEmpty()) return;
         LauncherThread.postDelayed(mDelayedClearer, BINDING_POOL_CLEARER_DELAY_MILLIS);
     }
 
-    /**
-     * Called when the embedding application is brought to foreground.
-     */
+    /** Called when the embedding application is brought to foreground. */
     void onBroughtToForeground() {
         assert LauncherThread.runningOnLauncherThread();
         LauncherThread.removeCallbacks(mDelayedClearer);
@@ -167,7 +166,8 @@ class BindingManager implements ComponentCallbacks2 {
     int getExclusiveBindingCount() {
         int exclusiveBindingCount = 0;
         for (ChildProcessConnection connection : mConnections) {
-            if ((useNotPerceptibleBinding()) ? isExclusiveNotPerceptibleBinding(connection) : isExclusiveVisibleBinding(connection)) {
+            if ((useNotPerceptibleBinding()) ? isExclusiveNotPerceptibleBinding(connection)
+                                             : isExclusiveVisibleBinding(connection)) {
                 exclusiveBindingCount++;
             }
         }
@@ -179,7 +179,8 @@ class BindingManager implements ComponentCallbacks2 {
      * @return whether this BindingManager has an exclusive moderate connection.
      */
     boolean hasExclusiveVisibleBinding(ChildProcessConnection connection) {
-        return !useNotPerceptibleBinding() && mConnections.contains(connection) && isExclusiveVisibleBinding(connection);
+        return !useNotPerceptibleBinding() && mConnections.contains(connection)
+                && isExclusiveVisibleBinding(connection);
     }
 
     /**
@@ -200,16 +201,19 @@ class BindingManager implements ComponentCallbacks2 {
     }
 
     private boolean isExclusiveNotPerceptibleBinding(ChildProcessConnection connection) {
-        return connection != mWaivedConnection && !connection.isStrongBindingBound() && !connection.isVisibleBindingBound() && connection.getNotPerceptibleBindingCount() == 1;
+        return connection != mWaivedConnection && !connection.isStrongBindingBound()
+                && !connection.isVisibleBindingBound()
+                && connection.getNotPerceptibleBindingCount() == 1;
     }
 
     private boolean isExclusiveVisibleBinding(ChildProcessConnection connection) {
-        return connection != mWaivedConnection && !connection.isStrongBindingBound() && !connection.isNotPerceptibleBindingBound() && connection.getVisibleBindingCount() == 1;
+        return connection != mWaivedConnection && !connection.isStrongBindingBound()
+                && !connection.isNotPerceptibleBindingBound()
+                && connection.getVisibleBindingCount() == 1;
     }
 
     /**
      * Construct instance with maxSize.
-     *
      * @param context Android's context.
      * @param maxSize The maximum number of connections or NO_MAX_SIZE for unlimited connections.
      * @param ranking The ranking of {@link ChildProcessConnection}s based on importance.
@@ -221,7 +225,8 @@ class BindingManager implements ComponentCallbacks2 {
         mMaxSize = maxSize;
         mRanking = ranking;
         if (mMaxSize <= 0 && mMaxSize != NO_MAX_SIZE) {
-            throw new IllegalArgumentException("maxSize must be a positive integer or NO_MAX_SIZE. Was " + maxSize);
+            throw new IllegalArgumentException(
+                    "maxSize must be a positive integer or NO_MAX_SIZE. Was " + maxSize);
         }
 
         mDelayedClearer = new Runnable() {

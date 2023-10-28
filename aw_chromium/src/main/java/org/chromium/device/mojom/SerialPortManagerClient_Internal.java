@@ -13,9 +13,13 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 class SerialPortManagerClient_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<SerialPortManagerClient, SerialPortManagerClient.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<SerialPortManagerClient, SerialPortManagerClient.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<SerialPortManagerClient, SerialPortManagerClient.Proxy> MANAGER =
+            new org.chromium.mojo.bindings.Interface.Manager<SerialPortManagerClient, SerialPortManagerClient.Proxy>() {
 
         @Override
         public String getName() {
@@ -24,11 +28,12 @@ class SerialPortManagerClient_Internal {
 
         @Override
         public int getVersion() {
-            return 0;
+          return 0;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -39,7 +44,7 @@ class SerialPortManagerClient_Internal {
 
         @Override
         public SerialPortManagerClient[] buildArray(int size) {
-            return new SerialPortManagerClient[size];
+          return new SerialPortManagerClient[size];
         }
     };
 
@@ -51,33 +56,42 @@ class SerialPortManagerClient_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements SerialPortManagerClient.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core,
+              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void onPortAdded(SerialPortInfo portInfo) {
+        public void onPortAdded(
+SerialPortInfo portInfo) {
 
             SerialPortManagerClientOnPortAddedParams _message = new SerialPortManagerClientOnPortAddedParams();
 
             _message.portInfo = portInfo;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_PORT_ADDED_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_PORT_ADDED_ORDINAL)));
 
         }
 
 
         @Override
-        public void onPortRemoved(SerialPortInfo portInfo) {
+        public void onPortRemoved(
+SerialPortInfo portInfo) {
 
             SerialPortManagerClientOnPortRemovedParams _message = new SerialPortManagerClientOnPortRemovedParams();
 
             _message.portInfo = portInfo;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_PORT_REMOVED_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_PORT_REMOVED_ORDINAL)));
 
         }
 
@@ -93,7 +107,8 @@ class SerialPortManagerClient_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -102,24 +117,33 @@ class SerialPortManagerClient_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(SerialPortManagerClient_Internal.MANAGER, messageWithHeader);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
+                                SerialPortManagerClient_Internal.MANAGER, messageWithHeader);
+
+
+
 
 
                     case ON_PORT_ADDED_ORDINAL: {
 
-                        SerialPortManagerClientOnPortAddedParams data = SerialPortManagerClientOnPortAddedParams.deserialize(messageWithHeader.getPayload());
+                        SerialPortManagerClientOnPortAddedParams data =
+                                SerialPortManagerClientOnPortAddedParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onPortAdded(data.portInfo);
                         return true;
                     }
 
 
+
+
+
                     case ON_PORT_REMOVED_ORDINAL: {
 
-                        SerialPortManagerClientOnPortRemovedParams data = SerialPortManagerClientOnPortRemovedParams.deserialize(messageWithHeader.getPayload());
+                        SerialPortManagerClientOnPortRemovedParams data =
+                                SerialPortManagerClientOnPortRemovedParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onPortRemoved(data.portInfo);
                         return true;
@@ -130,7 +154,7 @@ class SerialPortManagerClient_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -138,7 +162,8 @@ class SerialPortManagerClient_Internal {
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -147,27 +172,33 @@ class SerialPortManagerClient_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), SerialPortManagerClient_Internal.MANAGER, messageWithHeader, receiver);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
+                                getCore(), SerialPortManagerClient_Internal.MANAGER, messageWithHeader, receiver);
+
+
+
+
 
 
                     default:
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class SerialPortManagerClientOnPortAddedParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public SerialPortInfo portInfo;
 
@@ -189,7 +220,8 @@ class SerialPortManagerClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static SerialPortManagerClientOnPortAddedParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -203,11 +235,11 @@ class SerialPortManagerClient_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new SerialPortManagerClientOnPortAddedParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.portInfo = SerialPortInfo.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -219,16 +251,18 @@ class SerialPortManagerClient_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.portInfo, 8, false);
         }
     }
 
 
+
+    
     static final class SerialPortManagerClientOnPortRemovedParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public SerialPortInfo portInfo;
 
@@ -250,7 +284,8 @@ class SerialPortManagerClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static SerialPortManagerClientOnPortRemovedParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -264,11 +299,11 @@ class SerialPortManagerClient_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new SerialPortManagerClientOnPortRemovedParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.portInfo = SerialPortInfo.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -280,10 +315,11 @@ class SerialPortManagerClient_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.portInfo, 8, false);
         }
     }
+
 
 
 }

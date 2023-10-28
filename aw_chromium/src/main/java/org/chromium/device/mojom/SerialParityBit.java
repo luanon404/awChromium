@@ -17,10 +17,13 @@ import androidx.annotation.IntDef;
 
 public final class SerialParityBit {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({SerialParityBit.NONE, SerialParityBit.NO_PARITY, SerialParityBit.ODD, SerialParityBit.EVEN})
-    public @interface EnumType {
-    }
+        SerialParityBit.NONE,
+        SerialParityBit.NO_PARITY,
+        SerialParityBit.ODD,
+        SerialParityBit.EVEN})
+    public @interface EnumType {}
 
     public static final int NONE = 0;
     public static final int NO_PARITY = 1;
@@ -39,9 +42,8 @@ public final class SerialParityBit {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private SerialParityBit() {
-    }
+    private SerialParityBit() {}
 }

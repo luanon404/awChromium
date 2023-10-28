@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class CookieDeletionSessionControl {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({CookieDeletionSessionControl.IGNORE_CONTROL, CookieDeletionSessionControl.SESSION_COOKIES, CookieDeletionSessionControl.PERSISTENT_COOKIES})
-    public @interface EnumType {
-    }
+        CookieDeletionSessionControl.IGNORE_CONTROL,
+        CookieDeletionSessionControl.SESSION_COOKIES,
+        CookieDeletionSessionControl.PERSISTENT_COOKIES})
+    public @interface EnumType {}
 
     public static final int IGNORE_CONTROL = 0;
     public static final int SESSION_COOKIES = 1;
@@ -38,9 +40,8 @@ public final class CookieDeletionSessionControl {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private CookieDeletionSessionControl() {
-    }
+    private CookieDeletionSessionControl() {}
 }

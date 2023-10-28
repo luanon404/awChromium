@@ -13,18 +13,24 @@
 
 package org.chromium.gfx.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface DelegatedInkPointRenderer extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends DelegatedInkPointRenderer, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends DelegatedInkPointRenderer, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<DelegatedInkPointRenderer, DelegatedInkPointRenderer.Proxy> MANAGER = DelegatedInkPointRenderer_Internal.MANAGER;
 
-    void storeDelegatedInkPoint(DelegatedInkPoint point);
+    void storeDelegatedInkPoint(
+DelegatedInkPoint point);
 
 
-    void resetPrediction();
+    void resetPrediction(
+);
 
 
 }

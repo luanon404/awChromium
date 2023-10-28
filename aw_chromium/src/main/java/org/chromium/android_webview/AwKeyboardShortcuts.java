@@ -14,7 +14,6 @@ import org.chromium.content_public.browser.KeyboardShortcutRecorder.KeyboardShor
  * Handles WebView keyboard shortcut events that weren't handled in {@link
  * AwWebContentsDelegateAdapter#handleKeyboardEvent(KeyEvent)}.
  */
-
 /**
  * TODO(wbjacksonjr) Possibly merge this class with {@link
  * org.chromium.chrome.browser.KeyboardShortcuts}
@@ -24,16 +23,17 @@ public class AwKeyboardShortcuts {
     private static final int ALT = 1 << 30;
     private static final int SHIFT = 1 << 29;
 
-    private AwKeyboardShortcuts() {
-    }
+    private AwKeyboardShortcuts() {}
 
     private static int getMetaState(KeyEvent event) {
-        return (event.isCtrlPressed() ? CTRL : 0) | (event.isAltPressed() ? ALT : 0) | (event.isShiftPressed() ? SHIFT : 0);
+        return (event.isCtrlPressed() ? CTRL : 0) | (event.isAltPressed() ? ALT : 0)
+                | (event.isShiftPressed() ? SHIFT : 0);
     }
 
     public static boolean onKeyDown(KeyEvent event, AwContents awContents) {
         int keyCode = event.getKeyCode();
-        if (event.getRepeatCount() != 0 || event.getAction() != KeyEvent.ACTION_DOWN || KeyEvent.isModifierKey(keyCode)) {
+        if (event.getRepeatCount() != 0 || event.getAction() != KeyEvent.ACTION_DOWN
+                || KeyEvent.isModifierKey(keyCode)) {
             return false;
         }
 

@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface PushMessaging extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends PushMessaging, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends PushMessaging, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<PushMessaging, PushMessaging.Proxy> MANAGER = PushMessaging_Internal.MANAGER;

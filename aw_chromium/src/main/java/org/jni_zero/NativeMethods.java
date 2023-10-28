@@ -16,5 +16,5 @@ public @interface NativeMethods {
      * should only be used for feature modules where we need a different GEN_JNI. For example, if
      * you did @NativeMethods("dfmname"), this would call into dfmname_GEN_JNI.java.
      */
-    String value() default "";
+    public String value() default "";
 }

@@ -3,8 +3,9 @@
 // found in the LICENSE file.
 package org.chromium.components.content_capture;
 
-import org.chromium.base.CommandLine;
 import org.jni_zero.NativeMethods;
+
+import org.chromium.base.CommandLine;
 
 /**
  * The class to get if feature is enabled from native.
@@ -27,7 +28,6 @@ public class ContentCaptureFeatures {
     @NativeMethods
     interface Natives {
         boolean isEnabled();
-
         boolean shouldTriggerContentCaptureForExperiment();
     }
 }

@@ -1,3 +1,4 @@
+
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -14,46 +15,52 @@ import androidx.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@IntDef({TaskTraits.THREAD_POOL_TRAITS_START, TaskTraits.BEST_EFFORT, TaskTraits.BEST_EFFORT_MAY_BLOCK, TaskTraits.USER_VISIBLE, TaskTraits.USER_VISIBLE_MAY_BLOCK, TaskTraits.USER_BLOCKING, TaskTraits.USER_BLOCKING_MAY_BLOCK, TaskTraits.THREAD_POOL_TRAITS_END, TaskTraits.UI_TRAITS_START, TaskTraits.UI_BEST_EFFORT, TaskTraits.UI_USER_VISIBLE, TaskTraits.UI_USER_BLOCKING, TaskTraits.UI_DEFAULT, TaskTraits.UI_TRAITS_END})
+@IntDef({
+    TaskTraits.THREAD_POOL_TRAITS_START, TaskTraits.BEST_EFFORT, TaskTraits.BEST_EFFORT_MAY_BLOCK,
+    TaskTraits.USER_VISIBLE, TaskTraits.USER_VISIBLE_MAY_BLOCK, TaskTraits.USER_BLOCKING,
+    TaskTraits.USER_BLOCKING_MAY_BLOCK, TaskTraits.THREAD_POOL_TRAITS_END,
+    TaskTraits.UI_TRAITS_START, TaskTraits.UI_BEST_EFFORT, TaskTraits.UI_USER_VISIBLE,
+    TaskTraits.UI_USER_BLOCKING, TaskTraits.UI_DEFAULT, TaskTraits.UI_TRAITS_END
+})
 @Retention(RetentionPolicy.SOURCE)
 public @interface TaskTraits {
-    int THREAD_POOL_TRAITS_START = 0;
-    /**
-     * This task will only be scheduled when machine resources are available. Once running, it may be
-     * descheduled if higher priority work arrives (in this process or another) and its running on a
-     * non-critical thread. This is the lowest possible priority.
-     */
-    int BEST_EFFORT = THREAD_POOL_TRAITS_START;
-    /**
-     * This is a lowest-priority task which may block, for example non-urgent logging or deletion of
-     * temporary files as clean-up.
-     */
-    int BEST_EFFORT_MAY_BLOCK = THREAD_POOL_TRAITS_START + 1;
-    /**
-     * This task affects UI or responsiveness of future user interactions. It is not an immediate
-     * response to a user interaction. Most tasks are likely to have this priority. Examples: -
-     * Updating the UI to reflect progress on a long task. - Loading data that might be shown in the
-     * UI after a future user interaction.
-     */
-    int USER_VISIBLE = THREAD_POOL_TRAITS_START + 2;
-    /**
-     * USER_VISIBLE + may block.
-     */
-    int USER_VISIBLE_MAY_BLOCK = THREAD_POOL_TRAITS_START + 3;
-    /**
-     * This task affects UI immediately after a user interaction. Example: Generating data shown in
-     * the UI immediately after a click.
-     */
-    int USER_BLOCKING = THREAD_POOL_TRAITS_START + 4;
-    /**
-     * USER_BLOCKING + may block.
-     */
-    int USER_BLOCKING_MAY_BLOCK = THREAD_POOL_TRAITS_START + 5;
-    int THREAD_POOL_TRAITS_END = USER_BLOCKING_MAY_BLOCK;
-    int UI_TRAITS_START = THREAD_POOL_TRAITS_END + 1;
-    int UI_BEST_EFFORT = UI_TRAITS_START;
-    int UI_USER_VISIBLE = UI_TRAITS_START + 1;
-    int UI_USER_BLOCKING = UI_TRAITS_START + 2;
-    int UI_DEFAULT = UI_USER_VISIBLE;
-    int UI_TRAITS_END = UI_USER_BLOCKING;
+  int THREAD_POOL_TRAITS_START = 0;
+  /**
+   * This task will only be scheduled when machine resources are available. Once running, it may be
+   * descheduled if higher priority work arrives (in this process or another) and its running on a
+   * non-critical thread. This is the lowest possible priority.
+   */
+  int BEST_EFFORT = THREAD_POOL_TRAITS_START;
+  /**
+   * This is a lowest-priority task which may block, for example non-urgent logging or deletion of
+   * temporary files as clean-up.
+   */
+  int BEST_EFFORT_MAY_BLOCK = THREAD_POOL_TRAITS_START + 1;
+  /**
+   * This task affects UI or responsiveness of future user interactions. It is not an immediate
+   * response to a user interaction. Most tasks are likely to have this priority. Examples: -
+   * Updating the UI to reflect progress on a long task. - Loading data that might be shown in the
+   * UI after a future user interaction.
+   */
+  int USER_VISIBLE = THREAD_POOL_TRAITS_START + 2;
+  /**
+   * USER_VISIBLE + may block.
+   */
+  int USER_VISIBLE_MAY_BLOCK = THREAD_POOL_TRAITS_START + 3;
+  /**
+   * This task affects UI immediately after a user interaction. Example: Generating data shown in
+   * the UI immediately after a click.
+   */
+  int USER_BLOCKING = THREAD_POOL_TRAITS_START + 4;
+  /**
+   * USER_BLOCKING + may block.
+   */
+  int USER_BLOCKING_MAY_BLOCK = THREAD_POOL_TRAITS_START + 5;
+  int THREAD_POOL_TRAITS_END = USER_BLOCKING_MAY_BLOCK;
+  int UI_TRAITS_START = THREAD_POOL_TRAITS_END + 1;
+  int UI_BEST_EFFORT = UI_TRAITS_START;
+  int UI_USER_VISIBLE = UI_TRAITS_START + 1;
+  int UI_USER_BLOCKING = UI_TRAITS_START + 2;
+  int UI_DEFAULT = UI_USER_VISIBLE;
+  int UI_TRAITS_END = UI_USER_BLOCKING;
 }

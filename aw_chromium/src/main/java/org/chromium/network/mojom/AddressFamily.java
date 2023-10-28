@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class AddressFamily {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({AddressFamily.UNSPECIFIED, AddressFamily.IPV4, AddressFamily.IPV6})
-    public @interface EnumType {
-    }
+        AddressFamily.UNSPECIFIED,
+        AddressFamily.IPV4,
+        AddressFamily.IPV6})
+    public @interface EnumType {}
 
     public static final int UNSPECIFIED = 0;
     public static final int IPV4 = 1;
@@ -38,9 +40,8 @@ public final class AddressFamily {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private AddressFamily() {
-    }
+    private AddressFamily() {}
 }

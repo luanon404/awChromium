@@ -13,45 +13,58 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface VideoCaptureHost extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends VideoCaptureHost, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends VideoCaptureHost, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<VideoCaptureHost, VideoCaptureHost.Proxy> MANAGER = VideoCaptureHost_Internal.MANAGER;
 
-    void start(org.chromium.mojo_base.mojom.UnguessableToken deviceId, org.chromium.mojo_base.mojom.UnguessableToken sessionId, VideoCaptureParams params, VideoCaptureObserver observer);
+    void start(
+org.chromium.mojo_base.mojom.UnguessableToken deviceId, org.chromium.mojo_base.mojom.UnguessableToken sessionId, VideoCaptureParams params, VideoCaptureObserver observer);
 
 
-    void stop(org.chromium.mojo_base.mojom.UnguessableToken deviceId);
+    void stop(
+org.chromium.mojo_base.mojom.UnguessableToken deviceId);
 
 
-    void pause(org.chromium.mojo_base.mojom.UnguessableToken deviceId);
+    void pause(
+org.chromium.mojo_base.mojom.UnguessableToken deviceId);
 
 
-    void resume(org.chromium.mojo_base.mojom.UnguessableToken deviceId, org.chromium.mojo_base.mojom.UnguessableToken sessionId, VideoCaptureParams params);
+    void resume(
+org.chromium.mojo_base.mojom.UnguessableToken deviceId, org.chromium.mojo_base.mojom.UnguessableToken sessionId, VideoCaptureParams params);
 
 
-    void requestRefreshFrame(org.chromium.mojo_base.mojom.UnguessableToken deviceId);
+    void requestRefreshFrame(
+org.chromium.mojo_base.mojom.UnguessableToken deviceId);
 
 
-    void releaseBuffer(org.chromium.mojo_base.mojom.UnguessableToken deviceId, int bufferId, VideoCaptureFeedback feedback);
+    void releaseBuffer(
+org.chromium.mojo_base.mojom.UnguessableToken deviceId, int bufferId, VideoCaptureFeedback feedback);
 
 
-    void getDeviceSupportedFormats(org.chromium.mojo_base.mojom.UnguessableToken deviceId, org.chromium.mojo_base.mojom.UnguessableToken sessionId, GetDeviceSupportedFormats_Response callback);
+    void getDeviceSupportedFormats(
+org.chromium.mojo_base.mojom.UnguessableToken deviceId, org.chromium.mojo_base.mojom.UnguessableToken sessionId, 
+GetDeviceSupportedFormats_Response callback);
 
-    interface GetDeviceSupportedFormats_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<VideoCaptureFormat[]> {
-    }
-
-
-    void getDeviceFormatsInUse(org.chromium.mojo_base.mojom.UnguessableToken deviceId, org.chromium.mojo_base.mojom.UnguessableToken sessionId, GetDeviceFormatsInUse_Response callback);
-
-    interface GetDeviceFormatsInUse_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<VideoCaptureFormat[]> {
-    }
+    interface GetDeviceSupportedFormats_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<VideoCaptureFormat[]> { }
 
 
-    void onLog(org.chromium.mojo_base.mojom.UnguessableToken deviceId, String message);
+    void getDeviceFormatsInUse(
+org.chromium.mojo_base.mojom.UnguessableToken deviceId, org.chromium.mojo_base.mojom.UnguessableToken sessionId, 
+GetDeviceFormatsInUse_Response callback);
+
+    interface GetDeviceFormatsInUse_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<VideoCaptureFormat[]> { }
+
+
+    void onLog(
+org.chromium.mojo_base.mojom.UnguessableToken deviceId, String message);
 
 
 }

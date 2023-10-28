@@ -17,10 +17,13 @@ import androidx.annotation.IntDef;
 
 public final class Position {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({Position.TOP, Position.RIGHT, Position.BOTTOM, Position.LEFT})
-    public @interface EnumType {
-    }
+        Position.TOP,
+        Position.RIGHT,
+        Position.BOTTOM,
+        Position.LEFT})
+    public @interface EnumType {}
 
     public static final int TOP = 0;
     public static final int RIGHT = 1;
@@ -39,9 +42,8 @@ public final class Position {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private Position() {
-    }
+    private Position() {}
 }

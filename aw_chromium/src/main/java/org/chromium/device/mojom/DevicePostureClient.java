@@ -13,15 +13,20 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface DevicePostureClient extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends DevicePostureClient, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends DevicePostureClient, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<DevicePostureClient, DevicePostureClient.Proxy> MANAGER = DevicePostureClient_Internal.MANAGER;
 
-    void onPostureChanged(int posture);
+    void onPostureChanged(
+int posture);
 
 
 }

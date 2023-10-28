@@ -13,6 +13,8 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 class EmbeddedWorkerInstanceHost_Internal {
 
@@ -385,7 +387,7 @@ int source, int messageLevel, org.chromium.mojo_base.mojom.String16 message, int
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -444,7 +446,7 @@ int source, int messageLevel, org.chromium.mojo_base.mojom.String16 message, int
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }

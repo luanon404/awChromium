@@ -14,7 +14,7 @@ import org.chromium.content_public.browser.WebContents;
  * reported from the renderer.
  * Provides wrappers and a utility class to help with coordinate transforms on the client side.
  * Provides the internally-visible set of update methods.
- * <p>
+ *
  * Unless stated otherwise, all coordinates are in CSS (document) coordinate space.
  */
 public class RenderCoordinatesImpl implements RenderCoordinates {
@@ -114,7 +114,9 @@ public class RenderCoordinatesImpl implements RenderCoordinates {
         mDeviceScaleFactor = dipScale;
     }
 
-    public void updateFrameInfo(float contentWidthCss, float contentHeightCss, float viewportWidthCss, float viewportHeightCss, float minPageScaleFactor, float maxPageScaleFactor, float contentOffsetYPix) {
+    public void updateFrameInfo(float contentWidthCss, float contentHeightCss,
+            float viewportWidthCss, float viewportHeightCss, float minPageScaleFactor,
+            float maxPageScaleFactor, float contentOffsetYPix) {
         mMinPageScaleFactor = minPageScaleFactor;
         mMaxPageScaleFactor = maxPageScaleFactor;
         mTopContentOffsetYPix = contentOffsetYPix;
@@ -258,7 +260,7 @@ public class RenderCoordinatesImpl implements RenderCoordinates {
 
     /**
      * @return whether the first frame info was passed in and cached. Rendered content
-     * area dimension, page scale factor, etc. is available if true.
+     *     area dimension, page scale factor, etc. is available if true.
      */
     public boolean frameInfoUpdatedForTesting() {
         return mContentWidthCss != 0.f || mContentHeightCss != 0.f;

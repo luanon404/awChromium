@@ -17,10 +17,16 @@ import androidx.annotation.IntDef;
 
 public final class HashAlgorithm {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({HashAlgorithm.HASH_ALGO_NONE, HashAlgorithm.HASH_ALGO_MD5, HashAlgorithm.HASH_ALGO_SHA1, HashAlgorithm.HASH_ALGO_SHA224, HashAlgorithm.HASH_ALGO_SHA256, HashAlgorithm.HASH_ALGO_SHA384, HashAlgorithm.HASH_ALGO_SHA512})
-    public @interface EnumType {
-    }
+        HashAlgorithm.HASH_ALGO_NONE,
+        HashAlgorithm.HASH_ALGO_MD5,
+        HashAlgorithm.HASH_ALGO_SHA1,
+        HashAlgorithm.HASH_ALGO_SHA224,
+        HashAlgorithm.HASH_ALGO_SHA256,
+        HashAlgorithm.HASH_ALGO_SHA384,
+        HashAlgorithm.HASH_ALGO_SHA512})
+    public @interface EnumType {}
 
     public static final int HASH_ALGO_NONE = 0;
     public static final int HASH_ALGO_MD5 = 1;
@@ -42,9 +48,8 @@ public final class HashAlgorithm {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private HashAlgorithm() {
-    }
+    private HashAlgorithm() {}
 }

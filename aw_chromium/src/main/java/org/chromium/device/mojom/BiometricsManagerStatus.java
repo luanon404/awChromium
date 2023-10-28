@@ -17,10 +17,11 @@ import androidx.annotation.IntDef;
 
 public final class BiometricsManagerStatus {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({BiometricsManagerStatus.UNKNOWN, BiometricsManagerStatus.INITIALIZED})
-    public @interface EnumType {
-    }
+        BiometricsManagerStatus.UNKNOWN,
+        BiometricsManagerStatus.INITIALIZED})
+    public @interface EnumType {}
 
     public static final int UNKNOWN = 0;
     public static final int INITIALIZED = 1;
@@ -37,9 +38,8 @@ public final class BiometricsManagerStatus {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private BiometricsManagerStatus() {
-    }
+    private BiometricsManagerStatus() {}
 }

@@ -13,9 +13,13 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 class Decryptor_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<Decryptor, Decryptor.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<Decryptor, Decryptor.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<Decryptor, Decryptor.Proxy> MANAGER =
+            new org.chromium.mojo.bindings.Interface.Manager<Decryptor, Decryptor.Proxy>() {
 
         @Override
         public String getName() {
@@ -24,11 +28,12 @@ class Decryptor_Internal {
 
         @Override
         public int getVersion() {
-            return 0;
+          return 0;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -39,7 +44,7 @@ class Decryptor_Internal {
 
         @Override
         public Decryptor[] buildArray(int size) {
-            return new Decryptor[size];
+          return new Decryptor[size];
         }
     };
 
@@ -65,13 +70,15 @@ class Decryptor_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements Decryptor.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core,
+              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void initialize(org.chromium.mojo.system.DataPipe.ConsumerHandle audioPipe, org.chromium.mojo.system.DataPipe.ConsumerHandle videoPipe, org.chromium.mojo.system.DataPipe.ConsumerHandle decryptPipe, org.chromium.mojo.system.DataPipe.ProducerHandle decryptedPipe) {
+        public void initialize(
+org.chromium.mojo.system.DataPipe.ConsumerHandle audioPipe, org.chromium.mojo.system.DataPipe.ConsumerHandle videoPipe, org.chromium.mojo.system.DataPipe.ConsumerHandle decryptPipe, org.chromium.mojo.system.DataPipe.ProducerHandle decryptedPipe) {
 
             DecryptorInitializeParams _message = new DecryptorInitializeParams();
 
@@ -84,13 +91,18 @@ class Decryptor_Internal {
             _message.decryptedPipe = decryptedPipe;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(INITIALIZE_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(INITIALIZE_ORDINAL)));
 
         }
 
 
         @Override
-        public void decrypt(int streamType, DecoderBuffer encrypted, Decrypt_Response callback) {
+        public void decrypt(
+int streamType, DecoderBuffer encrypted, 
+Decrypt_Response callback) {
 
             DecryptorDecryptParams _message = new DecryptorDecryptParams();
 
@@ -99,98 +111,153 @@ class Decryptor_Internal {
             _message.encrypted = encrypted;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(DECRYPT_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new DecryptorDecryptResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    DECRYPT_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new DecryptorDecryptResponseParamsForwardToCallback(callback));
 
         }
 
 
         @Override
-        public void cancelDecrypt(int streamType) {
+        public void cancelDecrypt(
+int streamType) {
 
             DecryptorCancelDecryptParams _message = new DecryptorCancelDecryptParams();
 
             _message.streamType = streamType;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(CANCEL_DECRYPT_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(CANCEL_DECRYPT_ORDINAL)));
 
         }
 
 
         @Override
-        public void initializeAudioDecoder(AudioDecoderConfig config, InitializeAudioDecoder_Response callback) {
+        public void initializeAudioDecoder(
+AudioDecoderConfig config, 
+InitializeAudioDecoder_Response callback) {
 
             DecryptorInitializeAudioDecoderParams _message = new DecryptorInitializeAudioDecoderParams();
 
             _message.config = config;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(INITIALIZE_AUDIO_DECODER_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new DecryptorInitializeAudioDecoderResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    INITIALIZE_AUDIO_DECODER_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new DecryptorInitializeAudioDecoderResponseParamsForwardToCallback(callback));
 
         }
 
 
         @Override
-        public void initializeVideoDecoder(VideoDecoderConfig config, InitializeVideoDecoder_Response callback) {
+        public void initializeVideoDecoder(
+VideoDecoderConfig config, 
+InitializeVideoDecoder_Response callback) {
 
             DecryptorInitializeVideoDecoderParams _message = new DecryptorInitializeVideoDecoderParams();
 
             _message.config = config;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(INITIALIZE_VIDEO_DECODER_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new DecryptorInitializeVideoDecoderResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    INITIALIZE_VIDEO_DECODER_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new DecryptorInitializeVideoDecoderResponseParamsForwardToCallback(callback));
 
         }
 
 
         @Override
-        public void decryptAndDecodeAudio(DecoderBuffer encrypted, DecryptAndDecodeAudio_Response callback) {
+        public void decryptAndDecodeAudio(
+DecoderBuffer encrypted, 
+DecryptAndDecodeAudio_Response callback) {
 
             DecryptorDecryptAndDecodeAudioParams _message = new DecryptorDecryptAndDecodeAudioParams();
 
             _message.encrypted = encrypted;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(DECRYPT_AND_DECODE_AUDIO_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new DecryptorDecryptAndDecodeAudioResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    DECRYPT_AND_DECODE_AUDIO_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new DecryptorDecryptAndDecodeAudioResponseParamsForwardToCallback(callback));
 
         }
 
 
         @Override
-        public void decryptAndDecodeVideo(DecoderBuffer encrypted, DecryptAndDecodeVideo_Response callback) {
+        public void decryptAndDecodeVideo(
+DecoderBuffer encrypted, 
+DecryptAndDecodeVideo_Response callback) {
 
             DecryptorDecryptAndDecodeVideoParams _message = new DecryptorDecryptAndDecodeVideoParams();
 
             _message.encrypted = encrypted;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(DECRYPT_AND_DECODE_VIDEO_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new DecryptorDecryptAndDecodeVideoResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    DECRYPT_AND_DECODE_VIDEO_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new DecryptorDecryptAndDecodeVideoResponseParamsForwardToCallback(callback));
 
         }
 
 
         @Override
-        public void resetDecoder(int streamType) {
+        public void resetDecoder(
+int streamType) {
 
             DecryptorResetDecoderParams _message = new DecryptorResetDecoderParams();
 
             _message.streamType = streamType;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(RESET_DECODER_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(RESET_DECODER_ORDINAL)));
 
         }
 
 
         @Override
-        public void deinitializeDecoder(int streamType) {
+        public void deinitializeDecoder(
+int streamType) {
 
             DecryptorDeinitializeDecoderParams _message = new DecryptorDeinitializeDecoderParams();
 
             _message.streamType = streamType;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(DEINITIALIZE_DECODER_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(DEINITIALIZE_DECODER_ORDINAL)));
 
         }
 
@@ -206,7 +273,8 @@ class Decryptor_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -215,42 +283,69 @@ class Decryptor_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(Decryptor_Internal.MANAGER, messageWithHeader);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
+                                Decryptor_Internal.MANAGER, messageWithHeader);
+
+
+
 
 
                     case INITIALIZE_ORDINAL: {
 
-                        DecryptorInitializeParams data = DecryptorInitializeParams.deserialize(messageWithHeader.getPayload());
+                        DecryptorInitializeParams data =
+                                DecryptorInitializeParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().initialize(data.audioPipe, data.videoPipe, data.decryptPipe, data.decryptedPipe);
                         return true;
                     }
 
 
+
+
+
+
+
                     case CANCEL_DECRYPT_ORDINAL: {
 
-                        DecryptorCancelDecryptParams data = DecryptorCancelDecryptParams.deserialize(messageWithHeader.getPayload());
+                        DecryptorCancelDecryptParams data =
+                                DecryptorCancelDecryptParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().cancelDecrypt(data.streamType);
                         return true;
                     }
 
 
+
+
+
+
+
+
+
+
+
+
+
                     case RESET_DECODER_ORDINAL: {
 
-                        DecryptorResetDecoderParams data = DecryptorResetDecoderParams.deserialize(messageWithHeader.getPayload());
+                        DecryptorResetDecoderParams data =
+                                DecryptorResetDecoderParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().resetDecoder(data.streamType);
                         return true;
                     }
 
 
+
+
+
                     case DEINITIALIZE_DECODER_ORDINAL: {
 
-                        DecryptorDeinitializeDecoderParams data = DecryptorDeinitializeDecoderParams.deserialize(messageWithHeader.getPayload());
+                        DecryptorDeinitializeDecoderParams data =
+                                DecryptorDeinitializeDecoderParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().deinitializeDecoder(data.streamType);
                         return true;
@@ -261,7 +356,7 @@ class Decryptor_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -269,7 +364,8 @@ class Decryptor_Internal {
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -278,72 +374,112 @@ class Decryptor_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), Decryptor_Internal.MANAGER, messageWithHeader, receiver);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
+                                getCore(), Decryptor_Internal.MANAGER, messageWithHeader, receiver);
+
+
+
+
+
+
+
 
 
                     case DECRYPT_ORDINAL: {
 
-                        DecryptorDecryptParams data = DecryptorDecryptParams.deserialize(messageWithHeader.getPayload());
+                        DecryptorDecryptParams data =
+                                DecryptorDecryptParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().decrypt(data.streamType, data.encrypted, new DecryptorDecryptResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
                     }
 
 
+
+
+
+
+
+
+
                     case INITIALIZE_AUDIO_DECODER_ORDINAL: {
 
-                        DecryptorInitializeAudioDecoderParams data = DecryptorInitializeAudioDecoderParams.deserialize(messageWithHeader.getPayload());
+                        DecryptorInitializeAudioDecoderParams data =
+                                DecryptorInitializeAudioDecoderParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().initializeAudioDecoder(data.config, new DecryptorInitializeAudioDecoderResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
                     }
 
 
+
+
+
+
+
                     case INITIALIZE_VIDEO_DECODER_ORDINAL: {
 
-                        DecryptorInitializeVideoDecoderParams data = DecryptorInitializeVideoDecoderParams.deserialize(messageWithHeader.getPayload());
+                        DecryptorInitializeVideoDecoderParams data =
+                                DecryptorInitializeVideoDecoderParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().initializeVideoDecoder(data.config, new DecryptorInitializeVideoDecoderResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
                     }
 
 
+
+
+
+
+
                     case DECRYPT_AND_DECODE_AUDIO_ORDINAL: {
 
-                        DecryptorDecryptAndDecodeAudioParams data = DecryptorDecryptAndDecodeAudioParams.deserialize(messageWithHeader.getPayload());
+                        DecryptorDecryptAndDecodeAudioParams data =
+                                DecryptorDecryptAndDecodeAudioParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().decryptAndDecodeAudio(data.encrypted, new DecryptorDecryptAndDecodeAudioResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
                     }
 
 
+
+
+
+
+
                     case DECRYPT_AND_DECODE_VIDEO_ORDINAL: {
 
-                        DecryptorDecryptAndDecodeVideoParams data = DecryptorDecryptAndDecodeVideoParams.deserialize(messageWithHeader.getPayload());
+                        DecryptorDecryptAndDecodeVideoParams data =
+                                DecryptorDecryptAndDecodeVideoParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().decryptAndDecodeVideo(data.encrypted, new DecryptorDecryptAndDecodeVideoResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
                     }
 
 
+
+
+
+
                     default:
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class DecryptorInitializeParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.mojo.system.DataPipe.ConsumerHandle audioPipe;
         public org.chromium.mojo.system.DataPipe.ConsumerHandle videoPipe;
@@ -372,7 +508,8 @@ class Decryptor_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static DecryptorInitializeParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -386,22 +523,22 @@ class Decryptor_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new DecryptorInitializeParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.audioPipe = decoder0.readConsumerHandle(8, false);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.videoPipe = decoder0.readConsumerHandle(12, false);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.decryptPipe = decoder0.readConsumerHandle(16, false);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.decryptedPipe = decoder0.readProducerHandle(20, false);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -413,22 +550,24 @@ class Decryptor_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.audioPipe, 8, false);
-
+            
             encoder0.encode(this.videoPipe, 12, false);
-
+            
             encoder0.encode(this.decryptPipe, 16, false);
-
+            
             encoder0.encode(this.decryptedPipe, 20, false);
         }
     }
 
 
+
+    
     static final class DecryptorDecryptParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int streamType;
         public DecoderBuffer encrypted;
@@ -451,7 +590,8 @@ class Decryptor_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static DecryptorDecryptParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -465,17 +605,17 @@ class Decryptor_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new DecryptorDecryptParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.streamType = decoder0.readInt(8);
-                    Decryptor.StreamType.validate(result.streamType);
-                    result.streamType = Decryptor.StreamType.toKnownValue(result.streamType);
-                }
-                {
-
+                        Decryptor.StreamType.validate(result.streamType);
+                        result.streamType = Decryptor.StreamType.toKnownValue(result.streamType);
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                     result.encrypted = DecoderBuffer.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -487,18 +627,20 @@ class Decryptor_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.streamType, 8);
-
+            
             encoder0.encode(this.encrypted, 16, false);
         }
     }
 
 
+
+    
     static final class DecryptorDecryptResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int status;
         public DecoderBuffer buffer;
@@ -521,7 +663,8 @@ class Decryptor_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static DecryptorDecryptResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -535,17 +678,17 @@ class Decryptor_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new DecryptorDecryptResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.status = decoder0.readInt(8);
-                    Decryptor.Status.validate(result.status);
-                    result.status = Decryptor.Status.toKnownValue(result.status);
-                }
-                {
-
+                        Decryptor.Status.validate(result.status);
+                        result.status = Decryptor.Status.toKnownValue(result.status);
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, true);
                     result.buffer = DecoderBuffer.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -557,14 +700,15 @@ class Decryptor_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.status, 8);
-
+            
             encoder0.encode(this.buffer, 16, true);
         }
     }
 
-    static class DecryptorDecryptResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class DecryptorDecryptResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final Decryptor.Decrypt_Response mCallback;
 
         DecryptorDecryptResponseParamsForwardToCallback(Decryptor.Decrypt_Response callback) {
@@ -574,9 +718,11 @@ class Decryptor_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(DECRYPT_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(DECRYPT_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -596,7 +742,10 @@ class Decryptor_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        DecryptorDecryptResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        DecryptorDecryptResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -610,16 +759,24 @@ class Decryptor_Internal {
 
             _response.buffer = buffer;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(DECRYPT_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    DECRYPT_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
 
 
+
+    
     static final class DecryptorCancelDecryptParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int streamType;
 
@@ -641,7 +798,8 @@ class Decryptor_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static DecryptorCancelDecryptParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -655,12 +813,12 @@ class Decryptor_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new DecryptorCancelDecryptParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.streamType = decoder0.readInt(8);
-                    Decryptor.StreamType.validate(result.streamType);
-                    result.streamType = Decryptor.StreamType.toKnownValue(result.streamType);
-                }
+                        Decryptor.StreamType.validate(result.streamType);
+                        result.streamType = Decryptor.StreamType.toKnownValue(result.streamType);
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -672,16 +830,18 @@ class Decryptor_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.streamType, 8);
         }
     }
 
 
+
+    
     static final class DecryptorInitializeAudioDecoderParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public AudioDecoderConfig config;
 
@@ -703,7 +863,8 @@ class Decryptor_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static DecryptorInitializeAudioDecoderParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -717,11 +878,11 @@ class Decryptor_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new DecryptorInitializeAudioDecoderParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.config = AudioDecoderConfig.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -733,16 +894,18 @@ class Decryptor_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.config, 8, false);
         }
     }
 
 
+
+    
     static final class DecryptorInitializeAudioDecoderResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public boolean success;
 
@@ -764,7 +927,8 @@ class Decryptor_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static DecryptorInitializeAudioDecoderResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -778,10 +942,10 @@ class Decryptor_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new DecryptorInitializeAudioDecoderResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.success = decoder0.readBoolean(8, 0);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -793,12 +957,13 @@ class Decryptor_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.success, 8, 0);
         }
     }
 
-    static class DecryptorInitializeAudioDecoderResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class DecryptorInitializeAudioDecoderResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final Decryptor.InitializeAudioDecoder_Response mCallback;
 
         DecryptorInitializeAudioDecoderResponseParamsForwardToCallback(Decryptor.InitializeAudioDecoder_Response callback) {
@@ -808,9 +973,11 @@ class Decryptor_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(INITIALIZE_AUDIO_DECODER_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(INITIALIZE_AUDIO_DECODER_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -830,7 +997,10 @@ class Decryptor_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        DecryptorInitializeAudioDecoderResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        DecryptorInitializeAudioDecoderResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -842,16 +1012,24 @@ class Decryptor_Internal {
 
             _response.success = success;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(INITIALIZE_AUDIO_DECODER_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    INITIALIZE_AUDIO_DECODER_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
 
 
+
+    
     static final class DecryptorInitializeVideoDecoderParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public VideoDecoderConfig config;
 
@@ -873,7 +1051,8 @@ class Decryptor_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static DecryptorInitializeVideoDecoderParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -887,11 +1066,11 @@ class Decryptor_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new DecryptorInitializeVideoDecoderParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.config = VideoDecoderConfig.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -903,16 +1082,18 @@ class Decryptor_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.config, 8, false);
         }
     }
 
 
+
+    
     static final class DecryptorInitializeVideoDecoderResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public boolean success;
 
@@ -934,7 +1115,8 @@ class Decryptor_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static DecryptorInitializeVideoDecoderResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -948,10 +1130,10 @@ class Decryptor_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new DecryptorInitializeVideoDecoderResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.success = decoder0.readBoolean(8, 0);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -963,12 +1145,13 @@ class Decryptor_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.success, 8, 0);
         }
     }
 
-    static class DecryptorInitializeVideoDecoderResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class DecryptorInitializeVideoDecoderResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final Decryptor.InitializeVideoDecoder_Response mCallback;
 
         DecryptorInitializeVideoDecoderResponseParamsForwardToCallback(Decryptor.InitializeVideoDecoder_Response callback) {
@@ -978,9 +1161,11 @@ class Decryptor_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(INITIALIZE_VIDEO_DECODER_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(INITIALIZE_VIDEO_DECODER_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -1000,7 +1185,10 @@ class Decryptor_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        DecryptorInitializeVideoDecoderResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        DecryptorInitializeVideoDecoderResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -1012,16 +1200,24 @@ class Decryptor_Internal {
 
             _response.success = success;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(INITIALIZE_VIDEO_DECODER_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    INITIALIZE_VIDEO_DECODER_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
 
 
+
+    
     static final class DecryptorDecryptAndDecodeAudioParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public DecoderBuffer encrypted;
 
@@ -1043,7 +1239,8 @@ class Decryptor_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static DecryptorDecryptAndDecodeAudioParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1057,11 +1254,11 @@ class Decryptor_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new DecryptorDecryptAndDecodeAudioParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.encrypted = DecoderBuffer.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1073,16 +1270,18 @@ class Decryptor_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.encrypted, 8, false);
         }
     }
 
 
+
+    
     static final class DecryptorDecryptAndDecodeAudioResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int status;
         public AudioBuffer[] audioBuffers;
@@ -1105,7 +1304,8 @@ class Decryptor_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static DecryptorDecryptAndDecodeAudioResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1119,25 +1319,25 @@ class Decryptor_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new DecryptorDecryptAndDecodeAudioResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.status = decoder0.readInt(8);
-                    Decryptor.Status.validate(result.status);
-                    result.status = Decryptor.Status.toKnownValue(result.status);
-                }
-                {
-
+                        Decryptor.Status.validate(result.status);
+                        result.status = Decryptor.Status.toKnownValue(result.status);
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                     {
                         org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                         result.audioBuffers = new AudioBuffer[si1.elementsOrVersion];
                         for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                            
                             org.chromium.mojo.bindings.Decoder decoder2 = decoder1.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                             result.audioBuffers[i1] = AudioBuffer.decode(decoder2);
                         }
                     }
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1149,22 +1349,23 @@ class Decryptor_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.status, 8);
-
+            
             if (this.audioBuffers == null) {
                 encoder0.encodeNullPointer(16, false);
             } else {
                 org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.audioBuffers.length, 16, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                 for (int i0 = 0; i0 < this.audioBuffers.length; ++i0) {
-
+                    
                     encoder1.encode(this.audioBuffers[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
                 }
             }
         }
     }
 
-    static class DecryptorDecryptAndDecodeAudioResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class DecryptorDecryptAndDecodeAudioResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final Decryptor.DecryptAndDecodeAudio_Response mCallback;
 
         DecryptorDecryptAndDecodeAudioResponseParamsForwardToCallback(Decryptor.DecryptAndDecodeAudio_Response callback) {
@@ -1174,9 +1375,11 @@ class Decryptor_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(DECRYPT_AND_DECODE_AUDIO_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(DECRYPT_AND_DECODE_AUDIO_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -1196,7 +1399,10 @@ class Decryptor_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        DecryptorDecryptAndDecodeAudioResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        DecryptorDecryptAndDecodeAudioResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -1210,16 +1416,24 @@ class Decryptor_Internal {
 
             _response.audioBuffers = audioBuffers;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(DECRYPT_AND_DECODE_AUDIO_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    DECRYPT_AND_DECODE_AUDIO_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
 
 
+
+    
     static final class DecryptorDecryptAndDecodeVideoParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public DecoderBuffer encrypted;
 
@@ -1241,7 +1455,8 @@ class Decryptor_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static DecryptorDecryptAndDecodeVideoParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1255,11 +1470,11 @@ class Decryptor_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new DecryptorDecryptAndDecodeVideoParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.encrypted = DecoderBuffer.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1271,16 +1486,18 @@ class Decryptor_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.encrypted, 8, false);
         }
     }
 
 
+
+    
     static final class DecryptorDecryptAndDecodeVideoResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 32;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(32, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(32, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int status;
         public VideoFrame videoFrame;
@@ -1304,7 +1521,8 @@ class Decryptor_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static DecryptorDecryptAndDecodeVideoResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1318,21 +1536,21 @@ class Decryptor_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new DecryptorDecryptAndDecodeVideoResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.status = decoder0.readInt(8);
-                    Decryptor.Status.validate(result.status);
-                    result.status = Decryptor.Status.toKnownValue(result.status);
-                }
-                {
-
+                        Decryptor.Status.validate(result.status);
+                        result.status = Decryptor.Status.toKnownValue(result.status);
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, true);
                     result.videoFrame = VideoFrame.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.releaser = decoder0.readServiceInterface(24, true, FrameResourceReleaser.MANAGER);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1344,16 +1562,17 @@ class Decryptor_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.status, 8);
-
+            
             encoder0.encode(this.videoFrame, 16, true);
-
+            
             encoder0.encode(this.releaser, 24, true, FrameResourceReleaser.MANAGER);
         }
     }
 
-    static class DecryptorDecryptAndDecodeVideoResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class DecryptorDecryptAndDecodeVideoResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final Decryptor.DecryptAndDecodeVideo_Response mCallback;
 
         DecryptorDecryptAndDecodeVideoResponseParamsForwardToCallback(Decryptor.DecryptAndDecodeVideo_Response callback) {
@@ -1363,9 +1582,11 @@ class Decryptor_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(DECRYPT_AND_DECODE_VIDEO_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(DECRYPT_AND_DECODE_VIDEO_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -1385,7 +1606,10 @@ class Decryptor_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        DecryptorDecryptAndDecodeVideoResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        DecryptorDecryptAndDecodeVideoResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -1401,16 +1625,24 @@ class Decryptor_Internal {
 
             _response.releaser = releaser;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(DECRYPT_AND_DECODE_VIDEO_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    DECRYPT_AND_DECODE_VIDEO_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
 
 
+
+    
     static final class DecryptorResetDecoderParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int streamType;
 
@@ -1432,7 +1664,8 @@ class Decryptor_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static DecryptorResetDecoderParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1446,12 +1679,12 @@ class Decryptor_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new DecryptorResetDecoderParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.streamType = decoder0.readInt(8);
-                    Decryptor.StreamType.validate(result.streamType);
-                    result.streamType = Decryptor.StreamType.toKnownValue(result.streamType);
-                }
+                        Decryptor.StreamType.validate(result.streamType);
+                        result.streamType = Decryptor.StreamType.toKnownValue(result.streamType);
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1463,16 +1696,18 @@ class Decryptor_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.streamType, 8);
         }
     }
 
 
+
+    
     static final class DecryptorDeinitializeDecoderParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int streamType;
 
@@ -1494,7 +1729,8 @@ class Decryptor_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static DecryptorDeinitializeDecoderParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1508,12 +1744,12 @@ class Decryptor_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new DecryptorDeinitializeDecoderParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.streamType = decoder0.readInt(8);
-                    Decryptor.StreamType.validate(result.streamType);
-                    result.streamType = Decryptor.StreamType.toKnownValue(result.streamType);
-                }
+                        Decryptor.StreamType.validate(result.streamType);
+                        result.streamType = Decryptor.StreamType.toKnownValue(result.streamType);
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1525,10 +1761,11 @@ class Decryptor_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.streamType, 8);
         }
     }
+
 
 
 }

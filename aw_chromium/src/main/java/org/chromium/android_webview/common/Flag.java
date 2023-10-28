@@ -42,7 +42,8 @@ public class Flag {
     /**
      * Creates a Flag which represents a commandline switch with a value applied when enabled.
      */
-    public static Flag commandLine(@NonNull String name, @NonNull String description, @NonNull String enabledStateValue) {
+    public static Flag commandLine(
+            @NonNull String name, @NonNull String description, @NonNull String enabledStateValue) {
         return new Flag(name, description, enabledStateValue, false);
     }
 
@@ -50,7 +51,8 @@ public class Flag {
      * Calls should use {@link #baseFeature(String, String)} or {@link
      * #commandLine(String, String)} instead.
      */
-    private Flag(@NonNull String name, @NonNull String description, @Nullable String enabledStateValue, boolean isBaseFeature) {
+    private Flag(@NonNull String name, @NonNull String description,
+            @Nullable String enabledStateValue, boolean isBaseFeature) {
         mName = name;
         mDescription = description;
         mEnabledStateValue = enabledStateValue;

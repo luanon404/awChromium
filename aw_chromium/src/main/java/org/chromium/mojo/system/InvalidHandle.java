@@ -14,7 +14,8 @@ import java.util.List;
 /**
  * A handle that will always be invalid.
  */
-public class InvalidHandle implements UntypedHandle, MessagePipeHandle, ConsumerHandle, ProducerHandle, SharedBufferHandle {
+public class InvalidHandle implements UntypedHandle, MessagePipeHandle, ConsumerHandle,
+        ProducerHandle, SharedBufferHandle {
 
     /**
      * Instance singleton.
@@ -151,7 +152,8 @@ public class InvalidHandle implements UntypedHandle, MessagePipeHandle, Consumer
      * @see DataPipe.ProducerHandle#beginWriteData(int, DataPipe.WriteFlags)
      */
     @Override
-    public ByteBuffer beginWriteData(int numBytes, DataPipe.WriteFlags flags) {
+    public ByteBuffer beginWriteData(int numBytes,
+            DataPipe.WriteFlags flags) {
         throw new MojoException(MojoResult.INVALID_ARGUMENT);
     }
 
@@ -183,7 +185,8 @@ public class InvalidHandle implements UntypedHandle, MessagePipeHandle, Consumer
      * @see DataPipe.ConsumerHandle#beginReadData(int, DataPipe.ReadFlags)
      */
     @Override
-    public ByteBuffer beginReadData(int numBytes, DataPipe.ReadFlags flags) {
+    public ByteBuffer beginReadData(int numBytes,
+            DataPipe.ReadFlags flags) {
         throw new MojoException(MojoResult.INVALID_ARGUMENT);
     }
 
@@ -197,7 +200,7 @@ public class InvalidHandle implements UntypedHandle, MessagePipeHandle, Consumer
 
     /**
      * @see MessagePipeHandle#writeMessage(java.nio.ByteBuffer, java.util.List,
-     * MessagePipeHandle.WriteFlags)
+     *      MessagePipeHandle.WriteFlags)
      */
     @Override
     public void writeMessage(ByteBuffer bytes, List<? extends Handle> handles, WriteFlags flags) {

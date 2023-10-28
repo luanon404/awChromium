@@ -7,7 +7,8 @@ package org.chromium.net;
 /**
  * Registration policy which make sure that the listener is always registered.
  */
-public class RegistrationPolicyAlwaysRegister extends NetworkChangeNotifierAutoDetect.RegistrationPolicy {
+public class RegistrationPolicyAlwaysRegister
+        extends NetworkChangeNotifierAutoDetect.RegistrationPolicy {
     @Override
     protected void init(NetworkChangeNotifierAutoDetect notifier) {
         super.init(notifier);
@@ -15,6 +16,5 @@ public class RegistrationPolicyAlwaysRegister extends NetworkChangeNotifierAutoD
     }
 
     @Override
-    protected void destroy() {
-    }
+    protected void destroy() {}
 }

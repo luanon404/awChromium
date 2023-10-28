@@ -39,7 +39,8 @@ abstract class AwDataDirLock {
     private static FileLock sExclusiveFileLock;
 
     static void lock(final Context appContext) {
-        try (ScopedSysTraceEvent e1 = ScopedSysTraceEvent.scoped("AwDataDirLock.lock"); StrictModeContext ignored = StrictModeContext.allowDiskWrites()) {
+        try (ScopedSysTraceEvent e1 = ScopedSysTraceEvent.scoped("AwDataDirLock.lock");
+                StrictModeContext ignored = StrictModeContext.allowDiskWrites()) {
             if (sExclusiveFileLock != null) {
                 // We have already called lock() and successfully acquired the lock in this process.
                 // This shouldn't happen, but is likely to be the result of an app catching an
@@ -100,7 +101,8 @@ abstract class AwDataDirLock {
             // Make it fatal when on P for apps that target P or higher
             ProcessInfo holder = ProcessInfo.readFromFile(sLockFile);
             String error = getLockFailureReason(holder);
-            boolean dieOnFailure = Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && appContext.getApplicationInfo().targetSdkVersion >= Build.VERSION_CODES.P;
+            boolean dieOnFailure = Build.VERSION.SDK_INT >= Build.VERSION_CODES.P
+                    && appContext.getApplicationInfo().targetSdkVersion >= Build.VERSION_CODES.P;
             if (dieOnFailure) {
                 throw new RuntimeException(error);
             } else {
@@ -153,11 +155,13 @@ abstract class AwDataDirLock {
     }
 
     private static String getLockFailureReason(ProcessInfo holder) {
-        final StringBuilder error = new StringBuilder("Using WebView from more than one process at " + "once with the same data directory is not supported. https://crbug.com/558377 " + ": Current process ");
-        error.append(ProcessInfo.current());
+        final StringBuilder error = new StringBuilder("Using WebView from more than one process at "
+                + "once with the same data directory is not supported. https://crbug.com/558377 "
+                + ": Current process ");
+        error.append(ProcessInfo.current().toString());
         error.append(", lock owner ");
         if (holder != null) {
-            error.append(holder);
+            error.append(holder.toString());
 
             // Check the status of the pid holding the lock by sending it a null signal.
             // This doesn't actually send a signal, just runs the kernel access checks.

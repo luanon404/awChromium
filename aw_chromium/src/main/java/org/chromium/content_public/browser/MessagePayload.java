@@ -62,7 +62,8 @@ public final class MessagePayload {
 
     private void checkType(@MessagePayloadType int expectedType) {
         if (mType != expectedType) {
-            throw new IllegalStateException("Expected " + typeToString(expectedType) + ", but type is " + typeToString(mType));
+            throw new IllegalStateException("Expected " + typeToString(expectedType)
+                    + ", but type is " + typeToString(mType));
         }
     }
 

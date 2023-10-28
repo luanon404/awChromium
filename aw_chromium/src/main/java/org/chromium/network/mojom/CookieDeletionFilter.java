@@ -13,10 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class CookieDeletionFilter extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 80;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(80, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(80, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public org.chromium.mojo_base.mojom.Time createdAfterTime;
     public org.chromium.mojo_base.mojom.Time createdBeforeTime;
@@ -63,18 +66,18 @@ public final class CookieDeletionFilter extends org.chromium.mojo.bindings.Struc
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new CookieDeletionFilter(elementsOrVersion);
-            {
-
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, true);
                 result.createdAfterTime = org.chromium.mojo_base.mojom.Time.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, true);
                 result.createdBeforeTime = org.chromium.mojo_base.mojom.Time.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, true);
                 if (decoder1 == null) {
                     result.excludingDomains = null;
@@ -82,13 +85,13 @@ public final class CookieDeletionFilter extends org.chromium.mojo.bindings.Struc
                     org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                     result.excludingDomains = new String[si1.elementsOrVersion];
                     for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                        
                         result.excludingDomains[i1] = decoder1.readString(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                     }
                 }
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(32, true);
                 if (decoder1 == null) {
                     result.includingDomains = null;
@@ -96,39 +99,39 @@ public final class CookieDeletionFilter extends org.chromium.mojo.bindings.Struc
                     org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                     result.includingDomains = new String[si1.elementsOrVersion];
                     for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                        
                         result.includingDomains[i1] = decoder1.readString(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                     }
                 }
-            }
-            {
-
+                }
+                {
+                    
                 result.cookieName = decoder0.readString(40, true);
-            }
-            {
-
+                }
+                {
+                    
                 result.hostName = decoder0.readString(48, true);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(56, true);
                 result.url = org.chromium.url.mojom.Url.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.sessionControl = decoder0.readInt(64);
-                CookieDeletionSessionControl.validate(result.sessionControl);
-                result.sessionControl = CookieDeletionSessionControl.toKnownValue(result.sessionControl);
-            }
-            {
-
+                    CookieDeletionSessionControl.validate(result.sessionControl);
+                    result.sessionControl = CookieDeletionSessionControl.toKnownValue(result.sessionControl);
+                }
+                {
+                    
                 result.partitionedStateOnly = decoder0.readBoolean(68, 0);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(72, true);
                 result.cookiePartitionKeyCollection = CookiePartitionKeyCollection.decode(decoder1);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -140,41 +143,41 @@ public final class CookieDeletionFilter extends org.chromium.mojo.bindings.Struc
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.createdAfterTime, 8, true);
-
+        
         encoder0.encode(this.createdBeforeTime, 16, true);
-
+        
         if (this.excludingDomains == null) {
             encoder0.encodeNullPointer(24, true);
         } else {
             org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.excludingDomains.length, 24, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
             for (int i0 = 0; i0 < this.excludingDomains.length; ++i0) {
-
+                
                 encoder1.encode(this.excludingDomains[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
             }
         }
-
+        
         if (this.includingDomains == null) {
             encoder0.encodeNullPointer(32, true);
         } else {
             org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.includingDomains.length, 32, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
             for (int i0 = 0; i0 < this.includingDomains.length; ++i0) {
-
+                
                 encoder1.encode(this.includingDomains[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
             }
         }
-
+        
         encoder0.encode(this.cookieName, 40, true);
-
+        
         encoder0.encode(this.hostName, 48, true);
-
+        
         encoder0.encode(this.url, 56, true);
-
+        
         encoder0.encode(this.sessionControl, 64);
-
+        
         encoder0.encode(this.partitionedStateOnly, 68, 0);
-
+        
         encoder0.encode(this.cookiePartitionKeyCollection, 72, true);
     }
 }

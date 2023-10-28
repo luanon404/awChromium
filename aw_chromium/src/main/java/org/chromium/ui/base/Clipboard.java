@@ -14,13 +14,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+
 import org.chromium.base.Callback;
 import org.chromium.base.ContextUtils;
 import org.chromium.base.Log;
 import org.chromium.url.GURL;
-import org.jni_zero.CalledByNative;
-import org.jni_zero.JNINamespace;
-import org.jni_zero.NativeMethods;
 
 /**
  * Simple proxy that provides C++ code with an access pathway to the Android clipboard.
@@ -33,39 +34,34 @@ public class Clipboard {
     private static Clipboard sInstance;
 
     private long mNativeClipboard;
-
     /**
      * Interface to be implemented for sharing image through FileProvider.
      */
     public interface ImageFileProvider {
-        /**
-         * The helper class to load Clipboard file metadata.
-         */
-        class ClipboardFileMetadata {
+        /** The helper class to load Clipboard file metadata. */
+        public class ClipboardFileMetadata {
             public static final long INVALID_TIMESTAMP = 0;
             public final Uri uri;
             public final long timestamp;
-
             public ClipboardFileMetadata(Uri uri, long timestamp) {
                 this.uri = uri;
                 this.timestamp = timestamp;
             }
         }
-
         /**
          * Saves the given set of image bytes and provides that URI to a callback for
          * sharing the image.
          *
-         * @param imageData     The image data to be shared in |fileExtension| format.
+         * @param imageData The image data to be shared in |fileExtension| format.
          * @param fileExtension File extension which |imageData| encoded to.
-         * @param callback      A provided callback function which will act on the generated URI.
+         * @param callback A provided callback function which will act on the generated URI.
          */
-        void storeImageAndGenerateUri(final byte[] imageData, String fileExtension, Callback<Uri> callback);
+        void storeImageAndGenerateUri(
+                final byte[] imageData, String fileExtension, Callback<Uri> callback);
 
         /**
          * Store the last image uri and its timestamp we put in the sytstem clipboard.
          * On Android O and O_MR1, URI is stored for revoking permissions later.
-         *
          * @param clipboardFileMetadata The metadata needs to be stored.
          */
         void storeLastCopiedImageMetadata(@NonNull ClipboardFileMetadata clipboardFileMetadata);
@@ -91,7 +87,9 @@ public class Clipboard {
     @CalledByNative
     public static Clipboard getInstance() {
         if (sInstance == null) {
-            ClipboardManager clipboardManager = (ClipboardManager) ContextUtils.getApplicationContext().getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipboardManager clipboardManager =
+                    (ClipboardManager) ContextUtils.getApplicationContext().getSystemService(
+                            Context.CLIPBOARD_SERVICE);
             if (clipboardManager != null) {
                 sInstance = new ClipboardImpl(clipboardManager);
             } else {
@@ -103,7 +101,7 @@ public class Clipboard {
 
     /**
      * Resets the clipboard instance for testing.
-     * <p>
+     *
      * Particularly relevant for robolectric tests where the application context is not shared
      * across test runs and the Clipboard instance would hold onto an older no longer used
      * application context instance.
@@ -132,8 +130,8 @@ public class Clipboard {
      * this method.
      *
      * @return a string representation of the first item on the clipboard, if
-     * the clipboard currently has an item and coercion of the item into
-     * a string is possible; otherwise, <code>null</code>
+     *         the clipboard currently has an item and coercion of the item into
+     *         a string is possible; otherwise, <code>null</code>
      */
     @SuppressWarnings("javadoc")
     @CalledByNative
@@ -155,7 +153,7 @@ public class Clipboard {
      * Gets the HTML text of top item on the primary clip on the Android clipboard.
      *
      * @return a Java string with the html text if any, or null if there is no html
-     * text or no entries on the primary clip.
+     *         text or no entries on the primary clip.
      */
     @CalledByNative
     protected String getHTMLText() {
@@ -166,7 +164,6 @@ public class Clipboard {
      * Check if the system clipboard contains HTML text or plain text with stlyed text.
      * Since Spanned could be copied to Clipboard as plain_text MIME type, and it can be converted
      * to HTML by android.text.Html#toHtml().
-     *
      * @return True if the system clipboard contains the html text or the styled text.
      */
     @CalledByNative
@@ -184,7 +181,6 @@ public class Clipboard {
      * On Pre S, we return the whole clipboard content if the clipboard content is a URL.
      * On S+, we return the first URL in the content. ex, If clipboard contains "text www.foo.com
      * www.bar.com", then "www.foo.com" will be returned.
-     *
      * @return The URL in the clipboard, or the first URL on the clipbobard.
      */
     @CalledByNative
@@ -198,7 +194,7 @@ public class Clipboard {
      * image.
      *
      * @return an Uri if mime type is image type, or null if there is no Uri or no entries on the
-     * primary clip.
+     *         primary clip.
      */
     public @Nullable Uri getImageUri() {
         return null;
@@ -238,8 +234,7 @@ public class Clipboard {
      * {@link android.text.ClipboardManager#setText(CharSequence)}, setting the
      * clipboard's current primary clip to a plain-text clip that consists of
      * the specified string.
-     *
-     * @param text will become the content of the clipboard's primary clip.
+     * @param text  will become the content of the clipboard's primary clip.
      */
     @CalledByNative
     public void setText(final String text) {
@@ -259,8 +254,8 @@ public class Clipboard {
     /**
      * Writes text to the clipboard.
      *
-     * @param label           the label for the clip data.
-     * @param text            will become the content of the clipboard's primary clip.
+     * @param label the label for the clip data.
+     * @param text  will become the content of the clipboard's primary clip.
      * @param notifyOnSuccess whether show a notification, e.g. a toast, to the user when success.
      */
     public void setText(final String label, final String text, boolean notifyOnSuccess) {
@@ -271,8 +266,8 @@ public class Clipboard {
      * Writes HTML to the clipboard, together with a plain-text representation
      * of that very data.
      *
-     * @param html The HTML content to be pasted to the clipboard.
-     * @param text Plain-text representation of the HTML content.
+     * @param html  The HTML content to be pasted to the clipboard.
+     * @param text  Plain-text representation of the HTML content.
      */
     @CalledByNative
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
@@ -282,8 +277,7 @@ public class Clipboard {
 
     /**
      * Writes password to the clipboard, and set the Clipdata is sensitive.
-     *
-     * @param password will become the content of the clipboard's primary clip.
+     * @param password  will become the content of the clipboard's primary clip.
      */
     public void setPassword(final String password) {
         Log.w(TAG, "setPassword is a no-op because Clipboard service isn't available");
@@ -293,7 +287,6 @@ public class Clipboard {
      * Setting the clipboard's current primary clip to an image.
      * This method requires background work and might not be immediately committed upon returning
      * from this method.
-     *
      * @param Uri The {@link Uri} will become the content of the clipboard's primary clip.
      */
     public void setImageUri(final Uri uri) {
@@ -305,9 +298,9 @@ public class Clipboard {
      * This method requires background work and might not be immediately committed upon returning
      * from this method.
      *
-     * @param Uri             The {@link Uri} will become the content of the clipboard's primary clip.
-     * @param notifyOnSuccess Whether show a notification when success.
      * @see #setImageUri(Uri)
+     * @param Uri The {@link Uri} will become the content of the clipboard's primary clip.
+     * @param notifyOnSuccess Whether show a notification when success.
      */
     public void setImageUri(final Uri uri, boolean notifyOnSuccess) {
         Log.w(TAG, "setImageUriAndNotify is a no-op because Clipboard service isn't available");
@@ -315,7 +308,6 @@ public class Clipboard {
 
     /**
      * Setting the clipboard's current primary clip to an image.
-     *
      * @param imageData The image data to be shared in |extension| format.
      * @param extension Image file extension which |imageData| encoded to.
      */
@@ -325,12 +317,9 @@ public class Clipboard {
         Log.w(TAG, "setImage is a no-op because Clipboard service isn't available");
     }
 
-    /**
-     * Clears the Clipboard Primary clip.
-     */
+    /** Clears the Clipboard Primary clip. */
     @CalledByNative
-    protected void clear() {
-    }
+    protected void clear() {}
 
     @CalledByNative
     private void setNativePtr(long nativeClipboard) {
@@ -339,7 +328,6 @@ public class Clipboard {
 
     /**
      * Set {@link ImageFileProvider} for sharing image.
-     *
      * @param imageFileProvider The implementation of {@link ImageFileProvider}.
      */
     public void setImageFileProvider(ImageFileProvider imageFileProvider) {
@@ -348,20 +336,16 @@ public class Clipboard {
 
     /**
      * Copy the specified URL to the clipboard and show a toast indicating the action occurred.
-     *
      * @param url The URL to copy to the clipboard.
      */
-    public void copyUrlToClipboard(GURL url) {
-    }
+    public void copyUrlToClipboard(GURL url) {}
 
     /**
      * Because Android may not notify apps in the background that the content of clipboard has
      * changed, this method proactively considers clipboard invalidated, when the app loses focus.
-     *
      * @param hasFocus Whether or not {@code activity} gained or lost focus.
      */
-    public void onWindowFocusChanged(boolean hasFocus) {
-    }
+    public void onWindowFocusChanged(boolean hasFocus) {}
 
     /**
      * Gets the last modified timestamp observed by the native side ClipboardAndroid, not the
@@ -375,7 +359,6 @@ public class Clipboard {
 
     /**
      * Check if the system clipboard has content to be pasted.
-     *
      * @return true if the system clipboard contains anything, otherwise, return false.
      */
     public boolean canPaste() {
@@ -410,11 +393,9 @@ public class Clipboard {
     @NativeMethods
     interface Natives {
         void onPrimaryClipChanged(long nativeClipboardAndroid, Clipboard caller);
-
-        void onPrimaryClipTimestampInvalidated(long nativeClipboardAndroid, Clipboard caller, long timestamp);
-
+        void onPrimaryClipTimestampInvalidated(
+                long nativeClipboardAndroid, Clipboard caller, long timestamp);
         long getLastModifiedTimeToJavaTime(long nativeClipboardAndroid);
-
         void cleanupForTesting();
     }
 }

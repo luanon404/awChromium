@@ -13,15 +13,20 @@
 
 package org.chromium.cert_verifier.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface CertVerifierRequest extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends CertVerifierRequest, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends CertVerifierRequest, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<CertVerifierRequest, CertVerifierRequest.Proxy> MANAGER = CertVerifierRequest_Internal.MANAGER;
 
-    void complete(org.chromium.network.mojom.CertVerifyResult result, int netError);
+    void complete(
+org.chromium.network.mojom.CertVerifyResult result, int netError);
 
 
 }

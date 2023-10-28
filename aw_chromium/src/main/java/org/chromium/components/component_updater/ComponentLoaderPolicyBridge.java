@@ -6,11 +6,12 @@ package org.chromium.components.component_updater;
 
 import android.os.ParcelFileDescriptor;
 
-import org.chromium.base.LifetimeAssert;
-import org.chromium.base.ThreadUtils;
 import org.jni_zero.CalledByNative;
 import org.jni_zero.JNINamespace;
 import org.jni_zero.NativeMethods;
+
+import org.chromium.base.LifetimeAssert;
+import org.chromium.base.ThreadUtils;
 
 import java.util.Map;
 
@@ -33,9 +34,9 @@ public class ComponentLoaderPolicyBridge {
     /**
      * ComponentLoaded is called when the loader successfully gets file descriptors for all files
      * in the component from the ComponentsProviderService.
-     * <p>
+     *
      * Should close all file descriptors after using them. Can be called on a background thread.
-     * <p>
+     *
      * Exactly one of componentLoaded or componentLoadFailed should be called exactly once.
      *
      * @param fileMap maps file relative paths in the install directory to its file descriptor.
@@ -54,7 +55,8 @@ public class ComponentLoaderPolicyBridge {
             fds[i] = file.getValue().detachFd();
             ++i;
         }
-        ComponentLoaderPolicyBridgeJni.get().componentLoaded(mNativeAndroidComponentLoaderPolicy, fileNames, fds);
+        ComponentLoaderPolicyBridgeJni.get().componentLoaded(
+                mNativeAndroidComponentLoaderPolicy, fileNames, fds);
         // Setting it to null, because it is deleted after componentLoaded is called.
         mNativeAndroidComponentLoaderPolicy = NATIVE_NULL;
 
@@ -66,7 +68,7 @@ public class ComponentLoaderPolicyBridge {
     /**
      * Called if connection to the service fails, components files are not found or if the manifest
      * file is missing or invalid. Can be called on a background thread.
-     * <p>
+     *
      * Exactly one of componentLoaded or componentLoadFailed should be called exactly once.
      *
      * @param errorCode the code of the error that caused the failure.
@@ -75,7 +77,8 @@ public class ComponentLoaderPolicyBridge {
         ThreadUtils.assertOnUiThread();
         assert mNativeAndroidComponentLoaderPolicy != NATIVE_NULL;
 
-        ComponentLoaderPolicyBridgeJni.get().componentLoadFailed(mNativeAndroidComponentLoaderPolicy, errorCode);
+        ComponentLoaderPolicyBridgeJni.get().componentLoadFailed(
+                mNativeAndroidComponentLoaderPolicy, errorCode);
         // Setting it to null, because it is deleted after componentLoadFailed is called.
         mNativeAndroidComponentLoaderPolicy = NATIVE_NULL;
 
@@ -92,7 +95,8 @@ public class ComponentLoaderPolicyBridge {
         ThreadUtils.assertOnUiThread();
         assert mNativeAndroidComponentLoaderPolicy != NATIVE_NULL;
 
-        return ComponentLoaderPolicyBridgeJni.get().getComponentId(mNativeAndroidComponentLoaderPolicy);
+        return ComponentLoaderPolicyBridgeJni.get().getComponentId(
+                mNativeAndroidComponentLoaderPolicy);
     }
 
     @CalledByNative
@@ -101,16 +105,16 @@ public class ComponentLoaderPolicyBridge {
     }
 
     @CalledByNative
-    private static void setArrayElement(ComponentLoaderPolicyBridge[] array, int index, ComponentLoaderPolicyBridge policy) {
+    private static void setArrayElement(
+            ComponentLoaderPolicyBridge[] array, int index, ComponentLoaderPolicyBridge policy) {
         array[index] = policy;
     }
 
     @NativeMethods
     interface Natives {
-        void componentLoaded(long nativeAndroidComponentLoaderPolicy, String[] fileNames, int[] fds);
-
+        void componentLoaded(
+                long nativeAndroidComponentLoaderPolicy, String[] fileNames, int[] fds);
         void componentLoadFailed(long nativeAndroidComponentLoaderPolicy, int errorCode);
-
         String getComponentId(long nativeAndroidComponentLoaderPolicy);
     }
 }

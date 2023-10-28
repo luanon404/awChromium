@@ -17,10 +17,14 @@ import androidx.annotation.IntDef;
 
 public final class ResolverType {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({ResolverType.RESOLVER_TYPE_FAIL, ResolverType.RESOLVER_TYPE_FAIL_TIMEOUT, ResolverType.RESOLVER_TYPE_SYSTEM, ResolverType.RESOLVER_TYPE_IP_LITERAL, ResolverType.RESOLVER_TYPE_DIRECT_LOOKUP})
-    public @interface EnumType {
-    }
+        ResolverType.RESOLVER_TYPE_FAIL,
+        ResolverType.RESOLVER_TYPE_FAIL_TIMEOUT,
+        ResolverType.RESOLVER_TYPE_SYSTEM,
+        ResolverType.RESOLVER_TYPE_IP_LITERAL,
+        ResolverType.RESOLVER_TYPE_DIRECT_LOOKUP})
+    public @interface EnumType {}
 
     public static final int RESOLVER_TYPE_FAIL = 0;
     public static final int RESOLVER_TYPE_FAIL_TIMEOUT = 1;
@@ -40,9 +44,8 @@ public final class ResolverType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private ResolverType() {
-    }
+    private ResolverType() {}
 }

@@ -15,8 +15,7 @@ public final class BaseFeatureMap extends FeatureMap {
     private static final BaseFeatureMap sInstance = new BaseFeatureMap();
 
     // Do not instantiate this class.
-    private BaseFeatureMap() {
-    }
+    private BaseFeatureMap() {}
 
     /**
      * @return the singleton DeviceFeatureMap.

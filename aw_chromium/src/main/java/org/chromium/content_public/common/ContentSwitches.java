@@ -52,7 +52,8 @@ public final class ContentSwitches {
     public static final String SWITCH_GPU_PROCESS = "gpu-process";
 
     // Use fake device for Media Stream to replace actual camera and microphone.
-    public static final String USE_FAKE_DEVICE_FOR_MEDIA_STREAM = "use-fake-device-for-media-stream";
+    public static final String USE_FAKE_DEVICE_FOR_MEDIA_STREAM =
+            "use-fake-device-for-media-stream";
 
     // Native switch kHostResolverRules
     public static final String HOST_RESOLVER_RULES = "host-resolver-rules";
@@ -1055,6 +1056,5 @@ public final class ContentSwitches {
     public static final String IPC_FUZZER_TESTCASE = "ipc-fuzzer-testcase";
 
     // Prevent instantiation.
-    private ContentSwitches() {
-    }
+    private ContentSwitches() {}
 }

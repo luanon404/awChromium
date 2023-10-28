@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface ManagedConfigurationObserver extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends ManagedConfigurationObserver, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends ManagedConfigurationObserver, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<ManagedConfigurationObserver, ManagedConfigurationObserver.Proxy> MANAGER = ManagedConfigurationObserver_Internal.MANAGER;

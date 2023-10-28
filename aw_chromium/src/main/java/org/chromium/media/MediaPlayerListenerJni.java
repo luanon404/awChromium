@@ -4,54 +4,62 @@
 package org.chromium.media;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.media.MediaPlayer;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
 
 @CheckDiscard("crbug.com/993421")
 class MediaPlayerListenerJni implements MediaPlayerListener.Natives {
-    private static MediaPlayerListener.Natives testInstance;
+  private static MediaPlayerListener.Natives testInstance;
 
-    public static final JniStaticTestMocker<MediaPlayerListener.Natives> TEST_HOOKS = new JniStaticTestMocker<MediaPlayerListener.Natives>() {
-        @Override
-        public void setInstanceForTesting(MediaPlayerListener.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<MediaPlayerListener.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<MediaPlayerListener.Natives>() {
     @Override
-    public void onMediaError(long nativeMediaPlayerListener, MediaPlayerListener caller, int errorType) {
-        GEN_JNI.org_chromium_media_MediaPlayerListener_onMediaError(nativeMediaPlayerListener, caller, errorType);
+    public void setInstanceForTesting(MediaPlayerListener.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public void onMediaPrepared(long nativeMediaPlayerListener, MediaPlayerListener caller) {
-        GEN_JNI.org_chromium_media_MediaPlayerListener_onMediaPrepared(nativeMediaPlayerListener, caller);
-    }
+  @Override
+  public void onMediaError(long nativeMediaPlayerListener, MediaPlayerListener caller, int errorType) {
+    GEN_JNI.org_chromium_media_MediaPlayerListener_onMediaError(nativeMediaPlayerListener, caller, errorType);
+  }
 
-    @Override
-    public void onPlaybackComplete(long nativeMediaPlayerListener, MediaPlayerListener caller) {
-        GEN_JNI.org_chromium_media_MediaPlayerListener_onPlaybackComplete(nativeMediaPlayerListener, caller);
-    }
+  @Override
+  public void onMediaPrepared(long nativeMediaPlayerListener, MediaPlayerListener caller) {
+    GEN_JNI.org_chromium_media_MediaPlayerListener_onMediaPrepared(nativeMediaPlayerListener, caller);
+  }
 
-    @Override
-    public void onVideoSizeChanged(long nativeMediaPlayerListener, MediaPlayerListener caller, int width, int height) {
-        GEN_JNI.org_chromium_media_MediaPlayerListener_onVideoSizeChanged(nativeMediaPlayerListener, caller, width, height);
-    }
+  @Override
+  public void onPlaybackComplete(long nativeMediaPlayerListener, MediaPlayerListener caller) {
+    GEN_JNI.org_chromium_media_MediaPlayerListener_onPlaybackComplete(nativeMediaPlayerListener, caller);
+  }
 
-    public static MediaPlayerListener.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of MediaPlayerListener.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new MediaPlayerListenerJni();
+  @Override
+  public void onVideoSizeChanged(long nativeMediaPlayerListener, MediaPlayerListener caller, int width, int height) {
+    GEN_JNI.org_chromium_media_MediaPlayerListener_onVideoSizeChanged(nativeMediaPlayerListener, caller, width, height);
+  }
+
+  public static MediaPlayerListener.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of MediaPlayerListener.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new MediaPlayerListenerJni();
+  }
 }

@@ -20,10 +20,10 @@ import java.util.UUID;
 /**
  * The class manages relations among eme session ID, drm session ID and keyset
  * ID. It also records the associated session information.
- * <p>
+ *
  * For temporary session, it simply maintains the in memory map from session ID
  * to related informations. When session is closed, the mapping is also removed.
- * <p>
+ *
  * For persistent session, it also talks to persistent storage when loading
  * information back to memory and updating changes to disk.
  */
@@ -51,8 +51,8 @@ class MediaDrmSessionManager {
         private byte[] mKeySetId;
 
         /**
-         * Convert byte array to hex string for logging.
-         * This is modified from BytesToHexString() in url/url_canon_unittest.cc.
+         *  Convert byte array to hex string for logging.
+         *  This is modified from BytesToHexString() in url/url_canon_unittest.cc.
          */
         static String toHexString(byte[] bytes) {
             StringBuilder hexString = new StringBuilder();
@@ -73,7 +73,8 @@ class MediaDrmSessionManager {
          * @return Session ID with random generated EME session ID.
          */
         static SessionId createPersistentSessionId(byte[] drmId) {
-            byte[] emeId = ApiCompatibilityUtils.getBytesUtf8(UUID.randomUUID().toString().replace('-', '0'));
+            byte[] emeId = ApiCompatibilityUtils.getBytesUtf8(
+                    UUID.randomUUID().toString().replace('-', '0'));
             return new SessionId(emeId, drmId, null /* keySetId */);
         }
 
@@ -171,7 +172,8 @@ class MediaDrmSessionManager {
         private PersistentInfo toPersistentInfo() {
             assert mSessionId.keySetId() != null;
 
-            return new PersistentInfo(mSessionId.emeId(), mSessionId.keySetId(), mMimeType, mKeyType);
+            return new PersistentInfo(
+                    mSessionId.emeId(), mSessionId.keySetId(), mMimeType, mKeyType);
         }
 
         private static SessionInfo fromPersistentInfo(PersistentInfo persistentInfo) {
@@ -179,8 +181,10 @@ class MediaDrmSessionManager {
             assert persistentInfo.emeId() != null;
             assert persistentInfo.keySetId() != null;
 
-            SessionId sessionId = new SessionId(persistentInfo.emeId(), null /* drmId */, persistentInfo.keySetId());
-            return new SessionInfo(sessionId, persistentInfo.mimeType(), getKeyTypeFromPersistentInfo(persistentInfo));
+            SessionId sessionId = new SessionId(
+                    persistentInfo.emeId(), null /* drmId */, persistentInfo.keySetId());
+            return new SessionInfo(sessionId, persistentInfo.mimeType(),
+                    getKeyTypeFromPersistentInfo(persistentInfo));
         }
 
         private static int getKeyTypeFromPersistentInfo(PersistentInfo persistentInfo) {

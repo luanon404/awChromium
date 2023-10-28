@@ -6,9 +6,10 @@ package org.chromium.components.crash;
 
 import androidx.annotation.Nullable;
 
-import org.chromium.base.ThreadUtils;
 import org.jni_zero.CalledByNative;
 import org.jni_zero.NativeMethods;
+
+import org.chromium.base.ThreadUtils;
 
 import java.util.concurrent.atomic.AtomicReferenceArray;
 
@@ -23,16 +24,16 @@ import java.util.concurrent.atomic.AtomicReferenceArray;
  * The crash keys will only be included in browser process crash reports.
  */
 public class CrashKeys {
-    private static final String[] KEYS = new String[]{"loaded_dynamic_module", "active_dynamic_module", "application_status", "installed_modules", "emulated_modules", "dynamic_module_dex_name", "partner_customization_config", "first_run"};
+    private static final String[] KEYS = new String[] {"loaded_dynamic_module",
+            "active_dynamic_module", "application_status", "installed_modules", "emulated_modules",
+            "dynamic_module_dex_name", "partner_customization_config", "first_run"};
 
     private final AtomicReferenceArray<String> mValues = new AtomicReferenceArray<>(KEYS.length);
 
     // Outside of assertions only accessed on the UI thread.
     private boolean mFlushed;
 
-    private static class Holder {
-        static final CrashKeys INSTANCE = new CrashKeys();
-    }
+    private static class Holder { static final CrashKeys INSTANCE = new CrashKeys(); }
 
     private CrashKeys() {
         assert CrashKeyIndex.NUM_ENTRIES == KEYS.length;
@@ -56,7 +57,7 @@ public class CrashKeys {
 
     /**
      * @return An atomic array of all the crash key values. This method should only be called before
-     * the values have been flushed to the native side.
+     *         the values have been flushed to the native side.
      * @see #flushToNative
      */
     public AtomicReferenceArray<String> getValues() {
@@ -68,9 +69,8 @@ public class CrashKeys {
      * Sets a given crash key to the given value, or clears it. The value will either be stored in
      * Java (for use by pure-Java exception reporting), or forwarded to the native CrashKeys.
      * This method should only be called on the UI thread.
-     *
      * @param keyIndex The {@link CrashKeyIndex} of a crash key.
-     * @param value    The value for the given key, or null to clear it.
+     * @param value The value for the given key, or null to clear it.
      */
     @CalledByNative
     public void set(@CrashKeyIndex int keyIndex, @Nullable String value) {

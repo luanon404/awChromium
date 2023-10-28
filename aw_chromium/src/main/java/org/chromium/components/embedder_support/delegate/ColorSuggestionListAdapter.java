@@ -57,7 +57,6 @@ public class ColorSuggestionListAdapter extends BaseAdapter implements View.OnCl
 
     /**
      * Sets the currently selected color so the corresponding list item can be labeled.
-     *
      * @param selectedColor The newly selected color.
      */
     public void setSelectedColor(int selectedColor) {
@@ -68,7 +67,7 @@ public class ColorSuggestionListAdapter extends BaseAdapter implements View.OnCl
      * Sets up the color button to represent a color suggestion.
      *
      * @param button The button view to set up.
-     * @param index  The index of the suggestion in mSuggestions.
+     * @param index The index of the suggestion in mSuggestions.
      */
     private void setUpColorButton(View button, int index) {
         if (index >= mSuggestions.length) {
@@ -81,7 +80,8 @@ public class ColorSuggestionListAdapter extends BaseAdapter implements View.OnCl
         button.setVisibility(View.VISIBLE);
         ColorSuggestion suggestion = mSuggestions[index];
         LayerDrawable layers = (LayerDrawable) button.getBackground();
-        GradientDrawable swatch = (GradientDrawable) layers.findDrawableByLayerId(R.id.color_button_swatch);
+        GradientDrawable swatch =
+                (GradientDrawable) layers.findDrawableByLayerId(R.id.color_button_swatch);
         swatch.setColor(suggestion.mColor);
         String description = suggestion.mLabel;
         if (TextUtils.isEmpty(description)) {
@@ -93,7 +93,8 @@ public class ColorSuggestionListAdapter extends BaseAdapter implements View.OnCl
             @Override
             public void onInitializeAccessibilityNodeInfo(View host, AccessibilityNodeInfo info) {
                 super.onInitializeAccessibilityNodeInfo(host, info);
-                info.setCollectionItemInfo(AccessibilityNodeInfo.CollectionItemInfo.obtain(index, 1, 1, 1, false));
+                info.setCollectionItemInfo(
+                        AccessibilityNodeInfo.CollectionItemInfo.obtain(index, 1, 1, 1, false));
                 info.setSelected(suggestion.mColor == mSelectedColor);
             }
         });
@@ -118,13 +119,16 @@ public class ColorSuggestionListAdapter extends BaseAdapter implements View.OnCl
             layout = (LinearLayout) convertView;
         } else {
             layout = new LinearLayout(mContext);
-            layout.setLayoutParams(new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, AbsListView.LayoutParams.WRAP_CONTENT));
+            layout.setLayoutParams(new AbsListView.LayoutParams(
+                    AbsListView.LayoutParams.MATCH_PARENT, AbsListView.LayoutParams.WRAP_CONTENT));
             layout.setOrientation(LinearLayout.HORIZONTAL);
             layout.setBackgroundColor(Color.WHITE);
-            int buttonHeight = mContext.getResources().getDimensionPixelOffset(R.dimen.color_button_height);
+            int buttonHeight =
+                    mContext.getResources().getDimensionPixelOffset(R.dimen.color_button_height);
             for (int i = 0; i < COLORS_PER_ROW; ++i) {
                 View button = new View(mContext);
-                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(0, buttonHeight, 1f);
+                LinearLayout.LayoutParams layoutParams =
+                        new LinearLayout.LayoutParams(0, buttonHeight, 1f);
                 MarginLayoutParamsCompat.setMarginStart(layoutParams, -1);
                 if (i == COLORS_PER_ROW - 1) {
                     MarginLayoutParamsCompat.setMarginEnd(layoutParams, -1);

@@ -13,6 +13,8 @@
 
 package org.chromium.autofill.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public final class SectionValue extends org.chromium.mojo.bindings.Union {
 
@@ -20,8 +22,7 @@ public final class SectionValue extends org.chromium.mojo.bindings.Union {
         public static final int DefaultSection = 0;
         public static final int Autocomplete = 1;
         public static final int FieldIdentifier = 2;
-    }
-
+    };
     private boolean mDefaultSection;
     private SectionAutocomplete mAutocomplete;
     private SectionFieldIdentifier mFieldIdentifier;

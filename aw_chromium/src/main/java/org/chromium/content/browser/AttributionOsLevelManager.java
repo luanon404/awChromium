@@ -24,6 +24,10 @@ import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+
 import org.chromium.base.ContextUtils;
 import org.chromium.base.Log;
 import org.chromium.base.ResettersForTesting;
@@ -32,9 +36,6 @@ import org.chromium.base.metrics.RecordHistogram;
 import org.chromium.base.task.PostTask;
 import org.chromium.base.task.TaskTraits;
 import org.chromium.url.GURL;
-import org.jni_zero.CalledByNative;
-import org.jni_zero.JNINamespace;
-import org.jni_zero.NativeMethods;
 
 import java.io.IOException;
 import java.lang.annotation.Retention;
@@ -53,7 +54,8 @@ import java.util.concurrent.TimeoutException;
 public class AttributionOsLevelManager {
     private static final String TAG = "AttributionManager";
     // TODO: replace with constant in android.Manifest.permission once it becomes available in U.
-    private static final String PERMISSION_ACCESS_ADSERVICES_ATTRIBUTION = "android.permission.ACCESS_ADSERVICES_ATTRIBUTION";
+    private static final String PERMISSION_ACCESS_ADSERVICES_ATTRIBUTION =
+            "android.permission.ACCESS_ADSERVICES_ATTRIBUTION";
 
     // Used for testing
     private static MeasurementManagerFutures sManagerForTesting;
@@ -70,7 +72,12 @@ public class AttributionOsLevelManager {
 
     // These values are persisted to logs. Entries should not be renumbered and
     // numeric values should never be reused.
-    @IntDef({RegistrationResult.SUCCESS, RegistrationResult.ERROR_UNKNOWN, RegistrationResult.ERROR_ILLEGAL_ARGUMENT, RegistrationResult.ERROR_IO, RegistrationResult.ERROR_ILLEGAL_STATE, RegistrationResult.ERROR_SECURITY, RegistrationResult.ERROR_TIMEOUT, RegistrationResult.ERROR_LIMIT_EXCEEDED, RegistrationResult.ERROR_INTERNAL, RegistrationResult.ERROR_BACKGROUND_CALLER, RegistrationResult.COUNT})
+    @IntDef({RegistrationResult.SUCCESS, RegistrationResult.ERROR_UNKNOWN,
+            RegistrationResult.ERROR_ILLEGAL_ARGUMENT, RegistrationResult.ERROR_IO,
+            RegistrationResult.ERROR_ILLEGAL_STATE, RegistrationResult.ERROR_SECURITY,
+            RegistrationResult.ERROR_TIMEOUT, RegistrationResult.ERROR_LIMIT_EXCEEDED,
+            RegistrationResult.ERROR_INTERNAL, RegistrationResult.ERROR_BACKGROUND_CALLER,
+            RegistrationResult.COUNT})
     @Retention(RetentionPolicy.SOURCE)
     public @interface RegistrationResult {
         int SUCCESS = 0;
@@ -109,23 +116,30 @@ public class AttributionOsLevelManager {
         return mManager;
     }
 
-    private void onRegistrationCompleted(int requestId, @RegistrationType int type, @RegistrationResult int result) {
+    private void onRegistrationCompleted(
+            int requestId, @RegistrationType int type, @RegistrationResult int result) {
         switch (type) {
             case RegistrationType.SOURCE:
-                RecordHistogram.recordEnumeratedHistogram("Conversions.AndroidRegistrationResult.Source2", result, RegistrationResult.COUNT);
+                RecordHistogram.recordEnumeratedHistogram(
+                        "Conversions.AndroidRegistrationResult.Source2", result,
+                        RegistrationResult.COUNT);
                 break;
             case RegistrationType.TRIGGER:
-                RecordHistogram.recordEnumeratedHistogram("Conversions.AndroidRegistrationResult.Trigger2", result, RegistrationResult.COUNT);
+                RecordHistogram.recordEnumeratedHistogram(
+                        "Conversions.AndroidRegistrationResult.Trigger2", result,
+                        RegistrationResult.COUNT);
 
                 break;
         }
 
         if (mNativePtr != 0) {
-            AttributionOsLevelManagerJni.get().onRegistrationCompleted(mNativePtr, requestId, result == RegistrationResult.SUCCESS);
+            AttributionOsLevelManagerJni.get().onRegistrationCompleted(
+                    mNativePtr, requestId, result == RegistrationResult.SUCCESS);
         }
     }
 
-    private void addRegistrationFutureCallback(int requestId, @RegistrationType int type, ListenableFuture<?> future) {
+    private void addRegistrationFutureCallback(
+            int requestId, @RegistrationType int type, ListenableFuture<?> future) {
         if (!supportsAttribution()) {
             return;
         }
@@ -134,11 +148,11 @@ public class AttributionOsLevelManager {
             public void onSuccess(Object result) {
                 onRegistrationCompleted(requestId, type, RegistrationResult.SUCCESS);
             }
-
             @Override
             public void onFailure(Throwable thrown) {
                 Log.w(TAG, "Failed to register", thrown);
-                @RegistrationResult int result = RegistrationResult.ERROR_UNKNOWN;
+                @RegistrationResult
+                int result = RegistrationResult.ERROR_UNKNOWN;
                 if (thrown instanceof IllegalArgumentException) {
                     result = RegistrationResult.ERROR_ILLEGAL_ARGUMENT;
                 } else if (thrown instanceof IOException) {
@@ -155,7 +169,8 @@ public class AttributionOsLevelManager {
                     result = RegistrationResult.ERROR_SECURITY;
                 } else if (thrown instanceof TimeoutException) {
                     result = RegistrationResult.ERROR_TIMEOUT;
-                } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && thrown instanceof LimitExceededException) {
+                } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R
+                        && thrown instanceof LimitExceededException) {
                     result = RegistrationResult.ERROR_LIMIT_EXCEEDED;
                 }
                 onRegistrationCompleted(requestId, type, result);
@@ -168,17 +183,23 @@ public class AttributionOsLevelManager {
      * https://developer.android.com/reference/androidx/privacysandbox/ads/adservices/java/measurement/MeasurementManagerFutures.
      */
     @CalledByNative
-    private void registerWebAttributionSource(int requestId, GURL registrationUrl, GURL topLevelOrigin, boolean isDebugKeyAllowed, MotionEvent event) {
+    private void registerWebAttributionSource(int requestId, GURL registrationUrl,
+            GURL topLevelOrigin, boolean isDebugKeyAllowed, MotionEvent event) {
         if (!supportsAttribution()) {
-            onRegistrationCompleted(requestId, RegistrationType.SOURCE, RegistrationResult.ERROR_INTERNAL);
+            onRegistrationCompleted(
+                    requestId, RegistrationType.SOURCE, RegistrationResult.ERROR_INTERNAL);
             return;
         }
         MeasurementManagerFutures mm = getManager();
         if (mm == null) {
-            onRegistrationCompleted(requestId, RegistrationType.SOURCE, RegistrationResult.ERROR_INTERNAL);
+            onRegistrationCompleted(
+                    requestId, RegistrationType.SOURCE, RegistrationResult.ERROR_INTERNAL);
             return;
         }
-        ListenableFuture<?> future = mm.registerWebSourceAsync(new WebSourceRegistrationRequest(Arrays.asList(new WebSourceParams(Uri.parse(registrationUrl.getSpec()), isDebugKeyAllowed)), Uri.parse(topLevelOrigin.getSpec()), /*inputEvent=*/event,
+        ListenableFuture<?> future = mm.registerWebSourceAsync(new WebSourceRegistrationRequest(
+                Arrays.asList(new WebSourceParams(
+                        Uri.parse(registrationUrl.getSpec()), isDebugKeyAllowed)),
+                Uri.parse(topLevelOrigin.getSpec()), /*inputEvent=*/event,
                 /*appDestination=*/null, /*webDestination=*/null,
                 /*verifiedDestination=*/null));
         addRegistrationFutureCallback(requestId, RegistrationType.SOURCE, future);
@@ -191,15 +212,18 @@ public class AttributionOsLevelManager {
     @CalledByNative
     private void registerAttributionSource(int requestId, GURL registrationUrl, MotionEvent event) {
         if (!supportsAttribution()) {
-            onRegistrationCompleted(requestId, RegistrationType.SOURCE, RegistrationResult.ERROR_INTERNAL);
+            onRegistrationCompleted(
+                    requestId, RegistrationType.SOURCE, RegistrationResult.ERROR_INTERNAL);
             return;
         }
         MeasurementManagerFutures mm = getManager();
         if (mm == null) {
-            onRegistrationCompleted(requestId, RegistrationType.SOURCE, RegistrationResult.ERROR_INTERNAL);
+            onRegistrationCompleted(
+                    requestId, RegistrationType.SOURCE, RegistrationResult.ERROR_INTERNAL);
             return;
         }
-        ListenableFuture<?> future = mm.registerSourceAsync(Uri.parse(registrationUrl.getSpec()), event);
+        ListenableFuture<?> future =
+                mm.registerSourceAsync(Uri.parse(registrationUrl.getSpec()), event);
         addRegistrationFutureCallback(requestId, RegistrationType.SOURCE, future);
     }
 
@@ -208,18 +232,24 @@ public class AttributionOsLevelManager {
      * https://developer.android.com/reference/androidx/privacysandbox/ads/adservices/java/measurement/MeasurementManagerFutures.
      */
     @CalledByNative
-    private void registerWebAttributionTrigger(int requestId, GURL registrationUrl, GURL topLevelOrigin, boolean isDebugKeyAllowed) {
+    private void registerWebAttributionTrigger(
+            int requestId, GURL registrationUrl, GURL topLevelOrigin, boolean isDebugKeyAllowed) {
         if (!supportsAttribution()) {
-            onRegistrationCompleted(requestId, RegistrationType.TRIGGER, RegistrationResult.ERROR_INTERNAL);
+            onRegistrationCompleted(
+                    requestId, RegistrationType.TRIGGER, RegistrationResult.ERROR_INTERNAL);
             return;
         }
 
         MeasurementManagerFutures mm = getManager();
         if (mm == null) {
-            onRegistrationCompleted(requestId, RegistrationType.TRIGGER, RegistrationResult.ERROR_INTERNAL);
+            onRegistrationCompleted(
+                    requestId, RegistrationType.TRIGGER, RegistrationResult.ERROR_INTERNAL);
             return;
         }
-        ListenableFuture<?> future = mm.registerWebTriggerAsync(new WebTriggerRegistrationRequest(Arrays.asList(new WebTriggerParams(Uri.parse(registrationUrl.getSpec()), isDebugKeyAllowed)), Uri.parse(topLevelOrigin.getSpec())));
+        ListenableFuture<?> future = mm.registerWebTriggerAsync(new WebTriggerRegistrationRequest(
+                Arrays.asList(new WebTriggerParams(
+                        Uri.parse(registrationUrl.getSpec()), isDebugKeyAllowed)),
+                Uri.parse(topLevelOrigin.getSpec())));
         addRegistrationFutureCallback(requestId, RegistrationType.TRIGGER, future);
     }
 
@@ -230,13 +260,15 @@ public class AttributionOsLevelManager {
     @CalledByNative
     private void registerAttributionTrigger(int requestId, GURL registrationUrl) {
         if (!supportsAttribution()) {
-            onRegistrationCompleted(requestId, RegistrationType.TRIGGER, RegistrationResult.ERROR_INTERNAL);
+            onRegistrationCompleted(
+                    requestId, RegistrationType.TRIGGER, RegistrationResult.ERROR_INTERNAL);
             return;
         }
 
         MeasurementManagerFutures mm = getManager();
         if (mm == null) {
-            onRegistrationCompleted(requestId, RegistrationType.TRIGGER, RegistrationResult.ERROR_INTERNAL);
+            onRegistrationCompleted(
+                    requestId, RegistrationType.TRIGGER, RegistrationResult.ERROR_INTERNAL);
             return;
         }
         ListenableFuture<?> future = mm.registerTriggerAsync(Uri.parse(registrationUrl.getSpec()));
@@ -254,7 +286,8 @@ public class AttributionOsLevelManager {
      * https://developer.android.com/reference/androidx/privacysandbox/ads/adservices/java/measurement/MeasurementManagerFutures.
      */
     @CalledByNative
-    private void deleteRegistrations(int requestId, long startMs, long endMs, GURL[] origins, String[] domains, int deletionMode, int matchBehavior) {
+    private void deleteRegistrations(int requestId, long startMs, long endMs, GURL[] origins,
+            String[] domains, int deletionMode, int matchBehavior) {
         if (!supportsAttribution()) {
             onDataDeletionCompleted(requestId);
             return;
@@ -283,7 +316,8 @@ public class AttributionOsLevelManager {
                     onDataDeletionCompleted(requestId);
                     return;
                 case DeletionRequest.MATCH_BEHAVIOR_PRESERVE:
-                    matchBehaviors = ImmutableList.of(DeletionRequest.MATCH_BEHAVIOR_DELETE, DeletionRequest.MATCH_BEHAVIOR_PRESERVE);
+                    matchBehaviors = ImmutableList.of(DeletionRequest.MATCH_BEHAVIOR_DELETE,
+                            DeletionRequest.MATCH_BEHAVIOR_PRESERVE);
                     break;
                 default:
                     Log.e(TAG, "Received invalid match behavior: ", matchBehavior);
@@ -319,7 +353,6 @@ public class AttributionOsLevelManager {
             public void onSuccess(Object result) {
                 onCall();
             }
-
             @Override
             public void onFailure(Throwable thrown) {
                 Log.w(TAG, "Failed to delete measurement API data", thrown);
@@ -328,9 +361,12 @@ public class AttributionOsLevelManager {
         };
 
         for (int currMatchBehavior : matchBehaviors) {
-            ListenableFuture<?> future = mm.deleteRegistrationsAsync(new DeletionRequest(deletionMode, currMatchBehavior, Instant.ofEpochMilli(startMs), Instant.ofEpochMilli(endMs), originUris, domainUris));
+            ListenableFuture<?> future = mm.deleteRegistrationsAsync(new DeletionRequest(
+                    deletionMode, currMatchBehavior, Instant.ofEpochMilli(startMs),
+                    Instant.ofEpochMilli(endMs), originUris, domainUris));
 
-            Futures.addCallback(future, callback, ContextUtils.getApplicationContext().getMainExecutor());
+            Futures.addCallback(
+                    future, callback, ContextUtils.getApplicationContext().getMainExecutor());
         }
     }
 
@@ -351,12 +387,15 @@ public class AttributionOsLevelManager {
             AttributionOsLevelManagerJni.get().onMeasurementStateReturned(0);
             return;
         }
-        if (ContextUtils.getApplicationContext().checkPermission(PERMISSION_ACCESS_ADSERVICES_ATTRIBUTION, Process.myPid(), Process.myUid()) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextUtils.getApplicationContext().checkPermission(
+                    PERMISSION_ACCESS_ADSERVICES_ATTRIBUTION, Process.myPid(), Process.myUid())
+                != PackageManager.PERMISSION_GRANTED) {
             // Permission may not be granted when embedded as WebView.
             AttributionOsLevelManagerJni.get().onMeasurementStateReturned(0);
             return;
         }
-        MeasurementManagerFutures mm = MeasurementManagerFutures.from(ContextUtils.getApplicationContext());
+        MeasurementManagerFutures mm =
+                MeasurementManagerFutures.from(ContextUtils.getApplicationContext());
         if (mm == null) {
             AttributionOsLevelManagerJni.get().onMeasurementStateReturned(0);
             return;
@@ -381,7 +420,6 @@ public class AttributionOsLevelManager {
             public void onSuccess(Integer status) {
                 AttributionOsLevelManagerJni.get().onMeasurementStateReturned(status);
             }
-
             @Override
             public void onFailure(Throwable thrown) {
                 Log.w(TAG, "Failed to get measurement API status", thrown);
@@ -397,19 +435,20 @@ public class AttributionOsLevelManager {
 
     public static void setManagerForTesting(MeasurementManagerFutures manager) {
         sManagerForTesting = manager;
-        PostTask.postTask(TaskTraits.BEST_EFFORT, () -> AttributionOsLevelManager.getMeasurementApiStatus());
+        PostTask.postTask(
+                TaskTraits.BEST_EFFORT, () -> AttributionOsLevelManager.getMeasurementApiStatus());
         ResettersForTesting.register(() -> {
             sManagerForTesting = null;
-            PostTask.postTask(TaskTraits.BEST_EFFORT, () -> AttributionOsLevelManager.getMeasurementApiStatus());
+            PostTask.postTask(TaskTraits.BEST_EFFORT,
+                    () -> AttributionOsLevelManager.getMeasurementApiStatus());
         });
     }
 
     @NativeMethods
     interface Natives {
         void onDataDeletionCompleted(long nativeAttributionOsLevelManagerAndroid, int requestId);
-
-        void onRegistrationCompleted(long nativeAttributionOsLevelManagerAndroid, int requestId, boolean success);
-
+        void onRegistrationCompleted(
+                long nativeAttributionOsLevelManagerAndroid, int requestId, boolean success);
         void onMeasurementStateReturned(int state);
     }
 }

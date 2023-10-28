@@ -4,13 +4,14 @@
 
 package org.chromium.shape_detection;
 
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+
 import org.chromium.mojo.system.MessagePipeHandle;
 import org.chromium.mojo.system.impl.CoreImpl;
 import org.chromium.shape_detection.mojom.BarcodeDetectionProvider;
 import org.chromium.shape_detection.mojom.FaceDetectionProvider;
 import org.chromium.shape_detection.mojom.TextDetection;
-import org.jni_zero.CalledByNative;
-import org.jni_zero.JNINamespace;
 
 @JNINamespace("shape_detection")
 class InterfaceRegistrar {
@@ -34,7 +35,8 @@ class InterfaceRegistrar {
 
     @CalledByNative
     static void bindFaceDetectionProvider(long nativeHandle) {
-        FaceDetectionProvider.MANAGER.bind(new FaceDetectionProviderImpl(), messagePipeHandleFromNative(nativeHandle));
+        FaceDetectionProvider.MANAGER.bind(
+                new FaceDetectionProviderImpl(), messagePipeHandleFromNative(nativeHandle));
     }
 
     @CalledByNative

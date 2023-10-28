@@ -28,7 +28,8 @@ public class MinidumpLogcatPrepender {
     private static final String TAG = "LogcatPrepender";
 
     @VisibleForTesting
-    public static final String LOGCAT_CONTENT_DISPOSITION = "Content-Disposition: form-data; name=\"logcat\"; filename=\"logcat\"";
+    public static final String LOGCAT_CONTENT_DISPOSITION =
+            "Content-Disposition: form-data; name=\"logcat\"; filename=\"logcat\"";
 
     @VisibleForTesting
     public static final String LOGCAT_CONTENT_TYPE = "Content-Type: text/plain";
@@ -37,7 +38,8 @@ public class MinidumpLogcatPrepender {
     private final File mMinidumpFile;
     private final List<String> mLogcat;
 
-    public MinidumpLogcatPrepender(CrashFileManager fileManager, File minidumpFile, List<String> logcat) {
+    public MinidumpLogcatPrepender(
+            CrashFileManager fileManager, File minidumpFile, List<String> logcat) {
         mFileManager = fileManager;
         mMinidumpFile = minidumpFile;
         mLogcat = logcat;
@@ -60,15 +62,16 @@ public class MinidumpLogcatPrepender {
 
     /**
      * Write the logcat data to the specified target {@link File}.
-     * <p>
+     *
      * Target file is overwritten, not appended to the end.
      *
      * @param targetFile File to which logcat data should be written.
-     * @param logcat     The lines of the logcat output.
-     * @param boundary   String MIME boundary to prepend.
+     * @param logcat The lines of the logcat output.
+     * @param boundary String MIME boundary to prepend.
      * @throws IOException if something goes wrong.
      */
-    private static void writeLogcat(File targetFile, List<String> logcat, String boundary) throws IOException {
+    private static void writeLogcat(File targetFile, List<String> logcat, String boundary)
+            throws IOException {
         BufferedWriter writer = null;
         try {
             writer = new BufferedWriter(new FileWriter(targetFile, false));
@@ -96,7 +99,7 @@ public class MinidumpLogcatPrepender {
      * Append the minidump file data to the specified target {@link File}.
      *
      * @param minidumpFile File containing data to append.
-     * @param targetFile   File to which data should be appended.
+     * @param targetFile File to which data should be appended.
      * @throws IOException when standard IO errors occur.
      */
     private static void appendMinidump(File minidumpFile, File targetFile) throws IOException {
@@ -118,9 +121,8 @@ public class MinidumpLogcatPrepender {
 
     /**
      * Prepends the logcat output to the minidump file.
-     *
      * @return On success, returns the file containing the combined logcat and minidump output.
-     * On failure, returns the original file containing just the minidump.
+     *     On failure, returns the original file containing just the minidump.
      */
     public File run() {
         if (mLogcat.isEmpty()) return mMinidumpFile;
@@ -142,7 +144,8 @@ public class MinidumpLogcatPrepender {
             appendMinidump(mMinidumpFile, targetFile);
             success = true;
         } catch (IOException e) {
-            Log.w(TAG, "Error while trying to annotate minidump file %s with logcat data", mMinidumpFile.getAbsoluteFile(), e);
+            Log.w(TAG, "Error while trying to annotate minidump file %s with logcat data",
+                    mMinidumpFile.getAbsoluteFile(), e);
             if (targetFile != null) {
                 CrashFileManager.deleteFile(targetFile);
             }

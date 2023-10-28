@@ -12,15 +12,14 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * See {@link android.webkit.ConsoleMessage}.
- */
+ *
+ * See {@link android.webkit.ConsoleMessage}. */
 @Lifetime.Temporary
 public class AwConsoleMessage {
     @Retention(RetentionPolicy.SOURCE)
-    @IntDef({MESSAGE_LEVEL_TIP, MESSAGE_LEVEL_LOG, MESSAGE_LEVEL_WARNING, MESSAGE_LEVEL_ERROR, MESSAGE_LEVEL_DEBUG})
-    public @interface MessageLevel {
-    }
-
+    @IntDef({MESSAGE_LEVEL_TIP, MESSAGE_LEVEL_LOG, MESSAGE_LEVEL_WARNING, MESSAGE_LEVEL_ERROR,
+            MESSAGE_LEVEL_DEBUG})
+    public @interface MessageLevel {}
     public static final int MESSAGE_LEVEL_TIP = 0;
     public static final int MESSAGE_LEVEL_LOG = 1;
     public static final int MESSAGE_LEVEL_WARNING = 2;
@@ -33,7 +32,8 @@ public class AwConsoleMessage {
     private String mSourceId;
     private int mLineNumber;
 
-    public AwConsoleMessage(String message, String sourceId, int lineNumber, @MessageLevel int msgLevel) {
+    public AwConsoleMessage(
+            String message, String sourceId, int lineNumber, @MessageLevel int msgLevel) {
         mMessage = message;
         mSourceId = sourceId;
         mLineNumber = lineNumber;

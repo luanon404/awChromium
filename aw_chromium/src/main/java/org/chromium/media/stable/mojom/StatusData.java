@@ -13,10 +13,13 @@
 
 package org.chromium.media.stable.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class StatusData extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 64;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(64, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(64, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public String group;
     public int code;
@@ -43,7 +46,8 @@ public final class StatusData extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static StatusData deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -57,41 +61,42 @@ public final class StatusData extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new StatusData(elementsOrVersion);
-            {
-
+                {
+                    
                 result.group = decoder0.readString(8, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.code = decoder0.readInt(16);
-                StatusCode.validate(result.code);
-                result.code = StatusCode.toKnownValue(result.code);
-            }
-            {
-
+                    StatusCode.validate(result.code);
+                    result.code = StatusCode.toKnownValue(result.code);
+                }
+                {
+                    
                 result.message = decoder0.readString(24, false);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(32, false);
                 {
                     org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                     result.frames = new org.chromium.mojo_base.mojom.Value[si1.elementsOrVersion];
                     for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
-                        result.frames[i1] = org.chromium.mojo_base.mojom.Value.decode(decoder1, org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.UNION_SIZE * i1);
+                        
+                        result.frames[i1] = org.chromium.mojo_base.mojom.Value.decode(decoder1, org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + 
+                        org.chromium.mojo.bindings.BindingsHelper.UNION_SIZE * i1);
                     }
                 }
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(40, true);
                 result.cause = StatusData.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.data = org.chromium.mojo_base.mojom.Value.decode(decoder0, 48);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -103,25 +108,26 @@ public final class StatusData extends org.chromium.mojo.bindings.Struct {
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.group, 8, false);
-
+        
         encoder0.encode(this.code, 16);
-
+        
         encoder0.encode(this.message, 24, false);
-
+        
         if (this.frames == null) {
             encoder0.encodeNullPointer(32, false);
         } else {
             org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodeUnionArray(this.frames.length, 32, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
             for (int i0 = 0; i0 < this.frames.length; ++i0) {
-
-                encoder1.encode(this.frames[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.UNION_SIZE * i0, false);
+                
+                encoder1.encode(this.frames[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + 
+                org.chromium.mojo.bindings.BindingsHelper.UNION_SIZE * i0, false);
             }
         }
-
+        
         encoder0.encode(this.cause, 40, true);
-
+        
         encoder0.encode(this.data, 48, false);
     }
 }

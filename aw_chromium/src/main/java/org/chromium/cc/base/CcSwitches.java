@@ -139,6 +139,5 @@ public final class CcSwitches {
     public static final String CC_SCROLL_ANIMATION_DURATION_FOR_TESTING = "cc-scroll-animation-duration-in-seconds";
 
     // Prevent instantiation.
-    private CcSwitches() {
-    }
+    private CcSwitches() {}
 }

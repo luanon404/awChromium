@@ -33,13 +33,13 @@ import androidx.annotation.RequiresApi;
  */
 @RequiresApi(Build.VERSION_CODES.M)
 public final class ApiHelperForM {
-    private ApiHelperForM() {
-    }
+    private ApiHelperForM() {}
 
     /**
      * See {@link WebViewClient#onPageCommitVisible(WebView, String)}, which was added in M.
      */
-    public static void onPageCommitVisible(WebViewClient webViewClient, WebView webView, String url) {
+    public static void onPageCommitVisible(
+            WebViewClient webViewClient, WebView webView, String url) {
         webViewClient.onPageCommitVisible(webView, url);
     }
 
@@ -50,65 +50,51 @@ public final class ApiHelperForM {
         return Process.is64Bit();
     }
 
-    /**
-     * See {@link ConnectivityManager#getBoundNetworkForProcess() }
-     */
+    /** See {@link ConnectivityManager#getBoundNetworkForProcess() } */
     public static Network getBoundNetworkForProcess(ConnectivityManager connectivityManager) {
         return connectivityManager.getBoundNetworkForProcess();
     }
 
-    /**
-     * See {@link Network#getNetworkHandle() }
-     */
+    /** See {@link Network#getNetworkHandle() } */
     public static long getNetworkHandle(Network network) {
         return network.getNetworkHandle();
     }
 
-    /**
-     * See @{link ConnectivityManager#getActiveNetwork() }
-     */
+    /** See @{link ConnectivityManager#getActiveNetwork() } */
     public static Network getActiveNetwork(ConnectivityManager connectivityManager) {
         return connectivityManager.getActiveNetwork();
     }
 
-    /**
-     * See @{link ConnectivityManager#getNetworkInfo(Network) }
-     */
-    public static NetworkInfo getNetworkInfo(ConnectivityManager connectivityManager, Network network) {
+    /** See @{link ConnectivityManager#getNetworkInfo(Network) } */
+    public static NetworkInfo getNetworkInfo(
+            ConnectivityManager connectivityManager, Network network) {
         return connectivityManager.getNetworkInfo(network);
     }
 
-    /**
-     * See {@link Activity#requestPermissions(String[], int)}.
-     */
-    public static void requestActivityPermissions(Activity activity, String[] permissions, int requestCode) {
+    /** See {@link Activity#requestPermissions(String[], int)}. */
+    public static void requestActivityPermissions(
+            Activity activity, String[] permissions, int requestCode) {
         activity.requestPermissions(permissions, requestCode);
     }
 
-    /**
-     * See {@link Activity#shouldShowRequestPermissionRationale(String)}.
-     */
-    public static boolean shouldShowRequestPermissionRationale(Activity activity, String permission) {
+    /** See {@link Activity#shouldShowRequestPermissionRationale(String)}. */
+    public static boolean shouldShowRequestPermissionRationale(
+            Activity activity, String permission) {
         return activity.shouldShowRequestPermissionRationale(permission);
     }
 
-    /**
-     * See {@link PackageManager#isPermissionRevokedByPolicy(String, String)}.
-     */
+    /** See {@link PackageManager#isPermissionRevokedByPolicy(String, String)}. */
     public static boolean isPermissionRevokedByPolicy(Activity activity, String permission) {
-        return activity.getPackageManager().isPermissionRevokedByPolicy(permission, activity.getPackageName());
+        return activity.getPackageManager().isPermissionRevokedByPolicy(
+                permission, activity.getPackageName());
     }
 
-    /**
-     * See {@link NetworkSecurityPolicy#isCleartextTrafficPermitted()}.
-     */
+    /** See {@link NetworkSecurityPolicy#isCleartextTrafficPermitted()}. */
     public static boolean isCleartextTrafficPermitted() {
         return NetworkSecurityPolicy.getInstance().isCleartextTrafficPermitted();
     }
 
-    /**
-     * See {@link UserManager#isSystemUser()}.
-     */
+    /** See {@link UserManager#isSystemUser()}. */
     public static boolean isSystemUser(UserManager userManager) {
         return userManager.isSystemUser();
     }
@@ -141,51 +127,38 @@ public final class ApiHelperForM {
         return PendingIntent.FLAG_IMMUTABLE;
     }
 
-    /**
-     * See {@link ConnectivityManager#reportNetworkConnectivity(Network, boolean)}.
-     */
-    public static void reportNetworkConnectivity(ConnectivityManager connectivityManager, Network network, boolean hasConnectivity) {
+    /** See {@link ConnectivityManager#reportNetworkConnectivity(Network, boolean)}. */
+    public static void reportNetworkConnectivity(
+            ConnectivityManager connectivityManager, Network network, boolean hasConnectivity) {
         connectivityManager.reportNetworkConnectivity(network, hasConnectivity);
     }
 
-    /**
-     * See {@link MotionEvent#getActionButton() }.
-     */
+    /** See {@link MotionEvent#getActionButton() }. */
     public static int getActionButton(MotionEvent event) {
         return event.getActionButton();
     }
 
-    /**
-     * See {@link Display.Mode#getPhysicalWidth() }.
-     */
+    /** See {@link Display.Mode#getPhysicalWidth() }. */
     public static int getModePhysicalWidth(Display.Mode mode) {
         return mode.getPhysicalWidth();
     }
 
-    /**
-     * See {@link Display.Mode#getPhysicalHeight() }.
-     */
+    /** See {@link Display.Mode#getPhysicalHeight() }. */
     public static int getModePhysicalHeight(Display.Mode mode) {
         return mode.getPhysicalHeight();
     }
 
-    /**
-     * See {@link Icon#createWithBitmap(Bitmap) }.
-     */
+    /** See {@link Icon#createWithBitmap(Bitmap) }. */
     public static Icon createIconWithBitmap(Bitmap bitmap) {
         return Icon.createWithBitmap(bitmap);
     }
 
-    /**
-     * See {@link PowerManager#isDeviceIdleMode() }.
-     */
+    /** See {@link PowerManager#isDeviceIdleMode() }. */
     public static boolean isDeviceIdleMode(PowerManager powerManager) {
         return powerManager.isDeviceIdleMode();
     }
 
-    /**
-     * See {@link Context#getSystemService(Class<T>)}.
-     */
+    /** See {@link Context#getSystemService(Class<T>)}. */
     public static <T> T getSystemService(Context context, Class<T> serviceClass) {
         return context.getSystemService(serviceClass);
     }

@@ -12,11 +12,11 @@ import org.chromium.content_public.browser.MessagePort;
 /**
  * WebMessageListener interface, which is used to listen {@link AwContents#onPostMessage}
  * callback in app. See also {@link AwContents#setWebMessageListener}.
+ *
  */
 public interface WebMessageListener {
     /**
      * Receives postMessage information.
-     *
      * @param payload      The message payload from JavaScript.
      * @param sourceOrigin The origin of the frame where the message is from.
      * @param isMainFrame  If the message is from a main frame.
@@ -25,5 +25,6 @@ public interface WebMessageListener {
      *                     ports to establish new communication channels. Could be empty array but
      *                     won't be null.
      */
-    void onPostMessage(MessagePayload payload, Uri sourceOrigin, boolean isMainFrame, JsReplyProxy jsReplyProxy, MessagePort[] ports);
+    void onPostMessage(MessagePayload payload, Uri sourceOrigin, boolean isMainFrame,
+            JsReplyProxy jsReplyProxy, MessagePort[] ports);
 }

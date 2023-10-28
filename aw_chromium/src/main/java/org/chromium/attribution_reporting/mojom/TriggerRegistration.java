@@ -13,10 +13,13 @@
 
 package org.chromium.attribution_reporting.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class TriggerRegistration extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 72;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(72, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(72, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public EventTriggerData[] eventTriggers;
     public FilterPair filters;
@@ -47,7 +50,8 @@ public final class TriggerRegistration extends org.chromium.mojo.bindings.Struct
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static TriggerRegistration deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -61,99 +65,99 @@ public final class TriggerRegistration extends org.chromium.mojo.bindings.Struct
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new TriggerRegistration(elementsOrVersion);
-            {
-
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                 {
                     org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                     result.eventTriggers = new EventTriggerData[si1.elementsOrVersion];
                     for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                        
                         org.chromium.mojo.bindings.Decoder decoder2 = decoder1.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                         result.eventTriggers[i1] = EventTriggerData.decode(decoder2);
                     }
                 }
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                 result.filters = FilterPair.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, false);
                 {
                     org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                     result.aggregatableTriggerData = new AggregatableTriggerData[si1.elementsOrVersion];
                     for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                        
                         org.chromium.mojo.bindings.Decoder decoder2 = decoder1.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                         result.aggregatableTriggerData[i1] = AggregatableTriggerData.decode(decoder2);
                     }
                 }
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(32, false);
                 {
                     decoder1.readDataHeaderForMap();
                     String[] keys0;
                     int[] values0;
                     {
-
+                        
                         org.chromium.mojo.bindings.Decoder decoder2 = decoder1.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                         {
                             org.chromium.mojo.bindings.DataHeader si2 = decoder2.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                             keys0 = new String[si2.elementsOrVersion];
                             for (int i2 = 0; i2 < si2.elementsOrVersion; ++i2) {
-
+                                
                                 keys0[i2] = decoder2.readString(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i2, false);
                             }
                         }
                     }
                     {
-
+                        
                         values0 = decoder1.readInts(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, keys0.length);
                     }
                     result.aggregatableValues = new java.util.HashMap<String, Integer>();
                     for (int index0 = 0; index0 < keys0.length; ++index0) {
-                        result.aggregatableValues.put(keys0[index0], values0[index0]);
+                        result.aggregatableValues.put(keys0[index0],  values0[index0]);
                     }
                 }
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(40, true);
                 result.debugKey = DebugKey.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(48, false);
                 {
                     org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                     result.aggregatableDedupKeys = new AggregatableDedupKey[si1.elementsOrVersion];
                     for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                        
                         org.chromium.mojo.bindings.Decoder decoder2 = decoder1.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                         result.aggregatableDedupKeys[i1] = AggregatableDedupKey.decode(decoder2);
                     }
                 }
-            }
-            {
-
+                }
+                {
+                    
                 result.debugReporting = decoder0.readBoolean(56, 0);
-            }
-            {
-
+                }
+                {
+                    
                 result.sourceRegistrationTimeConfig = decoder0.readInt(60);
-                SourceRegistrationTimeConfig.validate(result.sourceRegistrationTimeConfig);
-                result.sourceRegistrationTimeConfig = SourceRegistrationTimeConfig.toKnownValue(result.sourceRegistrationTimeConfig);
-            }
-            {
-
+                    SourceRegistrationTimeConfig.validate(result.sourceRegistrationTimeConfig);
+                    result.sourceRegistrationTimeConfig = SourceRegistrationTimeConfig.toKnownValue(result.sourceRegistrationTimeConfig);
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(64, true);
                 result.aggregationCoordinatorOrigin = SuitableOrigin.decode(decoder1);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -165,29 +169,29 @@ public final class TriggerRegistration extends org.chromium.mojo.bindings.Struct
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         if (this.eventTriggers == null) {
             encoder0.encodeNullPointer(8, false);
         } else {
             org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.eventTriggers.length, 8, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
             for (int i0 = 0; i0 < this.eventTriggers.length; ++i0) {
-
+                
                 encoder1.encode(this.eventTriggers[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
             }
         }
-
+        
         encoder0.encode(this.filters, 16, false);
-
+        
         if (this.aggregatableTriggerData == null) {
             encoder0.encodeNullPointer(24, false);
         } else {
             org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.aggregatableTriggerData.length, 24, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
             for (int i0 = 0; i0 < this.aggregatableTriggerData.length; ++i0) {
-
+                
                 encoder1.encode(this.aggregatableTriggerData[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
             }
         }
-
+        
         if (this.aggregatableValues == null) {
             encoder0.encodeNullPointer(32, false);
         } else {
@@ -201,34 +205,34 @@ public final class TriggerRegistration extends org.chromium.mojo.bindings.Struct
                 values0[index0] = entry0.getValue();
                 ++index0;
             }
-
+            
             {
                 org.chromium.mojo.bindings.Encoder encoder2 = encoder1.encodePointerArray(keys0.length, org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                 for (int i1 = 0; i1 < keys0.length; ++i1) {
-
+                    
                     encoder2.encode(keys0[i1], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                 }
             }
-
+            
             encoder1.encode(values0, org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
         }
-
+        
         encoder0.encode(this.debugKey, 40, true);
-
+        
         if (this.aggregatableDedupKeys == null) {
             encoder0.encodeNullPointer(48, false);
         } else {
             org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.aggregatableDedupKeys.length, 48, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
             for (int i0 = 0; i0 < this.aggregatableDedupKeys.length; ++i0) {
-
+                
                 encoder1.encode(this.aggregatableDedupKeys[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
             }
         }
-
+        
         encoder0.encode(this.debugReporting, 56, 0);
-
+        
         encoder0.encode(this.sourceRegistrationTimeConfig, 60);
-
+        
         encoder0.encode(this.aggregationCoordinatorOrigin, 64, true);
     }
 }

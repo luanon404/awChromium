@@ -7,14 +7,15 @@ package org.chromium.device.usb;
 import android.hardware.usb.UsbConfiguration;
 import android.hardware.usb.UsbDevice;
 
-import org.chromium.base.Log;
 import org.jni_zero.CalledByNative;
 import org.jni_zero.JNINamespace;
+
+import org.chromium.base.Log;
 
 /**
  * Exposes android.hardware.usb.UsbDevice as necessary for C++
  * device::UsbDeviceAndroid.
- * <p>
+ *
  * Lifetime is controlled by device::UsbDeviceAndroid.
  */
 @JNINamespace("device")

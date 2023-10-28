@@ -21,7 +21,6 @@ import org.chromium.base.ResettersForTesting;
 @RequiresApi(Build.VERSION_CODES.Q)
 public abstract class PlatformAPIWrapper {
     private static PlatformAPIWrapper sImpl;
-
     public static PlatformAPIWrapper getInstance() {
         if (sImpl == null) {
             sImpl = new PlatformAPIWrapperImpl();
@@ -29,21 +28,28 @@ public abstract class PlatformAPIWrapper {
         return sImpl;
     }
 
-    public abstract ContentCaptureSession createContentCaptureSession(ContentCaptureSession parent, String url, String favicon);
+    public abstract ContentCaptureSession createContentCaptureSession(
+            ContentCaptureSession parent, String url, String favicon);
 
     public abstract void destroyContentCaptureSession(ContentCaptureSession session);
 
-    public abstract AutofillId newAutofillId(ContentCaptureSession parent, AutofillId rootAutofillId, long id);
+    public abstract AutofillId newAutofillId(
+            ContentCaptureSession parent, AutofillId rootAutofillId, long id);
 
-    public abstract ViewStructure newVirtualViewStructure(ContentCaptureSession parent, AutofillId parentAutofillId, long id);
+    public abstract ViewStructure newVirtualViewStructure(
+            ContentCaptureSession parent, AutofillId parentAutofillId, long id);
 
-    public abstract void notifyViewAppeared(ContentCaptureSession session, ViewStructure viewStructure);
+    public abstract void notifyViewAppeared(
+            ContentCaptureSession session, ViewStructure viewStructure);
 
-    public abstract void notifyViewDisappeared(ContentCaptureSession session, AutofillId autofillId);
+    public abstract void notifyViewDisappeared(
+            ContentCaptureSession session, AutofillId autofillId);
 
-    public abstract void notifyViewsDisappeared(ContentCaptureSession session, AutofillId autofillId, long[] ids);
+    public abstract void notifyViewsDisappeared(
+            ContentCaptureSession session, AutofillId autofillId, long[] ids);
 
-    public abstract void notifyViewTextChanged(ContentCaptureSession session, AutofillId autofillId, String newContent);
+    public abstract void notifyViewTextChanged(
+            ContentCaptureSession session, AutofillId autofillId, String newContent);
 
     public abstract void notifyFaviconUpdated(ContentCaptureSession session, String favicon);
 

@@ -4,44 +4,59 @@
 package org.chromium.android_webview;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.content.Context;
+import android.view.View;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.android_webview.common.Lifetime;
+import org.chromium.base.ContextUtils;
+import org.chromium.components.autofill.AutofillDelegate;
+import org.chromium.components.autofill.AutofillPopup;
+import org.chromium.components.autofill.AutofillSuggestion;
+import org.chromium.components.autofill.PopupItemId;
 
 @CheckDiscard("crbug.com/993421")
 class AwAutofillClientJni implements AwAutofillClient.Natives {
-    private static AwAutofillClient.Natives testInstance;
+  private static AwAutofillClient.Natives testInstance;
 
-    public static final JniStaticTestMocker<AwAutofillClient.Natives> TEST_HOOKS = new JniStaticTestMocker<AwAutofillClient.Natives>() {
-        @Override
-        public void setInstanceForTesting(AwAutofillClient.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<AwAutofillClient.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<AwAutofillClient.Natives>() {
     @Override
-    public void dismissed(long nativeAwAutofillClient, AwAutofillClient caller) {
-        GEN_JNI.org_chromium_android_1webview_AwAutofillClient_dismissed(nativeAwAutofillClient, caller);
+    public void setInstanceForTesting(AwAutofillClient.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public void suggestionSelected(long nativeAwAutofillClient, AwAutofillClient caller, int position) {
-        GEN_JNI.org_chromium_android_1webview_AwAutofillClient_suggestionSelected(nativeAwAutofillClient, caller, position);
-    }
+  @Override
+  public void dismissed(long nativeAwAutofillClient, AwAutofillClient caller) {
+    GEN_JNI.org_chromium_android_1webview_AwAutofillClient_dismissed(nativeAwAutofillClient, caller);
+  }
 
-    public static AwAutofillClient.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of AwAutofillClient.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new AwAutofillClientJni();
+  @Override
+  public void suggestionSelected(long nativeAwAutofillClient, AwAutofillClient caller, int position) {
+    GEN_JNI.org_chromium_android_1webview_AwAutofillClient_suggestionSelected(nativeAwAutofillClient, caller, position);
+  }
+
+  public static AwAutofillClient.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of AwAutofillClient.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new AwAutofillClientJni();
+  }
 }

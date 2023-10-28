@@ -4,54 +4,73 @@
 package org.chromium.android_webview.nonembedded;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.text.TextUtils;
+import androidx.annotation.VisibleForTesting;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.Log;
+import org.chromium.url.GURL;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 @CheckDiscard("crbug.com/993421")
 public class NetworkFetcherTaskJni implements NetworkFetcherTask.Natives {
-    private static NetworkFetcherTask.Natives testInstance;
+  private static NetworkFetcherTask.Natives testInstance;
 
-    public static final JniStaticTestMocker<NetworkFetcherTask.Natives> TEST_HOOKS = new JniStaticTestMocker<NetworkFetcherTask.Natives>() {
-        @Override
-        public void setInstanceForTesting(NetworkFetcherTask.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<NetworkFetcherTask.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<NetworkFetcherTask.Natives>() {
     @Override
-    public void callDownloadToFileCompleteCallback(long weakPtr, long taskRunner, int networkError, long contentSize) {
-        GEN_JNI.org_chromium_android_1webview_nonembedded_NetworkFetcherTask_callDownloadToFileCompleteCallback(weakPtr, taskRunner, networkError, contentSize);
+    public void setInstanceForTesting(NetworkFetcherTask.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public void callPostRequestCompleteCallback(long weakPtr, long taskRunner, byte[] responseBody, int networkError, String headerETag, String headerXCupServerProof, long xHeaderRetryAfterSec) {
-        GEN_JNI.org_chromium_android_1webview_nonembedded_NetworkFetcherTask_callPostRequestCompleteCallback(weakPtr, taskRunner, responseBody, networkError, headerETag, headerXCupServerProof, xHeaderRetryAfterSec);
-    }
+  @Override
+  public void callDownloadToFileCompleteCallback(long weakPtr, long taskRunner, int networkError, long contentSize) {
+    GEN_JNI.org_chromium_android_1webview_nonembedded_NetworkFetcherTask_callDownloadToFileCompleteCallback(weakPtr, taskRunner, networkError, contentSize);
+  }
 
-    @Override
-    public void callProgressCallback(long weakPtr, long taskRunner, long current) {
-        GEN_JNI.org_chromium_android_1webview_nonembedded_NetworkFetcherTask_callProgressCallback(weakPtr, taskRunner, current);
-    }
+  @Override
+  public void callPostRequestCompleteCallback(long weakPtr, long taskRunner, byte[] responseBody, int networkError, String headerETag, String headerXCupServerProof, long xHeaderRetryAfterSec) {
+    GEN_JNI.org_chromium_android_1webview_nonembedded_NetworkFetcherTask_callPostRequestCompleteCallback(weakPtr, taskRunner, responseBody, networkError, headerETag, headerXCupServerProof, xHeaderRetryAfterSec);
+  }
 
-    @Override
-    public void callResponseStartedCallback(long weakPtr, long taskRunner, int responseCode, long contentLength) {
-        GEN_JNI.org_chromium_android_1webview_nonembedded_NetworkFetcherTask_callResponseStartedCallback(weakPtr, taskRunner, responseCode, contentLength);
-    }
+  @Override
+  public void callProgressCallback(long weakPtr, long taskRunner, long current) {
+    GEN_JNI.org_chromium_android_1webview_nonembedded_NetworkFetcherTask_callProgressCallback(weakPtr, taskRunner, current);
+  }
 
-    public static NetworkFetcherTask.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of NetworkFetcherTask.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new NetworkFetcherTaskJni();
+  @Override
+  public void callResponseStartedCallback(long weakPtr, long taskRunner, int responseCode, long contentLength) {
+    GEN_JNI.org_chromium_android_1webview_nonembedded_NetworkFetcherTask_callResponseStartedCallback(weakPtr, taskRunner, responseCode, contentLength);
+  }
+
+  public static NetworkFetcherTask.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of NetworkFetcherTask.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new NetworkFetcherTaskJni();
+  }
 }

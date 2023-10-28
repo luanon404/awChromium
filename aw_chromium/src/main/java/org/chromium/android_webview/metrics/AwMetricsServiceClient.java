@@ -4,10 +4,11 @@
 
 package org.chromium.android_webview.metrics;
 
-import org.chromium.android_webview.ManifestMetadataUtil;
-import org.chromium.base.ThreadUtils;
 import org.jni_zero.JNINamespace;
 import org.jni_zero.NativeMethods;
+
+import org.chromium.android_webview.ManifestMetadataUtil;
+import org.chromium.base.ThreadUtils;
 
 /**
  * Determines user consent and app opt-out for metrics. See aw_metrics_service_client.h for more
@@ -23,7 +24,8 @@ public class AwMetricsServiceClient {
      */
     public static void setConsentSetting(boolean userConsent) {
         ThreadUtils.assertOnUiThread();
-        AwMetricsServiceClientJni.get().setHaveMetricsConsent(userConsent, !ManifestMetadataUtil.isAppOptedOutFromMetricsCollection());
+        AwMetricsServiceClientJni.get().setHaveMetricsConsent(
+                userConsent, !ManifestMetadataUtil.isAppOptedOutFromMetricsCollection());
     }
 
     public static void setFastStartupForTesting(boolean fastStartupForTesting) {
@@ -44,11 +46,8 @@ public class AwMetricsServiceClient {
     @NativeMethods
     interface Natives {
         void setHaveMetricsConsent(boolean userConsent, boolean appConsent);
-
         void setFastStartupForTesting(boolean fastStartupForTesting);
-
         void setUploadIntervalForTesting(long uploadIntervalMs);
-
         void setOnFinalMetricsCollectedListenerForTesting(Runnable listener);
     }
 }

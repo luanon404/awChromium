@@ -17,10 +17,14 @@ import androidx.annotation.IntDef;
 
 public final class CdmSessionClosedReason {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({CdmSessionClosedReason.INTERNAL_ERROR, CdmSessionClosedReason.CLOSE, CdmSessionClosedReason.RELEASE_ACKNOWLEDGED, CdmSessionClosedReason.HARDWARE_CONTEXT_RESET, CdmSessionClosedReason.RESOURCE_EVICTED})
-    public @interface EnumType {
-    }
+        CdmSessionClosedReason.INTERNAL_ERROR,
+        CdmSessionClosedReason.CLOSE,
+        CdmSessionClosedReason.RELEASE_ACKNOWLEDGED,
+        CdmSessionClosedReason.HARDWARE_CONTEXT_RESET,
+        CdmSessionClosedReason.RESOURCE_EVICTED})
+    public @interface EnumType {}
 
     public static final int INTERNAL_ERROR = 0;
     public static final int CLOSE = 1;
@@ -40,9 +44,8 @@ public final class CdmSessionClosedReason {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private CdmSessionClosedReason() {
-    }
+    private CdmSessionClosedReason() {}
 }

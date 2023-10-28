@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface SpeechSynthesis extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends SpeechSynthesis, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends SpeechSynthesis, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<SpeechSynthesis, SpeechSynthesis.Proxy> MANAGER = SpeechSynthesis_Internal.MANAGER;

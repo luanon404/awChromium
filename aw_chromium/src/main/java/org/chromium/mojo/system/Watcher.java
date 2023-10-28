@@ -13,11 +13,11 @@ public interface Watcher {
     /**
      * Callback passed to {@link Watcher#start}.
      */
-    interface Callback {
+    public interface Callback {
         /**
          * Called when the handle is ready.
          */
-        void onResult(int result);
+        public void onResult(int result);
     }
 
     /**

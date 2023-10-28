@@ -4,9 +4,10 @@
 
 package org.chromium.android_webview;
 
-import org.chromium.android_webview.common.Lifetime;
 import org.jni_zero.CalledByNative;
 import org.jni_zero.JNINamespace;
+
+import org.chromium.android_webview.common.Lifetime;
 
 /**
  * For native to pass the information of a DocumentStartJavascript to Java.

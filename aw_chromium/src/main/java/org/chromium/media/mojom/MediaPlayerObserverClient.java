@@ -13,20 +13,23 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface MediaPlayerObserverClient extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends MediaPlayerObserverClient, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends MediaPlayerObserverClient, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<MediaPlayerObserverClient, MediaPlayerObserverClient.Proxy> MANAGER = MediaPlayerObserverClient_Internal.MANAGER;
 
     void getHasPlayedBefore(
 
-            GetHasPlayedBefore_Response callback);
+GetHasPlayedBefore_Response callback);
 
-    interface GetHasPlayedBefore_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> {
-    }
+    interface GetHasPlayedBefore_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> { }
 
 
 }

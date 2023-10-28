@@ -23,7 +23,8 @@ public class DnsStatus {
 
     private final String mSearchDomains;
 
-    public DnsStatus(List<InetAddress> dnsServers, boolean privateDnsActive, String privateDnsServerName, String searchDomains) {
+    public DnsStatus(List<InetAddress> dnsServers, boolean privateDnsActive,
+            String privateDnsServerName, String searchDomains) {
         mDnsServers = dnsServers;
         mPrivateDnsActive = privateDnsActive;
         mPrivateDnsServerName = (privateDnsServerName != null) ? privateDnsServerName : "";

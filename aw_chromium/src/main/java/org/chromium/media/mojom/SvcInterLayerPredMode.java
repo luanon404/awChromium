@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class SvcInterLayerPredMode {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({SvcInterLayerPredMode.OFF, SvcInterLayerPredMode.ON, SvcInterLayerPredMode.ON_KEY_PIC})
-    public @interface EnumType {
-    }
+        SvcInterLayerPredMode.OFF,
+        SvcInterLayerPredMode.ON,
+        SvcInterLayerPredMode.ON_KEY_PIC})
+    public @interface EnumType {}
 
     public static final int OFF = 0;
     public static final int ON = 1;
@@ -38,9 +40,8 @@ public final class SvcInterLayerPredMode {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private SvcInterLayerPredMode() {
-    }
+    private SvcInterLayerPredMode() {}
 }

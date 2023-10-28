@@ -17,10 +17,11 @@ import androidx.annotation.IntDef;
 
 public final class ContentSecurityPolicyType {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({ContentSecurityPolicyType.REPORT, ContentSecurityPolicyType.ENFORCE})
-    public @interface EnumType {
-    }
+        ContentSecurityPolicyType.REPORT,
+        ContentSecurityPolicyType.ENFORCE})
+    public @interface EnumType {}
 
     public static final int REPORT = 0;
     public static final int ENFORCE = 1;
@@ -37,9 +38,8 @@ public final class ContentSecurityPolicyType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private ContentSecurityPolicyType() {
-    }
+    private ContentSecurityPolicyType() {}
 }

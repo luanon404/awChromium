@@ -24,6 +24,5 @@ public final class GwpAsanFeatures {
     public static final String GWP_ASAN_PARTITION_ALLOC = "GwpAsanPartitionAlloc";
 
     // Prevents instantiation.
-    private GwpAsanFeatures() {
-    }
+    private GwpAsanFeatures() {}
 }

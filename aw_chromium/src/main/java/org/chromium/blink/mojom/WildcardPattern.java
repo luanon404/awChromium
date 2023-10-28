@@ -13,6 +13,8 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public final class WildcardPattern extends org.chromium.mojo.bindings.Struct {
 

@@ -4,44 +4,75 @@
 package org.chromium.net;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.Proxy;
+import android.net.ProxyInfo;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.text.TextUtils;
+import androidx.annotation.RequiresApi;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeClassQualifiedName;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.ContextUtils;
+import org.chromium.base.Log;
+import org.chromium.base.ResettersForTesting;
+import org.chromium.base.TraceEvent;
+import org.chromium.build.BuildConfig;
+import org.chromium.build.annotations.UsedByReflection;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Locale;
 
 @CheckDiscard("crbug.com/993421")
 class ProxyChangeListenerJni implements ProxyChangeListener.Natives {
-    private static ProxyChangeListener.Natives testInstance;
+  private static ProxyChangeListener.Natives testInstance;
 
-    public static final JniStaticTestMocker<ProxyChangeListener.Natives> TEST_HOOKS = new JniStaticTestMocker<ProxyChangeListener.Natives>() {
-        @Override
-        public void setInstanceForTesting(ProxyChangeListener.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<ProxyChangeListener.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<ProxyChangeListener.Natives>() {
     @Override
-    public void proxySettingsChanged(long nativePtr, ProxyChangeListener caller) {
-        GEN_JNI.org_chromium_net_ProxyChangeListener_proxySettingsChanged(nativePtr, caller);
+    public void setInstanceForTesting(ProxyChangeListener.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public void proxySettingsChangedTo(long nativePtr, ProxyChangeListener caller, String host, int port, String pacUrl, String[] exclusionList) {
-        GEN_JNI.org_chromium_net_ProxyChangeListener_proxySettingsChangedTo(nativePtr, caller, host, port, pacUrl, exclusionList);
-    }
+  @Override
+  public void proxySettingsChanged(long nativePtr, ProxyChangeListener caller) {
+    GEN_JNI.org_chromium_net_ProxyChangeListener_proxySettingsChanged(nativePtr, caller);
+  }
 
-    public static ProxyChangeListener.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of ProxyChangeListener.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new ProxyChangeListenerJni();
+  @Override
+  public void proxySettingsChangedTo(long nativePtr, ProxyChangeListener caller, String host, int port, String pacUrl, String[] exclusionList) {
+    GEN_JNI.org_chromium_net_ProxyChangeListener_proxySettingsChangedTo(nativePtr, caller, host, port, pacUrl, exclusionList);
+  }
+
+  public static ProxyChangeListener.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of ProxyChangeListener.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new ProxyChangeListenerJni();
+  }
 }

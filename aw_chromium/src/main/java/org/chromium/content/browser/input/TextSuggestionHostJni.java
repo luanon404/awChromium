@@ -4,59 +4,78 @@
 package org.chromium.content.browser.input;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.content.Context;
+import androidx.annotation.VisibleForTesting;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.UserData;
+import org.chromium.content.browser.PopupController;
+import org.chromium.content.browser.PopupController.HideablePopup;
+import org.chromium.content.browser.WindowEventObserver;
+import org.chromium.content.browser.WindowEventObserverManager;
+import org.chromium.content.browser.webcontents.WebContentsImpl;
+import org.chromium.content.browser.webcontents.WebContentsImpl.UserDataFactory;
+import org.chromium.content_public.browser.WebContents;
+import org.chromium.ui.base.ViewAndroidDelegate;
+import org.chromium.ui.base.WindowAndroid;
 
 @CheckDiscard("crbug.com/993421")
 class TextSuggestionHostJni implements TextSuggestionHost.Natives {
-    private static TextSuggestionHost.Natives testInstance;
+  private static TextSuggestionHost.Natives testInstance;
 
-    public static final JniStaticTestMocker<TextSuggestionHost.Natives> TEST_HOOKS = new JniStaticTestMocker<TextSuggestionHost.Natives>() {
-        @Override
-        public void setInstanceForTesting(TextSuggestionHost.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<TextSuggestionHost.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<TextSuggestionHost.Natives>() {
     @Override
-    public void applySpellCheckSuggestion(long nativeTextSuggestionHostAndroid, TextSuggestionHost caller, String suggestion) {
-        GEN_JNI.org_chromium_content_browser_input_TextSuggestionHost_applySpellCheckSuggestion(nativeTextSuggestionHostAndroid, caller, suggestion);
+    public void setInstanceForTesting(TextSuggestionHost.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public void applyTextSuggestion(long nativeTextSuggestionHostAndroid, TextSuggestionHost caller, int markerTag, int suggestionIndex) {
-        GEN_JNI.org_chromium_content_browser_input_TextSuggestionHost_applyTextSuggestion(nativeTextSuggestionHostAndroid, caller, markerTag, suggestionIndex);
-    }
+  @Override
+  public void applySpellCheckSuggestion(long nativeTextSuggestionHostAndroid, TextSuggestionHost caller, String suggestion) {
+    GEN_JNI.org_chromium_content_browser_input_TextSuggestionHost_applySpellCheckSuggestion(nativeTextSuggestionHostAndroid, caller, suggestion);
+  }
 
-    @Override
-    public void deleteActiveSuggestionRange(long nativeTextSuggestionHostAndroid, TextSuggestionHost caller) {
-        GEN_JNI.org_chromium_content_browser_input_TextSuggestionHost_deleteActiveSuggestionRange(nativeTextSuggestionHostAndroid, caller);
-    }
+  @Override
+  public void applyTextSuggestion(long nativeTextSuggestionHostAndroid, TextSuggestionHost caller, int markerTag, int suggestionIndex) {
+    GEN_JNI.org_chromium_content_browser_input_TextSuggestionHost_applyTextSuggestion(nativeTextSuggestionHostAndroid, caller, markerTag, suggestionIndex);
+  }
 
-    @Override
-    public void onNewWordAddedToDictionary(long nativeTextSuggestionHostAndroid, TextSuggestionHost caller, String word) {
-        GEN_JNI.org_chromium_content_browser_input_TextSuggestionHost_onNewWordAddedToDictionary(nativeTextSuggestionHostAndroid, caller, word);
-    }
+  @Override
+  public void deleteActiveSuggestionRange(long nativeTextSuggestionHostAndroid, TextSuggestionHost caller) {
+    GEN_JNI.org_chromium_content_browser_input_TextSuggestionHost_deleteActiveSuggestionRange(nativeTextSuggestionHostAndroid, caller);
+  }
 
-    @Override
-    public void onSuggestionMenuClosed(long nativeTextSuggestionHostAndroid, TextSuggestionHost caller) {
-        GEN_JNI.org_chromium_content_browser_input_TextSuggestionHost_onSuggestionMenuClosed(nativeTextSuggestionHostAndroid, caller);
-    }
+  @Override
+  public void onNewWordAddedToDictionary(long nativeTextSuggestionHostAndroid, TextSuggestionHost caller, String word) {
+    GEN_JNI.org_chromium_content_browser_input_TextSuggestionHost_onNewWordAddedToDictionary(nativeTextSuggestionHostAndroid, caller, word);
+  }
 
-    public static TextSuggestionHost.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of TextSuggestionHost.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new TextSuggestionHostJni();
+  @Override
+  public void onSuggestionMenuClosed(long nativeTextSuggestionHostAndroid, TextSuggestionHost caller) {
+    GEN_JNI.org_chromium_content_browser_input_TextSuggestionHost_onSuggestionMenuClosed(nativeTextSuggestionHostAndroid, caller);
+  }
+
+  public static TextSuggestionHost.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of TextSuggestionHost.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new TextSuggestionHostJni();
+  }
 }

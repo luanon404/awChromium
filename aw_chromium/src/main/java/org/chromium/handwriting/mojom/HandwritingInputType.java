@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class HandwritingInputType {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({HandwritingInputType.MOUSE, HandwritingInputType.STYLUS, HandwritingInputType.TOUCH})
-    public @interface EnumType {
-    }
+        HandwritingInputType.MOUSE,
+        HandwritingInputType.STYLUS,
+        HandwritingInputType.TOUCH})
+    public @interface EnumType {}
 
     public static final int MOUSE = 0;
     public static final int STYLUS = 1;
@@ -38,9 +40,8 @@ public final class HandwritingInputType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private HandwritingInputType() {
-    }
+    private HandwritingInputType() {}
 }

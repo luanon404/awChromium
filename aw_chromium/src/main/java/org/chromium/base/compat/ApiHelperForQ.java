@@ -42,91 +42,75 @@ import java.util.concurrent.Executor;
  */
 @RequiresApi(Build.VERSION_CODES.Q)
 public final class ApiHelperForQ {
-    private ApiHelperForQ() {
-    }
+    private ApiHelperForQ() {}
 
-    /**
-     * See {@link TelephonyManager.requestCellInfoUpdate() }.
-     */
+    /** See {@link TelephonyManager.requestCellInfoUpdate() }. */
     @RequiresPermission(android.Manifest.permission.ACCESS_FINE_LOCATION)
-    public static void requestCellInfoUpdate(TelephonyManager telephonyManager, Callback<List<CellInfo>> callback) {
-        telephonyManager.requestCellInfoUpdate(AsyncTask.THREAD_POOL_EXECUTOR, new TelephonyManager.CellInfoCallback() {
-            @Override
-            @SuppressLint("Override")
-            public void onCellInfo(List<CellInfo> cellInfos) {
-                callback.onResult(cellInfos);
-            }
-        });
+    public static void requestCellInfoUpdate(
+            TelephonyManager telephonyManager, Callback<List<CellInfo>> callback) {
+        telephonyManager.requestCellInfoUpdate(
+                AsyncTask.THREAD_POOL_EXECUTOR, new TelephonyManager.CellInfoCallback() {
+                    @Override
+                    @SuppressLint("Override")
+                    public void onCellInfo(List<CellInfo> cellInfos) {
+                        callback.onResult(cellInfos);
+                    }
+                });
     }
 
-    public static boolean bindIsolatedService(Context context, Intent intent, int flags, String instanceName, Executor executor, ServiceConnection connection) {
+    public static boolean bindIsolatedService(Context context, Intent intent, int flags,
+            String instanceName, Executor executor, ServiceConnection connection) {
         return context.bindIsolatedService(intent, flags, instanceName, executor, connection);
     }
 
-    public static void updateServiceGroup(Context context, ServiceConnection connection, int group, int importance) {
+    public static void updateServiceGroup(
+            Context context, ServiceConnection connection, int group, int importance) {
         context.updateServiceGroup(connection, group, importance);
     }
 
-    /**
-     * See {@link MotionEvent#getClassification() }.
-     */
+    /** See {@link MotionEvent#getClassification() }. */
     public static int getClassification(MotionEvent event) {
         return event.getClassification();
     }
 
-    /**
-     * See {@link Context#getSystemService(Class<T>) }.
-     */
+    /** See {@link Context#getSystemService(Class<T>) }. */
     public static BiometricManager getBiometricManagerSystemService(Context context) {
         return context.getSystemService(BiometricManager.class);
     }
 
-    /**
-     * See {@link Service#startForegroung(int, Notification, int) }.
-     */
-    public static void startForeground(Service service, int id, Notification notification, int foregroundServiceType) {
+    /** See {@link Service#startForegroung(int, Notification, int) }. */
+    public static void startForeground(
+            Service service, int id, Notification notification, int foregroundServiceType) {
         service.startForeground(id, notification, foregroundServiceType);
     }
 
-    /**
-     * See {@link FileUtils#copy(InputStream, OutputStream) }.
-     */
+    /** See {@link FileUtils#copy(InputStream, OutputStream) }. */
     public static long copy(InputStream in, OutputStream out) throws IOException {
         return FileUtils.copy(in, out);
     }
 
-    /**
-     * See {@link MediaStore#setIncludePending(Uri) }.
-     */
+    /** See {@link MediaStore#setIncludePending(Uri) }. */
     public static Uri setIncludePending(Uri uri) {
         return MediaStore.setIncludePending(uri);
     }
 
-    /**
-     * See {@link MediaStore#getExternalVolumeNames(Context) }.
-     */
+    /** See {@link MediaStore#getExternalVolumeNames(Context) }. */
     public static Set<String> getExternalVolumeNames(Context context) {
         return MediaStore.getExternalVolumeNames(context);
     }
 
-    /**
-     * See {@link BiometricManager#canAuthenticate() }.
-     */
+    /** See {@link BiometricManager#canAuthenticate() }. */
     @RequiresPermission(android.Manifest.permission.USE_BIOMETRIC)
     public static int canAuthenticate(BiometricManager manager) {
         return manager.canAuthenticate();
     }
 
-    /**
-     * See {@link NetworkCapabilities#getTransportInfo() }
-     */
+    /** See {@link NetworkCapabilities#getTransportInfo() } */
     public static TransportInfo getTransportInfo(NetworkCapabilities networkCapabilities) {
         return networkCapabilities.getTransportInfo();
     }
 
-    /**
-     * See {@link PowerManager#getCurrentThermalStatus() }.
-     */
+    /** See {@link PowerManager#getCurrentThermalStatus() }. */
     public static int getCurrentThermalStatus(PowerManager powerManager) {
         return powerManager.getCurrentThermalStatus();
     }

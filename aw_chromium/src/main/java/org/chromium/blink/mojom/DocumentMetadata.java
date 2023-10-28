@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface DocumentMetadata extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends DocumentMetadata, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends DocumentMetadata, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<DocumentMetadata, DocumentMetadata.Proxy> MANAGER = DocumentMetadata_Internal.MANAGER;

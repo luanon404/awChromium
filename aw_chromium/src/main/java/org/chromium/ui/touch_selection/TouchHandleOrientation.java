@@ -1,3 +1,4 @@
+
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -14,11 +15,14 @@ import androidx.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@IntDef({TouchHandleOrientation.LEFT, TouchHandleOrientation.CENTER, TouchHandleOrientation.RIGHT, TouchHandleOrientation.UNDEFINED})
+@IntDef({
+    TouchHandleOrientation.LEFT, TouchHandleOrientation.CENTER, TouchHandleOrientation.RIGHT,
+    TouchHandleOrientation.UNDEFINED
+})
 @Retention(RetentionPolicy.SOURCE)
 public @interface TouchHandleOrientation {
-    int LEFT = 0;
-    int CENTER = 1;
-    int RIGHT = 2;
-    int UNDEFINED = 3;
+  int LEFT = 0;
+  int CENTER = 1;
+  int RIGHT = 2;
+  int UNDEFINED = 3;
 }

@@ -13,6 +13,8 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public final class DragItem extends org.chromium.mojo.bindings.Union {
 
@@ -21,8 +23,7 @@ public final class DragItem extends org.chromium.mojo.bindings.Union {
         public static final int File = 1;
         public static final int Binary = 2;
         public static final int FileSystemFile = 3;
-    }
-
+    };
     private DragItemString mString;
     private DataTransferFile mFile;
     private DragItemBinary mBinary;

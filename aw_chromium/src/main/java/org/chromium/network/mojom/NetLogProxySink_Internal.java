@@ -13,9 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 class NetLogProxySink_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<NetLogProxySink, NetLogProxySink.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<NetLogProxySink, NetLogProxySink.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<NetLogProxySink, NetLogProxySink.Proxy> MANAGER =
+            new org.chromium.mojo.bindings.Interface.Manager<NetLogProxySink, NetLogProxySink.Proxy>() {
 
         @Override
         public String getName() {
@@ -24,11 +28,12 @@ class NetLogProxySink_Internal {
 
         @Override
         public int getVersion() {
-            return 0;
+          return 0;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -39,7 +44,7 @@ class NetLogProxySink_Internal {
 
         @Override
         public NetLogProxySink[] buildArray(int size) {
-            return new NetLogProxySink[size];
+          return new NetLogProxySink[size];
         }
     };
 
@@ -49,13 +54,15 @@ class NetLogProxySink_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements NetLogProxySink.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core,
+              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void addEntry(int type, NetLogSource netLogSource, int phase, org.chromium.mojo_base.mojom.TimeTicks time, org.chromium.mojo_base.mojom.DictionaryValue params) {
+        public void addEntry(
+int type, NetLogSource netLogSource, int phase, org.chromium.mojo_base.mojom.TimeTicks time, org.chromium.mojo_base.mojom.DictionaryValue params) {
 
             NetLogProxySinkAddEntryParams _message = new NetLogProxySinkAddEntryParams();
 
@@ -70,7 +77,10 @@ class NetLogProxySink_Internal {
             _message.params = params;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ADD_ENTRY_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ADD_ENTRY_ORDINAL)));
 
         }
 
@@ -86,7 +96,8 @@ class NetLogProxySink_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -95,15 +106,20 @@ class NetLogProxySink_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(NetLogProxySink_Internal.MANAGER, messageWithHeader);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
+                                NetLogProxySink_Internal.MANAGER, messageWithHeader);
+
+
+
 
 
                     case ADD_ENTRY_ORDINAL: {
 
-                        NetLogProxySinkAddEntryParams data = NetLogProxySinkAddEntryParams.deserialize(messageWithHeader.getPayload());
+                        NetLogProxySinkAddEntryParams data =
+                                NetLogProxySinkAddEntryParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().addEntry(data.type, data.netLogSource, data.phase, data.time, data.params);
                         return true;
@@ -114,7 +130,7 @@ class NetLogProxySink_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -122,7 +138,8 @@ class NetLogProxySink_Internal {
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -131,27 +148,31 @@ class NetLogProxySink_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), NetLogProxySink_Internal.MANAGER, messageWithHeader, receiver);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
+                                getCore(), NetLogProxySink_Internal.MANAGER, messageWithHeader, receiver);
+
+
 
 
                     default:
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class NetLogProxySinkAddEntryParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 40;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(40, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(40, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int type;
         public NetLogSource netLogSource;
@@ -177,7 +198,8 @@ class NetLogProxySink_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static NetLogProxySinkAddEntryParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -191,31 +213,31 @@ class NetLogProxySink_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new NetLogProxySinkAddEntryParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.type = decoder0.readInt(8);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.phase = decoder0.readInt(12);
-                    NetLogEventPhase.validate(result.phase);
-                    result.phase = NetLogEventPhase.toKnownValue(result.phase);
-                }
-                {
-
+                        NetLogEventPhase.validate(result.phase);
+                        result.phase = NetLogEventPhase.toKnownValue(result.phase);
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                     result.netLogSource = NetLogSource.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, false);
                     result.time = org.chromium.mojo_base.mojom.TimeTicks.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(32, false);
                     result.params = org.chromium.mojo_base.mojom.DictionaryValue.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -227,18 +249,19 @@ class NetLogProxySink_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.type, 8);
-
+            
             encoder0.encode(this.phase, 12);
-
+            
             encoder0.encode(this.netLogSource, 16, false);
-
+            
             encoder0.encode(this.time, 24, false);
-
+            
             encoder0.encode(this.params, 32, false);
         }
     }
+
 
 
 }

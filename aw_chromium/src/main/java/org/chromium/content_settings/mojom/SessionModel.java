@@ -17,10 +17,13 @@ import androidx.annotation.IntDef;
 
 public final class SessionModel {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({SessionModel.DURABLE, SessionModel.USER_SESSION, SessionModel.NON_RESTORABLE_USER_SESSION, SessionModel.ONE_TIME})
-    public @interface EnumType {
-    }
+        SessionModel.DURABLE,
+        SessionModel.USER_SESSION,
+        SessionModel.NON_RESTORABLE_USER_SESSION,
+        SessionModel.ONE_TIME})
+    public @interface EnumType {}
 
     public static final int DURABLE = 0;
     public static final int USER_SESSION = 1;
@@ -39,9 +42,8 @@ public final class SessionModel {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private SessionModel() {
-    }
+    private SessionModel() {}
 }

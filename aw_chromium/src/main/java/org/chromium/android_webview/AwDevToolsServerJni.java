@@ -4,49 +4,56 @@
 package org.chromium.android_webview;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.android_webview.common.Lifetime;
 
 @CheckDiscard("crbug.com/993421")
 class AwDevToolsServerJni implements AwDevToolsServer.Natives {
-    private static AwDevToolsServer.Natives testInstance;
+  private static AwDevToolsServer.Natives testInstance;
 
-    public static final JniStaticTestMocker<AwDevToolsServer.Natives> TEST_HOOKS = new JniStaticTestMocker<AwDevToolsServer.Natives>() {
-        @Override
-        public void setInstanceForTesting(AwDevToolsServer.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<AwDevToolsServer.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<AwDevToolsServer.Natives>() {
     @Override
-    public void destroyRemoteDebugging(AwDevToolsServer caller, long devToolsServer) {
-        GEN_JNI.org_chromium_android_1webview_AwDevToolsServer_destroyRemoteDebugging(caller, devToolsServer);
+    public void setInstanceForTesting(AwDevToolsServer.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public long initRemoteDebugging(AwDevToolsServer caller) {
-        return (long) GEN_JNI.org_chromium_android_1webview_AwDevToolsServer_initRemoteDebugging(caller);
-    }
+  @Override
+  public void destroyRemoteDebugging(AwDevToolsServer caller, long devToolsServer) {
+    GEN_JNI.org_chromium_android_1webview_AwDevToolsServer_destroyRemoteDebugging(caller, devToolsServer);
+  }
 
-    @Override
-    public void setRemoteDebuggingEnabled(AwDevToolsServer caller, long devToolsServer, boolean enabled) {
-        GEN_JNI.org_chromium_android_1webview_AwDevToolsServer_setRemoteDebuggingEnabled(caller, devToolsServer, enabled);
-    }
+  @Override
+  public long initRemoteDebugging(AwDevToolsServer caller) {
+    return (long) GEN_JNI.org_chromium_android_1webview_AwDevToolsServer_initRemoteDebugging(caller);
+  }
 
-    public static AwDevToolsServer.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of AwDevToolsServer.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new AwDevToolsServerJni();
+  @Override
+  public void setRemoteDebuggingEnabled(AwDevToolsServer caller, long devToolsServer, boolean enabled) {
+    GEN_JNI.org_chromium_android_1webview_AwDevToolsServer_setRemoteDebuggingEnabled(caller, devToolsServer, enabled);
+  }
+
+  public static AwDevToolsServer.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of AwDevToolsServer.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new AwDevToolsServerJni();
+  }
 }

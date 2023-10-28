@@ -13,14 +13,16 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class ObliviousHttpCompletionResult extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
         public static final int NetError = 0;
         public static final int OuterResponseErrorCode = 1;
         public static final int InnerResponse = 2;
-    }
-
+    };
     private int mNetError;
     private int mOuterResponseErrorCode;
     private ObliviousHttpResponse mInnerResponse;
@@ -62,17 +64,17 @@ public final class ObliviousHttpCompletionResult extends org.chromium.mojo.bindi
         encoder0.encode(this.mTag, offset + 4);
         switch (mTag) {
             case Tag.NetError: {
-
+                
                 encoder0.encode(this.mNetError, offset + 8);
                 break;
             }
             case Tag.OuterResponseErrorCode: {
-
+                
                 encoder0.encode(this.mOuterResponseErrorCode, offset + 8);
                 break;
             }
             case Tag.InnerResponse: {
-
+                
                 encoder0.encode(this.mInnerResponse, offset + 8, false);
                 break;
             }
@@ -94,19 +96,19 @@ public final class ObliviousHttpCompletionResult extends org.chromium.mojo.bindi
         ObliviousHttpCompletionResult result = new ObliviousHttpCompletionResult();
         switch (dataHeader.elementsOrVersion) {
             case Tag.NetError: {
-
+                
                 result.mNetError = decoder0.readInt(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE);
                 result.mTag = Tag.NetError;
                 break;
             }
             case Tag.OuterResponseErrorCode: {
-
+                
                 result.mOuterResponseErrorCode = decoder0.readInt(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE);
                 result.mTag = Tag.OuterResponseErrorCode;
                 break;
             }
             case Tag.InnerResponse: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mInnerResponse = ObliviousHttpResponse.decode(decoder1);
                 result.mTag = Tag.InnerResponse;

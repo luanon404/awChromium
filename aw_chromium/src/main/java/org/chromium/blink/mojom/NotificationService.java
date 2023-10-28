@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface NotificationService extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends NotificationService, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends NotificationService, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<NotificationService, NotificationService.Proxy> MANAGER = NotificationService_Internal.MANAGER;

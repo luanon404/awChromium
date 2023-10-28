@@ -17,10 +17,15 @@ import androidx.annotation.IntDef;
 
 public final class CrossOriginOpenerPolicyValue {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({CrossOriginOpenerPolicyValue.UNSAFE_NONE, CrossOriginOpenerPolicyValue.SAME_ORIGIN_ALLOW_POPUPS, CrossOriginOpenerPolicyValue.SAME_ORIGIN, CrossOriginOpenerPolicyValue.SAME_ORIGIN_PLUS_COEP, CrossOriginOpenerPolicyValue.RESTRICT_PROPERTIES, CrossOriginOpenerPolicyValue.RESTRICT_PROPERTIES_PLUS_COEP})
-    public @interface EnumType {
-    }
+        CrossOriginOpenerPolicyValue.UNSAFE_NONE,
+        CrossOriginOpenerPolicyValue.SAME_ORIGIN_ALLOW_POPUPS,
+        CrossOriginOpenerPolicyValue.SAME_ORIGIN,
+        CrossOriginOpenerPolicyValue.SAME_ORIGIN_PLUS_COEP,
+        CrossOriginOpenerPolicyValue.RESTRICT_PROPERTIES,
+        CrossOriginOpenerPolicyValue.RESTRICT_PROPERTIES_PLUS_COEP})
+    public @interface EnumType {}
 
     public static final int UNSAFE_NONE = 0;
     public static final int SAME_ORIGIN_ALLOW_POPUPS = 1;
@@ -41,9 +46,8 @@ public final class CrossOriginOpenerPolicyValue {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private CrossOriginOpenerPolicyValue() {
-    }
+    private CrossOriginOpenerPolicyValue() {}
 }

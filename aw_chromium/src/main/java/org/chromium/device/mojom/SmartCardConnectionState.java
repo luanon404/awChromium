@@ -17,10 +17,15 @@ import androidx.annotation.IntDef;
 
 public final class SmartCardConnectionState {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({SmartCardConnectionState.ABSENT, SmartCardConnectionState.PRESENT, SmartCardConnectionState.SWALLOWED, SmartCardConnectionState.POWERED, SmartCardConnectionState.NEGOTIABLE, SmartCardConnectionState.SPECIFIC})
-    public @interface EnumType {
-    }
+        SmartCardConnectionState.ABSENT,
+        SmartCardConnectionState.PRESENT,
+        SmartCardConnectionState.SWALLOWED,
+        SmartCardConnectionState.POWERED,
+        SmartCardConnectionState.NEGOTIABLE,
+        SmartCardConnectionState.SPECIFIC})
+    public @interface EnumType {}
 
     public static final int ABSENT = 0;
     public static final int PRESENT = 1;
@@ -41,9 +46,8 @@ public final class SmartCardConnectionState {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private SmartCardConnectionState() {
-    }
+    private SmartCardConnectionState() {}
 }

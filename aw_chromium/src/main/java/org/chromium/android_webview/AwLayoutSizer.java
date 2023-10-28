@@ -46,11 +46,8 @@ public class AwLayoutSizer {
      */
     public interface Delegate {
         void requestLayout();
-
         void setMeasuredDimension(int measuredWidth, int measuredHeight);
-
         boolean isLayoutParamsHeightWrapContent();
-
         void setForceZeroLayoutHeight(boolean forceZeroHeight);
     }
 
@@ -113,9 +110,13 @@ public class AwLayoutSizer {
         // ignore changes to dimensions that are 'fixed'.
         final int heightPix = (int) (heightCss * mPageScaleFactor * mDIPScale);
         boolean pageScaleChanged = mPageScaleFactor != pageScaleFactor;
-        boolean contentHeightChangeMeaningful = !mHeightMeasurementIsFixed && (!mHeightMeasurementLimited || heightPix < mHeightMeasurementLimit);
-        boolean pageScaleChangeMeaningful = !mWidthMeasurementIsFixed || contentHeightChangeMeaningful;
-        boolean layoutNeeded = (mContentWidthCss != widthCss && !mWidthMeasurementIsFixed) || (mContentHeightCss != heightCss && contentHeightChangeMeaningful) || (pageScaleChanged && pageScaleChangeMeaningful);
+        boolean contentHeightChangeMeaningful = !mHeightMeasurementIsFixed
+                && (!mHeightMeasurementLimited || heightPix < mHeightMeasurementLimit);
+        boolean pageScaleChangeMeaningful =
+                !mWidthMeasurementIsFixed || contentHeightChangeMeaningful;
+        boolean layoutNeeded = (mContentWidthCss != widthCss && !mWidthMeasurementIsFixed)
+                || (mContentHeightCss != heightCss && contentHeightChangeMeaningful)
+                || (pageScaleChanged && pageScaleChangeMeaningful);
 
         mContentWidthCss = widthCss;
         mContentHeightCss = heightCss;
@@ -149,7 +150,8 @@ public class AwLayoutSizer {
         // Always use the given size unless unspecified. This matches WebViewClassic behavior.
         mWidthMeasurementIsFixed = (widthMode != MeasureSpec.UNSPECIFIED);
         mHeightMeasurementIsFixed = (heightMode == MeasureSpec.EXACTLY);
-        mHeightMeasurementLimited = (heightMode == MeasureSpec.AT_MOST) && (contentHeightPix > heightSize);
+        mHeightMeasurementLimited =
+            (heightMode == MeasureSpec.AT_MOST) && (contentHeightPix > heightSize);
         mHeightMeasurementLimit = heightSize;
 
         if (mHeightMeasurementIsFixed || mHeightMeasurementLimited) {

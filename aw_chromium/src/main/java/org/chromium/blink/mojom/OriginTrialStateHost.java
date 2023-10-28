@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface OriginTrialStateHost extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends OriginTrialStateHost, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends OriginTrialStateHost, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<OriginTrialStateHost, OriginTrialStateHost.Proxy> MANAGER = OriginTrialStateHost_Internal.MANAGER;

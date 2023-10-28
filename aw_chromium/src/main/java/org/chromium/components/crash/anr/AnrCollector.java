@@ -14,11 +14,12 @@ import android.util.Pair;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.VisibleForTesting;
 
+import org.jni_zero.NativeMethods;
+
 import org.chromium.base.ContextUtils;
 import org.chromium.base.Log;
 import org.chromium.base.metrics.RecordHistogram;
 import org.chromium.components.crash.anr.AnrDataOuterClass.AnrData;
-import org.jni_zero.NativeMethods;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -35,7 +36,7 @@ import java.util.regex.Pattern;
 
 /**
  * This class will retrieve ANRs from Android and write them to files.
- * <p>
+ *
  * We also grab the version number associated with the ANR and pair that with the ANR so we have
  * confidence knowing which version of Chrome actually caused this ANR.
  */
@@ -92,7 +93,12 @@ public class AnrCollector {
 
         // Cause is required but doesn't do anything. It's supposed to be the message from Logcat
         // (ie. "Input dispatching timed out") but that doesn't appear in the ANR report we get.
-        AnrData anrData = AnrData.newBuilder().setCause("Chrome_ANR_Cause").setPreamble(preamble.toString()).setMainThreadStackTrace(mainThreadStackTrace.toString()).setStackTraces(stackTraces.toString()).build();
+        AnrData anrData = AnrData.newBuilder()
+                                  .setCause("Chrome_ANR_Cause")
+                                  .setPreamble(preamble.toString())
+                                  .setMainThreadStackTrace(mainThreadStackTrace.toString())
+                                  .setStackTraces(stackTraces.toString())
+                                  .build();
         return anrData;
     }
 
@@ -109,7 +115,8 @@ public class AnrCollector {
             }
         } catch (IOException e) {
             Log.e(TAG, "Couldn't read ANR from system", e);
-            RecordHistogram.recordEnumeratedHistogram(ANR_SKIPPED_UMA, AnrSkippedReason.FILESYSTEM_READ_FAILURE, AnrSkippedReason.MAX_VALUE);
+            RecordHistogram.recordEnumeratedHistogram(ANR_SKIPPED_UMA,
+                    AnrSkippedReason.FILESYSTEM_READ_FAILURE, AnrSkippedReason.MAX_VALUE);
             return null;
         }
 
@@ -118,7 +125,8 @@ public class AnrCollector {
             // We have gotten an ANR without an attached process state summary and thus
             // can't be be confident which version this ANR happened on. This would
             // happen if we ANRed before Chrome had set the process state summary.
-            RecordHistogram.recordEnumeratedHistogram(ANR_SKIPPED_UMA, AnrSkippedReason.MISSING_VERSION, AnrSkippedReason.MAX_VALUE);
+            RecordHistogram.recordEnumeratedHistogram(
+                    ANR_SKIPPED_UMA, AnrSkippedReason.MISSING_VERSION, AnrSkippedReason.MAX_VALUE);
             return null;
         }
         String processStateSummary = new String(processStateSummaryBytes, StandardCharsets.UTF_8);
@@ -126,7 +134,9 @@ public class AnrCollector {
     }
 
     private static List<Pair<AnrData, String>> collectAnrs() {
-        ActivityManager am = (ActivityManager) ContextUtils.getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
+        ActivityManager am =
+                (ActivityManager) ContextUtils.getApplicationContext().getSystemService(
+                        Context.ACTIVITY_SERVICE);
         // getHistoricalProcessExitReasons has a ring buffer and will return the same ANR many times
         // in a row until the ring fills out. To prevent making duplicate ANR reports, we have to
         // remember what the last ANR we uploaded is, which we do with shared preferences.
@@ -165,9 +175,11 @@ public class AnrCollector {
             String buildId = "";
             if (splitStateSummary.length > 1) {
                 buildId = splitStateSummary[1];
-                RecordHistogram.recordEnumeratedHistogram(ANR_SKIPPED_UMA, AnrSkippedReason.NOT_SKIPPED, AnrSkippedReason.MAX_VALUE);
+                RecordHistogram.recordEnumeratedHistogram(
+                        ANR_SKIPPED_UMA, AnrSkippedReason.NOT_SKIPPED, AnrSkippedReason.MAX_VALUE);
             } else {
-                RecordHistogram.recordEnumeratedHistogram(ANR_SKIPPED_UMA, AnrSkippedReason.ONLY_MISSING_NATIVE, AnrSkippedReason.MAX_VALUE);
+                RecordHistogram.recordEnumeratedHistogram(ANR_SKIPPED_UMA,
+                        AnrSkippedReason.ONLY_MISSING_NATIVE, AnrSkippedReason.MAX_VALUE);
             }
             String anrFileName = writeAnr(anr, outDir);
             if (anrFileName != null) {
@@ -190,14 +202,14 @@ public class AnrCollector {
             return anrFile.getAbsolutePath();
         } catch (IOException e) {
             Log.e(TAG, "Couldn't write ANR proto", e);
-            RecordHistogram.recordEnumeratedHistogram(ANR_SKIPPED_UMA, AnrSkippedReason.FILESYSTEM_WRITE_FAILURE, AnrSkippedReason.MAX_VALUE);
+            RecordHistogram.recordEnumeratedHistogram(ANR_SKIPPED_UMA,
+                    AnrSkippedReason.FILESYSTEM_WRITE_FAILURE, AnrSkippedReason.MAX_VALUE);
             return null;
         }
     }
 
     // Pure static class.
-    private AnrCollector() {
-    }
+    private AnrCollector() {}
 
     @NativeMethods
     interface Natives {

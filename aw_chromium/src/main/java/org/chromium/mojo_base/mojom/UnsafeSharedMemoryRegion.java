@@ -13,10 +13,13 @@
 
 package org.chromium.mojo_base.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class UnsafeSharedMemoryRegion extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 16;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public org.chromium.mojo.system.SharedBufferHandle buffer;
 
@@ -39,7 +42,8 @@ public final class UnsafeSharedMemoryRegion extends org.chromium.mojo.bindings.S
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static UnsafeSharedMemoryRegion deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -53,10 +57,10 @@ public final class UnsafeSharedMemoryRegion extends org.chromium.mojo.bindings.S
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new UnsafeSharedMemoryRegion(elementsOrVersion);
-            {
-
+                {
+                    
                 result.buffer = decoder0.readSharedBufferHandle(8, false);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -68,7 +72,7 @@ public final class UnsafeSharedMemoryRegion extends org.chromium.mojo.bindings.S
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.buffer, 8, false);
     }
 }

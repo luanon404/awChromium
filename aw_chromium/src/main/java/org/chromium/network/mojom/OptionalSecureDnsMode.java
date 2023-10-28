@@ -17,10 +17,13 @@ import androidx.annotation.IntDef;
 
 public final class OptionalSecureDnsMode {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({OptionalSecureDnsMode.NO_OVERRIDE, OptionalSecureDnsMode.OFF, OptionalSecureDnsMode.AUTOMATIC, OptionalSecureDnsMode.SECURE})
-    public @interface EnumType {
-    }
+        OptionalSecureDnsMode.NO_OVERRIDE,
+        OptionalSecureDnsMode.OFF,
+        OptionalSecureDnsMode.AUTOMATIC,
+        OptionalSecureDnsMode.SECURE})
+    public @interface EnumType {}
 
     public static final int NO_OVERRIDE = 0;
     public static final int OFF = 1;
@@ -39,9 +42,8 @@ public final class OptionalSecureDnsMode {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private OptionalSecureDnsMode() {
-    }
+    private OptionalSecureDnsMode() {}
 }

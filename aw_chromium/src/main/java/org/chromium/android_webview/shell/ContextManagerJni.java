@@ -3,72 +3,77 @@
 //
 package org.chromium.android_webview.shell;
 
-import android.view.Surface;
-
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.view.Surface;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
 
 @CheckDiscard("crbug.com/993421")
 class ContextManagerJni implements ContextManager.Natives {
-    private static ContextManager.Natives testInstance;
+  private static ContextManager.Natives testInstance;
 
-    public static final JniStaticTestMocker<ContextManager.Natives> TEST_HOOKS = new JniStaticTestMocker<ContextManager.Natives>() {
-        @Override
-        public void setInstanceForTesting(ContextManager.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<ContextManager.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<ContextManager.Natives>() {
     @Override
-    public int[] draw(long nativeContextManager, int width, int height, int scrollX, int scrollY, boolean readbackQuadrants) {
-        return (int[]) GEN_JNI.org_chromium_android_1webview_shell_ContextManager_draw(nativeContextManager, width, height, scrollX, scrollY, readbackQuadrants);
+    public void setInstanceForTesting(ContextManager.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public long getDrawFnFunctionTable(boolean useVulkan) {
-        return (long) GEN_JNI.org_chromium_android_1webview_shell_ContextManager_getDrawFnFunctionTable(useVulkan);
-    }
+  @Override
+  public int[] draw(long nativeContextManager, int width, int height, int scrollX, int scrollY, boolean readbackQuadrants) {
+    return (int[]) GEN_JNI.org_chromium_android_1webview_shell_ContextManager_draw(nativeContextManager, width, height, scrollX, scrollY, readbackQuadrants);
+  }
 
-    @Override
-    public long init(boolean useVulkan) {
-        return (long) GEN_JNI.org_chromium_android_1webview_shell_ContextManager_init(useVulkan);
-    }
+  @Override
+  public long getDrawFnFunctionTable(boolean useVulkan) {
+    return (long) GEN_JNI.org_chromium_android_1webview_shell_ContextManager_getDrawFnFunctionTable(useVulkan);
+  }
 
-    @Override
-    public void resizeSurface(long nativeContextManager, int width, int height) {
-        GEN_JNI.org_chromium_android_1webview_shell_ContextManager_resizeSurface(nativeContextManager, width, height);
-    }
+  @Override
+  public long init(boolean useVulkan) {
+    return (long) GEN_JNI.org_chromium_android_1webview_shell_ContextManager_init(useVulkan);
+  }
 
-    @Override
-    public void setOverlaysSurface(long nativeContextManager, Surface surface) {
-        GEN_JNI.org_chromium_android_1webview_shell_ContextManager_setOverlaysSurface(nativeContextManager, surface);
-    }
+  @Override
+  public void resizeSurface(long nativeContextManager, int width, int height) {
+    GEN_JNI.org_chromium_android_1webview_shell_ContextManager_resizeSurface(nativeContextManager, width, height);
+  }
 
-    @Override
-    public void setSurface(long nativeContextManager, Surface surface, int width, int height) {
-        GEN_JNI.org_chromium_android_1webview_shell_ContextManager_setSurface(nativeContextManager, surface, width, height);
-    }
+  @Override
+  public void setOverlaysSurface(long nativeContextManager, Surface surface) {
+    GEN_JNI.org_chromium_android_1webview_shell_ContextManager_setOverlaysSurface(nativeContextManager, surface);
+  }
 
-    @Override
-    public void sync(long nativeContextManager, int functor, boolean applyForceDark) {
-        GEN_JNI.org_chromium_android_1webview_shell_ContextManager_sync(nativeContextManager, functor, applyForceDark);
-    }
+  @Override
+  public void setSurface(long nativeContextManager, Surface surface, int width, int height) {
+    GEN_JNI.org_chromium_android_1webview_shell_ContextManager_setSurface(nativeContextManager, surface, width, height);
+  }
 
-    public static ContextManager.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of ContextManager.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new ContextManagerJni();
+  @Override
+  public void sync(long nativeContextManager, int functor, boolean applyForceDark) {
+    GEN_JNI.org_chromium_android_1webview_shell_ContextManager_sync(nativeContextManager, functor, applyForceDark);
+  }
+
+  public static ContextManager.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of ContextManager.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new ContextManagerJni();
+  }
 }

@@ -1,3 +1,4 @@
+
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -14,11 +15,13 @@ import androidx.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@IntDef({HoverType.NONE, HoverType.FIRST, HoverType.HOVER, HoverType.LAST})
+@IntDef({
+    HoverType.NONE, HoverType.FIRST, HoverType.HOVER, HoverType.LAST
+})
 @Retention(RetentionPolicy.SOURCE)
 public @interface HoverType {
-    int NONE = 1 << 0;
-    int FIRST = NONE;
-    int HOVER = 1 << 1;
-    int LAST = HOVER;
+  int NONE = 1 << 0;
+  int FIRST = NONE;
+  int HOVER = 1 << 1;
+  int LAST = HOVER;
 }

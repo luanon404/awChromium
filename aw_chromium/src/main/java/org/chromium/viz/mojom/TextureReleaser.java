@@ -13,15 +13,20 @@
 
 package org.chromium.viz.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface TextureReleaser extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends TextureReleaser, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends TextureReleaser, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<TextureReleaser, TextureReleaser.Proxy> MANAGER = TextureReleaser_Internal.MANAGER;
 
-    void release(org.chromium.gpu.mojom.SyncToken syncToken, boolean isLost);
+    void release(
+org.chromium.gpu.mojom.SyncToken syncToken, boolean isLost);
 
 
 }

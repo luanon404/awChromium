@@ -4,39 +4,50 @@
 package org.chromium.net;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeClassQualifiedName;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.ContextUtils;
 
 @CheckDiscard("crbug.com/993421")
 class NetworkActiveNotifierJni implements NetworkActiveNotifier.Natives {
-    private static NetworkActiveNotifier.Natives testInstance;
+  private static NetworkActiveNotifier.Natives testInstance;
 
-    public static final JniStaticTestMocker<NetworkActiveNotifier.Natives> TEST_HOOKS = new JniStaticTestMocker<NetworkActiveNotifier.Natives>() {
-        @Override
-        public void setInstanceForTesting(NetworkActiveNotifier.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<NetworkActiveNotifier.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<NetworkActiveNotifier.Natives>() {
     @Override
-    public void notifyOfDefaultNetworkActive(long nativePtr) {
-        GEN_JNI.org_chromium_net_NetworkActiveNotifier_notifyOfDefaultNetworkActive(nativePtr);
+    public void setInstanceForTesting(NetworkActiveNotifier.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    public static NetworkActiveNotifier.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of NetworkActiveNotifier.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new NetworkActiveNotifierJni();
+  @Override
+  public void notifyOfDefaultNetworkActive(long nativePtr) {
+    GEN_JNI.org_chromium_net_NetworkActiveNotifier_notifyOfDefaultNetworkActive(nativePtr);
+  }
+
+  public static NetworkActiveNotifier.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of NetworkActiveNotifier.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new NetworkActiveNotifierJni();
+  }
 }

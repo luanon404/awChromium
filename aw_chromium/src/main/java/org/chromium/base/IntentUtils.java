@@ -261,7 +261,8 @@ public class IntentUtils {
     /**
      * Just link {@link Intent#getParcelableArrayListExtra(String)} but doesn't throw exceptions.
      */
-    public static <T extends Parcelable> ArrayList<T> getParcelableArrayListExtra(Intent intent, String name) {
+    public static <T extends Parcelable> ArrayList<T> getParcelableArrayListExtra(
+            Intent intent, String name) {
         try {
             return intent.getParcelableArrayListExtra(name);
         } catch (Throwable t) {
@@ -274,7 +275,8 @@ public class IntentUtils {
     /**
      * Just link {@link Bundle#getParcelableArrayList(String)} but doesn't throw exceptions.
      */
-    public static <T extends Parcelable> ArrayList<T> safeGetParcelableArrayList(Bundle bundle, String name) {
+    public static <T extends Parcelable> ArrayList<T> safeGetParcelableArrayList(
+            Bundle bundle, String name) {
         try {
             return bundle.getParcelableArrayList(name);
         } catch (Throwable t) {
@@ -359,7 +361,7 @@ public class IntentUtils {
 
     /**
      * @return a Binder from an Intent, or null.
-     * <p>
+     *
      * Creates a temporary copy of the extra Bundle, which is required as
      * Intent#getBinderExtra() doesn't exist, but Bundle.getBinder() does.
      */
@@ -373,7 +375,7 @@ public class IntentUtils {
      * Inserts a {@link Binder} value into an Intent as an extra.
      *
      * @param intent Intent to put the binder into.
-     * @param name   Key.
+     * @param name Key.
      * @param binder Binder object.
      */
     public static void safePutBinderExtra(Intent intent, String name, IBinder binder) {
@@ -388,22 +390,20 @@ public class IntentUtils {
         intent.putExtras(bundle);
     }
 
-    /**
-     * See {@link #safeStartActivity(Context, Intent, Bundle)}.
-     */
+    /** See {@link #safeStartActivity(Context, Intent, Bundle)}. */
     public static boolean safeStartActivity(Context context, Intent intent) {
         return safeStartActivity(context, intent, null);
     }
 
     /**
      * Catches any failures to start an Activity.
-     *
      * @param context Context to use when starting the Activity.
      * @param intent  Intent to fire.
      * @param bundle  Bundle of launch options.
      * @return Whether or not Android accepted the Intent.
      */
-    public static boolean safeStartActivity(Context context, Intent intent, @Nullable Bundle bundle) {
+    public static boolean safeStartActivity(
+            Context context, Intent intent, @Nullable Bundle bundle) {
         try {
             context.startActivity(intent, bundle);
             return true;
@@ -412,9 +412,7 @@ public class IntentUtils {
         }
     }
 
-    /**
-     * Returns whether the intent starts an activity in a new task or a new document.
-     */
+    /** Returns whether the intent starts an activity in a new task or a new document. */
     public static boolean isIntentForNewTaskOrNewDocument(Intent intent) {
         int testFlags = Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NEW_DOCUMENT;
         return (intent.getFlags() & testFlags) != 0;
@@ -457,7 +455,6 @@ public class IntentUtils {
     /**
      * Sanitizes an intent. In case the intent cannot be unparcelled, all extras will be removed to
      * make it safe to use.
-     *
      * @return A safe to use version of this intent.
      */
     public static Intent sanitizeIntent(final Intent incomingIntent) {
@@ -482,14 +479,16 @@ public class IntentUtils {
      * @return True if the intent is a MAIN intent a launcher would send.
      */
     public static boolean isMainIntentFromLauncher(Intent intent) {
-        return intent != null && TextUtils.equals(intent.getAction(), Intent.ACTION_MAIN) && intent.hasCategory(Intent.CATEGORY_LAUNCHER) && 0 == (intent.getFlags() & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY);
+        return intent != null && TextUtils.equals(intent.getAction(), Intent.ACTION_MAIN)
+                && intent.hasCategory(Intent.CATEGORY_LAUNCHER)
+                && 0 == (intent.getFlags() & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY);
     }
 
     /**
      * Gets the PendingIntent flag for the specified mutability.
      * PendingIntent.FLAG_IMMUTABLE was added in API level 23 (M), and FLAG_MUTABLE was added in
      * Android S.
-     * <p>
+     *
      * Unless mutability is required, PendingIntents should always be marked as Immutable as this
      * is the more secure default.
      */
@@ -506,14 +505,15 @@ public class IntentUtils {
      * Determines whether this app is the only possible handler for this Intent.
      *
      * @param context Any context for this app.
-     * @param intent  The intent to check.
+     * @param intent The intent to check.
      * @return True if the intent targets this app.
      */
     public static boolean intentTargetsSelf(Context context, Intent intent) {
         boolean hasPackage = !TextUtils.isEmpty(intent.getPackage());
         boolean matchesPackage = hasPackage && context.getPackageName().equals(intent.getPackage());
         boolean hasComponent = intent.getComponent() != null;
-        boolean matchesComponent = hasComponent && context.getPackageName().equals(intent.getComponent().getPackageName());
+        boolean matchesComponent = hasComponent
+                && context.getPackageName().equals(intent.getComponent().getPackageName());
 
         // Component takes precedence over PackageName when routing Intents if both are set, but to
         // be on the safe side, ensure that if we have both package and component set, that they
@@ -548,7 +548,8 @@ public class IntentUtils {
         Intent fakeIntent = new Intent();
         Context appContext = ContextUtils.getApplicationContext();
         fakeIntent.setComponent(getFakeComponentName(appContext.getPackageName()));
-        return PendingIntent.getActivity(appContext, 0, fakeIntent, getPendingIntentMutabilityFlag(false));
+        return PendingIntent.getActivity(
+                appContext, 0, fakeIntent, getPendingIntentMutabilityFlag(false));
     }
 
     /**
@@ -556,12 +557,13 @@ public class IntentUtils {
      * a trusted source.
      *
      * @param intent An Intent that targets either current package, or explicitly targets a
-     *               component of the current package.
+     *         component of the current package.
      */
     public static void addTrustedIntentExtras(Intent intent) {
         // It is crucial that we never leak the authentication token to other packages, because
         // then the other package could be used to impersonate us/do things as us.
-        boolean toSelf = IntentUtils.intentTargetsSelf(ContextUtils.getApplicationContext(), intent);
+        boolean toSelf =
+                IntentUtils.intentTargetsSelf(ContextUtils.getApplicationContext(), intent);
         assert toSelf;
         // For security reasons we have to check the asserted condition anyways.
         if (!toSelf) return;
@@ -583,7 +585,8 @@ public class IntentUtils {
         // Fetch the authentication token (a PendingIntent) created by
         // addTrustedIntentExtras, if any. If anything goes wrong trying to retrieve the
         // token (examples include BadParcelableException or ClassNotFoundException), fail closed.
-        PendingIntent token = IntentUtils.safeGetParcelableExtra(intent, TRUSTED_APPLICATION_CODE_EXTRA);
+        PendingIntent token =
+                IntentUtils.safeGetParcelableExtra(intent, TRUSTED_APPLICATION_CODE_EXTRA);
         if (token == null) return false;
 
         // Fetch what should be a matching token. If the PendingIntents are equal, we know that the

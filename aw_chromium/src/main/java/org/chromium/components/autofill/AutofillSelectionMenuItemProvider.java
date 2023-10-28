@@ -31,7 +31,8 @@ public class AutofillSelectionMenuItemProvider implements AdditionalSelectionMen
             mAutofillMenuItemTitle = android.R.string.autofill;
         } else {
             // The string resource was not made public until O MR1, so on O we look it up by name.
-            mAutofillMenuItemTitle = context.getResources().getIdentifier("autofill", "string", "android");
+            mAutofillMenuItemTitle =
+                    context.getResources().getIdentifier("autofill", "string", "android");
         }
     }
 
@@ -40,7 +41,14 @@ public class AutofillSelectionMenuItemProvider implements AdditionalSelectionMen
         List<SelectionMenuItem> autofillItems = new ArrayList<>();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             if (mAutofillMenuItemTitle != 0 && mAutofillProvider.shouldQueryAutofillSuggestion()) {
-                SelectionMenuItem autofillItem = new SelectionMenuItem.Builder(mAutofillMenuItemTitle).setId(android.R.id.autofill).setOrderInCategory(Menu.CATEGORY_SECONDARY).setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER | MenuItem.SHOW_AS_ACTION_WITH_TEXT).setClickListener(v -> mAutofillProvider.queryAutofillSuggestion()).build();
+                SelectionMenuItem autofillItem =
+                        new SelectionMenuItem.Builder(mAutofillMenuItemTitle)
+                                .setId(android.R.id.autofill)
+                                .setOrderInCategory(Menu.CATEGORY_SECONDARY)
+                                .setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER
+                                        | MenuItem.SHOW_AS_ACTION_WITH_TEXT)
+                                .setClickListener(v -> mAutofillProvider.queryAutofillSuggestion())
+                                .build();
                 autofillItems.add(autofillItem);
             }
         }

@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface MimeRegistry extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends MimeRegistry, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends MimeRegistry, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<MimeRegistry, MimeRegistry.Proxy> MANAGER = MimeRegistry_Internal.MANAGER;

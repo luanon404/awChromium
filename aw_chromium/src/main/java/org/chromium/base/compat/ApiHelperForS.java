@@ -38,8 +38,7 @@ import org.chromium.base.Log;
 public final class ApiHelperForS {
     private static final String TAG = "ApiHelperForS";
 
-    private ApiHelperForS() {
-    }
+    private ApiHelperForS() {}
 
     /**
      * See {@link ClipDescription#isStyleText()}.
@@ -51,7 +50,8 @@ public final class ApiHelperForS {
     /**
      * See {@link ClipDescription#getConfidenceScore()}.
      */
-    public static float getConfidenceScore(ClipDescription clipDescription, @NonNull String entityType) {
+    public static float getConfidenceScore(
+            ClipDescription clipDescription, @NonNull String entityType) {
         return clipDescription.getConfidenceScore(entityType);
     }
 
@@ -71,20 +71,25 @@ public final class ApiHelperForS {
     }
 
     public static boolean hasBluetoothConnectPermission() {
-        return ApiCompatibilityUtils.checkPermission(ContextUtils.getApplicationContext(), Manifest.permission.BLUETOOTH_CONNECT, Process.myPid(), Process.myUid()) == PackageManager.PERMISSION_GRANTED;
+        return ApiCompatibilityUtils.checkPermission(ContextUtils.getApplicationContext(),
+                       Manifest.permission.BLUETOOTH_CONNECT, Process.myPid(), Process.myUid())
+                == PackageManager.PERMISSION_GRANTED;
     }
 
     /**
      * See {@link android.app.PictureInPictureParams.Builder#setAutoEnterEnabled(boolean)}
      */
-    public static void setAutoEnterEnabled(PictureInPictureParams.Builder builder, boolean enabled) {
+    public static void setAutoEnterEnabled(
+            PictureInPictureParams.Builder builder, boolean enabled) {
         builder.setAutoEnterEnabled(enabled);
     }
 
     /**
-     * See {@link android.view.textclassifier.TextSelection.Request.Builder#setIncludeTextClassification(boolean)}
+     * See {@link android.view.textclassifier.TextSelection.Request.
+     * Builder#setIncludeTextClassification(boolean)}
      */
-    public static TextSelection.Request.Builder setIncludeTextClassification(TextSelection.Request.Builder builder, boolean includeTextClassification) {
+    public static TextSelection.Request.Builder setIncludeTextClassification(
+            TextSelection.Request.Builder builder, boolean includeTextClassification) {
         return builder.setIncludeTextClassification(includeTextClassification);
     }
 
@@ -98,7 +103,8 @@ public final class ApiHelperForS {
     /**
      * See Context#createWindowContext.
      */
-    public static Context createWindowContext(Context context, Display display, int type, Bundle options) {
+    public static Context createWindowContext(
+            Context context, Display display, int type, Bundle options) {
         return context.createWindowContext(display, type, options);
     }
 
@@ -109,14 +115,15 @@ public final class ApiHelperForS {
         return PendingIntent.FLAG_MUTABLE;
     }
 
-    /**
-     * See {@link Service#startForegroung(int, Notification, int) }.
-     */
-    public static void startForeground(Service service, int id, Notification notification, int foregroundServiceType) {
+    /** See {@link Service#startForegroung(int, Notification, int) }. */
+    public static void startForeground(
+            Service service, int id, Notification notification, int foregroundServiceType) {
         try {
             service.startForeground(id, notification, foregroundServiceType);
         } catch (ForegroundServiceStartNotAllowedException e) {
-            Log.e(TAG, "Cannot run service as foreground: " + e + " for notification channel " + notification.getChannelId() + " notification id " + id);
+            Log.e(TAG,
+                    "Cannot run service as foreground: " + e + " for notification channel "
+                            + notification.getChannelId() + " notification id " + id);
         }
     }
 }

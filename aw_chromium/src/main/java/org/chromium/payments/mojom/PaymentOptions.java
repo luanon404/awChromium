@@ -13,10 +13,13 @@
 
 package org.chromium.payments.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class PaymentOptions extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 16;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public boolean requestPayerName;
     public boolean requestPayerEmail;
@@ -42,7 +45,8 @@ public final class PaymentOptions extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static PaymentOptions deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -56,28 +60,28 @@ public final class PaymentOptions extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new PaymentOptions(elementsOrVersion);
-            {
-
+                {
+                    
                 result.requestPayerName = decoder0.readBoolean(8, 0);
-            }
-            {
-
+                }
+                {
+                    
                 result.requestPayerEmail = decoder0.readBoolean(8, 1);
-            }
-            {
-
+                }
+                {
+                    
                 result.requestPayerPhone = decoder0.readBoolean(8, 2);
-            }
-            {
-
+                }
+                {
+                    
                 result.requestShipping = decoder0.readBoolean(8, 3);
-            }
-            {
-
+                }
+                {
+                    
                 result.shippingType = decoder0.readInt(12);
-                PaymentShippingType.validate(result.shippingType);
-                result.shippingType = PaymentShippingType.toKnownValue(result.shippingType);
-            }
+                    PaymentShippingType.validate(result.shippingType);
+                    result.shippingType = PaymentShippingType.toKnownValue(result.shippingType);
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -89,15 +93,15 @@ public final class PaymentOptions extends org.chromium.mojo.bindings.Struct {
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.requestPayerName, 8, 0);
-
+        
         encoder0.encode(this.requestPayerEmail, 8, 1);
-
+        
         encoder0.encode(this.requestPayerPhone, 8, 2);
-
+        
         encoder0.encode(this.requestShipping, 8, 3);
-
+        
         encoder0.encode(this.shippingType, 12);
     }
 }

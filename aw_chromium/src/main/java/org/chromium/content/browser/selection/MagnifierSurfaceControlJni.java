@@ -3,58 +3,69 @@
 //
 package org.chromium.content.browser.selection;
 
-import android.view.SurfaceControl;
-
-import org.chromium.content.browser.webcontents.WebContentsImpl;
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.graphics.Rect;
+import android.os.Build;
+import android.view.AttachedSurfaceControl;
+import android.view.SurfaceControl;
+import android.view.View;
+import android.widget.Magnifier;
+import androidx.annotation.RequiresApi;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.content.browser.webcontents.WebContentsImpl;
 
 @CheckDiscard("crbug.com/993421")
 class MagnifierSurfaceControlJni implements MagnifierSurfaceControl.Natives {
-    private static MagnifierSurfaceControl.Natives testInstance;
+  private static MagnifierSurfaceControl.Natives testInstance;
 
-    public static final JniStaticTestMocker<MagnifierSurfaceControl.Natives> TEST_HOOKS = new JniStaticTestMocker<MagnifierSurfaceControl.Natives>() {
-        @Override
-        public void setInstanceForTesting(MagnifierSurfaceControl.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<MagnifierSurfaceControl.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<MagnifierSurfaceControl.Natives>() {
     @Override
-    public void childLocalSurfaceIdChanged(long nativeMagnifierSurfaceControl) {
-        GEN_JNI.org_chromium_content_browser_selection_MagnifierSurfaceControl_childLocalSurfaceIdChanged(nativeMagnifierSurfaceControl);
+    public void setInstanceForTesting(MagnifierSurfaceControl.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public long create(WebContentsImpl webContents, SurfaceControl surfaceControl, float deviceScale, int width, int height, float cornerRadius, float zoom, int topShadowHeight, int bottomShadowHeight, int bottomShadowWidthReduction) {
-        return (long) GEN_JNI.org_chromium_content_browser_selection_MagnifierSurfaceControl_create(webContents, surfaceControl, deviceScale, width, height, cornerRadius, zoom, topShadowHeight, bottomShadowHeight, bottomShadowWidthReduction);
-    }
+  @Override
+  public void childLocalSurfaceIdChanged(long nativeMagnifierSurfaceControl) {
+    GEN_JNI.org_chromium_content_browser_selection_MagnifierSurfaceControl_childLocalSurfaceIdChanged(nativeMagnifierSurfaceControl);
+  }
 
-    @Override
-    public void destroy(long magnifierSurfaceControl) {
-        GEN_JNI.org_chromium_content_browser_selection_MagnifierSurfaceControl_destroy(magnifierSurfaceControl);
-    }
+  @Override
+  public long create(WebContentsImpl webContents, SurfaceControl surfaceControl, float deviceScale, int width, int height, float cornerRadius, float zoom, int topShadowHeight, int bottomShadowHeight, int bottomShadowWidthReduction) {
+    return (long) GEN_JNI.org_chromium_content_browser_selection_MagnifierSurfaceControl_create(webContents, surfaceControl, deviceScale, width, height, cornerRadius, zoom, topShadowHeight, bottomShadowHeight, bottomShadowWidthReduction);
+  }
 
-    @Override
-    public void setReadbackOrigin(long nativeMagnifierSurfaceControl, float x, float y) {
-        GEN_JNI.org_chromium_content_browser_selection_MagnifierSurfaceControl_setReadbackOrigin(nativeMagnifierSurfaceControl, x, y);
-    }
+  @Override
+  public void destroy(long magnifierSurfaceControl) {
+    GEN_JNI.org_chromium_content_browser_selection_MagnifierSurfaceControl_destroy(magnifierSurfaceControl);
+  }
 
-    public static MagnifierSurfaceControl.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of MagnifierSurfaceControl.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new MagnifierSurfaceControlJni();
+  @Override
+  public void setReadbackOrigin(long nativeMagnifierSurfaceControl, float x, float y) {
+    GEN_JNI.org_chromium_content_browser_selection_MagnifierSurfaceControl_setReadbackOrigin(nativeMagnifierSurfaceControl, x, y);
+  }
+
+  public static MagnifierSurfaceControl.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of MagnifierSurfaceControl.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new MagnifierSurfaceControlJni();
+  }
 }

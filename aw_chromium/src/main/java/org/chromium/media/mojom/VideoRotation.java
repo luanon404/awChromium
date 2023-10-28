@@ -17,10 +17,13 @@ import androidx.annotation.IntDef;
 
 public final class VideoRotation {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({VideoRotation.VIDEO_ROTATION0, VideoRotation.VIDEO_ROTATION90, VideoRotation.VIDEO_ROTATION180, VideoRotation.VIDEO_ROTATION270})
-    public @interface EnumType {
-    }
+        VideoRotation.VIDEO_ROTATION0,
+        VideoRotation.VIDEO_ROTATION90,
+        VideoRotation.VIDEO_ROTATION180,
+        VideoRotation.VIDEO_ROTATION270})
+    public @interface EnumType {}
 
     public static final int VIDEO_ROTATION0 = 0;
     public static final int VIDEO_ROTATION90 = 1;
@@ -39,9 +42,8 @@ public final class VideoRotation {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private VideoRotation() {
-    }
+    private VideoRotation() {}
 }

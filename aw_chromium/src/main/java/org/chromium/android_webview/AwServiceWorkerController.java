@@ -36,7 +36,8 @@ public class AwServiceWorkerController {
     // Lock to protect access to the |mServiceWorkerClient|
     private final Object mAwServiceWorkerClientLock = new Object();
 
-    public AwServiceWorkerController(@NonNull Context applicationContext, @NonNull AwBrowserContext browserContext) {
+    public AwServiceWorkerController(
+            @NonNull Context applicationContext, @NonNull AwBrowserContext browserContext) {
         mBrowserContext = browserContext;
         mServiceWorkerSettings = new AwServiceWorkerSettings(applicationContext, mBrowserContext);
         mServiceWorkerBackgroundThreadClient = new ServiceWorkerBackgroundThreadClientImpl();
@@ -108,15 +109,19 @@ public class AwServiceWorkerController {
         }
     }
 
-    private class ServiceWorkerBackgroundThreadClientImpl extends AwContentsBackgroundThreadClient {
+    private class ServiceWorkerBackgroundThreadClientImpl
+            extends AwContentsBackgroundThreadClient {
         // All methods are called on the background thread.
         @Override
-        public WebResourceResponseInfo shouldInterceptRequest(AwContentsClient.AwWebResourceRequest request) {
+        public WebResourceResponseInfo shouldInterceptRequest(
+                AwContentsClient.AwWebResourceRequest request) {
             // TODO: Consider analogy with AwContentsClient, i.e.
             //  - do we need an onloadresource callback?
             //  - do we need to post an error if the response data == null?
             synchronized (mAwServiceWorkerClientLock) {
-                return mServiceWorkerClient != null ? mServiceWorkerClient.shouldInterceptRequest(request) : null;
+                return mServiceWorkerClient != null
+                        ? mServiceWorkerClient.shouldInterceptRequest(request)
+                        : null;
             }
         }
     }

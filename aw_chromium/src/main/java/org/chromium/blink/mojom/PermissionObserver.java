@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface PermissionObserver extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends PermissionObserver, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends PermissionObserver, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<PermissionObserver, PermissionObserver.Proxy> MANAGER = PermissionObserver_Internal.MANAGER;

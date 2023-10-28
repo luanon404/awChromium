@@ -109,6 +109,5 @@ public final class ErrorCodeConversionHelper {
     }
 
     // Do not instantiate this class.
-    private ErrorCodeConversionHelper() {
-    }
+    private ErrorCodeConversionHelper() {}
 }

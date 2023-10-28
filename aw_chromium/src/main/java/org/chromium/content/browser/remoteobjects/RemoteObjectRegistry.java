@@ -13,23 +13,23 @@ import java.util.Set;
 
 /**
  * Owns a set of objects on behalf of RemoteObjectHost's client.
- * <p>
+ *
  * These objects could contain references which would keep the WebContents alive
  * longer than expected, and so must not be held alive by any other GC root.
- * <p>
+ *
  * The object's reference count is changed in the following cases:
- * - When the wrapper object is created in the renderer, it is increased.
- * - When the wrapper object is destroyed in the renderer, it is decreased via RemoteObjectHost
- * in general. If the wrapper object, RemoteObject, outlives RemoteObjectHost, the object could
- * not drop the reference via RemoteObjectHost. By explicitly notifying {@link RemoteObjectImpl}
- * that the object has been released, it ensures that the object's reference is released by
- * {@link RemoteObjectImpl} when the Mojo pipe is closed.
- * - When the object is named in Java code, it is increased.
- * - When the object is removed from the named objects in Java code, it is decreased.
+ *   - When the wrapper object is created in the renderer, it is increased.
+ *   - When the wrapper object is destroyed in the renderer, it is decreased via RemoteObjectHost
+ *     in general. If the wrapper object, RemoteObject, outlives RemoteObjectHost, the object could
+ *     not drop the reference via RemoteObjectHost. By explicitly notifying {@link RemoteObjectImpl}
+ *     that the object has been released, it ensures that the object's reference is released by
+ *     {@link RemoteObjectImpl} when the Mojo pipe is closed.
+ *   - When the object is named in Java code, it is increased.
+ *   - When the object is removed from the named objects in Java code, it is decreased.
+ *
  */
 final class RemoteObjectRegistry implements RemoteObjectImpl.ObjectIdAllocator {
     private final Set<? super RemoteObjectRegistry> mRetainingSet;
-
     private static class Entry {
         Entry(int id, Object object, Class<? extends Annotation> safeAnnotationClass) {
             this.id = id;
@@ -75,7 +75,8 @@ final class RemoteObjectRegistry implements RemoteObjectImpl.ObjectIdAllocator {
     }
 
     @Override
-    public synchronized int getObjectId(Object object, Class<? extends Annotation> safeAnnotationClass) {
+    public synchronized int getObjectId(
+            Object object, Class<? extends Annotation> safeAnnotationClass) {
         Entry entry = mEntriesByObject.get(object);
         if (entry != null) {
             entry.referenceCount++;

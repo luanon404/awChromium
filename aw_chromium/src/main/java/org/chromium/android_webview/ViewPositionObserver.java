@@ -16,9 +16,7 @@ public class ViewPositionObserver {
     /**
      * Called during predraw if the position of the underlying view has changed.
      */
-    public interface Listener {
-        void onPositionChanged(int positionX, int positionY);
-    }
+    public interface Listener { void onPositionChanged(int positionX, int positionY); }
 
     private View mView;
     // Absolute position of the container view relative to its parent window.

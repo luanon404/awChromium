@@ -17,10 +17,26 @@ import androidx.annotation.IntDef;
 
 public final class FileError {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({FileError.OK, FileError.FAILED, FileError.IN_USE, FileError.EXISTS, FileError.NOT_FOUND, FileError.ACCESS_DENIED, FileError.TOO_MANY_OPENED, FileError.NO_MEMORY, FileError.NO_SPACE, FileError.NOT_A_DIRECTORY, FileError.INVALID_OPERATION, FileError.SECURITY, FileError.ABORT, FileError.NOT_A_FILE, FileError.NOT_EMPTY, FileError.INVALID_URL, FileError.IO})
-    public @interface EnumType {
-    }
+        FileError.OK,
+        FileError.FAILED,
+        FileError.IN_USE,
+        FileError.EXISTS,
+        FileError.NOT_FOUND,
+        FileError.ACCESS_DENIED,
+        FileError.TOO_MANY_OPENED,
+        FileError.NO_MEMORY,
+        FileError.NO_SPACE,
+        FileError.NOT_A_DIRECTORY,
+        FileError.INVALID_OPERATION,
+        FileError.SECURITY,
+        FileError.ABORT,
+        FileError.NOT_A_FILE,
+        FileError.NOT_EMPTY,
+        FileError.INVALID_URL,
+        FileError.IO})
+    public @interface EnumType {}
 
     public static final int OK = 0;
     public static final int FAILED = -1;
@@ -52,9 +68,8 @@ public final class FileError {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private FileError() {
-    }
+    private FileError() {}
 }

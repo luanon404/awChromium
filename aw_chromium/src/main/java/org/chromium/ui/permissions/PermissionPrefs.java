@@ -31,17 +31,18 @@ public class PermissionPrefs {
      *     otherwise absent.
      * </ul>
      */
-    private static final String PERMISSION_WAS_DENIED_KEY_PREFIX = "HasRequestedAndroidPermission::";
+    private static final String PERMISSION_WAS_DENIED_KEY_PREFIX =
+            "HasRequestedAndroidPermission::";
 
     /**
      * Shared preference key prefix for storing the timestamp of when the permission request was
      * shown. Only used for notification permission currently.
      */
-    private static final String ANDROID_PERMISSION_REQUEST_TIMESTAMP_KEY_PREFIX = "AndroidPermissionRequestTimestamp::";
+    private static final String ANDROID_PERMISSION_REQUEST_TIMESTAMP_KEY_PREFIX =
+            "AndroidPermissionRequestTimestamp::";
 
     /**
      * Returns normalized permission name for the given permission considering OS versions.
-     *
      * @param permission The permission name.
      * @return Normalized permission name.
      */
@@ -57,7 +58,9 @@ public class PermissionPrefs {
                 //
                 // e.g. Requesting first the permission ACCESS_FINE_LOCATION will result in Chrome
                 //      treating ACCESS_COARSE_LOCATION as if it had already been requested as well.
-                PermissionInfo permissionInfo = ContextUtils.getApplicationContext().getPackageManager().getPermissionInfo(permission, PackageManager.GET_META_DATA);
+                PermissionInfo permissionInfo =
+                        ContextUtils.getApplicationContext().getPackageManager().getPermissionInfo(
+                                permission, PackageManager.GET_META_DATA);
 
                 if (!TextUtils.isEmpty(permissionInfo.group)) {
                     return permissionInfo.group;
@@ -73,7 +76,6 @@ public class PermissionPrefs {
     /**
      * NOTE: Use this method with caution. The pref is aggressively cleared on
      * permission grant, or on shouldShowRequestPermissionRationale returning true.
-     *
      * @return Whether the request was denied by the user for the given {@code permission}
      */
     static boolean wasPermissionDenied(String permission) {
@@ -94,11 +96,11 @@ public class PermissionPrefs {
     /**
      * Saves/deletes the given list of permissions from shared prefs. Permission entries are deleted
      * on permission grant and added on denial.
-     *
      * @param permissionsGranted The list of permissions to delete entries.
-     * @param permissionsDenied  The list of permissions to add/update entries.
+     * @param permissionsDenied The list of permissions to add/update entries.
      */
-    static void editPermissionsPref(List<String> permissionsGranted, List<String> permissionsDenied) {
+    static void editPermissionsPref(
+            List<String> permissionsGranted, List<String> permissionsDenied) {
         SharedPreferences prefs = ContextUtils.getAppSharedPreferences();
         SharedPreferences.Editor editor = prefs.edit();
         for (String permission : permissionsGranted) {
@@ -108,6 +110,16 @@ public class PermissionPrefs {
             editor.putBoolean(getPermissionWasDeniedKey(permission), true);
         }
         editor.apply();
+    }
+
+    /**
+     * @return The timestamp when the notification permission request was shown last.
+     */
+    public static long getAndroidNotificationPermissionRequestTimestamp() {
+        String prefName = ANDROID_PERMISSION_REQUEST_TIMESTAMP_KEY_PREFIX
+                + PermissionPrefs.normalizePermissionName(Manifest.permission.POST_NOTIFICATIONS);
+        SharedPreferences prefs = ContextUtils.getAppSharedPreferences();
+        return prefs.getLong(prefName, 0);
     }
 
     /**
@@ -123,10 +135,8 @@ public class PermissionPrefs {
         }
         if (!isNotification) return;
 
-        String prefName = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
-            prefName = ANDROID_PERMISSION_REQUEST_TIMESTAMP_KEY_PREFIX + PermissionPrefs.normalizePermissionName(Manifest.permission.POST_NOTIFICATIONS);
-        }
+        String prefName = ANDROID_PERMISSION_REQUEST_TIMESTAMP_KEY_PREFIX
+                + PermissionPrefs.normalizePermissionName(Manifest.permission.POST_NOTIFICATIONS);
         SharedPreferences prefs = ContextUtils.getAppSharedPreferences();
         prefs.edit().putLong(prefName, TimeUtils.currentTimeMillis()).apply();
     }

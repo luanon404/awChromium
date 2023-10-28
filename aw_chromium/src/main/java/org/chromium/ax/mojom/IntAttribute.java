@@ -17,10 +17,73 @@ import androidx.annotation.IntDef;
 
 public final class IntAttribute {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({IntAttribute.NONE, IntAttribute.DEFAULT_ACTION_VERB, IntAttribute.SCROLL_X, IntAttribute.SCROLL_X_MIN, IntAttribute.SCROLL_X_MAX, IntAttribute.SCROLL_Y, IntAttribute.SCROLL_Y_MIN, IntAttribute.SCROLL_Y_MAX, IntAttribute.TEXT_SEL_START, IntAttribute.TEXT_SEL_END, IntAttribute.ARIA_COLUMN_COUNT, IntAttribute.ARIA_CELL_COLUMN_INDEX, IntAttribute.ARIA_CELL_COLUMN_SPAN, IntAttribute.ARIA_ROW_COUNT, IntAttribute.ARIA_CELL_ROW_INDEX, IntAttribute.ARIA_CELL_ROW_SPAN, IntAttribute.TABLE_ROW_COUNT, IntAttribute.TABLE_COLUMN_COUNT, IntAttribute.TABLE_HEADER_ID, IntAttribute.TABLE_ROW_INDEX, IntAttribute.TABLE_ROW_HEADER_ID, IntAttribute.TABLE_COLUMN_INDEX, IntAttribute.TABLE_COLUMN_HEADER_ID, IntAttribute.TABLE_CELL_COLUMN_INDEX, IntAttribute.TABLE_CELL_COLUMN_SPAN, IntAttribute.TABLE_CELL_ROW_INDEX, IntAttribute.TABLE_CELL_ROW_SPAN, IntAttribute.SORT_DIRECTION, IntAttribute.HIERARCHICAL_LEVEL, IntAttribute.NAME_FROM, IntAttribute.DESCRIPTION_FROM, IntAttribute.ACTIVEDESCENDANT_ID, IntAttribute.ERRORMESSAGE_ID_DEPRECATED, IntAttribute.IN_PAGE_LINK_TARGET_ID, IntAttribute.MEMBER_OF_ID, IntAttribute.NEXT_ON_LINE_ID, IntAttribute.POPUP_FOR_ID, IntAttribute.PREVIOUS_ON_LINE_ID, IntAttribute.RESTRICTION, IntAttribute.SET_SIZE, IntAttribute.POS_IN_SET, IntAttribute.COLOR_VALUE, IntAttribute.ARIA_CURRENT_STATE, IntAttribute.BACKGROUND_COLOR, IntAttribute.COLOR, IntAttribute.HAS_POPUP, IntAttribute.IMAGE_ANNOTATION_STATUS, IntAttribute.INVALID_STATE, IntAttribute.CHECKED_STATE, IntAttribute.LIST_STYLE, IntAttribute.TEXT_ALIGN, IntAttribute.TEXT_DIRECTION, IntAttribute.TEXT_POSITION, IntAttribute.TEXT_STYLE, IntAttribute.TEXT_OVERLINE_STYLE, IntAttribute.TEXT_STRIKETHROUGH_STYLE, IntAttribute.TEXT_UNDERLINE_STYLE, IntAttribute.PREVIOUS_FOCUS_ID, IntAttribute.NEXT_FOCUS_ID, IntAttribute.DROPEFFECT_DEPRECATED, IntAttribute.DOM_NODE_ID, IntAttribute.IS_POPUP, IntAttribute.NEXT_WINDOW_FOCUS_ID, IntAttribute.PREVIOUS_WINDOW_FOCUS_ID})
-    public @interface EnumType {
-    }
+        IntAttribute.NONE,
+        IntAttribute.DEFAULT_ACTION_VERB,
+        IntAttribute.SCROLL_X,
+        IntAttribute.SCROLL_X_MIN,
+        IntAttribute.SCROLL_X_MAX,
+        IntAttribute.SCROLL_Y,
+        IntAttribute.SCROLL_Y_MIN,
+        IntAttribute.SCROLL_Y_MAX,
+        IntAttribute.TEXT_SEL_START,
+        IntAttribute.TEXT_SEL_END,
+        IntAttribute.ARIA_COLUMN_COUNT,
+        IntAttribute.ARIA_CELL_COLUMN_INDEX,
+        IntAttribute.ARIA_CELL_COLUMN_SPAN,
+        IntAttribute.ARIA_ROW_COUNT,
+        IntAttribute.ARIA_CELL_ROW_INDEX,
+        IntAttribute.ARIA_CELL_ROW_SPAN,
+        IntAttribute.TABLE_ROW_COUNT,
+        IntAttribute.TABLE_COLUMN_COUNT,
+        IntAttribute.TABLE_HEADER_ID,
+        IntAttribute.TABLE_ROW_INDEX,
+        IntAttribute.TABLE_ROW_HEADER_ID,
+        IntAttribute.TABLE_COLUMN_INDEX,
+        IntAttribute.TABLE_COLUMN_HEADER_ID,
+        IntAttribute.TABLE_CELL_COLUMN_INDEX,
+        IntAttribute.TABLE_CELL_COLUMN_SPAN,
+        IntAttribute.TABLE_CELL_ROW_INDEX,
+        IntAttribute.TABLE_CELL_ROW_SPAN,
+        IntAttribute.SORT_DIRECTION,
+        IntAttribute.HIERARCHICAL_LEVEL,
+        IntAttribute.NAME_FROM,
+        IntAttribute.DESCRIPTION_FROM,
+        IntAttribute.ACTIVEDESCENDANT_ID,
+        IntAttribute.ERRORMESSAGE_ID_DEPRECATED,
+        IntAttribute.IN_PAGE_LINK_TARGET_ID,
+        IntAttribute.MEMBER_OF_ID,
+        IntAttribute.NEXT_ON_LINE_ID,
+        IntAttribute.POPUP_FOR_ID,
+        IntAttribute.PREVIOUS_ON_LINE_ID,
+        IntAttribute.RESTRICTION,
+        IntAttribute.SET_SIZE,
+        IntAttribute.POS_IN_SET,
+        IntAttribute.COLOR_VALUE,
+        IntAttribute.ARIA_CURRENT_STATE,
+        IntAttribute.BACKGROUND_COLOR,
+        IntAttribute.COLOR,
+        IntAttribute.HAS_POPUP,
+        IntAttribute.IMAGE_ANNOTATION_STATUS,
+        IntAttribute.INVALID_STATE,
+        IntAttribute.CHECKED_STATE,
+        IntAttribute.LIST_STYLE,
+        IntAttribute.TEXT_ALIGN,
+        IntAttribute.TEXT_DIRECTION,
+        IntAttribute.TEXT_POSITION,
+        IntAttribute.TEXT_STYLE,
+        IntAttribute.TEXT_OVERLINE_STYLE,
+        IntAttribute.TEXT_STRIKETHROUGH_STYLE,
+        IntAttribute.TEXT_UNDERLINE_STYLE,
+        IntAttribute.PREVIOUS_FOCUS_ID,
+        IntAttribute.NEXT_FOCUS_ID,
+        IntAttribute.DROPEFFECT_DEPRECATED,
+        IntAttribute.DOM_NODE_ID,
+        IntAttribute.IS_POPUP,
+        IntAttribute.NEXT_WINDOW_FOCUS_ID,
+        IntAttribute.PREVIOUS_WINDOW_FOCUS_ID})
+    public @interface EnumType {}
 
     public static final int NONE = 0;
     public static final int DEFAULT_ACTION_VERB = 1;
@@ -100,12 +163,11 @@ public final class IntAttribute {
     }
 
     public static int toKnownValue(int value) {
-        if (isKnownValue(value)) {
-            return value;
-        }
-        return DEFAULT_VALUE;
+      if (isKnownValue(value)) {
+        return value;
+      }
+      return DEFAULT_VALUE;
     }
 
-    private IntAttribute() {
-    }
+    private IntAttribute() {}
 }

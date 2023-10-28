@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface CloseListener extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends CloseListener, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends CloseListener, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<CloseListener, CloseListener.Proxy> MANAGER = CloseListener_Internal.MANAGER;

@@ -13,10 +13,13 @@
 
 package org.chromium.viz.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class BeginFrameInfo extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 40;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(40, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(40, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public int sinkId;
     public BeginFrameArgs args;
@@ -26,6 +29,10 @@ public final class BeginFrameInfo extends org.chromium.mojo.bindings.Struct {
 
     private BeginFrameInfo(int version) {
         super(STRUCT_SIZE, version);
+    }
+
+    public BeginFrameInfo() {
+        this(0);
     }
 
     public static BeginFrameInfo deserialize(org.chromium.mojo.bindings.Message message) {
@@ -38,9 +45,11 @@ public final class BeginFrameInfo extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static BeginFrameInfo deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
+    @SuppressWarnings("unchecked")
     public static BeginFrameInfo decode(org.chromium.mojo.bindings.Decoder decoder0) {
         if (decoder0 == null) {
             return null;
@@ -51,62 +60,62 @@ public final class BeginFrameInfo extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new BeginFrameInfo(elementsOrVersion);
-            {
-
+                {
+                    
                 result.sinkId = decoder0.readInt(8);
-            }
-            {
-
+                }
+                {
+                    
                 result.frameAck = decoder0.readBoolean(12, 0);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                 result.args = BeginFrameArgs.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, false);
                 {
                     decoder1.readDataHeaderForMap();
                     int[] keys0;
                     FrameTimingDetails[] values0;
                     {
-
+                        
                         keys0 = decoder1.readInts(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                     }
                     {
-
+                        
                         org.chromium.mojo.bindings.Decoder decoder2 = decoder1.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE, false);
                         {
                             org.chromium.mojo.bindings.DataHeader si2 = decoder2.readDataHeaderForPointerArray(keys0.length);
                             values0 = new FrameTimingDetails[si2.elementsOrVersion];
                             for (int i2 = 0; i2 < si2.elementsOrVersion; ++i2) {
-
+                                
                                 org.chromium.mojo.bindings.Decoder decoder3 = decoder2.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i2, false);
                                 values0[i2] = FrameTimingDetails.decode(decoder3);
                             }
                         }
                     }
-                    result.details = new java.util.HashMap<>();
+                    result.details = new java.util.HashMap<Integer, FrameTimingDetails>();
                     for (int index0 = 0; index0 < keys0.length; ++index0) {
-                        result.details.put(keys0[index0], values0[index0]);
+                        result.details.put(keys0[index0],  values0[index0]);
                     }
                 }
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(32, false);
                 {
                     org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                     result.resources = new ReturnedResource[si1.elementsOrVersion];
                     for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                        
                         org.chromium.mojo.bindings.Decoder decoder2 = decoder1.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                         result.resources[i1] = ReturnedResource.decode(decoder2);
                     }
                 }
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -114,16 +123,17 @@ public final class BeginFrameInfo extends org.chromium.mojo.bindings.Struct {
         return result;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
+    protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.sinkId, 8);
-
+        
         encoder0.encode(this.frameAck, 12, 0);
-
+        
         encoder0.encode(this.args, 16, false);
-
+        
         if (this.details == null) {
             encoder0.encodeNullPointer(24, false);
         } else {
@@ -137,24 +147,24 @@ public final class BeginFrameInfo extends org.chromium.mojo.bindings.Struct {
                 values0[index0] = entry0.getValue();
                 ++index0;
             }
-
+            
             encoder1.encode(keys0, org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
-
+            
             {
                 org.chromium.mojo.bindings.Encoder encoder2 = encoder1.encodePointerArray(values0.length, org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                 for (int i1 = 0; i1 < values0.length; ++i1) {
-
+                    
                     encoder2.encode(values0[i1], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                 }
             }
         }
-
+        
         if (this.resources == null) {
             encoder0.encodeNullPointer(32, false);
         } else {
             org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.resources.length, 32, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
             for (int i0 = 0; i0 < this.resources.length; ++i0) {
-
+                
                 encoder1.encode(this.resources[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
             }
         }

@@ -17,15 +17,18 @@ public class ScreenResolutionUtil {
         MediaCodecInfo[] codecInfos = new MediaCodecList(MediaCodecList.ALL_CODECS).getCodecInfos();
         for (MediaCodecInfo codecInfo : codecInfos) {
             try {
-                MediaCodecInfo.CodecCapabilities codecCapabilities = codecInfo.getCapabilitiesForType(mimeType);
+                MediaCodecInfo.CodecCapabilities codecCapabilities =
+                        codecInfo.getCapabilitiesForType(mimeType);
                 if (codecCapabilities == null) {
                     continue;
                 }
-                MediaCodecInfo.VideoCapabilities videoCapabilities = codecCapabilities.getVideoCapabilities();
+                MediaCodecInfo.VideoCapabilities videoCapabilities =
+                        codecCapabilities.getVideoCapabilities();
                 if (videoCapabilities == null) {
                     continue;
                 }
-                if (videoCapabilities.isSizeSupported(targetResolution.getWidth(), targetResolution.getHeight())) {
+                if (videoCapabilities.isSizeSupported(
+                            targetResolution.getWidth(), targetResolution.getHeight())) {
                     return true;
                 }
             } catch (IllegalArgumentException e) {

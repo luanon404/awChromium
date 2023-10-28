@@ -19,11 +19,13 @@ public interface SafetyNetApiHandler {
      */
     interface Observer {
         // Note: |checkDelta| is the time the remote call took in microseconds.
-        void onUrlCheckDone(long callbackId, @SafeBrowsingResult int resultStatus, String metadata, long checkDelta);
+        void onUrlCheckDone(long callbackId, @SafeBrowsingResult int resultStatus, String metadata,
+                long checkDelta);
     }
 
     // Possible values for resultStatus. Native side has the same definitions.
-    @IntDef({SafeBrowsingResult.INTERNAL_ERROR, SafeBrowsingResult.SUCCESS, SafeBrowsingResult.TIMEOUT})
+    @IntDef({SafeBrowsingResult.INTERNAL_ERROR, SafeBrowsingResult.SUCCESS,
+            SafeBrowsingResult.TIMEOUT})
     @Retention(RetentionPolicy.SOURCE)
     @interface SafeBrowsingResult {
         int INTERNAL_ERROR = -1;
@@ -36,7 +38,8 @@ public interface SafetyNetApiHandler {
      * Should be called on the same sequence as |startUriLookup|.
      *
      * @param observer The object on which to call the callback functions when URL checking
-     *                 is complete.
+     * is complete.
+     *
      * @return whether Safe Browsing is supported for this installation.
      */
     boolean init(Observer observer);
@@ -51,9 +54,10 @@ public interface SafetyNetApiHandler {
      * Start a check to determine if a uri is in an allowlist. If true, password protection
      * service will consider the uri to be safe.
      *
-     * @param uri        The uri from a password protection event(user focuses on password form
-     *                   * or user reuses their password)
+     * @param uri The uri from a password protection event(user focuses on password form
+     *      * or user reuses their password)
      * @param threatType determines the type of the allowlist that the uri will be matched to.
+     *
      * @return true if the uri is found in the corresponding allowlist. Otherwise, false.
      */
     boolean startAllowlistLookup(String uri, int threatType);

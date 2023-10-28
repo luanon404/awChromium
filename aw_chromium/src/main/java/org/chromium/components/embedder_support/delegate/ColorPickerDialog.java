@@ -44,12 +44,13 @@ public class ColorPickerDialog extends AlertDialog implements OnColorChangedList
     }
 
     /**
-     * @param context     The context the dialog is to run in.
-     * @param listener    The object to notify when the color is set.
-     * @param color       The initial color to set.
+     * @param context The context the dialog is to run in.
+     * @param listener The object to notify when the color is set.
+     * @param color The initial color to set.
      * @param suggestions The list of suggestions.
      */
-    public ColorPickerDialog(Context context, OnColorChangedListener listener, int color, ColorSuggestion[] suggestions) {
+    public ColorPickerDialog(Context context, OnColorChangedListener listener, int color,
+            ColorSuggestion[] suggestions) {
         super(context, 0);
 
         mListener = listener;
@@ -110,7 +111,8 @@ public class ColorPickerDialog extends AlertDialog implements OnColorChangedList
         });
 
         // Initialize advanced color view (hidden initially).
-        mAdvancedColorPicker = (ColorPickerAdvanced) mContent.findViewById(R.id.color_picker_advanced);
+        mAdvancedColorPicker =
+                (ColorPickerAdvanced) mContent.findViewById(R.id.color_picker_advanced);
         mAdvancedColorPicker.setVisibility(View.GONE);
 
         // Initialize simple color view (default view).

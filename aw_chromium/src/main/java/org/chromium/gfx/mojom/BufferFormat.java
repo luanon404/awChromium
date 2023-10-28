@@ -17,10 +17,26 @@ import androidx.annotation.IntDef;
 
 public final class BufferFormat {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({BufferFormat.R_8, BufferFormat.R_16, BufferFormat.RG_88, BufferFormat.RG_1616, BufferFormat.BGR_565, BufferFormat.RGBA_4444, BufferFormat.RGBX_8888, BufferFormat.RGBA_8888, BufferFormat.BGRX_8888, BufferFormat.BGRA_1010102, BufferFormat.RGBA_1010102, BufferFormat.BGRA_8888, BufferFormat.RGBA_F16, BufferFormat.YVU_420, BufferFormat.YUV_420_BIPLANAR, BufferFormat.YUVA_420_TRIPLANAR, BufferFormat.P010})
-    public @interface EnumType {
-    }
+        BufferFormat.R_8,
+        BufferFormat.R_16,
+        BufferFormat.RG_88,
+        BufferFormat.RG_1616,
+        BufferFormat.BGR_565,
+        BufferFormat.RGBA_4444,
+        BufferFormat.RGBX_8888,
+        BufferFormat.RGBA_8888,
+        BufferFormat.BGRX_8888,
+        BufferFormat.BGRA_1010102,
+        BufferFormat.RGBA_1010102,
+        BufferFormat.BGRA_8888,
+        BufferFormat.RGBA_F16,
+        BufferFormat.YVU_420,
+        BufferFormat.YUV_420_BIPLANAR,
+        BufferFormat.YUVA_420_TRIPLANAR,
+        BufferFormat.P010})
+    public @interface EnumType {}
 
     public static final int R_8 = 0;
     public static final int R_16 = 1;
@@ -52,9 +68,8 @@ public final class BufferFormat {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private BufferFormat() {
-    }
+    private BufferFormat() {}
 }

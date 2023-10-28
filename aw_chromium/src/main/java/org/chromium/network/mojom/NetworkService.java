@@ -13,141 +13,182 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface NetworkService extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends NetworkService, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends NetworkService, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<NetworkService, NetworkService.Proxy> MANAGER = NetworkService_Internal.MANAGER;
 
-    void setParams(NetworkServiceParams params);
+    void setParams(
+NetworkServiceParams params);
 
 
-    void startNetLog(org.chromium.mojo_base.mojom.File file, long maxTotalSize, int captureMode, org.chromium.mojo_base.mojom.DictionaryValue constants);
+    void startNetLog(
+org.chromium.mojo_base.mojom.File file, long maxTotalSize, int captureMode, org.chromium.mojo_base.mojom.DictionaryValue constants);
 
 
-    void attachNetLogProxy(NetLogProxySource proxySource, org.chromium.mojo.bindings.InterfaceRequest<NetLogProxySink> proxySink);
+    void attachNetLogProxy(
+NetLogProxySource proxySource, org.chromium.mojo.bindings.InterfaceRequest<NetLogProxySink> proxySink);
 
 
-    void setSslKeyLogFile(org.chromium.mojo_base.mojom.File file);
+    void setSslKeyLogFile(
+org.chromium.mojo_base.mojom.File file);
 
 
-    void createNetworkContext(org.chromium.mojo.bindings.InterfaceRequest<NetworkContext> context, NetworkContextParams params);
+    void createNetworkContext(
+org.chromium.mojo.bindings.InterfaceRequest<NetworkContext> context, NetworkContextParams params);
 
 
-    void configureStubHostResolver(boolean insecureDnsClientEnabled, int secureDnsMode, DnsOverHttpsConfig dnsOverHttpsConfig, boolean additionalDnsTypesEnabled);
+    void configureStubHostResolver(
+boolean insecureDnsClientEnabled, int secureDnsMode, DnsOverHttpsConfig dnsOverHttpsConfig, boolean additionalDnsTypesEnabled);
 
 
-    void disableQuic();
+    void disableQuic(
+);
 
 
-    void setUpHttpAuth(HttpAuthStaticParams httpAuthStaticParams);
+    void setUpHttpAuth(
+HttpAuthStaticParams httpAuthStaticParams);
 
 
-    void configureHttpAuthPrefs(HttpAuthDynamicParams httpAuthDynamicParams);
+    void configureHttpAuthPrefs(
+HttpAuthDynamicParams httpAuthDynamicParams);
 
 
-    void setRawHeadersAccess(int processId, org.chromium.url.internal.mojom.Origin[] origins);
+    void setRawHeadersAccess(
+int processId, org.chromium.url.internal.mojom.Origin[] origins);
 
 
-    void setMaxConnectionsPerProxy(int maxConnections);
+    void setMaxConnectionsPerProxy(
+int maxConnections);
 
 
-    void getNetworkChangeManager(org.chromium.mojo.bindings.InterfaceRequest<NetworkChangeManager> networkChangeManager);
+    void getNetworkChangeManager(
+org.chromium.mojo.bindings.InterfaceRequest<NetworkChangeManager> networkChangeManager);
 
 
-    void getNetworkQualityEstimatorManager(org.chromium.mojo.bindings.InterfaceRequest<NetworkQualityEstimatorManager> receiver);
+    void getNetworkQualityEstimatorManager(
+org.chromium.mojo.bindings.InterfaceRequest<NetworkQualityEstimatorManager> receiver);
 
 
-    void getDnsConfigChangeManager(org.chromium.mojo.bindings.InterfaceRequest<DnsConfigChangeManager> receiver);
+    void getDnsConfigChangeManager(
+org.chromium.mojo.bindings.InterfaceRequest<DnsConfigChangeManager> receiver);
 
 
-    void getNetworkList(int policy, GetNetworkList_Response callback);
+    void getNetworkList(
+int policy, 
+GetNetworkList_Response callback);
 
-    interface GetNetworkList_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<NetworkInterface[]> {
-    }
+    interface GetNetworkList_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<NetworkInterface[]> { }
 
 
-    void onTrustStoreChanged();
+    void onTrustStoreChanged(
+);
 
 
-    void onClientCertStoreChanged();
+    void onClientCertStoreChanged(
+);
 
 
-    void setEncryptionKey(org.chromium.mojo_base.mojom.ByteString encryptionKey);
+    void setEncryptionKey(
+org.chromium.mojo_base.mojom.ByteString encryptionKey);
 
 
-    void onMemoryPressure(int memoryPressureLevel);
+    void onMemoryPressure(
+int memoryPressureLevel);
 
 
-    void onPeerToPeerConnectionsCountChange(int count);
+    void onPeerToPeerConnectionsCountChange(
+int count);
 
 
-    void onApplicationStateChange(int state);
+    void onApplicationStateChange(
+int state);
 
 
-    void setEnvironment(EnvironmentVariable[] environment);
+    void setEnvironment(
+EnvironmentVariable[] environment);
 
 
-    void setTrustTokenKeyCommitments(String rawCommitments, SetTrustTokenKeyCommitments_Response callback);
+    void setTrustTokenKeyCommitments(
+String rawCommitments, 
+SetTrustTokenKeyCommitments_Response callback);
 
-    interface SetTrustTokenKeyCommitments_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 {
-    }
+    interface SetTrustTokenKeyCommitments_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 { }
 
 
-    void clearSctAuditingCache();
+    void clearSctAuditingCache(
+);
 
 
-    void configureSctAuditing(SctAuditingConfiguration configuration);
+    void configureSctAuditing(
+SctAuditingConfiguration configuration);
 
 
-    void updateCtLogList(CtLogInfo[] logList, org.chromium.mojo_base.mojom.Time updateTime, UpdateCtLogList_Response callback);
+    void updateCtLogList(
+CtLogInfo[] logList, org.chromium.mojo_base.mojom.Time updateTime, 
+UpdateCtLogList_Response callback);
 
-    interface UpdateCtLogList_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 {
-    }
+    interface UpdateCtLogList_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 { }
 
 
-    void updateCtKnownPopularScTs(byte[][] sctHashes, UpdateCtKnownPopularScTs_Response callback);
+    void updateCtKnownPopularScTs(
+byte[][] sctHashes, 
+UpdateCtKnownPopularScTs_Response callback);
 
-    interface UpdateCtKnownPopularScTs_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 {
-    }
+    interface UpdateCtKnownPopularScTs_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 { }
 
 
-    void setCtEnforcementEnabled(boolean enabled, SetCtEnforcementEnabled_Response callback);
+    void setCtEnforcementEnabled(
+boolean enabled, 
+SetCtEnforcementEnabled_Response callback);
 
-    interface SetCtEnforcementEnabled_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 {
-    }
+    interface SetCtEnforcementEnabled_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 { }
 
 
-    void updateKeyPinsList(PinList pinList, org.chromium.mojo_base.mojom.Time updateTime);
+    void updateKeyPinsList(
+PinList pinList, org.chromium.mojo_base.mojom.Time updateTime);
 
 
-    void dumpWithoutCrashing(org.chromium.mojo_base.mojom.Time dumpRequestTime);
+    void dumpWithoutCrashing(
+org.chromium.mojo_base.mojom.Time dumpRequestTime);
 
 
-    void bindTestInterfaceForTesting(org.chromium.mojo.bindings.InterfaceRequest<NetworkServiceTest> receiver);
+    void bindTestInterfaceForTesting(
+org.chromium.mojo.bindings.InterfaceRequest<NetworkServiceTest> receiver);
 
 
-    void setFirstPartySets(GlobalFirstPartySets sets);
+    void setFirstPartySets(
+GlobalFirstPartySets sets);
 
 
-    void setExplicitlyAllowedPorts(short[] ports);
+    void setExplicitlyAllowedPorts(
+short[] ports);
 
 
-    void updateMaskedDomainList(org.chromium.mojo_base.mojom.ByteString rawMdl);
+    void updateMaskedDomainList(
+org.chromium.mojo_base.mojom.ByteString rawMdl);
 
 
-    void parseHeaders(org.chromium.url.mojom.Url url, HttpResponseHeaders headers, ParseHeaders_Response callback);
+    void parseHeaders(
+org.chromium.url.mojom.Url url, HttpResponseHeaders headers, 
+ParseHeaders_Response callback);
 
-    interface ParseHeaders_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<ParsedHeaders> {
-    }
+    interface ParseHeaders_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<ParsedHeaders> { }
 
 
-    void enableDataUseUpdates(boolean enable);
+    void enableDataUseUpdates(
+boolean enable);
 
 
-    void setIPv6ReachabilityOverride(boolean reachabilityOverride);
+    void setIPv6ReachabilityOverride(
+boolean reachabilityOverride);
 
 
 }

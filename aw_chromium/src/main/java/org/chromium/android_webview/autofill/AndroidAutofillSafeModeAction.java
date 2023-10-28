@@ -11,7 +11,7 @@ import org.chromium.android_webview.common.SafeModeAction;
 
 /**
  * A {@link SafeModeAction} to disable autofill provided by Android framework.
- * <p>
+ *
  * This action does not itself do any work. AwContents checks if this action
  * is enabled, to decide whether to initialize android autofill or not.
  */

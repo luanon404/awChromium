@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface NoStatePrefetchProcessor extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends NoStatePrefetchProcessor, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends NoStatePrefetchProcessor, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<NoStatePrefetchProcessor, NoStatePrefetchProcessor.Proxy> MANAGER = NoStatePrefetchProcessor_Internal.MANAGER;

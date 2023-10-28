@@ -649,6 +649,5 @@ public final class AutofillFeatures {
     public static final String ENABLE_PIX_PAYMENTS = "EnablePixPayments";
 
     // Prevents instantiation.
-    private AutofillFeatures() {
-    }
+    private AutofillFeatures() {}
 }

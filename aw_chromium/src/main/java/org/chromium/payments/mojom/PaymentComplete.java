@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class PaymentComplete {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({PaymentComplete.FAIL, PaymentComplete.SUCCESS, PaymentComplete.UNKNOWN})
-    public @interface EnumType {
-    }
+        PaymentComplete.FAIL,
+        PaymentComplete.SUCCESS,
+        PaymentComplete.UNKNOWN})
+    public @interface EnumType {}
 
     public static final int FAIL = 0;
     public static final int SUCCESS = 1;
@@ -38,9 +40,8 @@ public final class PaymentComplete {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private PaymentComplete() {
-    }
+    private PaymentComplete() {}
 }

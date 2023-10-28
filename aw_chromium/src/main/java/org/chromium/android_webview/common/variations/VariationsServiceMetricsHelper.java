@@ -10,7 +10,7 @@ import android.os.Bundle;
 
 /**
  * Stores values related to the collection of variations service metrics.
- * <p>
+ *
  * The values maintained by this class can be initialized from and serialized to a dedicated
  * variations SharedPreferences, or from a Bundle suitable for sending in AIDL IPC calls.
  */
@@ -44,7 +44,8 @@ public class VariationsServiceMetricsHelper {
      */
     public static VariationsServiceMetricsHelper fromVariationsSharedPreferences(Context context) {
         Bundle bundle = new Bundle();
-        SharedPreferences prefs = context.getSharedPreferences(PREF_FILE_NAME, Context.MODE_PRIVATE);
+        SharedPreferences prefs =
+                context.getSharedPreferences(PREF_FILE_NAME, Context.MODE_PRIVATE);
         if (prefs.contains(JOB_INTERVAL)) {
             bundle.putLong(JOB_INTERVAL, prefs.getLong(JOB_INTERVAL, 0));
         }
@@ -70,7 +71,8 @@ public class VariationsServiceMetricsHelper {
 
     // This method should only be called from within WebView's service.
     public boolean writeMetricsToVariationsSharedPreferences(Context context) {
-        SharedPreferences.Editor prefsEditor = context.getSharedPreferences(PREF_FILE_NAME, Context.MODE_PRIVATE).edit();
+        SharedPreferences.Editor prefsEditor =
+                context.getSharedPreferences(PREF_FILE_NAME, Context.MODE_PRIVATE).edit();
         prefsEditor.clear();
         if (hasJobInterval()) {
             prefsEditor.putLong(JOB_INTERVAL, getJobInterval());
@@ -90,15 +92,12 @@ public class VariationsServiceMetricsHelper {
     public void clearJobInterval() {
         mBundle.remove(JOB_INTERVAL);
     }
-
     public void setJobInterval(long seedFetchTime) {
         mBundle.putLong(JOB_INTERVAL, seedFetchTime);
     }
-
     public boolean hasJobInterval() {
         return mBundle.containsKey(JOB_INTERVAL);
     }
-
     public long getJobInterval() {
         return mBundle.getLong(JOB_INTERVAL);
     }
@@ -106,15 +105,12 @@ public class VariationsServiceMetricsHelper {
     public void clearJobQueueTime() {
         mBundle.remove(JOB_QUEUE_TIME);
     }
-
     public void setJobQueueTime(long seedFetchTime) {
         mBundle.putLong(JOB_QUEUE_TIME, seedFetchTime);
     }
-
     public boolean hasJobQueueTime() {
         return mBundle.containsKey(JOB_QUEUE_TIME);
     }
-
     public long getJobQueueTime() {
         return mBundle.getLong(JOB_QUEUE_TIME);
     }
@@ -122,15 +118,12 @@ public class VariationsServiceMetricsHelper {
     public void clearLastEnqueueTime() {
         mBundle.remove(LAST_ENQUEUE_TIME);
     }
-
     public void setLastEnqueueTime(long seedFetchTime) {
         mBundle.putLong(LAST_ENQUEUE_TIME, seedFetchTime);
     }
-
     public boolean hasLastEnqueueTime() {
         return mBundle.containsKey(LAST_ENQUEUE_TIME);
     }
-
     public long getLastEnqueueTime() {
         return mBundle.getLong(LAST_ENQUEUE_TIME);
     }
@@ -138,15 +131,12 @@ public class VariationsServiceMetricsHelper {
     public void clearLastJobStartTime() {
         mBundle.remove(LAST_JOB_START_TIME);
     }
-
     public void setLastJobStartTime(long seedFetchTime) {
         mBundle.putLong(LAST_JOB_START_TIME, seedFetchTime);
     }
-
     public boolean hasLastJobStartTime() {
         return mBundle.containsKey(LAST_JOB_START_TIME);
     }
-
     public long getLastJobStartTime() {
         return mBundle.getLong(LAST_JOB_START_TIME);
     }

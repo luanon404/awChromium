@@ -42,7 +42,9 @@ public class MetricsFilteringDecorator implements AndroidMetricsLogConsumer {
     }
 
     private boolean shouldApplyMetricsFiltering(ChromeUserMetricsExtension proto) {
-        return proto.hasSystemProfile() && proto.getSystemProfile().hasMetricsFilteringStatus() && proto.getSystemProfile().getMetricsFilteringStatus() == MetricsFilteringStatus.METRICS_ONLY_CRITICAL;
+        return proto.hasSystemProfile() && proto.getSystemProfile().hasMetricsFilteringStatus()
+                && proto.getSystemProfile().getMetricsFilteringStatus()
+                == MetricsFilteringStatus.METRICS_ONLY_CRITICAL;
     }
 
     private byte[] applyMetricsFilteringIfNeeded(byte[] data) {
@@ -59,9 +61,14 @@ public class MetricsFilteringDecorator implements AndroidMetricsLogConsumer {
         try {
             ChromeUserMetricsExtension proto = ChromeUserMetricsExtension.parseFrom(data);
             if (shouldApplyMetricsFiltering(proto)) {
-                List<HistogramEventProto> filteredHistograms = proto.getHistogramEventList().stream().filter(mHistogramsAllowlist::contains).collect(Collectors.toList());
+                List<HistogramEventProto> filteredHistograms =
+                        proto.getHistogramEventList()
+                                .stream()
+                                .filter(mHistogramsAllowlist::contains)
+                                .collect(Collectors.toList());
                 ChromeUserMetricsExtension.Builder builder = proto.toBuilder();
-                builder.clearUserActionEvent().clearHistogramEvent().addAllHistogramEvent(filteredHistograms);
+                builder.clearUserActionEvent().clearHistogramEvent().addAllHistogramEvent(
+                        filteredHistograms);
                 return builder.build().toByteArray();
             }
             return data;

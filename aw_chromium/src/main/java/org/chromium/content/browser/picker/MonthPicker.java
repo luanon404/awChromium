@@ -28,10 +28,12 @@ public class MonthPicker extends TwoFieldDatePicker {
     public MonthPicker(Context context, double minValue, double maxValue) {
         super(context, minValue, maxValue);
 
-        getPositionInYearSpinner().setContentDescription(getResources().getString(R.string.accessibility_date_picker_month));
+        getPositionInYearSpinner().setContentDescription(
+                getResources().getString(R.string.accessibility_date_picker_month));
 
         // initialization based on locale
-        mShortMonths = DateFormatSymbols.getInstance(Locale.getDefault()).getShortMonths();
+        mShortMonths =
+                DateFormatSymbols.getInstance(Locale.getDefault()).getShortMonths();
 
         // logic duplicated from android.widget.DatePicker
         if (usingNumericMonths()) {
@@ -91,7 +93,9 @@ public class MonthPicker extends TwoFieldDatePicker {
 
         // make sure the month names are a zero based array
         // with the months in the month spinner
-        String[] displayedValues = Arrays.copyOfRange(mShortMonths, getPositionInYearSpinner().getMinValue(), getPositionInYearSpinner().getMaxValue() + 1);
+        String[] displayedValues = Arrays.copyOfRange(mShortMonths,
+                getPositionInYearSpinner().getMinValue(),
+                getPositionInYearSpinner().getMaxValue() + 1);
         getPositionInYearSpinner().setDisplayedValues(displayedValues);
     }
 

@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface ObservedFeature extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends ObservedFeature, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends ObservedFeature, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<ObservedFeature, ObservedFeature.Proxy> MANAGER = ObservedFeature_Internal.MANAGER;

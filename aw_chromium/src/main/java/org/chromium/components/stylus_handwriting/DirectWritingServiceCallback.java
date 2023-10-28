@@ -33,7 +33,8 @@ import org.chromium.mojo_base.mojom.String16;
  * writable element position, cursor position and the text input state to be provided to the service
  * when requested on the {@link BinderThread}.
  */
-class DirectWritingServiceCallback extends com.luanon.android.widget.directwriting.IDirectWritingServiceCallback.Stub {
+class DirectWritingServiceCallback
+        extends com.luanon.android.widget.directwriting.IDirectWritingServiceCallback.Stub {
     static final String BUNDLE_KEY_SHOW_KEYBOARD = "showKeyboard";
     private static final String TAG = "DWCallbackImpl";
 
@@ -95,7 +96,8 @@ class DirectWritingServiceCallback extends com.luanon.android.widget.directwriti
                 case DirectWritingConstants.MSG_SEND_SET_TEXT_SELECTION:
                     mStylusWritingImeCallback.finishComposingText();
                     mStylusWritingImeCallback.setEditableSelectionOffsets(0, getText().length());
-                    mStylusWritingImeCallback.sendCompositionToNative(((CharSequence) msg.obj), msg.arg1, true);
+                    mStylusWritingImeCallback.sendCompositionToNative(
+                            ((CharSequence) msg.obj), msg.arg1, true);
                     mStylusWritingImeCallback.setEditableSelectionOffsets(msg.arg1, msg.arg1);
                     break;
                 case DirectWritingConstants.MSG_PERFORM_EDITOR_ACTION:
@@ -140,7 +142,8 @@ class DirectWritingServiceCallback extends com.luanon.android.widget.directwriti
         gestureData.granularity = StylusWritingGestureGranularity.CHARACTER;
         if (gestureType.equals(GESTURE_TYPE_BACKSPACE) || gestureType.equals(GESTURE_TYPE_ZIGZAG)) {
             startPoint = bundle.getFloatArray(GESTURE_BUNDLE_KEY_START_POINT);
-            gestureData.endRect = mojoRectClampedToEditableBounds(bundle.getFloatArray(GESTURE_BUNDLE_KEY_END_POINT));
+            gestureData.endRect = mojoRectClampedToEditableBounds(
+                    bundle.getFloatArray(GESTURE_BUNDLE_KEY_END_POINT));
             gestureData.action = StylusWritingGestureAction.DELETE_TEXT;
         } else if (gestureType.equals(GESTURE_TYPE_V_SPACE)) {
             startPoint = bundle.getFloatArray(GESTURE_BUNDLE_KEY_LOWEST_POINT);
@@ -148,9 +151,11 @@ class DirectWritingServiceCallback extends com.luanon.android.widget.directwriti
         } else if (gestureType.equals(GESTURE_TYPE_WEDGE_SPACE)) {
             startPoint = bundle.getFloatArray(GESTURE_BUNDLE_KEY_HIGHEST_POINT);
             populateDataForAddSpaceOrTextGesture(gestureData, bundle);
-        } else if (gestureType.equals(GESTURE_TYPE_U_TYPE_REMOVE_SPACE) || gestureType.equals(GESTURE_TYPE_ARCH_TYPE_REMOVE_SPACE)) {
+        } else if (gestureType.equals(GESTURE_TYPE_U_TYPE_REMOVE_SPACE)
+                || gestureType.equals(GESTURE_TYPE_ARCH_TYPE_REMOVE_SPACE)) {
             startPoint = bundle.getFloatArray(GESTURE_BUNDLE_KEY_START_POINT);
-            gestureData.endRect = mojoRectClampedToEditableBounds(bundle.getFloatArray(GESTURE_BUNDLE_KEY_END_POINT));
+            gestureData.endRect = mojoRectClampedToEditableBounds(
+                    bundle.getFloatArray(GESTURE_BUNDLE_KEY_END_POINT));
             gestureData.action = StylusWritingGestureAction.REMOVE_SPACES;
         } else if (gestureType.equals(GESTURE_I_TYPE_FUNCTIONAL)) {
             startPoint = bundle.getFloatArray(GESTURE_BUNDLE_KEY_CENTER_POINT);
@@ -161,7 +166,8 @@ class DirectWritingServiceCallback extends com.luanon.android.widget.directwriti
                 // Commit fallback text if available for unsupported gesture. This is to provide
                 // default behaviour for any unsupported gesture which is yet to be implemented.
                 Log.d(TAG, "Commit fallback text for unsupported gesture: " + gestureType);
-                mStylusWritingImeCallback.sendCompositionToNative(textAlternative, textAlternative.length(), /* isCommit */ true);
+                mStylusWritingImeCallback.sendCompositionToNative(
+                        textAlternative, textAlternative.length(), /* isCommit */ true);
             } else {
                 Log.w(TAG, "Skip handling unsupported gesture: " + gestureType);
             }
@@ -170,16 +176,20 @@ class DirectWritingServiceCallback extends com.luanon.android.widget.directwriti
 
         switch (gestureData.action) {
             case StylusWritingGestureAction.DELETE_TEXT:
-                StylusGestureConverter.logGestureType(StylusGestureConverter.UmaGestureType.DW_DELETE_TEXT);
+                StylusGestureConverter.logGestureType(
+                        StylusGestureConverter.UmaGestureType.DW_DELETE_TEXT);
                 break;
             case StylusWritingGestureAction.ADD_SPACE_OR_TEXT:
-                StylusGestureConverter.logGestureType(StylusGestureConverter.UmaGestureType.DW_ADD_SPACE_OR_TEXT);
+                StylusGestureConverter.logGestureType(
+                        StylusGestureConverter.UmaGestureType.DW_ADD_SPACE_OR_TEXT);
                 break;
             case StylusWritingGestureAction.REMOVE_SPACES:
-                StylusGestureConverter.logGestureType(StylusGestureConverter.UmaGestureType.DW_REMOVE_SPACES);
+                StylusGestureConverter.logGestureType(
+                        StylusGestureConverter.UmaGestureType.DW_REMOVE_SPACES);
                 break;
             case StylusWritingGestureAction.SPLIT_OR_MERGE:
-                StylusGestureConverter.logGestureType(StylusGestureConverter.UmaGestureType.DW_SPLIT_OR_MERGE);
+                StylusGestureConverter.logGestureType(
+                        StylusGestureConverter.UmaGestureType.DW_SPLIT_OR_MERGE);
                 break;
             default:
                 assert false : "Gesture type unset";
@@ -197,8 +207,10 @@ class DirectWritingServiceCallback extends com.luanon.android.widget.directwriti
         // Clamp gesture point to Editable bounds so that gesture is within editable area while
         // finding the gesture offset in blink, and to avoid hitting DCHECKs while doing so.
         float[] adjustedPoint = new float[2];
-        adjustedPoint[0] = MathUtils.clamp(gesturePoint[0], mEditableBounds.left, mEditableBounds.right);
-        adjustedPoint[1] = MathUtils.clamp(gesturePoint[1], mEditableBounds.top, mEditableBounds.bottom);
+        adjustedPoint[0] =
+                MathUtils.clamp(gesturePoint[0], mEditableBounds.left, mEditableBounds.right);
+        adjustedPoint[1] =
+                MathUtils.clamp(gesturePoint[1], mEditableBounds.top, mEditableBounds.bottom);
         return toMojoZeroSizeRect(adjustedPoint);
     }
 
@@ -211,7 +223,8 @@ class DirectWritingServiceCallback extends com.luanon.android.widget.directwriti
         return rect;
     }
 
-    private static void populateDataForAddSpaceOrTextGesture(StylusWritingGestureData gestureData, Bundle gestureBundle) {
+    private static void populateDataForAddSpaceOrTextGesture(
+            StylusWritingGestureData gestureData, Bundle gestureBundle) {
         String textToInsert = gestureBundle.getString(GESTURE_BUNDLE_KEY_TEXT_INSERTION, "");
         // Insert space character when text to insert is empty inside gesture.
         if (TextUtils.isEmpty(textToInsert)) textToInsert = " ";
@@ -312,7 +325,8 @@ class DirectWritingServiceCallback extends com.luanon.android.widget.directwriti
     @BinderThread
     @Override
     public PointF getCursorLocation(int selectionStart) {
-        PointF cursorLocation = mCursorPosition == null ? new PointF() : new PointF(mCursorPosition);
+        PointF cursorLocation =
+                mCursorPosition == null ? new PointF() : new PointF(mCursorPosition);
         return cursorLocation;
     }
 
@@ -352,7 +366,8 @@ class DirectWritingServiceCallback extends com.luanon.android.widget.directwriti
         if (bundle == null || mStylusWritingImeCallback == null) return;
         View currentView = mStylusWritingImeCallback.getContainerView();
         if (currentView == null) return;
-        InputMethodManager imm = (InputMethodManager) currentView.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager imm = (InputMethodManager) currentView.getContext().getSystemService(
+                Context.INPUT_METHOD_SERVICE);
         if (imm == null) return;
         imm.sendAppPrivateCommand(currentView, action, bundle);
         boolean showKeyboard = bundle.getBoolean(BUNDLE_KEY_SHOW_KEYBOARD);
@@ -401,20 +416,16 @@ class DirectWritingServiceCallback extends com.luanon.android.widget.directwriti
     }
 
     @Override
-    public void onFinishRecognition() {
-    }
+    public void onFinishRecognition() {}
 
     @Override
-    public void bindEditIn(float x, float y) {
-    }
+    public void bindEditIn(float x, float y) {}
 
     @Override
-    public void setText(CharSequence text) {
-    }
+    public void setText(CharSequence text) {}
 
     @Override
-    public void setSelection(int selection) {
-    }
+    public void setSelection(int selection) {}
 
     @Override
     public int getOffsetForPosition(float x, float y) {
@@ -552,6 +563,5 @@ class DirectWritingServiceCallback extends com.luanon.android.widget.directwriti
     }
 
     @Override
-    public void onExtraCommand(String action, Bundle bundle) {
-    }
+    public void onExtraCommand(String action, Bundle bundle) {}
 }

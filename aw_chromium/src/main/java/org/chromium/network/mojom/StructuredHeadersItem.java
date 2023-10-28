@@ -13,6 +13,9 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class StructuredHeadersItem extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
@@ -23,8 +26,7 @@ public final class StructuredHeadersItem extends org.chromium.mojo.bindings.Unio
         public static final int TokenValue = 4;
         public static final int ByteSequenceValue = 5;
         public static final int BooleanValue = 6;
-    }
-
+    };
     private byte mNullValue;
     private long mIntegerValue;
     private double mDecimalValue;
@@ -110,37 +112,37 @@ public final class StructuredHeadersItem extends org.chromium.mojo.bindings.Unio
         encoder0.encode(this.mTag, offset + 4);
         switch (mTag) {
             case Tag.NullValue: {
-
+                
                 encoder0.encode(this.mNullValue, offset + 8);
                 break;
             }
             case Tag.IntegerValue: {
-
+                
                 encoder0.encode(this.mIntegerValue, offset + 8);
                 break;
             }
             case Tag.DecimalValue: {
-
+                
                 encoder0.encode(this.mDecimalValue, offset + 8);
                 break;
             }
             case Tag.StringValue: {
-
+                
                 encoder0.encode(this.mStringValue, offset + 8, false);
                 break;
             }
             case Tag.TokenValue: {
-
+                
                 encoder0.encode(this.mTokenValue, offset + 8, false);
                 break;
             }
             case Tag.ByteSequenceValue: {
-
+                
                 encoder0.encode(this.mByteSequenceValue, offset + 8, false);
                 break;
             }
             case Tag.BooleanValue: {
-
+                
                 encoder0.encode(this.mBooleanValue, offset + 8, 0);
                 break;
             }
@@ -162,44 +164,44 @@ public final class StructuredHeadersItem extends org.chromium.mojo.bindings.Unio
         StructuredHeadersItem result = new StructuredHeadersItem();
         switch (dataHeader.elementsOrVersion) {
             case Tag.NullValue: {
-
+                
                 result.mNullValue = decoder0.readByte(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE);
                 result.mTag = Tag.NullValue;
                 break;
             }
             case Tag.IntegerValue: {
-
+                
                 result.mIntegerValue = decoder0.readLong(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE);
                 result.mTag = Tag.IntegerValue;
                 break;
             }
             case Tag.DecimalValue: {
-
+                
                 result.mDecimalValue = decoder0.readDouble(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE);
                 result.mTag = Tag.DecimalValue;
                 break;
             }
             case Tag.StringValue: {
-
+                
                 result.mStringValue = decoder0.readString(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mTag = Tag.StringValue;
                 break;
             }
             case Tag.TokenValue: {
-
+                
                 result.mTokenValue = decoder0.readString(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mTag = Tag.TokenValue;
                 break;
             }
             case Tag.ByteSequenceValue: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mByteSequenceValue = org.chromium.mojo_base.mojom.ByteString.decode(decoder1);
                 result.mTag = Tag.ByteSequenceValue;
                 break;
             }
             case Tag.BooleanValue: {
-
+                
                 result.mBooleanValue = decoder0.readBoolean(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, 0);
                 result.mTag = Tag.BooleanValue;
                 break;

@@ -13,9 +13,10 @@ import android.view.textservice.SuggestionsInfo;
 import android.view.textservice.TextInfo;
 import android.view.textservice.TextServicesManager;
 
-import org.chromium.base.ContextUtils;
 import org.jni_zero.CalledByNative;
 import org.jni_zero.NativeMethods;
+
+import org.chromium.base.ContextUtils;
 
 import java.util.ArrayList;
 
@@ -28,14 +29,15 @@ public class SpellCheckerSessionBridge implements SpellCheckerSessionListener {
 
     /**
      * Constructs a SpellCheckerSessionBridge object as well as its SpellCheckerSession object.
-     *
      * @param nativeSpellCheckerSessionBridge Pointer to the native SpellCheckerSessionBridge.
      */
     private SpellCheckerSessionBridge(long nativeSpellCheckerSessionBridge) {
         mNativeSpellCheckerSessionBridge = nativeSpellCheckerSessionBridge;
 
         Context context = ContextUtils.getApplicationContext();
-        final TextServicesManager textServicesManager = (TextServicesManager) context.getSystemService(Context.TEXT_SERVICES_MANAGER_SERVICE);
+        final TextServicesManager textServicesManager =
+                (TextServicesManager) context.getSystemService(
+                        Context.TEXT_SERVICES_MANAGER_SERVICE);
 
         // This combination of parameters will cause the spellchecker to be based off of
         // the language specified at "Settings > Language & input > Spell checker > Language".
@@ -49,12 +51,12 @@ public class SpellCheckerSessionBridge implements SpellCheckerSessionListener {
     /**
      * Returns a new SpellCheckerSessionBridge object if the internal SpellCheckerSession object
      * was able to be created.
-     *
      * @param nativeSpellCheckerSessionBridge Pointer to the native SpellCheckerSessionBridge.
      */
     @CalledByNative
     private static SpellCheckerSessionBridge create(long nativeSpellCheckerSessionBridge) {
-        SpellCheckerSessionBridge bridge = new SpellCheckerSessionBridge(nativeSpellCheckerSessionBridge);
+        SpellCheckerSessionBridge bridge =
+                new SpellCheckerSessionBridge(nativeSpellCheckerSessionBridge);
         if (bridge.mSpellCheckerSession == null) {
             return null;
         }
@@ -73,7 +75,6 @@ public class SpellCheckerSessionBridge implements SpellCheckerSessionListener {
 
     /**
      * Queries the input text against the SpellCheckerSession.
-     *
      * @param text Text to be queried.
      */
     @CalledByNative
@@ -85,12 +86,12 @@ public class SpellCheckerSessionBridge implements SpellCheckerSessionListener {
         if (text.endsWith(".")) {
             text = text.substring(0, text.length() - 1);
         }
-        mSpellCheckerSession.getSentenceSuggestions(new TextInfo[]{new TextInfo(text)}, SuggestionSpan.SUGGESTIONS_MAX_SIZE);
+        mSpellCheckerSession.getSentenceSuggestions(
+                new TextInfo[] {new TextInfo(text)}, SuggestionSpan.SUGGESTIONS_MAX_SIZE);
     }
 
     /**
      * Checks for typos and sends results back to native through a JNI call.
-     *
      * @param results Results returned by the Android spellchecker.
      */
     @Override
@@ -112,7 +113,9 @@ public class SpellCheckerSessionBridge implements SpellCheckerSessionListener {
             }
             for (int i = 0; i < result.getSuggestionsCount(); i++) {
                 // If a word looks like a typo, record its offset and length.
-                if ((result.getSuggestionsInfoAt(i).getSuggestionsAttributes() & SuggestionsInfo.RESULT_ATTR_LOOKS_LIKE_TYPO) == SuggestionsInfo.RESULT_ATTR_LOOKS_LIKE_TYPO) {
+                if ((result.getSuggestionsInfoAt(i).getSuggestionsAttributes()
+                        & SuggestionsInfo.RESULT_ATTR_LOOKS_LIKE_TYPO)
+                        == SuggestionsInfo.RESULT_ATTR_LOOKS_LIKE_TYPO) {
                     offsets.add(result.getOffsetAt(i));
                     lengths.add(result.getLengthAt(i));
                     SuggestionsInfo info = result.getSuggestionsInfoAt(i);
@@ -125,17 +128,20 @@ public class SpellCheckerSessionBridge implements SpellCheckerSessionListener {
                         }
                         suggestions_for_word.add(suggestion);
                     }
-                    suggestions.add(suggestions_for_word.toArray(new String[suggestions_for_word.size()]));
+                    suggestions.add(
+                            suggestions_for_word.toArray(new String[suggestions_for_word.size()]));
                 }
             }
         }
-        SpellCheckerSessionBridgeJni.get().processSpellCheckResults(mNativeSpellCheckerSessionBridge, SpellCheckerSessionBridge.this, convertListToArray(offsets), convertListToArray(lengths), suggestions.toArray(new String[suggestions.size()][]));
+        SpellCheckerSessionBridgeJni.get().processSpellCheckResults(
+                mNativeSpellCheckerSessionBridge, SpellCheckerSessionBridge.this,
+                convertListToArray(offsets), convertListToArray(lengths),
+                suggestions.toArray(new String[suggestions.size()][]));
     }
 
     /**
      * Helper method to convert an ArrayList of Integer objects into an array of primitive ints
      * for easier JNI handling of these objects on the native side.
-     *
      * @param list List to be converted to an array.
      */
     private int[] convertListToArray(ArrayList<Integer> list) {
@@ -147,11 +153,12 @@ public class SpellCheckerSessionBridge implements SpellCheckerSessionListener {
     }
 
     @Override
-    public void onGetSuggestions(SuggestionsInfo[] results) {
-    }
+    public void onGetSuggestions(SuggestionsInfo[] results) {}
 
     @NativeMethods
     interface Natives {
-        void processSpellCheckResults(long nativeSpellCheckerSessionBridge, SpellCheckerSessionBridge caller, int[] offsets, int[] lengths, String[][] suggestions);
+        void processSpellCheckResults(long nativeSpellCheckerSessionBridge,
+                SpellCheckerSessionBridge caller, int[] offsets, int[] lengths,
+                String[][] suggestions);
     }
 }

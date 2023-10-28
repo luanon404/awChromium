@@ -13,15 +13,20 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface MediaService extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends MediaService, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends MediaService, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<MediaService, MediaService.Proxy> MANAGER = MediaService_Internal.MANAGER;
 
-    void createInterfaceFactory(org.chromium.mojo.bindings.InterfaceRequest<InterfaceFactory> factory, FrameInterfaceFactory frameInterfaces);
+    void createInterfaceFactory(
+org.chromium.mojo.bindings.InterfaceRequest<InterfaceFactory> factory, FrameInterfaceFactory frameInterfaces);
 
 
 }

@@ -13,6 +13,9 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class VideoBufferHandle extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
@@ -20,8 +23,7 @@ public final class VideoBufferHandle extends org.chromium.mojo.bindings.Union {
         public static final int ReadOnlyShmemRegion = 1;
         public static final int MailboxHandles = 2;
         public static final int GpuMemoryBufferHandle = 3;
-    }
-
+    };
     private org.chromium.mojo_base.mojom.UnsafeSharedMemoryRegion mUnsafeShmemRegion;
     private org.chromium.mojo_base.mojom.ReadOnlySharedMemoryRegion mReadOnlyShmemRegion;
     private MailboxBufferHandleSet mMailboxHandles;
@@ -74,22 +76,22 @@ public final class VideoBufferHandle extends org.chromium.mojo.bindings.Union {
         encoder0.encode(this.mTag, offset + 4);
         switch (mTag) {
             case Tag.UnsafeShmemRegion: {
-
+                
                 encoder0.encode(this.mUnsafeShmemRegion, offset + 8, false);
                 break;
             }
             case Tag.ReadOnlyShmemRegion: {
-
+                
                 encoder0.encode(this.mReadOnlyShmemRegion, offset + 8, false);
                 break;
             }
             case Tag.MailboxHandles: {
-
+                
                 encoder0.encode(this.mMailboxHandles, offset + 8, false);
                 break;
             }
             case Tag.GpuMemoryBufferHandle: {
-
+                
                 encoder0.encode(this.mGpuMemoryBufferHandle, offset + 8, false);
                 break;
             }
@@ -111,28 +113,28 @@ public final class VideoBufferHandle extends org.chromium.mojo.bindings.Union {
         VideoBufferHandle result = new VideoBufferHandle();
         switch (dataHeader.elementsOrVersion) {
             case Tag.UnsafeShmemRegion: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mUnsafeShmemRegion = org.chromium.mojo_base.mojom.UnsafeSharedMemoryRegion.decode(decoder1);
                 result.mTag = Tag.UnsafeShmemRegion;
                 break;
             }
             case Tag.ReadOnlyShmemRegion: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mReadOnlyShmemRegion = org.chromium.mojo_base.mojom.ReadOnlySharedMemoryRegion.decode(decoder1);
                 result.mTag = Tag.ReadOnlyShmemRegion;
                 break;
             }
             case Tag.MailboxHandles: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mMailboxHandles = MailboxBufferHandleSet.decode(decoder1);
                 result.mTag = Tag.MailboxHandles;
                 break;
             }
             case Tag.GpuMemoryBufferHandle: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mGpuMemoryBufferHandle = org.chromium.gfx.mojom.GpuMemoryBufferHandle.decode(decoder1);
                 result.mTag = Tag.GpuMemoryBufferHandle;

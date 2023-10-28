@@ -4,39 +4,65 @@
 package org.chromium.media;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.content.ContentResolver;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.database.ContentObserver;
+import android.media.AudioDeviceInfo;
+import android.media.AudioFormat;
+import android.media.AudioManager;
+import android.media.AudioRecord;
+import android.media.AudioTrack;
+import android.media.audiofx.AcousticEchoCanceler;
+import android.os.Build;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.provider.Settings;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.ContextUtils;
+import org.chromium.base.Log;
+import org.chromium.base.ThreadUtils.ThreadChecker;
+import java.lang.reflect.Method;
+import java.util.Optional;
 
 @CheckDiscard("crbug.com/993421")
 class AudioManagerAndroidJni implements AudioManagerAndroid.Natives {
-    private static AudioManagerAndroid.Natives testInstance;
+  private static AudioManagerAndroid.Natives testInstance;
 
-    public static final JniStaticTestMocker<AudioManagerAndroid.Natives> TEST_HOOKS = new JniStaticTestMocker<AudioManagerAndroid.Natives>() {
-        @Override
-        public void setInstanceForTesting(AudioManagerAndroid.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<AudioManagerAndroid.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<AudioManagerAndroid.Natives>() {
     @Override
-    public void setMute(long nativeAudioManagerAndroid, AudioManagerAndroid caller, boolean muted) {
-        GEN_JNI.org_chromium_media_AudioManagerAndroid_setMute(nativeAudioManagerAndroid, caller, muted);
+    public void setInstanceForTesting(AudioManagerAndroid.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    public static AudioManagerAndroid.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of AudioManagerAndroid.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new AudioManagerAndroidJni();
+  @Override
+  public void setMute(long nativeAudioManagerAndroid, AudioManagerAndroid caller, boolean muted) {
+    GEN_JNI.org_chromium_media_AudioManagerAndroid_setMute(nativeAudioManagerAndroid, caller, muted);
+  }
+
+  public static AudioManagerAndroid.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of AudioManagerAndroid.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new AudioManagerAndroidJni();
+  }
 }

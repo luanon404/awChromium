@@ -4,46 +4,53 @@
 package org.chromium.android_webview;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
-
+import org.jni_zero.GEN_JNI;
+import org.jni_zero.CalledByNativeUnchecked;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.android_webview.common.Lifetime;
 import java.util.concurrent.Executor;
 
 @CheckDiscard("crbug.com/993421")
 class AwProxyControllerJni implements AwProxyController.Natives {
-    private static AwProxyController.Natives testInstance;
+  private static AwProxyController.Natives testInstance;
 
-    public static final JniStaticTestMocker<AwProxyController.Natives> TEST_HOOKS = new JniStaticTestMocker<AwProxyController.Natives>() {
-        @Override
-        public void setInstanceForTesting(AwProxyController.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<AwProxyController.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<AwProxyController.Natives>() {
     @Override
-    public void clearProxyOverride(AwProxyController caller, Runnable listener, Executor executor) {
-        GEN_JNI.org_chromium_android_1webview_AwProxyController_clearProxyOverride(caller, listener, executor);
+    public void setInstanceForTesting(AwProxyController.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public String setProxyOverride(AwProxyController caller, String[] urlSchemes, String[] proxyUrls, String[] bypassRules, Runnable listener, Executor executor, boolean reverseBypass) {
-        return (String) GEN_JNI.org_chromium_android_1webview_AwProxyController_setProxyOverride(caller, urlSchemes, proxyUrls, bypassRules, listener, executor, reverseBypass);
-    }
+  @Override
+  public void clearProxyOverride(AwProxyController caller, Runnable listener, Executor executor) {
+    GEN_JNI.org_chromium_android_1webview_AwProxyController_clearProxyOverride(caller, listener, executor);
+  }
 
-    public static AwProxyController.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of AwProxyController.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new AwProxyControllerJni();
+  @Override
+  public String setProxyOverride(AwProxyController caller, String[] urlSchemes, String[] proxyUrls, String[] bypassRules, Runnable listener, Executor executor, boolean reverseBypass) {
+    return (String) GEN_JNI.org_chromium_android_1webview_AwProxyController_setProxyOverride(caller, urlSchemes, proxyUrls, bypassRules, listener, executor, reverseBypass);
+  }
+
+  public static AwProxyController.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of AwProxyController.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new AwProxyControllerJni();
+  }
 }

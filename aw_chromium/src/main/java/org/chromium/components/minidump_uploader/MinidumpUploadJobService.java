@@ -19,7 +19,8 @@ import javax.annotation.concurrent.GuardedBy;
 /**
  * Class that interacts with the Android JobScheduler to upload Minidumps at appropriate times.
  */
-public abstract class MinidumpUploadJobService extends JobService implements MinidumpUploadJob.UploadsFinishedCallback {
+public abstract class MinidumpUploadJobService
+        extends JobService implements MinidumpUploadJob.UploadsFinishedCallback {
     private static final String TAG = "MinidumpJobService";
 
     // Initial back-off time for upload-job, i.e. the minimum delay when a job is retried. A retry
@@ -44,15 +45,19 @@ public abstract class MinidumpUploadJobService extends JobService implements Min
 
     /**
      * Schedules uploading of all pending minidumps.
-     *
      * @param jobInfoBuilder A job info builder that has been initialized with any embedder-specific
-     *                       requriements. This builder will be extended to include shared requirements, and then used
-     *                       to build an upload job for scheduling.
+     *     requriements. This builder will be extended to include shared requirements, and then used
+     *     to build an upload job for scheduling.
      */
     public static void scheduleUpload(JobInfo.Builder jobInfoBuilder) {
         Log.i(TAG, "Scheduling upload of all pending minidumps.");
-        JobScheduler scheduler = (JobScheduler) ContextUtils.getApplicationContext().getSystemService(Context.JOB_SCHEDULER_SERVICE);
-        JobInfo uploadJob = jobInfoBuilder.setBackoffCriteria(JOB_INITIAL_BACKOFF_TIME_IN_MS, JOB_BACKOFF_POLICY).build();
+        JobScheduler scheduler =
+                (JobScheduler) ContextUtils.getApplicationContext().getSystemService(
+                        Context.JOB_SCHEDULER_SERVICE);
+        JobInfo uploadJob =
+                jobInfoBuilder
+                        .setBackoffCriteria(JOB_INITIAL_BACKOFF_TIME_IN_MS, JOB_BACKOFF_POLICY)
+                        .build();
         int result = scheduler.schedule(uploadJob);
         assert result == JobScheduler.RESULT_SUCCESS;
     }
@@ -68,7 +73,12 @@ public abstract class MinidumpUploadJobService extends JobService implements Min
             if (mShouldReschedule) {
                 // Querying size forces unparcelling, which changes the output of toString().
                 assert params.getExtras().size() + mActiveJobParams.getExtras().size() < 10000;
-                assert params.getExtras().toString().equals(mActiveJobParams.getExtras().toString()) : params.getExtras() + " vs " + mActiveJobParams.getExtras();
+                assert params.getExtras()
+                                .toString()
+                                .equals(mActiveJobParams.getExtras().toString())
+                    : params.getExtras()
+                                .toString()
+                        + " vs " + mActiveJobParams.getExtras().toString();
                 return false;
             }
 
@@ -113,8 +123,7 @@ public abstract class MinidumpUploadJobService extends JobService implements Min
     /**
      * Records minidump uploading time.
      */
-    protected void recordMinidumpUploadingTime(long taskDurationMs) {
-    }
+    protected void recordMinidumpUploadingTime(long taskDurationMs) {}
 
     /**
      * Create a MinidumpUploadJob instance that implements required logic for uploading minidumps

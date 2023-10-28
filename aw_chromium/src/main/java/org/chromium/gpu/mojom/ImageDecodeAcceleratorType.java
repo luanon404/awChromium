@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class ImageDecodeAcceleratorType {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({ImageDecodeAcceleratorType.JPEG, ImageDecodeAcceleratorType.WEB_P, ImageDecodeAcceleratorType.UNKNOWN})
-    public @interface EnumType {
-    }
+        ImageDecodeAcceleratorType.JPEG,
+        ImageDecodeAcceleratorType.WEB_P,
+        ImageDecodeAcceleratorType.UNKNOWN})
+    public @interface EnumType {}
 
     public static final int JPEG = 0;
     public static final int WEB_P = 1;
@@ -38,9 +40,8 @@ public final class ImageDecodeAcceleratorType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private ImageDecodeAcceleratorType() {
-    }
+    private ImageDecodeAcceleratorType() {}
 }

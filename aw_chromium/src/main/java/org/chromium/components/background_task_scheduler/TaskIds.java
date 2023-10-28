@@ -1,3 +1,4 @@
+
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -14,131 +15,145 @@ import androidx.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@IntDef({TaskIds.TEST, TaskIds.OMAHA_JOB_ID, TaskIds.GCM_BACKGROUND_TASK_JOB_ID, TaskIds.NOTIFICATION_SERVICE_JOB_ID, TaskIds.WEBVIEW_MINIDUMP_UPLOADING_JOB_ID, TaskIds.CHROME_MINIDUMP_UPLOADING_JOB_ID, TaskIds.OFFLINE_PAGES_BACKGROUND_JOB_ID, TaskIds.DOWNLOAD_SERVICE_JOB_ID, TaskIds.DOWNLOAD_CLEANUP_JOB_ID, TaskIds.WEBVIEW_VARIATIONS_SEED_FETCH_JOB_ID, TaskIds.WEBAPK_UPDATE_JOB_ID, TaskIds.DEPRECATED_DOWNLOAD_RESUMPTION_JOB_ID, TaskIds.DOWNLOAD_AUTO_RESUMPTION_JOB_ID, TaskIds.DOWNLOAD_LATER_JOB_ID, TaskIds.DOWNLOAD_AUTO_RESUMPTION_UNMETERED_JOB_ID, TaskIds.DOWNLOAD_AUTO_RESUMPTION_ANY_NETWORK_JOB_ID, TaskIds.FEED_REFRESH_JOB_ID, TaskIds.COMPONENT_UPDATE_JOB_ID, TaskIds.BACKGROUND_SYNC_ONE_SHOT_JOB_ID, TaskIds.NOTIFICATION_SCHEDULER_JOB_ID, TaskIds.NOTIFICATION_TRIGGER_JOB_ID, TaskIds.PERIODIC_BACKGROUND_SYNC_CHROME_WAKEUP_TASK_JOB_ID, TaskIds.QUERY_TILE_JOB_ID, TaskIds.FEEDV2_REFRESH_JOB_ID, TaskIds.WEBFEEDS_REFRESH_JOB_ID, TaskIds.WEBVIEW_COMPONENT_UPDATE_JOB_ID, TaskIds.ATTRIBUTION_PROVIDER_FLUSH_JOB_ID})
+@IntDef({
+    TaskIds.TEST, TaskIds.OMAHA_JOB_ID, TaskIds.GCM_BACKGROUND_TASK_JOB_ID,
+    TaskIds.NOTIFICATION_SERVICE_JOB_ID, TaskIds.WEBVIEW_MINIDUMP_UPLOADING_JOB_ID,
+    TaskIds.CHROME_MINIDUMP_UPLOADING_JOB_ID, TaskIds.OFFLINE_PAGES_BACKGROUND_JOB_ID,
+    TaskIds.DOWNLOAD_SERVICE_JOB_ID, TaskIds.DOWNLOAD_CLEANUP_JOB_ID,
+    TaskIds.WEBVIEW_VARIATIONS_SEED_FETCH_JOB_ID, TaskIds.WEBAPK_UPDATE_JOB_ID,
+    TaskIds.DEPRECATED_DOWNLOAD_RESUMPTION_JOB_ID, TaskIds.DOWNLOAD_AUTO_RESUMPTION_JOB_ID,
+    TaskIds.DOWNLOAD_LATER_JOB_ID, TaskIds.DOWNLOAD_AUTO_RESUMPTION_UNMETERED_JOB_ID,
+    TaskIds.DOWNLOAD_AUTO_RESUMPTION_ANY_NETWORK_JOB_ID, TaskIds.FEED_REFRESH_JOB_ID,
+    TaskIds.COMPONENT_UPDATE_JOB_ID, TaskIds.BACKGROUND_SYNC_ONE_SHOT_JOB_ID,
+    TaskIds.NOTIFICATION_SCHEDULER_JOB_ID, TaskIds.NOTIFICATION_TRIGGER_JOB_ID,
+    TaskIds.PERIODIC_BACKGROUND_SYNC_CHROME_WAKEUP_TASK_JOB_ID, TaskIds.QUERY_TILE_JOB_ID,
+    TaskIds.FEEDV2_REFRESH_JOB_ID, TaskIds.WEBFEEDS_REFRESH_JOB_ID,
+    TaskIds.WEBVIEW_COMPONENT_UPDATE_JOB_ID, TaskIds.ATTRIBUTION_PROVIDER_FLUSH_JOB_ID
+})
 @Retention(RetentionPolicy.SOURCE)
 public @interface TaskIds {
-    /**
-     * component: Internals>BackgroundTaskScheduler team_email: clank-dev@google.com owner:
-     * nyquist@chromium.org, shaktisahu@chromium.org
-     */
-    int TEST = 0x00008378;
-    /**
-     * component: Internals>Installer team_email: chrome-updates-dev@chromium.org owner:
-     * waffles@chromium.org
-     */
-    int OMAHA_JOB_ID = 0x00011684;
-    /**
-     * component: Services>CloudMessaging team_email: owner: peter@chromium.org
-     */
-    int GCM_BACKGROUND_TASK_JOB_ID = 1;
-    /**
-     * component: UI>Notifications team_email: platform-capabilities@chromium.org owner:
-     * peter@chromium.org
-     */
-    int NOTIFICATION_SERVICE_JOB_ID = 21;
-    /**
-     * component: Mobile>WebView team_email: android-webview-dev@chromium.org owner:
-     * boliu@chromium.org
-     */
-    int WEBVIEW_MINIDUMP_UPLOADING_JOB_ID = 42;
-    /**
-     * component: Internals>CrashReporting team_email: owner: wnwen@chromium.org
-     */
-    int CHROME_MINIDUMP_UPLOADING_JOB_ID = 43;
-    /**
-     * component: UI>Browser>Offline team_email: offline-dev@chromium.org owner: dewittj@chromium.org
-     */
-    int OFFLINE_PAGES_BACKGROUND_JOB_ID = 77;
-    /**
-     * component: UI>Browser>Downloads team_email: owner: qinmin@chromium.org
-     */
-    int DOWNLOAD_SERVICE_JOB_ID = 53;
-    /**
-     * component: UI>Browser>Downloads team_email: owner: qinmin@chromium.org
-     */
-    int DOWNLOAD_CLEANUP_JOB_ID = 54;
-    /**
-     * component: Mobile>WebView team_email: android-webview-dev@chromium.org owner:
-     * ntfschr@chromium.org, torne@chromium.org
-     */
-    int WEBVIEW_VARIATIONS_SEED_FETCH_JOB_ID = 83;
-    /**
-     * component: UI>Browser>WebAppInstalls team_email: owner: hartmanng@chromium.org
-     */
-    int WEBAPK_UPDATE_JOB_ID = 91;
-    /**
-     * component: UI>Browser>Downloads team_email: owner: qinmin@chromium.org
-     */
-    int DEPRECATED_DOWNLOAD_RESUMPTION_JOB_ID = 55;
-    /**
-     * component: UI>Browser>Downloads team_email: owner: qinmin@chromium.org
-     */
-    int DOWNLOAD_AUTO_RESUMPTION_JOB_ID = 56;
-    /**
-     * component: UI>Browser>Downloads team_email: owner: qinmin@chromium.org
-     */
-    int DOWNLOAD_LATER_JOB_ID = 57;
-    /**
-     * component: UI>Browser>Downloads team_email: owner: qinmin@chromium.org
-     */
-    int DOWNLOAD_AUTO_RESUMPTION_UNMETERED_JOB_ID = 58;
-    /**
-     * component: UI>Browser>Downloads team_email: owner: qinmin@chromium.org
-     */
-    int DOWNLOAD_AUTO_RESUMPTION_ANY_NETWORK_JOB_ID = 59;
-    /**
-     * component: UI>Browser>ContentSuggestions>Feed team_email: feed@chromium.org owner:
-     * dewittj@chromium.org
-     */
-    int FEED_REFRESH_JOB_ID = 22;
-    /**
-     * component: Internals>Installer>Components team_email: chrome-updates-dev@chromium.org owner:
-     * waffles@chromium.org
-     */
-    int COMPONENT_UPDATE_JOB_ID = 2;
-    /**
-     * component: Blink>BackgroundSync team_email: platform-capabilities@chromium.org owner:
-     * peter@chromium.org
-     */
-    int BACKGROUND_SYNC_ONE_SHOT_JOB_ID = 102;
-    /**
-     * component: UI>Notifications team_email: platform-capabilities@chromium.org owner:
-     * dtrainor@chromium.org
-     */
-    int NOTIFICATION_SCHEDULER_JOB_ID = 103;
-    /**
-     * component: UI>Notifications team_email: platform-capabilities@chromium.org owner:
-     * peter@chromium.org, dtrainor@chromium.org
-     */
-    int NOTIFICATION_TRIGGER_JOB_ID = 104;
-    /**
-     * component: Blink>BackgroundSync team_email: platform-capabilities@chromium.org owner:
-     * peter@chromium.org
-     */
-    int PERIODIC_BACKGROUND_SYNC_CHROME_WAKEUP_TASK_JOB_ID = 105;
-    /**
-     * component: Upboarding>QueryTiles team_email: chrome-upboarding-eng@google.com owner:
-     * qinmin@chromium.org, shaktisahu@chromium.org
-     */
-    int QUERY_TILE_JOB_ID = 106;
-    /**
-     * component: UI>Browser>ContentSuggestions>Feed team_email: feed@chromium.org owner:
-     * dewittj@chromium.org
-     */
-    int FEEDV2_REFRESH_JOB_ID = 107;
-    /**
-     * component: UI>Browser>ContentSuggestions>Feed team_email: feed@chromium.org owner:
-     * dewittj@chromium.org
-     */
-    int WEBFEEDS_REFRESH_JOB_ID = 109;
-    /**
-     * component: Mobile>WebView team_email: android-webview-dev@chromium.org owner:
-     * ntfschr@chromium.org, torne@chromium.org
-     */
-    int WEBVIEW_COMPONENT_UPDATE_JOB_ID = 110;
-    /**
-     * component: Internals>AttributionReporting team_email: privacy-sandbox-dev@chromium.org owner:
-     * csharrison@chromium.org
-     */
-    int ATTRIBUTION_PROVIDER_FLUSH_JOB_ID = 111;
+  /**
+   * component: Internals>BackgroundTaskScheduler team_email: clank-dev@google.com owner:
+   * nyquist@chromium.org, shaktisahu@chromium.org
+   */
+  int TEST = 0x00008378;
+  /**
+   * component: Internals>Installer team_email: chrome-updates-dev@chromium.org owner:
+   * waffles@chromium.org
+   */
+  int OMAHA_JOB_ID = 0x00011684;
+  /**
+   * component: Services>CloudMessaging team_email: owner: peter@chromium.org
+   */
+  int GCM_BACKGROUND_TASK_JOB_ID = 1;
+  /**
+   * component: UI>Notifications team_email: platform-capabilities@chromium.org owner:
+   * peter@chromium.org
+   */
+  int NOTIFICATION_SERVICE_JOB_ID = 21;
+  /**
+   * component: Mobile>WebView team_email: android-webview-dev@chromium.org owner:
+   * boliu@chromium.org
+   */
+  int WEBVIEW_MINIDUMP_UPLOADING_JOB_ID = 42;
+  /**
+   * component: Internals>CrashReporting team_email: owner: wnwen@chromium.org
+   */
+  int CHROME_MINIDUMP_UPLOADING_JOB_ID = 43;
+  /**
+   * component: UI>Browser>Offline team_email: offline-dev@chromium.org owner: dewittj@chromium.org
+   */
+  int OFFLINE_PAGES_BACKGROUND_JOB_ID = 77;
+  /**
+   * component: UI>Browser>Downloads team_email: owner: qinmin@chromium.org
+   */
+  int DOWNLOAD_SERVICE_JOB_ID = 53;
+  /**
+   * component: UI>Browser>Downloads team_email: owner: qinmin@chromium.org
+   */
+  int DOWNLOAD_CLEANUP_JOB_ID = 54;
+  /**
+   * component: Mobile>WebView team_email: android-webview-dev@chromium.org owner:
+   * ntfschr@chromium.org, torne@chromium.org
+   */
+  int WEBVIEW_VARIATIONS_SEED_FETCH_JOB_ID = 83;
+  /**
+   * component: UI>Browser>WebAppInstalls team_email: owner: hartmanng@chromium.org
+   */
+  int WEBAPK_UPDATE_JOB_ID = 91;
+  /**
+   * component: UI>Browser>Downloads team_email: owner: qinmin@chromium.org
+   */
+  int DEPRECATED_DOWNLOAD_RESUMPTION_JOB_ID = 55;
+  /**
+   * component: UI>Browser>Downloads team_email: owner: qinmin@chromium.org
+   */
+  int DOWNLOAD_AUTO_RESUMPTION_JOB_ID = 56;
+  /**
+   * component: UI>Browser>Downloads team_email: owner: qinmin@chromium.org
+   */
+  int DOWNLOAD_LATER_JOB_ID = 57;
+  /**
+   * component: UI>Browser>Downloads team_email: owner: qinmin@chromium.org
+   */
+  int DOWNLOAD_AUTO_RESUMPTION_UNMETERED_JOB_ID = 58;
+  /**
+   * component: UI>Browser>Downloads team_email: owner: qinmin@chromium.org
+   */
+  int DOWNLOAD_AUTO_RESUMPTION_ANY_NETWORK_JOB_ID = 59;
+  /**
+   * component: UI>Browser>ContentSuggestions>Feed team_email: feed@chromium.org owner:
+   * dewittj@chromium.org
+   */
+  int FEED_REFRESH_JOB_ID = 22;
+  /**
+   * component: Internals>Installer>Components team_email: chrome-updates-dev@chromium.org owner:
+   * waffles@chromium.org
+   */
+  int COMPONENT_UPDATE_JOB_ID = 2;
+  /**
+   * component: Blink>BackgroundSync team_email: platform-capabilities@chromium.org owner:
+   * peter@chromium.org
+   */
+  int BACKGROUND_SYNC_ONE_SHOT_JOB_ID = 102;
+  /**
+   * component: UI>Notifications team_email: platform-capabilities@chromium.org owner:
+   * dtrainor@chromium.org
+   */
+  int NOTIFICATION_SCHEDULER_JOB_ID = 103;
+  /**
+   * component: UI>Notifications team_email: platform-capabilities@chromium.org owner:
+   * peter@chromium.org, dtrainor@chromium.org
+   */
+  int NOTIFICATION_TRIGGER_JOB_ID = 104;
+  /**
+   * component: Blink>BackgroundSync team_email: platform-capabilities@chromium.org owner:
+   * peter@chromium.org
+   */
+  int PERIODIC_BACKGROUND_SYNC_CHROME_WAKEUP_TASK_JOB_ID = 105;
+  /**
+   * component: Upboarding>QueryTiles team_email: chrome-upboarding-eng@google.com owner:
+   * qinmin@chromium.org, shaktisahu@chromium.org
+   */
+  int QUERY_TILE_JOB_ID = 106;
+  /**
+   * component: UI>Browser>ContentSuggestions>Feed team_email: feed@chromium.org owner:
+   * dewittj@chromium.org
+   */
+  int FEEDV2_REFRESH_JOB_ID = 107;
+  /**
+   * component: UI>Browser>ContentSuggestions>Feed team_email: feed@chromium.org owner:
+   * dewittj@chromium.org
+   */
+  int WEBFEEDS_REFRESH_JOB_ID = 109;
+  /**
+   * component: Mobile>WebView team_email: android-webview-dev@chromium.org owner:
+   * ntfschr@chromium.org, torne@chromium.org
+   */
+  int WEBVIEW_COMPONENT_UPDATE_JOB_ID = 110;
+  /**
+   * component: Internals>AttributionReporting team_email: privacy-sandbox-dev@chromium.org owner:
+   * csharrison@chromium.org
+   */
+  int ATTRIBUTION_PROVIDER_FLUSH_JOB_ID = 111;
 }

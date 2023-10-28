@@ -61,7 +61,8 @@ public class VariationsCompressionUtils {
     /**
      * Parses the instance manipulations header and returns the result.
      */
-    public static InstanceManipulations getInstanceManipulations(String imHeader) throws InvalidImHeaderException {
+    public static InstanceManipulations getInstanceManipulations(String imHeader)
+            throws InvalidImHeaderException {
         List<String> manipulations = new ArrayList<String>();
         if (imHeader.length() > 0) {
             // Split header by comma and remove whitespaces.
@@ -76,11 +77,14 @@ public class VariationsCompressionUtils {
 
         int numCompressions = (isDeltaCompressed ? 1 : 0) + (isGzipCompressed ? 1 : 0);
         if (numCompressions != manipulations.size()) {
-            throw new InvalidImHeaderException("Unrecognized instance manipulations in " + imHeader + "; only x-bm and gzip are supported");
+            throw new InvalidImHeaderException("Unrecognized instance manipulations in " + imHeader
+                    + "; only x-bm and gzip are supported");
         }
 
         if (isDeltaCompressed && isGzipCompressed && deltaIm > gzipIm) {
-            throw new InvalidImHeaderException("Unsupported instance manipulations order: expected x-bm,gzip, " + "but received gzip,x-bm");
+            throw new InvalidImHeaderException(
+                    "Unsupported instance manipulations order: expected x-bm,gzip, "
+                    + "but received gzip,x-bm");
         }
         return new InstanceManipulations(isGzipCompressed, isDeltaCompressed);
     }
@@ -89,7 +93,9 @@ public class VariationsCompressionUtils {
      * gzip-compresses a byte array of data.
      */
     public static byte[] gzipCompress(byte[] uncompressedData) throws IOException {
-        try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(uncompressedData.length); GZIPOutputStream gzipOutputStream = new GZIPOutputStream(byteArrayOutputStream)) {
+        try (ByteArrayOutputStream byteArrayOutputStream =
+                        new ByteArrayOutputStream(uncompressedData.length);
+                GZIPOutputStream gzipOutputStream = new GZIPOutputStream(byteArrayOutputStream)) {
             gzipOutputStream.write(uncompressedData);
             gzipOutputStream.close();
             return byteArrayOutputStream.toByteArray();
@@ -100,7 +106,9 @@ public class VariationsCompressionUtils {
      * gzip-uncompresses a byte array of data.
      */
     public static byte[] gzipUncompress(byte[] compressedData) throws IOException {
-        try (ByteArrayInputStream byteInputStream = new ByteArrayInputStream(compressedData); ByteArrayOutputStream byteOutputStream = new ByteArrayOutputStream(); GZIPInputStream gzipInputStream = new GZIPInputStream(byteInputStream)) {
+        try (ByteArrayInputStream byteInputStream = new ByteArrayInputStream(compressedData);
+                ByteArrayOutputStream byteOutputStream = new ByteArrayOutputStream();
+                GZIPInputStream gzipInputStream = new GZIPInputStream(byteInputStream)) {
             int bufferSize = 1024;
             int len;
             byte[] buffer = new byte[bufferSize];
@@ -113,11 +121,13 @@ public class VariationsCompressionUtils {
     }
 
     /**
-     * Applies the {@code deltaPatch} to {@code existingSeedData}.
+     *  Applies the {@code deltaPatch} to {@code existingSeedData}.
      */
-    public static byte[] applyDeltaPatch(byte[] existingSeedData, byte[] deltaPatch) throws DeltaPatchException {
+    public static byte[] applyDeltaPatch(byte[] existingSeedData, byte[] deltaPatch)
+            throws DeltaPatchException {
         try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
-            CodedInputStream deltaReader = CodedInputStream.newInstance(ByteBuffer.wrap(deltaPatch));
+            CodedInputStream deltaReader =
+                    CodedInputStream.newInstance(ByteBuffer.wrap(deltaPatch));
             while (!deltaReader.isAtEnd()) {
                 int value = deltaReader.readUInt32();
                 if (value != 0) {
@@ -132,7 +142,8 @@ public class VariationsCompressionUtils {
                     int offset = deltaReader.readUInt32();
                     int length = deltaReader.readUInt32();
                     // addExact raises ArithmeticException if the sum overflows.
-                    byte[] copy = Arrays.copyOfRange(existingSeedData, offset, Math.addExact(offset, length));
+                    byte[] copy = Arrays.copyOfRange(
+                            existingSeedData, offset, Math.addExact(offset, length));
                     out.write(copy, 0, length);
                 }
             }

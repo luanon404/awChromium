@@ -4,61 +4,93 @@
 package org.chromium.android_webview;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
-
+import org.jni_zero.GEN_JNI;
+import android.content.ActivityNotFoundException;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.net.Uri;
+import android.net.http.SslCertificate;
+import android.net.http.SslError;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.CalledByNativeUnchecked;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.android_webview.safe_browsing.AwSafeBrowsingConversionHelper;
+import org.chromium.android_webview.safe_browsing.AwSafeBrowsingResponse;
+import org.chromium.base.Callback;
+import org.chromium.base.Log;
+import org.chromium.base.TraceEvent;
+import org.chromium.base.task.PostTask;
+import org.chromium.base.task.TaskTraits;
+import org.chromium.components.embedder_support.util.WebResourceResponseInfo;
+import org.chromium.net.NetError;
+import java.security.Principal;
 import java.security.PrivateKey;
+import java.security.cert.CertificateEncodingException;
+import java.security.cert.X509Certificate;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.security.auth.x500.X500Principal;
 
 @CheckDiscard("crbug.com/993421")
 class AwContentsClientBridgeJni implements AwContentsClientBridge.Natives {
-    private static AwContentsClientBridge.Natives testInstance;
+  private static AwContentsClientBridge.Natives testInstance;
 
-    public static final JniStaticTestMocker<AwContentsClientBridge.Natives> TEST_HOOKS = new JniStaticTestMocker<AwContentsClientBridge.Natives>() {
-        @Override
-        public void setInstanceForTesting(AwContentsClientBridge.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<AwContentsClientBridge.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<AwContentsClientBridge.Natives>() {
     @Override
-    public void cancelJsResult(long nativeAwContentsClientBridge, AwContentsClientBridge caller, int id) {
-        GEN_JNI.org_chromium_android_1webview_AwContentsClientBridge_cancelJsResult(nativeAwContentsClientBridge, caller, id);
+    public void setInstanceForTesting(AwContentsClientBridge.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public void confirmJsResult(long nativeAwContentsClientBridge, AwContentsClientBridge caller, int id, String prompt) {
-        GEN_JNI.org_chromium_android_1webview_AwContentsClientBridge_confirmJsResult(nativeAwContentsClientBridge, caller, id, prompt);
-    }
+  @Override
+  public void cancelJsResult(long nativeAwContentsClientBridge, AwContentsClientBridge caller, int id) {
+    GEN_JNI.org_chromium_android_1webview_AwContentsClientBridge_cancelJsResult(nativeAwContentsClientBridge, caller, id);
+  }
 
-    @Override
-    public void proceedSslError(long nativeAwContentsClientBridge, AwContentsClientBridge caller, boolean proceed, int id) {
-        GEN_JNI.org_chromium_android_1webview_AwContentsClientBridge_proceedSslError(nativeAwContentsClientBridge, caller, proceed, id);
-    }
+  @Override
+  public void confirmJsResult(long nativeAwContentsClientBridge, AwContentsClientBridge caller, int id, String prompt) {
+    GEN_JNI.org_chromium_android_1webview_AwContentsClientBridge_confirmJsResult(nativeAwContentsClientBridge, caller, id, prompt);
+  }
 
-    @Override
-    public void provideClientCertificateResponse(long nativeAwContentsClientBridge, AwContentsClientBridge caller, int id, byte[][] certChain, PrivateKey androidKey) {
-        GEN_JNI.org_chromium_android_1webview_AwContentsClientBridge_provideClientCertificateResponse(nativeAwContentsClientBridge, caller, id, certChain, androidKey);
-    }
+  @Override
+  public void proceedSslError(long nativeAwContentsClientBridge, AwContentsClientBridge caller, boolean proceed, int id) {
+    GEN_JNI.org_chromium_android_1webview_AwContentsClientBridge_proceedSslError(nativeAwContentsClientBridge, caller, proceed, id);
+  }
 
-    @Override
-    public void takeSafeBrowsingAction(long nativeAwContentsClientBridge, AwContentsClientBridge caller, int action, boolean reporting, int requestId) {
-        GEN_JNI.org_chromium_android_1webview_AwContentsClientBridge_takeSafeBrowsingAction(nativeAwContentsClientBridge, caller, action, reporting, requestId);
-    }
+  @Override
+  public void provideClientCertificateResponse(long nativeAwContentsClientBridge, AwContentsClientBridge caller, int id, byte[][] certChain, PrivateKey androidKey) {
+    GEN_JNI.org_chromium_android_1webview_AwContentsClientBridge_provideClientCertificateResponse(nativeAwContentsClientBridge, caller, id, certChain, androidKey);
+  }
 
-    public static AwContentsClientBridge.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of AwContentsClientBridge.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new AwContentsClientBridgeJni();
+  @Override
+  public void takeSafeBrowsingAction(long nativeAwContentsClientBridge, AwContentsClientBridge caller, int action, boolean reporting, int requestId) {
+    GEN_JNI.org_chromium_android_1webview_AwContentsClientBridge_takeSafeBrowsingAction(nativeAwContentsClientBridge, caller, action, reporting, requestId);
+  }
+
+  public static AwContentsClientBridge.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of AwContentsClientBridge.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new AwContentsClientBridgeJni();
+  }
 }

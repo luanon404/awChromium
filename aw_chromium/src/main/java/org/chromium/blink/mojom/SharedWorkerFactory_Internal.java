@@ -13,6 +13,8 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 class SharedWorkerFactory_Internal {
 
@@ -158,7 +160,7 @@ SharedWorkerInfo info, SharedWorkerToken token, StorageKey constructorKey, boole
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -189,7 +191,7 @@ SharedWorkerInfo info, SharedWorkerToken token, StorageKey constructorKey, boole
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }

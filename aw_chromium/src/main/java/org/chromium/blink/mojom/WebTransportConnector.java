@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface WebTransportConnector extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends WebTransportConnector, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends WebTransportConnector, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<WebTransportConnector, WebTransportConnector.Proxy> MANAGER = WebTransportConnector_Internal.MANAGER;

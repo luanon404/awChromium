@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class ResolutionChangePolicy {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({ResolutionChangePolicy.FIXED_RESOLUTION, ResolutionChangePolicy.FIXED_ASPECT_RATIO, ResolutionChangePolicy.ANY_WITHIN_LIMIT})
-    public @interface EnumType {
-    }
+        ResolutionChangePolicy.FIXED_RESOLUTION,
+        ResolutionChangePolicy.FIXED_ASPECT_RATIO,
+        ResolutionChangePolicy.ANY_WITHIN_LIMIT})
+    public @interface EnumType {}
 
     public static final int FIXED_RESOLUTION = 0;
     public static final int FIXED_ASPECT_RATIO = 1;
@@ -38,9 +40,8 @@ public final class ResolutionChangePolicy {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private ResolutionChangePolicy() {
-    }
+    private ResolutionChangePolicy() {}
 }

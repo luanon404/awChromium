@@ -17,10 +17,11 @@ import androidx.annotation.IntDef;
 
 public final class TrustTokenRefreshPolicy {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({TrustTokenRefreshPolicy.USE_CACHED, TrustTokenRefreshPolicy.REFRESH})
-    public @interface EnumType {
-    }
+        TrustTokenRefreshPolicy.USE_CACHED,
+        TrustTokenRefreshPolicy.REFRESH})
+    public @interface EnumType {}
 
     public static final int USE_CACHED = 0;
     public static final int REFRESH = 1;
@@ -37,9 +38,8 @@ public final class TrustTokenRefreshPolicy {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private TrustTokenRefreshPolicy() {
-    }
+    private TrustTokenRefreshPolicy() {}
 }

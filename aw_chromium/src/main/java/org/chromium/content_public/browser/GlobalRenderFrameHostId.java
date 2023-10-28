@@ -23,7 +23,6 @@ public final class GlobalRenderFrameHostId {
     public int childId() {
         return mChildId;
     }
-
     public int frameRoutingId() {
         return mFrameRoutingId;
     }

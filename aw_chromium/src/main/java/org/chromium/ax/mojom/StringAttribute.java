@@ -17,10 +17,45 @@ import androidx.annotation.IntDef;
 
 public final class StringAttribute {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({StringAttribute.NONE, StringAttribute.ACCESS_KEY, StringAttribute.APP_ID, StringAttribute.ARIA_INVALID_VALUE_DEPRECATED, StringAttribute.AUTO_COMPLETE, StringAttribute.ARIA_BRAILLE_LABEL, StringAttribute.ARIA_BRAILLE_ROLE_DESCRIPTION, StringAttribute.CHECKED_STATE_DESCRIPTION, StringAttribute.CHILD_TREE_ID, StringAttribute.CHILD_TREE_NODE_APP_ID, StringAttribute.CLASS_NAME, StringAttribute.CONTAINER_LIVE_RELEVANT, StringAttribute.CONTAINER_LIVE_STATUS, StringAttribute.DESCRIPTION, StringAttribute.DISPLAY, StringAttribute.DO_DEFAULT_LABEL, StringAttribute.FONT_FAMILY, StringAttribute.HTML_TAG, StringAttribute.IMAGE_ANNOTATION, StringAttribute.IMAGE_DATA_URL, StringAttribute.INNER_HTML, StringAttribute.INPUT_TYPE, StringAttribute.KEY_SHORTCUTS, StringAttribute.LANGUAGE, StringAttribute.LINK_TARGET, StringAttribute.LONG_CLICK_LABEL, StringAttribute.NAME, StringAttribute.LIVE_RELEVANT, StringAttribute.LIVE_STATUS, StringAttribute.PLACEHOLDER, StringAttribute.ROLE, StringAttribute.ROLE_DESCRIPTION, StringAttribute.TOOLTIP, StringAttribute.URL, StringAttribute.VALUE, StringAttribute.VIRTUAL_CONTENT})
-    public @interface EnumType {
-    }
+        StringAttribute.NONE,
+        StringAttribute.ACCESS_KEY,
+        StringAttribute.APP_ID,
+        StringAttribute.ARIA_INVALID_VALUE_DEPRECATED,
+        StringAttribute.AUTO_COMPLETE,
+        StringAttribute.ARIA_BRAILLE_LABEL,
+        StringAttribute.ARIA_BRAILLE_ROLE_DESCRIPTION,
+        StringAttribute.CHECKED_STATE_DESCRIPTION,
+        StringAttribute.CHILD_TREE_ID,
+        StringAttribute.CHILD_TREE_NODE_APP_ID,
+        StringAttribute.CLASS_NAME,
+        StringAttribute.CONTAINER_LIVE_RELEVANT,
+        StringAttribute.CONTAINER_LIVE_STATUS,
+        StringAttribute.DESCRIPTION,
+        StringAttribute.DISPLAY,
+        StringAttribute.DO_DEFAULT_LABEL,
+        StringAttribute.FONT_FAMILY,
+        StringAttribute.HTML_TAG,
+        StringAttribute.IMAGE_ANNOTATION,
+        StringAttribute.IMAGE_DATA_URL,
+        StringAttribute.INNER_HTML,
+        StringAttribute.INPUT_TYPE,
+        StringAttribute.KEY_SHORTCUTS,
+        StringAttribute.LANGUAGE,
+        StringAttribute.LINK_TARGET,
+        StringAttribute.LONG_CLICK_LABEL,
+        StringAttribute.NAME,
+        StringAttribute.LIVE_RELEVANT,
+        StringAttribute.LIVE_STATUS,
+        StringAttribute.PLACEHOLDER,
+        StringAttribute.ROLE,
+        StringAttribute.ROLE_DESCRIPTION,
+        StringAttribute.TOOLTIP,
+        StringAttribute.URL,
+        StringAttribute.VALUE,
+        StringAttribute.VIRTUAL_CONTENT})
+    public @interface EnumType {}
 
     public static final int NONE = 0;
     public static final int ACCESS_KEY = 1;
@@ -72,12 +107,11 @@ public final class StringAttribute {
     }
 
     public static int toKnownValue(int value) {
-        if (isKnownValue(value)) {
-            return value;
-        }
-        return DEFAULT_VALUE;
+      if (isKnownValue(value)) {
+        return value;
+      }
+      return DEFAULT_VALUE;
     }
 
-    private StringAttribute() {
-    }
+    private StringAttribute() {}
 }

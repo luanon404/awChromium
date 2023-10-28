@@ -22,8 +22,8 @@ import androidx.annotation.IntDef;
 import androidx.annotation.StringRes;
 import androidx.annotation.StyleRes;
 
-import org.chromium.android_webview.R;
 import org.chromium.base.SysUtils;
+import org.chromium.android_webview.R;
 import org.chromium.ui.display.DisplayAndroid;
 
 import java.lang.annotation.Retention;
@@ -32,9 +32,9 @@ import java.lang.annotation.RetentionPolicy;
 /**
  * Toast wrapper, makes sure toasts are not HW accelerated on low-end devices and presented
  * correctly (i.e. use VrToast while in virtual reality).
- * <p>
+ *
  * Can (and should) also be used for Chromium-related additions and extensions.
- * <p>
+ *
  * When {@link ToastManager} is enabled, priority {@code HIGH} can be used when it is critical
  * that the toast be shown sooner than those of priority {@code NORMAL} queued for their turn.
  * See {@link ToastManager} for more details.
@@ -46,9 +46,7 @@ public class Toast {
 
     private static int sExtraYOffset;
 
-    /**
-     * The different priorities that a toast can have.
-     */
+    /** The different priorities that a toast can have. */
     @IntDef({ToastPriority.HIGH, ToastPriority.NORMAL})
     @Retention(RetentionPolicy.SOURCE)
     public @interface ToastPriority {
@@ -56,7 +54,7 @@ public class Toast {
         int NORMAL = 1;
     }
 
-    private final android.widget.Toast mToast;
+    private android.widget.Toast mToast;
     private ViewGroup mSWLayout;
     private @ToastPriority int mPriority;
     private CharSequence mText;
@@ -81,7 +79,8 @@ public class Toast {
 
         mToast = UiWidgetFactory.getInstance().createToast(context);
         setView(toastView);
-        mToast.setGravity(mToast.getGravity(), mToast.getXOffset(), mToast.getYOffset() + sExtraYOffset);
+        mToast.setGravity(
+                mToast.getGravity(), mToast.getXOffset(), mToast.getYOffset() + sExtraYOffset);
     }
 
     public void show() {
@@ -171,11 +170,13 @@ public class Toast {
         // and offset a little extra from that side.
         final boolean viewOnLeftHalf = screenPos[0] < screenWidth / 2;
         final int horizontalGravity = viewOnLeftHalf ? Gravity.LEFT : Gravity.RIGHT;
-        final int xOffset = viewOnLeftHalf ? screenPos[0] + width / 2 : screenWidth - screenPos[0] - width / 2;
+        final int xOffset =
+                viewOnLeftHalf ? screenPos[0] + width / 2 : screenWidth - screenPos[0] - width / 2;
         // Similar to xOffset, only always use Gravity.TOP. This seems to usually cause overlap with
         // the anchor view on the bottom half of the screen.
         final boolean viewOnTopHalf = screenPos[1] < screenHeight / 2;
-        final int yOffset = viewOnTopHalf ? screenPos[1] + height / 2 : screenPos[1] - height * 3 / 2;
+        final int yOffset =
+                viewOnTopHalf ? screenPos[1] + height / 2 : screenPos[1] - height * 3 / 2;
 
         // There seems to be a host of issues that cause this to not be exactly correct. It's
         // unclear which measurements above are taking into account bezels and status/nav bars, and
@@ -222,32 +223,37 @@ public class Toast {
 
     /**
      * Create a new {@link Toast} with a given priority. See Javadoc for when to use it.
-     *
-     * @param context  {@link Context} in which the toast is created.
-     * @param resId    Resource of for the text message.
+     * @param context {@link Context} in which the toast is created.
+     * @param resId Resource of for the text message.
      * @param duration Duration of the toast. Either {@link android.widget.Toast#LENGTH_SHORT}
-     *                 or {@link android.widget.Toast#LENGTH_LONG}.
+     *        or {@link android.widget.Toast#LENGTH_LONG}.
      * @param priority {@link ToastPriority} to be assigned to the toast.
      */
-    public static Toast makeTextWithPriority(Context context, int resId, int duration, int priority) {
-        return new Builder(context).withTextStringRes(resId).withDuration(duration).withPriority(priority).build();
+    public static Toast makeTextWithPriority(
+            Context context, int resId, int duration, int priority) {
+        return new Builder(context)
+                .withTextStringRes(resId)
+                .withDuration(duration)
+                .withPriority(priority)
+                .build();
     }
 
     /**
      * Shows a toast anchored on a view.
-     *
-     * @param context      The context to use for the toast.
+     * @param context The context to use for the toast.
      * @param anchoredView The view to anchor the toast.
-     * @param description  The string shown in the toast.
+     * @param description The string shown in the toast.
      * @return Whether a toast has been shown successfully.
      */
-    public static boolean showAnchoredToast(Context context, View anchoredView, CharSequence description) {
-        return new Builder(context).withAnchoredView(anchoredView).withText(description).buildAndShow();
+    public static boolean showAnchoredToast(
+            Context context, View anchoredView, CharSequence description) {
+        return new Builder(context)
+                .withAnchoredView(anchoredView)
+                .withText(description)
+                .buildAndShow();
     }
 
-    /**
-     * Builder pattern class to construct {@link Toast} with various arguments.
-     */
+    /** Builder pattern class to construct {@link Toast} with various arguments. */
     public static class Builder {
         private final Context mContext;
         private CharSequence mText;
@@ -298,7 +304,6 @@ public class Toast {
 
         private TextView inflateTextView() {
             LayoutInflater inflater = LayoutInflater.from(mContext);
-            @SuppressLint("InflateParams")
             TextView textView = (TextView) inflater.inflate(R.layout.custom_toast_layout, null);
             if (mText != null) {
                 textView.setText(mText);
@@ -313,9 +318,7 @@ public class Toast {
             return textView;
         }
 
-        /**
-         * Builds and returns a toast, but does not show it.
-         */
+        /** Builds and returns a toast, but does not show it. */
         public Toast build() {
             TextView textView = inflateTextView();
             Toast toast = new Toast(mContext, textView);
@@ -328,9 +331,7 @@ public class Toast {
             return toast;
         }
 
-        /**
-         * Builds and shows a toast, returning if it was successful.
-         */
+        /** Builds and shows a toast, returning if it was successful. */
         public boolean buildAndShow() {
             if (mText == null) return false;
             build().show();
@@ -341,7 +342,6 @@ public class Toast {
     /**
      * Set extra Y offset for toasts all toasts created with this class. This can be overridden by
      * calling {@link Toast#setGravity(int, int, int)} on an individual toast.
-     *
      * @param yOffsetPx The Y offset from the normal toast position in px.
      */
     public static void setGlobalExtraYOffset(int yOffsetPx) {

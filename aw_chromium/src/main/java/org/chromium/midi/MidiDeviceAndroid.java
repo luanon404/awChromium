@@ -10,10 +10,10 @@ import android.media.midi.MidiDeviceInfo;
 import org.jni_zero.CalledByNative;
 import org.jni_zero.JNINamespace;
 
+@JNINamespace("midi")
 /**
  * A class implementing midi::MidiDeviceAndroid functionality.
  */
-@JNINamespace("midi")
 class MidiDeviceAndroid {
     /**
      * The underlying device.
@@ -34,7 +34,6 @@ class MidiDeviceAndroid {
 
     /**
      * constructor
-     *
      * @param device the underlying device
      */
     MidiDeviceAndroid(MidiDevice device) {

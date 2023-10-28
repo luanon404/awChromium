@@ -17,10 +17,15 @@ import androidx.annotation.IntDef;
 
 public final class GpuFeatureStatus {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({GpuFeatureStatus.ENABLED, GpuFeatureStatus.BLOCKLISTED, GpuFeatureStatus.DISABLED, GpuFeatureStatus.SOFTWARE, GpuFeatureStatus.UNDEFINED, GpuFeatureStatus.MAX})
-    public @interface EnumType {
-    }
+        GpuFeatureStatus.ENABLED,
+        GpuFeatureStatus.BLOCKLISTED,
+        GpuFeatureStatus.DISABLED,
+        GpuFeatureStatus.SOFTWARE,
+        GpuFeatureStatus.UNDEFINED,
+        GpuFeatureStatus.MAX})
+    public @interface EnumType {}
 
     public static final int ENABLED = 0;
     public static final int BLOCKLISTED = 1;
@@ -41,9 +46,8 @@ public final class GpuFeatureStatus {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private GpuFeatureStatus() {
-    }
+    private GpuFeatureStatus() {}
 }

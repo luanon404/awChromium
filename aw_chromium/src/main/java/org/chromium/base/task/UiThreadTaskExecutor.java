@@ -20,8 +20,10 @@ public class UiThreadTaskExecutor implements TaskExecutor {
 
     public UiThreadTaskExecutor(Handler handler) {
         mBestEffortTaskRunner = new SingleThreadTaskRunnerImpl(handler, TaskTraits.UI_BEST_EFFORT);
-        mUserVisibleTaskRunner = new SingleThreadTaskRunnerImpl(handler, TaskTraits.UI_USER_VISIBLE);
-        mUserBlockingTaskRunner = new SingleThreadTaskRunnerImpl(handler, TaskTraits.UI_USER_BLOCKING);
+        mUserVisibleTaskRunner =
+                new SingleThreadTaskRunnerImpl(handler, TaskTraits.UI_USER_VISIBLE);
+        mUserBlockingTaskRunner =
+                new SingleThreadTaskRunnerImpl(handler, TaskTraits.UI_USER_BLOCKING);
     }
 
     @Override

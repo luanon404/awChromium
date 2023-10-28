@@ -13,13 +13,15 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class SmartCardCreateContextResult extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
         public static final int Context = 0;
         public static final int Error = 1;
-    }
-
+    };
     private SmartCardContext mContext;
     private int mError;
 
@@ -50,12 +52,12 @@ public final class SmartCardCreateContextResult extends org.chromium.mojo.bindin
         encoder0.encode(this.mTag, offset + 4);
         switch (mTag) {
             case Tag.Context: {
-
+                
                 encoder0.encode(this.mContext, offset + 8, false, SmartCardContext.MANAGER);
                 break;
             }
             case Tag.Error: {
-
+                
                 encoder0.encode(this.mError, offset + 8);
                 break;
             }
@@ -77,16 +79,16 @@ public final class SmartCardCreateContextResult extends org.chromium.mojo.bindin
         SmartCardCreateContextResult result = new SmartCardCreateContextResult();
         switch (dataHeader.elementsOrVersion) {
             case Tag.Context: {
-
+                
                 result.mContext = decoder0.readServiceInterface(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false, SmartCardContext.MANAGER);
                 result.mTag = Tag.Context;
                 break;
             }
             case Tag.Error: {
-
+                
                 result.mError = decoder0.readInt(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE);
-                SmartCardError.validate(result.mError);
-                result.mError = SmartCardError.toKnownValue(result.mError);
+                    SmartCardError.validate(result.mError);
+                    result.mError = SmartCardError.toKnownValue(result.mError);
                 result.mTag = Tag.Error;
                 break;
             }

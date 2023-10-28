@@ -28,8 +28,7 @@ public abstract class PlatformServiceBridge {
     private static Handler sHandler;
     private static final Object sHandlerLock = new Object();
 
-    protected PlatformServiceBridge() {
-    }
+    protected PlatformServiceBridge() {}
 
     @SuppressWarnings("unused")
     public static PlatformServiceBridge getInstance() {
@@ -88,9 +87,7 @@ public abstract class PlatformServiceBridge {
     // to avoid blocking the critical path for startup.
     public void queryMetricsSetting(Callback<Boolean> callback) {
         ThreadUtils.assertOnUiThread();
-        ThreadUtils.postOnUiThread(() -> {
-            callback.onResult(false);
-        });
+        ThreadUtils.postOnUiThread(() -> { callback.onResult(false); });
     }
 
     public void setSafeBrowsingHandler() {
@@ -102,20 +99,18 @@ public abstract class PlatformServiceBridge {
     }
 
     // Takes an uncompressed, serialized UMA proto and logs it via a platform-specific mechanism.
-    public void logMetrics(byte[] data) {
-    }
+    public void logMetrics(byte[] data) {}
 
     // TODO(crbug.com/1485663): remove this once downstream lands
-    public void logMetrics(byte[] data, boolean useDefaultUploadQos) {
-    }
+    public void logMetrics(byte[] data, boolean useDefaultUploadQos) {}
 
     /**
      * Similar to {@link logMetrics}, logs a serialized UMA proto via a platform-specific mechanism
      * but blocks until the operation finishes.
      *
-     * @param data                uncompressed, serialized UMA proto.
+     * @param data uncompressed, serialized UMA proto.
      * @param useDefaultUploadQos whether to use an experimental change that increases upload
-     *                            frequency
+     *         frequency
      * @return Status code of the logging operation. The status codes are:
      * - Success cache (went to the devices cache): -1
      * - Success: 0
@@ -143,8 +138,7 @@ public abstract class PlatformServiceBridge {
      * This should only be called from the ":webview_service" process. All other processes should
      * query SafeModeController to receive mitigation steps.
      */
-    public void checkForAppRecovery() {
-    }
+    public void checkForAppRecovery() {}
 
     public @Nullable AwSupervisedUserUrlClassifierDelegate getUrlClassifierDelegate() {
         return null;

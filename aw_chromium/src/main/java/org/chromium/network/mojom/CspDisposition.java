@@ -17,10 +17,11 @@ import androidx.annotation.IntDef;
 
 public final class CspDisposition {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({CspDisposition.CHECK, CspDisposition.DO_NOT_CHECK})
-    public @interface EnumType {
-    }
+        CspDisposition.CHECK,
+        CspDisposition.DO_NOT_CHECK})
+    public @interface EnumType {}
 
     public static final int CHECK = 0;
     public static final int DO_NOT_CHECK = 1;
@@ -37,9 +38,8 @@ public final class CspDisposition {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private CspDisposition() {
-    }
+    private CspDisposition() {}
 }

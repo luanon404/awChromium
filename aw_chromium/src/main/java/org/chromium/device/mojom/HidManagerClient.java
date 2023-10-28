@@ -13,21 +13,28 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface HidManagerClient extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends HidManagerClient, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends HidManagerClient, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<HidManagerClient, HidManagerClient.Proxy> MANAGER = HidManagerClient_Internal.MANAGER;
 
-    void deviceAdded(HidDeviceInfo deviceInfo);
+    void deviceAdded(
+HidDeviceInfo deviceInfo);
 
 
-    void deviceRemoved(HidDeviceInfo deviceInfo);
+    void deviceRemoved(
+HidDeviceInfo deviceInfo);
 
 
-    void deviceChanged(HidDeviceInfo deviceInfo);
+    void deviceChanged(
+HidDeviceInfo deviceInfo);
 
 
 }

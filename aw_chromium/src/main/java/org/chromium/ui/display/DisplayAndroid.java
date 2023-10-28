@@ -30,43 +30,39 @@ public class DisplayAndroid {
          *
          * @param rotation One of Surface.ROTATION_* values.
          */
-        default void onRotationChanged(int rotation) {
-        }
+        default void onRotationChanged(int rotation) {}
 
         /**
          * Called whenever the screen density changes.
          *
          * @param dipScale Density Independent Pixel scale.
          */
-        default void onDIPScaleChanged(float dipScale) {
-        }
+        default void onDIPScaleChanged(float dipScale) {}
 
         /**
          * Called whenever the attached display's refresh rate changes.
          *
          * @param refreshRate the display's refresh rate in frames per second.
          */
-        default void onRefreshRateChanged(float refreshRate) {
-        }
+        default void onRefreshRateChanged(float refreshRate) {}
 
         /**
          * Called whenever the attached display's supported Display.Modes are changed.
          *
          * @param supportedModes the array of supported modes.
          */
-        default void onDisplayModesChanged(List<Display.Mode> supportedModes) {
-        }
+        default void onDisplayModesChanged(List<Display.Mode> supportedModes) {}
 
         /**
          * Called whenever the attached display's current mode is changed.
          *
          * @param currentMode the current display mode.
          */
-        default void onCurrentModeChanged(Display.Mode currentMode) {
-        }
+        default void onCurrentModeChanged(Display.Mode currentMode) {}
     }
 
-    private static final DisplayAndroidObserver[] EMPTY_OBSERVER_ARRAY = new DisplayAndroidObserver[0];
+    private static final DisplayAndroidObserver[] EMPTY_OBSERVER_ARRAY =
+            new DisplayAndroidObserver[0];
 
     private final WeakHashMap<DisplayAndroidObserver, Object /* null */> mObservers;
     // Do NOT add strong references to objects with potentially complex lifetime, like Context.
@@ -94,9 +90,9 @@ public class DisplayAndroid {
     /**
      * Get the non-multi-display DisplayAndroid for the given context. It's safe to call this with
      * any type of context, including the Application.
-     * <p>
+     *
      * To support multi-display, obtain DisplayAndroid from WindowAndroid instead.
-     * <p>
+     *
      * This function is intended to be analogous to GetPrimaryDisplay() for other platforms.
      * However, Android has historically had no real concept of a Primary Display, and instead uses
      * the notion of a default display for an Activity. Under normal circumstances, this function,
@@ -121,7 +117,6 @@ public class DisplayAndroid {
     /**
      * Note: For JB pre-MR1, this can sometimes return values smaller than the actual screen.
      * https://crbug.com/829318
-     *
      * @return Display height in physical pixels.
      */
     public int getDisplayHeight() {
@@ -130,7 +125,6 @@ public class DisplayAndroid {
 
     /**
      * Note: For JB pre-MR1, this can sometimes return values smaller than the actual screen.
-     *
      * @return Display width in physical pixels.
      */
     public int getDisplayWidth() {
@@ -248,7 +242,6 @@ public class DisplayAndroid {
 
     /**
      * Return window context for display android. Implemented by @{@link PhysicalDisplayAndroid}
-     *
      * @return window context.
      */
     public Context getWindowContext() {
@@ -282,22 +275,31 @@ public class DisplayAndroid {
     }
 
     public void updateIsDisplayServerWideColorGamut(Boolean isDisplayServerWideColorGamut) {
-        update(null, null, null, null, null, null, null, null, isDisplayServerWideColorGamut, null, null, null, /*isHdr=*/null, /*hdrMaxLuminanceRatio=*/null);
+        update(null, null, null, null, null, null, null, null, isDisplayServerWideColorGamut, null,
+                null, null, /*isHdr=*/null, /*hdrMaxLuminanceRatio=*/null);
     }
 
     /**
      * Update the display to the provided parameters. Null values leave the parameter unchanged.
      */
     @SuppressLint("NewApi")
-    protected void update(Point size, Float dipScale, Integer bitsPerPixel, Integer bitsPerComponent, Integer rotation, Boolean isDisplayWideColorGamut, Boolean isDisplayServerWideColorGamut, Float refreshRate, Display.Mode currentMode, List<Display.Mode> supportedModes) {
-        update(size, dipScale, null, null, bitsPerPixel, bitsPerComponent, rotation, isDisplayWideColorGamut, isDisplayServerWideColorGamut, refreshRate, currentMode, supportedModes, /*isHdr=*/null, /*hdrMaxLuminanceRatio=*/null);
+    protected void update(Point size, Float dipScale, Integer bitsPerPixel,
+            Integer bitsPerComponent, Integer rotation, Boolean isDisplayWideColorGamut,
+            Boolean isDisplayServerWideColorGamut, Float refreshRate, Display.Mode currentMode,
+            List<Display.Mode> supportedModes) {
+        update(size, dipScale, null, null, bitsPerPixel, bitsPerComponent, rotation,
+                isDisplayWideColorGamut, isDisplayServerWideColorGamut, refreshRate, currentMode,
+                supportedModes, /*isHdr=*/null, /*hdrMaxLuminanceRatio=*/null);
     }
 
     /**
      * Update the display to the provided parameters. Null values leave the parameter unchanged.
      */
     @SuppressLint("NewApi")
-    protected void update(Point size, Float dipScale, Float xdpi, Float ydpi, Integer bitsPerPixel, Integer bitsPerComponent, Integer rotation, Boolean isDisplayWideColorGamut, Boolean isDisplayServerWideColorGamut, Float refreshRate, Display.Mode currentMode, List<Display.Mode> supportedModes, Boolean isHdr, Float hdrMaxLuminanceRatio) {
+    protected void update(Point size, Float dipScale, Float xdpi, Float ydpi, Integer bitsPerPixel,
+            Integer bitsPerComponent, Integer rotation, Boolean isDisplayWideColorGamut,
+            Boolean isDisplayServerWideColorGamut, Float refreshRate, Display.Mode currentMode,
+            List<Display.Mode> supportedModes, Boolean isHdr, Float hdrMaxLuminanceRatio) {
         boolean sizeChanged = size != null && !mSize.equals(size);
         // Intentional comparison of floats: we assume that if scales differ, they differ
         // significantly.
@@ -305,16 +307,26 @@ public class DisplayAndroid {
         boolean xdpiChanged = xdpi != null && mXdpi != xdpi;
         boolean ydpiChanged = ydpi != null && mYdpi != ydpi;
         boolean bitsPerPixelChanged = bitsPerPixel != null && mBitsPerPixel != bitsPerPixel;
-        boolean bitsPerComponentChanged = bitsPerComponent != null && mBitsPerComponent != bitsPerComponent;
+        boolean bitsPerComponentChanged =
+                bitsPerComponent != null && mBitsPerComponent != bitsPerComponent;
         boolean rotationChanged = rotation != null && mRotation != rotation;
-        boolean isDisplayWideColorGamutChanged = isDisplayWideColorGamut != null && mIsDisplayWideColorGamut != isDisplayWideColorGamut;
-        boolean isDisplayServerWideColorGamutChanged = isDisplayServerWideColorGamut != null && mIsDisplayServerWideColorGamut != isDisplayServerWideColorGamut;
+        boolean isDisplayWideColorGamutChanged = isDisplayWideColorGamut != null
+                && mIsDisplayWideColorGamut != isDisplayWideColorGamut;
+        boolean isDisplayServerWideColorGamutChanged = isDisplayServerWideColorGamut != null
+                && mIsDisplayServerWideColorGamut != isDisplayServerWideColorGamut;
         boolean isRefreshRateChanged = refreshRate != null && mRefreshRate != refreshRate;
-        boolean displayModesChanged = supportedModes != null && (mDisplayModes == null || mDisplayModes.equals(supportedModes));
-        boolean currentModeChanged = currentMode != null && !currentMode.equals(mCurrentDisplayMode);
+        boolean displayModesChanged = supportedModes != null
+                && (mDisplayModes == null ? true : mDisplayModes.equals(supportedModes));
+        boolean currentModeChanged =
+                currentMode != null && !currentMode.equals(mCurrentDisplayMode);
         boolean isHdrChanged = isHdr != null && isHdr != mIsHdr;
-        boolean hdrMaxLuninanceRatioChanged = hdrMaxLuminanceRatio != null && hdrMaxLuminanceRatio != mHdrMaxLuminanceRatio;
-        boolean changed = sizeChanged || dipScaleChanged || bitsPerPixelChanged || bitsPerComponentChanged || rotationChanged || isDisplayWideColorGamutChanged || isDisplayServerWideColorGamutChanged || isRefreshRateChanged || displayModesChanged || currentModeChanged || isHdrChanged || hdrMaxLuninanceRatioChanged;
+        boolean hdrMaxLuninanceRatioChanged =
+                hdrMaxLuminanceRatio != null && hdrMaxLuminanceRatio != mHdrMaxLuminanceRatio;
+        boolean changed = sizeChanged || dipScaleChanged || bitsPerPixelChanged
+                || bitsPerComponentChanged || rotationChanged || isDisplayWideColorGamutChanged
+                || isDisplayServerWideColorGamutChanged || isRefreshRateChanged
+                || displayModesChanged || currentModeChanged || isHdrChanged
+                || hdrMaxLuninanceRatioChanged;
         if (!changed) return;
 
         if (sizeChanged) mSize = size;

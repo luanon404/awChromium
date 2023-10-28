@@ -13,15 +13,20 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface NetworkQualityEstimatorManager extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends NetworkQualityEstimatorManager, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends NetworkQualityEstimatorManager, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<NetworkQualityEstimatorManager, NetworkQualityEstimatorManager.Proxy> MANAGER = NetworkQualityEstimatorManager_Internal.MANAGER;
 
-    void requestNotifications(NetworkQualityEstimatorManagerClient client);
+    void requestNotifications(
+NetworkQualityEstimatorManagerClient client);
 
 
 }

@@ -17,10 +17,13 @@ import androidx.annotation.IntDef;
 
 public final class AudioFocusType {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({AudioFocusType.GAIN, AudioFocusType.GAIN_TRANSIENT_MAY_DUCK, AudioFocusType.GAIN_TRANSIENT, AudioFocusType.AMBIENT})
-    public @interface EnumType {
-    }
+        AudioFocusType.GAIN,
+        AudioFocusType.GAIN_TRANSIENT_MAY_DUCK,
+        AudioFocusType.GAIN_TRANSIENT,
+        AudioFocusType.AMBIENT})
+    public @interface EnumType {}
 
     public static final int GAIN = 0;
     public static final int GAIN_TRANSIENT_MAY_DUCK = 1;
@@ -39,9 +42,8 @@ public final class AudioFocusType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private AudioFocusType() {
-    }
+    private AudioFocusType() {}
 }

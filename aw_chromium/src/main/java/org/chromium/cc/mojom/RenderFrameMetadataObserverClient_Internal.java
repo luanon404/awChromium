@@ -13,9 +13,13 @@
 
 package org.chromium.cc.mojom;
 
+import androidx.annotation.IntDef;
+
+
 class RenderFrameMetadataObserverClient_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<RenderFrameMetadataObserverClient, RenderFrameMetadataObserverClient.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<RenderFrameMetadataObserverClient, RenderFrameMetadataObserverClient.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<RenderFrameMetadataObserverClient, RenderFrameMetadataObserverClient.Proxy> MANAGER =
+            new org.chromium.mojo.bindings.Interface.Manager<RenderFrameMetadataObserverClient, RenderFrameMetadataObserverClient.Proxy>() {
 
         @Override
         public String getName() {
@@ -24,11 +28,12 @@ class RenderFrameMetadataObserverClient_Internal {
 
         @Override
         public int getVersion() {
-            return 0;
+          return 0;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -39,7 +44,7 @@ class RenderFrameMetadataObserverClient_Internal {
 
         @Override
         public RenderFrameMetadataObserverClient[] buildArray(int size) {
-            return new RenderFrameMetadataObserverClient[size];
+          return new RenderFrameMetadataObserverClient[size];
         }
     };
 
@@ -53,13 +58,15 @@ class RenderFrameMetadataObserverClient_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements RenderFrameMetadataObserverClient.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core,
+              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void onRenderFrameMetadataChanged(int frameToken, RenderFrameMetadata metadata) {
+        public void onRenderFrameMetadataChanged(
+int frameToken, RenderFrameMetadata metadata) {
 
             RenderFrameMetadataObserverClientOnRenderFrameMetadataChangedParams _message = new RenderFrameMetadataObserverClientOnRenderFrameMetadataChangedParams();
 
@@ -68,33 +75,44 @@ class RenderFrameMetadataObserverClient_Internal {
             _message.metadata = metadata;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_RENDER_FRAME_METADATA_CHANGED_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_RENDER_FRAME_METADATA_CHANGED_ORDINAL)));
 
         }
 
 
         @Override
-        public void onFrameSubmissionForTesting(int frameToken) {
+        public void onFrameSubmissionForTesting(
+int frameToken) {
 
             RenderFrameMetadataObserverClientOnFrameSubmissionForTestingParams _message = new RenderFrameMetadataObserverClientOnFrameSubmissionForTestingParams();
 
             _message.frameToken = frameToken;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_FRAME_SUBMISSION_FOR_TESTING_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_FRAME_SUBMISSION_FOR_TESTING_ORDINAL)));
 
         }
 
 
         @Override
-        public void onRootScrollOffsetChanged(org.chromium.gfx.mojom.PointF rootScrollOffset) {
+        public void onRootScrollOffsetChanged(
+org.chromium.gfx.mojom.PointF rootScrollOffset) {
 
             RenderFrameMetadataObserverClientOnRootScrollOffsetChangedParams _message = new RenderFrameMetadataObserverClientOnRootScrollOffsetChangedParams();
 
             _message.rootScrollOffset = rootScrollOffset;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_ROOT_SCROLL_OFFSET_CHANGED_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_ROOT_SCROLL_OFFSET_CHANGED_ORDINAL)));
 
         }
 
@@ -110,7 +128,8 @@ class RenderFrameMetadataObserverClient_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -119,33 +138,46 @@ class RenderFrameMetadataObserverClient_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(RenderFrameMetadataObserverClient_Internal.MANAGER, messageWithHeader);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
+                                RenderFrameMetadataObserverClient_Internal.MANAGER, messageWithHeader);
+
+
+
 
 
                     case ON_RENDER_FRAME_METADATA_CHANGED_ORDINAL: {
 
-                        RenderFrameMetadataObserverClientOnRenderFrameMetadataChangedParams data = RenderFrameMetadataObserverClientOnRenderFrameMetadataChangedParams.deserialize(messageWithHeader.getPayload());
+                        RenderFrameMetadataObserverClientOnRenderFrameMetadataChangedParams data =
+                                RenderFrameMetadataObserverClientOnRenderFrameMetadataChangedParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onRenderFrameMetadataChanged(data.frameToken, data.metadata);
                         return true;
                     }
 
 
+
+
+
                     case ON_FRAME_SUBMISSION_FOR_TESTING_ORDINAL: {
 
-                        RenderFrameMetadataObserverClientOnFrameSubmissionForTestingParams data = RenderFrameMetadataObserverClientOnFrameSubmissionForTestingParams.deserialize(messageWithHeader.getPayload());
+                        RenderFrameMetadataObserverClientOnFrameSubmissionForTestingParams data =
+                                RenderFrameMetadataObserverClientOnFrameSubmissionForTestingParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onFrameSubmissionForTesting(data.frameToken);
                         return true;
                     }
 
 
+
+
+
                     case ON_ROOT_SCROLL_OFFSET_CHANGED_ORDINAL: {
 
-                        RenderFrameMetadataObserverClientOnRootScrollOffsetChangedParams data = RenderFrameMetadataObserverClientOnRootScrollOffsetChangedParams.deserialize(messageWithHeader.getPayload());
+                        RenderFrameMetadataObserverClientOnRootScrollOffsetChangedParams data =
+                                RenderFrameMetadataObserverClientOnRootScrollOffsetChangedParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onRootScrollOffsetChanged(data.rootScrollOffset);
                         return true;
@@ -156,7 +188,7 @@ class RenderFrameMetadataObserverClient_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -164,7 +196,8 @@ class RenderFrameMetadataObserverClient_Internal {
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -173,27 +206,35 @@ class RenderFrameMetadataObserverClient_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), RenderFrameMetadataObserverClient_Internal.MANAGER, messageWithHeader, receiver);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
+                                getCore(), RenderFrameMetadataObserverClient_Internal.MANAGER, messageWithHeader, receiver);
+
+
+
+
+
+
 
 
                     default:
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class RenderFrameMetadataObserverClientOnRenderFrameMetadataChangedParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int frameToken;
         public RenderFrameMetadata metadata;
@@ -216,7 +257,8 @@ class RenderFrameMetadataObserverClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static RenderFrameMetadataObserverClientOnRenderFrameMetadataChangedParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -230,15 +272,15 @@ class RenderFrameMetadataObserverClient_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new RenderFrameMetadataObserverClientOnRenderFrameMetadataChangedParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.frameToken = decoder0.readInt(8);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                     result.metadata = RenderFrameMetadata.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -250,18 +292,20 @@ class RenderFrameMetadataObserverClient_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.frameToken, 8);
-
+            
             encoder0.encode(this.metadata, 16, false);
         }
     }
 
 
+
+    
     static final class RenderFrameMetadataObserverClientOnFrameSubmissionForTestingParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int frameToken;
 
@@ -283,7 +327,8 @@ class RenderFrameMetadataObserverClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static RenderFrameMetadataObserverClientOnFrameSubmissionForTestingParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -297,10 +342,10 @@ class RenderFrameMetadataObserverClient_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new RenderFrameMetadataObserverClientOnFrameSubmissionForTestingParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.frameToken = decoder0.readInt(8);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -312,16 +357,18 @@ class RenderFrameMetadataObserverClient_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.frameToken, 8);
         }
     }
 
 
+
+    
     static final class RenderFrameMetadataObserverClientOnRootScrollOffsetChangedParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.gfx.mojom.PointF rootScrollOffset;
 
@@ -343,7 +390,8 @@ class RenderFrameMetadataObserverClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static RenderFrameMetadataObserverClientOnRootScrollOffsetChangedParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -357,11 +405,11 @@ class RenderFrameMetadataObserverClient_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new RenderFrameMetadataObserverClientOnRootScrollOffsetChangedParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.rootScrollOffset = org.chromium.gfx.mojom.PointF.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -373,10 +421,11 @@ class RenderFrameMetadataObserverClient_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.rootScrollOffset, 8, false);
         }
     }
+
 
 
 }

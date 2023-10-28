@@ -17,10 +17,13 @@ import androidx.annotation.IntDef;
 
 public final class UsbControlTransferType {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({UsbControlTransferType.STANDARD, UsbControlTransferType.CLASS, UsbControlTransferType.VENDOR, UsbControlTransferType.RESERVED})
-    public @interface EnumType {
-    }
+        UsbControlTransferType.STANDARD,
+        UsbControlTransferType.CLASS,
+        UsbControlTransferType.VENDOR,
+        UsbControlTransferType.RESERVED})
+    public @interface EnumType {}
 
     public static final int STANDARD = 0;
     public static final int CLASS = 1;
@@ -39,9 +42,8 @@ public final class UsbControlTransferType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private UsbControlTransferType() {
-    }
+    private UsbControlTransferType() {}
 }

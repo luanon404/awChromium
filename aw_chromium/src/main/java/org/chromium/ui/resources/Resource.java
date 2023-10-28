@@ -20,7 +20,6 @@ public interface Resource {
      * would be called exactly once per invocation, and the {@link Bitmap} would be deep-copied into
      * the CC layer, so it is encouraged to make sure we don't keep an extra copy at the Java side
      * unnecessarily.
-     *
      * @return A {@link Bitmap} representing the resource.
      */
     Bitmap getBitmap();
@@ -43,7 +42,6 @@ public interface Resource {
     /**
      * Returns the nine patch data if the resource is backed by a nine patch bitmap. In all other
      * cases, this will be null.
-     *
      * @return The nine patch data for the bitmap or null.
      */
     NinePatchData getNinePatchData();
@@ -51,7 +49,6 @@ public interface Resource {
     /**
      * Creates the native representation of this Resource. Note that the ownership is passed to the
      * caller.
-     *
      * @return The pointer to the native Resource.
      */
     long createNativeResource();

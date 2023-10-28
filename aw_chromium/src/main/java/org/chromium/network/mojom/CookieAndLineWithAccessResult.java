@@ -13,10 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class CookieAndLineWithAccessResult extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 32;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(32, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(32, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public CanonicalCookie cookie;
     public String cookieString;
@@ -40,7 +43,8 @@ public final class CookieAndLineWithAccessResult extends org.chromium.mojo.bindi
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static CookieAndLineWithAccessResult deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -54,20 +58,20 @@ public final class CookieAndLineWithAccessResult extends org.chromium.mojo.bindi
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new CookieAndLineWithAccessResult(elementsOrVersion);
-            {
-
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, true);
                 result.cookie = CanonicalCookie.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.cookieString = decoder0.readString(16, false);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, false);
                 result.accessResult = CookieAccessResult.decode(decoder1);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -79,11 +83,11 @@ public final class CookieAndLineWithAccessResult extends org.chromium.mojo.bindi
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.cookie, 8, true);
-
+        
         encoder0.encode(this.cookieString, 16, false);
-
+        
         encoder0.encode(this.accessResult, 24, false);
     }
 }

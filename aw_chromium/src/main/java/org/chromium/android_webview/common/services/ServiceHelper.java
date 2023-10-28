@@ -22,12 +22,13 @@ public class ServiceHelper {
      * Connects to a Service specified by {@code intent} with {@code flags}. This handles edge cases
      * such as attempting to bind from restricted BroadcastReceiver Contexts.
      *
-     * @param context           the Context to use when binding to the Service.
-     * @param intent            should specify a Service.
+     * @param context the Context to use when binding to the Service.
+     * @param intent should specify a Service.
      * @param serviceConnection a ServiceConnection object.
-     * @param flags             should be {@code 0} or a combination of {@code Context#BIND_*}.
+     * @param flags should be {@code 0} or a combination of {@code Context#BIND_*}.
      */
-    public static boolean bindService(Context context, Intent intent, ServiceConnection serviceConnection, int flags) {
+    public static boolean bindService(
+            Context context, Intent intent, ServiceConnection serviceConnection, int flags) {
         try {
             return context.bindService(intent, serviceConnection, flags);
         } catch (ReceiverCallNotAllowedException e) {
@@ -39,7 +40,8 @@ public class ServiceHelper {
                 // permission to view the system WebView provider app (most likely, this is
                 // Monochrome). In this case, we cannot bind to services so we just log the
                 // exception and carry on.
-                Log.e(TAG, "Unable to bind to services from a secondary user account on Android N", e);
+                Log.e(TAG, "Unable to bind to services from a secondary user account on Android N",
+                        e);
                 return false;
             } else {
                 throw e;
@@ -47,6 +49,5 @@ public class ServiceHelper {
         }
     }
 
-    private ServiceHelper() {
-    }
+    private ServiceHelper() {}
 }

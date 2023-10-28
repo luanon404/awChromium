@@ -13,18 +13,24 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface UsbDeviceManagerClient extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends UsbDeviceManagerClient, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends UsbDeviceManagerClient, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<UsbDeviceManagerClient, UsbDeviceManagerClient.Proxy> MANAGER = UsbDeviceManagerClient_Internal.MANAGER;
 
-    void onDeviceAdded(UsbDeviceInfo deviceInfo);
+    void onDeviceAdded(
+UsbDeviceInfo deviceInfo);
 
 
-    void onDeviceRemoved(UsbDeviceInfo deviceInfo);
+    void onDeviceRemoved(
+UsbDeviceInfo deviceInfo);
 
 
 }

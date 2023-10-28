@@ -17,10 +17,20 @@ import androidx.annotation.IntDef;
 
 public final class HttpMethod {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({HttpMethod.UNSET, HttpMethod.UNKNOWN, HttpMethod.GET, HttpMethod.HEAD, HttpMethod.POST, HttpMethod.PUT, HttpMethod.DELETE, HttpMethod.CONNECT, HttpMethod.OPTIONS, HttpMethod.TRACE, HttpMethod.PATCH})
-    public @interface EnumType {
-    }
+        HttpMethod.UNSET,
+        HttpMethod.UNKNOWN,
+        HttpMethod.GET,
+        HttpMethod.HEAD,
+        HttpMethod.POST,
+        HttpMethod.PUT,
+        HttpMethod.DELETE,
+        HttpMethod.CONNECT,
+        HttpMethod.OPTIONS,
+        HttpMethod.TRACE,
+        HttpMethod.PATCH})
+    public @interface EnumType {}
 
     public static final int UNSET = 0;
     public static final int UNKNOWN = 1;
@@ -46,9 +56,8 @@ public final class HttpMethod {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private HttpMethod() {
-    }
+    private HttpMethod() {}
 }

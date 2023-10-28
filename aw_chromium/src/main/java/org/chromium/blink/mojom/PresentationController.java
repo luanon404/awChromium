@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface PresentationController extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends PresentationController, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends PresentationController, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<PresentationController, PresentationController.Proxy> MANAGER = PresentationController_Internal.MANAGER;

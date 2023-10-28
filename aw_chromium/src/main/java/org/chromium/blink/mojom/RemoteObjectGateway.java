@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface RemoteObjectGateway extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends RemoteObjectGateway, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends RemoteObjectGateway, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<RemoteObjectGateway, RemoteObjectGateway.Proxy> MANAGER = RemoteObjectGateway_Internal.MANAGER;

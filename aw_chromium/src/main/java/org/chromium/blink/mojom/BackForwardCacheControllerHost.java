@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface BackForwardCacheControllerHost extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends BackForwardCacheControllerHost, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends BackForwardCacheControllerHost, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<BackForwardCacheControllerHost, BackForwardCacheControllerHost.Proxy> MANAGER = BackForwardCacheControllerHost_Internal.MANAGER;

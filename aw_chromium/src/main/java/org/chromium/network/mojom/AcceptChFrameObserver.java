@@ -13,21 +13,27 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface AcceptChFrameObserver extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends AcceptChFrameObserver, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends AcceptChFrameObserver, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<AcceptChFrameObserver, AcceptChFrameObserver.Proxy> MANAGER = AcceptChFrameObserver_Internal.MANAGER;
 
-    void onAcceptChFrameReceived(org.chromium.url.internal.mojom.Origin origin, int[] acceptChFrame, OnAcceptChFrameReceived_Response callback);
+    void onAcceptChFrameReceived(
+org.chromium.url.internal.mojom.Origin origin, int[] acceptChFrame, 
+OnAcceptChFrameReceived_Response callback);
 
-    interface OnAcceptChFrameReceived_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> {
-    }
+    interface OnAcceptChFrameReceived_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> { }
 
 
-    void clone(org.chromium.mojo.bindings.InterfaceRequest<AcceptChFrameObserver> listener);
+    void clone(
+org.chromium.mojo.bindings.InterfaceRequest<AcceptChFrameObserver> listener);
 
 
 }

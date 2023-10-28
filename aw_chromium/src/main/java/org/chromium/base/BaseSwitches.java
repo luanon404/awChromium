@@ -198,6 +198,5 @@ public final class BaseSwitches {
     public static final String RENDERER_WAIT_FOR_JAVA_DEBUGGER = "renderer-wait-for-java-debugger";
 
     // Prevent instantiation.
-    private BaseSwitches() {
-    }
+    private BaseSwitches() {}
 }

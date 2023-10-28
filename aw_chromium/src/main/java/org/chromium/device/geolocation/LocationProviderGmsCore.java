@@ -20,7 +20,7 @@ import org.chromium.gms.ChromiumPlayServicesAvailability;
 
 /**
  * This is a LocationProvider using Google Play Services.
- * <p>
+ *
  * https://developers.google.com/android/reference/com/google/android/gms/location/package-summary
  */
 public class LocationProviderGmsCore implements LocationProvider {
@@ -57,7 +57,8 @@ public class LocationProviderGmsCore implements LocationProvider {
         ThreadUtils.assertOnUiThread();
 
         LocationRequest locationRequest = LocationRequest.create();
-        if (mContext.checkCallingOrSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (mContext.checkCallingOrSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
             // Workaround for a bug in Google Play Services where, if an app only has
             // ACCESS_COARSE_LOCATION, trying to request PRIORITY_HIGH_ACCURACY will throw a
             // SecurityException even on Android S. See: b/184924939.
@@ -67,12 +68,14 @@ public class LocationProviderGmsCore implements LocationProvider {
         if (enableHighAccuracy) {
             // With enableHighAccuracy, request a faster update interval and configure the provider
             // for high accuracy mode.
-            locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY).setInterval(UPDATE_INTERVAL_FAST_MS);
+            locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                    .setInterval(UPDATE_INTERVAL_FAST_MS);
         } else {
             // Use balanced mode by default. In this mode, the API will prefer the network provider
             // but may use sensor data (for instance, GPS) if high accuracy is requested by another
             // app.
-            locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY).setInterval(UPDATE_INTERVAL_MS);
+            locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY)
+                    .setInterval(UPDATE_INTERVAL_MS);
         }
 
         if (mLocationCallback != null) {
@@ -91,21 +94,26 @@ public class LocationProviderGmsCore implements LocationProvider {
 
         try {
             // Request updates on UI Thread replicating LocationProviderAndroid's behaviour.
-            mClient.requestLocationUpdates(locationRequest, mLocationCallback, ThreadUtils.getUiThreadLooper()).addOnFailureListener((e) -> {
-                Log.e(TAG, "mClient.requestLocationUpdates() " + e);
-                LocationProviderAdapter.newErrorAvailable("Failed to request location updates: " + e);
-            });
+            mClient.requestLocationUpdates(
+                           locationRequest, mLocationCallback, ThreadUtils.getUiThreadLooper())
+                    .addOnFailureListener((e) -> {
+                        Log.e(TAG, "mClient.requestLocationUpdates() " + e);
+                        LocationProviderAdapter.newErrorAvailable(
+                                "Failed to request location updates: " + e.toString());
+                    });
         } catch (IllegalStateException e) {
             // IllegalStateException is thrown "If this method is executed in a thread that has not
             // called Looper.prepare()".
             Log.e(TAG, "mClient.requestLocationUpdates() " + e);
-            LocationProviderAdapter.newErrorAvailable("Failed to request location updates: " + e);
+            LocationProviderAdapter.newErrorAvailable(
+                    "Failed to request location updates: " + e.toString());
             assert false;
         } catch (SecurityException e) {
             // SecurityException is thrown when the app is missing location permissions. See
             // crbug.com/731271.
             Log.e(TAG, "mClient.requestLocationUpdates() missing permissions " + e);
-            LocationProviderAdapter.newErrorAvailable("Failed to request location updates due to permissions: " + e);
+            LocationProviderAdapter.newErrorAvailable(
+                    "Failed to request location updates due to permissions: " + e.toString());
         }
     }
 

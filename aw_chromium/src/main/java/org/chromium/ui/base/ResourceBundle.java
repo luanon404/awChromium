@@ -7,11 +7,12 @@ package org.chromium.ui.base;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+
 import org.chromium.base.ContextUtils;
 import org.chromium.base.LocaleUtils;
 import org.chromium.base.Log;
-import org.jni_zero.CalledByNative;
-import org.jni_zero.JNINamespace;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -19,7 +20,7 @@ import java.util.Arrays;
 /**
  * This class provides the resource bundle related methods for the native
  * library.
- * <p>
+ *
  * IMPORTANT: Clients that use {@link ResourceBundle} MUST call either
  * {@link ResourceBundle#setAvailablePakLocales(String[], String[])} or
  * {@link ResourceBundle#setNoAvailableLocalePaks()} before calling the getters in this class.
@@ -29,8 +30,7 @@ public final class ResourceBundle {
     private static final String TAG = "ResourceBundle";
     private static String[] sAvailableLocales;
 
-    private ResourceBundle() {
-    }
+    private ResourceBundle() {}
 
     /**
      * Called when there are no locale pak files available.
@@ -38,12 +38,11 @@ public final class ResourceBundle {
     @CalledByNative
     public static void setNoAvailableLocalePaks() {
         assert sAvailableLocales == null;
-        sAvailableLocales = new String[]{};
+        sAvailableLocales = new String[] {};
     }
 
     /**
      * Sets the available locale pak files.
-     *
      * @param uncompressed Locales that have pak files.
      */
     public static void setAvailablePakLocales(String[] locales) {
@@ -57,7 +56,6 @@ public final class ResourceBundle {
 
     /**
      * Return the list of available locales.
-     *
      * @return The correct locale list for this build.
      */
     public static String[] getAvailableLocales() {
@@ -68,7 +66,7 @@ public final class ResourceBundle {
     /**
      * Return the location of a locale-specific .pak file asset.
      *
-     * @param locale   Chromium locale name.
+     * @param locale Chromium locale name.
      * @param inBundle If true, return the path of the uncompressed .pak file
      *                 containing Chromium UI strings within app bundles. If
      *                 false, return the path of the WebView UI strings instead.
@@ -76,7 +74,8 @@ public final class ResourceBundle {
      * @return Asset path to .pak file, or null if the locale is not supported.
      */
     @CalledByNative
-    private static String getLocalePakResourcePath(String locale, boolean inBundle, boolean logError) {
+    private static String getLocalePakResourcePath(
+            String locale, boolean inBundle, boolean logError) {
         if (sAvailableLocales == null) {
             // Locales may be null in unit tests.
             return null;
@@ -90,7 +89,8 @@ public final class ResourceBundle {
             if (locale.equals("en-US")) {
                 pathPrefix = "assets/fallback-locales/";
             } else {
-                String lang = LocalizationUtils.getSplitLanguageForAndroid(LocaleUtils.toBaseLanguage(locale));
+                String lang = LocalizationUtils.getSplitLanguageForAndroid(
+                        LocaleUtils.toBaseLanguage(locale));
                 pathPrefix = "assets/locales#lang_" + lang + "/";
             }
         }

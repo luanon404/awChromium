@@ -9,7 +9,7 @@ import android.os.Trace;
 /**
  * An alternative to @{TraceEvent} that allows us to trace events before native
  * initialization.
- * <p>
+ *
  * Note that TraceEvent / EarlyTraceEvent cannot be used before native initialization since
  * it directly purges to the kernel debug message but that method does not allow tracing events
  * to be written *after* the event occurrence.

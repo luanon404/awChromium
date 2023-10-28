@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class NetLogCaptureMode {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({NetLogCaptureMode.DEFAULT, NetLogCaptureMode.INCLUDE_PRIVACY_INFO, NetLogCaptureMode.EVERYTHING})
-    public @interface EnumType {
-    }
+        NetLogCaptureMode.DEFAULT,
+        NetLogCaptureMode.INCLUDE_PRIVACY_INFO,
+        NetLogCaptureMode.EVERYTHING})
+    public @interface EnumType {}
 
     public static final int DEFAULT = 0;
     public static final int INCLUDE_PRIVACY_INFO = 1;
@@ -38,9 +40,8 @@ public final class NetLogCaptureMode {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private NetLogCaptureMode() {
-    }
+    private NetLogCaptureMode() {}
 }

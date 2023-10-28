@@ -13,54 +13,72 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface DevToolsObserver extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends DevToolsObserver, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends DevToolsObserver, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<DevToolsObserver, DevToolsObserver.Proxy> MANAGER = DevToolsObserver_Internal.MANAGER;
 
-    void onRawRequest(String devtoolRequestId, CookieWithAccessResult[] cookiesWithAccessResult, HttpRawHeaderPair[] headers, org.chromium.mojo_base.mojom.TimeTicks timestamp, ClientSecurityState clientSecurityState, OtherPartitionInfo otherPartitionInfo);
+    void onRawRequest(
+String devtoolRequestId, CookieWithAccessResult[] cookiesWithAccessResult, HttpRawHeaderPair[] headers, org.chromium.mojo_base.mojom.TimeTicks timestamp, ClientSecurityState clientSecurityState, OtherPartitionInfo otherPartitionInfo);
 
 
-    void onRawResponse(String devtoolRequestId, CookieAndLineWithAccessResult[] cookiesWithAccessResult, HttpRawHeaderPair[] headers, String rawResponseHeaders, int resourceAddressSpace, int httpStatusCode, CookiePartitionKey cookiePartitionKey);
+    void onRawResponse(
+String devtoolRequestId, CookieAndLineWithAccessResult[] cookiesWithAccessResult, HttpRawHeaderPair[] headers, String rawResponseHeaders, int resourceAddressSpace, int httpStatusCode, CookiePartitionKey cookiePartitionKey);
 
 
-    void onPrivateNetworkRequest(String devtoolRequestId, org.chromium.url.mojom.Url url, boolean isWarning, int resourceAddressSpace, ClientSecurityState clientSecurityState);
+    void onPrivateNetworkRequest(
+String devtoolRequestId, org.chromium.url.mojom.Url url, boolean isWarning, int resourceAddressSpace, ClientSecurityState clientSecurityState);
 
 
-    void onCorsPreflightRequest(org.chromium.mojo_base.mojom.UnguessableToken devtoolRequestId, HttpRequestHeaders requestHeaders, UrlRequestDevToolsInfo requestInfo, org.chromium.url.mojom.Url initiatorUrl, String initiatorDevtoolRequestId);
+    void onCorsPreflightRequest(
+org.chromium.mojo_base.mojom.UnguessableToken devtoolRequestId, HttpRequestHeaders requestHeaders, UrlRequestDevToolsInfo requestInfo, org.chromium.url.mojom.Url initiatorUrl, String initiatorDevtoolRequestId);
 
 
-    void onCorsPreflightResponse(org.chromium.mojo_base.mojom.UnguessableToken devtoolRequestId, org.chromium.url.mojom.Url url, UrlResponseHeadDevToolsInfo head);
+    void onCorsPreflightResponse(
+org.chromium.mojo_base.mojom.UnguessableToken devtoolRequestId, org.chromium.url.mojom.Url url, UrlResponseHeadDevToolsInfo head);
 
 
-    void onCorsPreflightRequestCompleted(org.chromium.mojo_base.mojom.UnguessableToken devtoolRequestId, UrlLoaderCompletionStatus status);
+    void onCorsPreflightRequestCompleted(
+org.chromium.mojo_base.mojom.UnguessableToken devtoolRequestId, UrlLoaderCompletionStatus status);
 
 
-    void onTrustTokenOperationDone(String devtoolRequestId, TrustTokenOperationResult result);
+    void onTrustTokenOperationDone(
+String devtoolRequestId, TrustTokenOperationResult result);
 
 
-    void onCorsError(String devtoolRequestId, org.chromium.url.internal.mojom.Origin initiatorOrigin, ClientSecurityState clientSecurityState, org.chromium.url.mojom.Url url, CorsErrorStatus status, boolean isWarning);
+    void onCorsError(
+String devtoolRequestId, org.chromium.url.internal.mojom.Origin initiatorOrigin, ClientSecurityState clientSecurityState, org.chromium.url.mojom.Url url, CorsErrorStatus status, boolean isWarning);
 
 
-    void onCorbError(String devtoolsRequestId, org.chromium.url.mojom.Url url);
+    void onCorbError(
+String devtoolsRequestId, org.chromium.url.mojom.Url url);
 
 
-    void onSubresourceWebBundleMetadata(String devtoolRequestId, org.chromium.url.mojom.Url[] urls);
+    void onSubresourceWebBundleMetadata(
+String devtoolRequestId, org.chromium.url.mojom.Url[] urls);
 
 
-    void onSubresourceWebBundleMetadataError(String devtoolRequestId, String errorMessage);
+    void onSubresourceWebBundleMetadataError(
+String devtoolRequestId, String errorMessage);
 
 
-    void onSubresourceWebBundleInnerResponse(String innerRequestDevtoolsId, org.chromium.url.mojom.Url url, String bundleRequestDevtoolsId);
+    void onSubresourceWebBundleInnerResponse(
+String innerRequestDevtoolsId, org.chromium.url.mojom.Url url, String bundleRequestDevtoolsId);
 
 
-    void onSubresourceWebBundleInnerResponseError(String innerRequestDevtoolsId, org.chromium.url.mojom.Url url, String errorMessage, String bundleRequestDevtoolsId);
+    void onSubresourceWebBundleInnerResponseError(
+String innerRequestDevtoolsId, org.chromium.url.mojom.Url url, String errorMessage, String bundleRequestDevtoolsId);
 
 
-    void clone(org.chromium.mojo.bindings.InterfaceRequest<DevToolsObserver> listener);
+    void clone(
+org.chromium.mojo.bindings.InterfaceRequest<DevToolsObserver> listener);
 
 
 }

@@ -13,10 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class UrlRequestDevToolsInfo extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 48;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(48, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(48, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public String method;
     public org.chromium.url.mojom.Url url;
@@ -44,7 +47,8 @@ public final class UrlRequestDevToolsInfo extends org.chromium.mojo.bindings.Str
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static UrlRequestDevToolsInfo deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -58,40 +62,40 @@ public final class UrlRequestDevToolsInfo extends org.chromium.mojo.bindings.Str
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new UrlRequestDevToolsInfo(elementsOrVersion);
-            {
-
+                {
+                    
                 result.method = decoder0.readString(8, false);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                 result.url = org.chromium.url.mojom.Url.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.priority = decoder0.readInt(24);
-                RequestPriority.validate(result.priority);
-                result.priority = RequestPriority.toKnownValue(result.priority);
-            }
-            {
-
+                    RequestPriority.validate(result.priority);
+                    result.priority = RequestPriority.toKnownValue(result.priority);
+                }
+                {
+                    
                 result.referrerPolicy = decoder0.readInt(28);
-                UrlRequestReferrerPolicy.validate(result.referrerPolicy);
-                result.referrerPolicy = UrlRequestReferrerPolicy.toKnownValue(result.referrerPolicy);
-            }
-            {
-
+                    UrlRequestReferrerPolicy.validate(result.referrerPolicy);
+                    result.referrerPolicy = UrlRequestReferrerPolicy.toKnownValue(result.referrerPolicy);
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(32, true);
                 result.trustTokenParams = TrustTokenParams.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.hasUserGesture = decoder0.readBoolean(40, 0);
-            }
-            {
-
+                }
+                {
+                    
                 result.resourceType = decoder0.readInt(44);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -103,19 +107,19 @@ public final class UrlRequestDevToolsInfo extends org.chromium.mojo.bindings.Str
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.method, 8, false);
-
+        
         encoder0.encode(this.url, 16, false);
-
+        
         encoder0.encode(this.priority, 24);
-
+        
         encoder0.encode(this.referrerPolicy, 28);
-
+        
         encoder0.encode(this.trustTokenParams, 32, true);
-
+        
         encoder0.encode(this.hasUserGesture, 40, 0);
-
+        
         encoder0.encode(this.resourceType, 44);
     }
 }

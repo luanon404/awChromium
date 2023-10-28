@@ -13,6 +13,8 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
 
 class ProxyConfigClient_Internal {
 
@@ -144,7 +146,7 @@ FlushProxyConfig_Response callback) {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -189,7 +191,7 @@ FlushProxyConfig_Response callback) {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }

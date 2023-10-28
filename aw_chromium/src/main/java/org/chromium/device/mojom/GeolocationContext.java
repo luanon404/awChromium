@@ -13,24 +13,32 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface GeolocationContext extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends GeolocationContext, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends GeolocationContext, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<GeolocationContext, GeolocationContext.Proxy> MANAGER = GeolocationContext_Internal.MANAGER;
 
-    void bindGeolocation(org.chromium.mojo.bindings.InterfaceRequest<Geolocation> receiver, org.chromium.url.mojom.Url requestingUrl);
+    void bindGeolocation(
+org.chromium.mojo.bindings.InterfaceRequest<Geolocation> receiver, org.chromium.url.mojom.Url requestingUrl);
 
 
-    void onPermissionRevoked(org.chromium.url.internal.mojom.Origin origin);
+    void onPermissionRevoked(
+org.chromium.url.internal.mojom.Origin origin);
 
 
-    void setOverride(GeopositionResult result);
+    void setOverride(
+GeopositionResult result);
 
 
-    void clearOverride();
+    void clearOverride(
+);
 
 
 }

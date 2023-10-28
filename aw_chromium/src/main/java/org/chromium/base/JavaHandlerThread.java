@@ -113,7 +113,6 @@ public class JavaHandlerThread {
     @NativeMethods
     interface Natives {
         void initializeThread(long nativeJavaHandlerThread, long nativeEvent);
-
         void onLooperStopped(long nativeJavaHandlerThread);
     }
 }

@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface FileChooser extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends FileChooser, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends FileChooser, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<FileChooser, FileChooser.Proxy> MANAGER = FileChooser_Internal.MANAGER;

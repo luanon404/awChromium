@@ -17,10 +17,11 @@ import androidx.annotation.IntDef;
 
 public final class ReportingMode {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({ReportingMode.ON_CHANGE, ReportingMode.CONTINUOUS})
-    public @interface EnumType {
-    }
+        ReportingMode.ON_CHANGE,
+        ReportingMode.CONTINUOUS})
+    public @interface EnumType {}
 
     public static final int ON_CHANGE = 0;
     public static final int CONTINUOUS = 1;
@@ -37,9 +38,8 @@ public final class ReportingMode {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private ReportingMode() {
-    }
+    private ReportingMode() {}
 }

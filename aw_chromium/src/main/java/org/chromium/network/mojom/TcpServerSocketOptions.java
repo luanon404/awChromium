@@ -13,10 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class TcpServerSocketOptions extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 16;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public int backlog;
     public int ipv6Only;
@@ -39,7 +42,8 @@ public final class TcpServerSocketOptions extends org.chromium.mojo.bindings.Str
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static TcpServerSocketOptions deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -53,16 +57,16 @@ public final class TcpServerSocketOptions extends org.chromium.mojo.bindings.Str
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new TcpServerSocketOptions(elementsOrVersion);
-            {
-
+                {
+                    
                 result.backlog = decoder0.readInt(8);
-            }
-            {
-
+                }
+                {
+                    
                 result.ipv6Only = decoder0.readInt(12);
-                OptionalBool.validate(result.ipv6Only);
-                result.ipv6Only = OptionalBool.toKnownValue(result.ipv6Only);
-            }
+                    OptionalBool.validate(result.ipv6Only);
+                    result.ipv6Only = OptionalBool.toKnownValue(result.ipv6Only);
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -74,9 +78,9 @@ public final class TcpServerSocketOptions extends org.chromium.mojo.bindings.Str
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.backlog, 8);
-
+        
         encoder0.encode(this.ipv6Only, 12);
     }
 }

@@ -9,23 +9,25 @@ import androidx.annotation.VisibleForTesting;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+
 import org.chromium.base.ContextUtils;
 import org.chromium.base.Log;
 import org.chromium.base.ResettersForTesting;
 import org.chromium.ui.base.WindowAndroid;
-import org.jni_zero.CalledByNative;
-import org.jni_zero.JNINamespace;
-import org.jni_zero.NativeMethods;
 
 /**
  * Simple proxy that provides C++ code with a pathway to the GMS OTP code
  * retrieving APIs.
  * It can operate in three different backend modes which is determined on
  * construction:
- * 1. User Consent: use the user consent API (older method with sub-optimal UX)
- * 2. Verification: use the browser code API (newer method)
- * 3. Auto: prefers to use the verification method but if it is not available
- * automatically falls back to using the User Consent method.
+ *  1. User Consent: use the user consent API (older method with sub-optimal UX)
+ *  2. Verification: use the browser code API (newer method)
+ *  3. Auto: prefers to use the verification method but if it is not available
+ *           automatically falls back to using the User Consent method.
+ *
  */
 @JNINamespace("content")
 public class SmsProviderGms {
@@ -42,7 +44,8 @@ public class SmsProviderGms {
     private Wrappers.SmsRetrieverClientWrapper mClient;
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    public SmsProviderGms(long smsProviderGmsAndroid, @GmsBackend int backend, boolean isVerificationBackendAvailable) {
+    public SmsProviderGms(long smsProviderGmsAndroid, @GmsBackend int backend,
+            boolean isVerificationBackendAvailable) {
         mSmsProviderGmsAndroid = smsProviderGmsAndroid;
         mBackend = backend;
         mContext = new Wrappers.WebOTPServiceContext(ContextUtils.getApplicationContext(), this);
@@ -84,7 +87,11 @@ public class SmsProviderGms {
     @CalledByNative
     private static SmsProviderGms create(long smsProviderGmsAndroid, @GmsBackend int backend) {
         Log.d(TAG, "Creating SmsProviderGms");
-        boolean isVerificationBackendAvailable = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(ContextUtils.getApplicationContext(), MIN_GMS_VERSION_NUMBER_WITH_CODE_BROWSER_BACKEND) == ConnectionResult.SUCCESS;
+        boolean isVerificationBackendAvailable =
+                GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(
+                        ContextUtils.getApplicationContext(),
+                        MIN_GMS_VERSION_NUMBER_WITH_CODE_BROWSER_BACKEND)
+                == ConnectionResult.SUCCESS;
         return new SmsProviderGms(smsProviderGmsAndroid, backend, isVerificationBackendAvailable);
     }
 
@@ -108,8 +115,10 @@ public class SmsProviderGms {
         // If the SMS retrieval request is made from a remote device, e.g. desktop, we only proceed
         // with the verification receiver because the user consent receiver introduces too much user
         // friction. In addition, we do not apply the fallback logic in such case.
-        boolean shouldUseVerificationReceiver = mVerificationReceiver != null && (!isLocalRequest || mBackend != GmsBackend.USER_CONSENT);
-        boolean shouldUseUserConsentReceiver = mUserConsentReceiver != null && isLocalRequest && mBackend != GmsBackend.VERIFICATION && window != null;
+        boolean shouldUseVerificationReceiver = mVerificationReceiver != null
+                && (!isLocalRequest || mBackend != GmsBackend.USER_CONSENT);
+        boolean shouldUseUserConsentReceiver = mUserConsentReceiver != null && isLocalRequest
+                && mBackend != GmsBackend.VERIFICATION && window != null;
         if (shouldUseVerificationReceiver) mVerificationReceiver.listen(isLocalRequest);
         if (shouldUseUserConsentReceiver) mUserConsentReceiver.listen(window);
     }
@@ -157,15 +166,12 @@ public class SmsProviderGms {
     void onReceive(String sms, @GmsBackend int backend) {
         SmsProviderGmsJni.get().onReceive(mSmsProviderGmsAndroid, sms, backend);
     }
-
     void onTimeout() {
         SmsProviderGmsJni.get().onTimeout(mSmsProviderGmsAndroid);
     }
-
     void onCancel() {
         SmsProviderGmsJni.get().onCancel(mSmsProviderGmsAndroid);
     }
-
     void onNotAvailable() {
         SmsProviderGmsJni.get().onNotAvailable(mSmsProviderGmsAndroid);
     }
@@ -178,13 +184,16 @@ public class SmsProviderGms {
         if (mClient != null) {
             return mClient;
         }
-        mClient = new Wrappers.SmsRetrieverClientWrapper(mUserConsentReceiver != null ? mUserConsentReceiver.createClient() : null, mVerificationReceiver != null ? mVerificationReceiver.createClient() : null);
+        mClient = new Wrappers.SmsRetrieverClientWrapper(
+                mUserConsentReceiver != null ? mUserConsentReceiver.createClient() : null,
+                mVerificationReceiver != null ? mVerificationReceiver.createClient() : null);
 
         return mClient;
     }
 
     @CalledByNative
-    private void setClientAndWindow(Wrappers.SmsRetrieverClientWrapper client, WindowAndroid window) {
+    private void setClientAndWindow(
+            Wrappers.SmsRetrieverClientWrapper client, WindowAndroid window) {
         assert mClient == null;
         assert mWindow == null;
         mClient = client;
@@ -196,11 +205,8 @@ public class SmsProviderGms {
     @NativeMethods
     interface Natives {
         void onReceive(long nativeSmsProviderGms, String sms, @GmsBackend int backend);
-
         void onTimeout(long nativeSmsProviderGms);
-
         void onCancel(long nativeSmsProviderGms);
-
         void onNotAvailable(long nativeSmsProviderGms);
     }
 }

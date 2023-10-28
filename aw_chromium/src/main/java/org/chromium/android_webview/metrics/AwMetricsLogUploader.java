@@ -46,8 +46,8 @@ public class AwMetricsLogUploader implements AndroidMetricsLogConsumer {
     private final boolean mUseDefaultUploadQos;
 
     /**
-     * @param isAsync             Whether logging is happening on a background thread or if it is being called
-     *                            from the main thread.
+     * @param isAsync Whether logging is happening on a background thread or if it is being called
+     * from the main thread.
      * @param useDefaultUploadQos Used to experiment modifying the QOS upload rate.
      */
     public AwMetricsLogUploader(boolean isAsync, boolean useDefaultUploadQos) {
@@ -64,15 +64,18 @@ public class AwMetricsLogUploader implements AndroidMetricsLogConsumer {
         private final boolean mUseDefaultUploadQos;
         private final LinkedBlockingQueue<IMetricsUploadService> mConnectionsQueue;
 
-        public MetricsLogUploaderServiceConnection(boolean useDefaultUploadQos, LinkedBlockingQueue<IMetricsUploadService> connectionsQueue) {
+        public MetricsLogUploaderServiceConnection(boolean useDefaultUploadQos,
+                LinkedBlockingQueue<IMetricsUploadService> connectionsQueue) {
             mUseDefaultUploadQos = useDefaultUploadQos;
             mConnectionsQueue = connectionsQueue;
         }
 
         public boolean bind() {
             Intent intent = new Intent();
-            intent.setClassName(AwBrowserProcess.getWebViewPackageName(), ServiceNames.METRICS_UPLOAD_SERVICE);
-            return ServiceHelper.bindService(ContextUtils.getApplicationContext(), intent, this, Context.BIND_AUTO_CREATE);
+            intent.setClassName(
+                    AwBrowserProcess.getWebViewPackageName(), ServiceNames.METRICS_UPLOAD_SERVICE);
+            return ServiceHelper.bindService(
+                    ContextUtils.getApplicationContext(), intent, this, Context.BIND_AUTO_CREATE);
         }
 
         @Override
@@ -107,9 +110,8 @@ public class AwMetricsLogUploader implements AndroidMetricsLogConsumer {
             // If we are on the main thread, we cannot block waiting to connect to the service so we
             // need to fire and forget. In this case all we can do is report back OK.
             if (!isAsync) {
-                PostTask.postTask(TaskTraits.BEST_EFFORT_MAY_BLOCK, () -> {
-                    uploadToService(data);
-                });
+                PostTask.postTask(
+                        TaskTraits.BEST_EFFORT_MAY_BLOCK, () -> { uploadToService(data); });
 
                 return HttpURLConnection.HTTP_OK;
             }
@@ -119,7 +121,8 @@ public class AwMetricsLogUploader implements AndroidMetricsLogConsumer {
 
         private int uploadToService(@NonNull byte[] data) {
             try {
-                IMetricsUploadService uploadService = mConnectionsQueue.poll(SERVICE_CONNECTION_TIMEOUT_MS, TimeUnit.MILLISECONDS);
+                IMetricsUploadService uploadService = mConnectionsQueue.poll(
+                        SERVICE_CONNECTION_TIMEOUT_MS, TimeUnit.MILLISECONDS);
 
                 // Null returned from poll means we timed out
                 if (uploadService == null) {
@@ -152,11 +155,13 @@ public class AwMetricsLogUploader implements AndroidMetricsLogConsumer {
     }
 
     @VisibleForTesting
-    public int log(@NonNull byte[] data, @NonNull LinkedBlockingQueue<IMetricsUploadService> connectionsQueue) {
+    public int log(@NonNull byte[] data,
+            @NonNull LinkedBlockingQueue<IMetricsUploadService> connectionsQueue) {
         MetricsLogUploaderServiceConnection connection = mInitialConnection.getAndSet(null);
 
         if (connection == null) {
-            connection = new MetricsLogUploaderServiceConnection(mUseDefaultUploadQos, connectionsQueue);
+            connection =
+                    new MetricsLogUploaderServiceConnection(mUseDefaultUploadQos, connectionsQueue);
 
             if (!connection.bind()) {
                 Log.w(TAG, "Failed to bind to MetricsUploadService");
@@ -170,14 +175,15 @@ public class AwMetricsLogUploader implements AndroidMetricsLogConsumer {
     /**
      * Initialize a connection to {@link org.chromium.android_webview.services.MetricsUploadService}
      * and keep it alive until the first metrics log data is sent for upload.
-     * <p>
+     *
      * We do this because we already pay the startup cost of the non-embedded process due to other
      * webview non-embedded services running early on.
      * We can hopefully save some time on initially spinning the process since we know we
      * are going to attempt to upload pretty soon after starting up WebView the first time.
      */
     public void initialize() {
-        MetricsLogUploaderServiceConnection connection = new MetricsLogUploaderServiceConnection(mUseDefaultUploadQos, new LinkedBlockingQueue(1));
+        MetricsLogUploaderServiceConnection connection = new MetricsLogUploaderServiceConnection(
+                mUseDefaultUploadQos, new LinkedBlockingQueue(1));
         if (connection.bind()) {
             mInitialConnection.set(connection);
         } else {

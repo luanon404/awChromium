@@ -13,9 +13,13 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 class MediaMetricsProvider_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<MediaMetricsProvider, MediaMetricsProvider.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<MediaMetricsProvider, MediaMetricsProvider.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<MediaMetricsProvider, MediaMetricsProvider.Proxy> MANAGER =
+            new org.chromium.mojo.bindings.Interface.Manager<MediaMetricsProvider, MediaMetricsProvider.Proxy>() {
 
         @Override
         public String getName() {
@@ -24,11 +28,12 @@ class MediaMetricsProvider_Internal {
 
         @Override
         public int getVersion() {
-            return 0;
+          return 0;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -39,7 +44,7 @@ class MediaMetricsProvider_Internal {
 
         @Override
         public MediaMetricsProvider[] buildArray(int size) {
-            return new MediaMetricsProvider[size];
+          return new MediaMetricsProvider[size];
         }
     };
 
@@ -89,13 +94,15 @@ class MediaMetricsProvider_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements MediaMetricsProvider.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core,
+              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void initialize(boolean isMse, int urlScheme, int streamType) {
+        public void initialize(
+boolean isMse, int urlScheme, int streamType) {
 
             MediaMetricsProviderInitializeParams _message = new MediaMetricsProviderInitializeParams();
 
@@ -106,161 +113,213 @@ class MediaMetricsProvider_Internal {
             _message.streamType = streamType;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(INITIALIZE_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(INITIALIZE_ORDINAL)));
 
         }
 
 
         @Override
-        public void onError(PipelineStatus status) {
+        public void onError(
+PipelineStatus status) {
 
             MediaMetricsProviderOnErrorParams _message = new MediaMetricsProviderOnErrorParams();
 
             _message.status = status;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_ERROR_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_ERROR_ORDINAL)));
 
         }
 
 
         @Override
-        public void onFallback(PipelineStatus status) {
+        public void onFallback(
+PipelineStatus status) {
 
             MediaMetricsProviderOnFallbackParams _message = new MediaMetricsProviderOnFallbackParams();
 
             _message.status = status;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_FALLBACK_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_FALLBACK_ORDINAL)));
 
         }
 
 
         @Override
-        public void setHasPlayed() {
+        public void setHasPlayed(
+) {
 
             MediaMetricsProviderSetHasPlayedParams _message = new MediaMetricsProviderSetHasPlayedParams();
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(SET_HAS_PLAYED_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(SET_HAS_PLAYED_ORDINAL)));
 
         }
 
 
         @Override
-        public void setHaveEnough() {
+        public void setHaveEnough(
+) {
 
             MediaMetricsProviderSetHaveEnoughParams _message = new MediaMetricsProviderSetHaveEnoughParams();
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(SET_HAVE_ENOUGH_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(SET_HAVE_ENOUGH_ORDINAL)));
 
         }
 
 
         @Override
-        public void setIsEme() {
+        public void setIsEme(
+) {
 
             MediaMetricsProviderSetIsEmeParams _message = new MediaMetricsProviderSetIsEmeParams();
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(SET_IS_EME_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(SET_IS_EME_ORDINAL)));
 
         }
 
 
         @Override
-        public void setTimeToMetadata(org.chromium.mojo_base.mojom.TimeDelta elapsed) {
+        public void setTimeToMetadata(
+org.chromium.mojo_base.mojom.TimeDelta elapsed) {
 
             MediaMetricsProviderSetTimeToMetadataParams _message = new MediaMetricsProviderSetTimeToMetadataParams();
 
             _message.elapsed = elapsed;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(SET_TIME_TO_METADATA_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(SET_TIME_TO_METADATA_ORDINAL)));
 
         }
 
 
         @Override
-        public void setTimeToFirstFrame(org.chromium.mojo_base.mojom.TimeDelta elapsed) {
+        public void setTimeToFirstFrame(
+org.chromium.mojo_base.mojom.TimeDelta elapsed) {
 
             MediaMetricsProviderSetTimeToFirstFrameParams _message = new MediaMetricsProviderSetTimeToFirstFrameParams();
 
             _message.elapsed = elapsed;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(SET_TIME_TO_FIRST_FRAME_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(SET_TIME_TO_FIRST_FRAME_ORDINAL)));
 
         }
 
 
         @Override
-        public void setTimeToPlayReady(org.chromium.mojo_base.mojom.TimeDelta elapsed) {
+        public void setTimeToPlayReady(
+org.chromium.mojo_base.mojom.TimeDelta elapsed) {
 
             MediaMetricsProviderSetTimeToPlayReadyParams _message = new MediaMetricsProviderSetTimeToPlayReadyParams();
 
             _message.elapsed = elapsed;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(SET_TIME_TO_PLAY_READY_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(SET_TIME_TO_PLAY_READY_ORDINAL)));
 
         }
 
 
         @Override
-        public void setRendererType(int rendererType) {
+        public void setRendererType(
+int rendererType) {
 
             MediaMetricsProviderSetRendererTypeParams _message = new MediaMetricsProviderSetRendererTypeParams();
 
             _message.rendererType = rendererType;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(SET_RENDERER_TYPE_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(SET_RENDERER_TYPE_ORDINAL)));
 
         }
 
 
         @Override
-        public void setKeySystem(String keySystem) {
+        public void setKeySystem(
+String keySystem) {
 
             MediaMetricsProviderSetKeySystemParams _message = new MediaMetricsProviderSetKeySystemParams();
 
             _message.keySystem = keySystem;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(SET_KEY_SYSTEM_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(SET_KEY_SYSTEM_ORDINAL)));
 
         }
 
 
         @Override
-        public void setIsHardwareSecure() {
+        public void setIsHardwareSecure(
+) {
 
             MediaMetricsProviderSetIsHardwareSecureParams _message = new MediaMetricsProviderSetIsHardwareSecureParams();
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(SET_IS_HARDWARE_SECURE_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(SET_IS_HARDWARE_SECURE_ORDINAL)));
 
         }
 
 
         @Override
-        public void setContainerName(int containerName) {
+        public void setContainerName(
+int containerName) {
 
             MediaMetricsProviderSetContainerNameParams _message = new MediaMetricsProviderSetContainerNameParams();
 
             _message.containerName = containerName;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(SET_CONTAINER_NAME_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(SET_CONTAINER_NAME_ORDINAL)));
 
         }
 
 
         @Override
-        public void acquireWatchTimeRecorder(PlaybackProperties properties, org.chromium.mojo.bindings.InterfaceRequest<WatchTimeRecorder> recorder) {
+        public void acquireWatchTimeRecorder(
+PlaybackProperties properties, org.chromium.mojo.bindings.InterfaceRequest<WatchTimeRecorder> recorder) {
 
             MediaMetricsProviderAcquireWatchTimeRecorderParams _message = new MediaMetricsProviderAcquireWatchTimeRecorderParams();
 
@@ -269,26 +328,34 @@ class MediaMetricsProvider_Internal {
             _message.recorder = recorder;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ACQUIRE_WATCH_TIME_RECORDER_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ACQUIRE_WATCH_TIME_RECORDER_ORDINAL)));
 
         }
 
 
         @Override
-        public void acquireVideoDecodeStatsRecorder(org.chromium.mojo.bindings.InterfaceRequest<VideoDecodeStatsRecorder> recorder) {
+        public void acquireVideoDecodeStatsRecorder(
+org.chromium.mojo.bindings.InterfaceRequest<VideoDecodeStatsRecorder> recorder) {
 
             MediaMetricsProviderAcquireVideoDecodeStatsRecorderParams _message = new MediaMetricsProviderAcquireVideoDecodeStatsRecorderParams();
 
             _message.recorder = recorder;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ACQUIRE_VIDEO_DECODE_STATS_RECORDER_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ACQUIRE_VIDEO_DECODE_STATS_RECORDER_ORDINAL)));
 
         }
 
 
         @Override
-        public void acquireLearningTaskController(String taskName, org.chromium.mojo.bindings.InterfaceRequest<org.chromium.media.learning.mojom.LearningTaskController> controller) {
+        public void acquireLearningTaskController(
+String taskName, org.chromium.mojo.bindings.InterfaceRequest<org.chromium.media.learning.mojom.LearningTaskController> controller) {
 
             MediaMetricsProviderAcquireLearningTaskControllerParams _message = new MediaMetricsProviderAcquireLearningTaskControllerParams();
 
@@ -297,72 +364,95 @@ class MediaMetricsProvider_Internal {
             _message.controller = controller;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ACQUIRE_LEARNING_TASK_CONTROLLER_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ACQUIRE_LEARNING_TASK_CONTROLLER_ORDINAL)));
 
         }
 
 
         @Override
-        public void acquirePlaybackEventsRecorder(org.chromium.mojo.bindings.InterfaceRequest<PlaybackEventsRecorder> receiver) {
+        public void acquirePlaybackEventsRecorder(
+org.chromium.mojo.bindings.InterfaceRequest<PlaybackEventsRecorder> receiver) {
 
             MediaMetricsProviderAcquirePlaybackEventsRecorderParams _message = new MediaMetricsProviderAcquirePlaybackEventsRecorderParams();
 
             _message.receiver = receiver;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ACQUIRE_PLAYBACK_EVENTS_RECORDER_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ACQUIRE_PLAYBACK_EVENTS_RECORDER_ORDINAL)));
 
         }
 
 
         @Override
-        public void setHasAudio(int codec) {
+        public void setHasAudio(
+int codec) {
 
             MediaMetricsProviderSetHasAudioParams _message = new MediaMetricsProviderSetHasAudioParams();
 
             _message.codec = codec;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(SET_HAS_AUDIO_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(SET_HAS_AUDIO_ORDINAL)));
 
         }
 
 
         @Override
-        public void setHasVideo(int codec) {
+        public void setHasVideo(
+int codec) {
 
             MediaMetricsProviderSetHasVideoParams _message = new MediaMetricsProviderSetHasVideoParams();
 
             _message.codec = codec;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(SET_HAS_VIDEO_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(SET_HAS_VIDEO_ORDINAL)));
 
         }
 
 
         @Override
-        public void setVideoPipelineInfo(VideoPipelineInfo info) {
+        public void setVideoPipelineInfo(
+VideoPipelineInfo info) {
 
             MediaMetricsProviderSetVideoPipelineInfoParams _message = new MediaMetricsProviderSetVideoPipelineInfoParams();
 
             _message.info = info;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(SET_VIDEO_PIPELINE_INFO_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(SET_VIDEO_PIPELINE_INFO_ORDINAL)));
 
         }
 
 
         @Override
-        public void setAudioPipelineInfo(AudioPipelineInfo info) {
+        public void setAudioPipelineInfo(
+AudioPipelineInfo info) {
 
             MediaMetricsProviderSetAudioPipelineInfoParams _message = new MediaMetricsProviderSetAudioPipelineInfoParams();
 
             _message.info = info;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(SET_AUDIO_PIPELINE_INFO_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(SET_AUDIO_PIPELINE_INFO_ORDINAL)));
 
         }
 
@@ -378,7 +468,8 @@ class MediaMetricsProvider_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -387,37 +478,53 @@ class MediaMetricsProvider_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(MediaMetricsProvider_Internal.MANAGER, messageWithHeader);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
+                                MediaMetricsProvider_Internal.MANAGER, messageWithHeader);
+
+
+
 
 
                     case INITIALIZE_ORDINAL: {
 
-                        MediaMetricsProviderInitializeParams data = MediaMetricsProviderInitializeParams.deserialize(messageWithHeader.getPayload());
+                        MediaMetricsProviderInitializeParams data =
+                                MediaMetricsProviderInitializeParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().initialize(data.isMse, data.urlScheme, data.streamType);
                         return true;
                     }
 
 
+
+
+
                     case ON_ERROR_ORDINAL: {
 
-                        MediaMetricsProviderOnErrorParams data = MediaMetricsProviderOnErrorParams.deserialize(messageWithHeader.getPayload());
+                        MediaMetricsProviderOnErrorParams data =
+                                MediaMetricsProviderOnErrorParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onError(data.status);
                         return true;
                     }
 
 
+
+
+
                     case ON_FALLBACK_ORDINAL: {
 
-                        MediaMetricsProviderOnFallbackParams data = MediaMetricsProviderOnFallbackParams.deserialize(messageWithHeader.getPayload());
+                        MediaMetricsProviderOnFallbackParams data =
+                                MediaMetricsProviderOnFallbackParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onFallback(data.status);
                         return true;
                     }
+
+
+
 
 
                     case SET_HAS_PLAYED_ORDINAL: {
@@ -429,6 +536,9 @@ class MediaMetricsProvider_Internal {
                     }
 
 
+
+
+
                     case SET_HAVE_ENOUGH_ORDINAL: {
 
                         MediaMetricsProviderSetHaveEnoughParams.deserialize(messageWithHeader.getPayload());
@@ -436,6 +546,9 @@ class MediaMetricsProvider_Internal {
                         getImpl().setHaveEnough();
                         return true;
                     }
+
+
+
 
 
                     case SET_IS_EME_ORDINAL: {
@@ -447,49 +560,72 @@ class MediaMetricsProvider_Internal {
                     }
 
 
+
+
+
                     case SET_TIME_TO_METADATA_ORDINAL: {
 
-                        MediaMetricsProviderSetTimeToMetadataParams data = MediaMetricsProviderSetTimeToMetadataParams.deserialize(messageWithHeader.getPayload());
+                        MediaMetricsProviderSetTimeToMetadataParams data =
+                                MediaMetricsProviderSetTimeToMetadataParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().setTimeToMetadata(data.elapsed);
                         return true;
                     }
 
 
+
+
+
                     case SET_TIME_TO_FIRST_FRAME_ORDINAL: {
 
-                        MediaMetricsProviderSetTimeToFirstFrameParams data = MediaMetricsProviderSetTimeToFirstFrameParams.deserialize(messageWithHeader.getPayload());
+                        MediaMetricsProviderSetTimeToFirstFrameParams data =
+                                MediaMetricsProviderSetTimeToFirstFrameParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().setTimeToFirstFrame(data.elapsed);
                         return true;
                     }
 
 
+
+
+
                     case SET_TIME_TO_PLAY_READY_ORDINAL: {
 
-                        MediaMetricsProviderSetTimeToPlayReadyParams data = MediaMetricsProviderSetTimeToPlayReadyParams.deserialize(messageWithHeader.getPayload());
+                        MediaMetricsProviderSetTimeToPlayReadyParams data =
+                                MediaMetricsProviderSetTimeToPlayReadyParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().setTimeToPlayReady(data.elapsed);
                         return true;
                     }
 
 
+
+
+
                     case SET_RENDERER_TYPE_ORDINAL: {
 
-                        MediaMetricsProviderSetRendererTypeParams data = MediaMetricsProviderSetRendererTypeParams.deserialize(messageWithHeader.getPayload());
+                        MediaMetricsProviderSetRendererTypeParams data =
+                                MediaMetricsProviderSetRendererTypeParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().setRendererType(data.rendererType);
                         return true;
                     }
 
 
+
+
+
                     case SET_KEY_SYSTEM_ORDINAL: {
 
-                        MediaMetricsProviderSetKeySystemParams data = MediaMetricsProviderSetKeySystemParams.deserialize(messageWithHeader.getPayload());
+                        MediaMetricsProviderSetKeySystemParams data =
+                                MediaMetricsProviderSetKeySystemParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().setKeySystem(data.keySystem);
                         return true;
                     }
+
+
+
 
 
                     case SET_IS_HARDWARE_SECURE_ORDINAL: {
@@ -501,81 +637,117 @@ class MediaMetricsProvider_Internal {
                     }
 
 
+
+
+
                     case SET_CONTAINER_NAME_ORDINAL: {
 
-                        MediaMetricsProviderSetContainerNameParams data = MediaMetricsProviderSetContainerNameParams.deserialize(messageWithHeader.getPayload());
+                        MediaMetricsProviderSetContainerNameParams data =
+                                MediaMetricsProviderSetContainerNameParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().setContainerName(data.containerName);
                         return true;
                     }
 
 
+
+
+
                     case ACQUIRE_WATCH_TIME_RECORDER_ORDINAL: {
 
-                        MediaMetricsProviderAcquireWatchTimeRecorderParams data = MediaMetricsProviderAcquireWatchTimeRecorderParams.deserialize(messageWithHeader.getPayload());
+                        MediaMetricsProviderAcquireWatchTimeRecorderParams data =
+                                MediaMetricsProviderAcquireWatchTimeRecorderParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().acquireWatchTimeRecorder(data.properties, data.recorder);
                         return true;
                     }
 
 
+
+
+
                     case ACQUIRE_VIDEO_DECODE_STATS_RECORDER_ORDINAL: {
 
-                        MediaMetricsProviderAcquireVideoDecodeStatsRecorderParams data = MediaMetricsProviderAcquireVideoDecodeStatsRecorderParams.deserialize(messageWithHeader.getPayload());
+                        MediaMetricsProviderAcquireVideoDecodeStatsRecorderParams data =
+                                MediaMetricsProviderAcquireVideoDecodeStatsRecorderParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().acquireVideoDecodeStatsRecorder(data.recorder);
                         return true;
                     }
 
 
+
+
+
                     case ACQUIRE_LEARNING_TASK_CONTROLLER_ORDINAL: {
 
-                        MediaMetricsProviderAcquireLearningTaskControllerParams data = MediaMetricsProviderAcquireLearningTaskControllerParams.deserialize(messageWithHeader.getPayload());
+                        MediaMetricsProviderAcquireLearningTaskControllerParams data =
+                                MediaMetricsProviderAcquireLearningTaskControllerParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().acquireLearningTaskController(data.taskName, data.controller);
                         return true;
                     }
 
 
+
+
+
                     case ACQUIRE_PLAYBACK_EVENTS_RECORDER_ORDINAL: {
 
-                        MediaMetricsProviderAcquirePlaybackEventsRecorderParams data = MediaMetricsProviderAcquirePlaybackEventsRecorderParams.deserialize(messageWithHeader.getPayload());
+                        MediaMetricsProviderAcquirePlaybackEventsRecorderParams data =
+                                MediaMetricsProviderAcquirePlaybackEventsRecorderParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().acquirePlaybackEventsRecorder(data.receiver);
                         return true;
                     }
 
 
+
+
+
                     case SET_HAS_AUDIO_ORDINAL: {
 
-                        MediaMetricsProviderSetHasAudioParams data = MediaMetricsProviderSetHasAudioParams.deserialize(messageWithHeader.getPayload());
+                        MediaMetricsProviderSetHasAudioParams data =
+                                MediaMetricsProviderSetHasAudioParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().setHasAudio(data.codec);
                         return true;
                     }
 
 
+
+
+
                     case SET_HAS_VIDEO_ORDINAL: {
 
-                        MediaMetricsProviderSetHasVideoParams data = MediaMetricsProviderSetHasVideoParams.deserialize(messageWithHeader.getPayload());
+                        MediaMetricsProviderSetHasVideoParams data =
+                                MediaMetricsProviderSetHasVideoParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().setHasVideo(data.codec);
                         return true;
                     }
 
 
+
+
+
                     case SET_VIDEO_PIPELINE_INFO_ORDINAL: {
 
-                        MediaMetricsProviderSetVideoPipelineInfoParams data = MediaMetricsProviderSetVideoPipelineInfoParams.deserialize(messageWithHeader.getPayload());
+                        MediaMetricsProviderSetVideoPipelineInfoParams data =
+                                MediaMetricsProviderSetVideoPipelineInfoParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().setVideoPipelineInfo(data.info);
                         return true;
                     }
 
 
+
+
+
                     case SET_AUDIO_PIPELINE_INFO_ORDINAL: {
 
-                        MediaMetricsProviderSetAudioPipelineInfoParams data = MediaMetricsProviderSetAudioPipelineInfoParams.deserialize(messageWithHeader.getPayload());
+                        MediaMetricsProviderSetAudioPipelineInfoParams data =
+                                MediaMetricsProviderSetAudioPipelineInfoParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().setAudioPipelineInfo(data.info);
                         return true;
@@ -586,7 +758,7 @@ class MediaMetricsProvider_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -594,7 +766,8 @@ class MediaMetricsProvider_Internal {
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -603,27 +776,71 @@ class MediaMetricsProvider_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), MediaMetricsProvider_Internal.MANAGER, messageWithHeader, receiver);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
+                                getCore(), MediaMetricsProvider_Internal.MANAGER, messageWithHeader, receiver);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
                     default:
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class MediaMetricsProviderInitializeParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public boolean isMse;
         public int urlScheme;
@@ -647,7 +864,8 @@ class MediaMetricsProvider_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static MediaMetricsProviderInitializeParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -661,22 +879,22 @@ class MediaMetricsProvider_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new MediaMetricsProviderInitializeParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.isMse = decoder0.readBoolean(8, 0);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.urlScheme = decoder0.readInt(12);
-                    MediaUrlScheme.validate(result.urlScheme);
-                    result.urlScheme = MediaUrlScheme.toKnownValue(result.urlScheme);
-                }
-                {
-
+                        MediaUrlScheme.validate(result.urlScheme);
+                        result.urlScheme = MediaUrlScheme.toKnownValue(result.urlScheme);
+                    }
+                    {
+                        
                     result.streamType = decoder0.readInt(16);
-                    MediaStreamType.validate(result.streamType);
-                    result.streamType = MediaStreamType.toKnownValue(result.streamType);
-                }
+                        MediaStreamType.validate(result.streamType);
+                        result.streamType = MediaStreamType.toKnownValue(result.streamType);
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -688,20 +906,22 @@ class MediaMetricsProvider_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.isMse, 8, 0);
-
+            
             encoder0.encode(this.urlScheme, 12);
-
+            
             encoder0.encode(this.streamType, 16);
         }
     }
 
 
+
+    
     static final class MediaMetricsProviderOnErrorParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public PipelineStatus status;
 
@@ -723,7 +943,8 @@ class MediaMetricsProvider_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static MediaMetricsProviderOnErrorParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -737,11 +958,11 @@ class MediaMetricsProvider_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new MediaMetricsProviderOnErrorParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.status = PipelineStatus.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -753,16 +974,18 @@ class MediaMetricsProvider_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.status, 8, false);
         }
     }
 
 
+
+    
     static final class MediaMetricsProviderOnFallbackParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public PipelineStatus status;
 
@@ -784,7 +1007,8 @@ class MediaMetricsProvider_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static MediaMetricsProviderOnFallbackParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -798,11 +1022,11 @@ class MediaMetricsProvider_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new MediaMetricsProviderOnFallbackParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.status = PipelineStatus.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -814,16 +1038,18 @@ class MediaMetricsProvider_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.status, 8, false);
         }
     }
 
 
+
+    
     static final class MediaMetricsProviderSetHasPlayedParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 8;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(8, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(8, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
 
         private MediaMetricsProviderSetHasPlayedParams(int version) {
@@ -844,7 +1070,8 @@ class MediaMetricsProvider_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static MediaMetricsProviderSetHasPlayedParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -873,10 +1100,12 @@ class MediaMetricsProvider_Internal {
     }
 
 
+
+    
     static final class MediaMetricsProviderSetHaveEnoughParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 8;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(8, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(8, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
 
         private MediaMetricsProviderSetHaveEnoughParams(int version) {
@@ -897,7 +1126,8 @@ class MediaMetricsProvider_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static MediaMetricsProviderSetHaveEnoughParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -926,10 +1156,12 @@ class MediaMetricsProvider_Internal {
     }
 
 
+
+    
     static final class MediaMetricsProviderSetIsEmeParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 8;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(8, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(8, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
 
         private MediaMetricsProviderSetIsEmeParams(int version) {
@@ -950,7 +1182,8 @@ class MediaMetricsProvider_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static MediaMetricsProviderSetIsEmeParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -979,10 +1212,12 @@ class MediaMetricsProvider_Internal {
     }
 
 
+
+    
     static final class MediaMetricsProviderSetTimeToMetadataParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.mojo_base.mojom.TimeDelta elapsed;
 
@@ -1004,7 +1239,8 @@ class MediaMetricsProvider_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static MediaMetricsProviderSetTimeToMetadataParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1018,11 +1254,11 @@ class MediaMetricsProvider_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new MediaMetricsProviderSetTimeToMetadataParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.elapsed = org.chromium.mojo_base.mojom.TimeDelta.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1034,16 +1270,18 @@ class MediaMetricsProvider_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.elapsed, 8, false);
         }
     }
 
 
+
+    
     static final class MediaMetricsProviderSetTimeToFirstFrameParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.mojo_base.mojom.TimeDelta elapsed;
 
@@ -1065,7 +1303,8 @@ class MediaMetricsProvider_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static MediaMetricsProviderSetTimeToFirstFrameParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1079,11 +1318,11 @@ class MediaMetricsProvider_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new MediaMetricsProviderSetTimeToFirstFrameParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.elapsed = org.chromium.mojo_base.mojom.TimeDelta.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1095,16 +1334,18 @@ class MediaMetricsProvider_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.elapsed, 8, false);
         }
     }
 
 
+
+    
     static final class MediaMetricsProviderSetTimeToPlayReadyParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.mojo_base.mojom.TimeDelta elapsed;
 
@@ -1126,7 +1367,8 @@ class MediaMetricsProvider_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static MediaMetricsProviderSetTimeToPlayReadyParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1140,11 +1382,11 @@ class MediaMetricsProvider_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new MediaMetricsProviderSetTimeToPlayReadyParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.elapsed = org.chromium.mojo_base.mojom.TimeDelta.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1156,16 +1398,18 @@ class MediaMetricsProvider_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.elapsed, 8, false);
         }
     }
 
 
+
+    
     static final class MediaMetricsProviderSetRendererTypeParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int rendererType;
 
@@ -1187,7 +1431,8 @@ class MediaMetricsProvider_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static MediaMetricsProviderSetRendererTypeParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1201,12 +1446,12 @@ class MediaMetricsProvider_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new MediaMetricsProviderSetRendererTypeParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.rendererType = decoder0.readInt(8);
-                    RendererType.validate(result.rendererType);
-                    result.rendererType = RendererType.toKnownValue(result.rendererType);
-                }
+                        RendererType.validate(result.rendererType);
+                        result.rendererType = RendererType.toKnownValue(result.rendererType);
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1218,16 +1463,18 @@ class MediaMetricsProvider_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.rendererType, 8);
         }
     }
 
 
+
+    
     static final class MediaMetricsProviderSetKeySystemParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public String keySystem;
 
@@ -1249,7 +1496,8 @@ class MediaMetricsProvider_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static MediaMetricsProviderSetKeySystemParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1263,10 +1511,10 @@ class MediaMetricsProvider_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new MediaMetricsProviderSetKeySystemParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.keySystem = decoder0.readString(8, false);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1278,16 +1526,18 @@ class MediaMetricsProvider_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.keySystem, 8, false);
         }
     }
 
 
+
+    
     static final class MediaMetricsProviderSetIsHardwareSecureParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 8;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(8, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(8, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
 
         private MediaMetricsProviderSetIsHardwareSecureParams(int version) {
@@ -1308,7 +1558,8 @@ class MediaMetricsProvider_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static MediaMetricsProviderSetIsHardwareSecureParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1337,10 +1588,12 @@ class MediaMetricsProvider_Internal {
     }
 
 
+
+    
     static final class MediaMetricsProviderSetContainerNameParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int containerName;
 
@@ -1362,7 +1615,8 @@ class MediaMetricsProvider_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static MediaMetricsProviderSetContainerNameParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1376,12 +1630,12 @@ class MediaMetricsProvider_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new MediaMetricsProviderSetContainerNameParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.containerName = decoder0.readInt(8);
-                    MediaContainerName.validate(result.containerName);
-                    result.containerName = MediaContainerName.toKnownValue(result.containerName);
-                }
+                        MediaContainerName.validate(result.containerName);
+                        result.containerName = MediaContainerName.toKnownValue(result.containerName);
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1393,16 +1647,18 @@ class MediaMetricsProvider_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.containerName, 8);
         }
     }
 
 
+
+    
     static final class MediaMetricsProviderAcquireWatchTimeRecorderParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public PlaybackProperties properties;
         public org.chromium.mojo.bindings.InterfaceRequest<WatchTimeRecorder> recorder;
@@ -1425,7 +1681,8 @@ class MediaMetricsProvider_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static MediaMetricsProviderAcquireWatchTimeRecorderParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1439,15 +1696,15 @@ class MediaMetricsProvider_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new MediaMetricsProviderAcquireWatchTimeRecorderParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.properties = PlaybackProperties.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.recorder = decoder0.readInterfaceRequest(16, false);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1459,18 +1716,20 @@ class MediaMetricsProvider_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.properties, 8, false);
-
+            
             encoder0.encode(this.recorder, 16, false);
         }
     }
 
 
+
+    
     static final class MediaMetricsProviderAcquireVideoDecodeStatsRecorderParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.mojo.bindings.InterfaceRequest<VideoDecodeStatsRecorder> recorder;
 
@@ -1492,7 +1751,8 @@ class MediaMetricsProvider_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static MediaMetricsProviderAcquireVideoDecodeStatsRecorderParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1506,10 +1766,10 @@ class MediaMetricsProvider_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new MediaMetricsProviderAcquireVideoDecodeStatsRecorderParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.recorder = decoder0.readInterfaceRequest(8, false);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1521,16 +1781,18 @@ class MediaMetricsProvider_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.recorder, 8, false);
         }
     }
 
 
+
+    
     static final class MediaMetricsProviderAcquireLearningTaskControllerParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public String taskName;
         public org.chromium.mojo.bindings.InterfaceRequest<org.chromium.media.learning.mojom.LearningTaskController> controller;
@@ -1553,7 +1815,8 @@ class MediaMetricsProvider_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static MediaMetricsProviderAcquireLearningTaskControllerParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1567,14 +1830,14 @@ class MediaMetricsProvider_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new MediaMetricsProviderAcquireLearningTaskControllerParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.taskName = decoder0.readString(8, false);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.controller = decoder0.readInterfaceRequest(16, false);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1586,18 +1849,20 @@ class MediaMetricsProvider_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.taskName, 8, false);
-
+            
             encoder0.encode(this.controller, 16, false);
         }
     }
 
 
+
+    
     static final class MediaMetricsProviderAcquirePlaybackEventsRecorderParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.mojo.bindings.InterfaceRequest<PlaybackEventsRecorder> receiver;
 
@@ -1619,7 +1884,8 @@ class MediaMetricsProvider_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static MediaMetricsProviderAcquirePlaybackEventsRecorderParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1633,10 +1899,10 @@ class MediaMetricsProvider_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new MediaMetricsProviderAcquirePlaybackEventsRecorderParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.receiver = decoder0.readInterfaceRequest(8, false);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1648,16 +1914,18 @@ class MediaMetricsProvider_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.receiver, 8, false);
         }
     }
 
 
+
+    
     static final class MediaMetricsProviderSetHasAudioParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int codec;
 
@@ -1679,7 +1947,8 @@ class MediaMetricsProvider_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static MediaMetricsProviderSetHasAudioParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1693,12 +1962,12 @@ class MediaMetricsProvider_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new MediaMetricsProviderSetHasAudioParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.codec = decoder0.readInt(8);
-                    AudioCodec.validate(result.codec);
-                    result.codec = AudioCodec.toKnownValue(result.codec);
-                }
+                        AudioCodec.validate(result.codec);
+                        result.codec = AudioCodec.toKnownValue(result.codec);
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1710,16 +1979,18 @@ class MediaMetricsProvider_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.codec, 8);
         }
     }
 
 
+
+    
     static final class MediaMetricsProviderSetHasVideoParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int codec;
 
@@ -1741,7 +2012,8 @@ class MediaMetricsProvider_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static MediaMetricsProviderSetHasVideoParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1755,12 +2027,12 @@ class MediaMetricsProvider_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new MediaMetricsProviderSetHasVideoParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.codec = decoder0.readInt(8);
-                    VideoCodec.validate(result.codec);
-                    result.codec = VideoCodec.toKnownValue(result.codec);
-                }
+                        VideoCodec.validate(result.codec);
+                        result.codec = VideoCodec.toKnownValue(result.codec);
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1772,16 +2044,18 @@ class MediaMetricsProvider_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.codec, 8);
         }
     }
 
 
+
+    
     static final class MediaMetricsProviderSetVideoPipelineInfoParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public VideoPipelineInfo info;
 
@@ -1803,7 +2077,8 @@ class MediaMetricsProvider_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static MediaMetricsProviderSetVideoPipelineInfoParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1817,11 +2092,11 @@ class MediaMetricsProvider_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new MediaMetricsProviderSetVideoPipelineInfoParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.info = VideoPipelineInfo.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1833,16 +2108,18 @@ class MediaMetricsProvider_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.info, 8, false);
         }
     }
 
 
+
+    
     static final class MediaMetricsProviderSetAudioPipelineInfoParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public AudioPipelineInfo info;
 
@@ -1864,7 +2141,8 @@ class MediaMetricsProvider_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static MediaMetricsProviderSetAudioPipelineInfoParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1878,11 +2156,11 @@ class MediaMetricsProvider_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new MediaMetricsProviderSetAudioPipelineInfoParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.info = AudioPipelineInfo.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1894,10 +2172,11 @@ class MediaMetricsProvider_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.info, 8, false);
         }
     }
+
 
 
 }

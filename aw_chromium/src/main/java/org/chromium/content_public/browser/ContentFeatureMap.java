@@ -4,9 +4,10 @@
 
 package org.chromium.content_public.browser;
 
-import org.chromium.base.FeatureMap;
 import org.jni_zero.JNINamespace;
 import org.jni_zero.NativeMethods;
+
+import org.chromium.base.FeatureMap;
 
 /**
  * Java accessor for base::Features listed in content/browser/android/content_feature_map.cc.
@@ -16,8 +17,7 @@ public class ContentFeatureMap extends FeatureMap {
     private static final ContentFeatureMap sInstance = new ContentFeatureMap();
 
     // Do not instantiate this class.
-    private ContentFeatureMap() {
-    }
+    private ContentFeatureMap() {}
 
     /**
      * @return the singleton {@link ContentFeatureMap}

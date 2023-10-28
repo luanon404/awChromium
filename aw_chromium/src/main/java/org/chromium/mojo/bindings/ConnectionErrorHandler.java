@@ -11,5 +11,5 @@ import org.chromium.mojo.system.MojoException;
  * message pipes.
  */
 public interface ConnectionErrorHandler {
-    void onConnectionError(MojoException e);
+    public void onConnectionError(MojoException e);
 }

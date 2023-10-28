@@ -13,9 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 class CustomProxyConfigClient_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<CustomProxyConfigClient, CustomProxyConfigClient.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<CustomProxyConfigClient, CustomProxyConfigClient.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<CustomProxyConfigClient, CustomProxyConfigClient.Proxy> MANAGER =
+            new org.chromium.mojo.bindings.Interface.Manager<CustomProxyConfigClient, CustomProxyConfigClient.Proxy>() {
 
         @Override
         public String getName() {
@@ -24,11 +28,12 @@ class CustomProxyConfigClient_Internal {
 
         @Override
         public int getVersion() {
-            return 0;
+          return 0;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -39,7 +44,7 @@ class CustomProxyConfigClient_Internal {
 
         @Override
         public CustomProxyConfigClient[] buildArray(int size) {
-            return new CustomProxyConfigClient[size];
+          return new CustomProxyConfigClient[size];
         }
     };
 
@@ -53,26 +58,38 @@ class CustomProxyConfigClient_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements CustomProxyConfigClient.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core,
+              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void onCustomProxyConfigUpdated(CustomProxyConfig proxyConfig, OnCustomProxyConfigUpdated_Response callback) {
+        public void onCustomProxyConfigUpdated(
+CustomProxyConfig proxyConfig, 
+OnCustomProxyConfigUpdated_Response callback) {
 
             CustomProxyConfigClientOnCustomProxyConfigUpdatedParams _message = new CustomProxyConfigClientOnCustomProxyConfigUpdatedParams();
 
             _message.proxyConfig = proxyConfig;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_CUSTOM_PROXY_CONFIG_UPDATED_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new CustomProxyConfigClientOnCustomProxyConfigUpdatedResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    ON_CUSTOM_PROXY_CONFIG_UPDATED_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new CustomProxyConfigClientOnCustomProxyConfigUpdatedResponseParamsForwardToCallback(callback));
 
         }
 
 
         @Override
-        public void markProxiesAsBad(org.chromium.mojo_base.mojom.TimeDelta bypassDuration, ProxyList badProxies, MarkProxiesAsBad_Response callback) {
+        public void markProxiesAsBad(
+org.chromium.mojo_base.mojom.TimeDelta bypassDuration, ProxyList badProxies, 
+MarkProxiesAsBad_Response callback) {
 
             CustomProxyConfigClientMarkProxiesAsBadParams _message = new CustomProxyConfigClientMarkProxiesAsBadParams();
 
@@ -81,18 +98,29 @@ class CustomProxyConfigClient_Internal {
             _message.badProxies = badProxies;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(MARK_PROXIES_AS_BAD_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new CustomProxyConfigClientMarkProxiesAsBadResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    MARK_PROXIES_AS_BAD_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new CustomProxyConfigClientMarkProxiesAsBadResponseParamsForwardToCallback(callback));
 
         }
 
 
         @Override
-        public void clearBadProxiesCache() {
+        public void clearBadProxiesCache(
+) {
 
             CustomProxyConfigClientClearBadProxiesCacheParams _message = new CustomProxyConfigClientClearBadProxiesCacheParams();
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(CLEAR_BAD_PROXIES_CACHE_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(CLEAR_BAD_PROXIES_CACHE_ORDINAL)));
 
         }
 
@@ -108,7 +136,8 @@ class CustomProxyConfigClient_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -117,10 +146,18 @@ class CustomProxyConfigClient_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(CustomProxyConfigClient_Internal.MANAGER, messageWithHeader);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
+                                CustomProxyConfigClient_Internal.MANAGER, messageWithHeader);
+
+
+
+
+
+
+
 
 
                     case CLEAR_BAD_PROXIES_CACHE_ORDINAL: {
@@ -136,7 +173,7 @@ class CustomProxyConfigClient_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -144,7 +181,8 @@ class CustomProxyConfigClient_Internal {
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -153,45 +191,61 @@ class CustomProxyConfigClient_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), CustomProxyConfigClient_Internal.MANAGER, messageWithHeader, receiver);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
+                                getCore(), CustomProxyConfigClient_Internal.MANAGER, messageWithHeader, receiver);
+
+
+
+
+
 
 
                     case ON_CUSTOM_PROXY_CONFIG_UPDATED_ORDINAL: {
 
-                        CustomProxyConfigClientOnCustomProxyConfigUpdatedParams data = CustomProxyConfigClientOnCustomProxyConfigUpdatedParams.deserialize(messageWithHeader.getPayload());
+                        CustomProxyConfigClientOnCustomProxyConfigUpdatedParams data =
+                                CustomProxyConfigClientOnCustomProxyConfigUpdatedParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onCustomProxyConfigUpdated(data.proxyConfig, new CustomProxyConfigClientOnCustomProxyConfigUpdatedResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
                     }
 
 
+
+
+
+
+
                     case MARK_PROXIES_AS_BAD_ORDINAL: {
 
-                        CustomProxyConfigClientMarkProxiesAsBadParams data = CustomProxyConfigClientMarkProxiesAsBadParams.deserialize(messageWithHeader.getPayload());
+                        CustomProxyConfigClientMarkProxiesAsBadParams data =
+                                CustomProxyConfigClientMarkProxiesAsBadParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().markProxiesAsBad(data.bypassDuration, data.badProxies, new CustomProxyConfigClientMarkProxiesAsBadResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
                     }
 
 
+
+
                     default:
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class CustomProxyConfigClientOnCustomProxyConfigUpdatedParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public CustomProxyConfig proxyConfig;
 
@@ -213,7 +267,8 @@ class CustomProxyConfigClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static CustomProxyConfigClientOnCustomProxyConfigUpdatedParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -227,11 +282,11 @@ class CustomProxyConfigClient_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new CustomProxyConfigClientOnCustomProxyConfigUpdatedParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.proxyConfig = CustomProxyConfig.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -243,16 +298,18 @@ class CustomProxyConfigClient_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.proxyConfig, 8, false);
         }
     }
 
 
+
+    
     static final class CustomProxyConfigClientOnCustomProxyConfigUpdatedResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 8;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(8, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(8, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
 
         private CustomProxyConfigClientOnCustomProxyConfigUpdatedResponseParams(int version) {
@@ -273,7 +330,8 @@ class CustomProxyConfigClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static CustomProxyConfigClientOnCustomProxyConfigUpdatedResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -301,7 +359,8 @@ class CustomProxyConfigClient_Internal {
         }
     }
 
-    static class CustomProxyConfigClientOnCustomProxyConfigUpdatedResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class CustomProxyConfigClientOnCustomProxyConfigUpdatedResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final CustomProxyConfigClient.OnCustomProxyConfigUpdated_Response mCallback;
 
         CustomProxyConfigClientOnCustomProxyConfigUpdatedResponseParamsForwardToCallback(CustomProxyConfigClient.OnCustomProxyConfigUpdated_Response callback) {
@@ -311,9 +370,11 @@ class CustomProxyConfigClient_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(ON_CUSTOM_PROXY_CONFIG_UPDATED_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(ON_CUSTOM_PROXY_CONFIG_UPDATED_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -331,7 +392,10 @@ class CustomProxyConfigClient_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        CustomProxyConfigClientOnCustomProxyConfigUpdatedResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        CustomProxyConfigClientOnCustomProxyConfigUpdatedResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -341,16 +405,24 @@ class CustomProxyConfigClient_Internal {
         public void call() {
             CustomProxyConfigClientOnCustomProxyConfigUpdatedResponseParams _response = new CustomProxyConfigClientOnCustomProxyConfigUpdatedResponseParams();
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(ON_CUSTOM_PROXY_CONFIG_UPDATED_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    ON_CUSTOM_PROXY_CONFIG_UPDATED_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
 
 
+
+    
     static final class CustomProxyConfigClientMarkProxiesAsBadParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.mojo_base.mojom.TimeDelta bypassDuration;
         public ProxyList badProxies;
@@ -373,7 +445,8 @@ class CustomProxyConfigClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static CustomProxyConfigClientMarkProxiesAsBadParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -387,16 +460,16 @@ class CustomProxyConfigClient_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new CustomProxyConfigClientMarkProxiesAsBadParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.bypassDuration = org.chromium.mojo_base.mojom.TimeDelta.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                     result.badProxies = ProxyList.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -408,18 +481,20 @@ class CustomProxyConfigClient_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.bypassDuration, 8, false);
-
+            
             encoder0.encode(this.badProxies, 16, false);
         }
     }
 
 
+
+    
     static final class CustomProxyConfigClientMarkProxiesAsBadResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 8;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(8, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(8, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
 
         private CustomProxyConfigClientMarkProxiesAsBadResponseParams(int version) {
@@ -440,7 +515,8 @@ class CustomProxyConfigClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static CustomProxyConfigClientMarkProxiesAsBadResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -468,7 +544,8 @@ class CustomProxyConfigClient_Internal {
         }
     }
 
-    static class CustomProxyConfigClientMarkProxiesAsBadResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class CustomProxyConfigClientMarkProxiesAsBadResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final CustomProxyConfigClient.MarkProxiesAsBad_Response mCallback;
 
         CustomProxyConfigClientMarkProxiesAsBadResponseParamsForwardToCallback(CustomProxyConfigClient.MarkProxiesAsBad_Response callback) {
@@ -478,9 +555,11 @@ class CustomProxyConfigClient_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(MARK_PROXIES_AS_BAD_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(MARK_PROXIES_AS_BAD_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -498,7 +577,10 @@ class CustomProxyConfigClient_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        CustomProxyConfigClientMarkProxiesAsBadResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        CustomProxyConfigClientMarkProxiesAsBadResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -508,16 +590,24 @@ class CustomProxyConfigClient_Internal {
         public void call() {
             CustomProxyConfigClientMarkProxiesAsBadResponseParams _response = new CustomProxyConfigClientMarkProxiesAsBadResponseParams();
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(MARK_PROXIES_AS_BAD_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    MARK_PROXIES_AS_BAD_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
 
 
+
+    
     static final class CustomProxyConfigClientClearBadProxiesCacheParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 8;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(8, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(8, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
 
         private CustomProxyConfigClientClearBadProxiesCacheParams(int version) {
@@ -538,7 +628,8 @@ class CustomProxyConfigClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static CustomProxyConfigClientClearBadProxiesCacheParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -565,6 +656,7 @@ class CustomProxyConfigClient_Internal {
             encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
         }
     }
+
 
 
 }

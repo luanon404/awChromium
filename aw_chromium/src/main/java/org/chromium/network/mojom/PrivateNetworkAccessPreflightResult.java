@@ -17,10 +17,13 @@ import androidx.annotation.IntDef;
 
 public final class PrivateNetworkAccessPreflightResult {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({PrivateNetworkAccessPreflightResult.NONE, PrivateNetworkAccessPreflightResult.SUCCESS, PrivateNetworkAccessPreflightResult.WARNING, PrivateNetworkAccessPreflightResult.ERROR})
-    public @interface EnumType {
-    }
+        PrivateNetworkAccessPreflightResult.NONE,
+        PrivateNetworkAccessPreflightResult.SUCCESS,
+        PrivateNetworkAccessPreflightResult.WARNING,
+        PrivateNetworkAccessPreflightResult.ERROR})
+    public @interface EnumType {}
 
     public static final int NONE = 0;
     public static final int SUCCESS = 1;
@@ -39,9 +42,8 @@ public final class PrivateNetworkAccessPreflightResult {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private PrivateNetworkAccessPreflightResult() {
-    }
+    private PrivateNetworkAccessPreflightResult() {}
 }

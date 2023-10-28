@@ -12,7 +12,7 @@ import org.chromium.base.BuildInfo;
  * Handler that immediately kills the current process on an uncaught exception.
  * This is intended to override Android's default exception handler, which pops up a dialog
  * and does not finish until user dismisses that dialog.
- * <p>
+ *
  * Notes:
  * This does not chain the existing handler.
  * This does not have any exception handling or crash reporting. Such handlers should be

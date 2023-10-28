@@ -13,15 +13,20 @@
 
 package org.chromium.service_manager.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface ServiceControl extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends ServiceControl, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends ServiceControl, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<ServiceControl, ServiceControl.Proxy> MANAGER = ServiceControl_Internal.MANAGER;
 
-    void requestQuit();
+    void requestQuit(
+);
 
 
 }

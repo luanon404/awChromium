@@ -13,10 +13,13 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class VideoEncoderInfo extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 48;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(48, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(48, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public String implementationName;
     public boolean hasFrameDelay;
@@ -53,7 +56,8 @@ public final class VideoEncoderInfo extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static VideoEncoderInfo deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -67,79 +71,79 @@ public final class VideoEncoderInfo extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new VideoEncoderInfo(elementsOrVersion);
-            {
-
+                {
+                    
                 result.implementationName = decoder0.readString(8, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.hasFrameDelay = decoder0.readBoolean(16, 0);
-            }
-            {
-
+                }
+                {
+                    
                 result.hasInputCapacity = decoder0.readBoolean(16, 1);
-            }
-            {
-
+                }
+                {
+                    
                 result.supportsNativeHandle = decoder0.readBoolean(16, 2);
-            }
-            {
-
+                }
+                {
+                    
                 result.hasTrustedRateController = decoder0.readBoolean(16, 3);
-            }
-            {
-
+                }
+                {
+                    
                 result.isHardwareAccelerated = decoder0.readBoolean(16, 4);
-            }
-            {
-
+                }
+                {
+                    
                 result.supportsSimulcast = decoder0.readBoolean(16, 5);
-            }
-            {
-
+                }
+                {
+                    
                 result.reportsAverageQp = decoder0.readBoolean(16, 6);
-            }
-            {
-
+                }
+                {
+                    
                 result.applyAlignmentToAllSimulcastLayers = decoder0.readBoolean(16, 7);
-            }
-            {
-
+                }
+                {
+                    
                 result.frameDelay = decoder0.readInt(20);
-            }
-            {
-
+                }
+                {
+                    
                 result.inputCapacity = decoder0.readInt(24);
-            }
-            {
-
+                }
+                {
+                    
                 result.requestedResolutionAlignment = decoder0.readInt(28);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(32, false);
                 {
                     org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(5);
                     result.fpsAllocation = new byte[si1.elementsOrVersion][];
                     for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                        
                         result.fpsAllocation[i1] = decoder1.readBytes(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                     }
                 }
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(40, false);
                 {
                     org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                     result.resolutionBitrateLimits = new ResolutionBitrateLimit[si1.elementsOrVersion];
                     for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                        
                         org.chromium.mojo.bindings.Decoder decoder2 = decoder1.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                         result.resolutionBitrateLimits[i1] = ResolutionBitrateLimit.decode(decoder2);
                     }
                 }
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -151,47 +155,47 @@ public final class VideoEncoderInfo extends org.chromium.mojo.bindings.Struct {
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.implementationName, 8, false);
-
+        
         encoder0.encode(this.hasFrameDelay, 16, 0);
-
+        
         encoder0.encode(this.hasInputCapacity, 16, 1);
-
+        
         encoder0.encode(this.supportsNativeHandle, 16, 2);
-
+        
         encoder0.encode(this.hasTrustedRateController, 16, 3);
-
+        
         encoder0.encode(this.isHardwareAccelerated, 16, 4);
-
+        
         encoder0.encode(this.supportsSimulcast, 16, 5);
-
+        
         encoder0.encode(this.reportsAverageQp, 16, 6);
-
+        
         encoder0.encode(this.applyAlignmentToAllSimulcastLayers, 16, 7);
-
+        
         encoder0.encode(this.frameDelay, 20);
-
+        
         encoder0.encode(this.inputCapacity, 24);
-
+        
         encoder0.encode(this.requestedResolutionAlignment, 28);
-
+        
         if (this.fpsAllocation == null) {
             encoder0.encodeNullPointer(32, false);
         } else {
             org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.fpsAllocation.length, 32, 5);
             for (int i0 = 0; i0 < this.fpsAllocation.length; ++i0) {
-
+                
                 encoder1.encode(this.fpsAllocation[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
             }
         }
-
+        
         if (this.resolutionBitrateLimits == null) {
             encoder0.encodeNullPointer(40, false);
         } else {
             org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.resolutionBitrateLimits.length, 40, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
             for (int i0 = 0; i0 < this.resolutionBitrateLimits.length; ++i0) {
-
+                
                 encoder1.encode(this.resolutionBitrateLimits[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
             }
         }

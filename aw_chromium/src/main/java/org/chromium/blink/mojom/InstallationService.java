@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface InstallationService extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends InstallationService, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends InstallationService, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<InstallationService, InstallationService.Proxy> MANAGER = InstallationService_Internal.MANAGER;

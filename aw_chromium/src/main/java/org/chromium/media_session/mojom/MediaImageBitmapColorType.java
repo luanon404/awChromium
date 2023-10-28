@@ -17,10 +17,11 @@ import androidx.annotation.IntDef;
 
 public final class MediaImageBitmapColorType {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({MediaImageBitmapColorType.RGBA_8888, MediaImageBitmapColorType.BGRA_8888})
-    public @interface EnumType {
-    }
+        MediaImageBitmapColorType.RGBA_8888,
+        MediaImageBitmapColorType.BGRA_8888})
+    public @interface EnumType {}
 
     public static final int RGBA_8888 = 0;
     public static final int BGRA_8888 = 1;
@@ -37,9 +38,8 @@ public final class MediaImageBitmapColorType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private MediaImageBitmapColorType() {
-    }
+    private MediaImageBitmapColorType() {}
 }

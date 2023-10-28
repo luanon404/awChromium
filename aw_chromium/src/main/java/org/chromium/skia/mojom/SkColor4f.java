@@ -13,10 +13,13 @@
 
 package org.chromium.skia.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class SkColor4f extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 24;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public float r;
     public float g;
@@ -41,7 +44,8 @@ public final class SkColor4f extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static SkColor4f deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -55,22 +59,22 @@ public final class SkColor4f extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new SkColor4f(elementsOrVersion);
-            {
-
+                {
+                    
                 result.r = decoder0.readFloat(8);
-            }
-            {
-
+                }
+                {
+                    
                 result.g = decoder0.readFloat(12);
-            }
-            {
-
+                }
+                {
+                    
                 result.b = decoder0.readFloat(16);
-            }
-            {
-
+                }
+                {
+                    
                 result.a = decoder0.readFloat(20);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -82,13 +86,13 @@ public final class SkColor4f extends org.chromium.mojo.bindings.Struct {
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.r, 8);
-
+        
         encoder0.encode(this.g, 12);
-
+        
         encoder0.encode(this.b, 16);
-
+        
         encoder0.encode(this.a, 20);
     }
 }

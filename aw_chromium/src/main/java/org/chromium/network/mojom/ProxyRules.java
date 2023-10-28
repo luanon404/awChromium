@@ -13,10 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class ProxyRules extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 64;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(64, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(64, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public ProxyBypassRules bypassRules;
     public boolean reverseBypass;
@@ -46,7 +49,8 @@ public final class ProxyRules extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static ProxyRules deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -60,50 +64,50 @@ public final class ProxyRules extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new ProxyRules(elementsOrVersion);
-            {
-
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                 result.bypassRules = ProxyBypassRules.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.reverseBypass = decoder0.readBoolean(16, 0);
-            }
-            {
-
+                }
+                {
+                    
                 result.restrictToNetworkServiceProxyAllowList = decoder0.readBoolean(16, 1);
-            }
-            {
-
+                }
+                {
+                    
                 result.type = decoder0.readInt(20);
-                ProxyRulesType.validate(result.type);
-                result.type = ProxyRulesType.toKnownValue(result.type);
-            }
-            {
-
+                    ProxyRulesType.validate(result.type);
+                    result.type = ProxyRulesType.toKnownValue(result.type);
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, false);
                 result.singleProxies = ProxyList.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(32, false);
                 result.proxiesForHttp = ProxyList.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(40, false);
                 result.proxiesForHttps = ProxyList.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(48, false);
                 result.proxiesForFtp = ProxyList.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(56, false);
                 result.fallbackProxies = ProxyList.decode(decoder1);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -115,23 +119,23 @@ public final class ProxyRules extends org.chromium.mojo.bindings.Struct {
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.bypassRules, 8, false);
-
+        
         encoder0.encode(this.reverseBypass, 16, 0);
-
+        
         encoder0.encode(this.restrictToNetworkServiceProxyAllowList, 16, 1);
-
+        
         encoder0.encode(this.type, 20);
-
+        
         encoder0.encode(this.singleProxies, 24, false);
-
+        
         encoder0.encode(this.proxiesForHttp, 32, false);
-
+        
         encoder0.encode(this.proxiesForHttps, 40, false);
-
+        
         encoder0.encode(this.proxiesForFtp, 48, false);
-
+        
         encoder0.encode(this.fallbackProxies, 56, false);
     }
 }

@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface FileSystemAccessManager extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends FileSystemAccessManager, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends FileSystemAccessManager, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<FileSystemAccessManager, FileSystemAccessManager.Proxy> MANAGER = FileSystemAccessManager_Internal.MANAGER;

@@ -1,3 +1,4 @@
+
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -14,12 +15,15 @@ import androidx.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@IntDef({IntegrityResponse.SUCCESS, IntegrityResponse.UNKNOWN_ERROR, IntegrityResponse.API_NOT_AVAILABLE, IntegrityResponse.TIMEOUT, IntegrityResponse.INVALID_HANDLE})
+@IntDef({
+    IntegrityResponse.SUCCESS, IntegrityResponse.UNKNOWN_ERROR, IntegrityResponse.API_NOT_AVAILABLE,
+    IntegrityResponse.TIMEOUT, IntegrityResponse.INVALID_HANDLE
+})
 @Retention(RetentionPolicy.SOURCE)
 public @interface IntegrityResponse {
-    int SUCCESS = 0;
-    int UNKNOWN_ERROR = 1;
-    int API_NOT_AVAILABLE = 2;
-    int TIMEOUT = 3;
-    int INVALID_HANDLE = 4;
+  int SUCCESS = 0;
+  int UNKNOWN_ERROR = 1;
+  int API_NOT_AVAILABLE = 2;
+  int TIMEOUT = 3;
+  int INVALID_HANDLE = 4;
 }

@@ -65,7 +65,8 @@ public final class UnownedUserDataKey<T extends UnownedUserData> {
     @NonNull
     private final Class<T> mClazz;
     // A Set that uses WeakReference<UnownedUserDataHost> internally.
-    private final Set<UnownedUserDataHost> mWeakHostAttachments = Collections.newSetFromMap(new WeakHashMap<>());
+    private final Set<UnownedUserDataHost> mWeakHostAttachments =
+            Collections.newSetFromMap(new WeakHashMap<>());
 
     /**
      * Constructs a key to use for attaching to a particular {@link UnownedUserDataHost}.
@@ -168,7 +169,7 @@ public final class UnownedUserDataKey<T extends UnownedUserData> {
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-        /* package */ int getHostAttachmentCount(@NonNull T object) {
+    /* package */ int getHostAttachmentCount(@NonNull T object) {
         assertNoDestroyedAttachments();
         int ret = 0;
         for (UnownedUserDataHost attachedHost : mWeakHostAttachments) {

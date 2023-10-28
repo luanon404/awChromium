@@ -4,44 +4,52 @@
 package org.chromium.base;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import androidx.annotation.UiThread;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
 
 @CheckDiscard("crbug.com/993421")
 class JavaExceptionReporterJni implements JavaExceptionReporter.Natives {
-    private static JavaExceptionReporter.Natives testInstance;
+  private static JavaExceptionReporter.Natives testInstance;
 
-    public static final JniStaticTestMocker<JavaExceptionReporter.Natives> TEST_HOOKS = new JniStaticTestMocker<JavaExceptionReporter.Natives>() {
-        @Override
-        public void setInstanceForTesting(JavaExceptionReporter.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<JavaExceptionReporter.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<JavaExceptionReporter.Natives>() {
     @Override
-    public void reportJavaException(boolean crashAfterReport, Throwable e) {
-        GEN_JNI.org_chromium_base_JavaExceptionReporter_reportJavaException(crashAfterReport, e);
+    public void setInstanceForTesting(JavaExceptionReporter.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public void reportJavaStackTrace(String stackTrace) {
-        GEN_JNI.org_chromium_base_JavaExceptionReporter_reportJavaStackTrace(stackTrace);
-    }
+  @Override
+  public void reportJavaException(boolean crashAfterReport, Throwable e) {
+    GEN_JNI.org_chromium_base_JavaExceptionReporter_reportJavaException(crashAfterReport, e);
+  }
 
-    public static JavaExceptionReporter.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of JavaExceptionReporter.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new JavaExceptionReporterJni();
+  @Override
+  public void reportJavaStackTrace(String stackTrace) {
+    GEN_JNI.org_chromium_base_JavaExceptionReporter_reportJavaStackTrace(stackTrace);
+  }
+
+  public static JavaExceptionReporter.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of JavaExceptionReporter.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new JavaExceptionReporterJni();
+  }
 }

@@ -48,11 +48,12 @@ public class MediaStoreUtils {
      * pending item within a few hours after first creating it.
      *
      * @param context Application context.
-     * @param params  Parameters used to configure the item.
+     * @param params Parameters used to configure the item.
      * @return token which can be passed to {@link #openPending(Context, Uri)}
-     * to work with this pending item.
+     *         to work with this pending item.
      */
-    public static @NonNull Uri createPending(@NonNull Context context, @NonNull PendingParams params) {
+    public static @NonNull Uri createPending(
+            @NonNull Context context, @NonNull PendingParams params) {
         return context.getContentResolver().insert(params.mInsertUri, params.mInsertValues);
     }
 
@@ -79,14 +80,15 @@ public class MediaStoreUtils {
         /**
          * Creates parameters that describe a pending media item.
          *
-         * @param insertUri   the {@code content://} Uri where this pending item
-         *                    should be inserted when finally published. For example, to
-         *                    publish an image, use
-         *                    {@link MediaStore.Images.Media#getContentUri(String)}.
+         * @param insertUri the {@code content://} Uri where this pending item
+         *            should be inserted when finally published. For example, to
+         *            publish an image, use
+         *            {@link MediaStore.Images.Media#getContentUri(String)}.
          * @param displayName Display name of the item.
-         * @param mimeType    MIME type of the item.
+         * @param mimeType MIME type of the item.
          */
-        public PendingParams(@NonNull Uri insertUri, @NonNull String displayName, @NonNull String mimeType) {
+        public PendingParams(
+                @NonNull Uri insertUri, @NonNull String displayName, @NonNull String mimeType) {
             mInsertUri = Objects.requireNonNull(insertUri);
             final long now = System.currentTimeMillis() / 1000;
             mInsertValues = new ContentValues();
@@ -153,10 +155,9 @@ public class MediaStoreUtils {
 
         /**
          * Create a new pending session item to be published.
-         *
          * @param context Contexxt of the application.
-         * @param uri     Token which was previously returned from
-         *                {@link #createPending(Context, PendingParams)}.
+         * @param uri Token which was previously returned from
+         *            {@link #createPending(Context, PendingParams)}.
          */
         PendingSession(Context context, Uri uri) {
             mContext = Objects.requireNonNull(context);
@@ -190,7 +191,7 @@ public class MediaStoreUtils {
          * publish and make the final item visible to the user.
          *
          * @return the final {@code content://} Uri representing the newly
-         * published media.
+         *         published media.
          */
         public @NonNull Uri publish() {
             try {
@@ -225,12 +226,12 @@ public class MediaStoreUtils {
 
     /**
      * Helper method to set the ContentValues to pending or non-pending.
-     *
-     * @param values    ContentValues to be set.
+     * @param values ContentValues to be set.
      * @param isPending Whether the item is pending.
      */
     @TargetApi(Build.VERSION_CODES.Q)
-    private static void setPendingContentValues(ContentValues values, boolean isPending) throws Exception {
+    private static void setPendingContentValues(ContentValues values, boolean isPending)
+            throws Exception {
         values.put(MediaColumns.IS_PENDING, isPending ? 1 : 0);
     }
 }

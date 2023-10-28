@@ -17,10 +17,39 @@ import androidx.annotation.IntDef;
 
 public final class CspDirectiveName {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({CspDirectiveName.UNKNOWN, CspDirectiveName.BASE_URI, CspDirectiveName.BLOCK_ALL_MIXED_CONTENT, CspDirectiveName.CHILD_SRC, CspDirectiveName.CONNECT_SRC, CspDirectiveName.DEFAULT_SRC, CspDirectiveName.FENCED_FRAME_SRC, CspDirectiveName.FONT_SRC, CspDirectiveName.FORM_ACTION, CspDirectiveName.FRAME_ANCESTORS, CspDirectiveName.FRAME_SRC, CspDirectiveName.IMG_SRC, CspDirectiveName.MANIFEST_SRC, CspDirectiveName.MEDIA_SRC, CspDirectiveName.NAVIGATE_TO, CspDirectiveName.OBJECT_SRC, CspDirectiveName.REPORT_TO, CspDirectiveName.REPORT_URI, CspDirectiveName.REQUIRE_TRUSTED_TYPES_FOR, CspDirectiveName.SANDBOX, CspDirectiveName.SCRIPT_SRC, CspDirectiveName.SCRIPT_SRC_ATTR, CspDirectiveName.SCRIPT_SRC_ELEM, CspDirectiveName.STYLE_SRC, CspDirectiveName.STYLE_SRC_ATTR, CspDirectiveName.STYLE_SRC_ELEM, CspDirectiveName.TREAT_AS_PUBLIC_ADDRESS, CspDirectiveName.TRUSTED_TYPES, CspDirectiveName.UPGRADE_INSECURE_REQUESTS, CspDirectiveName.WORKER_SRC})
-    public @interface EnumType {
-    }
+        CspDirectiveName.UNKNOWN,
+        CspDirectiveName.BASE_URI,
+        CspDirectiveName.BLOCK_ALL_MIXED_CONTENT,
+        CspDirectiveName.CHILD_SRC,
+        CspDirectiveName.CONNECT_SRC,
+        CspDirectiveName.DEFAULT_SRC,
+        CspDirectiveName.FENCED_FRAME_SRC,
+        CspDirectiveName.FONT_SRC,
+        CspDirectiveName.FORM_ACTION,
+        CspDirectiveName.FRAME_ANCESTORS,
+        CspDirectiveName.FRAME_SRC,
+        CspDirectiveName.IMG_SRC,
+        CspDirectiveName.MANIFEST_SRC,
+        CspDirectiveName.MEDIA_SRC,
+        CspDirectiveName.NAVIGATE_TO,
+        CspDirectiveName.OBJECT_SRC,
+        CspDirectiveName.REPORT_TO,
+        CspDirectiveName.REPORT_URI,
+        CspDirectiveName.REQUIRE_TRUSTED_TYPES_FOR,
+        CspDirectiveName.SANDBOX,
+        CspDirectiveName.SCRIPT_SRC,
+        CspDirectiveName.SCRIPT_SRC_ATTR,
+        CspDirectiveName.SCRIPT_SRC_ELEM,
+        CspDirectiveName.STYLE_SRC,
+        CspDirectiveName.STYLE_SRC_ATTR,
+        CspDirectiveName.STYLE_SRC_ELEM,
+        CspDirectiveName.TREAT_AS_PUBLIC_ADDRESS,
+        CspDirectiveName.TRUSTED_TYPES,
+        CspDirectiveName.UPGRADE_INSECURE_REQUESTS,
+        CspDirectiveName.WORKER_SRC})
+    public @interface EnumType {}
 
     public static final int UNKNOWN = 0;
     public static final int BASE_URI = 1;
@@ -65,9 +94,8 @@ public final class CspDirectiveName {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private CspDirectiveName() {
-    }
+    private CspDirectiveName() {}
 }

@@ -13,10 +13,13 @@
 
 package org.chromium.viz.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class YuvVideoQuadState extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 104;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(104, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(104, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public org.chromium.gfx.mojom.Size codedSize;
     public org.chromium.gfx.mojom.Rect videoVisibleRect;
@@ -38,6 +41,10 @@ public final class YuvVideoQuadState extends org.chromium.mojo.bindings.Struct {
         super(STRUCT_SIZE, version);
     }
 
+    public YuvVideoQuadState() {
+        this(0);
+    }
+
     public static YuvVideoQuadState deserialize(org.chromium.mojo.bindings.Message message) {
         return decode(new org.chromium.mojo.bindings.Decoder(message));
     }
@@ -48,9 +55,11 @@ public final class YuvVideoQuadState extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static YuvVideoQuadState deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
+    @SuppressWarnings("unchecked")
     public static YuvVideoQuadState decode(org.chromium.mojo.bindings.Decoder decoder0) {
         if (decoder0 == null) {
             return null;
@@ -61,77 +70,77 @@ public final class YuvVideoQuadState extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new YuvVideoQuadState(elementsOrVersion);
-            {
-
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                 result.codedSize = org.chromium.gfx.mojom.Size.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                 result.videoVisibleRect = org.chromium.gfx.mojom.Rect.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.uScale = decoder0.readByte(24);
-            }
-            {
-
+                }
+                {
+                    
                 result.vScale = decoder0.readByte(25);
-            }
-            {
-
+                }
+                {
+                    
                 result.resourceOffset = decoder0.readFloat(28);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(32, false);
                 result.yPlaneResourceId = ResourceId.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(40, false);
                 result.uPlaneResourceId = ResourceId.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(48, false);
                 result.vPlaneResourceId = ResourceId.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(56, false);
                 result.aPlaneResourceId = ResourceId.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.resourceMultiplier = decoder0.readFloat(64);
-            }
-            {
-
+                }
+                {
+                    
                 result.bitsPerChannel = decoder0.readInt(68);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(72, false);
                 result.videoColorSpace = org.chromium.gfx.mojom.ColorSpace.decode(decoder1);
-            }
-            {
-
-                int protectedVideoType = decoder0.readInt(80);
-                ProtectedVideoState.validate(protectedVideoType);
-                result.protectedVideoType = ProtectedVideoState.toKnownValue(protectedVideoType);
-            }
-            {
-
+                }
+                {
+                    
+                result.protectedVideoType = decoder0.readInt(80);
+                    ProtectedVideoState.validate(result.protectedVideoType);
+                    result.protectedVideoType = ProtectedVideoState.toKnownValue(result.protectedVideoType);
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(88, false);
                 result.hdrMetadata = org.chromium.gfx.mojom.HdrMetadata.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(96, true);
                 result.damageRect = org.chromium.gfx.mojom.Rect.decode(decoder1);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -139,38 +148,39 @@ public final class YuvVideoQuadState extends org.chromium.mojo.bindings.Struct {
         return result;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
+    protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.codedSize, 8, false);
-
+        
         encoder0.encode(this.videoVisibleRect, 16, false);
-
+        
         encoder0.encode(this.uScale, 24);
-
+        
         encoder0.encode(this.vScale, 25);
-
+        
         encoder0.encode(this.resourceOffset, 28);
-
+        
         encoder0.encode(this.yPlaneResourceId, 32, false);
-
+        
         encoder0.encode(this.uPlaneResourceId, 40, false);
-
+        
         encoder0.encode(this.vPlaneResourceId, 48, false);
-
+        
         encoder0.encode(this.aPlaneResourceId, 56, false);
-
+        
         encoder0.encode(this.resourceMultiplier, 64);
-
+        
         encoder0.encode(this.bitsPerChannel, 68);
-
+        
         encoder0.encode(this.videoColorSpace, 72, false);
-
+        
         encoder0.encode(this.protectedVideoType, 80);
-
+        
         encoder0.encode(this.hdrMetadata, 88, false);
-
+        
         encoder0.encode(this.damageRect, 96, true);
     }
 }

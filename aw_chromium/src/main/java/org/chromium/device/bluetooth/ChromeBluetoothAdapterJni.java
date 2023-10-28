@@ -4,49 +4,73 @@
 package org.chromium.device.bluetooth;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.Manifest;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.le.ScanFilter;
+import android.bluetooth.le.ScanSettings;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.os.ParcelUuid;
+import android.util.SparseArray;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.ContextUtils;
+import org.chromium.base.Log;
+import org.chromium.components.location.LocationUtils;
+import java.util.List;
+import java.util.Map;
 
 @CheckDiscard("crbug.com/993421")
 class ChromeBluetoothAdapterJni implements ChromeBluetoothAdapter.Natives {
-    private static ChromeBluetoothAdapter.Natives testInstance;
+  private static ChromeBluetoothAdapter.Natives testInstance;
 
-    public static final JniStaticTestMocker<ChromeBluetoothAdapter.Natives> TEST_HOOKS = new JniStaticTestMocker<ChromeBluetoothAdapter.Natives>() {
-        @Override
-        public void setInstanceForTesting(ChromeBluetoothAdapter.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<ChromeBluetoothAdapter.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<ChromeBluetoothAdapter.Natives>() {
     @Override
-    public void createOrUpdateDeviceOnScan(long nativeBluetoothAdapterAndroid, ChromeBluetoothAdapter caller, String address, Wrappers.BluetoothDeviceWrapper deviceWrapper, String localName, int rssi, String[] advertisedUuids, int txPower, String[] serviceDataKeys, Object[] serviceDataValues, int[] manufacturerDataKeys, Object[] manufacturerDataValues, int advertiseFlags) {
-        GEN_JNI.org_chromium_device_bluetooth_ChromeBluetoothAdapter_createOrUpdateDeviceOnScan(nativeBluetoothAdapterAndroid, caller, address, deviceWrapper, localName, rssi, advertisedUuids, txPower, serviceDataKeys, serviceDataValues, manufacturerDataKeys, manufacturerDataValues, advertiseFlags);
+    public void setInstanceForTesting(ChromeBluetoothAdapter.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public void onAdapterStateChanged(long nativeBluetoothAdapterAndroid, ChromeBluetoothAdapter caller, boolean powered) {
-        GEN_JNI.org_chromium_device_bluetooth_ChromeBluetoothAdapter_onAdapterStateChanged(nativeBluetoothAdapterAndroid, caller, powered);
-    }
+  @Override
+  public void createOrUpdateDeviceOnScan(long nativeBluetoothAdapterAndroid, ChromeBluetoothAdapter caller, String address, Wrappers.BluetoothDeviceWrapper deviceWrapper, String localName, int rssi, String[] advertisedUuids, int txPower, String[] serviceDataKeys, Object[] serviceDataValues, int[] manufacturerDataKeys, Object[] manufacturerDataValues, int advertiseFlags) {
+    GEN_JNI.org_chromium_device_bluetooth_ChromeBluetoothAdapter_createOrUpdateDeviceOnScan(nativeBluetoothAdapterAndroid, caller, address, deviceWrapper, localName, rssi, advertisedUuids, txPower, serviceDataKeys, serviceDataValues, manufacturerDataKeys, manufacturerDataValues, advertiseFlags);
+  }
 
-    @Override
-    public void onScanFailed(long nativeBluetoothAdapterAndroid, ChromeBluetoothAdapter caller) {
-        GEN_JNI.org_chromium_device_bluetooth_ChromeBluetoothAdapter_onScanFailed(nativeBluetoothAdapterAndroid, caller);
-    }
+  @Override
+  public void onAdapterStateChanged(long nativeBluetoothAdapterAndroid, ChromeBluetoothAdapter caller, boolean powered) {
+    GEN_JNI.org_chromium_device_bluetooth_ChromeBluetoothAdapter_onAdapterStateChanged(nativeBluetoothAdapterAndroid, caller, powered);
+  }
 
-    public static ChromeBluetoothAdapter.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of ChromeBluetoothAdapter.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new ChromeBluetoothAdapterJni();
+  @Override
+  public void onScanFailed(long nativeBluetoothAdapterAndroid, ChromeBluetoothAdapter caller) {
+    GEN_JNI.org_chromium_device_bluetooth_ChromeBluetoothAdapter_onScanFailed(nativeBluetoothAdapterAndroid, caller);
+  }
+
+  public static ChromeBluetoothAdapter.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of ChromeBluetoothAdapter.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new ChromeBluetoothAdapterJni();
+  }
 }

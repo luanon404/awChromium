@@ -13,27 +13,35 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface WakeLockProvider extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends WakeLockProvider, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends WakeLockProvider, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<WakeLockProvider, WakeLockProvider.Proxy> MANAGER = WakeLockProvider_Internal.MANAGER;
 
-    void getWakeLockContextForId(int contextId, org.chromium.mojo.bindings.InterfaceRequest<WakeLockContext> context);
+    void getWakeLockContextForId(
+int contextId, org.chromium.mojo.bindings.InterfaceRequest<WakeLockContext> context);
 
 
-    void getWakeLockWithoutContext(int type, int reason, String description, org.chromium.mojo.bindings.InterfaceRequest<WakeLock> wakeLock);
+    void getWakeLockWithoutContext(
+int type, int reason, String description, org.chromium.mojo.bindings.InterfaceRequest<WakeLock> wakeLock);
 
 
-    void notifyOnWakeLockDeactivation(int type, WakeLockObserver observer);
+    void notifyOnWakeLockDeactivation(
+int type, WakeLockObserver observer);
 
 
-    void getActiveWakeLocksForTests(int type, GetActiveWakeLocksForTests_Response callback);
+    void getActiveWakeLocksForTests(
+int type, 
+GetActiveWakeLocksForTests_Response callback);
 
-    interface GetActiveWakeLocksForTests_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> {
-    }
+    interface GetActiveWakeLocksForTests_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> { }
 
 
 }

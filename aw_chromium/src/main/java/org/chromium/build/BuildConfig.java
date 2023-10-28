@@ -1,5 +1,4 @@
 package org.chromium.build;
-
 public class BuildConfig {
     public static final boolean ENABLE_ASSERTS = true;
     public static final boolean IS_UBSAN = false;

@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class VideoFacingMode {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({VideoFacingMode.NONE, VideoFacingMode.USER, VideoFacingMode.ENVIRONMENT})
-    public @interface EnumType {
-    }
+        VideoFacingMode.NONE,
+        VideoFacingMode.USER,
+        VideoFacingMode.ENVIRONMENT})
+    public @interface EnumType {}
 
     public static final int NONE = 0;
     public static final int USER = 1;
@@ -38,9 +40,8 @@ public final class VideoFacingMode {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private VideoFacingMode() {
-    }
+    private VideoFacingMode() {}
 }

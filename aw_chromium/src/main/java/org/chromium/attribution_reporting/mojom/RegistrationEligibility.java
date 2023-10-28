@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class RegistrationEligibility {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({RegistrationEligibility.SOURCE_OR_TRIGGER, RegistrationEligibility.SOURCE, RegistrationEligibility.TRIGGER})
-    public @interface EnumType {
-    }
+        RegistrationEligibility.SOURCE_OR_TRIGGER,
+        RegistrationEligibility.SOURCE,
+        RegistrationEligibility.TRIGGER})
+    public @interface EnumType {}
 
     public static final int SOURCE_OR_TRIGGER = 0;
     public static final int SOURCE = 1;
@@ -38,9 +40,8 @@ public final class RegistrationEligibility {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private RegistrationEligibility() {
-    }
+    private RegistrationEligibility() {}
 }

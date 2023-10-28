@@ -18,7 +18,8 @@ public class ContentCaptureData extends ContentCaptureDataBase {
 
     @CalledByNative
     @VisibleForTesting
-    public static ContentCaptureData createContentCaptureData(Object parent, long id, String value, int x, int y, int width, int height) {
+    public static ContentCaptureData createContentCaptureData(
+            Object parent, long id, String value, int x, int y, int width, int height) {
         ContentCaptureData data = new ContentCaptureData(id, value, x, y, width, height);
         if (parent != null) {
             ((ContentCaptureDataBase) parent).addChild(data);

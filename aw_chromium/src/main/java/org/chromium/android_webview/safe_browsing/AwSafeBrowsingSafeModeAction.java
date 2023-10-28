@@ -6,14 +6,15 @@ package org.chromium.android_webview.safe_browsing;
 
 import androidx.annotation.NonNull;
 
-import org.chromium.android_webview.common.Lifetime;
-import org.chromium.android_webview.common.SafeModeAction;
 import org.jni_zero.CalledByNative;
 import org.jni_zero.JNINamespace;
 
+import org.chromium.android_webview.common.Lifetime;
+import org.chromium.android_webview.common.SafeModeAction;
+
 /**
  * A {@link SafeModeAction} to disable safe browsing.
- * <p>
+ *
  * This action itself is a NOOP. The actual work is done in 2 places:
  * AwUrlCheckerDelegateImpl.ShouldSkipRequestCheck skips safe browsing checks for URL loads.
  * AwContentsStatics.initSafeBrowsing skips GMSCore communication in safe browsing initialization.

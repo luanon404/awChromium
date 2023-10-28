@@ -13,15 +13,20 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface P2pNetworkNotificationClient extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends P2pNetworkNotificationClient, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends P2pNetworkNotificationClient, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<P2pNetworkNotificationClient, P2pNetworkNotificationClient.Proxy> MANAGER = P2pNetworkNotificationClient_Internal.MANAGER;
 
-    void networkListChanged(NetworkInterface[] networks, IpAddress defaultIpv4LocalAddress, IpAddress defaultIpv6LocalAddress);
+    void networkListChanged(
+NetworkInterface[] networks, IpAddress defaultIpv4LocalAddress, IpAddress defaultIpv6LocalAddress);
 
 
 }

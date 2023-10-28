@@ -1,3 +1,4 @@
+
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -14,12 +15,15 @@ import androidx.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@IntDef({ConsoleMessageLevel.VERBOSE, ConsoleMessageLevel.INFO, ConsoleMessageLevel.WARNING, ConsoleMessageLevel.ERROR, ConsoleMessageLevel.LAST})
+@IntDef({
+    ConsoleMessageLevel.VERBOSE, ConsoleMessageLevel.INFO, ConsoleMessageLevel.WARNING,
+    ConsoleMessageLevel.ERROR, ConsoleMessageLevel.LAST
+})
 @Retention(RetentionPolicy.SOURCE)
 public @interface ConsoleMessageLevel {
-    int VERBOSE = 0;
-    int INFO = 1;
-    int WARNING = 2;
-    int ERROR = 3;
-    int LAST = ERROR;
+  int VERBOSE = 0;
+  int INFO = 1;
+  int WARNING = 2;
+  int ERROR = 3;
+  int LAST = 3;
 }

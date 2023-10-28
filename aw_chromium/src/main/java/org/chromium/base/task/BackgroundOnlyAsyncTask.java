@@ -6,7 +6,7 @@ package org.chromium.base.task;
 
 /**
  * An AsyncTask which does not require post-execution.
- * <p>
+ *
  * The addition of this class is only temporary with the eventual goal of
  * transitioning all such tasks to FutureTasks / Runnables.
  *

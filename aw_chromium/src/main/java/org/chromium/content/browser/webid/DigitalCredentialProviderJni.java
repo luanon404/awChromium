@@ -4,44 +4,53 @@
 package org.chromium.content.browser.webid;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.ResettersForTesting;
+import org.chromium.ui.base.WindowAndroid;
 
 @CheckDiscard("crbug.com/993421")
 class DigitalCredentialProviderJni implements DigitalCredentialProvider.Natives {
-    private static DigitalCredentialProvider.Natives testInstance;
+  private static DigitalCredentialProvider.Natives testInstance;
 
-    public static final JniStaticTestMocker<DigitalCredentialProvider.Natives> TEST_HOOKS = new JniStaticTestMocker<DigitalCredentialProvider.Natives>() {
-        @Override
-        public void setInstanceForTesting(DigitalCredentialProvider.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<DigitalCredentialProvider.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<DigitalCredentialProvider.Natives>() {
     @Override
-    public void onError(long nativeDigitalCredentialProviderAndroid) {
-        GEN_JNI.org_chromium_content_browser_webid_DigitalCredentialProvider_onError(nativeDigitalCredentialProviderAndroid);
+    public void setInstanceForTesting(DigitalCredentialProvider.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public void onReceive(long nativeDigitalCredentialProviderAndroid, String dc) {
-        GEN_JNI.org_chromium_content_browser_webid_DigitalCredentialProvider_onReceive(nativeDigitalCredentialProviderAndroid, dc);
-    }
+  @Override
+  public void onError(long nativeDigitalCredentialProviderAndroid) {
+    GEN_JNI.org_chromium_content_browser_webid_DigitalCredentialProvider_onError(nativeDigitalCredentialProviderAndroid);
+  }
 
-    public static DigitalCredentialProvider.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of DigitalCredentialProvider.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new DigitalCredentialProviderJni();
+  @Override
+  public void onReceive(long nativeDigitalCredentialProviderAndroid, String dc) {
+    GEN_JNI.org_chromium_content_browser_webid_DigitalCredentialProvider_onReceive(nativeDigitalCredentialProviderAndroid, dc);
+  }
+
+  public static DigitalCredentialProvider.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of DigitalCredentialProvider.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new DigitalCredentialProviderJni();
+  }
 }

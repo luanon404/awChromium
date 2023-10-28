@@ -41,7 +41,8 @@ public final class ViewEventSinkImpl implements ViewEventSink, ActivityStateObse
     }
 
     public static ViewEventSinkImpl from(WebContents webContents) {
-        return ((WebContentsImpl) webContents).getOrSetUserData(ViewEventSinkImpl.class, UserDataFactoryLazyHolder.INSTANCE);
+        return ((WebContentsImpl) webContents)
+                .getOrSetUserData(ViewEventSinkImpl.class, UserDataFactoryLazyHolder.INSTANCE);
     }
 
     public ViewEventSinkImpl(WebContents webContents) {
@@ -66,7 +67,8 @@ public final class ViewEventSinkImpl implements ViewEventSink, ActivityStateObse
         if (mWebContents.getStylusWritingHandler() != null) {
             ViewAndroidDelegate viewAndroidDelegate = mWebContents.getViewAndroidDelegate();
             if (viewAndroidDelegate != null) {
-                mWebContents.getStylusWritingHandler().onDetachedFromWindow(viewAndroidDelegate.getContainerView().getContext());
+                mWebContents.getStylusWritingHandler().onDetachedFromWindow(
+                        viewAndroidDelegate.getContainerView().getContext());
             }
         }
     }
@@ -103,7 +105,8 @@ public final class ViewEventSinkImpl implements ViewEventSink, ActivityStateObse
             // onConfigurationChange and layout has to be changed in most case.
             ViewAndroidDelegate delegate = mWebContents.getViewAndroidDelegate();
             if (delegate != null) {
-                ViewUtils.requestLayout(delegate.getContainerView(), "ViewEventSinkImpl.onConfigurationChanged");
+                ViewUtils.requestLayout(
+                        delegate.getContainerView(), "ViewEventSinkImpl.onConfigurationChanged");
             }
         } finally {
             TraceEvent.end("ViewEventSink.onConfigurationChanged");
@@ -125,7 +128,8 @@ public final class ViewEventSinkImpl implements ViewEventSink, ActivityStateObse
             // any more. Simply return here.
             return;
         }
-        WindowEventObserverManager.from(mWebContents).onViewFocusChanged(mHasInputFocus, mHideKeyboardOnBlur);
+        WindowEventObserverManager.from(mWebContents)
+                .onViewFocusChanged(mHasInputFocus, mHideKeyboardOnBlur);
         mWebContents.setFocus(mHasInputFocus);
     }
 
@@ -153,8 +157,7 @@ public final class ViewEventSinkImpl implements ViewEventSink, ActivityStateObse
     }
 
     @Override
-    public void onActivityDestroyed() {
-    }
+    public void onActivityDestroyed() {}
 
     @Override
     public void onPauseForTesting() {

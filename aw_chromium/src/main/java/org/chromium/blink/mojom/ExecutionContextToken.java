@@ -13,6 +13,8 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public final class ExecutionContextToken extends org.chromium.mojo.bindings.Union {
 
@@ -27,8 +29,7 @@ public final class ExecutionContextToken extends org.chromium.mojo.bindings.Unio
         public static final int PaintWorkletToken = 7;
         public static final int SharedStorageWorkletToken = 8;
         public static final int ShadowRealmToken = 9;
-    }
-
+    };
     private LocalFrameToken mLocalFrameToken;
     private DedicatedWorkerToken mDedicatedWorkerToken;
     private ServiceWorkerToken mServiceWorkerToken;

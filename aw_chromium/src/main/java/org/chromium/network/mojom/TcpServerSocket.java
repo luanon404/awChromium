@@ -13,18 +13,23 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface TcpServerSocket extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends TcpServerSocket, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends TcpServerSocket, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<TcpServerSocket, TcpServerSocket.Proxy> MANAGER = TcpServerSocket_Internal.MANAGER;
 
-    void accept(SocketObserver observer, Accept_Response callback);
+    void accept(
+SocketObserver observer, 
+Accept_Response callback);
 
-    interface Accept_Response extends org.chromium.mojo.bindings.Callbacks.Callback5<Integer, IpEndPoint, TcpConnectedSocket, org.chromium.mojo.system.DataPipe.ConsumerHandle, org.chromium.mojo.system.DataPipe.ProducerHandle> {
-    }
+    interface Accept_Response extends org.chromium.mojo.bindings.Callbacks.Callback5<Integer, IpEndPoint, TcpConnectedSocket, org.chromium.mojo.system.DataPipe.ConsumerHandle, org.chromium.mojo.system.DataPipe.ProducerHandle> { }
 
 
 }

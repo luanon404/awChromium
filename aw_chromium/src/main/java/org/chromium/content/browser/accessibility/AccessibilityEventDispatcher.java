@@ -49,15 +49,15 @@ public class AccessibilityEventDispatcher {
         /**
          * Post a Runnable to a view's message queue.
          *
-         * @param toPost              The Runnable to post.
-         * @param delayInMilliseconds The delay in milliseconds before running.
+         * @param toPost                The Runnable to post.
+         * @param delayInMilliseconds   The delay in milliseconds before running.
          */
         void postRunnable(Runnable toPost, long delayInMilliseconds);
 
         /**
          * Remove a Runnable from a view's message queue.
          *
-         * @param toRemove The Runnable to remove.
+         * @param toRemove              The Runnable to remove.
          */
         void removeRunnable(Runnable toRemove);
 
@@ -66,17 +66,18 @@ public class AccessibilityEventDispatcher {
          * JNI to the native code to populate the fields of the event. If successfully built, then
          * send the event and return true, otherwise return false.
          *
-         * @param virtualViewId This virtualViewId for the view trying to send an event.
-         * @param eventType     The AccessibilityEvent type.
-         * @return boolean value of whether event was sent.
+         * @param virtualViewId         This virtualViewId for the view trying to send an event.
+         * @param eventType             The AccessibilityEvent type.
+         * @return                      boolean value of whether event was sent.
          */
         boolean dispatchEvent(int virtualViewId, int eventType);
     }
 
     /**
-     * Create an AccessibilityEventDispatcher and define the delays for event types.
+     *  Create an AccessibilityEventDispatcher and define the delays for event types.
      */
-    public AccessibilityEventDispatcher(Client mClient, Map<Integer, Integer> eventThrottleDelays, Set<Integer> viewIndependentEventsToThrottle, Set<Integer> relevantEventTypes) {
+    public AccessibilityEventDispatcher(Client mClient, Map<Integer, Integer> eventThrottleDelays,
+            Set<Integer> viewIndependentEventsToThrottle, Set<Integer> relevantEventTypes) {
         this.mClient = mClient;
         this.mEventThrottleDelays = eventThrottleDelays;
         this.mViewIndependentEventsToThrottle = viewIndependentEventsToThrottle;
@@ -88,8 +89,8 @@ public class AccessibilityEventDispatcher {
      * check the appropriate amount of time we should delay, if at all, before building/sending this
      * event. When ready, this will handle the delayed construction and dispatching of this event.
      *
-     * @param virtualViewId This virtualViewId for the view trying to send an event.
-     * @param eventType     The AccessibilityEvent type.
+     * @param virtualViewId     This virtualViewId for the view trying to send an event.
+     * @param eventType         The AccessibilityEvent type.
      */
     public void enqueueEvent(int virtualViewId, int eventType) {
         // Check if this is a relevant event type.
@@ -109,7 +110,8 @@ public class AccessibilityEventDispatcher {
         // immediately and record the time and clear any lingering callbacks.
         long now = Calendar.getInstance().getTimeInMillis();
         long uuid = uuid(virtualViewId, eventType);
-        if (mEventLastFiredTimes.get(uuid) == null || now - mEventLastFiredTimes.get(uuid) >= mEventThrottleDelays.get(eventType)) {
+        if (mEventLastFiredTimes.get(uuid) == null
+                || now - mEventLastFiredTimes.get(uuid) >= mEventThrottleDelays.get(eventType)) {
             // Attempt to dispatch an event, can fail and return false if node is invalid etc.
             if (mClient.dispatchEvent(virtualViewId, eventType)) {
                 // Record time of last fired event if the dispatch was successful.
@@ -138,7 +140,8 @@ public class AccessibilityEventDispatcher {
                 mPendingEvents.remove(uuid);
             };
 
-            mClient.postRunnable(myRunnable, (mEventLastFiredTimes.get(uuid) + mEventThrottleDelays.get(eventType)) - now);
+            mClient.postRunnable(myRunnable,
+                    (mEventLastFiredTimes.get(uuid) + mEventThrottleDelays.get(eventType)) - now);
             mPendingEvents.put(uuid, myRunnable);
         }
     }
@@ -155,8 +158,7 @@ public class AccessibilityEventDispatcher {
 
     /**
      * Helper method to update the list of relevant event types to be dispatched.
-     *
-     * @param relevantEventTypes Set<Integer> relevant event types
+     * @param relevantEventTypes        Set<Integer> relevant event types
      */
     public void updateRelevantEventTypes(Set<Integer> relevantEventTypes) {
         this.mRelevantEventTypes = relevantEventTypes;
@@ -167,8 +169,8 @@ public class AccessibilityEventDispatcher {
      * used to replace the need for a Pair<> or wrapper object to hold two simple ints. We shift the
      * |virtualViewId| 32 bits left, and bitwise OR with |eventType|, creating a 64-bit unique long.
      *
-     * @param virtualViewId This virtualViewId for the view trying to send an event.
-     * @param eventType     The AccessibilityEvent type.
+     * @param virtualViewId     This virtualViewId for the view trying to send an event.
+     * @param eventType         The AccessibilityEvent type.
      * @return uuid             The uuid (universal unique id) for this pairing.
      */
     private long uuid(int virtualViewId, int eventType) {

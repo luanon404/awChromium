@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class TouchSupport {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({TouchSupport.UNKNOWN, TouchSupport.AVAILABLE, TouchSupport.UNAVAILABLE})
-    public @interface EnumType {
-    }
+        TouchSupport.UNKNOWN,
+        TouchSupport.AVAILABLE,
+        TouchSupport.UNAVAILABLE})
+    public @interface EnumType {}
 
     public static final int UNKNOWN = 0;
     public static final int AVAILABLE = 1;
@@ -38,9 +40,8 @@ public final class TouchSupport {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private TouchSupport() {
-    }
+    private TouchSupport() {}
 }

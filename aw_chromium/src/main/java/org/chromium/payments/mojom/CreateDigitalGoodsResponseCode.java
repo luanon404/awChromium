@@ -17,10 +17,13 @@ import androidx.annotation.IntDef;
 
 public final class CreateDigitalGoodsResponseCode {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({CreateDigitalGoodsResponseCode.OK, CreateDigitalGoodsResponseCode.ERROR, CreateDigitalGoodsResponseCode.UNSUPPORTED_PAYMENT_METHOD, CreateDigitalGoodsResponseCode.UNSUPPORTED_CONTEXT})
-    public @interface EnumType {
-    }
+        CreateDigitalGoodsResponseCode.OK,
+        CreateDigitalGoodsResponseCode.ERROR,
+        CreateDigitalGoodsResponseCode.UNSUPPORTED_PAYMENT_METHOD,
+        CreateDigitalGoodsResponseCode.UNSUPPORTED_CONTEXT})
+    public @interface EnumType {}
 
     public static final int OK = 0;
     public static final int ERROR = 1;
@@ -39,9 +42,8 @@ public final class CreateDigitalGoodsResponseCode {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private CreateDigitalGoodsResponseCode() {
-    }
+    private CreateDigitalGoodsResponseCode() {}
 }

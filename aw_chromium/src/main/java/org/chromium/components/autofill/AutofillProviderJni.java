@@ -3,63 +3,92 @@
 //
 package org.chromium.components.autofill;
 
-import android.view.View;
-
-import org.chromium.content_public.browser.WebContents;
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.content.Context;
+import android.graphics.Matrix;
+import android.graphics.Rect;
+import android.graphics.RectF;
+import android.os.Build;
+import android.os.Bundle;
+import android.util.SparseArray;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewStructure;
+import android.view.autofill.AutofillValue;
+import androidx.annotation.RequiresApi;
+import androidx.annotation.VisibleForTesting;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.ContextUtils;
+import org.chromium.base.ResettersForTesting;
+import org.chromium.base.StrictModeContext;
+import org.chromium.base.metrics.ScopedSysTraceEvent;
+import org.chromium.components.autofill.AutofillRequest.FocusField;
+import org.chromium.components.version_info.VersionConstants;
+import org.chromium.content_public.browser.RenderCoordinates;
+import org.chromium.content_public.browser.WebContents;
+import org.chromium.content_public.browser.WebContentsAccessibility;
+import org.chromium.ui.base.ViewAndroidDelegate;
+import org.chromium.ui.base.WindowAndroid;
+import org.chromium.ui.display.DisplayAndroid;
 
 @CheckDiscard("crbug.com/993421")
 class AutofillProviderJni implements AutofillProvider.Natives {
-    private static AutofillProvider.Natives testInstance;
+  private static AutofillProvider.Natives testInstance;
 
-    public static final JniStaticTestMocker<AutofillProvider.Natives> TEST_HOOKS = new JniStaticTestMocker<AutofillProvider.Natives>() {
-        @Override
-        public void setInstanceForTesting(AutofillProvider.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<AutofillProvider.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<AutofillProvider.Natives>() {
     @Override
-    public void detachFromJavaAutofillProvider(long nativeAutofillProviderAndroidBridgeImpl) {
-        GEN_JNI.org_chromium_components_autofill_AutofillProvider_detachFromJavaAutofillProvider(nativeAutofillProviderAndroidBridgeImpl);
+    public void setInstanceForTesting(AutofillProvider.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public void init(AutofillProvider caller, WebContents webContents) {
-        GEN_JNI.org_chromium_components_autofill_AutofillProvider_init(caller, webContents);
-    }
+  @Override
+  public void detachFromJavaAutofillProvider(long nativeAutofillProviderAndroidBridgeImpl) {
+    GEN_JNI.org_chromium_components_autofill_AutofillProvider_detachFromJavaAutofillProvider(nativeAutofillProviderAndroidBridgeImpl);
+  }
 
-    @Override
-    public void onAcceptDataListSuggestion(long nativeAutofillProviderAndroidBridgeImpl, AutofillProvider caller, String value) {
-        GEN_JNI.org_chromium_components_autofill_AutofillProvider_onAcceptDataListSuggestion(nativeAutofillProviderAndroidBridgeImpl, caller, value);
-    }
+  @Override
+  public void init(AutofillProvider caller, WebContents webContents) {
+    GEN_JNI.org_chromium_components_autofill_AutofillProvider_init(caller, webContents);
+  }
 
-    @Override
-    public void onAutofillAvailable(long nativeAutofillProviderAndroidBridgeImpl, AutofillProvider caller) {
-        GEN_JNI.org_chromium_components_autofill_AutofillProvider_onAutofillAvailable(nativeAutofillProviderAndroidBridgeImpl, caller);
-    }
+  @Override
+  public void onAcceptDataListSuggestion(long nativeAutofillProviderAndroidBridgeImpl, AutofillProvider caller, String value) {
+    GEN_JNI.org_chromium_components_autofill_AutofillProvider_onAcceptDataListSuggestion(nativeAutofillProviderAndroidBridgeImpl, caller, value);
+  }
 
-    @Override
-    public void setAnchorViewRect(long nativeAutofillProviderAndroidBridgeImpl, AutofillProvider caller, View anchorView, float x, float y, float width, float height) {
-        GEN_JNI.org_chromium_components_autofill_AutofillProvider_setAnchorViewRect(nativeAutofillProviderAndroidBridgeImpl, caller, anchorView, x, y, width, height);
-    }
+  @Override
+  public void onAutofillAvailable(long nativeAutofillProviderAndroidBridgeImpl, AutofillProvider caller) {
+    GEN_JNI.org_chromium_components_autofill_AutofillProvider_onAutofillAvailable(nativeAutofillProviderAndroidBridgeImpl, caller);
+  }
 
-    public static AutofillProvider.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of AutofillProvider.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new AutofillProviderJni();
+  @Override
+  public void setAnchorViewRect(long nativeAutofillProviderAndroidBridgeImpl, AutofillProvider caller, View anchorView, float x, float y, float width, float height) {
+    GEN_JNI.org_chromium_components_autofill_AutofillProvider_setAnchorViewRect(nativeAutofillProviderAndroidBridgeImpl, caller, anchorView, x, y, width, height);
+  }
+
+  public static AutofillProvider.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of AutofillProvider.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new AutofillProviderJni();
+  }
 }

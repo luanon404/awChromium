@@ -17,10 +17,17 @@ import androidx.annotation.IntDef;
 
 public final class BasicCardNetwork {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({BasicCardNetwork.AMEX, BasicCardNetwork.DINERS, BasicCardNetwork.DISCOVER, BasicCardNetwork.JCB, BasicCardNetwork.MASTERCARD, BasicCardNetwork.MIR, BasicCardNetwork.UNIONPAY, BasicCardNetwork.VISA})
-    public @interface EnumType {
-    }
+        BasicCardNetwork.AMEX,
+        BasicCardNetwork.DINERS,
+        BasicCardNetwork.DISCOVER,
+        BasicCardNetwork.JCB,
+        BasicCardNetwork.MASTERCARD,
+        BasicCardNetwork.MIR,
+        BasicCardNetwork.UNIONPAY,
+        BasicCardNetwork.VISA})
+    public @interface EnumType {}
 
     public static final int AMEX = 0;
     public static final int DINERS = 1;
@@ -43,9 +50,8 @@ public final class BasicCardNetwork {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private BasicCardNetwork() {
-    }
+    private BasicCardNetwork() {}
 }

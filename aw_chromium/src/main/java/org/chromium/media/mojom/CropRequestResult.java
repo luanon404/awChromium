@@ -17,10 +17,15 @@ import androidx.annotation.IntDef;
 
 public final class CropRequestResult {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({CropRequestResult.SUCCESS, CropRequestResult.ERROR_GENERIC, CropRequestResult.UNSUPPORTED_CAPTURE_DEVICE, CropRequestResult.NOT_IMPLEMENTED, CropRequestResult.NON_INCREASING_CROP_VERSION, CropRequestResult.INVALID_CROP_TARGET})
-    public @interface EnumType {
-    }
+        CropRequestResult.SUCCESS,
+        CropRequestResult.ERROR_GENERIC,
+        CropRequestResult.UNSUPPORTED_CAPTURE_DEVICE,
+        CropRequestResult.NOT_IMPLEMENTED,
+        CropRequestResult.NON_INCREASING_CROP_VERSION,
+        CropRequestResult.INVALID_CROP_TARGET})
+    public @interface EnumType {}
 
     public static final int SUCCESS = 0;
     public static final int ERROR_GENERIC = 1;
@@ -41,9 +46,8 @@ public final class CropRequestResult {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private CropRequestResult() {
-    }
+    private CropRequestResult() {}
 }

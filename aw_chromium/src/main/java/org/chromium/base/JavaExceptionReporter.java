@@ -13,7 +13,7 @@ import org.jni_zero.NativeMethods;
 /**
  * This UncaughtExceptionHandler will create a breakpad minidump when there is an uncaught
  * exception.
- * <p>
+ *
  * The exception's stack trace will be added to the minidump's data. This allows java-only crashes
  * to be reported in the same way as other native crashes.
  */
@@ -23,7 +23,8 @@ public class JavaExceptionReporter implements Thread.UncaughtExceptionHandler {
     private final boolean mCrashAfterReport;
     private boolean mHandlingException;
 
-    private JavaExceptionReporter(Thread.UncaughtExceptionHandler parent, boolean crashAfterReport) {
+    private JavaExceptionReporter(
+            Thread.UncaughtExceptionHandler parent, boolean crashAfterReport) {
         mParent = parent;
         mCrashAfterReport = crashAfterReport;
     }
@@ -49,7 +50,8 @@ public class JavaExceptionReporter implements Thread.UncaughtExceptionHandler {
     @UiThread
     public static void reportStackTrace(String stackTrace) {
         assert ThreadUtils.runningOnUiThread();
-        JavaExceptionReporterJni.get().reportJavaStackTrace(PiiElider.sanitizeStacktrace(stackTrace));
+        JavaExceptionReporterJni.get().reportJavaStackTrace(
+                PiiElider.sanitizeStacktrace(stackTrace));
     }
 
     /**
@@ -67,13 +69,13 @@ public class JavaExceptionReporter implements Thread.UncaughtExceptionHandler {
 
     @CalledByNative
     private static void installHandler(boolean crashAfterReport) {
-        Thread.setDefaultUncaughtExceptionHandler(new JavaExceptionReporter(Thread.getDefaultUncaughtExceptionHandler(), crashAfterReport));
+        Thread.setDefaultUncaughtExceptionHandler(new JavaExceptionReporter(
+                Thread.getDefaultUncaughtExceptionHandler(), crashAfterReport));
     }
 
     @NativeMethods
     interface Natives {
         void reportJavaException(boolean crashAfterReport, Throwable e);
-
         void reportJavaStackTrace(String stackTrace);
     }
 }

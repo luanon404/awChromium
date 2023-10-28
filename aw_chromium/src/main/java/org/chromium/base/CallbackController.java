@@ -23,43 +23,43 @@ import javax.annotation.concurrent.GuardedBy;
  * Example usage:
  * {@code
  * public class Foo {
- * private CallbackController mCallbackController = new CallbackController();
- * private SomeDestructibleClass mDestructible = new SomeDestructibleClass();
- * <p>
- * // Classic destroy, with clean up of cancelables.
- * public void destroy() {
- * // This call makes sure all tracked lambdas are destroyed.
- * // It is recommended to be done at the top of the destroy methods, to ensure calls from
- * // other threads don't use already destroyed resources.
- * if (mCallbackController != null) {
- * mCallbackController.destroy();
- * mCallbackController = null;
- * }
- * <p>
- * if (mDestructible != null) {
- * mDestructible.destroy();
- * mDestructible = null;
- * }
- * }
- * <p>
- * // Sets up Bar instance by providing it with a set of dangerous callbacks all of which could
- * // cause a NullPointerException if invoked after destroy().
- * public void setUpBar(Bar bar) {
- * // Notice all callbacks below would fail post destroy, if they were not canceled.
- * bar.setDangerousLambda(mCallbackController.makeCancelable(() -> mDestructible.method()));
- * bar.setDangerousRunnable(mCallbackController.makeCancelable(this::dangerousRunnable));
- * bar.setDangerousOtherCallback(
- * mCallbackController.makeCancelable(baz -> mDestructible.setBaz(baz)));
- * bar.setDangerousCallback(mCallbackController.makeCancelable(this::setBaz));
- * }
- * <p>
- * private void dangerousRunnable() {
- * mDestructible.method();
- * }
- * <p>
- * private void setBaz(Baz baz) {
- * mDestructible.setBaz(baz);
- * }
+ *    private CallbackController mCallbackController = new CallbackController();
+ *    private SomeDestructibleClass mDestructible = new SomeDestructibleClass();
+ *
+ *    // Classic destroy, with clean up of cancelables.
+ *    public void destroy() {
+ *        // This call makes sure all tracked lambdas are destroyed.
+ *        // It is recommended to be done at the top of the destroy methods, to ensure calls from
+ *        // other threads don't use already destroyed resources.
+ *        if (mCallbackController != null) {
+ *            mCallbackController.destroy();
+ *            mCallbackController = null;
+ *        }
+ *
+ *        if (mDestructible != null) {
+ *            mDestructible.destroy();
+ *            mDestructible = null;
+ *        }
+ *    }
+ *
+ *    // Sets up Bar instance by providing it with a set of dangerous callbacks all of which could
+ *    // cause a NullPointerException if invoked after destroy().
+ *    public void setUpBar(Bar bar) {
+ *        // Notice all callbacks below would fail post destroy, if they were not canceled.
+ *        bar.setDangerousLambda(mCallbackController.makeCancelable(() -> mDestructible.method()));
+ *        bar.setDangerousRunnable(mCallbackController.makeCancelable(this::dangerousRunnable));
+ *        bar.setDangerousOtherCallback(
+ *                mCallbackController.makeCancelable(baz -> mDestructible.setBaz(baz)));
+ *        bar.setDangerousCallback(mCallbackController.makeCancelable(this::setBaz));
+ *    }
+ *
+ *    private void dangerousRunnable() {
+ *        mDestructible.method();
+ *    }
+ *
+ *    private void setBaz(Baz baz) {
+ *        mDestructible.setBaz(baz);
+ *    }
  * }
  * }
  * <p>
@@ -70,25 +70,19 @@ import javax.annotation.concurrent.GuardedBy;
  * Each instance of this class in only meant for a single {@link
  * #destroy()} call. After it is destroyed, the owning class should create a new instance instead:
  * {@code
- * // Somewhere inside Foo.
- * mCallbackController.destroy();  // Invalidates all current callbacks.
- * mCallbackController = new CallbackController();  // Allows to start handing out new callbacks.
+ *    // Somewhere inside Foo.
+ *    mCallbackController.destroy();  // Invalidates all current callbacks.
+ *    mCallbackController = new CallbackController();  // Allows to start handing out new callbacks.
  * }
  */
 public final class CallbackController {
-    /**
-     * Interface for cancelable objects tracked by this class.
-     */
+    /** Interface for cancelable objects tracked by this class. */
     private interface Cancelable {
-        /**
-         * Cancels the object, preventing its execution, when triggered.
-         */
+        /** Cancels the object, preventing its execution, when triggered. */
         void cancel();
     }
 
-    /**
-     * Class wrapping a {@link Callback} interface with a {@link Cancelable} interface.
-     */
+    /** Class wrapping a {@link Callback} interface with a {@link Cancelable} interface. */
     private class CancelableCallback<T> implements Cancelable, Callback<T> {
         @GuardedBy("mReentrantLock")
         private Callback<T> mCallback;
@@ -113,9 +107,7 @@ public final class CallbackController {
         }
     }
 
-    /**
-     * Class wrapping {@link Runnable} interface with a {@link Cancelable} interface.
-     */
+    /** Class wrapping {@link Runnable} interface with a {@link Cancelable} interface. */
     private class CancelableRunnable implements Cancelable, Runnable {
         @GuardedBy("mReentrantLock")
         private Runnable mRunnable;
@@ -140,9 +132,7 @@ public final class CallbackController {
         }
     }
 
-    /**
-     * Class wrapping the locking logic to reduce repetitive code.
-     */
+    /** Class wrapping the locking logic to reduce repetitive code. */
     private static class AutoCloseableLock implements AutoCloseable {
         private final Lock mLock;
         private boolean mIsLocked;
@@ -165,16 +155,12 @@ public final class CallbackController {
         }
     }
 
-    /**
-     * A list of cancelables created and cancelable by this object.
-     */
+    /** A list of cancelables created and cancelable by this object. */
     @Nullable
     @GuardedBy("mReentrantLock")
     private ArrayList<WeakReference<Cancelable>> mCancelables = new ArrayList<>();
 
-    /**
-     * Ensures thread safety of creating cancelables and canceling them.
-     */
+    /** Ensures thread safety of creating cancelables and canceling them. */
     private final ReentrantLock mReentrantLock = new ReentrantLock(/*fair=*/true);
 
     /**
@@ -183,7 +169,7 @@ public final class CallbackController {
      * <p>
      * This method must not be called after {@link #destroy()}.
      *
-     * @param <T>      The type of the callback result.
+     * @param <T> The type of the callback result.
      * @param callback A callback that will be made cancelable.
      * @return A cancelable instance of the callback.
      */
@@ -237,9 +223,7 @@ public final class CallbackController {
         }
     }
 
-    /**
-     * If the cancelation already happened, throws an {@link IllegalStateException}.
-     */
+    /** If the cancelation already happened, throws an {@link IllegalStateException}. */
     @GuardedBy("mReentrantLock")
     private void checkNotCanceled() {
         if (mCancelables == null) {

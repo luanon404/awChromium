@@ -13,9 +13,13 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 class RendererClient_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<RendererClient, RendererClient.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<RendererClient, RendererClient.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<RendererClient, RendererClient.Proxy> MANAGER =
+            new org.chromium.mojo.bindings.Interface.Manager<RendererClient, RendererClient.Proxy>() {
 
         @Override
         public String getName() {
@@ -24,11 +28,12 @@ class RendererClient_Internal {
 
         @Override
         public int getVersion() {
-            return 0;
+          return 0;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -39,7 +44,7 @@ class RendererClient_Internal {
 
         @Override
         public RendererClient[] buildArray(int size) {
-            return new RendererClient[size];
+          return new RendererClient[size];
         }
     };
 
@@ -67,13 +72,15 @@ class RendererClient_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements RendererClient.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core,
+              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void onTimeUpdate(org.chromium.mojo_base.mojom.TimeDelta time, org.chromium.mojo_base.mojom.TimeDelta maxTime, org.chromium.mojo_base.mojom.TimeTicks captureTime) {
+        public void onTimeUpdate(
+org.chromium.mojo_base.mojom.TimeDelta time, org.chromium.mojo_base.mojom.TimeDelta maxTime, org.chromium.mojo_base.mojom.TimeTicks captureTime) {
 
             RendererClientOnTimeUpdateParams _message = new RendererClientOnTimeUpdateParams();
 
@@ -84,13 +91,17 @@ class RendererClient_Internal {
             _message.captureTime = captureTime;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_TIME_UPDATE_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_TIME_UPDATE_ORDINAL)));
 
         }
 
 
         @Override
-        public void onBufferingStateChange(int state, int reason) {
+        public void onBufferingStateChange(
+int state, int reason) {
 
             RendererClientOnBufferingStateChangeParams _message = new RendererClientOnBufferingStateChangeParams();
 
@@ -99,109 +110,144 @@ class RendererClient_Internal {
             _message.reason = reason;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_BUFFERING_STATE_CHANGE_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_BUFFERING_STATE_CHANGE_ORDINAL)));
 
         }
 
 
         @Override
-        public void onEnded() {
+        public void onEnded(
+) {
 
             RendererClientOnEndedParams _message = new RendererClientOnEndedParams();
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_ENDED_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_ENDED_ORDINAL)));
 
         }
 
 
         @Override
-        public void onError(PipelineStatus status) {
+        public void onError(
+PipelineStatus status) {
 
             RendererClientOnErrorParams _message = new RendererClientOnErrorParams();
 
             _message.status = status;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_ERROR_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_ERROR_ORDINAL)));
 
         }
 
 
         @Override
-        public void onAudioConfigChange(AudioDecoderConfig config) {
+        public void onAudioConfigChange(
+AudioDecoderConfig config) {
 
             RendererClientOnAudioConfigChangeParams _message = new RendererClientOnAudioConfigChangeParams();
 
             _message.config = config;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_AUDIO_CONFIG_CHANGE_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_AUDIO_CONFIG_CHANGE_ORDINAL)));
 
         }
 
 
         @Override
-        public void onVideoConfigChange(VideoDecoderConfig config) {
+        public void onVideoConfigChange(
+VideoDecoderConfig config) {
 
             RendererClientOnVideoConfigChangeParams _message = new RendererClientOnVideoConfigChangeParams();
 
             _message.config = config;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_VIDEO_CONFIG_CHANGE_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_VIDEO_CONFIG_CHANGE_ORDINAL)));
 
         }
 
 
         @Override
-        public void onVideoNaturalSizeChange(org.chromium.gfx.mojom.Size size) {
+        public void onVideoNaturalSizeChange(
+org.chromium.gfx.mojom.Size size) {
 
             RendererClientOnVideoNaturalSizeChangeParams _message = new RendererClientOnVideoNaturalSizeChangeParams();
 
             _message.size = size;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_VIDEO_NATURAL_SIZE_CHANGE_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_VIDEO_NATURAL_SIZE_CHANGE_ORDINAL)));
 
         }
 
 
         @Override
-        public void onVideoOpacityChange(boolean opaque) {
+        public void onVideoOpacityChange(
+boolean opaque) {
 
             RendererClientOnVideoOpacityChangeParams _message = new RendererClientOnVideoOpacityChangeParams();
 
             _message.opaque = opaque;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_VIDEO_OPACITY_CHANGE_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_VIDEO_OPACITY_CHANGE_ORDINAL)));
 
         }
 
 
         @Override
-        public void onStatisticsUpdate(PipelineStatistics stats) {
+        public void onStatisticsUpdate(
+PipelineStatistics stats) {
 
             RendererClientOnStatisticsUpdateParams _message = new RendererClientOnStatisticsUpdateParams();
 
             _message.stats = stats;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_STATISTICS_UPDATE_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_STATISTICS_UPDATE_ORDINAL)));
 
         }
 
 
         @Override
-        public void onWaiting(int reason) {
+        public void onWaiting(
+int reason) {
 
             RendererClientOnWaitingParams _message = new RendererClientOnWaitingParams();
 
             _message.reason = reason;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_WAITING_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_WAITING_ORDINAL)));
 
         }
 
@@ -217,7 +263,8 @@ class RendererClient_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -226,28 +273,40 @@ class RendererClient_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(RendererClient_Internal.MANAGER, messageWithHeader);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
+                                RendererClient_Internal.MANAGER, messageWithHeader);
+
+
+
 
 
                     case ON_TIME_UPDATE_ORDINAL: {
 
-                        RendererClientOnTimeUpdateParams data = RendererClientOnTimeUpdateParams.deserialize(messageWithHeader.getPayload());
+                        RendererClientOnTimeUpdateParams data =
+                                RendererClientOnTimeUpdateParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onTimeUpdate(data.time, data.maxTime, data.captureTime);
                         return true;
                     }
 
 
+
+
+
                     case ON_BUFFERING_STATE_CHANGE_ORDINAL: {
 
-                        RendererClientOnBufferingStateChangeParams data = RendererClientOnBufferingStateChangeParams.deserialize(messageWithHeader.getPayload());
+                        RendererClientOnBufferingStateChangeParams data =
+                                RendererClientOnBufferingStateChangeParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onBufferingStateChange(data.state, data.reason);
                         return true;
                     }
+
+
+
 
 
                     case ON_ENDED_ORDINAL: {
@@ -259,63 +318,91 @@ class RendererClient_Internal {
                     }
 
 
+
+
+
                     case ON_ERROR_ORDINAL: {
 
-                        RendererClientOnErrorParams data = RendererClientOnErrorParams.deserialize(messageWithHeader.getPayload());
+                        RendererClientOnErrorParams data =
+                                RendererClientOnErrorParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onError(data.status);
                         return true;
                     }
 
 
+
+
+
                     case ON_AUDIO_CONFIG_CHANGE_ORDINAL: {
 
-                        RendererClientOnAudioConfigChangeParams data = RendererClientOnAudioConfigChangeParams.deserialize(messageWithHeader.getPayload());
+                        RendererClientOnAudioConfigChangeParams data =
+                                RendererClientOnAudioConfigChangeParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onAudioConfigChange(data.config);
                         return true;
                     }
 
 
+
+
+
                     case ON_VIDEO_CONFIG_CHANGE_ORDINAL: {
 
-                        RendererClientOnVideoConfigChangeParams data = RendererClientOnVideoConfigChangeParams.deserialize(messageWithHeader.getPayload());
+                        RendererClientOnVideoConfigChangeParams data =
+                                RendererClientOnVideoConfigChangeParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onVideoConfigChange(data.config);
                         return true;
                     }
 
 
+
+
+
                     case ON_VIDEO_NATURAL_SIZE_CHANGE_ORDINAL: {
 
-                        RendererClientOnVideoNaturalSizeChangeParams data = RendererClientOnVideoNaturalSizeChangeParams.deserialize(messageWithHeader.getPayload());
+                        RendererClientOnVideoNaturalSizeChangeParams data =
+                                RendererClientOnVideoNaturalSizeChangeParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onVideoNaturalSizeChange(data.size);
                         return true;
                     }
 
 
+
+
+
                     case ON_VIDEO_OPACITY_CHANGE_ORDINAL: {
 
-                        RendererClientOnVideoOpacityChangeParams data = RendererClientOnVideoOpacityChangeParams.deserialize(messageWithHeader.getPayload());
+                        RendererClientOnVideoOpacityChangeParams data =
+                                RendererClientOnVideoOpacityChangeParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onVideoOpacityChange(data.opaque);
                         return true;
                     }
 
 
+
+
+
                     case ON_STATISTICS_UPDATE_ORDINAL: {
 
-                        RendererClientOnStatisticsUpdateParams data = RendererClientOnStatisticsUpdateParams.deserialize(messageWithHeader.getPayload());
+                        RendererClientOnStatisticsUpdateParams data =
+                                RendererClientOnStatisticsUpdateParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onStatisticsUpdate(data.stats);
                         return true;
                     }
 
 
+
+
+
                     case ON_WAITING_ORDINAL: {
 
-                        RendererClientOnWaitingParams data = RendererClientOnWaitingParams.deserialize(messageWithHeader.getPayload());
+                        RendererClientOnWaitingParams data =
+                                RendererClientOnWaitingParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onWaiting(data.reason);
                         return true;
@@ -326,7 +413,7 @@ class RendererClient_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -334,7 +421,8 @@ class RendererClient_Internal {
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -343,27 +431,49 @@ class RendererClient_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), RendererClient_Internal.MANAGER, messageWithHeader, receiver);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
+                                getCore(), RendererClient_Internal.MANAGER, messageWithHeader, receiver);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
                     default:
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class RendererClientOnTimeUpdateParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 32;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(32, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(32, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.mojo_base.mojom.TimeDelta time;
         public org.chromium.mojo_base.mojom.TimeDelta maxTime;
@@ -387,7 +497,8 @@ class RendererClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static RendererClientOnTimeUpdateParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -401,21 +512,21 @@ class RendererClient_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new RendererClientOnTimeUpdateParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.time = org.chromium.mojo_base.mojom.TimeDelta.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                     result.maxTime = org.chromium.mojo_base.mojom.TimeDelta.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, false);
                     result.captureTime = org.chromium.mojo_base.mojom.TimeTicks.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -427,20 +538,22 @@ class RendererClient_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.time, 8, false);
-
+            
             encoder0.encode(this.maxTime, 16, false);
-
+            
             encoder0.encode(this.captureTime, 24, false);
         }
     }
 
 
+
+    
     static final class RendererClientOnBufferingStateChangeParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int state;
         public int reason;
@@ -463,7 +576,8 @@ class RendererClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static RendererClientOnBufferingStateChangeParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -477,18 +591,18 @@ class RendererClient_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new RendererClientOnBufferingStateChangeParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.state = decoder0.readInt(8);
-                    BufferingState.validate(result.state);
-                    result.state = BufferingState.toKnownValue(result.state);
-                }
-                {
-
+                        BufferingState.validate(result.state);
+                        result.state = BufferingState.toKnownValue(result.state);
+                    }
+                    {
+                        
                     result.reason = decoder0.readInt(12);
-                    BufferingStateChangeReason.validate(result.reason);
-                    result.reason = BufferingStateChangeReason.toKnownValue(result.reason);
-                }
+                        BufferingStateChangeReason.validate(result.reason);
+                        result.reason = BufferingStateChangeReason.toKnownValue(result.reason);
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -500,18 +614,20 @@ class RendererClient_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.state, 8);
-
+            
             encoder0.encode(this.reason, 12);
         }
     }
 
 
+
+    
     static final class RendererClientOnEndedParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 8;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(8, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(8, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
 
         private RendererClientOnEndedParams(int version) {
@@ -532,7 +648,8 @@ class RendererClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static RendererClientOnEndedParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -561,10 +678,12 @@ class RendererClient_Internal {
     }
 
 
+
+    
     static final class RendererClientOnErrorParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public PipelineStatus status;
 
@@ -586,7 +705,8 @@ class RendererClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static RendererClientOnErrorParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -600,11 +720,11 @@ class RendererClient_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new RendererClientOnErrorParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.status = PipelineStatus.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -616,16 +736,18 @@ class RendererClient_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.status, 8, false);
         }
     }
 
 
+
+    
     static final class RendererClientOnAudioConfigChangeParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public AudioDecoderConfig config;
 
@@ -647,7 +769,8 @@ class RendererClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static RendererClientOnAudioConfigChangeParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -661,11 +784,11 @@ class RendererClient_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new RendererClientOnAudioConfigChangeParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.config = AudioDecoderConfig.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -677,16 +800,18 @@ class RendererClient_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.config, 8, false);
         }
     }
 
 
+
+    
     static final class RendererClientOnVideoConfigChangeParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public VideoDecoderConfig config;
 
@@ -708,7 +833,8 @@ class RendererClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static RendererClientOnVideoConfigChangeParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -722,11 +848,11 @@ class RendererClient_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new RendererClientOnVideoConfigChangeParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.config = VideoDecoderConfig.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -738,16 +864,18 @@ class RendererClient_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.config, 8, false);
         }
     }
 
 
+
+    
     static final class RendererClientOnVideoNaturalSizeChangeParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.gfx.mojom.Size size;
 
@@ -769,7 +897,8 @@ class RendererClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static RendererClientOnVideoNaturalSizeChangeParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -783,11 +912,11 @@ class RendererClient_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new RendererClientOnVideoNaturalSizeChangeParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.size = org.chromium.gfx.mojom.Size.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -799,16 +928,18 @@ class RendererClient_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.size, 8, false);
         }
     }
 
 
+
+    
     static final class RendererClientOnVideoOpacityChangeParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public boolean opaque;
 
@@ -830,7 +961,8 @@ class RendererClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static RendererClientOnVideoOpacityChangeParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -844,10 +976,10 @@ class RendererClient_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new RendererClientOnVideoOpacityChangeParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.opaque = decoder0.readBoolean(8, 0);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -859,16 +991,18 @@ class RendererClient_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.opaque, 8, 0);
         }
     }
 
 
+
+    
     static final class RendererClientOnStatisticsUpdateParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public PipelineStatistics stats;
 
@@ -890,7 +1024,8 @@ class RendererClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static RendererClientOnStatisticsUpdateParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -904,11 +1039,11 @@ class RendererClient_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new RendererClientOnStatisticsUpdateParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.stats = PipelineStatistics.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -920,16 +1055,18 @@ class RendererClient_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.stats, 8, false);
         }
     }
 
 
+
+    
     static final class RendererClientOnWaitingParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int reason;
 
@@ -951,7 +1088,8 @@ class RendererClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static RendererClientOnWaitingParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -965,12 +1103,12 @@ class RendererClient_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new RendererClientOnWaitingParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.reason = decoder0.readInt(8);
-                    WaitingReason.validate(result.reason);
-                    result.reason = WaitingReason.toKnownValue(result.reason);
-                }
+                        WaitingReason.validate(result.reason);
+                        result.reason = WaitingReason.toKnownValue(result.reason);
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -982,10 +1120,11 @@ class RendererClient_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.reason, 8);
         }
     }
+
 
 
 }

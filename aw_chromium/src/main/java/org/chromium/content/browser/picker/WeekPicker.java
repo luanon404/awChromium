@@ -19,7 +19,8 @@ public class WeekPicker extends TwoFieldDatePicker {
     public WeekPicker(Context context, double minValue, double maxValue) {
         super(context, minValue, maxValue);
 
-        getPositionInYearSpinner().setContentDescription(getResources().getString(R.string.accessibility_date_picker_week));
+        getPositionInYearSpinner().setContentDescription(
+                getResources().getString(R.string.accessibility_date_picker_week));
 
         // initialize to current date
         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));

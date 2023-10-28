@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface AttributionDataHost extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends AttributionDataHost, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends AttributionDataHost, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<AttributionDataHost, AttributionDataHost.Proxy> MANAGER = AttributionDataHost_Internal.MANAGER;

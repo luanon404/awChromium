@@ -31,7 +31,6 @@ public class FrameMetricsListener implements OnFrameMetricsAvailableListener {
     /**
      * Toggles recording into FrameMetricsStore. When recording is stopped, reports accumulated
      * metrics.
-     *
      * @param isRecording
      */
     public void setIsListenerRecording(boolean isRecording) {
@@ -40,7 +39,8 @@ public class FrameMetricsListener implements OnFrameMetricsAvailableListener {
 
     @RequiresApi(api = VERSION_CODES.N)
     @Override
-    public void onFrameMetricsAvailable(Window window, FrameMetrics frameMetrics, int dropCountSinceLastInvocation) {
+    public void onFrameMetricsAvailable(
+            Window window, FrameMetrics frameMetrics, int dropCountSinceLastInvocation) {
         if (!mIsRecording.get()) {
             return;
         }
@@ -48,10 +48,12 @@ public class FrameMetricsListener implements OnFrameMetricsAvailableListener {
         long frameTotalDurationNs = frameMetrics.getMetric(FrameMetrics.TOTAL_DURATION);
         long frame_start_vsync_ts = frameMetrics.getMetric(FrameMetrics.VSYNC_TIMESTAMP);
 
-        try (TraceEvent e = TraceEvent.scoped("onFrameMetricsAvailable", Long.toString(frameTotalDurationNs))) {
+        try (TraceEvent e = TraceEvent.scoped(
+                     "onFrameMetricsAvailable", Long.toString(frameTotalDurationNs))) {
             long deadlineNs = frameMetrics.getMetric(FrameMetrics.DEADLINE);
             boolean isJanky = frameTotalDurationNs >= deadlineNs;
-            mFrameMetricsStore.addFrameMeasurement(frameTotalDurationNs, isJanky, frame_start_vsync_ts);
+            mFrameMetricsStore.addFrameMeasurement(
+                    frameTotalDurationNs, isJanky, frame_start_vsync_ts);
         }
     }
 }

@@ -5,9 +5,9 @@
 package org.chromium.components.network_session_configurator;
 
 /**
- * Contains command line switches that are specific to
- * configuring network sessions via network_session_configurator.
- */
+* Contains command line switches that are specific to
+* configuring network sessions via network_session_configurator.
+*/
 public final class NetworkSessionSwitches {
 
 
@@ -25,8 +25,7 @@ public final class NetworkSessionSwitches {
 
     public static final String DISABLE_HTTP2_GREASE_SETTINGS = "disable-http2-grease-settings";
 
-    // Prevents instantiation.
-    private NetworkSessionSwitches() {
-    }
+   // Prevents instantiation.
+   private NetworkSessionSwitches() {}
 }
 

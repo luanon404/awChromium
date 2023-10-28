@@ -9,9 +9,10 @@ import android.util.Pair;
 
 import androidx.annotation.Nullable;
 
-import org.chromium.base.TraceEvent;
 import org.jni_zero.JNINamespace;
 import org.jni_zero.NativeMethods;
+
+import org.chromium.base.TraceEvent;
 
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.WeakReference;
@@ -91,7 +92,7 @@ public class TaskRunnerImpl implements TaskRunner {
      * to be lost. A finalizer could give us the correct behaviour here, but finalizers are banned
      * due to the performance cost they impose, and all of the many correctness gotchas around
      * implementing a finalizer.
-     * <p>
+     *
      * The strategy we've gone with here is to use a ReferenceQueue to keep track of which
      * TaskRunners are no longer reachable (and may have been GC'd), and to delete the native
      * counterpart for those TaskRunners by polling the queue when doing non-performance-critical
@@ -103,7 +104,8 @@ public class TaskRunnerImpl implements TaskRunner {
         while (true) {
             // ReferenceQueue#poll immediately removes and returns an element from the queue,
             // returning null if the queue is empty.
-            @SuppressWarnings("unchecked") TaskRunnerCleaner cleaner = (TaskRunnerCleaner) sQueue.poll();
+            @SuppressWarnings("unchecked")
+            TaskRunnerCleaner cleaner = (TaskRunnerCleaner) sQueue.poll();
             if (cleaner == null) return;
             cleaner.destroy();
             synchronized (sCleaners) {
@@ -121,12 +123,13 @@ public class TaskRunnerImpl implements TaskRunner {
     }
 
     /**
-     * @param traits         The TaskTraits associated with this TaskRunnerImpl.
-     * @param traceCategory  Specifies the name of this instance's subclass for logging purposes.
+     * @param traits The TaskTraits associated with this TaskRunnerImpl.
+     * @param traceCategory Specifies the name of this instance's subclass for logging purposes.
      * @param taskRunnerType Specifies which subclass is this instance for initialising the correct
-     *                       native scheduler.
+     *         native scheduler.
      */
-    protected TaskRunnerImpl(@TaskTraits int traits, String traceCategory, @TaskRunnerType int taskRunnerType) {
+    protected TaskRunnerImpl(
+            @TaskTraits int traits, String traceCategory, @TaskRunnerType int taskRunnerType) {
         mTaskTraits = traits;
         mTraceEvent = traceCategory + ".PreNativeTask.run";
         mTaskRunnerType = taskRunnerType;
@@ -141,13 +144,15 @@ public class TaskRunnerImpl implements TaskRunner {
     public void postDelayedTask(Runnable task, long delay) {
         // Lock-free path when native is initialized.
         if (mNativeTaskRunnerAndroid != 0) {
-            TaskRunnerImplJni.get().postDelayedTask(mNativeTaskRunnerAndroid, task, delay, task.getClass().getName());
+            TaskRunnerImplJni.get().postDelayedTask(
+                    mNativeTaskRunnerAndroid, task, delay, task.getClass().getName());
             return;
         }
         synchronized (mPreNativeTaskLock) {
             oneTimeInitialization();
             if (mNativeTaskRunnerAndroid != 0) {
-                TaskRunnerImplJni.get().postDelayedTask(mNativeTaskRunnerAndroid, task, delay, task.getClass().getName());
+                TaskRunnerImplJni.get().postDelayedTask(
+                        mNativeTaskRunnerAndroid, task, delay, task.getClass().getName());
                 return;
             }
             // We don't expect a whole lot of these, if that changes consider pooling them.
@@ -200,7 +205,7 @@ public class TaskRunnerImpl implements TaskRunner {
      * Overridden in subclasses that support Delayed tasks pre-native.
      *
      * @return true if the task has been scheduled and does not need to be forwarded to the native
-     * task runner.
+     *         task runner.
      */
     protected boolean schedulePreNativeDelayedTask(Runnable task, long delay) {
         return false;
@@ -254,13 +259,15 @@ public class TaskRunnerImpl implements TaskRunner {
         synchronized (mPreNativeTaskLock) {
             if (mPreNativeTasks != null) {
                 for (Runnable task : mPreNativeTasks) {
-                    TaskRunnerImplJni.get().postDelayedTask(nativeTaskRunnerAndroid, task, 0, task.getClass().getName());
+                    TaskRunnerImplJni.get().postDelayedTask(
+                            nativeTaskRunnerAndroid, task, 0, task.getClass().getName());
                 }
                 mPreNativeTasks = null;
             }
             if (mPreNativeDelayedTasks != null) {
                 for (Pair<Runnable, Long> task : mPreNativeDelayedTasks) {
-                    TaskRunnerImplJni.get().postDelayedTask(nativeTaskRunnerAndroid, task.first, task.second, task.getClass().getName());
+                    TaskRunnerImplJni.get().postDelayedTask(nativeTaskRunnerAndroid, task.first,
+                            task.second, task.getClass().getName());
                 }
                 mPreNativeDelayedTasks = null;
             }
@@ -283,11 +290,9 @@ public class TaskRunnerImpl implements TaskRunner {
     @NativeMethods
     interface Natives {
         long init(@TaskRunnerType int taskRunnerType, @TaskTraits int taskTraits);
-
         void destroy(long nativeTaskRunnerAndroid);
-
-        void postDelayedTask(long nativeTaskRunnerAndroid, Runnable task, long delay, String runnableClassName);
-
+        void postDelayedTask(
+                long nativeTaskRunnerAndroid, Runnable task, long delay, String runnableClassName);
         boolean belongsToCurrentThread(long nativeTaskRunnerAndroid);
     }
 }

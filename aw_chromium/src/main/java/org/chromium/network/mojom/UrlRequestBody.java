@@ -13,10 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class UrlRequestBody extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 32;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(32, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(32, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public DataElement[] elements;
     public long identifier;
@@ -41,7 +44,8 @@ public final class UrlRequestBody extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static UrlRequestBody deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -55,30 +59,31 @@ public final class UrlRequestBody extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new UrlRequestBody(elementsOrVersion);
-            {
-
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                 {
                     org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                     result.elements = new DataElement[si1.elementsOrVersion];
                     for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
-                        result.elements[i1] = DataElement.decode(decoder1, org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.UNION_SIZE * i1);
+                        
+                        result.elements[i1] = DataElement.decode(decoder1, org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + 
+                        org.chromium.mojo.bindings.BindingsHelper.UNION_SIZE * i1);
                     }
                 }
-            }
-            {
-
+                }
+                {
+                    
                 result.identifier = decoder0.readLong(16);
-            }
-            {
-
+                }
+                {
+                    
                 result.containsSensitiveInfo = decoder0.readBoolean(24, 0);
-            }
-            {
-
+                }
+                {
+                    
                 result.allowHttp1ForStreamingUpload = decoder0.readBoolean(24, 1);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -90,21 +95,22 @@ public final class UrlRequestBody extends org.chromium.mojo.bindings.Struct {
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         if (this.elements == null) {
             encoder0.encodeNullPointer(8, false);
         } else {
             org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodeUnionArray(this.elements.length, 8, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
             for (int i0 = 0; i0 < this.elements.length; ++i0) {
-
-                encoder1.encode(this.elements[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.UNION_SIZE * i0, false);
+                
+                encoder1.encode(this.elements[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + 
+                org.chromium.mojo.bindings.BindingsHelper.UNION_SIZE * i0, false);
             }
         }
-
+        
         encoder0.encode(this.identifier, 16);
-
+        
         encoder0.encode(this.containsSensitiveInfo, 24, 0);
-
+        
         encoder0.encode(this.allowHttp1ForStreamingUpload, 24, 1);
     }
 }

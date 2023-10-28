@@ -13,10 +13,13 @@
 
 package org.chromium.display.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class ScreenInfo extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 72;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(72, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(72, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public float deviceScaleFactor;
     public org.chromium.gfx.mojom.DisplayColorSpaces displayColorSpaces;
@@ -57,7 +60,8 @@ public final class ScreenInfo extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static ScreenInfo deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -71,71 +75,71 @@ public final class ScreenInfo extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new ScreenInfo(elementsOrVersion);
-            {
-
+                {
+                    
                 result.deviceScaleFactor = decoder0.readFloat(8);
-            }
-            {
-
+                }
+                {
+                    
                 result.depth = decoder0.readInt(12);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                 result.displayColorSpaces = org.chromium.gfx.mojom.DisplayColorSpaces.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.depthPerComponent = decoder0.readInt(24);
-            }
-            {
-
+                }
+                {
+                    
                 result.isMonochrome = decoder0.readBoolean(28, 0);
-            }
-            {
-
+                }
+                {
+                    
                 result.isExtended = decoder0.readBoolean(28, 1);
-            }
-            {
-
+                }
+                {
+                    
                 result.isPrimary = decoder0.readBoolean(28, 2);
-            }
-            {
-
+                }
+                {
+                    
                 result.isInternal = decoder0.readBoolean(28, 3);
-            }
-            {
-
+                }
+                {
+                    
                 result.orientationAngle = decoder0.readShort(30);
-            }
-            {
-
+                }
+                {
+                    
                 result.displayFrequency = decoder0.readFloat(32);
-            }
-            {
-
+                }
+                {
+                    
                 result.orientationType = decoder0.readInt(36);
-                ScreenOrientation.validate(result.orientationType);
-                result.orientationType = ScreenOrientation.toKnownValue(result.orientationType);
-            }
-            {
-
+                    ScreenOrientation.validate(result.orientationType);
+                    result.orientationType = ScreenOrientation.toKnownValue(result.orientationType);
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(40, false);
                 result.rect = org.chromium.gfx.mojom.Rect.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(48, false);
                 result.availableRect = org.chromium.gfx.mojom.Rect.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.label = decoder0.readString(56, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.displayId = decoder0.readLong(64);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -147,35 +151,35 @@ public final class ScreenInfo extends org.chromium.mojo.bindings.Struct {
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.deviceScaleFactor, 8);
-
+        
         encoder0.encode(this.depth, 12);
-
+        
         encoder0.encode(this.displayColorSpaces, 16, false);
-
+        
         encoder0.encode(this.depthPerComponent, 24);
-
+        
         encoder0.encode(this.isMonochrome, 28, 0);
-
+        
         encoder0.encode(this.isExtended, 28, 1);
-
+        
         encoder0.encode(this.isPrimary, 28, 2);
-
+        
         encoder0.encode(this.isInternal, 28, 3);
-
+        
         encoder0.encode(this.orientationAngle, 30);
-
+        
         encoder0.encode(this.displayFrequency, 32);
-
+        
         encoder0.encode(this.orientationType, 36);
-
+        
         encoder0.encode(this.rect, 40, false);
-
+        
         encoder0.encode(this.availableRect, 48, false);
-
+        
         encoder0.encode(this.label, 56, false);
-
+        
         encoder0.encode(this.displayId, 64);
     }
 }

@@ -17,10 +17,11 @@ import androidx.annotation.IntDef;
 
 public final class CspRequireTrustedTypesFor {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({CspRequireTrustedTypesFor.NONE, CspRequireTrustedTypesFor.SCRIPT})
-    public @interface EnumType {
-    }
+        CspRequireTrustedTypesFor.NONE,
+        CspRequireTrustedTypesFor.SCRIPT})
+    public @interface EnumType {}
 
     public static final int NONE = 0;
     public static final int SCRIPT = 1;
@@ -37,9 +38,8 @@ public final class CspRequireTrustedTypesFor {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private CspRequireTrustedTypesFor() {
-    }
+    private CspRequireTrustedTypesFor() {}
 }

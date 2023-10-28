@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class GestureDeviceType {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({GestureDeviceType.DEVICE_UNKNOWN, GestureDeviceType.DEVICE_TOUCHPAD, GestureDeviceType.DEVICE_TOUCHSCREEN})
-    public @interface EnumType {
-    }
+        GestureDeviceType.DEVICE_UNKNOWN,
+        GestureDeviceType.DEVICE_TOUCHPAD,
+        GestureDeviceType.DEVICE_TOUCHSCREEN})
+    public @interface EnumType {}
 
     public static final int DEVICE_UNKNOWN = 0;
     public static final int DEVICE_TOUCHPAD = 1;
@@ -38,9 +40,8 @@ public final class GestureDeviceType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private GestureDeviceType() {
-    }
+    private GestureDeviceType() {}
 }

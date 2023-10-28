@@ -9,9 +9,10 @@ import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 
-import org.chromium.url.GURL;
 import org.jni_zero.CalledByNative;
 import org.jni_zero.JNINamespace;
+
+import org.chromium.url.GURL;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -89,7 +90,8 @@ public final class MediaImage {
         if (!(obj instanceof MediaImage)) return false;
 
         MediaImage other = (MediaImage) obj;
-        return mSrc.equals(other.mSrc) && TextUtils.equals(mType, other.mType) && mSizes.equals(other.mSizes);
+        return mSrc.equals(other.mSrc) && TextUtils.equals(mType, other.mType)
+                && mSizes.equals(other.mSizes);
     }
 
     /**
@@ -106,9 +108,8 @@ public final class MediaImage {
 
     /**
      * Create a new {@link MediaImage} from the C++ code.
-     *
-     * @param src   The URL of the image.
-     * @param type  The MIME type of the image.
+     * @param src The URL of the image.
+     * @param type The MIME type of the image.
      * @param sizes The array of image sizes.
      */
     @CalledByNative

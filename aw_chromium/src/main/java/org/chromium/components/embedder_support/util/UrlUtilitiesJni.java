@@ -3,96 +3,115 @@
 //
 package org.chromium.components.embedder_support.util;
 
-import org.chromium.url.GURL;
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.net.Uri;
+import android.text.TextUtils;
+import androidx.annotation.NonNull;
+import androidx.core.text.BidiFormatter;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.CollectionUtil;
+import org.chromium.base.library_loader.LibraryLoader;
+import org.chromium.components.url_formatter.UrlFormatter;
+import org.chromium.content_public.common.ContentUrlConstants;
+import org.chromium.url.GURL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.regex.Pattern;
 
 @CheckDiscard("crbug.com/993421")
 public class UrlUtilitiesJni implements UrlUtilities.Natives {
-    private static UrlUtilities.Natives testInstance;
+  private static UrlUtilities.Natives testInstance;
 
-    public static final JniStaticTestMocker<UrlUtilities.Natives> TEST_HOOKS = new JniStaticTestMocker<UrlUtilities.Natives>() {
-        @Override
-        public void setInstanceForTesting(UrlUtilities.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<UrlUtilities.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<UrlUtilities.Natives>() {
     @Override
-    public GURL clearPort(GURL url) {
-        return (GURL) GEN_JNI.org_chromium_components_embedder_1support_util_UrlUtilities_clearPort(url);
+    public void setInstanceForTesting(UrlUtilities.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public String escapeQueryParamValue(String url, boolean usePlus) {
-        return (String) GEN_JNI.org_chromium_components_embedder_1support_util_UrlUtilities_escapeQueryParamValue(url, usePlus);
-    }
+  @Override
+  public GURL clearPort(GURL url) {
+    return (GURL) GEN_JNI.org_chromium_components_embedder_1support_util_UrlUtilities_clearPort(url);
+  }
 
-    @Override
-    public String getDomainAndRegistry(String url, boolean includePrivateRegistries) {
-        return (String) GEN_JNI.org_chromium_components_embedder_1support_util_UrlUtilities_getDomainAndRegistry(url, includePrivateRegistries);
-    }
+  @Override
+  public String escapeQueryParamValue(String url, boolean usePlus) {
+    return (String) GEN_JNI.org_chromium_components_embedder_1support_util_UrlUtilities_escapeQueryParamValue(url, usePlus);
+  }
 
-    @Override
-    public String getValueForKeyInQuery(GURL url, String key) {
-        return (String) GEN_JNI.org_chromium_components_embedder_1support_util_UrlUtilities_getValueForKeyInQuery(url, key);
-    }
+  @Override
+  public String getDomainAndRegistry(String url, boolean includePrivateRegistries) {
+    return (String) GEN_JNI.org_chromium_components_embedder_1support_util_UrlUtilities_getDomainAndRegistry(url, includePrivateRegistries);
+  }
 
-    @Override
-    public boolean isGoogleDomainUrl(String url, boolean allowNonStandardPort) {
-        return (boolean) GEN_JNI.org_chromium_components_embedder_1support_util_UrlUtilities_isGoogleDomainUrl(url, allowNonStandardPort);
-    }
+  @Override
+  public String getValueForKeyInQuery(GURL url, String key) {
+    return (String) GEN_JNI.org_chromium_components_embedder_1support_util_UrlUtilities_getValueForKeyInQuery(url, key);
+  }
 
-    @Override
-    public boolean isGoogleHomePageUrl(String url) {
-        return (boolean) GEN_JNI.org_chromium_components_embedder_1support_util_UrlUtilities_isGoogleHomePageUrl(url);
-    }
+  @Override
+  public boolean isGoogleDomainUrl(String url, boolean allowNonStandardPort) {
+    return (boolean) GEN_JNI.org_chromium_components_embedder_1support_util_UrlUtilities_isGoogleDomainUrl(url, allowNonStandardPort);
+  }
 
-    @Override
-    public boolean isGoogleSearchUrl(String url) {
-        return (boolean) GEN_JNI.org_chromium_components_embedder_1support_util_UrlUtilities_isGoogleSearchUrl(url);
-    }
+  @Override
+  public boolean isGoogleHomePageUrl(String url) {
+    return (boolean) GEN_JNI.org_chromium_components_embedder_1support_util_UrlUtilities_isGoogleHomePageUrl(url);
+  }
 
-    @Override
-    public boolean isGoogleSubDomainUrl(String url) {
-        return (boolean) GEN_JNI.org_chromium_components_embedder_1support_util_UrlUtilities_isGoogleSubDomainUrl(url);
-    }
+  @Override
+  public boolean isGoogleSearchUrl(String url) {
+    return (boolean) GEN_JNI.org_chromium_components_embedder_1support_util_UrlUtilities_isGoogleSearchUrl(url);
+  }
 
-    @Override
-    public boolean isUrlWithinScope(String url, String scopeUrl) {
-        return (boolean) GEN_JNI.org_chromium_components_embedder_1support_util_UrlUtilities_isUrlWithinScope(url, scopeUrl);
-    }
+  @Override
+  public boolean isGoogleSubDomainUrl(String url) {
+    return (boolean) GEN_JNI.org_chromium_components_embedder_1support_util_UrlUtilities_isGoogleSubDomainUrl(url);
+  }
 
-    @Override
-    public boolean sameDomainOrHost(String primaryUrl, String secondaryUrl, boolean includePrivateRegistries) {
-        return (boolean) GEN_JNI.org_chromium_components_embedder_1support_util_UrlUtilities_sameDomainOrHost(primaryUrl, secondaryUrl, includePrivateRegistries);
-    }
+  @Override
+  public boolean isUrlWithinScope(String url, String scopeUrl) {
+    return (boolean) GEN_JNI.org_chromium_components_embedder_1support_util_UrlUtilities_isUrlWithinScope(url, scopeUrl);
+  }
 
-    @Override
-    public boolean urlsFragmentsDiffer(String url, String url2) {
-        return (boolean) GEN_JNI.org_chromium_components_embedder_1support_util_UrlUtilities_urlsFragmentsDiffer(url, url2);
-    }
+  @Override
+  public boolean sameDomainOrHost(String primaryUrl, String secondaryUrl, boolean includePrivateRegistries) {
+    return (boolean) GEN_JNI.org_chromium_components_embedder_1support_util_UrlUtilities_sameDomainOrHost(primaryUrl, secondaryUrl, includePrivateRegistries);
+  }
 
-    @Override
-    public boolean urlsMatchIgnoringFragments(String url, String url2) {
-        return (boolean) GEN_JNI.org_chromium_components_embedder_1support_util_UrlUtilities_urlsMatchIgnoringFragments(url, url2);
-    }
+  @Override
+  public boolean urlsFragmentsDiffer(String url, String url2) {
+    return (boolean) GEN_JNI.org_chromium_components_embedder_1support_util_UrlUtilities_urlsFragmentsDiffer(url, url2);
+  }
 
-    public static UrlUtilities.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of UrlUtilities.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new UrlUtilitiesJni();
+  @Override
+  public boolean urlsMatchIgnoringFragments(String url, String url2) {
+    return (boolean) GEN_JNI.org_chromium_components_embedder_1support_util_UrlUtilities_urlsMatchIgnoringFragments(url, url2);
+  }
+
+  public static UrlUtilities.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of UrlUtilities.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new UrlUtilitiesJni();
+  }
 }

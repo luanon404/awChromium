@@ -12,8 +12,7 @@ import org.chromium.content.browser.SpeechRecognitionImpl;
  * good local fallback when no data connection is available.
  */
 public final class SpeechRecognition {
-    private SpeechRecognition() {
-    }
+    private SpeechRecognition() {}
 
     /**
      * This method must be called before any instance of SpeechRecognition can be created. It will

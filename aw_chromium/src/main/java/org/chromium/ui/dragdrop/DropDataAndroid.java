@@ -8,9 +8,10 @@ import android.text.TextUtils;
 
 import androidx.annotation.VisibleForTesting;
 
-import org.chromium.url.GURL;
 import org.jni_zero.CalledByNative;
 import org.jni_zero.JNINamespace;
+
+import org.chromium.url.GURL;
 
 /**
  * Bare minimal wrapper class of native content::DropData.
@@ -23,7 +24,12 @@ public class DropDataAndroid {
     public final String imageContentExtension;
     public final String imageFilename;
 
-    protected DropDataAndroid(String text, GURL gurl, byte[] imageContent, String imageContentExtension, String imageFilename) {
+    protected DropDataAndroid(
+            String text,
+            GURL gurl,
+            byte[] imageContent,
+            String imageContentExtension,
+            String imageFilename) {
         this.text = text;
         this.gurl = gurl;
         this.imageContent = imageContent;
@@ -33,34 +39,28 @@ public class DropDataAndroid {
 
     @VisibleForTesting
     @CalledByNative
-    static DropDataAndroid create(String text, GURL gurl, byte[] imageContent, String imageContentExtension, String imageFilename) {
+    static DropDataAndroid create(String text, GURL gurl, byte[] imageContent,
+            String imageContentExtension, String imageFilename) {
         return new DropDataAndroid(text, gurl, imageContent, imageContentExtension, imageFilename);
     }
 
-    /**
-     * Return whether this data presents a plain of text.
-     */
+    /** Return whether this data presents a plain of text. */
     public boolean isPlainText() {
         return GURL.isEmptyOrInvalid(gurl) && !TextUtils.isEmpty(text);
     }
 
-    /**
-     * Return whether this data presents a link.
-     */
+    /** Return whether this data presents a link. */
     public boolean hasLink() {
         return !GURL.isEmptyOrInvalid(gurl);
     }
 
-    /**
-     * Return whether this data presents an image.
-     */
+    /** Return whether this data presents an image. */
     public boolean hasImage() {
-        return imageContent != null && !TextUtils.isEmpty(imageContentExtension) && !TextUtils.isEmpty(imageFilename);
+        return imageContent != null && !TextUtils.isEmpty(imageContentExtension)
+                && !TextUtils.isEmpty(imageFilename);
     }
 
-    /**
-     * Return whether this data presents browser content.
-     */
+    /** Return whether this data presents browser content. */
     public boolean hasBrowserContent() {
         return false;
     }

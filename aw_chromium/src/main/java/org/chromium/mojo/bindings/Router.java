@@ -16,16 +16,16 @@ public interface Router extends MessageReceiverWithResponder, HandleOwner<Messag
     /**
      * Start listening for incoming messages.
      */
-    void start();
+    public void start();
 
     /**
      * Set the {@link MessageReceiverWithResponder} that will deserialize and use the message
      * received from the pipe.
      */
-    void setIncomingMessageReceiver(MessageReceiverWithResponder incomingMessageReceiver);
+    public void setIncomingMessageReceiver(MessageReceiverWithResponder incomingMessageReceiver);
 
     /**
      * Set the handle that will be notified of errors on the message pipe.
      */
-    void setErrorHandler(ConnectionErrorHandler errorHandler);
+    public void setErrorHandler(ConnectionErrorHandler errorHandler);
 }

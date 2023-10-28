@@ -17,10 +17,17 @@ import androidx.annotation.IntDef;
 
 public final class WebBundleErrorType {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({WebBundleErrorType.METADATA_PARSE_ERROR, WebBundleErrorType.RESPONSE_PARSE_ERROR, WebBundleErrorType.RESOURCE_NOT_FOUND, WebBundleErrorType.MEMORY_QUOTA_EXCEEDED, WebBundleErrorType.SERVING_CONSTRAINTS_NOT_MET, WebBundleErrorType.WEB_BUNDLE_FETCH_FAILED, WebBundleErrorType.WEB_BUNDLE_REDIRECTED, WebBundleErrorType.DEPRECATION_WARNING})
-    public @interface EnumType {
-    }
+        WebBundleErrorType.METADATA_PARSE_ERROR,
+        WebBundleErrorType.RESPONSE_PARSE_ERROR,
+        WebBundleErrorType.RESOURCE_NOT_FOUND,
+        WebBundleErrorType.MEMORY_QUOTA_EXCEEDED,
+        WebBundleErrorType.SERVING_CONSTRAINTS_NOT_MET,
+        WebBundleErrorType.WEB_BUNDLE_FETCH_FAILED,
+        WebBundleErrorType.WEB_BUNDLE_REDIRECTED,
+        WebBundleErrorType.DEPRECATION_WARNING})
+    public @interface EnumType {}
 
     public static final int METADATA_PARSE_ERROR = 0;
     public static final int RESPONSE_PARSE_ERROR = 1;
@@ -43,9 +50,8 @@ public final class WebBundleErrorType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private WebBundleErrorType() {
-    }
+    private WebBundleErrorType() {}
 }

@@ -62,9 +62,8 @@ public class PackageUtils {
 
     /**
      * Checks if the app has been installed on the system.
-     *
-     * @param packageName Name of the package to check.
      * @return true if the PackageManager reports that the app is installed, false otherwise.
+     * @param packageName Name of the package to check.
      */
     public static boolean isPackageInstalled(String packageName) {
         return getPackageInfo(packageName, 0) != null;
@@ -83,7 +82,6 @@ public class PackageUtils {
      * Computes the SHA256 certificates for the given package name. The app with the given package
      * name has to be installed on device. The output will be a list of 30 long HEX strings with :
      * between each value. There will be one string for each signature the app is signed with.
-     *
      * @param packageName The package name to query the signature for.
      * @return The SHA256 certificate for the package name.
      */
@@ -100,8 +98,11 @@ public class PackageUtils {
             InputStream input = new ByteArrayInputStream(signature.toByteArray());
             String hexString = null;
             try {
-                X509Certificate certificate = (X509Certificate) CertificateFactory.getInstance("X509").generateCertificate(input);
-                hexString = byteArrayToHexString(MessageDigest.getInstance("SHA256").digest(certificate.getEncoded()));
+                X509Certificate certificate =
+                        (X509Certificate) CertificateFactory.getInstance("X509")
+                                .generateCertificate(input);
+                hexString = byteArrayToHexString(
+                        MessageDigest.getInstance("SHA256").digest(certificate.getEncoded()));
             } catch (CertificateException | NoSuchAlgorithmException e) {
                 Log.w(TAG, "Exception", e);
                 return null;
@@ -115,7 +116,6 @@ public class PackageUtils {
 
     /**
      * Converts a byte array to hex string with : inserted between each element.
-     *
      * @param byteArray The array to be converted.
      * @return A string with two letters representing each byte and : in between.
      */

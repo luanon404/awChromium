@@ -6,12 +6,13 @@ package org.chromium.android_webview;
 
 import androidx.annotation.NonNull;
 
-import org.chromium.android_webview.common.Lifetime;
-import org.chromium.base.Callback;
-import org.chromium.base.ThreadUtils;
 import org.jni_zero.CalledByNative;
 import org.jni_zero.JNINamespace;
 import org.jni_zero.NativeMethods;
+
+import org.chromium.android_webview.common.Lifetime;
+import org.chromium.base.Callback;
+import org.chromium.base.ThreadUtils;
 
 /**
  * Bridge between android.webview.WebStorage and native QuotaManager. This object is owned by Java
@@ -55,12 +56,13 @@ public class AwQuotaManagerBridge {
 
     /**
      * Implements WebStorage.deleteAllData(). Clear the storage of all five offline APIs.
-     * <p>
+     *
      * TODO(boliu): Actually clear Web Storage.
      */
     public void deleteAllData() {
         ThreadUtils.assertOnUiThread();
-        AwQuotaManagerBridgeJni.get().deleteAllData(mNativeAwQuotaManagerBridge, AwQuotaManagerBridge.this);
+        AwQuotaManagerBridgeJni.get().deleteAllData(
+                mNativeAwQuotaManagerBridge, AwQuotaManagerBridge.this);
     }
 
     /**
@@ -68,7 +70,8 @@ public class AwQuotaManagerBridge {
      */
     public void deleteOrigin(String origin) {
         ThreadUtils.assertOnUiThread();
-        AwQuotaManagerBridgeJni.get().deleteOrigin(mNativeAwQuotaManagerBridge, AwQuotaManagerBridge.this, origin);
+        AwQuotaManagerBridgeJni.get().deleteOrigin(
+                mNativeAwQuotaManagerBridge, AwQuotaManagerBridge.this, origin);
     }
 
     /**
@@ -77,7 +80,8 @@ public class AwQuotaManagerBridge {
      */
     public void getOrigins(@NonNull Callback<Origins> callback) {
         ThreadUtils.assertOnUiThread();
-        AwQuotaManagerBridgeJni.get().getOrigins(mNativeAwQuotaManagerBridge, AwQuotaManagerBridge.this, callback);
+        AwQuotaManagerBridgeJni.get().getOrigins(
+                mNativeAwQuotaManagerBridge, AwQuotaManagerBridge.this, callback);
     }
 
     /**
@@ -86,7 +90,8 @@ public class AwQuotaManagerBridge {
      */
     public void getQuotaForOrigin(String origin, @NonNull Callback<Long> callback) {
         ThreadUtils.assertOnUiThread();
-        AwQuotaManagerBridgeJni.get().getUsageAndQuotaForOrigin(mNativeAwQuotaManagerBridge, AwQuotaManagerBridge.this, origin, callback, true);
+        AwQuotaManagerBridgeJni.get().getUsageAndQuotaForOrigin(
+                mNativeAwQuotaManagerBridge, AwQuotaManagerBridge.this, origin, callback, true);
     }
 
     /**
@@ -95,24 +100,25 @@ public class AwQuotaManagerBridge {
      */
     public void getUsageForOrigin(String origin, @NonNull Callback<Long> callback) {
         ThreadUtils.assertOnUiThread();
-        AwQuotaManagerBridgeJni.get().getUsageAndQuotaForOrigin(mNativeAwQuotaManagerBridge, AwQuotaManagerBridge.this, origin, callback, false);
+        AwQuotaManagerBridgeJni.get().getUsageAndQuotaForOrigin(
+                mNativeAwQuotaManagerBridge, AwQuotaManagerBridge.this, origin, callback, false);
     }
 
     @CalledByNative
-    private void onGetOriginsCallback(Callback<Origins> callback, String[] origin, long[] usages, long[] quotas) {
+    private void onGetOriginsCallback(
+            Callback<Origins> callback, String[] origin, long[] usages, long[] quotas) {
         callback.onResult(new Origins(origin, usages, quotas));
     }
 
     @NativeMethods
     interface Natives {
         void init(long nativeAwQuotaManagerBridge, AwQuotaManagerBridge caller);
-
         void deleteAllData(long nativeAwQuotaManagerBridge, AwQuotaManagerBridge caller);
-
-        void deleteOrigin(long nativeAwQuotaManagerBridge, AwQuotaManagerBridge caller, String origin);
-
-        void getOrigins(long nativeAwQuotaManagerBridge, AwQuotaManagerBridge caller, Callback<Origins> callback);
-
-        void getUsageAndQuotaForOrigin(long nativeAwQuotaManagerBridge, AwQuotaManagerBridge caller, String origin, Callback<Long> callback, boolean isQuota);
+        void deleteOrigin(
+                long nativeAwQuotaManagerBridge, AwQuotaManagerBridge caller, String origin);
+        void getOrigins(long nativeAwQuotaManagerBridge, AwQuotaManagerBridge caller,
+                Callback<Origins> callback);
+        void getUsageAndQuotaForOrigin(long nativeAwQuotaManagerBridge, AwQuotaManagerBridge caller,
+                String origin, Callback<Long> callback, boolean isQuota);
     }
 }

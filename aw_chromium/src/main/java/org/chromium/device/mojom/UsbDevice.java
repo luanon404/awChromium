@@ -13,102 +13,114 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface UsbDevice extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends UsbDevice, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends UsbDevice, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<UsbDevice, UsbDevice.Proxy> MANAGER = UsbDevice_Internal.MANAGER;
 
     void open(
 
-            Open_Response callback);
+Open_Response callback);
 
-    interface Open_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<UsbOpenDeviceResult> {
-    }
+    interface Open_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<UsbOpenDeviceResult> { }
 
 
     void close(
 
-            Close_Response callback);
+Close_Response callback);
 
-    interface Close_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 {
-    }
-
-
-    void setConfiguration(byte value, SetConfiguration_Response callback);
-
-    interface SetConfiguration_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> {
-    }
+    interface Close_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 { }
 
 
-    void claimInterface(byte interfaceNumber, ClaimInterface_Response callback);
+    void setConfiguration(
+byte value, 
+SetConfiguration_Response callback);
 
-    interface ClaimInterface_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> {
-    }
-
-
-    void releaseInterface(byte interfaceNumber, ReleaseInterface_Response callback);
-
-    interface ReleaseInterface_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> {
-    }
+    interface SetConfiguration_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> { }
 
 
-    void setInterfaceAlternateSetting(byte interfaceNumber, byte alternateSetting, SetInterfaceAlternateSetting_Response callback);
+    void claimInterface(
+byte interfaceNumber, 
+ClaimInterface_Response callback);
 
-    interface SetInterfaceAlternateSetting_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> {
-    }
+    interface ClaimInterface_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> { }
+
+
+    void releaseInterface(
+byte interfaceNumber, 
+ReleaseInterface_Response callback);
+
+    interface ReleaseInterface_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> { }
+
+
+    void setInterfaceAlternateSetting(
+byte interfaceNumber, byte alternateSetting, 
+SetInterfaceAlternateSetting_Response callback);
+
+    interface SetInterfaceAlternateSetting_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> { }
 
 
     void reset(
 
-            Reset_Response callback);
+Reset_Response callback);
 
-    interface Reset_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> {
-    }
-
-
-    void clearHalt(int direction, byte endpointNumber, ClearHalt_Response callback);
-
-    interface ClearHalt_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> {
-    }
+    interface Reset_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> { }
 
 
-    void controlTransferIn(UsbControlTransferParams params, int length, int timeout, ControlTransferIn_Response callback);
+    void clearHalt(
+int direction, byte endpointNumber, 
+ClearHalt_Response callback);
 
-    interface ControlTransferIn_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<Integer, org.chromium.mojo_base.mojom.ReadOnlyBuffer> {
-    }
-
-
-    void controlTransferOut(UsbControlTransferParams params, org.chromium.mojo_base.mojom.ReadOnlyBuffer data, int timeout, ControlTransferOut_Response callback);
-
-    interface ControlTransferOut_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> {
-    }
+    interface ClearHalt_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> { }
 
 
-    void genericTransferIn(byte endpointNumber, int length, int timeout, GenericTransferIn_Response callback);
+    void controlTransferIn(
+UsbControlTransferParams params, int length, int timeout, 
+ControlTransferIn_Response callback);
 
-    interface GenericTransferIn_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<Integer, org.chromium.mojo_base.mojom.ReadOnlyBuffer> {
-    }
-
-
-    void genericTransferOut(byte endpointNumber, org.chromium.mojo_base.mojom.ReadOnlyBuffer data, int timeout, GenericTransferOut_Response callback);
-
-    interface GenericTransferOut_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> {
-    }
+    interface ControlTransferIn_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<Integer, org.chromium.mojo_base.mojom.ReadOnlyBuffer> { }
 
 
-    void isochronousTransferIn(byte endpointNumber, int[] packetLengths, int timeout, IsochronousTransferIn_Response callback);
+    void controlTransferOut(
+UsbControlTransferParams params, org.chromium.mojo_base.mojom.ReadOnlyBuffer data, int timeout, 
+ControlTransferOut_Response callback);
 
-    interface IsochronousTransferIn_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<org.chromium.mojo_base.mojom.ReadOnlyBuffer, UsbIsochronousPacket[]> {
-    }
+    interface ControlTransferOut_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> { }
 
 
-    void isochronousTransferOut(byte endpointNumber, org.chromium.mojo_base.mojom.ReadOnlyBuffer data, int[] packetLengths, int timeout, IsochronousTransferOut_Response callback);
+    void genericTransferIn(
+byte endpointNumber, int length, int timeout, 
+GenericTransferIn_Response callback);
 
-    interface IsochronousTransferOut_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<UsbIsochronousPacket[]> {
-    }
+    interface GenericTransferIn_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<Integer, org.chromium.mojo_base.mojom.ReadOnlyBuffer> { }
+
+
+    void genericTransferOut(
+byte endpointNumber, org.chromium.mojo_base.mojom.ReadOnlyBuffer data, int timeout, 
+GenericTransferOut_Response callback);
+
+    interface GenericTransferOut_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> { }
+
+
+    void isochronousTransferIn(
+byte endpointNumber, int[] packetLengths, int timeout, 
+IsochronousTransferIn_Response callback);
+
+    interface IsochronousTransferIn_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<org.chromium.mojo_base.mojom.ReadOnlyBuffer, UsbIsochronousPacket[]> { }
+
+
+    void isochronousTransferOut(
+byte endpointNumber, org.chromium.mojo_base.mojom.ReadOnlyBuffer data, int[] packetLengths, int timeout, 
+IsochronousTransferOut_Response callback);
+
+    interface IsochronousTransferOut_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<UsbIsochronousPacket[]> { }
 
 
 }

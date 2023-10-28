@@ -6,12 +6,13 @@ package org.chromium.android_webview;
 
 import androidx.annotation.NonNull;
 
-import org.chromium.base.task.PostTask;
-import org.chromium.base.task.TaskTraits;
-import org.chromium.content_public.browser.MessagePayload;
 import org.jni_zero.CalledByNative;
 import org.jni_zero.JNINamespace;
 import org.jni_zero.NativeMethods;
+
+import org.chromium.base.task.PostTask;
+import org.chromium.base.task.TaskTraits;
+import org.chromium.content_public.browser.MessagePayload;
 
 /**
  * Used for Js Java interaction, to receive postMessage back to the injected JavaScript object.

@@ -17,10 +17,11 @@ import androidx.annotation.IntDef;
 
 public final class UsbTransferDirection {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({UsbTransferDirection.INBOUND, UsbTransferDirection.OUTBOUND})
-    public @interface EnumType {
-    }
+        UsbTransferDirection.INBOUND,
+        UsbTransferDirection.OUTBOUND})
+    public @interface EnumType {}
 
     public static final int INBOUND = 0;
     public static final int OUTBOUND = 1;
@@ -37,9 +38,8 @@ public final class UsbTransferDirection {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private UsbTransferDirection() {
-    }
+    private UsbTransferDirection() {}
 }

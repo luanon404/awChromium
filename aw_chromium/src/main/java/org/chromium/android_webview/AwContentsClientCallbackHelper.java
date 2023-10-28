@@ -19,7 +19,7 @@ import java.util.concurrent.Callable;
 
 /**
  * This class is responsible for calling certain client callbacks on the UI thread.
- * <p>
+ *
  * Most callbacks do no go through here, but get forwarded to AwContentsClient directly. The
  * messages processed here may originate from the IO or UI thread.
  */
@@ -28,9 +28,7 @@ public class AwContentsClientCallbackHelper {
     /**
      * Interface to tell CallbackHelper to cancel posted callbacks.
      */
-    public interface CancelCallbackPoller {
-        boolean shouldCancelAllCallbacks();
-    }
+    public static interface CancelCallbackPoller { boolean shouldCancelAllCallbacks(); }
 
     // TODO(boliu): Consider removing DownloadInfo and LoginRequestInfo by using native
     // MessageLoop to post directly to AwContents.
@@ -42,7 +40,11 @@ public class AwContentsClientCallbackHelper {
         final String mMimeType;
         final long mContentLength;
 
-        DownloadInfo(String url, String userAgent, String contentDisposition, String mimeType, long contentLength) {
+        DownloadInfo(String url,
+                     String userAgent,
+                     String contentDisposition,
+                     String mimeType,
+                     long contentLength) {
             mUrl = url;
             mUserAgent = userAgent;
             mContentDisposition = contentDisposition;
@@ -67,7 +69,8 @@ public class AwContentsClientCallbackHelper {
         final AwContentsClient.AwWebResourceRequest mRequest;
         final AwContentsClient.AwWebResourceError mError;
 
-        OnReceivedErrorInfo(AwContentsClient.AwWebResourceRequest request, AwContentsClient.AwWebResourceError error) {
+        OnReceivedErrorInfo(AwContentsClient.AwWebResourceRequest request,
+                AwContentsClient.AwWebResourceError error) {
             mRequest = request;
             mError = error;
         }
@@ -78,7 +81,8 @@ public class AwContentsClientCallbackHelper {
         final int mThreatType;
         final Callback<AwSafeBrowsingResponse> mCallback;
 
-        OnSafeBrowsingHitInfo(AwContentsClient.AwWebResourceRequest request, int threatType, Callback<AwSafeBrowsingResponse> callback) {
+        OnSafeBrowsingHitInfo(AwContentsClient.AwWebResourceRequest request, int threatType,
+                Callback<AwSafeBrowsingResponse> callback) {
             mRequest = request;
             mThreatType = threatType;
             mCallback = callback;
@@ -89,7 +93,8 @@ public class AwContentsClientCallbackHelper {
         final AwContentsClient.AwWebResourceRequest mRequest;
         final WebResourceResponseInfo mResponse;
 
-        OnReceivedHttpErrorInfo(AwContentsClient.AwWebResourceRequest request, WebResourceResponseInfo response) {
+        OnReceivedHttpErrorInfo(
+                AwContentsClient.AwWebResourceRequest request, WebResourceResponseInfo response) {
             mRequest = request;
             mResponse = response;
         }
@@ -156,7 +161,7 @@ public class AwContentsClientCallbackHelper {
                 return;
             }
 
-            switch (msg.what) {
+            switch(msg.what) {
                 case MSG_ON_LOAD_RESOURCE: {
                     final String url = (String) msg.obj;
                     mContentsClient.onLoadResource(url);
@@ -169,7 +174,8 @@ public class AwContentsClientCallbackHelper {
                 }
                 case MSG_ON_DOWNLOAD_START: {
                     DownloadInfo info = (DownloadInfo) msg.obj;
-                    mContentsClient.onDownloadStart(info.mUrl, info.mUserAgent, info.mContentDisposition, info.mMimeType, info.mContentLength);
+                    mContentsClient.onDownloadStart(info.mUrl, info.mUserAgent,
+                            info.mContentDisposition, info.mMimeType, info.mContentLength);
                     break;
                 }
                 case MSG_ON_RECEIVED_LOGIN_REQUEST: {
@@ -184,7 +190,8 @@ public class AwContentsClientCallbackHelper {
                 }
                 case MSG_ON_SAFE_BROWSING_HIT: {
                     OnSafeBrowsingHitInfo info = (OnSafeBrowsingHitInfo) msg.obj;
-                    mContentsClient.onSafeBrowsingHit(info.mRequest, info.mThreatType, info.mCallback);
+                    mContentsClient.onSafeBrowsingHit(
+                            info.mRequest, info.mThreatType, info.mCallback);
                     break;
                 }
                 case MSG_ON_NEW_PICTURE: {
@@ -243,7 +250,8 @@ public class AwContentsClientCallbackHelper {
                     break;
                 }
                 default:
-                    throw new IllegalStateException("AwContentsClientCallbackHelper: unhandled message " + msg.what);
+                    throw new IllegalStateException(
+                            "AwContentsClientCallbackHelper: unhandled message " + msg.what);
             }
         }
     }
@@ -270,8 +278,10 @@ public class AwContentsClientCallbackHelper {
         mHandler.sendMessage(mHandler.obtainMessage(MSG_ON_PAGE_STARTED, url));
     }
 
-    public void postOnDownloadStart(String url, String userAgent, String contentDisposition, String mimeType, long contentLength) {
-        DownloadInfo info = new DownloadInfo(url, userAgent, contentDisposition, mimeType, contentLength);
+    public void postOnDownloadStart(String url, String userAgent, String contentDisposition,
+            String mimeType, long contentLength) {
+        DownloadInfo info = new DownloadInfo(url, userAgent, contentDisposition, mimeType,
+                contentLength);
         mHandler.sendMessage(mHandler.obtainMessage(MSG_ON_DOWNLOAD_START, info));
     }
 
@@ -280,12 +290,14 @@ public class AwContentsClientCallbackHelper {
         mHandler.sendMessage(mHandler.obtainMessage(MSG_ON_RECEIVED_LOGIN_REQUEST, info));
     }
 
-    public void postOnReceivedError(AwContentsClient.AwWebResourceRequest request, AwContentsClient.AwWebResourceError error) {
+    public void postOnReceivedError(AwContentsClient.AwWebResourceRequest request,
+            AwContentsClient.AwWebResourceError error) {
         OnReceivedErrorInfo info = new OnReceivedErrorInfo(request, error);
         mHandler.sendMessage(mHandler.obtainMessage(MSG_ON_RECEIVED_ERROR, info));
     }
 
-    public void postOnSafeBrowsingHit(AwContentsClient.AwWebResourceRequest request, int threatType, Callback<AwSafeBrowsingResponse> callback) {
+    public void postOnSafeBrowsingHit(AwContentsClient.AwWebResourceRequest request, int threatType,
+            Callback<AwSafeBrowsingResponse> callback) {
         OnSafeBrowsingHitInfo info = new OnSafeBrowsingHitInfo(request, threatType, callback);
         mHandler.sendMessage(mHandler.obtainMessage(MSG_ON_SAFE_BROWSING_HIT, info));
     }
@@ -293,8 +305,10 @@ public class AwContentsClientCallbackHelper {
     public void postOnNewPicture(Callable<Picture> pictureProvider) {
         if (mHasPendingOnNewPicture) return;
         mHasPendingOnNewPicture = true;
-        long pictureTime = java.lang.Math.max(mLastPictureTime + ON_NEW_PICTURE_MIN_PERIOD_MILLIS, SystemClock.uptimeMillis());
-        mHandler.sendMessageAtTime(mHandler.obtainMessage(MSG_ON_NEW_PICTURE, pictureProvider), pictureTime);
+        long pictureTime = java.lang.Math.max(mLastPictureTime + ON_NEW_PICTURE_MIN_PERIOD_MILLIS,
+                SystemClock.uptimeMillis());
+        mHandler.sendMessageAtTime(mHandler.obtainMessage(MSG_ON_NEW_PICTURE, pictureProvider),
+                pictureTime);
     }
 
     public void postOnScaleChangedScaled(float oldScale, float newScale) {
@@ -302,11 +316,14 @@ public class AwContentsClientCallbackHelper {
         // documentation states that intBitsToFloat(floatToIntBits(a)) == a for all values of a
         // (except for NaNs which are collapsed to a single canonical NaN, but we don't care for
         // that case).
-        mHandler.sendMessage(mHandler.obtainMessage(MSG_ON_SCALE_CHANGED_SCALED, Float.floatToIntBits(oldScale), Float.floatToIntBits(newScale)));
+        mHandler.sendMessage(mHandler.obtainMessage(MSG_ON_SCALE_CHANGED_SCALED,
+                    Float.floatToIntBits(oldScale), Float.floatToIntBits(newScale)));
     }
 
-    public void postOnReceivedHttpError(AwContentsClient.AwWebResourceRequest request, WebResourceResponseInfo response) {
-        OnReceivedHttpErrorInfo info = new OnReceivedHttpErrorInfo(request, response);
+    public void postOnReceivedHttpError(
+            AwContentsClient.AwWebResourceRequest request, WebResourceResponseInfo response) {
+        OnReceivedHttpErrorInfo info =
+                new OnReceivedHttpErrorInfo(request, response);
         mHandler.sendMessage(mHandler.obtainMessage(MSG_ON_RECEIVED_HTTP_ERROR, info));
     }
 

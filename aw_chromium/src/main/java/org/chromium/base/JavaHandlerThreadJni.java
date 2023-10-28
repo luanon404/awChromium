@@ -4,44 +4,55 @@
 package org.chromium.base;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Looper;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import java.lang.Thread.UncaughtExceptionHandler;
 
 @CheckDiscard("crbug.com/993421")
 class JavaHandlerThreadJni implements JavaHandlerThread.Natives {
-    private static JavaHandlerThread.Natives testInstance;
+  private static JavaHandlerThread.Natives testInstance;
 
-    public static final JniStaticTestMocker<JavaHandlerThread.Natives> TEST_HOOKS = new JniStaticTestMocker<JavaHandlerThread.Natives>() {
-        @Override
-        public void setInstanceForTesting(JavaHandlerThread.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<JavaHandlerThread.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<JavaHandlerThread.Natives>() {
     @Override
-    public void initializeThread(long nativeJavaHandlerThread, long nativeEvent) {
-        GEN_JNI.org_chromium_base_JavaHandlerThread_initializeThread(nativeJavaHandlerThread, nativeEvent);
+    public void setInstanceForTesting(JavaHandlerThread.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public void onLooperStopped(long nativeJavaHandlerThread) {
-        GEN_JNI.org_chromium_base_JavaHandlerThread_onLooperStopped(nativeJavaHandlerThread);
-    }
+  @Override
+  public void initializeThread(long nativeJavaHandlerThread, long nativeEvent) {
+    GEN_JNI.org_chromium_base_JavaHandlerThread_initializeThread(nativeJavaHandlerThread, nativeEvent);
+  }
 
-    public static JavaHandlerThread.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of JavaHandlerThread.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new JavaHandlerThreadJni();
+  @Override
+  public void onLooperStopped(long nativeJavaHandlerThread) {
+    GEN_JNI.org_chromium_base_JavaHandlerThread_onLooperStopped(nativeJavaHandlerThread);
+  }
+
+  public static JavaHandlerThread.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of JavaHandlerThread.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new JavaHandlerThreadJni();
+  }
 }

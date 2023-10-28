@@ -4,39 +4,59 @@
 package org.chromium.midi;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.hardware.usb.UsbConstants;
+import android.hardware.usb.UsbDevice;
+import android.hardware.usb.UsbDeviceConnection;
+import android.hardware.usb.UsbEndpoint;
+import android.hardware.usb.UsbInterface;
+import android.hardware.usb.UsbManager;
+import android.hardware.usb.UsbRequest;
+import android.os.Handler;
+import android.util.SparseArray;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import java.nio.ByteBuffer;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 @CheckDiscard("crbug.com/993421")
 class UsbMidiDeviceAndroidJni implements UsbMidiDeviceAndroid.Natives {
-    private static UsbMidiDeviceAndroid.Natives testInstance;
+  private static UsbMidiDeviceAndroid.Natives testInstance;
 
-    public static final JniStaticTestMocker<UsbMidiDeviceAndroid.Natives> TEST_HOOKS = new JniStaticTestMocker<UsbMidiDeviceAndroid.Natives>() {
-        @Override
-        public void setInstanceForTesting(UsbMidiDeviceAndroid.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<UsbMidiDeviceAndroid.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<UsbMidiDeviceAndroid.Natives>() {
     @Override
-    public void onData(long nativeUsbMidiDeviceAndroid, int endpointNumber, byte[] data) {
-        GEN_JNI.org_chromium_midi_UsbMidiDeviceAndroid_onData(nativeUsbMidiDeviceAndroid, endpointNumber, data);
+    public void setInstanceForTesting(UsbMidiDeviceAndroid.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    public static UsbMidiDeviceAndroid.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of UsbMidiDeviceAndroid.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new UsbMidiDeviceAndroidJni();
+  @Override
+  public void onData(long nativeUsbMidiDeviceAndroid, int endpointNumber, byte[] data) {
+    GEN_JNI.org_chromium_midi_UsbMidiDeviceAndroid_onData(nativeUsbMidiDeviceAndroid, endpointNumber, data);
+  }
+
+  public static UsbMidiDeviceAndroid.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of UsbMidiDeviceAndroid.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new UsbMidiDeviceAndroidJni();
+  }
 }

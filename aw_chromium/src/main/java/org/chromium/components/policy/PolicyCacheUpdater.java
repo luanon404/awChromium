@@ -12,9 +12,7 @@ import org.jni_zero.JNINamespace;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Helper class to allow native library to update policy cache with {@link PolicyCache}
- */
+/** Helper class to allow native library to update policy cache with {@link PolicyCache} */
 @JNINamespace("policy::android")
 public class PolicyCacheUpdater {
     // A list of policies that will be cached. Note that policy won't be cached in case of any error

@@ -13,9 +13,13 @@
 
 package org.chromium.gpu.mojom;
 
+import androidx.annotation.IntDef;
+
+
 class ClientGmbInterface_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<ClientGmbInterface, ClientGmbInterface.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<ClientGmbInterface, ClientGmbInterface.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<ClientGmbInterface, ClientGmbInterface.Proxy> MANAGER =
+            new org.chromium.mojo.bindings.Interface.Manager<ClientGmbInterface, ClientGmbInterface.Proxy>() {
 
         @Override
         public String getName() {
@@ -24,11 +28,12 @@ class ClientGmbInterface_Internal {
 
         @Override
         public int getVersion() {
-            return 0;
+          return 0;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -39,7 +44,7 @@ class ClientGmbInterface_Internal {
 
         @Override
         public ClientGmbInterface[] buildArray(int size) {
-            return new ClientGmbInterface[size];
+          return new ClientGmbInterface[size];
         }
     };
 
@@ -53,13 +58,16 @@ class ClientGmbInterface_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements ClientGmbInterface.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core,
+              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void createGpuMemoryBuffer(org.chromium.gfx.mojom.GpuMemoryBufferId id, org.chromium.gfx.mojom.Size size, int format, int usage, SurfaceHandle surfaceHandle, CreateGpuMemoryBuffer_Response callback) {
+        public void createGpuMemoryBuffer(
+org.chromium.gfx.mojom.GpuMemoryBufferId id, org.chromium.gfx.mojom.Size size, int format, int usage, SurfaceHandle surfaceHandle, 
+CreateGpuMemoryBuffer_Response callback) {
 
             ClientGmbInterfaceCreateGpuMemoryBufferParams _message = new ClientGmbInterfaceCreateGpuMemoryBufferParams();
 
@@ -74,26 +82,39 @@ class ClientGmbInterface_Internal {
             _message.surfaceHandle = surfaceHandle;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(CREATE_GPU_MEMORY_BUFFER_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new ClientGmbInterfaceCreateGpuMemoryBufferResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    CREATE_GPU_MEMORY_BUFFER_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new ClientGmbInterfaceCreateGpuMemoryBufferResponseParamsForwardToCallback(callback));
 
         }
 
 
         @Override
-        public void destroyGpuMemoryBuffer(org.chromium.gfx.mojom.GpuMemoryBufferId id) {
+        public void destroyGpuMemoryBuffer(
+org.chromium.gfx.mojom.GpuMemoryBufferId id) {
 
             ClientGmbInterfaceDestroyGpuMemoryBufferParams _message = new ClientGmbInterfaceDestroyGpuMemoryBufferParams();
 
             _message.id = id;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(DESTROY_GPU_MEMORY_BUFFER_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(DESTROY_GPU_MEMORY_BUFFER_ORDINAL)));
 
         }
 
 
         @Override
-        public void copyGpuMemoryBuffer(org.chromium.gfx.mojom.GpuMemoryBufferHandle bufferHandle, org.chromium.mojo_base.mojom.UnsafeSharedMemoryRegion sharedMemory, CopyGpuMemoryBuffer_Response callback) {
+        public void copyGpuMemoryBuffer(
+org.chromium.gfx.mojom.GpuMemoryBufferHandle bufferHandle, org.chromium.mojo_base.mojom.UnsafeSharedMemoryRegion sharedMemory, 
+CopyGpuMemoryBuffer_Response callback) {
 
             ClientGmbInterfaceCopyGpuMemoryBufferParams _message = new ClientGmbInterfaceCopyGpuMemoryBufferParams();
 
@@ -102,7 +123,14 @@ class ClientGmbInterface_Internal {
             _message.sharedMemory = sharedMemory;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(COPY_GPU_MEMORY_BUFFER_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new ClientGmbInterfaceCopyGpuMemoryBufferResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    COPY_GPU_MEMORY_BUFFER_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new ClientGmbInterfaceCopyGpuMemoryBufferResponseParamsForwardToCallback(callback));
 
         }
 
@@ -118,7 +146,8 @@ class ClientGmbInterface_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -127,26 +156,35 @@ class ClientGmbInterface_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(ClientGmbInterface_Internal.MANAGER, messageWithHeader);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
+                                ClientGmbInterface_Internal.MANAGER, messageWithHeader);
+
+
+
+
+
 
 
                     case DESTROY_GPU_MEMORY_BUFFER_ORDINAL: {
 
-                        ClientGmbInterfaceDestroyGpuMemoryBufferParams data = ClientGmbInterfaceDestroyGpuMemoryBufferParams.deserialize(messageWithHeader.getPayload());
+                        ClientGmbInterfaceDestroyGpuMemoryBufferParams data =
+                                ClientGmbInterfaceDestroyGpuMemoryBufferParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().destroyGpuMemoryBuffer(data.id);
                         return true;
                     }
 
 
+
+
                     default:
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -154,7 +192,8 @@ class ClientGmbInterface_Internal {
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -163,24 +202,39 @@ class ClientGmbInterface_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), ClientGmbInterface_Internal.MANAGER, messageWithHeader, receiver);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
+                                getCore(), ClientGmbInterface_Internal.MANAGER, messageWithHeader, receiver);
+
+
+
+
+
 
 
                     case CREATE_GPU_MEMORY_BUFFER_ORDINAL: {
 
-                        ClientGmbInterfaceCreateGpuMemoryBufferParams data = ClientGmbInterfaceCreateGpuMemoryBufferParams.deserialize(messageWithHeader.getPayload());
+                        ClientGmbInterfaceCreateGpuMemoryBufferParams data =
+                                ClientGmbInterfaceCreateGpuMemoryBufferParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().createGpuMemoryBuffer(data.id, data.size, data.format, data.usage, data.surfaceHandle, new ClientGmbInterfaceCreateGpuMemoryBufferResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
                     }
 
 
+
+
+
+
+
+
+
                     case COPY_GPU_MEMORY_BUFFER_ORDINAL: {
 
-                        ClientGmbInterfaceCopyGpuMemoryBufferParams data = ClientGmbInterfaceCopyGpuMemoryBufferParams.deserialize(messageWithHeader.getPayload());
+                        ClientGmbInterfaceCopyGpuMemoryBufferParams data =
+                                ClientGmbInterfaceCopyGpuMemoryBufferParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().copyGpuMemoryBuffer(data.bufferHandle, data.sharedMemory, new ClientGmbInterfaceCopyGpuMemoryBufferResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
@@ -191,17 +245,18 @@ class ClientGmbInterface_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class ClientGmbInterfaceCreateGpuMemoryBufferParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 40;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(40, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(40, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.gfx.mojom.GpuMemoryBufferId id;
         public org.chromium.gfx.mojom.Size size;
@@ -227,7 +282,8 @@ class ClientGmbInterface_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static ClientGmbInterfaceCreateGpuMemoryBufferParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -241,33 +297,33 @@ class ClientGmbInterface_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new ClientGmbInterfaceCreateGpuMemoryBufferParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.id = org.chromium.gfx.mojom.GpuMemoryBufferId.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                     result.size = org.chromium.gfx.mojom.Size.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.format = decoder0.readInt(24);
-                    org.chromium.gfx.mojom.BufferFormat.validate(result.format);
-                    result.format = org.chromium.gfx.mojom.BufferFormat.toKnownValue(result.format);
-                }
-                {
-
+                        org.chromium.gfx.mojom.BufferFormat.validate(result.format);
+                        result.format = org.chromium.gfx.mojom.BufferFormat.toKnownValue(result.format);
+                    }
+                    {
+                        
                     result.usage = decoder0.readInt(28);
-                    org.chromium.gfx.mojom.BufferUsage.validate(result.usage);
-                    result.usage = org.chromium.gfx.mojom.BufferUsage.toKnownValue(result.usage);
-                }
-                {
-
+                        org.chromium.gfx.mojom.BufferUsage.validate(result.usage);
+                        result.usage = org.chromium.gfx.mojom.BufferUsage.toKnownValue(result.usage);
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(32, false);
                     result.surfaceHandle = SurfaceHandle.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -279,24 +335,26 @@ class ClientGmbInterface_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.id, 8, false);
-
+            
             encoder0.encode(this.size, 16, false);
-
+            
             encoder0.encode(this.format, 24);
-
+            
             encoder0.encode(this.usage, 28);
-
+            
             encoder0.encode(this.surfaceHandle, 32, false);
         }
     }
 
 
+
+    
     static final class ClientGmbInterfaceCreateGpuMemoryBufferResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.gfx.mojom.GpuMemoryBufferHandle bufferHandle;
 
@@ -318,7 +376,8 @@ class ClientGmbInterface_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static ClientGmbInterfaceCreateGpuMemoryBufferResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -332,11 +391,11 @@ class ClientGmbInterface_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new ClientGmbInterfaceCreateGpuMemoryBufferResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.bufferHandle = org.chromium.gfx.mojom.GpuMemoryBufferHandle.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -348,12 +407,13 @@ class ClientGmbInterface_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.bufferHandle, 8, false);
         }
     }
 
-    static class ClientGmbInterfaceCreateGpuMemoryBufferResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class ClientGmbInterfaceCreateGpuMemoryBufferResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final ClientGmbInterface.CreateGpuMemoryBuffer_Response mCallback;
 
         ClientGmbInterfaceCreateGpuMemoryBufferResponseParamsForwardToCallback(ClientGmbInterface.CreateGpuMemoryBuffer_Response callback) {
@@ -363,9 +423,11 @@ class ClientGmbInterface_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(CREATE_GPU_MEMORY_BUFFER_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(CREATE_GPU_MEMORY_BUFFER_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -385,7 +447,10 @@ class ClientGmbInterface_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        ClientGmbInterfaceCreateGpuMemoryBufferResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        ClientGmbInterfaceCreateGpuMemoryBufferResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -397,16 +462,24 @@ class ClientGmbInterface_Internal {
 
             _response.bufferHandle = bufferHandle;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(CREATE_GPU_MEMORY_BUFFER_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    CREATE_GPU_MEMORY_BUFFER_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
 
 
+
+    
     static final class ClientGmbInterfaceDestroyGpuMemoryBufferParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.gfx.mojom.GpuMemoryBufferId id;
 
@@ -428,7 +501,8 @@ class ClientGmbInterface_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static ClientGmbInterfaceDestroyGpuMemoryBufferParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -442,11 +516,11 @@ class ClientGmbInterface_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new ClientGmbInterfaceDestroyGpuMemoryBufferParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.id = org.chromium.gfx.mojom.GpuMemoryBufferId.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -458,16 +532,18 @@ class ClientGmbInterface_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.id, 8, false);
         }
     }
 
 
+
+    
     static final class ClientGmbInterfaceCopyGpuMemoryBufferParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.gfx.mojom.GpuMemoryBufferHandle bufferHandle;
         public org.chromium.mojo_base.mojom.UnsafeSharedMemoryRegion sharedMemory;
@@ -490,7 +566,8 @@ class ClientGmbInterface_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static ClientGmbInterfaceCopyGpuMemoryBufferParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -504,16 +581,16 @@ class ClientGmbInterface_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new ClientGmbInterfaceCopyGpuMemoryBufferParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.bufferHandle = org.chromium.gfx.mojom.GpuMemoryBufferHandle.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                     result.sharedMemory = org.chromium.mojo_base.mojom.UnsafeSharedMemoryRegion.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -525,18 +602,20 @@ class ClientGmbInterface_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.bufferHandle, 8, false);
-
+            
             encoder0.encode(this.sharedMemory, 16, false);
         }
     }
 
 
+
+    
     static final class ClientGmbInterfaceCopyGpuMemoryBufferResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public boolean success;
 
@@ -558,7 +637,8 @@ class ClientGmbInterface_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static ClientGmbInterfaceCopyGpuMemoryBufferResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -572,10 +652,10 @@ class ClientGmbInterface_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new ClientGmbInterfaceCopyGpuMemoryBufferResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.success = decoder0.readBoolean(8, 0);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -587,12 +667,13 @@ class ClientGmbInterface_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.success, 8, 0);
         }
     }
 
-    static class ClientGmbInterfaceCopyGpuMemoryBufferResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class ClientGmbInterfaceCopyGpuMemoryBufferResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final ClientGmbInterface.CopyGpuMemoryBuffer_Response mCallback;
 
         ClientGmbInterfaceCopyGpuMemoryBufferResponseParamsForwardToCallback(ClientGmbInterface.CopyGpuMemoryBuffer_Response callback) {
@@ -602,9 +683,11 @@ class ClientGmbInterface_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(COPY_GPU_MEMORY_BUFFER_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(COPY_GPU_MEMORY_BUFFER_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -624,7 +707,10 @@ class ClientGmbInterface_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        ClientGmbInterfaceCopyGpuMemoryBufferResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        ClientGmbInterfaceCopyGpuMemoryBufferResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -636,10 +722,17 @@ class ClientGmbInterface_Internal {
 
             _response.success = success;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(COPY_GPU_MEMORY_BUFFER_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    COPY_GPU_MEMORY_BUFFER_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
+
 
 
 }

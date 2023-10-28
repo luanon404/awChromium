@@ -37,7 +37,8 @@ public class FloatingPastePopupMenu implements PastePopupMenu {
     private final @Nullable AdditionalSelectionMenuItemProvider mAdditionalItemProvider;
     private final Map<MenuItem, View.OnClickListener> mCustomMenuItemClickListeners;
 
-    public FloatingPastePopupMenu(Context context, View parent, PastePopupMenuDelegate delegate, @Nullable AdditionalSelectionMenuItemProvider additionalItemProvider) {
+    public FloatingPastePopupMenu(Context context, View parent, PastePopupMenuDelegate delegate,
+            @Nullable AdditionalSelectionMenuItemProvider additionalItemProvider) {
         mParent = parent;
         mDelegate = delegate;
         mContext = context;
@@ -67,7 +68,8 @@ public class FloatingPastePopupMenu implements PastePopupMenu {
     private void ensureActionMode() {
         if (mActionMode != null) return;
 
-        ActionMode actionMode = mParent.startActionMode(new ActionModeCallback(), ActionMode.TYPE_FLOATING);
+        ActionMode actionMode = mParent.startActionMode(
+                new ActionModeCallback(), ActionMode.TYPE_FLOATING);
         if (actionMode != null) {
             // crbug.com/651706
             LGEmailActionModeWorkaroundImpl.runIfNecessary(mContext, actionMode);
@@ -85,7 +87,9 @@ public class FloatingPastePopupMenu implements PastePopupMenu {
         }
 
         private void createPasteMenu(ActionMode mode, Menu menu) {
-            mode.setTitle(DeviceFormFactor.isNonMultiDisplayContextOnTablet(mContext) ? mContext.getString(R.string.actionbar_textselection_title) : null);
+            mode.setTitle(DeviceFormFactor.isNonMultiDisplayContextOnTablet(mContext)
+                            ? mContext.getString(R.string.actionbar_textselection_title)
+                            : null);
             mode.setSubtitle(null);
             SelectActionMenuDelegate actionMenuDelegate = new SelectActionMenuDelegate() {
                 @Override
@@ -123,8 +127,11 @@ public class FloatingPastePopupMenu implements PastePopupMenu {
                     return mDelegate.canPasteAsPlainText();
                 }
             };
-            PriorityQueue<SelectionMenuGroup> nonSelectionMenuItems = SelectActionMenuHelper.getNonSelectionMenuItems(actionMenuDelegate, mAdditionalItemProvider);
-            SelectionPopupControllerImpl.initializeActionMenu(mContext, nonSelectionMenuItems, menu, mCustomMenuItemClickListeners, null);
+            PriorityQueue<SelectionMenuGroup> nonSelectionMenuItems =
+                    SelectActionMenuHelper.getNonSelectionMenuItems(
+                            actionMenuDelegate, mAdditionalItemProvider);
+            SelectionPopupControllerImpl.initializeActionMenu(
+                    mContext, nonSelectionMenuItems, menu, mCustomMenuItemClickListeners, null);
         }
 
         @Override
@@ -135,7 +142,8 @@ public class FloatingPastePopupMenu implements PastePopupMenu {
 
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-            View.OnClickListener customMenuItemClickListener = mCustomMenuItemClickListeners.get(item);
+            View.OnClickListener customMenuItemClickListener =
+                    mCustomMenuItemClickListeners.get(item);
             if (customMenuItemClickListener != null) {
                 customMenuItemClickListener.onClick(mParent);
             } else {
@@ -166,6 +174,5 @@ public class FloatingPastePopupMenu implements PastePopupMenu {
         public void onGetContentRect(ActionMode mode, View view, Rect outRect) {
             outRect.set(mSelectionRect);
         }
-    }
-
+    };
 }

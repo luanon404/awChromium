@@ -13,10 +13,13 @@
 
 package org.chromium.gpu.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class GpuDevice extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 64;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(64, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(64, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public int vendorId;
     public int deviceId;
@@ -46,7 +49,8 @@ public final class GpuDevice extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static GpuDevice deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -60,44 +64,44 @@ public final class GpuDevice extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new GpuDevice(elementsOrVersion);
-            {
-
+                {
+                    
                 result.vendorId = decoder0.readInt(8);
-            }
-            {
-
+                }
+                {
+                    
                 result.deviceId = decoder0.readInt(12);
-            }
-            {
-
+                }
+                {
+                    
                 result.active = decoder0.readBoolean(16, 0);
-            }
-            {
-
+                }
+                {
+                    
                 result.cudaComputeCapabilityMajor = decoder0.readInt(20);
-            }
-            {
-
+                }
+                {
+                    
                 result.vendorString = decoder0.readString(24, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.deviceString = decoder0.readString(32, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.driverVendor = decoder0.readString(40, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.driverVersion = decoder0.readString(48, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.gpuPreference = decoder0.readInt(56);
-                org.chromium.gl.mojom.GpuPreference.validate(result.gpuPreference);
-                result.gpuPreference = org.chromium.gl.mojom.GpuPreference.toKnownValue(result.gpuPreference);
-            }
+                    org.chromium.gl.mojom.GpuPreference.validate(result.gpuPreference);
+                    result.gpuPreference = org.chromium.gl.mojom.GpuPreference.toKnownValue(result.gpuPreference);
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -109,23 +113,23 @@ public final class GpuDevice extends org.chromium.mojo.bindings.Struct {
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.vendorId, 8);
-
+        
         encoder0.encode(this.deviceId, 12);
-
+        
         encoder0.encode(this.active, 16, 0);
-
+        
         encoder0.encode(this.cudaComputeCapabilityMajor, 20);
-
+        
         encoder0.encode(this.vendorString, 24, false);
-
+        
         encoder0.encode(this.deviceString, 32, false);
-
+        
         encoder0.encode(this.driverVendor, 40, false);
-
+        
         encoder0.encode(this.driverVersion, 48, false);
-
+        
         encoder0.encode(this.gpuPreference, 56);
     }
 }

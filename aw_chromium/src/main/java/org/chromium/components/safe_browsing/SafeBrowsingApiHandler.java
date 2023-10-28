@@ -20,21 +20,22 @@ public interface SafeBrowsingApiHandler {
     interface Observer {
         /**
          * Called when the SafeBrowsingApiHandler gets a response from the SafeBrowsing API.
-         *
-         * @param callbackId       The same ID provided when {@link #startUriLookup(long, String, int[],
-         *                         int)} is called.
-         * @param lookupResult     The result of the API call. Self-defined.
-         * @param threatType       The threatType that is returned from the API.
+         * @param callbackId The same ID provided when {@link #startUriLookup(long, String, int[],
+         *         int)} is called.
+         * @param lookupResult The result of the API call. Self-defined.
+         * @param threatType The threatType that is returned from the API.
          * @param threatAttributes The threatAttributes that is returned from the API.
-         * @param responseStatus   The responseStatus that is returned from the API.
-         * @param checkDeltaMs     The time the remote call took in microseconds.
+         * @param responseStatus The responseStatus that is returned from the API.
+         * @param checkDeltaMs The time the remote call took in microseconds.
          */
-        void onUrlCheckDone(long callbackId, @LookupResult int lookupResult, int threatType, int[] threatAttributes, int responseStatus, long checkDeltaMs);
+        void onUrlCheckDone(long callbackId, @LookupResult int lookupResult, int threatType,
+                int[] threatAttributes, int responseStatus, long checkDeltaMs);
     }
 
     // Possible values for lookupResult. Native side has the same definitions. See the native side
     // definition for detailed descriptions.
-    @IntDef({LookupResult.SUCCESS, LookupResult.FAILURE, LookupResult.FAILURE_API_CALL_TIMEOUT, LookupResult.FAILURE_API_UNSUPPORTED, LookupResult.FAILURE_API_NOT_AVAILABLE})
+    @IntDef({LookupResult.SUCCESS, LookupResult.FAILURE, LookupResult.FAILURE_API_CALL_TIMEOUT,
+            LookupResult.FAILURE_API_UNSUPPORTED, LookupResult.FAILURE_API_NOT_AVAILABLE})
     @Retention(RetentionPolicy.SOURCE)
     @interface LookupResult {
         int SUCCESS = 0;
@@ -46,21 +47,19 @@ public interface SafeBrowsingApiHandler {
 
     /**
      * Start a URI-lookup to determine if the URI matches one of the threat types.
-     *
-     * @param callbackId  The identifier used to map the callback on the native side when the verdict
-     *                    is returned.
-     * @param uri         The URL being checked. It can be a top-level URL or a subresource URL.
+     * @param callbackId The identifier used to map the callback on the native side when the verdict
+     *         is returned.
+     * @param uri The URL being checked. It can be a top-level URL or a subresource URL.
      * @param threatTypes The type of threats that are checked.
-     * @param protocol    The protocol used to perform the check.
+     * @param protocol The protocol used to perform the check.
      */
     void startUriLookup(long callbackId, String uri, int[] threatTypes, int protocol);
 
     /**
      * Set the observer used to return the verdict. Must be called before {@link
      * #startUriLookup(long, String, int[], int)} is called.
-     *
      * @param observer The object on which to call the callback functions when the URI lookup is
-     *                 complete.
+     *         complete.
      */
     void setObserver(Observer observer);
 }

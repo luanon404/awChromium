@@ -7,23 +7,24 @@ package org.chromium.net;
 import android.content.Context;
 import android.net.ConnectivityManager;
 
-import org.chromium.base.ContextUtils;
 import org.jni_zero.CalledByNative;
 import org.jni_zero.JNINamespace;
 import org.jni_zero.NativeClassQualifiedName;
 import org.jni_zero.NativeMethods;
 
+import org.chromium.base.ContextUtils;
+
 /**
  * Triggers updates to the underlying network state in Chrome alongside NetworkChangeNotifier.
- * <p>
+ *
  * Differently from NetworkChangeNotifier, this handles default network active type of
  * notifications. These are handled separately for two main reasons:
  * 1. They are more expensive to listen to and currently only used by bidi streams connection status
- * check. Hence, we only enable them when they are actually required.
+ *    check. Hence, we only enable them when they are actually required.
  * 2. The default network active value is not cacheable, what observers are interested in is the
- * event itself (usually to send out packets which were being batched). For this reason the
- * architecture of NetworkChangeNotifier doesn't make much sense for this notification type.
- * <p>
+ *    event itself (usually to send out packets which were being batched). For this reason the
+ *    architecture of NetworkChangeNotifier doesn't make much sense for this notification type.
+ *
  * Note: ConnectivityManager.OnNetworkActiveListener has been introduced in Android API level 21, so
  * loading this class will fail on older Android versions (no sdk checks are needed for this
  * reason).
@@ -86,6 +87,7 @@ public class NetworkActiveNotifier implements ConnectivityManager.OnNetworkActiv
     private NetworkActiveNotifier(long nativeNetworkActiveNotifier) {
         mNativeNetworkActiveObserver = nativeNetworkActiveNotifier;
         Context ctx = ContextUtils.getApplicationContext();
-        mConnectivityManager = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
+        mConnectivityManager =
+                (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
     }
 }

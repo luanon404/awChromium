@@ -17,10 +17,21 @@ import androidx.annotation.IntDef;
 
 public final class TrustTokenOperationStatus {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({TrustTokenOperationStatus.OK, TrustTokenOperationStatus.INVALID_ARGUMENT, TrustTokenOperationStatus.MISSING_ISSUER_KEYS, TrustTokenOperationStatus.FAILED_PRECONDITION, TrustTokenOperationStatus.RESOURCE_EXHAUSTED, TrustTokenOperationStatus.ALREADY_EXISTS, TrustTokenOperationStatus.UNAVAILABLE, TrustTokenOperationStatus.UNAUTHORIZED, TrustTokenOperationStatus.BAD_RESPONSE, TrustTokenOperationStatus.INTERNAL_ERROR, TrustTokenOperationStatus.UNKNOWN_ERROR, TrustTokenOperationStatus.OPERATION_SUCCESSFULLY_FULFILLED_LOCALLY})
-    public @interface EnumType {
-    }
+        TrustTokenOperationStatus.OK,
+        TrustTokenOperationStatus.INVALID_ARGUMENT,
+        TrustTokenOperationStatus.MISSING_ISSUER_KEYS,
+        TrustTokenOperationStatus.FAILED_PRECONDITION,
+        TrustTokenOperationStatus.RESOURCE_EXHAUSTED,
+        TrustTokenOperationStatus.ALREADY_EXISTS,
+        TrustTokenOperationStatus.UNAVAILABLE,
+        TrustTokenOperationStatus.UNAUTHORIZED,
+        TrustTokenOperationStatus.BAD_RESPONSE,
+        TrustTokenOperationStatus.INTERNAL_ERROR,
+        TrustTokenOperationStatus.UNKNOWN_ERROR,
+        TrustTokenOperationStatus.OPERATION_SUCCESSFULLY_FULFILLED_LOCALLY})
+    public @interface EnumType {}
 
     public static final int OK = 0;
     public static final int INVALID_ARGUMENT = 1;
@@ -47,9 +58,8 @@ public final class TrustTokenOperationStatus {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private TrustTokenOperationStatus() {
-    }
+    private TrustTokenOperationStatus() {}
 }

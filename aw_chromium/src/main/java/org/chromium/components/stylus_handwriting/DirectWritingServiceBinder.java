@@ -17,11 +17,9 @@ import android.os.IBinder;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import com.luanon.android.widget.directwriting.IDirectWritingService;
 
 import androidx.annotation.VisibleForTesting;
-
-import com.luanon.android.widget.directwriting.IDirectWritingService;
-import com.luanon.android.widget.directwriting.IDirectWritingServiceCallback;
 
 import org.chromium.base.Log;
 import org.chromium.base.PackageUtils;
@@ -90,14 +88,20 @@ class DirectWritingServiceBinder {
         // Verify that connecting service package fingerprint matches with expected fingerprint of
         // Direct Writing service package. This is to prevent any attacker from spoofing the package
         // name and tricking Chrome into connecting to it.
-        List<String> fingerprints = PackageUtils.getCertificateSHA256FingerprintForPackage(DirectWritingConstants.SERVICE_PKG_NAME);
-        if (fingerprints == null || fingerprints.size() > 1 || !(fingerprints.get(0).equals(DirectWritingConstants.SERVICE_PKG_SHA_256_FINGERPRINT_RELEASE) || fingerprints.get(0).equals(DirectWritingConstants.SERVICE_PKG_SHA_256_FINGERPRINT_DEBUG))) {
+        List<String> fingerprints = PackageUtils.getCertificateSHA256FingerprintForPackage(
+                DirectWritingConstants.SERVICE_PKG_NAME);
+        if (fingerprints == null || fingerprints.size() > 1
+                || !(fingerprints.get(0).equals(
+                             DirectWritingConstants.SERVICE_PKG_SHA_256_FINGERPRINT_RELEASE)
+                        || fingerprints.get(0).equals(
+                                DirectWritingConstants.SERVICE_PKG_SHA_256_FINGERPRINT_DEBUG))) {
             Log.e(TAG, "Don't connect to service due to package fingerprint mismatch");
             return;
         }
         try {
             Intent intent = new Intent();
-            intent.setComponent(new ComponentName(DirectWritingConstants.SERVICE_PKG_NAME, DirectWritingConstants.SERVICE_CLS_NAME));
+            intent.setComponent(new ComponentName(DirectWritingConstants.SERVICE_PKG_NAME,
+                    DirectWritingConstants.SERVICE_CLS_NAME));
             context.bindService(intent, mConnection, BIND_AUTO_CREATE);
 
             mPackageName = context.getPackageName();
@@ -147,7 +151,8 @@ class DirectWritingServiceBinder {
         assert mTriggerCallback != null;
         DirectWritingServiceCallback serviceCallback = mTriggerCallback.getServiceCallback();
         try {
-            String callbackPackage = (mPackageName + IDirectWritingService.VALUE_SERVICE_HOST_SOURCE_WEBVIEW);
+            String callbackPackage =
+                    (mPackageName + IDirectWritingService.VALUE_SERVICE_HOST_SOURCE_WEBVIEW);
             mRemoteDwService.registerCallback(serviceCallback, callbackPackage);
             Log.d(TAG, "Service callback registered");
         } catch (DeadObjectException e) {
@@ -217,7 +222,8 @@ class DirectWritingServiceBinder {
             return false;
         }
         try {
-            mRemoteDwService.onStartRecognition(DirectWritingBundleUtil.buildBundle(me, editableBound, rootView));
+            mRemoteDwService.onStartRecognition(
+                    DirectWritingBundleUtil.buildBundle(me, editableBound, rootView));
             return true;
         } catch (DeadObjectException e) {
             Log.e(TAG, "startRecognition failed due to DeadObjectException.", e);
@@ -257,7 +263,8 @@ class DirectWritingServiceBinder {
     void updateEditableBounds(Rect editableBounds, View rootView) {
         if (!isServiceConnected()) return;
         try {
-            mRemoteDwService.onBoundedEditTextChanged(DirectWritingBundleUtil.buildBundle(editableBounds, rootView));
+            mRemoteDwService.onBoundedEditTextChanged(
+                    DirectWritingBundleUtil.buildBundle(editableBounds, rootView));
         } catch (DeadObjectException e) {
             Log.e(TAG, "updateEditableBounds failed due to DeadObjectException.", e);
             resetDwServiceConnection();

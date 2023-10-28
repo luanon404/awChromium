@@ -4,39 +4,50 @@
 package org.chromium.android_webview.gfx;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.android_webview.common.Lifetime;
+import org.chromium.base.ContextUtils;
+import org.chromium.ui.display.DisplayAndroid;
+import org.chromium.ui.display.DisplayAndroid.DisplayAndroidObserver;
 
 @CheckDiscard("crbug.com/993421")
 class RootBeginFrameSourceWebViewJni implements RootBeginFrameSourceWebView.Natives {
-    private static RootBeginFrameSourceWebView.Natives testInstance;
+  private static RootBeginFrameSourceWebView.Natives testInstance;
 
-    public static final JniStaticTestMocker<RootBeginFrameSourceWebView.Natives> TEST_HOOKS = new JniStaticTestMocker<RootBeginFrameSourceWebView.Natives>() {
-        @Override
-        public void setInstanceForTesting(RootBeginFrameSourceWebView.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<RootBeginFrameSourceWebView.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<RootBeginFrameSourceWebView.Natives>() {
     @Override
-    public void onUpdateRefreshRate(long nativeRootBeginFrameSourceWebView, RootBeginFrameSourceWebView caller, float refreshRate) {
-        GEN_JNI.org_chromium_android_1webview_gfx_RootBeginFrameSourceWebView_onUpdateRefreshRate(nativeRootBeginFrameSourceWebView, caller, refreshRate);
+    public void setInstanceForTesting(RootBeginFrameSourceWebView.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    public static RootBeginFrameSourceWebView.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of RootBeginFrameSourceWebView.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new RootBeginFrameSourceWebViewJni();
+  @Override
+  public void onUpdateRefreshRate(long nativeRootBeginFrameSourceWebView, RootBeginFrameSourceWebView caller, float refreshRate) {
+    GEN_JNI.org_chromium_android_1webview_gfx_RootBeginFrameSourceWebView_onUpdateRefreshRate(nativeRootBeginFrameSourceWebView, caller, refreshRate);
+  }
+
+  public static RootBeginFrameSourceWebView.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of RootBeginFrameSourceWebView.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new RootBeginFrameSourceWebViewJni();
+  }
 }

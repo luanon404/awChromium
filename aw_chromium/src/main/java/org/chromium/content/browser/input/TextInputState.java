@@ -27,7 +27,7 @@ public class TextInputState {
     /**
      * Class added for junit test, because junit doesn't have SurroundingText from the Android
      * framework yet.
-     * <p>
+     *
      * TODO(ctzsm): Replace its usage with the framework SurrroundingText class once junit supports
      * it.
      */
@@ -37,7 +37,8 @@ public class TextInputState {
         public final int mSelectionEnd;
         public final int mOffset;
 
-        public SurroundingTextInternal(CharSequence text, int selectionStart, int selectionEnd, int offset) {
+        public SurroundingTextInternal(
+                CharSequence text, int selectionStart, int selectionEnd, int offset) {
             mText = text;
             mSelectionStart = selectionStart;
             mSelectionEnd = selectionEnd;
@@ -45,7 +46,8 @@ public class TextInputState {
         }
     }
 
-    public TextInputState(CharSequence text, Range selection, Range composition, boolean singleLine, boolean replyToRequest) {
+    public TextInputState(CharSequence text, Range selection, Range composition, boolean singleLine,
+            boolean replyToRequest) {
         selection.clamp(0, text.length());
         if (composition.start() != -1 || composition.end() != -1) {
             composition.clamp(0, text.length());
@@ -85,27 +87,34 @@ public class TextInputState {
     public CharSequence getTextAfterSelection(int maxChars) {
         // Clamp the maxChars to avoid integer overflow or negative value.
         maxChars = Math.max(0, Math.min(maxChars, mText.length() - mSelection.end()));
-        return TextUtils.substring(mText, mSelection.end(), Math.min(mText.length(), mSelection.end() + maxChars));
+        return TextUtils.substring(
+                mText, mSelection.end(), Math.min(mText.length(), mSelection.end() + maxChars));
     }
 
     public CharSequence getTextBeforeSelection(int maxChars) {
         // Clamp the maxChars to the valid value.
         maxChars = Math.max(0, Math.min(maxChars, mSelection.start()));
-        return TextUtils.substring(mText, Math.max(0, mSelection.start() - maxChars), mSelection.start());
+        return TextUtils.substring(
+                mText, Math.max(0, mSelection.start() - maxChars), mSelection.start());
     }
 
     @RequiresApi(Build.VERSION_CODES.S)
     public SurroundingText getSurroundingText(int beforeLength, int afterLength) {
-        SurroundingTextInternal surroundingText = getSurroundingTextInternal(beforeLength, afterLength);
-        return new SurroundingText(surroundingText.mText, surroundingText.mSelectionStart, surroundingText.mSelectionEnd, surroundingText.mOffset);
+        SurroundingTextInternal surroundingText =
+                getSurroundingTextInternal(beforeLength, afterLength);
+        return new SurroundingText(surroundingText.mText, surroundingText.mSelectionStart,
+                surroundingText.mSelectionEnd, surroundingText.mOffset);
     }
 
     @VisibleForTesting
-        /* package */ SurroundingTextInternal getSurroundingTextInternal(int beforeLength, int afterLength) {
+    /* package */ SurroundingTextInternal getSurroundingTextInternal(
+            int beforeLength, int afterLength) {
         beforeLength = Math.max(0, Math.min(beforeLength, mSelection.start()));
         afterLength = Math.max(0, Math.min(afterLength, mText.length() - mSelection.end()));
-        CharSequence text = TextUtils.substring(mText, mSelection.start() - beforeLength, mSelection.end() + afterLength);
-        return new SurroundingTextInternal(text, beforeLength, mSelection.end() - (mSelection.start() - beforeLength), -1);
+        CharSequence text = TextUtils.substring(
+                mText, mSelection.start() - beforeLength, mSelection.end() + afterLength);
+        return new SurroundingTextInternal(
+                text, beforeLength, mSelection.end() - (mSelection.start() - beforeLength), -1);
     }
 
     @Override
@@ -113,12 +122,15 @@ public class TextInputState {
         if (!(o instanceof TextInputState)) return false;
         TextInputState t = (TextInputState) o;
         if (t == this) return true;
-        return TextUtils.equals(mText, t.mText) && mSelection.equals(t.mSelection) && mComposition.equals(t.mComposition) && mSingleLine == t.mSingleLine && mReplyToRequest == t.mReplyToRequest;
+        return TextUtils.equals(mText, t.mText) && mSelection.equals(t.mSelection)
+                && mComposition.equals(t.mComposition) && mSingleLine == t.mSingleLine
+                && mReplyToRequest == t.mReplyToRequest;
     }
 
     @Override
     public int hashCode() {
-        return mText.hashCode() * 7 + mSelection.hashCode() * 11 + mComposition.hashCode() * 13 + (mSingleLine ? 19 : 0) + (mReplyToRequest ? 23 : 0);
+        return mText.hashCode() * 7 + mSelection.hashCode() * 11 + mComposition.hashCode() * 13
+                + (mSingleLine ? 19 : 0) + (mReplyToRequest ? 23 : 0);
     }
 
     @SuppressWarnings("unused")
@@ -128,6 +140,8 @@ public class TextInputState {
 
     @Override
     public String toString() {
-        return String.format(Locale.US, "TextInputState {[%s] SEL%s COM%s %s%s}", mText, mSelection, mComposition, mSingleLine ? "SIN" : "MUL", mReplyToRequest ? " ReplyToRequest" : "");
+        return String.format(Locale.US, "TextInputState {[%s] SEL%s COM%s %s%s}", mText, mSelection,
+                mComposition, mSingleLine ? "SIN" : "MUL",
+                mReplyToRequest ? " ReplyToRequest" : "");
     }
 }

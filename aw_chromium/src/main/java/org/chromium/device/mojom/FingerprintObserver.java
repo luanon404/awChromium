@@ -13,27 +13,36 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface FingerprintObserver extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends FingerprintObserver, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends FingerprintObserver, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<FingerprintObserver, FingerprintObserver.Proxy> MANAGER = FingerprintObserver_Internal.MANAGER;
 
-    void onRestarted();
+    void onRestarted(
+);
 
 
-    void onStatusChanged(int status);
+    void onStatusChanged(
+int status);
 
 
-    void onEnrollScanDone(int scanResult, boolean isComplete, int percentComplete);
+    void onEnrollScanDone(
+int scanResult, boolean isComplete, int percentComplete);
 
 
-    void onAuthScanDone(FingerprintMessage msg, java.util.Map<String, String[]> matches);
+    void onAuthScanDone(
+FingerprintMessage msg, java.util.Map<String, String[]> matches);
 
 
-    void onSessionFailed();
+    void onSessionFailed(
+);
 
 
 }

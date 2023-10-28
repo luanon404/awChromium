@@ -4,49 +4,67 @@
 package org.chromium.ui.display;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.hardware.display.DisplayManager;
+import android.hardware.display.DisplayManager.DisplayListener;
+import android.os.Build;
+import android.util.SparseArray;
+import android.view.Display;
+import android.view.WindowManager;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.ContextUtils;
+import org.chromium.base.ThreadUtils;
+import org.chromium.base.compat.ApiHelperForR;
 
 @CheckDiscard("crbug.com/993421")
 class DisplayAndroidManagerJni implements DisplayAndroidManager.Natives {
-    private static DisplayAndroidManager.Natives testInstance;
+  private static DisplayAndroidManager.Natives testInstance;
 
-    public static final JniStaticTestMocker<DisplayAndroidManager.Natives> TEST_HOOKS = new JniStaticTestMocker<DisplayAndroidManager.Natives>() {
-        @Override
-        public void setInstanceForTesting(DisplayAndroidManager.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<DisplayAndroidManager.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<DisplayAndroidManager.Natives>() {
     @Override
-    public void removeDisplay(long nativeDisplayAndroidManager, DisplayAndroidManager caller, int sdkDisplayId) {
-        GEN_JNI.org_chromium_ui_display_DisplayAndroidManager_removeDisplay(nativeDisplayAndroidManager, caller, sdkDisplayId);
+    public void setInstanceForTesting(DisplayAndroidManager.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public void setPrimaryDisplayId(long nativeDisplayAndroidManager, DisplayAndroidManager caller, int sdkDisplayId) {
-        GEN_JNI.org_chromium_ui_display_DisplayAndroidManager_setPrimaryDisplayId(nativeDisplayAndroidManager, caller, sdkDisplayId);
-    }
+  @Override
+  public void removeDisplay(long nativeDisplayAndroidManager, DisplayAndroidManager caller, int sdkDisplayId) {
+    GEN_JNI.org_chromium_ui_display_DisplayAndroidManager_removeDisplay(nativeDisplayAndroidManager, caller, sdkDisplayId);
+  }
 
-    @Override
-    public void updateDisplay(long nativeDisplayAndroidManager, DisplayAndroidManager caller, int sdkDisplayId, int width, int height, float dipScale, int rotationDegrees, int bitsPerPixel, int bitsPerComponent, boolean isWideColorGamut, boolean isHdr, float hdrMaxLuminanceRatio) {
-        GEN_JNI.org_chromium_ui_display_DisplayAndroidManager_updateDisplay(nativeDisplayAndroidManager, caller, sdkDisplayId, width, height, dipScale, rotationDegrees, bitsPerPixel, bitsPerComponent, isWideColorGamut, isHdr, hdrMaxLuminanceRatio);
-    }
+  @Override
+  public void setPrimaryDisplayId(long nativeDisplayAndroidManager, DisplayAndroidManager caller, int sdkDisplayId) {
+    GEN_JNI.org_chromium_ui_display_DisplayAndroidManager_setPrimaryDisplayId(nativeDisplayAndroidManager, caller, sdkDisplayId);
+  }
 
-    public static DisplayAndroidManager.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of DisplayAndroidManager.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new DisplayAndroidManagerJni();
+  @Override
+  public void updateDisplay(long nativeDisplayAndroidManager, DisplayAndroidManager caller, int sdkDisplayId, int width, int height, float dipScale, int rotationDegrees, int bitsPerPixel, int bitsPerComponent, boolean isWideColorGamut, boolean isHdr, float hdrMaxLuminanceRatio) {
+    GEN_JNI.org_chromium_ui_display_DisplayAndroidManager_updateDisplay(nativeDisplayAndroidManager, caller, sdkDisplayId, width, height, dipScale, rotationDegrees, bitsPerPixel, bitsPerComponent, isWideColorGamut, isHdr, hdrMaxLuminanceRatio);
+  }
+
+  public static DisplayAndroidManager.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of DisplayAndroidManager.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new DisplayAndroidManagerJni();
+  }
 }

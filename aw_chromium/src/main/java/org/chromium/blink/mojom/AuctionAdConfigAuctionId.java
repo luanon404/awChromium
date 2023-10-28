@@ -13,14 +13,15 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public final class AuctionAdConfigAuctionId extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
         public static final int MainAuction = 0;
         public static final int ComponentAuction = 1;
-    }
-
+    };
     private int mMainAuction;
     private int mComponentAuction;
 

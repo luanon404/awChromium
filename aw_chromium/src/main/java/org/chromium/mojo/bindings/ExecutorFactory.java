@@ -68,7 +68,8 @@ public class ExecutorFactory {
             mWatcher = core.getWatcher();
             assert mWatcher != null;
             mLock = new Object();
-            Pair<MessagePipeHandle, MessagePipeHandle> handles = core.createMessagePipe(new MessagePipeHandle.CreateOptions());
+            Pair<MessagePipeHandle, MessagePipeHandle> handles = core.createMessagePipe(
+                    new MessagePipeHandle.CreateOptions());
             mReadHandle = handles.first;
             mWriteHandle = handles.second;
             mPendingActions = new ArrayList<Runnable>();
@@ -106,7 +107,8 @@ public class ExecutorFactory {
          */
         private boolean readNotifyBufferMessage() {
             try {
-                ResultAnd<ReadMessageResult> readMessageResult = mReadHandle.readMessage(MessagePipeHandle.ReadFlags.NONE);
+                ResultAnd<ReadMessageResult> readMessageResult =
+                        mReadHandle.readMessage(MessagePipeHandle.ReadFlags.NONE);
                 if (readMessageResult.getMojoResult() == MojoResult.OK) {
                     return true;
                 }
@@ -138,7 +140,8 @@ public class ExecutorFactory {
             // from the executor's thread.
             synchronized (mLock) {
                 if (!mWriteHandle.isValid()) {
-                    throw new IllegalStateException("Trying to execute an action on a closed executor.");
+                    throw new IllegalStateException(
+                            "Trying to execute an action on a closed executor.");
                 }
                 mPendingActions.add(command);
                 mWriteHandle.writeMessage(NOTIFY_BUFFER, null, MessagePipeHandle.WriteFlags.NONE);

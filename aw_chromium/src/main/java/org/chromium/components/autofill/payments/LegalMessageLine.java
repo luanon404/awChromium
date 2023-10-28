@@ -40,8 +40,8 @@ public class LegalMessageLine {
          * Creates a new instance of the link.
          *
          * @param start The starting inclusive index of the link position in the text.
-         * @param end   The ending exclusive index of the link position in the text.
-         * @param url   The URL of the link.
+         * @param end The ending exclusive index of the link position in the text.
+         * @param url The URL of the link.
          */
         @CalledByNative("Link")
         public Link(int start, int end, String url) {
@@ -73,8 +73,7 @@ public class LegalMessageLine {
 
     /**
      * Creates a new instance of the legal message line with text and links.
-     *
-     * @param text  The plain text legal message.
+     * @param text The plain text legal message.
      * @param links List of {@link Link} objects representing the links.
      */
     @VisibleForTesting
@@ -94,14 +93,16 @@ public class LegalMessageLine {
     }
 
     @CalledByNative
-    /*package*/ static LinkedList<LegalMessageLine> addToList_createListIfNull(LinkedList<LegalMessageLine> list, String text) {
+    /*package*/ static LinkedList<LegalMessageLine> addToList_createListIfNull(
+            LinkedList<LegalMessageLine> list, String text) {
         if (list == null) list = new LinkedList<>();
         list.add(new LegalMessageLine(text));
         return list;
     }
 
     @CalledByNative
-    /*package*/ static void addLinkToLastInList(LinkedList<LegalMessageLine> list, int start, int end, String url) {
+    /*package*/ static void addLinkToLastInList(
+            LinkedList<LegalMessageLine> list, int start, int end, String url) {
         list.getLast().addLink(new Link(start, end, url));
     }
 }

@@ -17,10 +17,11 @@ import androidx.annotation.IntDef;
 
 public final class DevicePostureType {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({DevicePostureType.CONTINUOUS, DevicePostureType.FOLDED})
-    public @interface EnumType {
-    }
+        DevicePostureType.CONTINUOUS,
+        DevicePostureType.FOLDED})
+    public @interface EnumType {}
 
     public static final int CONTINUOUS = 0;
     public static final int FOLDED = 1;
@@ -37,9 +38,8 @@ public final class DevicePostureType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private DevicePostureType() {
-    }
+    private DevicePostureType() {}
 }

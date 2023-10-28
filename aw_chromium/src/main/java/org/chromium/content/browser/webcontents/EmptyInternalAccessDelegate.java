@@ -30,6 +30,5 @@ public class EmptyInternalAccessDelegate implements ViewEventSink.InternalAccess
     }
 
     @Override
-    public void onScrollChanged(int lPix, int tPix, int oldlPix, int oldtPix) {
-    }
+    public void onScrollChanged(int lPix, int tPix, int oldlPix, int oldtPix) {}
 }

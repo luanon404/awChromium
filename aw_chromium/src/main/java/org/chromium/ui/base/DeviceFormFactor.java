@@ -9,12 +9,13 @@ import android.content.Context;
 import androidx.annotation.UiThread;
 import androidx.annotation.VisibleForTesting;
 
-import org.chromium.android_webview.R;
+import org.jni_zero.CalledByNative;
+
 import org.chromium.base.ContextUtils;
 import org.chromium.base.ThreadUtils;
+import org.chromium.android_webview.R;
 import org.chromium.ui.display.DisplayAndroid;
 import org.chromium.ui.display.DisplayUtil;
-import org.jni_zero.CalledByNative;
 
 /**
  * UI utilities for accessing form factor information.
@@ -45,7 +46,8 @@ public class DeviceFormFactor {
     @CalledByNative
     @Deprecated
     public static boolean isTablet() {
-        return detectScreenWidthBucket(ContextUtils.getApplicationContext()) >= SCREEN_BUCKET_TABLET;
+        return detectScreenWidthBucket(ContextUtils.getApplicationContext())
+                >= SCREEN_BUCKET_TABLET;
     }
 
     /**
@@ -55,10 +57,10 @@ public class DeviceFormFactor {
      * displays, so care should be taken to pass a context that makes sense.
      *
      * @return Whether the display associated with the given context is large enough to be
-     * considered a tablet and will thus load tablet-specific resources (those in the config
-     * -sw600).
-     * Not affected by Android N multi-window, but can change for external displays.
-     * E.g. http://developer.samsung.com/samsung-dex/testing
+     *         considered a tablet and will thus load tablet-specific resources (those in the config
+     *         -sw600).
+     *         Not affected by Android N multi-window, but can change for external displays.
+     *         E.g. http://developer.samsung.com/samsung-dex/testing
      */
     public static boolean isNonMultiDisplayContextOnTablet(Context context) {
         return detectScreenWidthBucket(context) >= SCREEN_BUCKET_TABLET;
@@ -66,10 +68,10 @@ public class DeviceFormFactor {
 
     /**
      * @return Whether the display associated with the window is large enough to be
-     * considered a tablet and will thus load tablet-specific resources (those in the config
-     * -sw600).
-     * Not affected by Android N multi-window, but can change for external displays.
-     * E.g. http://developer.samsung.com/samsung-dex/testing
+     *         considered a tablet and will thus load tablet-specific resources (those in the config
+     *         -sw600).
+     *         Not affected by Android N multi-window, but can change for external displays.
+     *         E.g. http://developer.samsung.com/samsung-dex/testing
      */
     @UiThread
     public static boolean isWindowOnTablet(WindowAndroid windowAndroid) {
@@ -78,10 +80,10 @@ public class DeviceFormFactor {
 
     /**
      * @return Whether the display associated with the given context is large enough to be
-     * considered a large tablet and will thus load large-tablet-specific resources (those
-     * in the config -sw720).
-     * Not affected by Android N multi-window, but can change for external displays.
-     * E.g. http://developer.samsung.com/samsung-dex/testing
+     *         considered a large tablet and will thus load large-tablet-specific resources (those
+     *         in the config -sw720).
+     *         Not affected by Android N multi-window, but can change for external displays.
+     *         E.g. http://developer.samsung.com/samsung-dex/testing
      */
     public static boolean isNonMultiDisplayContextOnLargeTablet(Context context) {
         return detectScreenWidthBucket(context) == SCREEN_BUCKET_LARGET_TABLET;
@@ -92,7 +94,6 @@ public class DeviceFormFactor {
      * select the value from the correct directory; values, *-sw600dp, *-sw720dp). We can't use any
      * shortcuts here since there are several devices that are phone or tablet, but load each
      * others' resources (see https://crbug.com/850096 and https://crbug.com/669974 for more info).
-     *
      * @param context An Android context to read resources from.
      * @return The screen width bucket the device is in (see constants at the top of this class).
      */
@@ -109,7 +110,7 @@ public class DeviceFormFactor {
 
     /**
      * @return The minimum width in px at which the display should be treated like a tablet for
-     * layout.
+     *         layout.
      */
     @UiThread
     public static int getNonMultiDisplayMinimumTabletWidthPx(Context context) {
@@ -118,7 +119,7 @@ public class DeviceFormFactor {
 
     /**
      * @return The minimum width in px at which the display should be treated like a tablet for
-     * layout.
+     *         layout.
      */
     public static int getMinimumTabletWidthPx(DisplayAndroid display) {
         return DisplayUtil.dpToPx(display, DeviceFormFactor.MINIMUM_TABLET_WIDTH_DP);

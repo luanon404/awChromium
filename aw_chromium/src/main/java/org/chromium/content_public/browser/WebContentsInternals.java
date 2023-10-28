@@ -13,5 +13,4 @@ package org.chromium.content_public.browser;
  * address the requirements that there not be any gc root to webview in content
  * layer after webview gets detached from view tree. See https://crbug.com/755174.
  */
-public interface WebContentsInternals {
-}
+public interface WebContentsInternals {}

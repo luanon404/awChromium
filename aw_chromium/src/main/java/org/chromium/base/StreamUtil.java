@@ -15,7 +15,6 @@ public class StreamUtil {
     /**
      * Handle closing a {@link java.io.Closeable} via {@link java.io.Closeable#close()} and catch
      * the potentially thrown {@link java.io.IOException}.
-     *
      * @param closeable The Closeable to be closed.
      */
     public static void closeQuietly(Closeable closeable) {
@@ -31,7 +30,6 @@ public class StreamUtil {
     /**
      * Overload of the above function for {@link ZipFile} which implements Closeable only starting
      * from api19.
-     *
      * @param zipFile - the ZipFile to be closed.
      */
     public static void closeQuietly(ZipFile zipFile) {

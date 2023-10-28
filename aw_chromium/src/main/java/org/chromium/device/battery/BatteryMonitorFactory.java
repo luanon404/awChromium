@@ -25,7 +25,8 @@ public class BatteryMonitorFactory implements InterfaceFactory<BatteryMonitor> {
     // Backing source of battery information.
     private final BatteryStatusManager mManager;
     // Monitors currently interested in the battery status notifications.
-    private final HashSet<BatteryMonitorImpl> mSubscribedMonitors = new HashSet<BatteryMonitorImpl>();
+    private final HashSet<BatteryMonitorImpl> mSubscribedMonitors =
+            new HashSet<BatteryMonitorImpl>();
     // Tracks the latest battery status update for newly added observers.
     private boolean mHasStatusUpdate;
     private BatteryStatus mBatteryStatus;

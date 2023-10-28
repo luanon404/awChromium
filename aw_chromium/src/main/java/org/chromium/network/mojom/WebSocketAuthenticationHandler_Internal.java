@@ -13,9 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 class WebSocketAuthenticationHandler_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<WebSocketAuthenticationHandler, WebSocketAuthenticationHandler.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<WebSocketAuthenticationHandler, WebSocketAuthenticationHandler.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<WebSocketAuthenticationHandler, WebSocketAuthenticationHandler.Proxy> MANAGER =
+            new org.chromium.mojo.bindings.Interface.Manager<WebSocketAuthenticationHandler, WebSocketAuthenticationHandler.Proxy>() {
 
         @Override
         public String getName() {
@@ -24,11 +28,12 @@ class WebSocketAuthenticationHandler_Internal {
 
         @Override
         public int getVersion() {
-            return 0;
+          return 0;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -39,7 +44,7 @@ class WebSocketAuthenticationHandler_Internal {
 
         @Override
         public WebSocketAuthenticationHandler[] buildArray(int size) {
-            return new WebSocketAuthenticationHandler[size];
+          return new WebSocketAuthenticationHandler[size];
         }
     };
 
@@ -49,13 +54,16 @@ class WebSocketAuthenticationHandler_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements WebSocketAuthenticationHandler.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core,
+              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void onAuthRequired(AuthChallengeInfo info, HttpResponseHeaders headers, IpEndPoint remoteEndpoint, OnAuthRequired_Response callback) {
+        public void onAuthRequired(
+AuthChallengeInfo info, HttpResponseHeaders headers, IpEndPoint remoteEndpoint, 
+OnAuthRequired_Response callback) {
 
             WebSocketAuthenticationHandlerOnAuthRequiredParams _message = new WebSocketAuthenticationHandlerOnAuthRequiredParams();
 
@@ -66,7 +74,14 @@ class WebSocketAuthenticationHandler_Internal {
             _message.remoteEndpoint = remoteEndpoint;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_AUTH_REQUIRED_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new WebSocketAuthenticationHandlerOnAuthRequiredResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    ON_AUTH_REQUIRED_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new WebSocketAuthenticationHandlerOnAuthRequiredResponseParamsForwardToCallback(callback));
 
         }
 
@@ -82,7 +97,8 @@ class WebSocketAuthenticationHandler_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -91,17 +107,20 @@ class WebSocketAuthenticationHandler_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(WebSocketAuthenticationHandler_Internal.MANAGER, messageWithHeader);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
+                                WebSocketAuthenticationHandler_Internal.MANAGER, messageWithHeader);
+
+
 
 
                     default:
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -109,7 +128,8 @@ class WebSocketAuthenticationHandler_Internal {
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -118,15 +138,22 @@ class WebSocketAuthenticationHandler_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), WebSocketAuthenticationHandler_Internal.MANAGER, messageWithHeader, receiver);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
+                                getCore(), WebSocketAuthenticationHandler_Internal.MANAGER, messageWithHeader, receiver);
+
+
+
+
+
 
 
                     case ON_AUTH_REQUIRED_ORDINAL: {
 
-                        WebSocketAuthenticationHandlerOnAuthRequiredParams data = WebSocketAuthenticationHandlerOnAuthRequiredParams.deserialize(messageWithHeader.getPayload());
+                        WebSocketAuthenticationHandlerOnAuthRequiredParams data =
+                                WebSocketAuthenticationHandlerOnAuthRequiredParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onAuthRequired(data.info, data.headers, data.remoteEndpoint, new WebSocketAuthenticationHandlerOnAuthRequiredResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
@@ -137,17 +164,18 @@ class WebSocketAuthenticationHandler_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class WebSocketAuthenticationHandlerOnAuthRequiredParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 32;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(32, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(32, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public AuthChallengeInfo info;
         public HttpResponseHeaders headers;
@@ -171,7 +199,8 @@ class WebSocketAuthenticationHandler_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static WebSocketAuthenticationHandlerOnAuthRequiredParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -185,21 +214,21 @@ class WebSocketAuthenticationHandler_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new WebSocketAuthenticationHandlerOnAuthRequiredParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.info = AuthChallengeInfo.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                     result.headers = HttpResponseHeaders.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, false);
                     result.remoteEndpoint = IpEndPoint.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -211,20 +240,22 @@ class WebSocketAuthenticationHandler_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.info, 8, false);
-
+            
             encoder0.encode(this.headers, 16, false);
-
+            
             encoder0.encode(this.remoteEndpoint, 24, false);
         }
     }
 
 
+
+    
     static final class WebSocketAuthenticationHandlerOnAuthRequiredResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public AuthCredentials credentials;
 
@@ -246,7 +277,8 @@ class WebSocketAuthenticationHandler_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static WebSocketAuthenticationHandlerOnAuthRequiredResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -260,11 +292,11 @@ class WebSocketAuthenticationHandler_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new WebSocketAuthenticationHandlerOnAuthRequiredResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, true);
                     result.credentials = AuthCredentials.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -276,12 +308,13 @@ class WebSocketAuthenticationHandler_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.credentials, 8, true);
         }
     }
 
-    static class WebSocketAuthenticationHandlerOnAuthRequiredResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class WebSocketAuthenticationHandlerOnAuthRequiredResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final WebSocketAuthenticationHandler.OnAuthRequired_Response mCallback;
 
         WebSocketAuthenticationHandlerOnAuthRequiredResponseParamsForwardToCallback(WebSocketAuthenticationHandler.OnAuthRequired_Response callback) {
@@ -291,9 +324,11 @@ class WebSocketAuthenticationHandler_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(ON_AUTH_REQUIRED_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(ON_AUTH_REQUIRED_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -313,7 +348,10 @@ class WebSocketAuthenticationHandler_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        WebSocketAuthenticationHandlerOnAuthRequiredResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        WebSocketAuthenticationHandlerOnAuthRequiredResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -325,10 +363,17 @@ class WebSocketAuthenticationHandler_Internal {
 
             _response.credentials = credentials;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(ON_AUTH_REQUIRED_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    ON_AUTH_REQUIRED_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
+
 
 
 }

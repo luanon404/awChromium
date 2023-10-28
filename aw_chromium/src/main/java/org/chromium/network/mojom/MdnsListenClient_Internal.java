@@ -13,9 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 class MdnsListenClient_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<MdnsListenClient, MdnsListenClient.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<MdnsListenClient, MdnsListenClient.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<MdnsListenClient, MdnsListenClient.Proxy> MANAGER =
+            new org.chromium.mojo.bindings.Interface.Manager<MdnsListenClient, MdnsListenClient.Proxy>() {
 
         @Override
         public String getName() {
@@ -24,11 +28,12 @@ class MdnsListenClient_Internal {
 
         @Override
         public int getVersion() {
-            return 0;
+          return 0;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -39,7 +44,7 @@ class MdnsListenClient_Internal {
 
         @Override
         public MdnsListenClient[] buildArray(int size) {
-            return new MdnsListenClient[size];
+          return new MdnsListenClient[size];
         }
     };
 
@@ -55,13 +60,15 @@ class MdnsListenClient_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements MdnsListenClient.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core,
+              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void onAddressResult(int updateType, int queryType, IpEndPoint endpoint) {
+        public void onAddressResult(
+int updateType, int queryType, IpEndPoint endpoint) {
 
             MdnsListenClientOnAddressResultParams _message = new MdnsListenClientOnAddressResultParams();
 
@@ -72,13 +79,17 @@ class MdnsListenClient_Internal {
             _message.endpoint = endpoint;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_ADDRESS_RESULT_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_ADDRESS_RESULT_ORDINAL)));
 
         }
 
 
         @Override
-        public void onTextResult(int updateType, int queryType, String[] textRecords) {
+        public void onTextResult(
+int updateType, int queryType, String[] textRecords) {
 
             MdnsListenClientOnTextResultParams _message = new MdnsListenClientOnTextResultParams();
 
@@ -89,13 +100,17 @@ class MdnsListenClient_Internal {
             _message.textRecords = textRecords;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_TEXT_RESULT_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_TEXT_RESULT_ORDINAL)));
 
         }
 
 
         @Override
-        public void onHostnameResult(int updateType, int queryType, HostPortPair host) {
+        public void onHostnameResult(
+int updateType, int queryType, HostPortPair host) {
 
             MdnsListenClientOnHostnameResultParams _message = new MdnsListenClientOnHostnameResultParams();
 
@@ -106,13 +121,17 @@ class MdnsListenClient_Internal {
             _message.host = host;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_HOSTNAME_RESULT_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_HOSTNAME_RESULT_ORDINAL)));
 
         }
 
 
         @Override
-        public void onUnhandledResult(int updateType, int queryType) {
+        public void onUnhandledResult(
+int updateType, int queryType) {
 
             MdnsListenClientOnUnhandledResultParams _message = new MdnsListenClientOnUnhandledResultParams();
 
@@ -121,7 +140,10 @@ class MdnsListenClient_Internal {
             _message.queryType = queryType;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_UNHANDLED_RESULT_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_UNHANDLED_RESULT_ORDINAL)));
 
         }
 
@@ -137,7 +159,8 @@ class MdnsListenClient_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -146,42 +169,59 @@ class MdnsListenClient_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(MdnsListenClient_Internal.MANAGER, messageWithHeader);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
+                                MdnsListenClient_Internal.MANAGER, messageWithHeader);
+
+
+
 
 
                     case ON_ADDRESS_RESULT_ORDINAL: {
 
-                        MdnsListenClientOnAddressResultParams data = MdnsListenClientOnAddressResultParams.deserialize(messageWithHeader.getPayload());
+                        MdnsListenClientOnAddressResultParams data =
+                                MdnsListenClientOnAddressResultParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onAddressResult(data.updateType, data.queryType, data.endpoint);
                         return true;
                     }
 
 
+
+
+
                     case ON_TEXT_RESULT_ORDINAL: {
 
-                        MdnsListenClientOnTextResultParams data = MdnsListenClientOnTextResultParams.deserialize(messageWithHeader.getPayload());
+                        MdnsListenClientOnTextResultParams data =
+                                MdnsListenClientOnTextResultParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onTextResult(data.updateType, data.queryType, data.textRecords);
                         return true;
                     }
 
 
+
+
+
                     case ON_HOSTNAME_RESULT_ORDINAL: {
 
-                        MdnsListenClientOnHostnameResultParams data = MdnsListenClientOnHostnameResultParams.deserialize(messageWithHeader.getPayload());
+                        MdnsListenClientOnHostnameResultParams data =
+                                MdnsListenClientOnHostnameResultParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onHostnameResult(data.updateType, data.queryType, data.host);
                         return true;
                     }
 
 
+
+
+
                     case ON_UNHANDLED_RESULT_ORDINAL: {
 
-                        MdnsListenClientOnUnhandledResultParams data = MdnsListenClientOnUnhandledResultParams.deserialize(messageWithHeader.getPayload());
+                        MdnsListenClientOnUnhandledResultParams data =
+                                MdnsListenClientOnUnhandledResultParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onUnhandledResult(data.updateType, data.queryType);
                         return true;
@@ -192,7 +232,7 @@ class MdnsListenClient_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -200,7 +240,8 @@ class MdnsListenClient_Internal {
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -209,27 +250,37 @@ class MdnsListenClient_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), MdnsListenClient_Internal.MANAGER, messageWithHeader, receiver);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
+                                getCore(), MdnsListenClient_Internal.MANAGER, messageWithHeader, receiver);
+
+
+
+
+
+
+
+
 
 
                     default:
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class MdnsListenClientOnAddressResultParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int updateType;
         public int queryType;
@@ -253,7 +304,8 @@ class MdnsListenClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static MdnsListenClientOnAddressResultParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -267,23 +319,23 @@ class MdnsListenClient_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new MdnsListenClientOnAddressResultParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.updateType = decoder0.readInt(8);
-                    MdnsListenClient.UpdateType.validate(result.updateType);
-                    result.updateType = MdnsListenClient.UpdateType.toKnownValue(result.updateType);
-                }
-                {
-
+                        MdnsListenClient.UpdateType.validate(result.updateType);
+                        result.updateType = MdnsListenClient.UpdateType.toKnownValue(result.updateType);
+                    }
+                    {
+                        
                     result.queryType = decoder0.readInt(12);
-                    DnsQueryType.validate(result.queryType);
-                    result.queryType = DnsQueryType.toKnownValue(result.queryType);
-                }
-                {
-
+                        DnsQueryType.validate(result.queryType);
+                        result.queryType = DnsQueryType.toKnownValue(result.queryType);
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                     result.endpoint = IpEndPoint.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -295,20 +347,22 @@ class MdnsListenClient_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.updateType, 8);
-
+            
             encoder0.encode(this.queryType, 12);
-
+            
             encoder0.encode(this.endpoint, 16, false);
         }
     }
 
 
+
+    
     static final class MdnsListenClientOnTextResultParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int updateType;
         public int queryType;
@@ -332,7 +386,8 @@ class MdnsListenClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static MdnsListenClientOnTextResultParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -346,30 +401,30 @@ class MdnsListenClient_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new MdnsListenClientOnTextResultParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.updateType = decoder0.readInt(8);
-                    MdnsListenClient.UpdateType.validate(result.updateType);
-                    result.updateType = MdnsListenClient.UpdateType.toKnownValue(result.updateType);
-                }
-                {
-
+                        MdnsListenClient.UpdateType.validate(result.updateType);
+                        result.updateType = MdnsListenClient.UpdateType.toKnownValue(result.updateType);
+                    }
+                    {
+                        
                     result.queryType = decoder0.readInt(12);
-                    DnsQueryType.validate(result.queryType);
-                    result.queryType = DnsQueryType.toKnownValue(result.queryType);
-                }
-                {
-
+                        DnsQueryType.validate(result.queryType);
+                        result.queryType = DnsQueryType.toKnownValue(result.queryType);
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                     {
                         org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                         result.textRecords = new String[si1.elementsOrVersion];
                         for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                            
                             result.textRecords[i1] = decoder1.readString(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                         }
                     }
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -381,17 +436,17 @@ class MdnsListenClient_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.updateType, 8);
-
+            
             encoder0.encode(this.queryType, 12);
-
+            
             if (this.textRecords == null) {
                 encoder0.encodeNullPointer(16, false);
             } else {
                 org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.textRecords.length, 16, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                 for (int i0 = 0; i0 < this.textRecords.length; ++i0) {
-
+                    
                     encoder1.encode(this.textRecords[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
                 }
             }
@@ -399,10 +454,12 @@ class MdnsListenClient_Internal {
     }
 
 
+
+    
     static final class MdnsListenClientOnHostnameResultParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int updateType;
         public int queryType;
@@ -426,7 +483,8 @@ class MdnsListenClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static MdnsListenClientOnHostnameResultParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -440,23 +498,23 @@ class MdnsListenClient_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new MdnsListenClientOnHostnameResultParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.updateType = decoder0.readInt(8);
-                    MdnsListenClient.UpdateType.validate(result.updateType);
-                    result.updateType = MdnsListenClient.UpdateType.toKnownValue(result.updateType);
-                }
-                {
-
+                        MdnsListenClient.UpdateType.validate(result.updateType);
+                        result.updateType = MdnsListenClient.UpdateType.toKnownValue(result.updateType);
+                    }
+                    {
+                        
                     result.queryType = decoder0.readInt(12);
-                    DnsQueryType.validate(result.queryType);
-                    result.queryType = DnsQueryType.toKnownValue(result.queryType);
-                }
-                {
-
+                        DnsQueryType.validate(result.queryType);
+                        result.queryType = DnsQueryType.toKnownValue(result.queryType);
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                     result.host = HostPortPair.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -468,20 +526,22 @@ class MdnsListenClient_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.updateType, 8);
-
+            
             encoder0.encode(this.queryType, 12);
-
+            
             encoder0.encode(this.host, 16, false);
         }
     }
 
 
+
+    
     static final class MdnsListenClientOnUnhandledResultParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int updateType;
         public int queryType;
@@ -504,7 +564,8 @@ class MdnsListenClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static MdnsListenClientOnUnhandledResultParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -518,18 +579,18 @@ class MdnsListenClient_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new MdnsListenClientOnUnhandledResultParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.updateType = decoder0.readInt(8);
-                    MdnsListenClient.UpdateType.validate(result.updateType);
-                    result.updateType = MdnsListenClient.UpdateType.toKnownValue(result.updateType);
-                }
-                {
-
+                        MdnsListenClient.UpdateType.validate(result.updateType);
+                        result.updateType = MdnsListenClient.UpdateType.toKnownValue(result.updateType);
+                    }
+                    {
+                        
                     result.queryType = decoder0.readInt(12);
-                    DnsQueryType.validate(result.queryType);
-                    result.queryType = DnsQueryType.toKnownValue(result.queryType);
-                }
+                        DnsQueryType.validate(result.queryType);
+                        result.queryType = DnsQueryType.toKnownValue(result.queryType);
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -541,12 +602,13 @@ class MdnsListenClient_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.updateType, 8);
-
+            
             encoder0.encode(this.queryType, 12);
         }
     }
+
 
 
 }

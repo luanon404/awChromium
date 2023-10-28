@@ -13,13 +13,15 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class GeopositionResult extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
         public static final int Position = 0;
         public static final int Error = 1;
-    }
-
+    };
     private Geoposition mPosition;
     private GeopositionError mError;
 
@@ -50,12 +52,12 @@ public final class GeopositionResult extends org.chromium.mojo.bindings.Union {
         encoder0.encode(this.mTag, offset + 4);
         switch (mTag) {
             case Tag.Position: {
-
+                
                 encoder0.encode(this.mPosition, offset + 8, false);
                 break;
             }
             case Tag.Error: {
-
+                
                 encoder0.encode(this.mError, offset + 8, false);
                 break;
             }
@@ -77,14 +79,14 @@ public final class GeopositionResult extends org.chromium.mojo.bindings.Union {
         GeopositionResult result = new GeopositionResult();
         switch (dataHeader.elementsOrVersion) {
             case Tag.Position: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mPosition = Geoposition.decode(decoder1);
                 result.mTag = Tag.Position;
                 break;
             }
             case Tag.Error: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mError = GeopositionError.decode(decoder1);
                 result.mTag = Tag.Error;

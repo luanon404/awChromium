@@ -17,10 +17,16 @@ import androidx.annotation.IntDef;
 
 public final class CookieChangeCause {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({CookieChangeCause.INSERTED, CookieChangeCause.EXPLICIT, CookieChangeCause.UNKNOWN_DELETION, CookieChangeCause.OVERWRITE, CookieChangeCause.EXPIRED, CookieChangeCause.EVICTED, CookieChangeCause.EXPIRED_OVERWRITE})
-    public @interface EnumType {
-    }
+        CookieChangeCause.INSERTED,
+        CookieChangeCause.EXPLICIT,
+        CookieChangeCause.UNKNOWN_DELETION,
+        CookieChangeCause.OVERWRITE,
+        CookieChangeCause.EXPIRED,
+        CookieChangeCause.EVICTED,
+        CookieChangeCause.EXPIRED_OVERWRITE})
+    public @interface EnumType {}
 
     public static final int INSERTED = 0;
     public static final int EXPLICIT = 1;
@@ -42,9 +48,8 @@ public final class CookieChangeCause {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private CookieChangeCause() {
-    }
+    private CookieChangeCause() {}
 }

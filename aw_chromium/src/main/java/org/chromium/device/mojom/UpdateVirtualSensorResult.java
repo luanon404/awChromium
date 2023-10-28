@@ -17,10 +17,11 @@ import androidx.annotation.IntDef;
 
 public final class UpdateVirtualSensorResult {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({UpdateVirtualSensorResult.SUCCESS, UpdateVirtualSensorResult.SENSOR_TYPE_NOT_OVERRIDDEN})
-    public @interface EnumType {
-    }
+        UpdateVirtualSensorResult.SUCCESS,
+        UpdateVirtualSensorResult.SENSOR_TYPE_NOT_OVERRIDDEN})
+    public @interface EnumType {}
 
     public static final int SUCCESS = 0;
     public static final int SENSOR_TYPE_NOT_OVERRIDDEN = 1;
@@ -37,9 +38,8 @@ public final class UpdateVirtualSensorResult {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private UpdateVirtualSensorResult() {
-    }
+    private UpdateVirtualSensorResult() {}
 }

@@ -13,42 +13,56 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface RendererClient extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends RendererClient, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends RendererClient, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<RendererClient, RendererClient.Proxy> MANAGER = RendererClient_Internal.MANAGER;
 
-    void onTimeUpdate(org.chromium.mojo_base.mojom.TimeDelta time, org.chromium.mojo_base.mojom.TimeDelta maxTime, org.chromium.mojo_base.mojom.TimeTicks captureTime);
+    void onTimeUpdate(
+org.chromium.mojo_base.mojom.TimeDelta time, org.chromium.mojo_base.mojom.TimeDelta maxTime, org.chromium.mojo_base.mojom.TimeTicks captureTime);
 
 
-    void onBufferingStateChange(int state, int reason);
+    void onBufferingStateChange(
+int state, int reason);
 
 
-    void onEnded();
+    void onEnded(
+);
 
 
-    void onError(PipelineStatus status);
+    void onError(
+PipelineStatus status);
 
 
-    void onAudioConfigChange(AudioDecoderConfig config);
+    void onAudioConfigChange(
+AudioDecoderConfig config);
 
 
-    void onVideoConfigChange(VideoDecoderConfig config);
+    void onVideoConfigChange(
+VideoDecoderConfig config);
 
 
-    void onVideoNaturalSizeChange(org.chromium.gfx.mojom.Size size);
+    void onVideoNaturalSizeChange(
+org.chromium.gfx.mojom.Size size);
 
 
-    void onVideoOpacityChange(boolean opaque);
+    void onVideoOpacityChange(
+boolean opaque);
 
 
-    void onStatisticsUpdate(PipelineStatistics stats);
+    void onStatisticsUpdate(
+PipelineStatistics stats);
 
 
-    void onWaiting(int reason);
+    void onWaiting(
+int reason);
 
 
 }

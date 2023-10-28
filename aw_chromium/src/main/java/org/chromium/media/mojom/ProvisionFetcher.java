@@ -13,18 +13,23 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface ProvisionFetcher extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends ProvisionFetcher, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends ProvisionFetcher, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<ProvisionFetcher, ProvisionFetcher.Proxy> MANAGER = ProvisionFetcher_Internal.MANAGER;
 
-    void retrieve(org.chromium.url.mojom.Url defaultUrl, String requestData, Retrieve_Response callback);
+    void retrieve(
+org.chromium.url.mojom.Url defaultUrl, String requestData, 
+Retrieve_Response callback);
 
-    interface Retrieve_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<Boolean, String> {
-    }
+    interface Retrieve_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<Boolean, String> { }
 
 
 }

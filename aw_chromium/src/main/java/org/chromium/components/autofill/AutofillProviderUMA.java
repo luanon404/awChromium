@@ -24,10 +24,12 @@ public class AutofillProviderUMA {
     public static final String UMA_AUTOFILL_ENABLED = "Autofill.WebView.Enabled";
 
     // Records whether the Autofill provider is created by activity context or not.
-    public static final String UMA_AUTOFILL_CREATED_BY_ACTIVITY_CONTEXT = "Autofill.WebView.CreatedByActivityContext";
+    public static final String UMA_AUTOFILL_CREATED_BY_ACTIVITY_CONTEXT =
+            "Autofill.WebView.CreatedByActivityContext";
 
     // Records whether the current autofill service is AwG.
-    public static final String UMA_AUTOFILL_AWG_IS_CURRENT_SERVICE = "Autofill.WebView.AwGIsCurrentService";
+    public static final String UMA_AUTOFILL_AWG_IS_CURRENT_SERVICE =
+            "Autofill.WebView.AwGIsCurrentService";
 
     // Records what happened in an autofill session.
     public static final String UMA_AUTOFILL_AUTOFILL_SESSION = "Autofill.WebView.AutofillSession";
@@ -49,24 +51,28 @@ public class AutofillProviderUMA {
     public static final int AUTOFILL_SESSION_HISTOGRAM_COUNT = 14;
 
     // The possible values for the server prediction availability.
-    public static final String UMA_AUTOFILL_SERVER_PREDICTION_AVAILABILITY = "Autofill.WebView.ServerPredicton.PredictionAvailability";
+    public static final String UMA_AUTOFILL_SERVER_PREDICTION_AVAILABILITY =
+            "Autofill.WebView.ServerPredicton.PredictionAvailability";
     public static final int SERVER_PREDICTION_NOT_AVAILABLE = 0;
     public static final int SERVER_PREDICTION_AVAILABLE_ON_SESSION_STARTS = 1;
     public static final int SERVER_PREDICTION_AVAILABLE_AFTER_SESSION_STARTS = 2;
     public static final int SERVER_PREDICTION_AVAILABLE_COUNT = 3;
 
     // The possible values for the AwG suggestion availability.
-    public static final String UMA_AUTOFILL_AWG_SUGGSTION_AVAILABILITY = "Autofill.WebView.ServerPrediction.AwGSuggestionAvailability";
+    public static final String UMA_AUTOFILL_AWG_SUGGSTION_AVAILABILITY =
+            "Autofill.WebView.ServerPrediction.AwGSuggestionAvailability";
     public static final int AWG_NO_SUGGESTION = 0;
     public static final int AWG_HAS_SUGGESTION_NO_AUTOFILL = 1;
     public static final int AWG_HAS_SUGGESTION_AUTOFILLED = 2;
     public static final int AWG_SUGGSTION_AVAILABLE_COUNT = 3;
 
-    public static final String UMA_AUTOFILL_VALID_SERVER_PREDICTION = "Autofill.WebView.ServerPredicton.HasValidServerPrediction";
+    public static final String UMA_AUTOFILL_VALID_SERVER_PREDICTION =
+            "Autofill.WebView.ServerPredicton.HasValidServerPrediction";
 
     // Records whether user changed autofilled field if user ever changed the form. The action isn't
     // recorded if user didn't change form at all.
-    public static final String UMA_AUTOFILL_USER_CHANGED_AUTOFILLED_FIELD = "Autofill.WebView.UserChangedAutofilledField";
+    public static final String UMA_AUTOFILL_USER_CHANGED_AUTOFILLED_FIELD =
+            "Autofill.WebView.UserChangedAutofilledField";
 
     public static final String UMA_AUTOFILL_SUBMISSION_SOURCE = "Autofill.WebView.SubmissionSource";
     // The possible value of UMA_AUTOFILL_SUBMISSION_SOURCE.
@@ -101,7 +107,8 @@ public class AutofillProviderUMA {
     private static final int AUTOFILL_PROVIDER_UNKNOWN = 0;
     private static final String AWG_PACKAGE_NAME = "com.google.android.gms";
     private static final int AUTOFILL_PROVIDER_AWG = 1;
-    private static final String SAMSUNG_PASS_PACKAGE_NAME = "com.samsung.android.samsungpassautofill";
+    private static final String SAMSUNG_PASS_PACKAGE_NAME =
+            "com.samsung.android.samsungpassautofill";
     private static final int AUTOFILL_PROVIDER_SAMSUNG_PASS = 2;
     private static final String LASTPASS_PACKAGE_NAME = "com.lastpass.lpandroid";
     private static final int AUTOFILL_PROVIDER_LAST_PASS = 3;
@@ -114,7 +121,8 @@ public class AutofillProviderUMA {
     private static final int AUTOFILL_PROVIDER_MAX = 7;
 
     private static void recordTimesHistogram(String name, long durationMillis) {
-        RecordHistogram.recordCustomTimesHistogram(name, durationMillis, MIN_TIME_MILLIS, MAX_TIME_MILLIS, NUM_OF_BUCKETS);
+        RecordHistogram.recordCustomTimesHistogram(
+                name, durationMillis, MIN_TIME_MILLIS, MAX_TIME_MILLIS, NUM_OF_BUCKETS);
     }
 
     private static class SessionRecorder {
@@ -154,23 +162,30 @@ public class AutofillProviderUMA {
         }
 
         public void recordHistogram() {
-            RecordHistogram.recordEnumeratedHistogram(UMA_AUTOFILL_AUTOFILL_SESSION, toUMAAutofillSessionValue(), AUTOFILL_SESSION_HISTOGRAM_COUNT);
+            RecordHistogram.recordEnumeratedHistogram(UMA_AUTOFILL_AUTOFILL_SESSION,
+                    toUMAAutofillSessionValue(), AUTOFILL_SESSION_HISTOGRAM_COUNT);
             RecordHistogram.recordEnumeratedHistogram(UMA_AUTOFILL_EVENTS, mState, EVENT_MAX);
             // Only record if user ever changed form.
             if (mUserChangedAutofilledField != null) {
-                RecordHistogram.recordBooleanHistogram(UMA_AUTOFILL_USER_CHANGED_AUTOFILLED_FIELD, mUserChangedAutofilledField);
+                RecordHistogram.recordBooleanHistogram(
+                        UMA_AUTOFILL_USER_CHANGED_AUTOFILLED_FIELD, mUserChangedAutofilledField);
             }
             if (mSuggestionTimeMillis != null) {
                 recordTimesHistogram(UMA_AUTOFILL_SUGGESTION_TIME, mSuggestionTimeMillis);
             }
             if (!mServerPredictionAvailable) {
-                RecordHistogram.recordEnumeratedHistogram(UMA_AUTOFILL_SERVER_PREDICTION_AVAILABILITY, SERVER_PREDICTION_NOT_AVAILABLE, SERVER_PREDICTION_AVAILABLE_COUNT);
+                RecordHistogram.recordEnumeratedHistogram(
+                        UMA_AUTOFILL_SERVER_PREDICTION_AVAILABILITY,
+                        SERVER_PREDICTION_NOT_AVAILABLE, SERVER_PREDICTION_AVAILABLE_COUNT);
             }
         }
 
         public void onServerTypeAvailable(FormData formData, boolean afterSessionStarted) {
             mServerPredictionAvailable = true;
-            RecordHistogram.recordEnumeratedHistogram(UMA_AUTOFILL_SERVER_PREDICTION_AVAILABILITY, afterSessionStarted ? SERVER_PREDICTION_AVAILABLE_AFTER_SESSION_STARTS : SERVER_PREDICTION_AVAILABLE_ON_SESSION_STARTS, SERVER_PREDICTION_AVAILABLE_COUNT);
+            RecordHistogram.recordEnumeratedHistogram(UMA_AUTOFILL_SERVER_PREDICTION_AVAILABILITY,
+                    afterSessionStarted ? SERVER_PREDICTION_AVAILABLE_AFTER_SESSION_STARTS
+                                        : SERVER_PREDICTION_AVAILABLE_ON_SESSION_STARTS,
+                    SERVER_PREDICTION_AVAILABLE_COUNT);
             if (formData != null) {
                 boolean hasValidServerData = false;
                 for (FormFieldData fieldData : formData.mFields) {
@@ -179,39 +194,61 @@ public class AutofillProviderUMA {
                         break;
                     }
                 }
-                RecordHistogram.recordBooleanHistogram(UMA_AUTOFILL_VALID_SERVER_PREDICTION, hasValidServerData);
+                RecordHistogram.recordBooleanHistogram(
+                        UMA_AUTOFILL_VALID_SERVER_PREDICTION, hasValidServerData);
             }
         }
 
         private int toUMAAutofillSessionValue() {
             // Only the below five events are considered for translating the events to
             // an AUTOFILL_SESSION record.
-            int state = mState & (EVENT_VIRTUAL_STRUCTURE_PROVIDED | EVENT_SUGGESTION_DISPLAYED | EVENT_FORM_AUTOFILLED | EVENT_USER_CHANGED_FIELD_VALUE | EVENT_FORM_SUBMITTED);
+            int state = mState
+                    & (EVENT_VIRTUAL_STRUCTURE_PROVIDED | EVENT_SUGGESTION_DISPLAYED
+                            | EVENT_FORM_AUTOFILLED | EVENT_USER_CHANGED_FIELD_VALUE
+                            | EVENT_FORM_SUBMITTED);
             if (state == 0) {
                 return NO_CALLBACK_FORM_FRAMEWORK;
             } else if (state == EVENT_VIRTUAL_STRUCTURE_PROVIDED) {
                 return NO_SUGGESTION_USER_NOT_CHANGE_FORM_NO_FORM_SUBMITTED;
-            } else if (state == (EVENT_VIRTUAL_STRUCTURE_PROVIDED | EVENT_USER_CHANGED_FIELD_VALUE)) {
+            } else if (state
+                    == (EVENT_VIRTUAL_STRUCTURE_PROVIDED | EVENT_USER_CHANGED_FIELD_VALUE)) {
                 return NO_SUGGESTION_USER_CHANGE_FORM_NO_FORM_SUBMITTED;
             } else if (state == (EVENT_VIRTUAL_STRUCTURE_PROVIDED | EVENT_FORM_SUBMITTED)) {
                 return NO_SUGGESTION_USER_NOT_CHANGE_FORM_FORM_SUBMITTED;
-            } else if (state == (EVENT_VIRTUAL_STRUCTURE_PROVIDED | EVENT_USER_CHANGED_FIELD_VALUE | EVENT_FORM_SUBMITTED)) {
+            } else if (state
+                    == (EVENT_VIRTUAL_STRUCTURE_PROVIDED | EVENT_USER_CHANGED_FIELD_VALUE
+                            | EVENT_FORM_SUBMITTED)) {
                 return NO_SUGGESTION_USER_CHANGE_FORM_FORM_SUBMITTED;
-            } else if (state == (EVENT_VIRTUAL_STRUCTURE_PROVIDED | EVENT_SUGGESTION_DISPLAYED | EVENT_FORM_AUTOFILLED)) {
+            } else if (state
+                    == (EVENT_VIRTUAL_STRUCTURE_PROVIDED | EVENT_SUGGESTION_DISPLAYED
+                            | EVENT_FORM_AUTOFILLED)) {
                 return USER_SELECT_SUGGESTION_USER_NOT_CHANGE_FORM_NO_FORM_SUBMITTED;
-            } else if (state == (EVENT_VIRTUAL_STRUCTURE_PROVIDED | EVENT_SUGGESTION_DISPLAYED | EVENT_FORM_AUTOFILLED | EVENT_FORM_SUBMITTED)) {
+            } else if (state
+                    == (EVENT_VIRTUAL_STRUCTURE_PROVIDED | EVENT_SUGGESTION_DISPLAYED
+                            | EVENT_FORM_AUTOFILLED | EVENT_FORM_SUBMITTED)) {
                 return USER_SELECT_SUGGESTION_USER_NOT_CHANGE_FORM_FORM_SUBMITTED;
-            } else if (state == (EVENT_VIRTUAL_STRUCTURE_PROVIDED | EVENT_SUGGESTION_DISPLAYED | EVENT_FORM_AUTOFILLED | EVENT_USER_CHANGED_FIELD_VALUE | EVENT_FORM_SUBMITTED)) {
+            } else if (state
+                    == (EVENT_VIRTUAL_STRUCTURE_PROVIDED | EVENT_SUGGESTION_DISPLAYED
+                            | EVENT_FORM_AUTOFILLED | EVENT_USER_CHANGED_FIELD_VALUE
+                            | EVENT_FORM_SUBMITTED)) {
                 return USER_SELECT_SUGGESTION_USER_CHANGE_FORM_FORM_SUBMITTED;
-            } else if (state == (EVENT_VIRTUAL_STRUCTURE_PROVIDED | EVENT_SUGGESTION_DISPLAYED | EVENT_FORM_AUTOFILLED | EVENT_USER_CHANGED_FIELD_VALUE)) {
+            } else if (state
+                    == (EVENT_VIRTUAL_STRUCTURE_PROVIDED | EVENT_SUGGESTION_DISPLAYED
+                            | EVENT_FORM_AUTOFILLED | EVENT_USER_CHANGED_FIELD_VALUE)) {
                 return USER_SELECT_SUGGESTION_USER_CHANGE_FORM_NO_FORM_SUBMITTED;
             } else if (state == (EVENT_VIRTUAL_STRUCTURE_PROVIDED | EVENT_SUGGESTION_DISPLAYED)) {
                 return USER_NOT_SELECT_SUGGESTION_USER_NOT_CHANGE_FORM_NO_FORM_SUBMITTED;
-            } else if (state == (EVENT_VIRTUAL_STRUCTURE_PROVIDED | EVENT_SUGGESTION_DISPLAYED | EVENT_FORM_SUBMITTED)) {
+            } else if (state
+                    == (EVENT_VIRTUAL_STRUCTURE_PROVIDED | EVENT_SUGGESTION_DISPLAYED
+                            | EVENT_FORM_SUBMITTED)) {
                 return USER_NOT_SELECT_SUGGESTION_USER_NOT_CHANGE_FORM_FORM_SUBMITTED;
-            } else if (state == (EVENT_VIRTUAL_STRUCTURE_PROVIDED | EVENT_SUGGESTION_DISPLAYED | EVENT_USER_CHANGED_FIELD_VALUE | EVENT_FORM_SUBMITTED)) {
+            } else if (state
+                    == (EVENT_VIRTUAL_STRUCTURE_PROVIDED | EVENT_SUGGESTION_DISPLAYED
+                            | EVENT_USER_CHANGED_FIELD_VALUE | EVENT_FORM_SUBMITTED)) {
                 return USER_NOT_SELECT_SUGGESTION_USER_CHANGE_FORM_FORM_SUBMITTED;
-            } else if (state == (EVENT_VIRTUAL_STRUCTURE_PROVIDED | EVENT_SUGGESTION_DISPLAYED | EVENT_USER_CHANGED_FIELD_VALUE)) {
+            } else if (state
+                    == (EVENT_VIRTUAL_STRUCTURE_PROVIDED | EVENT_SUGGESTION_DISPLAYED
+                            | EVENT_USER_CHANGED_FIELD_VALUE)) {
                 return USER_NOT_SELECT_SUGGESTION_USER_CHANGE_FORM_NO_FORM_SUBMITTED;
             } else {
                 return SESSION_UNKNOWN;
@@ -248,9 +285,11 @@ public class AutofillProviderUMA {
             mRecorded = true;
             int sample = AWG_NO_SUGGESTION;
             if (mHasSuggestions) {
-                sample = mAutofilled ? AWG_HAS_SUGGESTION_AUTOFILLED : AWG_HAS_SUGGESTION_NO_AUTOFILL;
+                sample = mAutofilled ? AWG_HAS_SUGGESTION_AUTOFILLED
+                                     : AWG_HAS_SUGGESTION_NO_AUTOFILL;
             }
-            RecordHistogram.recordEnumeratedHistogram(UMA_AUTOFILL_AWG_SUGGSTION_AVAILABILITY, sample, AWG_SUGGSTION_AVAILABLE_COUNT);
+            RecordHistogram.recordEnumeratedHistogram(
+                    UMA_AUTOFILL_AWG_SUGGSTION_AVAILABILITY, sample, AWG_SUGGSTION_AVAILABLE_COUNT);
         }
     }
 
@@ -261,9 +300,11 @@ public class AutofillProviderUMA {
     private ServerPredictionRecorder mServerPredictionRecorder;
 
     public AutofillProviderUMA(Context context, boolean isAwGCurrentAutofillService) {
-        RecordHistogram.recordBooleanHistogram(UMA_AUTOFILL_CREATED_BY_ACTIVITY_CONTEXT, ContextUtils.activityFromContext(context) != null);
+        RecordHistogram.recordBooleanHistogram(UMA_AUTOFILL_CREATED_BY_ACTIVITY_CONTEXT,
+                ContextUtils.activityFromContext(context) != null);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            RecordHistogram.recordBooleanHistogram(UMA_AUTOFILL_AWG_IS_CURRENT_SERVICE, isAwGCurrentAutofillService);
+            RecordHistogram.recordBooleanHistogram(
+                    UMA_AUTOFILL_AWG_IS_CURRENT_SERVICE, isAwGCurrentAutofillService);
         }
         mIsAwGCurrentAutofillService = isAwGCurrentAutofillService;
     }
@@ -275,7 +316,8 @@ public class AutofillProviderUMA {
         // into recordSession. Is it unclear why this is only recorded on form submission.
         if (mServerPredictionRecorder != null) mServerPredictionRecorder.recordHistograms();
         // We record this no matter autofill service is disabled or not.
-        RecordHistogram.recordEnumeratedHistogram(UMA_AUTOFILL_SUBMISSION_SOURCE, toUMASubmissionSource(submissionSource), SUBMISSION_SOURCE_HISTOGRAM_COUNT);
+        RecordHistogram.recordEnumeratedHistogram(UMA_AUTOFILL_SUBMISSION_SOURCE,
+                toUMASubmissionSource(submissionSource), SUBMISSION_SOURCE_HISTOGRAM_COUNT);
     }
 
     public void onSessionStarted(boolean autofillDisabled) {
@@ -327,9 +369,9 @@ public class AutofillProviderUMA {
     /**
      * Invoked when the server query was done or has arrived when the autofill sension starts.
      *
-     * @param formData            the form of the current session, is null if the query failed.
+     * @param formData the form of the current session, is null if the query failed.
      * @param afterSessionStarted true if the server type predication arrive after the session
-     *                            starts.
+     *         starts.
      */
     public void onServerTypeAvailable(FormData formData, boolean afterSessionStarted) {
         mRecorder.onServerTypeAvailable(formData, afterSessionStarted);
@@ -364,7 +406,7 @@ public class AutofillProviderUMA {
     /**
      * Records the session-related Autofill metrics, i.e. the witnessed Autofill
      * events and the AUTOFILL_SESSION UMA.
-     * <p>
+     *
      * After recording, it resets the SessionRecorder. Calling it again is a
      * no-op until a new session has been started.
      */
@@ -376,7 +418,8 @@ public class AutofillProviderUMA {
     }
 
     private static void recordUmaAutofillProvider(int autofillProvider) {
-        RecordHistogram.recordEnumeratedHistogram(UMA_AUTOFILL_PROVIDER, autofillProvider, AUTOFILL_PROVIDER_MAX);
+        RecordHistogram.recordEnumeratedHistogram(
+                UMA_AUTOFILL_PROVIDER, autofillProvider, AUTOFILL_PROVIDER_MAX);
     }
 
     private int toUMASubmissionSource(int source) {

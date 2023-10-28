@@ -22,9 +22,7 @@ import java.util.Map.Entry;
  */
 @Lifetime.WebView
 public class AwViewAndroidDelegate extends ViewAndroidDelegate {
-    /**
-     * Used for logging.
-     */
+    /** Used for logging. */
     private static final String TAG = "AwVAD";
 
     /**
@@ -48,7 +46,8 @@ public class AwViewAndroidDelegate extends ViewAndroidDelegate {
         public final int mLeftMargin;
         public final int mTopMargin;
 
-        public Position(float x, float y, float width, float height, int leftMargin, int topMargin) {
+        public Position(float x, float y, float width, float height, int leftMargin,
+                int topMargin) {
             mX = x;
             mY = y;
             mWidth = width;
@@ -59,7 +58,8 @@ public class AwViewAndroidDelegate extends ViewAndroidDelegate {
     }
 
     @VisibleForTesting
-    public AwViewAndroidDelegate(ViewGroup containerView, AwContentsClient contentsClient, AwScrollOffsetManager scrollManager) {
+    public AwViewAndroidDelegate(ViewGroup containerView, AwContentsClient contentsClient,
+            AwScrollOffsetManager scrollManager) {
         super(containerView);
         mContentsClient = contentsClient;
         mScrollManager = scrollManager;
@@ -96,14 +96,16 @@ public class AwViewAndroidDelegate extends ViewAndroidDelegate {
             }
             mContainerView.addView(anchorView);
             if (position != null) {
-                setViewPosition(anchorView, position.mX, position.mY, position.mWidth, position.mHeight, position.mLeftMargin, position.mTopMargin);
+                setViewPosition(anchorView, position.mX, position.mY, position.mWidth,
+                        position.mHeight, position.mLeftMargin, position.mTopMargin);
             }
         }
     }
 
     @SuppressWarnings("deprecation") // AbsoluteLayout
     @Override
-    public void setViewPosition(View anchorView, float x, float y, float width, float height, int leftMargin, int topMargin) {
+    public void setViewPosition(View anchorView, float x, float y, float width, float height,
+            int leftMargin, int topMargin) {
         ViewGroup containerView = getContainerViewGroup();
         if (!mAnchorViews.containsKey(anchorView) || containerView == null) return;
 
@@ -117,7 +119,9 @@ public class AwViewAndroidDelegate extends ViewAndroidDelegate {
         leftMargin += mScrollManager.getScrollX();
         topMargin += mScrollManager.getScrollY();
 
-        android.widget.AbsoluteLayout.LayoutParams lp = new android.widget.AbsoluteLayout.LayoutParams(Math.round(width), Math.round(height), leftMargin, topMargin);
+        android.widget.AbsoluteLayout.LayoutParams lp =
+                new android.widget.AbsoluteLayout.LayoutParams(
+                        Math.round(width), Math.round(height), leftMargin, topMargin);
         anchorView.setLayoutParams(lp);
     }
 

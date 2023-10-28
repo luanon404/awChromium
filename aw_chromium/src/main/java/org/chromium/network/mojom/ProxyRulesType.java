@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class ProxyRulesType {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({ProxyRulesType.EMPTY, ProxyRulesType.PROXY_LIST, ProxyRulesType.PROXY_LIST_PER_SCHEME})
-    public @interface EnumType {
-    }
+        ProxyRulesType.EMPTY,
+        ProxyRulesType.PROXY_LIST,
+        ProxyRulesType.PROXY_LIST_PER_SCHEME})
+    public @interface EnumType {}
 
     public static final int EMPTY = 0;
     public static final int PROXY_LIST = 1;
@@ -38,9 +40,8 @@ public final class ProxyRulesType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private ProxyRulesType() {
-    }
+    private ProxyRulesType() {}
 }

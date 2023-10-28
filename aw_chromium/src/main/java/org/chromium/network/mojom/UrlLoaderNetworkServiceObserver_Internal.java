@@ -13,9 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 class UrlLoaderNetworkServiceObserver_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<UrlLoaderNetworkServiceObserver, UrlLoaderNetworkServiceObserver.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<UrlLoaderNetworkServiceObserver, UrlLoaderNetworkServiceObserver.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<UrlLoaderNetworkServiceObserver, UrlLoaderNetworkServiceObserver.Proxy> MANAGER =
+            new org.chromium.mojo.bindings.Interface.Manager<UrlLoaderNetworkServiceObserver, UrlLoaderNetworkServiceObserver.Proxy>() {
 
         @Override
         public String getName() {
@@ -24,11 +28,12 @@ class UrlLoaderNetworkServiceObserver_Internal {
 
         @Override
         public int getVersion() {
-            return 0;
+          return 0;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -39,7 +44,7 @@ class UrlLoaderNetworkServiceObserver_Internal {
 
         @Override
         public UrlLoaderNetworkServiceObserver[] buildArray(int size) {
-            return new UrlLoaderNetworkServiceObserver[size];
+          return new UrlLoaderNetworkServiceObserver[size];
         }
     };
 
@@ -65,13 +70,16 @@ class UrlLoaderNetworkServiceObserver_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements UrlLoaderNetworkServiceObserver.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core,
+              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void onSslCertificateError(org.chromium.url.mojom.Url url, int netError, SslInfo sslInfo, boolean fatal, OnSslCertificateError_Response callback) {
+        public void onSslCertificateError(
+org.chromium.url.mojom.Url url, int netError, SslInfo sslInfo, boolean fatal, 
+OnSslCertificateError_Response callback) {
 
             UrlLoaderNetworkServiceObserverOnSslCertificateErrorParams _message = new UrlLoaderNetworkServiceObserverOnSslCertificateErrorParams();
 
@@ -84,13 +92,21 @@ class UrlLoaderNetworkServiceObserver_Internal {
             _message.fatal = fatal;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_SSL_CERTIFICATE_ERROR_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new UrlLoaderNetworkServiceObserverOnSslCertificateErrorResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    ON_SSL_CERTIFICATE_ERROR_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new UrlLoaderNetworkServiceObserverOnSslCertificateErrorResponseParamsForwardToCallback(callback));
 
         }
 
 
         @Override
-        public void onCertificateRequested(org.chromium.mojo_base.mojom.UnguessableToken windowId, SslCertRequestInfo certInfo, ClientCertificateResponder certResponder) {
+        public void onCertificateRequested(
+org.chromium.mojo_base.mojom.UnguessableToken windowId, SslCertRequestInfo certInfo, ClientCertificateResponder certResponder) {
 
             UrlLoaderNetworkServiceObserverOnCertificateRequestedParams _message = new UrlLoaderNetworkServiceObserverOnCertificateRequestedParams();
 
@@ -101,13 +117,17 @@ class UrlLoaderNetworkServiceObserver_Internal {
             _message.certResponder = certResponder;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_CERTIFICATE_REQUESTED_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_CERTIFICATE_REQUESTED_ORDINAL)));
 
         }
 
 
         @Override
-        public void onAuthRequired(org.chromium.mojo_base.mojom.UnguessableToken windowId, int requestId, org.chromium.url.mojom.Url url, boolean firstAuthAttempt, AuthChallengeInfo authInfo, HttpResponseHeaders headHeaders, AuthChallengeResponder authChallengeResponder) {
+        public void onAuthRequired(
+org.chromium.mojo_base.mojom.UnguessableToken windowId, int requestId, org.chromium.url.mojom.Url url, boolean firstAuthAttempt, AuthChallengeInfo authInfo, HttpResponseHeaders headHeaders, AuthChallengeResponder authChallengeResponder) {
 
             UrlLoaderNetworkServiceObserverOnAuthRequiredParams _message = new UrlLoaderNetworkServiceObserverOnAuthRequiredParams();
 
@@ -126,13 +146,18 @@ class UrlLoaderNetworkServiceObserver_Internal {
             _message.authChallengeResponder = authChallengeResponder;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_AUTH_REQUIRED_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_AUTH_REQUIRED_ORDINAL)));
 
         }
 
 
         @Override
-        public void onPrivateNetworkAccessPermissionRequired(org.chromium.url.mojom.Url url, IpAddress ipAddress, String privateNetworkDeviceId, String privateNetworkDeviceName, OnPrivateNetworkAccessPermissionRequired_Response callback) {
+        public void onPrivateNetworkAccessPermissionRequired(
+org.chromium.url.mojom.Url url, IpAddress ipAddress, String privateNetworkDeviceId, String privateNetworkDeviceName, 
+OnPrivateNetworkAccessPermissionRequired_Response callback) {
 
             UrlLoaderNetworkServiceObserverOnPrivateNetworkAccessPermissionRequiredParams _message = new UrlLoaderNetworkServiceObserverOnPrivateNetworkAccessPermissionRequiredParams();
 
@@ -145,13 +170,22 @@ class UrlLoaderNetworkServiceObserver_Internal {
             _message.privateNetworkDeviceName = privateNetworkDeviceName;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_PRIVATE_NETWORK_ACCESS_PERMISSION_REQUIRED_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new UrlLoaderNetworkServiceObserverOnPrivateNetworkAccessPermissionRequiredResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    ON_PRIVATE_NETWORK_ACCESS_PERMISSION_REQUIRED_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new UrlLoaderNetworkServiceObserverOnPrivateNetworkAccessPermissionRequiredResponseParamsForwardToCallback(callback));
 
         }
 
 
         @Override
-        public void onClearSiteData(org.chromium.url.mojom.Url url, String headerValue, int loadFlags, CookiePartitionKey cookiePartitionKey, boolean partitionedStateAllowedOnly, OnClearSiteData_Response callback) {
+        public void onClearSiteData(
+org.chromium.url.mojom.Url url, String headerValue, int loadFlags, CookiePartitionKey cookiePartitionKey, boolean partitionedStateAllowedOnly, 
+OnClearSiteData_Response callback) {
 
             UrlLoaderNetworkServiceObserverOnClearSiteDataParams _message = new UrlLoaderNetworkServiceObserverOnClearSiteDataParams();
 
@@ -166,26 +200,43 @@ class UrlLoaderNetworkServiceObserver_Internal {
             _message.partitionedStateAllowedOnly = partitionedStateAllowedOnly;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_CLEAR_SITE_DATA_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new UrlLoaderNetworkServiceObserverOnClearSiteDataResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    ON_CLEAR_SITE_DATA_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new UrlLoaderNetworkServiceObserverOnClearSiteDataResponseParamsForwardToCallback(callback));
 
         }
 
 
         @Override
-        public void onLoadingStateUpdate(LoadInfo info, OnLoadingStateUpdate_Response callback) {
+        public void onLoadingStateUpdate(
+LoadInfo info, 
+OnLoadingStateUpdate_Response callback) {
 
             UrlLoaderNetworkServiceObserverOnLoadingStateUpdateParams _message = new UrlLoaderNetworkServiceObserverOnLoadingStateUpdateParams();
 
             _message.info = info;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_LOADING_STATE_UPDATE_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new UrlLoaderNetworkServiceObserverOnLoadingStateUpdateResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    ON_LOADING_STATE_UPDATE_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new UrlLoaderNetworkServiceObserverOnLoadingStateUpdateResponseParamsForwardToCallback(callback));
 
         }
 
 
         @Override
-        public void onDataUseUpdate(int networkTrafficAnnotationIdHash, long recvBytes, long sentBytes) {
+        public void onDataUseUpdate(
+int networkTrafficAnnotationIdHash, long recvBytes, long sentBytes) {
 
             UrlLoaderNetworkServiceObserverOnDataUseUpdateParams _message = new UrlLoaderNetworkServiceObserverOnDataUseUpdateParams();
 
@@ -196,13 +247,18 @@ class UrlLoaderNetworkServiceObserver_Internal {
             _message.sentBytes = sentBytes;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_DATA_USE_UPDATE_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_DATA_USE_UPDATE_ORDINAL)));
 
         }
 
 
         @Override
-        public void onSharedStorageHeaderReceived(org.chromium.url.internal.mojom.Origin requestOrigin, SharedStorageOperation[] operations, OnSharedStorageHeaderReceived_Response callback) {
+        public void onSharedStorageHeaderReceived(
+org.chromium.url.internal.mojom.Origin requestOrigin, SharedStorageOperation[] operations, 
+OnSharedStorageHeaderReceived_Response callback) {
 
             UrlLoaderNetworkServiceObserverOnSharedStorageHeaderReceivedParams _message = new UrlLoaderNetworkServiceObserverOnSharedStorageHeaderReceivedParams();
 
@@ -211,20 +267,31 @@ class UrlLoaderNetworkServiceObserver_Internal {
             _message.operations = operations;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_SHARED_STORAGE_HEADER_RECEIVED_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new UrlLoaderNetworkServiceObserverOnSharedStorageHeaderReceivedResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    ON_SHARED_STORAGE_HEADER_RECEIVED_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new UrlLoaderNetworkServiceObserverOnSharedStorageHeaderReceivedResponseParamsForwardToCallback(callback));
 
         }
 
 
         @Override
-        public void clone(org.chromium.mojo.bindings.InterfaceRequest<UrlLoaderNetworkServiceObserver> listener) {
+        public void clone(
+org.chromium.mojo.bindings.InterfaceRequest<UrlLoaderNetworkServiceObserver> listener) {
 
             UrlLoaderNetworkServiceObserverCloneParams _message = new UrlLoaderNetworkServiceObserverCloneParams();
 
             _message.listener = listener;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(CLONE_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(CLONE_ORDINAL)));
 
         }
 
@@ -240,7 +307,8 @@ class UrlLoaderNetworkServiceObserver_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -249,42 +317,69 @@ class UrlLoaderNetworkServiceObserver_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(UrlLoaderNetworkServiceObserver_Internal.MANAGER, messageWithHeader);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
+                                UrlLoaderNetworkServiceObserver_Internal.MANAGER, messageWithHeader);
+
+
+
+
+
 
 
                     case ON_CERTIFICATE_REQUESTED_ORDINAL: {
 
-                        UrlLoaderNetworkServiceObserverOnCertificateRequestedParams data = UrlLoaderNetworkServiceObserverOnCertificateRequestedParams.deserialize(messageWithHeader.getPayload());
+                        UrlLoaderNetworkServiceObserverOnCertificateRequestedParams data =
+                                UrlLoaderNetworkServiceObserverOnCertificateRequestedParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onCertificateRequested(data.windowId, data.certInfo, data.certResponder);
                         return true;
                     }
 
 
+
+
+
                     case ON_AUTH_REQUIRED_ORDINAL: {
 
-                        UrlLoaderNetworkServiceObserverOnAuthRequiredParams data = UrlLoaderNetworkServiceObserverOnAuthRequiredParams.deserialize(messageWithHeader.getPayload());
+                        UrlLoaderNetworkServiceObserverOnAuthRequiredParams data =
+                                UrlLoaderNetworkServiceObserverOnAuthRequiredParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onAuthRequired(data.windowId, data.requestId, data.url, data.firstAuthAttempt, data.authInfo, data.headHeaders, data.authChallengeResponder);
                         return true;
                     }
 
 
+
+
+
+
+
+
+
+
+
                     case ON_DATA_USE_UPDATE_ORDINAL: {
 
-                        UrlLoaderNetworkServiceObserverOnDataUseUpdateParams data = UrlLoaderNetworkServiceObserverOnDataUseUpdateParams.deserialize(messageWithHeader.getPayload());
+                        UrlLoaderNetworkServiceObserverOnDataUseUpdateParams data =
+                                UrlLoaderNetworkServiceObserverOnDataUseUpdateParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onDataUseUpdate(data.networkTrafficAnnotationIdHash, data.recvBytes, data.sentBytes);
                         return true;
                     }
 
 
+
+
+
+
+
                     case CLONE_ORDINAL: {
 
-                        UrlLoaderNetworkServiceObserverCloneParams data = UrlLoaderNetworkServiceObserverCloneParams.deserialize(messageWithHeader.getPayload());
+                        UrlLoaderNetworkServiceObserverCloneParams data =
+                                UrlLoaderNetworkServiceObserverCloneParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().clone(data.listener);
                         return true;
@@ -295,7 +390,7 @@ class UrlLoaderNetworkServiceObserver_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -303,7 +398,8 @@ class UrlLoaderNetworkServiceObserver_Internal {
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -312,72 +408,112 @@ class UrlLoaderNetworkServiceObserver_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), UrlLoaderNetworkServiceObserver_Internal.MANAGER, messageWithHeader, receiver);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
+                                getCore(), UrlLoaderNetworkServiceObserver_Internal.MANAGER, messageWithHeader, receiver);
+
+
+
+
+
 
 
                     case ON_SSL_CERTIFICATE_ERROR_ORDINAL: {
 
-                        UrlLoaderNetworkServiceObserverOnSslCertificateErrorParams data = UrlLoaderNetworkServiceObserverOnSslCertificateErrorParams.deserialize(messageWithHeader.getPayload());
+                        UrlLoaderNetworkServiceObserverOnSslCertificateErrorParams data =
+                                UrlLoaderNetworkServiceObserverOnSslCertificateErrorParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onSslCertificateError(data.url, data.netError, data.sslInfo, data.fatal, new UrlLoaderNetworkServiceObserverOnSslCertificateErrorResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
                     }
 
 
+
+
+
+
+
+
+
+
+
                     case ON_PRIVATE_NETWORK_ACCESS_PERMISSION_REQUIRED_ORDINAL: {
 
-                        UrlLoaderNetworkServiceObserverOnPrivateNetworkAccessPermissionRequiredParams data = UrlLoaderNetworkServiceObserverOnPrivateNetworkAccessPermissionRequiredParams.deserialize(messageWithHeader.getPayload());
+                        UrlLoaderNetworkServiceObserverOnPrivateNetworkAccessPermissionRequiredParams data =
+                                UrlLoaderNetworkServiceObserverOnPrivateNetworkAccessPermissionRequiredParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onPrivateNetworkAccessPermissionRequired(data.url, data.ipAddress, data.privateNetworkDeviceId, data.privateNetworkDeviceName, new UrlLoaderNetworkServiceObserverOnPrivateNetworkAccessPermissionRequiredResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
                     }
 
 
+
+
+
+
+
                     case ON_CLEAR_SITE_DATA_ORDINAL: {
 
-                        UrlLoaderNetworkServiceObserverOnClearSiteDataParams data = UrlLoaderNetworkServiceObserverOnClearSiteDataParams.deserialize(messageWithHeader.getPayload());
+                        UrlLoaderNetworkServiceObserverOnClearSiteDataParams data =
+                                UrlLoaderNetworkServiceObserverOnClearSiteDataParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onClearSiteData(data.url, data.headerValue, data.loadFlags, data.cookiePartitionKey, data.partitionedStateAllowedOnly, new UrlLoaderNetworkServiceObserverOnClearSiteDataResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
                     }
 
 
+
+
+
+
+
                     case ON_LOADING_STATE_UPDATE_ORDINAL: {
 
-                        UrlLoaderNetworkServiceObserverOnLoadingStateUpdateParams data = UrlLoaderNetworkServiceObserverOnLoadingStateUpdateParams.deserialize(messageWithHeader.getPayload());
+                        UrlLoaderNetworkServiceObserverOnLoadingStateUpdateParams data =
+                                UrlLoaderNetworkServiceObserverOnLoadingStateUpdateParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onLoadingStateUpdate(data.info, new UrlLoaderNetworkServiceObserverOnLoadingStateUpdateResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
                     }
 
 
+
+
+
+
+
+
+
                     case ON_SHARED_STORAGE_HEADER_RECEIVED_ORDINAL: {
 
-                        UrlLoaderNetworkServiceObserverOnSharedStorageHeaderReceivedParams data = UrlLoaderNetworkServiceObserverOnSharedStorageHeaderReceivedParams.deserialize(messageWithHeader.getPayload());
+                        UrlLoaderNetworkServiceObserverOnSharedStorageHeaderReceivedParams data =
+                                UrlLoaderNetworkServiceObserverOnSharedStorageHeaderReceivedParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onSharedStorageHeaderReceived(data.requestOrigin, data.operations, new UrlLoaderNetworkServiceObserverOnSharedStorageHeaderReceivedResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
                     }
 
 
+
+
                     default:
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class UrlLoaderNetworkServiceObserverOnSslCertificateErrorParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 32;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(32, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(32, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.url.mojom.Url url;
         public int netError;
@@ -402,7 +538,8 @@ class UrlLoaderNetworkServiceObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static UrlLoaderNetworkServiceObserverOnSslCertificateErrorParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -416,24 +553,24 @@ class UrlLoaderNetworkServiceObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new UrlLoaderNetworkServiceObserverOnSslCertificateErrorParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.url = org.chromium.url.mojom.Url.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.netError = decoder0.readInt(16);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.fatal = decoder0.readBoolean(20, 0);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, false);
                     result.sslInfo = SslInfo.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -445,22 +582,24 @@ class UrlLoaderNetworkServiceObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.url, 8, false);
-
+            
             encoder0.encode(this.netError, 16);
-
+            
             encoder0.encode(this.fatal, 20, 0);
-
+            
             encoder0.encode(this.sslInfo, 24, false);
         }
     }
 
 
+
+    
     static final class UrlLoaderNetworkServiceObserverOnSslCertificateErrorResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int netError;
 
@@ -482,7 +621,8 @@ class UrlLoaderNetworkServiceObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static UrlLoaderNetworkServiceObserverOnSslCertificateErrorResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -496,10 +636,10 @@ class UrlLoaderNetworkServiceObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new UrlLoaderNetworkServiceObserverOnSslCertificateErrorResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.netError = decoder0.readInt(8);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -511,12 +651,13 @@ class UrlLoaderNetworkServiceObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.netError, 8);
         }
     }
 
-    static class UrlLoaderNetworkServiceObserverOnSslCertificateErrorResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class UrlLoaderNetworkServiceObserverOnSslCertificateErrorResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final UrlLoaderNetworkServiceObserver.OnSslCertificateError_Response mCallback;
 
         UrlLoaderNetworkServiceObserverOnSslCertificateErrorResponseParamsForwardToCallback(UrlLoaderNetworkServiceObserver.OnSslCertificateError_Response callback) {
@@ -526,9 +667,11 @@ class UrlLoaderNetworkServiceObserver_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(ON_SSL_CERTIFICATE_ERROR_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(ON_SSL_CERTIFICATE_ERROR_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -548,7 +691,10 @@ class UrlLoaderNetworkServiceObserver_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        UrlLoaderNetworkServiceObserverOnSslCertificateErrorResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        UrlLoaderNetworkServiceObserverOnSslCertificateErrorResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -560,16 +706,24 @@ class UrlLoaderNetworkServiceObserver_Internal {
 
             _response.netError = netError;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(ON_SSL_CERTIFICATE_ERROR_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    ON_SSL_CERTIFICATE_ERROR_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
 
 
+
+    
     static final class UrlLoaderNetworkServiceObserverOnCertificateRequestedParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 32;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(32, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(32, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.mojo_base.mojom.UnguessableToken windowId;
         public SslCertRequestInfo certInfo;
@@ -593,7 +747,8 @@ class UrlLoaderNetworkServiceObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static UrlLoaderNetworkServiceObserverOnCertificateRequestedParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -607,20 +762,20 @@ class UrlLoaderNetworkServiceObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new UrlLoaderNetworkServiceObserverOnCertificateRequestedParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, true);
                     result.windowId = org.chromium.mojo_base.mojom.UnguessableToken.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                     result.certInfo = SslCertRequestInfo.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.certResponder = decoder0.readServiceInterface(24, false, ClientCertificateResponder.MANAGER);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -632,20 +787,22 @@ class UrlLoaderNetworkServiceObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.windowId, 8, true);
-
+            
             encoder0.encode(this.certInfo, 16, false);
-
+            
             encoder0.encode(this.certResponder, 24, false, ClientCertificateResponder.MANAGER);
         }
     }
 
 
+
+    
     static final class UrlLoaderNetworkServiceObserverOnAuthRequiredParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 56;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(56, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(56, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.mojo_base.mojom.UnguessableToken windowId;
         public int requestId;
@@ -673,7 +830,8 @@ class UrlLoaderNetworkServiceObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static UrlLoaderNetworkServiceObserverOnAuthRequiredParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -687,38 +845,38 @@ class UrlLoaderNetworkServiceObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new UrlLoaderNetworkServiceObserverOnAuthRequiredParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, true);
                     result.windowId = org.chromium.mojo_base.mojom.UnguessableToken.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.requestId = decoder0.readInt(16);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.firstAuthAttempt = decoder0.readBoolean(20, 0);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, false);
                     result.url = org.chromium.url.mojom.Url.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(32, false);
                     result.authInfo = AuthChallengeInfo.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(40, true);
                     result.headHeaders = HttpResponseHeaders.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.authChallengeResponder = decoder0.readServiceInterface(48, false, AuthChallengeResponder.MANAGER);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -730,28 +888,30 @@ class UrlLoaderNetworkServiceObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.windowId, 8, true);
-
+            
             encoder0.encode(this.requestId, 16);
-
+            
             encoder0.encode(this.firstAuthAttempt, 20, 0);
-
+            
             encoder0.encode(this.url, 24, false);
-
+            
             encoder0.encode(this.authInfo, 32, false);
-
+            
             encoder0.encode(this.headHeaders, 40, true);
-
+            
             encoder0.encode(this.authChallengeResponder, 48, false, AuthChallengeResponder.MANAGER);
         }
     }
 
 
+
+    
     static final class UrlLoaderNetworkServiceObserverOnPrivateNetworkAccessPermissionRequiredParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 40;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(40, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(40, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.url.mojom.Url url;
         public IpAddress ipAddress;
@@ -776,7 +936,8 @@ class UrlLoaderNetworkServiceObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static UrlLoaderNetworkServiceObserverOnPrivateNetworkAccessPermissionRequiredParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -790,24 +951,24 @@ class UrlLoaderNetworkServiceObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new UrlLoaderNetworkServiceObserverOnPrivateNetworkAccessPermissionRequiredParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.url = org.chromium.url.mojom.Url.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                     result.ipAddress = IpAddress.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.privateNetworkDeviceId = decoder0.readString(24, true);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.privateNetworkDeviceName = decoder0.readString(32, true);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -819,22 +980,24 @@ class UrlLoaderNetworkServiceObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.url, 8, false);
-
+            
             encoder0.encode(this.ipAddress, 16, false);
-
+            
             encoder0.encode(this.privateNetworkDeviceId, 24, true);
-
+            
             encoder0.encode(this.privateNetworkDeviceName, 32, true);
         }
     }
 
 
+
+    
     static final class UrlLoaderNetworkServiceObserverOnPrivateNetworkAccessPermissionRequiredResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public boolean permissionGranted;
 
@@ -856,7 +1019,8 @@ class UrlLoaderNetworkServiceObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static UrlLoaderNetworkServiceObserverOnPrivateNetworkAccessPermissionRequiredResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -870,10 +1034,10 @@ class UrlLoaderNetworkServiceObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new UrlLoaderNetworkServiceObserverOnPrivateNetworkAccessPermissionRequiredResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.permissionGranted = decoder0.readBoolean(8, 0);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -885,12 +1049,13 @@ class UrlLoaderNetworkServiceObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.permissionGranted, 8, 0);
         }
     }
 
-    static class UrlLoaderNetworkServiceObserverOnPrivateNetworkAccessPermissionRequiredResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class UrlLoaderNetworkServiceObserverOnPrivateNetworkAccessPermissionRequiredResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final UrlLoaderNetworkServiceObserver.OnPrivateNetworkAccessPermissionRequired_Response mCallback;
 
         UrlLoaderNetworkServiceObserverOnPrivateNetworkAccessPermissionRequiredResponseParamsForwardToCallback(UrlLoaderNetworkServiceObserver.OnPrivateNetworkAccessPermissionRequired_Response callback) {
@@ -900,9 +1065,11 @@ class UrlLoaderNetworkServiceObserver_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(ON_PRIVATE_NETWORK_ACCESS_PERMISSION_REQUIRED_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(ON_PRIVATE_NETWORK_ACCESS_PERMISSION_REQUIRED_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -922,7 +1089,10 @@ class UrlLoaderNetworkServiceObserver_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        UrlLoaderNetworkServiceObserverOnPrivateNetworkAccessPermissionRequiredResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        UrlLoaderNetworkServiceObserverOnPrivateNetworkAccessPermissionRequiredResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -934,16 +1104,24 @@ class UrlLoaderNetworkServiceObserver_Internal {
 
             _response.permissionGranted = permissionGranted;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(ON_PRIVATE_NETWORK_ACCESS_PERMISSION_REQUIRED_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    ON_PRIVATE_NETWORK_ACCESS_PERMISSION_REQUIRED_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
 
 
+
+    
     static final class UrlLoaderNetworkServiceObserverOnClearSiteDataParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 40;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(40, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(40, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.url.mojom.Url url;
         public String headerValue;
@@ -969,7 +1147,8 @@ class UrlLoaderNetworkServiceObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static UrlLoaderNetworkServiceObserverOnClearSiteDataParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -983,28 +1162,28 @@ class UrlLoaderNetworkServiceObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new UrlLoaderNetworkServiceObserverOnClearSiteDataParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.url = org.chromium.url.mojom.Url.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.headerValue = decoder0.readString(16, false);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.loadFlags = decoder0.readInt(24);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.partitionedStateAllowedOnly = decoder0.readBoolean(28, 0);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(32, true);
                     result.cookiePartitionKey = CookiePartitionKey.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1016,24 +1195,26 @@ class UrlLoaderNetworkServiceObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.url, 8, false);
-
+            
             encoder0.encode(this.headerValue, 16, false);
-
+            
             encoder0.encode(this.loadFlags, 24);
-
+            
             encoder0.encode(this.partitionedStateAllowedOnly, 28, 0);
-
+            
             encoder0.encode(this.cookiePartitionKey, 32, true);
         }
     }
 
 
+
+    
     static final class UrlLoaderNetworkServiceObserverOnClearSiteDataResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 8;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(8, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(8, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
 
         private UrlLoaderNetworkServiceObserverOnClearSiteDataResponseParams(int version) {
@@ -1054,7 +1235,8 @@ class UrlLoaderNetworkServiceObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static UrlLoaderNetworkServiceObserverOnClearSiteDataResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1082,7 +1264,8 @@ class UrlLoaderNetworkServiceObserver_Internal {
         }
     }
 
-    static class UrlLoaderNetworkServiceObserverOnClearSiteDataResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class UrlLoaderNetworkServiceObserverOnClearSiteDataResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final UrlLoaderNetworkServiceObserver.OnClearSiteData_Response mCallback;
 
         UrlLoaderNetworkServiceObserverOnClearSiteDataResponseParamsForwardToCallback(UrlLoaderNetworkServiceObserver.OnClearSiteData_Response callback) {
@@ -1092,9 +1275,11 @@ class UrlLoaderNetworkServiceObserver_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(ON_CLEAR_SITE_DATA_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(ON_CLEAR_SITE_DATA_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -1112,7 +1297,10 @@ class UrlLoaderNetworkServiceObserver_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        UrlLoaderNetworkServiceObserverOnClearSiteDataResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        UrlLoaderNetworkServiceObserverOnClearSiteDataResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -1122,16 +1310,24 @@ class UrlLoaderNetworkServiceObserver_Internal {
         public void call() {
             UrlLoaderNetworkServiceObserverOnClearSiteDataResponseParams _response = new UrlLoaderNetworkServiceObserverOnClearSiteDataResponseParams();
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(ON_CLEAR_SITE_DATA_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    ON_CLEAR_SITE_DATA_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
 
 
+
+    
     static final class UrlLoaderNetworkServiceObserverOnLoadingStateUpdateParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public LoadInfo info;
 
@@ -1153,7 +1349,8 @@ class UrlLoaderNetworkServiceObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static UrlLoaderNetworkServiceObserverOnLoadingStateUpdateParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1167,11 +1364,11 @@ class UrlLoaderNetworkServiceObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new UrlLoaderNetworkServiceObserverOnLoadingStateUpdateParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.info = LoadInfo.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1183,16 +1380,18 @@ class UrlLoaderNetworkServiceObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.info, 8, false);
         }
     }
 
 
+
+    
     static final class UrlLoaderNetworkServiceObserverOnLoadingStateUpdateResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 8;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(8, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(8, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
 
         private UrlLoaderNetworkServiceObserverOnLoadingStateUpdateResponseParams(int version) {
@@ -1213,7 +1412,8 @@ class UrlLoaderNetworkServiceObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static UrlLoaderNetworkServiceObserverOnLoadingStateUpdateResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1241,7 +1441,8 @@ class UrlLoaderNetworkServiceObserver_Internal {
         }
     }
 
-    static class UrlLoaderNetworkServiceObserverOnLoadingStateUpdateResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class UrlLoaderNetworkServiceObserverOnLoadingStateUpdateResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final UrlLoaderNetworkServiceObserver.OnLoadingStateUpdate_Response mCallback;
 
         UrlLoaderNetworkServiceObserverOnLoadingStateUpdateResponseParamsForwardToCallback(UrlLoaderNetworkServiceObserver.OnLoadingStateUpdate_Response callback) {
@@ -1251,9 +1452,11 @@ class UrlLoaderNetworkServiceObserver_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(ON_LOADING_STATE_UPDATE_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(ON_LOADING_STATE_UPDATE_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -1271,7 +1474,10 @@ class UrlLoaderNetworkServiceObserver_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        UrlLoaderNetworkServiceObserverOnLoadingStateUpdateResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        UrlLoaderNetworkServiceObserverOnLoadingStateUpdateResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -1281,16 +1487,24 @@ class UrlLoaderNetworkServiceObserver_Internal {
         public void call() {
             UrlLoaderNetworkServiceObserverOnLoadingStateUpdateResponseParams _response = new UrlLoaderNetworkServiceObserverOnLoadingStateUpdateResponseParams();
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(ON_LOADING_STATE_UPDATE_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    ON_LOADING_STATE_UPDATE_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
 
 
+
+    
     static final class UrlLoaderNetworkServiceObserverOnDataUseUpdateParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 32;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(32, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(32, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int networkTrafficAnnotationIdHash;
         public long recvBytes;
@@ -1314,7 +1528,8 @@ class UrlLoaderNetworkServiceObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static UrlLoaderNetworkServiceObserverOnDataUseUpdateParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1328,18 +1543,18 @@ class UrlLoaderNetworkServiceObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new UrlLoaderNetworkServiceObserverOnDataUseUpdateParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.networkTrafficAnnotationIdHash = decoder0.readInt(8);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.recvBytes = decoder0.readLong(16);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.sentBytes = decoder0.readLong(24);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1351,20 +1566,22 @@ class UrlLoaderNetworkServiceObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.networkTrafficAnnotationIdHash, 8);
-
+            
             encoder0.encode(this.recvBytes, 16);
-
+            
             encoder0.encode(this.sentBytes, 24);
         }
     }
 
 
+
+    
     static final class UrlLoaderNetworkServiceObserverOnSharedStorageHeaderReceivedParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.url.internal.mojom.Origin requestOrigin;
         public SharedStorageOperation[] operations;
@@ -1387,7 +1604,8 @@ class UrlLoaderNetworkServiceObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static UrlLoaderNetworkServiceObserverOnSharedStorageHeaderReceivedParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1401,24 +1619,24 @@ class UrlLoaderNetworkServiceObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new UrlLoaderNetworkServiceObserverOnSharedStorageHeaderReceivedParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.requestOrigin = org.chromium.url.internal.mojom.Origin.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                     {
                         org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                         result.operations = new SharedStorageOperation[si1.elementsOrVersion];
                         for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                            
                             org.chromium.mojo.bindings.Decoder decoder2 = decoder1.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                             result.operations[i1] = SharedStorageOperation.decode(decoder2);
                         }
                     }
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1430,15 +1648,15 @@ class UrlLoaderNetworkServiceObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.requestOrigin, 8, false);
-
+            
             if (this.operations == null) {
                 encoder0.encodeNullPointer(16, false);
             } else {
                 org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.operations.length, 16, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                 for (int i0 = 0; i0 < this.operations.length; ++i0) {
-
+                    
                     encoder1.encode(this.operations[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
                 }
             }
@@ -1446,10 +1664,12 @@ class UrlLoaderNetworkServiceObserver_Internal {
     }
 
 
+
+    
     static final class UrlLoaderNetworkServiceObserverOnSharedStorageHeaderReceivedResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 8;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(8, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(8, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
 
         private UrlLoaderNetworkServiceObserverOnSharedStorageHeaderReceivedResponseParams(int version) {
@@ -1470,7 +1690,8 @@ class UrlLoaderNetworkServiceObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static UrlLoaderNetworkServiceObserverOnSharedStorageHeaderReceivedResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1498,7 +1719,8 @@ class UrlLoaderNetworkServiceObserver_Internal {
         }
     }
 
-    static class UrlLoaderNetworkServiceObserverOnSharedStorageHeaderReceivedResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class UrlLoaderNetworkServiceObserverOnSharedStorageHeaderReceivedResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final UrlLoaderNetworkServiceObserver.OnSharedStorageHeaderReceived_Response mCallback;
 
         UrlLoaderNetworkServiceObserverOnSharedStorageHeaderReceivedResponseParamsForwardToCallback(UrlLoaderNetworkServiceObserver.OnSharedStorageHeaderReceived_Response callback) {
@@ -1508,9 +1730,11 @@ class UrlLoaderNetworkServiceObserver_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(ON_SHARED_STORAGE_HEADER_RECEIVED_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(ON_SHARED_STORAGE_HEADER_RECEIVED_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -1528,7 +1752,10 @@ class UrlLoaderNetworkServiceObserver_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        UrlLoaderNetworkServiceObserverOnSharedStorageHeaderReceivedResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        UrlLoaderNetworkServiceObserverOnSharedStorageHeaderReceivedResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -1538,16 +1765,24 @@ class UrlLoaderNetworkServiceObserver_Internal {
         public void call() {
             UrlLoaderNetworkServiceObserverOnSharedStorageHeaderReceivedResponseParams _response = new UrlLoaderNetworkServiceObserverOnSharedStorageHeaderReceivedResponseParams();
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(ON_SHARED_STORAGE_HEADER_RECEIVED_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    ON_SHARED_STORAGE_HEADER_RECEIVED_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
 
 
+
+    
     static final class UrlLoaderNetworkServiceObserverCloneParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.mojo.bindings.InterfaceRequest<UrlLoaderNetworkServiceObserver> listener;
 
@@ -1569,7 +1804,8 @@ class UrlLoaderNetworkServiceObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static UrlLoaderNetworkServiceObserverCloneParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1583,10 +1819,10 @@ class UrlLoaderNetworkServiceObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new UrlLoaderNetworkServiceObserverCloneParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.listener = decoder0.readInterfaceRequest(8, false);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1598,10 +1834,11 @@ class UrlLoaderNetworkServiceObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.listener, 8, false);
         }
     }
+
 
 
 }

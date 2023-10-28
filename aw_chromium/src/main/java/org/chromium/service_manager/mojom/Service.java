@@ -13,27 +13,34 @@
 
 package org.chromium.service_manager.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface Service extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends Service, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends Service, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<Service, Service.Proxy> MANAGER = Service_Internal.MANAGER;
 
-    void onStart(Identity identity, OnStart_Response callback);
+    void onStart(
+Identity identity, 
+OnStart_Response callback);
 
-    interface OnStart_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<org.chromium.mojo.bindings.InterfaceRequest<Connector>, org.chromium.mojo.bindings.AssociatedInterfaceRequestNotSupported> {
-    }
-
-
-    void onBindInterface(BindSourceInfo source, String interfaceName, org.chromium.mojo.system.MessagePipeHandle interfacePipe, OnBindInterface_Response callback);
-
-    interface OnBindInterface_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 {
-    }
+    interface OnStart_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<org.chromium.mojo.bindings.InterfaceRequest<Connector>, org.chromium.mojo.bindings.AssociatedInterfaceRequestNotSupported> { }
 
 
-    void createPackagedServiceInstance(Identity identity, org.chromium.mojo.bindings.InterfaceRequest<Service> receiver, ProcessMetadata metadata);
+    void onBindInterface(
+BindSourceInfo source, String interfaceName, org.chromium.mojo.system.MessagePipeHandle interfacePipe, 
+OnBindInterface_Response callback);
+
+    interface OnBindInterface_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 { }
+
+
+    void createPackagedServiceInstance(
+Identity identity, org.chromium.mojo.bindings.InterfaceRequest<Service> receiver, ProcessMetadata metadata);
 
 
 }

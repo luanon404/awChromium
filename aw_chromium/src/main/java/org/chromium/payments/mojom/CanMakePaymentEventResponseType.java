@@ -17,10 +17,20 @@ import androidx.annotation.IntDef;
 
 public final class CanMakePaymentEventResponseType {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({CanMakePaymentEventResponseType.INCOGNITO, CanMakePaymentEventResponseType.NO_EXPLICITLY_VERIFIED_METHODS, CanMakePaymentEventResponseType.NOT_INSTALLED, CanMakePaymentEventResponseType.NO_URL_BASED_PAYMENT_METHODS, CanMakePaymentEventResponseType.BOOLEAN_CONVERSION_ERROR, CanMakePaymentEventResponseType.BROWSER_ERROR, CanMakePaymentEventResponseType.INTERNAL_ERROR, CanMakePaymentEventResponseType.NO_RESPONSE, CanMakePaymentEventResponseType.REJECT, CanMakePaymentEventResponseType.SUCCESS, CanMakePaymentEventResponseType.TIMEOUT})
-    public @interface EnumType {
-    }
+        CanMakePaymentEventResponseType.INCOGNITO,
+        CanMakePaymentEventResponseType.NO_EXPLICITLY_VERIFIED_METHODS,
+        CanMakePaymentEventResponseType.NOT_INSTALLED,
+        CanMakePaymentEventResponseType.NO_URL_BASED_PAYMENT_METHODS,
+        CanMakePaymentEventResponseType.BOOLEAN_CONVERSION_ERROR,
+        CanMakePaymentEventResponseType.BROWSER_ERROR,
+        CanMakePaymentEventResponseType.INTERNAL_ERROR,
+        CanMakePaymentEventResponseType.NO_RESPONSE,
+        CanMakePaymentEventResponseType.REJECT,
+        CanMakePaymentEventResponseType.SUCCESS,
+        CanMakePaymentEventResponseType.TIMEOUT})
+    public @interface EnumType {}
 
     public static final int INCOGNITO = 0;
     public static final int NO_EXPLICITLY_VERIFIED_METHODS = 1;
@@ -46,9 +56,8 @@ public final class CanMakePaymentEventResponseType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private CanMakePaymentEventResponseType() {
-    }
+    private CanMakePaymentEventResponseType() {}
 }

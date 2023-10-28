@@ -38,7 +38,8 @@ public class AwWebContentsObserver extends WebContentsObserver {
     // Temporarily stores the URL passed the last time to didFinishLoad callback.
     private String mLastDidFinishLoadUrl;
 
-    public AwWebContentsObserver(WebContents webContents, AwContents awContents, AwContentsClient awContentsClient) {
+    public AwWebContentsObserver(
+            WebContents webContents, AwContents awContents, AwContentsClient awContentsClient) {
         super(webContents);
         mAwContents = new WeakReference<>(awContents);
         mAwContentsClient = new WeakReference<>(awContentsClient);
@@ -56,7 +57,8 @@ public class AwWebContentsObserver extends WebContentsObserver {
     }
 
     @Override
-    public void didFinishLoadInPrimaryMainFrame(GlobalRenderFrameHostId rfhId, GURL url, boolean isKnownValid, @LifecycleState int rfhLifecycleState) {
+    public void didFinishLoadInPrimaryMainFrame(GlobalRenderFrameHostId rfhId, GURL url,
+            boolean isKnownValid, @LifecycleState int rfhLifecycleState) {
         if (rfhLifecycleState != LifecycleState.ACTIVE) return;
         String validatedUrl = isKnownValid ? url.getSpec() : url.getPossiblyInvalidSpec();
         if (getClientIfNeedToFireCallback(validatedUrl) != null) {
@@ -83,16 +85,19 @@ public class AwWebContentsObserver extends WebContentsObserver {
     }
 
     @Override
-    public void didFailLoad(boolean isInPrimaryMainFrame, @NetError int errorCode, GURL failingGurl, @LifecycleState int frameLifecycleState) {
+    public void didFailLoad(boolean isInPrimaryMainFrame, @NetError int errorCode, GURL failingGurl,
+            @LifecycleState int frameLifecycleState) {
         processFailedLoad(isInPrimaryMainFrame, errorCode, failingGurl);
     }
 
-    private void processFailedLoad(boolean isPrimaryMainFrame, @NetError int errorCode, GURL failingGurl) {
+    private void processFailedLoad(
+            boolean isPrimaryMainFrame, @NetError int errorCode, GURL failingGurl) {
         String failingUrl = failingGurl.getPossiblyInvalidSpec();
         AwContentsClient client = mAwContentsClient.get();
         if (client == null) return;
         String unreachableWebDataUrl = AwContentsStatics.getUnreachableWebDataUrl();
-        boolean isErrorUrl = unreachableWebDataUrl != null && unreachableWebDataUrl.equals(failingUrl);
+        boolean isErrorUrl =
+                unreachableWebDataUrl != null && unreachableWebDataUrl.equals(failingUrl);
         if (isPrimaryMainFrame && !isErrorUrl) {
             if (errorCode == NetError.ERR_ABORTED) {
                 // Need to call onPageFinished for backwards compatibility with the classic webview.
@@ -132,11 +137,14 @@ public class AwWebContentsObserver extends WebContentsObserver {
             // OnPageStarted is not called for in-page navigations, which include fragment
             // navigations and navigation from history.push/replaceState.
             // Error page is handled by AwContentsClientBridge.onReceivedError.
-            if (!navigation.isSameDocument() && !navigation.isErrorPage() && AwComputedFlags.pageStartedOnCommitEnabled(navigation.isRendererInitiated())) {
+            if (!navigation.isSameDocument() && !navigation.isErrorPage()
+                    && AwComputedFlags.pageStartedOnCommitEnabled(
+                            navigation.isRendererInitiated())) {
                 client.getCallbackHelper().postOnPageStarted(url);
             }
 
-            boolean isReload = (navigation.pageTransition() & PageTransition.CORE_MASK) == PageTransition.RELOAD;
+            boolean isReload = (navigation.pageTransition() & PageTransition.CORE_MASK)
+                    == PageTransition.RELOAD;
             client.getCallbackHelper().postDoUpdateVisitedHistory(url, isReload);
         }
 
@@ -146,14 +154,15 @@ public class AwWebContentsObserver extends WebContentsObserver {
             PostTask.postTask(TaskTraits.UI_DEFAULT, () -> {
                 AwContents awContents = mAwContents.get();
                 if (awContents != null) {
-                    awContents.insertVisualStateCallbackIfNotDestroyed(0, new VisualStateCallback() {
-                        @Override
-                        public void onComplete(long requestId) {
-                            AwContentsClient client1 = mAwContentsClient.get();
-                            if (client1 == null) return;
-                            client1.onPageCommitVisible(url);
-                        }
-                    });
+                    awContents.insertVisualStateCallbackIfNotDestroyed(
+                            0, new VisualStateCallback() {
+                                @Override
+                                public void onComplete(long requestId) {
+                                    AwContentsClient client1 = mAwContentsClient.get();
+                                    if (client1 == null) return;
+                                    client1.onPageCommitVisible(url);
+                                }
+                            });
                 }
             });
         }

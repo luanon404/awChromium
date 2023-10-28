@@ -44,7 +44,9 @@ public class ChildProcessRanking implements Iterable<ChildProcessConnection> {
         @ChildProcessImportance
         public int importance;
 
-        public ConnectionWithRank(ChildProcessConnection connection, boolean visible, long frameDepth, boolean intersectsViewport, @ChildProcessImportance int importance) {
+        public ConnectionWithRank(ChildProcessConnection connection, boolean visible,
+                long frameDepth, boolean intersectsViewport,
+                @ChildProcessImportance int importance) {
             this.connection = connection;
             this.visible = visible;
             this.frameDepth = frameDepth;
@@ -64,7 +66,8 @@ public class ChildProcessRanking implements Iterable<ChildProcessConnection> {
     }
 
     private static class RankComparator implements Comparator<ConnectionWithRank> {
-        private static int compareByIntersectsViewportAndDepth(ConnectionWithRank o1, ConnectionWithRank o2) {
+        private static int compareByIntersectsViewportAndDepth(
+                ConnectionWithRank o1, ConnectionWithRank o2) {
             if (o1.intersectsViewport && !o2.intersectsViewport) {
                 return -1;
             } else if (!o1.intersectsViewport && o2.intersectsViewport) {
@@ -88,8 +91,10 @@ public class ChildProcessRanking implements Iterable<ChildProcessConnection> {
             // Within each group, ties are broken by intersect viewport and then frame depth where
             // applicable. Note boostForPendingViews is not used for ranking.
 
-            boolean o1IsVisibleMainOrImportant = (o1.visible && o1.frameDepth == 0) || o1.importance == ChildProcessImportance.IMPORTANT;
-            boolean o2IsVisibleMainOrImportant = (o2.visible && o2.frameDepth == 0) || o2.importance == ChildProcessImportance.IMPORTANT;
+            boolean o1IsVisibleMainOrImportant = (o1.visible && o1.frameDepth == 0)
+                    || o1.importance == ChildProcessImportance.IMPORTANT;
+            boolean o2IsVisibleMainOrImportant = (o2.visible && o2.frameDepth == 0)
+                    || o2.importance == ChildProcessImportance.IMPORTANT;
             if (o1IsVisibleMainOrImportant && o2IsVisibleMainOrImportant) {
                 return compareByIntersectsViewportAndDepth(o1, o2);
             } else if (o1IsVisibleMainOrImportant && !o2IsVisibleMainOrImportant) {
@@ -98,13 +103,19 @@ public class ChildProcessRanking implements Iterable<ChildProcessConnection> {
                 return 1;
             }
 
-            boolean o1VisibleIntersectSubframeOrModerate = (o1.visible && o1.frameDepth > 0 && o1.intersectsViewport) || o1.importance == ChildProcessImportance.MODERATE;
-            boolean o2VisibleIntersectSubframeOrModerate = (o2.visible && o2.frameDepth > 0 && o2.intersectsViewport) || o2.importance == ChildProcessImportance.MODERATE;
+            boolean o1VisibleIntersectSubframeOrModerate =
+                    (o1.visible && o1.frameDepth > 0 && o1.intersectsViewport)
+                    || o1.importance == ChildProcessImportance.MODERATE;
+            boolean o2VisibleIntersectSubframeOrModerate =
+                    (o2.visible && o2.frameDepth > 0 && o2.intersectsViewport)
+                    || o2.importance == ChildProcessImportance.MODERATE;
             if (o1VisibleIntersectSubframeOrModerate && o2VisibleIntersectSubframeOrModerate) {
                 return compareByIntersectsViewportAndDepth(o1, o2);
-            } else if (o1VisibleIntersectSubframeOrModerate && !o2VisibleIntersectSubframeOrModerate) {
+            } else if (o1VisibleIntersectSubframeOrModerate
+                    && !o2VisibleIntersectSubframeOrModerate) {
                 return -1;
-            } else if (!o1VisibleIntersectSubframeOrModerate && o2VisibleIntersectSubframeOrModerate) {
+            } else if (!o1VisibleIntersectSubframeOrModerate
+                    && o2VisibleIntersectSubframeOrModerate) {
                 return 1;
             }
 
@@ -193,13 +204,16 @@ public class ChildProcessRanking implements Iterable<ChildProcessConnection> {
         return new ReverseRankIterator();
     }
 
-    public void addConnection(ChildProcessConnection connection, boolean visible, long frameDepth, boolean intersectsViewport, @ChildProcessImportance int importance) {
+    public void addConnection(ChildProcessConnection connection, boolean visible, long frameDepth,
+            boolean intersectsViewport, @ChildProcessImportance int importance) {
         assert connection != null;
         assert indexOf(connection) == -1;
         if (mMaxSize != -1 && mRankings.size() >= mMaxSize) {
-            throw new RuntimeException("mRankings.size:" + mRankings.size() + " mMaxSize:" + mMaxSize);
+            throw new RuntimeException(
+                    "mRankings.size:" + mRankings.size() + " mMaxSize:" + mMaxSize);
         }
-        mRankings.add(new ConnectionWithRank(connection, visible, frameDepth, intersectsViewport, importance));
+        mRankings.add(new ConnectionWithRank(
+                connection, visible, frameDepth, intersectsViewport, importance));
         reposition(mRankings.size() - 1);
     }
 
@@ -214,7 +228,8 @@ public class ChildProcessRanking implements Iterable<ChildProcessConnection> {
         if (ENABLE_CHECKS) checkOrder();
     }
 
-    public void updateConnection(ChildProcessConnection connection, boolean visible, long frameDepth, boolean intersectsViewport, @ChildProcessImportance int importance) {
+    public void updateConnection(ChildProcessConnection connection, boolean visible,
+            long frameDepth, boolean intersectsViewport, @ChildProcessImportance int importance) {
         assert connection != null;
         assert mRankings.size() > 0;
         int i = indexOf(connection);
@@ -243,7 +258,8 @@ public class ChildProcessRanking implements Iterable<ChildProcessConnection> {
     private void reposition(final int originalIndex) {
         ConnectionWithRank connection = mRankings.remove(originalIndex);
         int newIndex = 0;
-        while (newIndex < mRankings.size() && COMPARATOR.compare(mRankings.get(newIndex), connection) < 0) {
+        while (newIndex < mRankings.size()
+                && COMPARATOR.compare(mRankings.get(newIndex), connection) < 0) {
             ++newIndex;
         }
         mRankings.add(newIndex, connection);
@@ -261,12 +277,15 @@ public class ChildProcessRanking implements Iterable<ChildProcessConnection> {
         final boolean atStart = newIndex == 0;
         final boolean atEnd = newIndex == mRankings.size() - 1;
 
-        final int left = atStart ? 0 : mRankings.get(newIndex - 1).connection.getImportanceInGroup();
+        final int left =
+                atStart ? 0 : mRankings.get(newIndex - 1).connection.getImportanceInGroup();
 
         assert atEnd || mRankings.get(newIndex + 1).connection.getGroup() > NO_GROUP;
-        final int right = atEnd ? Integer.MAX_VALUE : mRankings.get(newIndex + 1).connection.getImportanceInGroup();
+        final int right = atEnd ? Integer.MAX_VALUE
+                                : mRankings.get(newIndex + 1).connection.getImportanceInGroup();
 
-        if (connection.connection.getImportanceInGroup() > left && connection.connection.getImportanceInGroup() < right) {
+        if (connection.connection.getImportanceInGroup() > left
+                && connection.connection.getImportanceInGroup() < right) {
             return;
         }
 
@@ -339,7 +358,8 @@ public class ChildProcessRanking implements Iterable<ChildProcessConnection> {
                     throw new RuntimeException("Not in low rank group " + connection);
                 }
                 if (connection.connection.getImportanceInGroup() <= importance) {
-                    throw new RuntimeException("Wrong group importance order " + connection + " " + connection.connection.getImportanceInGroup() + " " + importance);
+                    throw new RuntimeException("Wrong group importance order " + connection + " "
+                            + connection.connection.getImportanceInGroup() + " " + importance);
                 }
                 importance = connection.connection.getImportanceInGroup();
             } else {

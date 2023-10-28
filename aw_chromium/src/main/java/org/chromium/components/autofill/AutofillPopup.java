@@ -28,7 +28,9 @@ import java.util.List;
 /**
  * The Autofill suggestion popup that lists relevant suggestions.
  */
-public class AutofillPopup extends DropdownPopupWindow implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener, PopupWindow.OnDismissListener {
+public class AutofillPopup extends DropdownPopupWindow
+        implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener,
+                   PopupWindow.OnDismissListener {
     /**
      * We post a delayed runnable to clear accessibility focus from the autofill popup's list view
      * when we receive a {@code TYPE_VIEW_ACCESSIBILITY_FOCUS_CLEARED} event because we receive a
@@ -52,12 +54,13 @@ public class AutofillPopup extends DropdownPopupWindow implements AdapterView.On
     /**
      * Creates an AutofillWindow with specified parameters.
      *
-     * @param context                        Application context.
-     * @param anchorView                     View anchored for popup.
-     * @param autofillDelegate               An object that handles the calls to the native AutofillPopupView.
+     * @param context Application context.
+     * @param anchorView View anchored for popup.
+     * @param autofillDelegate An object that handles the calls to the native AutofillPopupView.
      * @param visibleWebContentsRectProvider The {@link RectProvider} for popup limits.
      */
-    public AutofillPopup(Context context, View anchorView, AutofillDelegate autofillDelegate, @Nullable RectProvider visibleWebContentsRectProvider) {
+    public AutofillPopup(Context context, View anchorView, AutofillDelegate autofillDelegate,
+            @Nullable RectProvider visibleWebContentsRectProvider) {
         super(context, anchorView, visibleWebContentsRectProvider);
         mContext = context;
         mAutofillDelegate = autofillDelegate;
@@ -65,14 +68,14 @@ public class AutofillPopup extends DropdownPopupWindow implements AdapterView.On
         setOnItemClickListener(this);
         setOnDismissListener(this);
         disableHideOnOutsideTap();
-        setContentDescriptionForAccessibility(mContext.getString(R.string.autofill_popup_content_description));
+        setContentDescriptionForAccessibility(
+                mContext.getString(R.string.autofill_popup_content_description));
     }
 
     /**
      * Filters the Autofill suggestions to the ones that we support and shows the popup.
-     *
      * @param suggestions Autofill suggestion data.
-     * @param isRtl       @code true if right-to-left text.
+     * @param isRtl @code true if right-to-left text.
      */
     @SuppressLint("InlinedApi")
     public void filterAndShow(AutofillSuggestion[] suggestions, boolean isRtl) {
@@ -95,10 +98,13 @@ public class AutofillPopup extends DropdownPopupWindow implements AdapterView.On
         getListView().setOnItemLongClickListener(this);
         getListView().setAccessibilityDelegate(new AccessibilityDelegate() {
             @Override
-            public boolean onRequestSendAccessibilityEvent(ViewGroup host, View child, AccessibilityEvent event) {
+            public boolean onRequestSendAccessibilityEvent(
+                    ViewGroup host, View child, AccessibilityEvent event) {
                 getListView().removeCallbacks(mClearAccessibilityFocusRunnable);
-                if (event.getEventType() == AccessibilityEvent.TYPE_VIEW_ACCESSIBILITY_FOCUS_CLEARED) {
-                    getListView().postDelayed(mClearAccessibilityFocusRunnable, CLEAR_ACCESSIBILITY_FOCUS_DELAY_MS);
+                if (event.getEventType()
+                        == AccessibilityEvent.TYPE_VIEW_ACCESSIBILITY_FOCUS_CLEARED) {
+                    getListView().postDelayed(
+                            mClearAccessibilityFocusRunnable, CLEAR_ACCESSIBILITY_FOCUS_DELAY_MS);
                 }
                 return super.onRequestSendAccessibilityEvent(host, child, event);
             }

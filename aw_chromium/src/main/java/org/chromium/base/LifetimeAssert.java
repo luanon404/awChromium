@@ -69,7 +69,8 @@ public class LifetimeAssert {
         final Class<?> mTargetClass;
         final CreationException mCreationException;
 
-        public WrappedReference(Object target, CreationException creationException, boolean safeToGc) {
+        public WrappedReference(
+                Object target, CreationException creationException, boolean safeToGc) {
             super(target, sReferenceQueue);
             mCreationException = creationException;
             mSafeToGc = safeToGc;
@@ -78,7 +79,8 @@ public class LifetimeAssert {
         }
 
         private static ReferenceQueue<Object> sReferenceQueue = new ReferenceQueue<>();
-        private static Set<WrappedReference> sActiveWrappers = Collections.synchronizedSet(new HashSet<>());
+        private static Set<WrappedReference> sActiveWrappers =
+                Collections.synchronizedSet(new HashSet<>());
 
         static {
             new Thread("GcStateAssertQueue") {
@@ -99,11 +101,15 @@ public class LifetimeAssert {
                                 continue;
                             }
                             if (!wrapper.mSafeToGc) {
-                                String msg = String.format("Object of type %s was GC'ed without cleanup. Refer to " + "\"Caused by\" for where object was created.", wrapper.mTargetClass.getName());
+                                String msg = String.format(
+                                        "Object of type %s was GC'ed without cleanup. Refer to "
+                                                + "\"Caused by\" for where object was created.",
+                                        wrapper.mTargetClass.getName());
                                 if (sTestHook != null) {
                                     sTestHook.onCleaned(wrapper, msg);
                                 } else {
-                                    throw new LifetimeAssertException(msg, wrapper.mCreationException);
+                                    throw new LifetimeAssertException(
+                                            msg, wrapper.mCreationException);
                                 }
                             } else if (sTestHook != null) {
                                 sTestHook.onCleaned(wrapper, null);
@@ -126,14 +132,16 @@ public class LifetimeAssert {
         if (!BuildConfig.ENABLE_ASSERTS) {
             return null;
         }
-        return new LifetimeAssert(new WrappedReference(target, new CreationException(), false), target);
+        return new LifetimeAssert(
+                new WrappedReference(target, new CreationException(), false), target);
     }
 
     public static LifetimeAssert create(Object target, boolean safeToGc) {
         if (!BuildConfig.ENABLE_ASSERTS) {
             return null;
         }
-        return new LifetimeAssert(new WrappedReference(target, new CreationException(), safeToGc), target);
+        return new LifetimeAssert(
+                new WrappedReference(target, new CreationException(), safeToGc), target);
     }
 
     public static void setSafeToGc(LifetimeAssert asserter, boolean value) {
@@ -165,7 +173,10 @@ public class LifetimeAssert {
             try {
                 for (WrappedReference ref : WrappedReference.sActiveWrappers) {
                     if (!ref.mSafeToGc) {
-                        String msg = String.format("Object of type %s was not destroyed after test completed. " + "Refer to \"Caused by\" for where object was created.", ref.mTargetClass.getName());
+                        String msg = String.format(
+                                "Object of type %s was not destroyed after test completed. "
+                                        + "Refer to \"Caused by\" for where object was created.",
+                                ref.mTargetClass.getName());
                         throw new LifetimeAssertException(msg, ref.mCreationException);
                     }
                 }
@@ -175,9 +186,7 @@ public class LifetimeAssert {
         }
     }
 
-    /**
-     * Clears the set of tracked references.
-     */
+    /** Clears the set of tracked references. */
     public static void resetForTesting() {
         if (!BuildConfig.ENABLE_ASSERTS) {
             return;

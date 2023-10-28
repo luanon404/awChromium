@@ -13,9 +13,7 @@ import android.view.View;
 import org.chromium.base.Callback;
 import org.chromium.base.TraceEvent;
 
-/**
- * Simple bitmap capture approach simply calling {@link View#draw(Canvas)}.
- */
+/** Simple bitmap capture approach simply calling {@link View#draw(Canvas)}. */
 public class SoftwareDraw implements ViewResourceAdapter.CaptureMechanism {
     private Bitmap mBitmap;
 
@@ -25,12 +23,17 @@ public class SoftwareDraw implements ViewResourceAdapter.CaptureMechanism {
     }
 
     @Override
-    public void onViewSizeChange(View view, float scale) {
+    public void onViewSizeChange(View view, float scale) {}
+
+    @Override
+    public void dropCachedBitmap() {
+        mBitmap = null;
     }
 
     @Override
-    public boolean startBitmapCapture(View view, Rect dirtyRect, float scale, CaptureObserver observer, Callback<Bitmap> onBitmapCapture) {
-        try (TraceEvent ignored = TraceEvent.scoped("SoftwareDraw:syncCaptureBitmap")) {
+    public boolean startBitmapCapture(View view, Rect dirtyRect, float scale,
+            CaptureObserver observer, Callback<Bitmap> onBitmapCapture) {
+        try (TraceEvent e = TraceEvent.scoped("SoftwareDraw:syncCaptureBitmap")) {
             int scaledWidth = (int) (view.getWidth() * scale);
             int scaledHeight = (int) (view.getHeight() * scale);
 
@@ -40,7 +43,8 @@ public class SoftwareDraw implements ViewResourceAdapter.CaptureMechanism {
                 scaledHeight = 1;
             }
 
-            if (mBitmap != null && (mBitmap.getWidth() != scaledWidth || mBitmap.getHeight() != scaledHeight)) {
+            if (mBitmap != null
+                    && (mBitmap.getWidth() != scaledWidth || mBitmap.getHeight() != scaledHeight)) {
                 mBitmap.recycle();
                 mBitmap = null;
             }
@@ -50,7 +54,8 @@ public class SoftwareDraw implements ViewResourceAdapter.CaptureMechanism {
 
             if (!isEmpty) {
                 Canvas canvas = new Canvas(mBitmap);
-                CaptureUtils.captureCommon(canvas, view, dirtyRect, scale, /*drawWhileDetached*/ true, observer);
+                CaptureUtils.captureCommon(
+                        canvas, view, dirtyRect, scale, /*drawWhileDetached*/ true, observer);
             } else {
                 assert mBitmap.getWidth() == 1 && mBitmap.getHeight() == 1;
                 mBitmap.setPixel(0, 0, Color.TRANSPARENT);

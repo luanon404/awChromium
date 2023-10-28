@@ -22,7 +22,7 @@ public final class VariationsAssociatedData {
      * @param trialName The name of the trial to get the param value for.
      * @param paramName The name of the param for which to get the value.
      * @return The parameter value. Empty string if the field trial does not exist or the specified
-     * parameter does not exist.
+     *     parameter does not exist.
      */
     public static String getVariationParamValue(String trialName, String paramName) {
         return VariationsAssociatedDataJni.get().getVariationParamValue(trialName, paramName);
@@ -36,7 +36,6 @@ public final class VariationsAssociatedData {
 
     /**
      * Returns the list of Google App variations from active finch field trials.
-     *
      * @return A space separated list of ids with leading and trailing space.
      * For example, " 123 456 ".
      * IMPORTANT: This string is only approved for integrations with the Android
@@ -50,9 +49,7 @@ public final class VariationsAssociatedData {
     @NativeMethods
     interface Natives {
         String getVariationParamValue(String trialName, String paramName);
-
         String getFeedbackVariations();
-
         String getGoogleAppVariations();
     }
 }

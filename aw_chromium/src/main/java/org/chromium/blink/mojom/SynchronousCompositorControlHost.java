@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface SynchronousCompositorControlHost extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends SynchronousCompositorControlHost, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends SynchronousCompositorControlHost, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<SynchronousCompositorControlHost, SynchronousCompositorControlHost.Proxy> MANAGER = SynchronousCompositorControlHost_Internal.MANAGER;

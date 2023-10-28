@@ -13,10 +13,13 @@
 
 package org.chromium.gpu.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class GpuFeatureInfo extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 64;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(64, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(64, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public int[] statusValues;
     public int[] enabledGpuDriverBugWorkarounds;
@@ -44,7 +47,8 @@ public final class GpuFeatureInfo extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static GpuFeatureInfo deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -58,44 +62,44 @@ public final class GpuFeatureInfo extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new GpuFeatureInfo(elementsOrVersion);
-            {
-
+                {
+                    
                 result.statusValues = decoder0.readInts(8, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                 {
                     for (int i1 = 0; i1 < result.statusValues.length; ++i1) {
                         GpuFeatureStatus.validate(result.statusValues[i1]);
                     }
                 }
-            }
-            {
-
+                }
+                {
+                    
                 result.enabledGpuDriverBugWorkarounds = decoder0.readInts(16, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
-            }
-            {
-
+                }
+                {
+                    
                 result.disabledExtensions = decoder0.readString(24, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.disabledWebglExtensions = decoder0.readString(32, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.appliedGpuBlocklistEntries = decoder0.readInts(40, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
-            }
-            {
-
+                }
+                {
+                    
                 result.appliedGpuDriverBugListEntries = decoder0.readInts(48, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
-            }
-            {
-
+                }
+                {
+                    
                 result.supportedBufferFormatsForAllocationAndTexturing = decoder0.readInts(56, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                 {
                     for (int i1 = 0; i1 < result.supportedBufferFormatsForAllocationAndTexturing.length; ++i1) {
                         org.chromium.gfx.mojom.BufferFormat.validate(result.supportedBufferFormatsForAllocationAndTexturing[i1]);
                     }
                 }
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -107,19 +111,19 @@ public final class GpuFeatureInfo extends org.chromium.mojo.bindings.Struct {
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.statusValues, 8, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
-
+        
         encoder0.encode(this.enabledGpuDriverBugWorkarounds, 16, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
-
+        
         encoder0.encode(this.disabledExtensions, 24, false);
-
+        
         encoder0.encode(this.disabledWebglExtensions, 32, false);
-
+        
         encoder0.encode(this.appliedGpuBlocklistEntries, 40, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
-
+        
         encoder0.encode(this.appliedGpuDriverBugListEntries, 48, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
-
+        
         encoder0.encode(this.supportedBufferFormatsForAllocationAndTexturing, 56, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
     }
 }

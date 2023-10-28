@@ -12,7 +12,9 @@ import java.lang.annotation.RetentionPolicy;
 /**
  * These are the possible failures from the LibraryLoader
  */
-@IntDef({LoaderErrors.NORMAL_COMPLETION, LoaderErrors.FAILED_TO_REGISTER_JNI, LoaderErrors.NATIVE_LIBRARY_LOAD_FAILED, LoaderErrors.NATIVE_LIBRARY_WRONG_VERSION, LoaderErrors.NATIVE_STARTUP_FAILED})
+@IntDef({LoaderErrors.NORMAL_COMPLETION, LoaderErrors.FAILED_TO_REGISTER_JNI,
+        LoaderErrors.NATIVE_LIBRARY_LOAD_FAILED, LoaderErrors.NATIVE_LIBRARY_WRONG_VERSION,
+        LoaderErrors.NATIVE_STARTUP_FAILED})
 @Retention(RetentionPolicy.SOURCE)
 public @interface LoaderErrors {
     int NORMAL_COMPLETION = 0;

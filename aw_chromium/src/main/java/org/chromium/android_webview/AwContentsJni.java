@@ -3,386 +3,532 @@
 //
 package org.chromium.android_webview;
 
-import android.graphics.Canvas;
-import android.os.Message;
-
-import org.chromium.base.Callback;
-import org.chromium.components.navigation_interception.InterceptNavigationDelegate;
-import org.chromium.content_public.browser.WebContents;
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.ComponentCallbacks2;
+import android.content.Context;
+import android.content.Intent;
+import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
+import android.graphics.Paint;
+import android.graphics.Picture;
+import android.graphics.Point;
+import android.graphics.Rect;
+import android.net.Uri;
+import android.net.http.SslCertificate;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Debug;
+import android.os.Handler;
+import android.os.Message;
+import android.os.SystemClock;
+import android.text.TextUtils;
+import android.util.Base64;
+import android.util.Pair;
+import android.util.SparseArray;
+import android.view.DragEvent;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
+import android.view.PointerIcon;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewStructure;
+import android.view.Window;
+import android.view.accessibility.AccessibilityNodeProvider;
+import android.view.animation.AnimationUtils;
+import android.view.autofill.AutofillValue;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputConnection;
+import android.view.textclassifier.TextClassifier;
+import android.webkit.JavascriptInterface;
+import androidx.annotation.IntDef;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.CalledByNativeUnchecked;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.android_webview.autofill.AndroidAutofillSafeModeAction;
+import org.chromium.android_webview.common.AwFeatures;
+import org.chromium.android_webview.common.AwSwitches;
+import org.chromium.android_webview.common.Lifetime;
+import org.chromium.android_webview.gfx.AwDrawFnImpl;
+import org.chromium.android_webview.gfx.AwFunctor;
+import org.chromium.android_webview.gfx.AwGLFunctor;
+import org.chromium.android_webview.gfx.AwPicture;
+import org.chromium.android_webview.gfx.RectUtils;
+import org.chromium.android_webview.metrics.AwOriginVisitLogger;
+import org.chromium.android_webview.metrics.AwSiteVisitLogger;
+import org.chromium.android_webview.permission.AwGeolocationCallback;
+import org.chromium.android_webview.permission.AwPermissionRequest;
+import org.chromium.android_webview.renderer_priority.RendererPriority;
+import org.chromium.base.BaseFeatures;
+import org.chromium.base.Callback;
+import org.chromium.base.CommandLine;
+import org.chromium.base.ContextUtils;
+import org.chromium.base.LocaleUtils;
+import org.chromium.base.Log;
+import org.chromium.base.ObserverList;
+import org.chromium.base.ThreadUtils;
+import org.chromium.base.TimeUtils;
+import org.chromium.base.TraceEvent;
+import org.chromium.base.jank_tracker.FrameMetricsListener;
+import org.chromium.base.jank_tracker.FrameMetricsStore;
+import org.chromium.base.jank_tracker.JankReportingScheduler;
+import org.chromium.base.jank_tracker.JankScenario;
+import org.chromium.base.jank_tracker.JankTracker;
+import org.chromium.base.jank_tracker.JankTrackerImpl;
+import org.chromium.base.jank_tracker.JankTrackerStateController;
+import org.chromium.base.memory.MemoryInfoBridge;
+import org.chromium.base.metrics.RecordHistogram;
+import org.chromium.base.metrics.ScopedSysTraceEvent;
+import org.chromium.base.task.AsyncTask;
+import org.chromium.base.task.PostTask;
+import org.chromium.base.task.TaskTraits;
+import org.chromium.components.autofill.AutofillProvider;
+import org.chromium.components.autofill.AutofillSelectionMenuItemProvider;
+import org.chromium.components.content_capture.OnscreenContentProvider;
+import org.chromium.components.embedder_support.util.WebResourceResponseInfo;
+import org.chromium.components.navigation_interception.InterceptNavigationDelegate;
+import org.chromium.components.stylus_handwriting.StylusWritingController;
+import org.chromium.components.url_formatter.UrlFormatter;
+import org.chromium.components.zoom.ZoomConstants;
+import org.chromium.content_public.browser.ChildProcessImportance;
+import org.chromium.content_public.browser.ContentViewStatics;
+import org.chromium.content_public.browser.GestureListenerManager;
+import org.chromium.content_public.browser.GestureStateListener;
+import org.chromium.content_public.browser.ImeAdapter;
+import org.chromium.content_public.browser.ImeEventObserver;
+import org.chromium.content_public.browser.JavaScriptCallback;
+import org.chromium.content_public.browser.JavascriptInjector;
+import org.chromium.content_public.browser.LoadUrlParams;
+import org.chromium.content_public.browser.MessagePayload;
+import org.chromium.content_public.browser.MessagePort;
+import org.chromium.content_public.browser.NavigationController;
+import org.chromium.content_public.browser.NavigationHandle;
+import org.chromium.content_public.browser.NavigationHistory;
+import org.chromium.content_public.browser.RenderFrameHost;
+import org.chromium.content_public.browser.SelectionClient;
+import org.chromium.content_public.browser.SelectionPopupController;
+import org.chromium.content_public.browser.SmartClipProvider;
+import org.chromium.content_public.browser.ViewEventSink;
+import org.chromium.content_public.browser.WebContents;
+import org.chromium.content_public.browser.WebContentsAccessibility;
+import org.chromium.content_public.browser.WebContentsInternals;
+import org.chromium.content_public.browser.navigation_controller.LoadURLType;
+import org.chromium.content_public.browser.navigation_controller.UserAgentOverrideOption;
+import org.chromium.content_public.common.ContentUrlConstants;
+import org.chromium.content_public.common.Referrer;
+import org.chromium.device.gamepad.GamepadList;
+import org.chromium.net.NetworkChangeNotifier;
+import org.chromium.network.mojom.ReferrerPolicy;
+import org.chromium.ui.base.ActivityWindowAndroid;
+import org.chromium.ui.base.Clipboard;
+import org.chromium.ui.base.IntentRequestTracker;
+import org.chromium.ui.base.PageTransition;
+import org.chromium.ui.base.ViewAndroidDelegate;
+import org.chromium.ui.base.ViewUtils;
+import org.chromium.ui.base.WindowAndroid;
+import org.chromium.ui.display.DisplayAndroid.DisplayAndroidObserver;
+import org.chromium.url.GURL;
+import java.io.File;
+import java.lang.annotation.Annotation;
+import java.lang.ref.WeakReference;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.WeakHashMap;
+import java.util.concurrent.Callable;
+import java.util.function.BiFunction;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @CheckDiscard("crbug.com/993421")
 class AwContentsJni implements AwContents.Natives {
-    private static AwContents.Natives testInstance;
-
-    public static final JniStaticTestMocker<AwContents.Natives> TEST_HOOKS = new JniStaticTestMocker<AwContents.Natives>() {
-        @Override
-        public void setInstanceForTesting(AwContents.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
-    @Override
-    public int addDocumentStartJavaScript(long nativeAwContents, String script, String[] allowedOriginRules) {
-        return (int) GEN_JNI.org_chromium_android_1webview_AwContents_addDocumentStartJavaScript(nativeAwContents, script, allowedOriginRules);
-    }
-
-    @Override
-    public void addVisitedLinks(long nativeAwContents, String[] visitedLinks) {
-        GEN_JNI.org_chromium_android_1webview_AwContents_addVisitedLinks(nativeAwContents, visitedLinks);
-    }
-
-    @Override
-    public String addWebMessageListener(long nativeAwContents, WebMessageListenerHolder listener, String jsObjectName, String[] allowedOrigins) {
-        return (String) GEN_JNI.org_chromium_android_1webview_AwContents_addWebMessageListener(nativeAwContents, listener, jsObjectName, allowedOrigins);
-    }
-
-    @Override
-    public long capturePicture(long nativeAwContents, int width, int height) {
-        return (long) GEN_JNI.org_chromium_android_1webview_AwContents_capturePicture(nativeAwContents, width, height);
-    }
-
-    @Override
-    public void clearCache(long nativeAwContents, boolean includeDiskFiles) {
-        GEN_JNI.org_chromium_android_1webview_AwContents_clearCache(nativeAwContents, includeDiskFiles);
-    }
-
-    @Override
-    public void clearMatches(long nativeAwContents) {
-        GEN_JNI.org_chromium_android_1webview_AwContents_clearMatches(nativeAwContents);
-    }
-
-    @Override
-    public void clearView(long nativeAwContents) {
-        GEN_JNI.org_chromium_android_1webview_AwContents_clearView(nativeAwContents);
-    }
-
-    @Override
-    public void createPdfExporter(long nativeAwContents, AwPdfExporter awPdfExporter) {
-        GEN_JNI.org_chromium_android_1webview_AwContents_createPdfExporter(nativeAwContents, awPdfExporter);
-    }
-
-    @Override
-    public void destroy(long nativeAwContents) {
-        GEN_JNI.org_chromium_android_1webview_AwContents_destroy(nativeAwContents);
-    }
-
-    @Override
-    public void documentHasImages(long nativeAwContents, Message message) {
-        GEN_JNI.org_chromium_android_1webview_AwContents_documentHasImages(nativeAwContents, message);
-    }
-
-    @Override
-    public void enableOnNewPicture(long nativeAwContents, boolean enabled) {
-        GEN_JNI.org_chromium_android_1webview_AwContents_enableOnNewPicture(nativeAwContents, enabled);
-    }
-
-    @Override
-    public void findAllAsync(long nativeAwContents, String searchString) {
-        GEN_JNI.org_chromium_android_1webview_AwContents_findAllAsync(nativeAwContents, searchString);
-    }
-
-    @Override
-    public void findNext(long nativeAwContents, boolean forward) {
-        GEN_JNI.org_chromium_android_1webview_AwContents_findNext(nativeAwContents, forward);
-    }
-
-    @Override
-    public void focusFirstNode(long nativeAwContents) {
-        GEN_JNI.org_chromium_android_1webview_AwContents_focusFirstNode(nativeAwContents);
-    }
-
-    @Override
-    public void generateMHTML(long nativeAwContents, String path, Callback callback) {
-        GEN_JNI.org_chromium_android_1webview_AwContents_generateMHTML(nativeAwContents, path, callback);
-    }
-
-    @Override
-    public AwBrowserContext getBrowserContext(long nativeAwContents) {
-        return (AwBrowserContext) GEN_JNI.org_chromium_android_1webview_AwContents_getBrowserContext(nativeAwContents);
-    }
-
-    @Override
-    public byte[] getCertificate(long nativeAwContents) {
-        return (byte[]) GEN_JNI.org_chromium_android_1webview_AwContents_getCertificate(nativeAwContents);
-    }
-
-    @Override
-    public StartupJavascriptInfo[] getDocumentStartupJavascripts(long nativeAwContents, Class clazz) {
-        return (StartupJavascriptInfo[]) GEN_JNI.org_chromium_android_1webview_AwContents_getDocumentStartupJavascripts(nativeAwContents, clazz);
-    }
-
-    @Override
-    public int getEffectivePriority(long nativeAwContents) {
-        return (int) GEN_JNI.org_chromium_android_1webview_AwContents_getEffectivePriority(nativeAwContents);
-    }
-
-    @Override
-    public int getNativeInstanceCount() {
-        return (int) GEN_JNI.org_chromium_android_1webview_AwContents_getNativeInstanceCount();
-    }
-
-    @Override
-    public byte[] getOpaqueState(long nativeAwContents) {
-        return (byte[]) GEN_JNI.org_chromium_android_1webview_AwContents_getOpaqueState(nativeAwContents);
-    }
-
-    @Override
-    public AwRenderProcess getRenderProcess(long nativeAwContents) {
-        return (AwRenderProcess) GEN_JNI.org_chromium_android_1webview_AwContents_getRenderProcess(nativeAwContents);
-    }
-
-    @Override
-    public String getSafeBrowsingLocaleForTesting() {
-        return (String) GEN_JNI.org_chromium_android_1webview_AwContents_getSafeBrowsingLocaleForTesting();
-    }
-
-    @Override
-    public String getScheme(long nativeAwContents) {
-        return (String) GEN_JNI.org_chromium_android_1webview_AwContents_getScheme(nativeAwContents);
-    }
-
-    @Override
-    public WebContents getWebContents(long nativeAwContents) {
-        return (WebContents) GEN_JNI.org_chromium_android_1webview_AwContents_getWebContents(nativeAwContents);
-    }
-
-    @Override
-    public WebMessageListenerInfo[] getWebMessageListenerInfos(long nativeAwContents, Class clazz) {
-        return (WebMessageListenerInfo[]) GEN_JNI.org_chromium_android_1webview_AwContents_getWebMessageListenerInfos(nativeAwContents, clazz);
-    }
-
-    @Override
-    public void grantFileSchemeAccesstoChildProcess(long nativeAwContents) {
-        GEN_JNI.org_chromium_android_1webview_AwContents_grantFileSchemeAccesstoChildProcess(nativeAwContents);
-    }
-
-    @Override
-    public boolean hasRequiredHardwareExtensions() {
-        return (boolean) GEN_JNI.org_chromium_android_1webview_AwContents_hasRequiredHardwareExtensions();
-    }
-
-    @Override
-    public long init(long browserContextPointer) {
-        return (long) GEN_JNI.org_chromium_android_1webview_AwContents_init(browserContextPointer);
-    }
-
-    @Override
-    public void initializeAndroidAutofill(long nativeAwContents) {
-        GEN_JNI.org_chromium_android_1webview_AwContents_initializeAndroidAutofill(nativeAwContents);
-    }
-
-    @Override
-    public void insertVisualStateCallback(long nativeAwContents, long requestId, AwContents.VisualStateCallback callback) {
-        GEN_JNI.org_chromium_android_1webview_AwContents_insertVisualStateCallback(nativeAwContents, requestId, callback);
-    }
-
-    @Override
-    public void invokeGeolocationCallback(long nativeAwContents, boolean value, String requestingFrame) {
-        GEN_JNI.org_chromium_android_1webview_AwContents_invokeGeolocationCallback(nativeAwContents, value, requestingFrame);
-    }
-
-    @Override
-    public boolean isDisplayingInterstitialForTesting(long nativeAwContents) {
-        return (boolean) GEN_JNI.org_chromium_android_1webview_AwContents_isDisplayingInterstitialForTesting(nativeAwContents);
-    }
-
-    @Override
-    public boolean isVisible(long nativeAwContents) {
-        return (boolean) GEN_JNI.org_chromium_android_1webview_AwContents_isVisible(nativeAwContents);
-    }
-
-    @Override
-    public boolean needToDrawBackgroundColor(long nativeAwContents) {
-        return (boolean) GEN_JNI.org_chromium_android_1webview_AwContents_needToDrawBackgroundColor(nativeAwContents);
-    }
-
-    @Override
-    public void onAttachedToWindow(long nativeAwContents, int w, int h) {
-        GEN_JNI.org_chromium_android_1webview_AwContents_onAttachedToWindow(nativeAwContents, w, h);
-    }
-
-    @Override
-    public void onComputeScroll(long nativeAwContents, long currentAnimationTimeMillis) {
-        GEN_JNI.org_chromium_android_1webview_AwContents_onComputeScroll(nativeAwContents, currentAnimationTimeMillis);
-    }
-
-    @Override
-    public void onConfigurationChanged(long nativeAwContents) {
-        GEN_JNI.org_chromium_android_1webview_AwContents_onConfigurationChanged(nativeAwContents);
-    }
-
-    @Override
-    public void onDetachedFromWindow(long nativeAwContents) {
-        GEN_JNI.org_chromium_android_1webview_AwContents_onDetachedFromWindow(nativeAwContents);
-    }
-
-    @Override
-    public boolean onDraw(long nativeAwContents, Canvas canvas, boolean isHardwareAccelerated, int scrollX, int scrollY, int visibleLeft, int visibleTop, int visibleRight, int visibleBottom, boolean forceAuxiliaryBitmapRendering) {
-        return (boolean) GEN_JNI.org_chromium_android_1webview_AwContents_onDraw(nativeAwContents, canvas, isHardwareAccelerated, scrollX, scrollY, visibleLeft, visibleTop, visibleRight, visibleBottom, forceAuxiliaryBitmapRendering);
-    }
-
-    @Override
-    public void onInputEvent(long nativeAwContents) {
-        GEN_JNI.org_chromium_android_1webview_AwContents_onInputEvent(nativeAwContents);
-    }
-
-    @Override
-    public void onSizeChanged(long nativeAwContents, int w, int h, int ow, int oh) {
-        GEN_JNI.org_chromium_android_1webview_AwContents_onSizeChanged(nativeAwContents, w, h, ow, oh);
-    }
-
-    @Override
-    public void preauthorizePermission(long nativeAwContents, String origin, long resources) {
-        GEN_JNI.org_chromium_android_1webview_AwContents_preauthorizePermission(nativeAwContents, origin, resources);
-    }
-
-    @Override
-    public long releasePopupAwContents(long nativeAwContents) {
-        return (long) GEN_JNI.org_chromium_android_1webview_AwContents_releasePopupAwContents(nativeAwContents);
-    }
-
-    @Override
-    public void removeDocumentStartJavaScript(long nativeAwContents, int scriptId) {
-        GEN_JNI.org_chromium_android_1webview_AwContents_removeDocumentStartJavaScript(nativeAwContents, scriptId);
-    }
-
-    @Override
-    public void removeWebMessageListener(long nativeAwContents, String jsObjectName) {
-        GEN_JNI.org_chromium_android_1webview_AwContents_removeWebMessageListener(nativeAwContents, jsObjectName);
-    }
-
-    @Override
-    public void requestNewHitTestDataAt(long nativeAwContents, float x, float y, float touchMajor) {
-        GEN_JNI.org_chromium_android_1webview_AwContents_requestNewHitTestDataAt(nativeAwContents, x, y, touchMajor);
-    }
-
-    @Override
-    public boolean restoreFromOpaqueState(long nativeAwContents, byte[] state) {
-        return (boolean) GEN_JNI.org_chromium_android_1webview_AwContents_restoreFromOpaqueState(nativeAwContents, state);
-    }
-
-    @Override
-    public void restoreScrollAfterTransition(long nativeAwContents, int x, int y) {
-        GEN_JNI.org_chromium_android_1webview_AwContents_restoreScrollAfterTransition(nativeAwContents, x, y);
-    }
-
-    @Override
-    public void resumeLoadingCreatedPopupWebContents(long nativeAwContents) {
-        GEN_JNI.org_chromium_android_1webview_AwContents_resumeLoadingCreatedPopupWebContents(nativeAwContents);
-    }
-
-    @Override
-    public void scrollTo(long nativeAwContents, int x, int y) {
-        GEN_JNI.org_chromium_android_1webview_AwContents_scrollTo(nativeAwContents, x, y);
-    }
-
-    @Override
-    public void setAwDrawGLFunctionTable(long functionTablePointer) {
-        GEN_JNI.org_chromium_android_1webview_AwContents_setAwDrawGLFunctionTable(functionTablePointer);
-    }
-
-    @Override
-    public void setAwDrawSWFunctionTable(long functionTablePointer) {
-        GEN_JNI.org_chromium_android_1webview_AwContents_setAwDrawSWFunctionTable(functionTablePointer);
-    }
-
-    @Override
-    public void setBackgroundColor(long nativeAwContents, int color) {
-        GEN_JNI.org_chromium_android_1webview_AwContents_setBackgroundColor(nativeAwContents, color);
-    }
-
-    @Override
-    public void setCompositorFrameConsumer(long nativeAwContents, long nativeCompositorFrameConsumer) {
-        GEN_JNI.org_chromium_android_1webview_AwContents_setCompositorFrameConsumer(nativeAwContents, nativeCompositorFrameConsumer);
-    }
-
-    @Override
-    public void setDipScale(long nativeAwContents, float dipScale) {
-        GEN_JNI.org_chromium_android_1webview_AwContents_setDipScale(nativeAwContents, dipScale);
-    }
-
-    @Override
-    public void setExtraHeadersForUrl(long nativeAwContents, String url, String extraHeaders) {
-        GEN_JNI.org_chromium_android_1webview_AwContents_setExtraHeadersForUrl(nativeAwContents, url, extraHeaders);
-    }
-
-    @Override
-    public void setIsPaused(long nativeAwContents, boolean paused) {
-        GEN_JNI.org_chromium_android_1webview_AwContents_setIsPaused(nativeAwContents, paused);
-    }
-
-    @Override
-    public void setJavaPeers(long nativeAwContents, AwContents awContents, AwWebContentsDelegate webViewWebContentsDelegate, AwContentsClientBridge contentsClientBridge, AwContentsIoThreadClient ioThreadClient, InterceptNavigationDelegate navigationInterceptionDelegate) {
-        GEN_JNI.org_chromium_android_1webview_AwContents_setJavaPeers(nativeAwContents, awContents, webViewWebContentsDelegate, contentsClientBridge, ioThreadClient, navigationInterceptionDelegate);
-    }
-
-    @Override
-    public void setJsOnlineProperty(long nativeAwContents, boolean networkUp) {
-        GEN_JNI.org_chromium_android_1webview_AwContents_setJsOnlineProperty(nativeAwContents, networkUp);
-    }
-
-    @Override
-    public void setShouldDownloadFavicons() {
-        GEN_JNI.org_chromium_android_1webview_AwContents_setShouldDownloadFavicons();
-    }
-
-    @Override
-    public void setViewVisibility(long nativeAwContents, boolean visible) {
-        GEN_JNI.org_chromium_android_1webview_AwContents_setViewVisibility(nativeAwContents, visible);
-    }
-
-    @Override
-    public void setWindowVisibility(long nativeAwContents, boolean visible) {
-        GEN_JNI.org_chromium_android_1webview_AwContents_setWindowVisibility(nativeAwContents, visible);
-    }
-
-    @Override
-    public void smoothScroll(long nativeAwContents, int targetX, int targetY, long durationMs) {
-        GEN_JNI.org_chromium_android_1webview_AwContents_smoothScroll(nativeAwContents, targetX, targetY, durationMs);
-    }
-
-    @Override
-    public void trimMemory(long nativeAwContents, int level, boolean visible) {
-        GEN_JNI.org_chromium_android_1webview_AwContents_trimMemory(nativeAwContents, level, visible);
-    }
-
-    @Override
-    public void updateDefaultLocale(String locale, String localeList) {
-        GEN_JNI.org_chromium_android_1webview_AwContents_updateDefaultLocale(locale, localeList);
-    }
-
-    @Override
-    public void updateLastHitTestData(long nativeAwContents) {
-        GEN_JNI.org_chromium_android_1webview_AwContents_updateLastHitTestData(nativeAwContents);
-    }
-
-    @Override
-    public void updateScreenCoverage(int globalPercentage, String[] schemes, int[] schemePercentages) {
-        GEN_JNI.org_chromium_android_1webview_AwContents_updateScreenCoverage(globalPercentage, schemes, schemePercentages);
-    }
-
-    @Override
-    public void zoomBy(long nativeAwContents, float delta) {
-        GEN_JNI.org_chromium_android_1webview_AwContents_zoomBy(nativeAwContents, delta);
-    }
-
-    public static AwContents.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of AwContents.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new AwContentsJni();
-    }
+  private static AwContents.Natives testInstance;
+
+  public static final JniStaticTestMocker<AwContents.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<AwContents.Natives>() {
+    @Override
+    public void setInstanceForTesting(AwContents.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
+    }
+  };
+
+  @Override
+  public int addDocumentStartJavaScript(long nativeAwContents, String script, String[] allowedOriginRules) {
+    return (int) GEN_JNI.org_chromium_android_1webview_AwContents_addDocumentStartJavaScript(nativeAwContents, script, allowedOriginRules);
+  }
+
+  @Override
+  public void addVisitedLinks(long nativeAwContents, String[] visitedLinks) {
+    GEN_JNI.org_chromium_android_1webview_AwContents_addVisitedLinks(nativeAwContents, visitedLinks);
+  }
+
+  @Override
+  public String addWebMessageListener(long nativeAwContents, WebMessageListenerHolder listener, String jsObjectName, String[] allowedOrigins) {
+    return (String) GEN_JNI.org_chromium_android_1webview_AwContents_addWebMessageListener(nativeAwContents, listener, jsObjectName, allowedOrigins);
+  }
+
+  @Override
+  public long capturePicture(long nativeAwContents, int width, int height) {
+    return (long) GEN_JNI.org_chromium_android_1webview_AwContents_capturePicture(nativeAwContents, width, height);
+  }
+
+  @Override
+  public void clearCache(long nativeAwContents, boolean includeDiskFiles) {
+    GEN_JNI.org_chromium_android_1webview_AwContents_clearCache(nativeAwContents, includeDiskFiles);
+  }
+
+  @Override
+  public void clearMatches(long nativeAwContents) {
+    GEN_JNI.org_chromium_android_1webview_AwContents_clearMatches(nativeAwContents);
+  }
+
+  @Override
+  public void clearView(long nativeAwContents) {
+    GEN_JNI.org_chromium_android_1webview_AwContents_clearView(nativeAwContents);
+  }
+
+  @Override
+  public void createPdfExporter(long nativeAwContents, AwPdfExporter awPdfExporter) {
+    GEN_JNI.org_chromium_android_1webview_AwContents_createPdfExporter(nativeAwContents, awPdfExporter);
+  }
+
+  @Override
+  public void destroy(long nativeAwContents) {
+    GEN_JNI.org_chromium_android_1webview_AwContents_destroy(nativeAwContents);
+  }
+
+  @Override
+  public void documentHasImages(long nativeAwContents, Message message) {
+    GEN_JNI.org_chromium_android_1webview_AwContents_documentHasImages(nativeAwContents, message);
+  }
+
+  @Override
+  public void enableOnNewPicture(long nativeAwContents, boolean enabled) {
+    GEN_JNI.org_chromium_android_1webview_AwContents_enableOnNewPicture(nativeAwContents, enabled);
+  }
+
+  @Override
+  public void findAllAsync(long nativeAwContents, String searchString) {
+    GEN_JNI.org_chromium_android_1webview_AwContents_findAllAsync(nativeAwContents, searchString);
+  }
+
+  @Override
+  public void findNext(long nativeAwContents, boolean forward) {
+    GEN_JNI.org_chromium_android_1webview_AwContents_findNext(nativeAwContents, forward);
+  }
+
+  @Override
+  public void focusFirstNode(long nativeAwContents) {
+    GEN_JNI.org_chromium_android_1webview_AwContents_focusFirstNode(nativeAwContents);
+  }
+
+  @Override
+  public void generateMHTML(long nativeAwContents, String path, Callback callback) {
+    GEN_JNI.org_chromium_android_1webview_AwContents_generateMHTML(nativeAwContents, path, callback);
+  }
+
+  @Override
+  public AwBrowserContext getBrowserContext(long nativeAwContents) {
+    return (AwBrowserContext) GEN_JNI.org_chromium_android_1webview_AwContents_getBrowserContext(nativeAwContents);
+  }
+
+  @Override
+  public byte[] getCertificate(long nativeAwContents) {
+    return (byte[]) GEN_JNI.org_chromium_android_1webview_AwContents_getCertificate(nativeAwContents);
+  }
+
+  @Override
+  public StartupJavascriptInfo[] getDocumentStartupJavascripts(long nativeAwContents, Class clazz) {
+    return (StartupJavascriptInfo[]) GEN_JNI.org_chromium_android_1webview_AwContents_getDocumentStartupJavascripts(nativeAwContents, clazz);
+  }
+
+  @Override
+  public int getEffectivePriority(long nativeAwContents) {
+    return (int) GEN_JNI.org_chromium_android_1webview_AwContents_getEffectivePriority(nativeAwContents);
+  }
+
+  @Override
+  public int getNativeInstanceCount() {
+    return (int) GEN_JNI.org_chromium_android_1webview_AwContents_getNativeInstanceCount();
+  }
+
+  @Override
+  public byte[] getOpaqueState(long nativeAwContents) {
+    return (byte[]) GEN_JNI.org_chromium_android_1webview_AwContents_getOpaqueState(nativeAwContents);
+  }
+
+  @Override
+  public AwRenderProcess getRenderProcess(long nativeAwContents) {
+    return (AwRenderProcess) GEN_JNI.org_chromium_android_1webview_AwContents_getRenderProcess(nativeAwContents);
+  }
+
+  @Override
+  public String getSafeBrowsingLocaleForTesting() {
+    return (String) GEN_JNI.org_chromium_android_1webview_AwContents_getSafeBrowsingLocaleForTesting();
+  }
+
+  @Override
+  public String getScheme(long nativeAwContents) {
+    return (String) GEN_JNI.org_chromium_android_1webview_AwContents_getScheme(nativeAwContents);
+  }
+
+  @Override
+  public WebContents getWebContents(long nativeAwContents) {
+    return (WebContents) GEN_JNI.org_chromium_android_1webview_AwContents_getWebContents(nativeAwContents);
+  }
+
+  @Override
+  public WebMessageListenerInfo[] getWebMessageListenerInfos(long nativeAwContents, Class clazz) {
+    return (WebMessageListenerInfo[]) GEN_JNI.org_chromium_android_1webview_AwContents_getWebMessageListenerInfos(nativeAwContents, clazz);
+  }
+
+  @Override
+  public void grantFileSchemeAccesstoChildProcess(long nativeAwContents) {
+    GEN_JNI.org_chromium_android_1webview_AwContents_grantFileSchemeAccesstoChildProcess(nativeAwContents);
+  }
+
+  @Override
+  public boolean hasRequiredHardwareExtensions() {
+    return (boolean) GEN_JNI.org_chromium_android_1webview_AwContents_hasRequiredHardwareExtensions();
+  }
+
+  @Override
+  public long init(long browserContextPointer) {
+    return (long) GEN_JNI.org_chromium_android_1webview_AwContents_init(browserContextPointer);
+  }
+
+  @Override
+  public void initializeAndroidAutofill(long nativeAwContents) {
+    GEN_JNI.org_chromium_android_1webview_AwContents_initializeAndroidAutofill(nativeAwContents);
+  }
+
+  @Override
+  public void insertVisualStateCallback(long nativeAwContents, long requestId, AwContents.VisualStateCallback callback) {
+    GEN_JNI.org_chromium_android_1webview_AwContents_insertVisualStateCallback(nativeAwContents, requestId, callback);
+  }
+
+  @Override
+  public void invokeGeolocationCallback(long nativeAwContents, boolean value, String requestingFrame) {
+    GEN_JNI.org_chromium_android_1webview_AwContents_invokeGeolocationCallback(nativeAwContents, value, requestingFrame);
+  }
+
+  @Override
+  public boolean isDisplayingInterstitialForTesting(long nativeAwContents) {
+    return (boolean) GEN_JNI.org_chromium_android_1webview_AwContents_isDisplayingInterstitialForTesting(nativeAwContents);
+  }
+
+  @Override
+  public boolean isVisible(long nativeAwContents) {
+    return (boolean) GEN_JNI.org_chromium_android_1webview_AwContents_isVisible(nativeAwContents);
+  }
+
+  @Override
+  public boolean needToDrawBackgroundColor(long nativeAwContents) {
+    return (boolean) GEN_JNI.org_chromium_android_1webview_AwContents_needToDrawBackgroundColor(nativeAwContents);
+  }
+
+  @Override
+  public void onAttachedToWindow(long nativeAwContents, int w, int h) {
+    GEN_JNI.org_chromium_android_1webview_AwContents_onAttachedToWindow(nativeAwContents, w, h);
+  }
+
+  @Override
+  public void onComputeScroll(long nativeAwContents, long currentAnimationTimeMillis) {
+    GEN_JNI.org_chromium_android_1webview_AwContents_onComputeScroll(nativeAwContents, currentAnimationTimeMillis);
+  }
+
+  @Override
+  public void onConfigurationChanged(long nativeAwContents) {
+    GEN_JNI.org_chromium_android_1webview_AwContents_onConfigurationChanged(nativeAwContents);
+  }
+
+  @Override
+  public void onDetachedFromWindow(long nativeAwContents) {
+    GEN_JNI.org_chromium_android_1webview_AwContents_onDetachedFromWindow(nativeAwContents);
+  }
+
+  @Override
+  public boolean onDraw(long nativeAwContents, Canvas canvas, boolean isHardwareAccelerated, int scrollX, int scrollY, int visibleLeft, int visibleTop, int visibleRight, int visibleBottom, boolean forceAuxiliaryBitmapRendering) {
+    return (boolean) GEN_JNI.org_chromium_android_1webview_AwContents_onDraw(nativeAwContents, canvas, isHardwareAccelerated, scrollX, scrollY, visibleLeft, visibleTop, visibleRight, visibleBottom, forceAuxiliaryBitmapRendering);
+  }
+
+  @Override
+  public void onInputEvent(long nativeAwContents) {
+    GEN_JNI.org_chromium_android_1webview_AwContents_onInputEvent(nativeAwContents);
+  }
+
+  @Override
+  public void onSizeChanged(long nativeAwContents, int w, int h, int ow, int oh) {
+    GEN_JNI.org_chromium_android_1webview_AwContents_onSizeChanged(nativeAwContents, w, h, ow, oh);
+  }
+
+  @Override
+  public void preauthorizePermission(long nativeAwContents, String origin, long resources) {
+    GEN_JNI.org_chromium_android_1webview_AwContents_preauthorizePermission(nativeAwContents, origin, resources);
+  }
+
+  @Override
+  public long releasePopupAwContents(long nativeAwContents) {
+    return (long) GEN_JNI.org_chromium_android_1webview_AwContents_releasePopupAwContents(nativeAwContents);
+  }
+
+  @Override
+  public void removeDocumentStartJavaScript(long nativeAwContents, int scriptId) {
+    GEN_JNI.org_chromium_android_1webview_AwContents_removeDocumentStartJavaScript(nativeAwContents, scriptId);
+  }
+
+  @Override
+  public void removeWebMessageListener(long nativeAwContents, String jsObjectName) {
+    GEN_JNI.org_chromium_android_1webview_AwContents_removeWebMessageListener(nativeAwContents, jsObjectName);
+  }
+
+  @Override
+  public void requestNewHitTestDataAt(long nativeAwContents, float x, float y, float touchMajor) {
+    GEN_JNI.org_chromium_android_1webview_AwContents_requestNewHitTestDataAt(nativeAwContents, x, y, touchMajor);
+  }
+
+  @Override
+  public boolean restoreFromOpaqueState(long nativeAwContents, byte[] state) {
+    return (boolean) GEN_JNI.org_chromium_android_1webview_AwContents_restoreFromOpaqueState(nativeAwContents, state);
+  }
+
+  @Override
+  public void restoreScrollAfterTransition(long nativeAwContents, int x, int y) {
+    GEN_JNI.org_chromium_android_1webview_AwContents_restoreScrollAfterTransition(nativeAwContents, x, y);
+  }
+
+  @Override
+  public void resumeLoadingCreatedPopupWebContents(long nativeAwContents) {
+    GEN_JNI.org_chromium_android_1webview_AwContents_resumeLoadingCreatedPopupWebContents(nativeAwContents);
+  }
+
+  @Override
+  public void scrollTo(long nativeAwContents, int x, int y) {
+    GEN_JNI.org_chromium_android_1webview_AwContents_scrollTo(nativeAwContents, x, y);
+  }
+
+  @Override
+  public void setAwDrawGLFunctionTable(long functionTablePointer) {
+    GEN_JNI.org_chromium_android_1webview_AwContents_setAwDrawGLFunctionTable(functionTablePointer);
+  }
+
+  @Override
+  public void setAwDrawSWFunctionTable(long functionTablePointer) {
+    GEN_JNI.org_chromium_android_1webview_AwContents_setAwDrawSWFunctionTable(functionTablePointer);
+  }
+
+  @Override
+  public void setBackgroundColor(long nativeAwContents, int color) {
+    GEN_JNI.org_chromium_android_1webview_AwContents_setBackgroundColor(nativeAwContents, color);
+  }
+
+  @Override
+  public void setCompositorFrameConsumer(long nativeAwContents, long nativeCompositorFrameConsumer) {
+    GEN_JNI.org_chromium_android_1webview_AwContents_setCompositorFrameConsumer(nativeAwContents, nativeCompositorFrameConsumer);
+  }
+
+  @Override
+  public void setDipScale(long nativeAwContents, float dipScale) {
+    GEN_JNI.org_chromium_android_1webview_AwContents_setDipScale(nativeAwContents, dipScale);
+  }
+
+  @Override
+  public void setExtraHeadersForUrl(long nativeAwContents, String url, String extraHeaders) {
+    GEN_JNI.org_chromium_android_1webview_AwContents_setExtraHeadersForUrl(nativeAwContents, url, extraHeaders);
+  }
+
+  @Override
+  public void setIsPaused(long nativeAwContents, boolean paused) {
+    GEN_JNI.org_chromium_android_1webview_AwContents_setIsPaused(nativeAwContents, paused);
+  }
+
+  @Override
+  public void setJavaPeers(long nativeAwContents, AwContents awContents, AwWebContentsDelegate webViewWebContentsDelegate, AwContentsClientBridge contentsClientBridge, AwContentsIoThreadClient ioThreadClient, InterceptNavigationDelegate navigationInterceptionDelegate) {
+    GEN_JNI.org_chromium_android_1webview_AwContents_setJavaPeers(nativeAwContents, awContents, webViewWebContentsDelegate, contentsClientBridge, ioThreadClient, navigationInterceptionDelegate);
+  }
+
+  @Override
+  public void setJsOnlineProperty(long nativeAwContents, boolean networkUp) {
+    GEN_JNI.org_chromium_android_1webview_AwContents_setJsOnlineProperty(nativeAwContents, networkUp);
+  }
+
+  @Override
+  public void setShouldDownloadFavicons() {
+    GEN_JNI.org_chromium_android_1webview_AwContents_setShouldDownloadFavicons();
+  }
+
+  @Override
+  public void setViewVisibility(long nativeAwContents, boolean visible) {
+    GEN_JNI.org_chromium_android_1webview_AwContents_setViewVisibility(nativeAwContents, visible);
+  }
+
+  @Override
+  public void setWindowVisibility(long nativeAwContents, boolean visible) {
+    GEN_JNI.org_chromium_android_1webview_AwContents_setWindowVisibility(nativeAwContents, visible);
+  }
+
+  @Override
+  public void smoothScroll(long nativeAwContents, int targetX, int targetY, long durationMs) {
+    GEN_JNI.org_chromium_android_1webview_AwContents_smoothScroll(nativeAwContents, targetX, targetY, durationMs);
+  }
+
+  @Override
+  public void trimMemory(long nativeAwContents, int level, boolean visible) {
+    GEN_JNI.org_chromium_android_1webview_AwContents_trimMemory(nativeAwContents, level, visible);
+  }
+
+  @Override
+  public void updateDefaultLocale(String locale, String localeList) {
+    GEN_JNI.org_chromium_android_1webview_AwContents_updateDefaultLocale(locale, localeList);
+  }
+
+  @Override
+  public void updateLastHitTestData(long nativeAwContents) {
+    GEN_JNI.org_chromium_android_1webview_AwContents_updateLastHitTestData(nativeAwContents);
+  }
+
+  @Override
+  public void updateScreenCoverage(int globalPercentage, String[] schemes, int[] schemePercentages) {
+    GEN_JNI.org_chromium_android_1webview_AwContents_updateScreenCoverage(globalPercentage, schemes, schemePercentages);
+  }
+
+  @Override
+  public void zoomBy(long nativeAwContents, float delta) {
+    GEN_JNI.org_chromium_android_1webview_AwContents_zoomBy(nativeAwContents, delta);
+  }
+
+  public static AwContents.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of AwContents.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
+    }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new AwContentsJni();
+  }
 }

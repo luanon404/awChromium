@@ -17,10 +17,13 @@ import androidx.annotation.IntDef;
 
 public final class CompositorFrameSinkType {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({CompositorFrameSinkType.UNSPECIFIED, CompositorFrameSinkType.VIDEO, CompositorFrameSinkType.MEDIA_STREAM, CompositorFrameSinkType.LAYER_TREE})
-    public @interface EnumType {
-    }
+        CompositorFrameSinkType.UNSPECIFIED,
+        CompositorFrameSinkType.VIDEO,
+        CompositorFrameSinkType.MEDIA_STREAM,
+        CompositorFrameSinkType.LAYER_TREE})
+    public @interface EnumType {}
 
     public static final int UNSPECIFIED = 0;
     public static final int VIDEO = 1;
@@ -39,9 +42,8 @@ public final class CompositorFrameSinkType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private CompositorFrameSinkType() {
-    }
+    private CompositorFrameSinkType() {}
 }

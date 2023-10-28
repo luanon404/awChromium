@@ -13,27 +13,37 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface UrlLoader extends org.chromium.mojo.bindings.Interface {
 
 
-    int CLIENT_DISCONNECT_REASON = (int) 1;
+    
+    public static final int CLIENT_DISCONNECT_REASON = (int) 1;
 
 
-    interface Proxy extends UrlLoader, org.chromium.mojo.bindings.Interface.Proxy {
+
+
+    public interface Proxy extends UrlLoader, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<UrlLoader, UrlLoader.Proxy> MANAGER = UrlLoader_Internal.MANAGER;
 
-    void followRedirect(String[] removedHeaders, HttpRequestHeaders modifiedHeaders, HttpRequestHeaders modifiedCorsExemptHeaders, org.chromium.url.mojom.Url newUrl);
+    void followRedirect(
+String[] removedHeaders, HttpRequestHeaders modifiedHeaders, HttpRequestHeaders modifiedCorsExemptHeaders, org.chromium.url.mojom.Url newUrl);
 
 
-    void setPriority(int priority, int intraPriorityValue);
+    void setPriority(
+int priority, int intraPriorityValue);
 
 
-    void pauseReadingBodyFromNet();
+    void pauseReadingBodyFromNet(
+);
 
 
-    void resumeReadingBodyFromNet();
+    void resumeReadingBodyFromNet(
+);
 
 
 }

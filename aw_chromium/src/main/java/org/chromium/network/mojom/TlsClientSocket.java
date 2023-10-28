@@ -13,10 +13,14 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface TlsClientSocket extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends TlsClientSocket, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends TlsClientSocket, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<TlsClientSocket, TlsClientSocket.Proxy> MANAGER = TlsClientSocket_Internal.MANAGER;

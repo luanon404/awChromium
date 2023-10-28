@@ -3,52 +3,69 @@
 //
 package org.chromium.device.usb;
 
-import android.hardware.usb.UsbDevice;
-
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.hardware.usb.UsbDevice;
+import android.hardware.usb.UsbDeviceConnection;
+import android.hardware.usb.UsbManager;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.ContextUtils;
+import org.chromium.base.IntentUtils;
+import org.chromium.base.Log;
+import java.util.HashMap;
 
 @CheckDiscard("crbug.com/993421")
 class ChromeUsbServiceJni implements ChromeUsbService.Natives {
-    private static ChromeUsbService.Natives testInstance;
+  private static ChromeUsbService.Natives testInstance;
 
-    public static final JniStaticTestMocker<ChromeUsbService.Natives> TEST_HOOKS = new JniStaticTestMocker<ChromeUsbService.Natives>() {
-        @Override
-        public void setInstanceForTesting(ChromeUsbService.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<ChromeUsbService.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<ChromeUsbService.Natives>() {
     @Override
-    public void deviceAttached(long nativeUsbServiceAndroid, ChromeUsbService caller, UsbDevice device) {
-        GEN_JNI.org_chromium_device_usb_ChromeUsbService_deviceAttached(nativeUsbServiceAndroid, caller, device);
+    public void setInstanceForTesting(ChromeUsbService.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public void deviceDetached(long nativeUsbServiceAndroid, ChromeUsbService caller, int deviceId) {
-        GEN_JNI.org_chromium_device_usb_ChromeUsbService_deviceDetached(nativeUsbServiceAndroid, caller, deviceId);
-    }
+  @Override
+  public void deviceAttached(long nativeUsbServiceAndroid, ChromeUsbService caller, UsbDevice device) {
+    GEN_JNI.org_chromium_device_usb_ChromeUsbService_deviceAttached(nativeUsbServiceAndroid, caller, device);
+  }
 
-    @Override
-    public void devicePermissionRequestComplete(long nativeUsbServiceAndroid, ChromeUsbService caller, int deviceId, boolean granted) {
-        GEN_JNI.org_chromium_device_usb_ChromeUsbService_devicePermissionRequestComplete(nativeUsbServiceAndroid, caller, deviceId, granted);
-    }
+  @Override
+  public void deviceDetached(long nativeUsbServiceAndroid, ChromeUsbService caller, int deviceId) {
+    GEN_JNI.org_chromium_device_usb_ChromeUsbService_deviceDetached(nativeUsbServiceAndroid, caller, deviceId);
+  }
 
-    public static ChromeUsbService.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of ChromeUsbService.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new ChromeUsbServiceJni();
+  @Override
+  public void devicePermissionRequestComplete(long nativeUsbServiceAndroid, ChromeUsbService caller, int deviceId, boolean granted) {
+    GEN_JNI.org_chromium_device_usb_ChromeUsbService_devicePermissionRequestComplete(nativeUsbServiceAndroid, caller, deviceId, granted);
+  }
+
+  public static ChromeUsbService.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of ChromeUsbService.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new ChromeUsbServiceJni();
+  }
 }

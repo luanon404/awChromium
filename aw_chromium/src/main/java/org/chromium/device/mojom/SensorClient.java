@@ -13,18 +13,24 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface SensorClient extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends SensorClient, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends SensorClient, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<SensorClient, SensorClient.Proxy> MANAGER = SensorClient_Internal.MANAGER;
 
-    void raiseError();
+    void raiseError(
+);
 
 
-    void sensorReadingChanged();
+    void sensorReadingChanged(
+);
 
 
 }

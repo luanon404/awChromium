@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class CameraState {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({CameraState.UNKNOWN, CameraState.TURNED_ON, CameraState.TURNED_OFF})
-    public @interface EnumType {
-    }
+        CameraState.UNKNOWN,
+        CameraState.TURNED_ON,
+        CameraState.TURNED_OFF})
+    public @interface EnumType {}
 
     public static final int UNKNOWN = 0;
     public static final int TURNED_ON = 1;
@@ -38,9 +40,8 @@ public final class CameraState {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private CameraState() {
-    }
+    private CameraState() {}
 }

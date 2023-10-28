@@ -13,14 +13,16 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class TrustTokenAccessDetails extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
         public static final int Issuance = 0;
         public static final int Redemption = 1;
         public static final int Signing = 2;
-    }
-
+    };
     private TrustTokenIssuanceDetails mIssuance;
     private TrustTokenRedemptionDetails mRedemption;
     private TrustTokenSigningDetails mSigning;
@@ -62,17 +64,17 @@ public final class TrustTokenAccessDetails extends org.chromium.mojo.bindings.Un
         encoder0.encode(this.mTag, offset + 4);
         switch (mTag) {
             case Tag.Issuance: {
-
+                
                 encoder0.encode(this.mIssuance, offset + 8, false);
                 break;
             }
             case Tag.Redemption: {
-
+                
                 encoder0.encode(this.mRedemption, offset + 8, false);
                 break;
             }
             case Tag.Signing: {
-
+                
                 encoder0.encode(this.mSigning, offset + 8, false);
                 break;
             }
@@ -94,21 +96,21 @@ public final class TrustTokenAccessDetails extends org.chromium.mojo.bindings.Un
         TrustTokenAccessDetails result = new TrustTokenAccessDetails();
         switch (dataHeader.elementsOrVersion) {
             case Tag.Issuance: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mIssuance = TrustTokenIssuanceDetails.decode(decoder1);
                 result.mTag = Tag.Issuance;
                 break;
             }
             case Tag.Redemption: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mRedemption = TrustTokenRedemptionDetails.decode(decoder1);
                 result.mTag = Tag.Redemption;
                 break;
             }
             case Tag.Signing: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mSigning = TrustTokenSigningDetails.decode(decoder1);
                 result.mTag = Tag.Signing;

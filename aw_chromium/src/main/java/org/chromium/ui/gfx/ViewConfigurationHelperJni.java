@@ -4,39 +4,54 @@
 package org.chromium.ui.gfx;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.content.ComponentCallbacks;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.util.TypedValue;
+import android.view.ViewConfiguration;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.ContextUtils;
+import org.chromium.base.StrictModeContext;
+import org.chromium.android_webview.R;
 
 @CheckDiscard("crbug.com/993421")
 class ViewConfigurationHelperJni implements ViewConfigurationHelper.Natives {
-    private static ViewConfigurationHelper.Natives testInstance;
+  private static ViewConfigurationHelper.Natives testInstance;
 
-    public static final JniStaticTestMocker<ViewConfigurationHelper.Natives> TEST_HOOKS = new JniStaticTestMocker<ViewConfigurationHelper.Natives>() {
-        @Override
-        public void setInstanceForTesting(ViewConfigurationHelper.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<ViewConfigurationHelper.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<ViewConfigurationHelper.Natives>() {
     @Override
-    public void updateSharedViewConfiguration(ViewConfigurationHelper caller, float maximumFlingVelocity, float minimumFlingVelocity, float touchSlop, float doubleTapSlop, float minScalingSpan) {
-        GEN_JNI.org_chromium_ui_gfx_ViewConfigurationHelper_updateSharedViewConfiguration(caller, maximumFlingVelocity, minimumFlingVelocity, touchSlop, doubleTapSlop, minScalingSpan);
+    public void setInstanceForTesting(ViewConfigurationHelper.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    public static ViewConfigurationHelper.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of ViewConfigurationHelper.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new ViewConfigurationHelperJni();
+  @Override
+  public void updateSharedViewConfiguration(ViewConfigurationHelper caller, float maximumFlingVelocity, float minimumFlingVelocity, float touchSlop, float doubleTapSlop, float minScalingSpan) {
+    GEN_JNI.org_chromium_ui_gfx_ViewConfigurationHelper_updateSharedViewConfiguration(caller, maximumFlingVelocity, minimumFlingVelocity, touchSlop, doubleTapSlop, minScalingSpan);
+  }
+
+  public static ViewConfigurationHelper.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of ViewConfigurationHelper.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new ViewConfigurationHelperJni();
+  }
 }

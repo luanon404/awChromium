@@ -17,10 +17,11 @@ import androidx.annotation.IntDef;
 
 public final class DragEventSource {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({DragEventSource.MOUSE, DragEventSource.TOUCH})
-    public @interface EnumType {
-    }
+        DragEventSource.MOUSE,
+        DragEventSource.TOUCH})
+    public @interface EnumType {}
 
     public static final int MOUSE = 0;
     public static final int TOUCH = 1;
@@ -37,9 +38,8 @@ public final class DragEventSource {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private DragEventSource() {
-    }
+    private DragEventSource() {}
 }

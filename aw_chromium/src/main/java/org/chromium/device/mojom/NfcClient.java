@@ -13,18 +13,24 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface NfcClient extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends NfcClient, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends NfcClient, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<NfcClient, NfcClient.Proxy> MANAGER = NfcClient_Internal.MANAGER;
 
-    void onWatch(int[] watchIds, String serialNumber, NdefMessage message);
+    void onWatch(
+int[] watchIds, String serialNumber, NdefMessage message);
 
 
-    void onError(NdefError error);
+    void onError(
+NdefError error);
 
 
 }

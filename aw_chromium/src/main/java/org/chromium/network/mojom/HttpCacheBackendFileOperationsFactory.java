@@ -13,15 +13,20 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface HttpCacheBackendFileOperationsFactory extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends HttpCacheBackendFileOperationsFactory, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends HttpCacheBackendFileOperationsFactory, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<HttpCacheBackendFileOperationsFactory, HttpCacheBackendFileOperationsFactory.Proxy> MANAGER = HttpCacheBackendFileOperationsFactory_Internal.MANAGER;
 
-    void create(org.chromium.mojo.bindings.InterfaceRequest<HttpCacheBackendFileOperations> receiver);
+    void create(
+org.chromium.mojo.bindings.InterfaceRequest<HttpCacheBackendFileOperations> receiver);
 
 
 }

@@ -34,7 +34,7 @@ public class Message {
     /**
      * Constructor.
      *
-     * @param buffer  The buffer containing the bytes to send. This must be a direct buffer.
+     * @param buffer The buffer containing the bytes to send. This must be a direct buffer.
      * @param handles The list of handles to send.
      */
     public Message(ByteBuffer buffer, List<? extends Handle> handles) {

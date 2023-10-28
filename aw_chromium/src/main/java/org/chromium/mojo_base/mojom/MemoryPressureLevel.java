@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class MemoryPressureLevel {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({MemoryPressureLevel.NONE, MemoryPressureLevel.MODERATE, MemoryPressureLevel.CRITICAL})
-    public @interface EnumType {
-    }
+        MemoryPressureLevel.NONE,
+        MemoryPressureLevel.MODERATE,
+        MemoryPressureLevel.CRITICAL})
+    public @interface EnumType {}
 
     public static final int NONE = 0;
     public static final int MODERATE = 1;
@@ -38,9 +40,8 @@ public final class MemoryPressureLevel {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private MemoryPressureLevel() {
-    }
+    private MemoryPressureLevel() {}
 }

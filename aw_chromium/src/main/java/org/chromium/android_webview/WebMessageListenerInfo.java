@@ -4,9 +4,10 @@
 
 package org.chromium.android_webview;
 
-import org.chromium.android_webview.common.Lifetime;
 import org.jni_zero.CalledByNative;
 import org.jni_zero.JNINamespace;
+
+import org.chromium.android_webview.common.Lifetime;
 
 /**
  * For native to pass the information of a WebMessageListener related info to Java.
@@ -18,14 +19,16 @@ public class WebMessageListenerInfo {
     public String[] mAllowedOriginRules;
     public WebMessageListenerHolder mHolder;
 
-    private WebMessageListenerInfo(String objectName, String[] allowedOriginRules, WebMessageListenerHolder holder) {
+    private WebMessageListenerInfo(
+            String objectName, String[] allowedOriginRules, WebMessageListenerHolder holder) {
         mObjectName = objectName;
         mAllowedOriginRules = allowedOriginRules;
         mHolder = holder;
     }
 
     @CalledByNative
-    public static WebMessageListenerInfo create(String objectName, String[] allowedOriginRules, WebMessageListenerHolder holder) {
+    public static WebMessageListenerInfo create(
+            String objectName, String[] allowedOriginRules, WebMessageListenerHolder holder) {
         return new WebMessageListenerInfo(objectName, allowedOriginRules, holder);
     }
 }

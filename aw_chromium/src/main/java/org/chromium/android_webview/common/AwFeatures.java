@@ -137,6 +137,5 @@ public final class AwFeatures {
     public static final String WEBVIEW_ZOOM_KEYBOARD_SHORTCUTS = "WebViewZoomKeyboardShortcuts";
 
     // Do not instantiate this class.
-    private AwFeatures() {
-    }
+    private AwFeatures() {}
 }

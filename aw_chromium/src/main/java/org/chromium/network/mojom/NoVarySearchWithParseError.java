@@ -13,13 +13,15 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class NoVarySearchWithParseError extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
         public static final int NoVarySearch = 0;
         public static final int ParseError = 1;
-    }
-
+    };
     private NoVarySearch mNoVarySearch;
     private int mParseError;
 
@@ -50,12 +52,12 @@ public final class NoVarySearchWithParseError extends org.chromium.mojo.bindings
         encoder0.encode(this.mTag, offset + 4);
         switch (mTag) {
             case Tag.NoVarySearch: {
-
+                
                 encoder0.encode(this.mNoVarySearch, offset + 8, false);
                 break;
             }
             case Tag.ParseError: {
-
+                
                 encoder0.encode(this.mParseError, offset + 8);
                 break;
             }
@@ -77,17 +79,17 @@ public final class NoVarySearchWithParseError extends org.chromium.mojo.bindings
         NoVarySearchWithParseError result = new NoVarySearchWithParseError();
         switch (dataHeader.elementsOrVersion) {
             case Tag.NoVarySearch: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mNoVarySearch = NoVarySearch.decode(decoder1);
                 result.mTag = Tag.NoVarySearch;
                 break;
             }
             case Tag.ParseError: {
-
+                
                 result.mParseError = decoder0.readInt(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE);
-                NoVarySearchParseError.validate(result.mParseError);
-                result.mParseError = NoVarySearchParseError.toKnownValue(result.mParseError);
+                    NoVarySearchParseError.validate(result.mParseError);
+                    result.mParseError = NoVarySearchParseError.toKnownValue(result.mParseError);
                 result.mTag = Tag.ParseError;
                 break;
             }

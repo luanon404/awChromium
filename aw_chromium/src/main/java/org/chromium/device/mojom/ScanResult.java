@@ -17,10 +17,17 @@ import androidx.annotation.IntDef;
 
 public final class ScanResult {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({ScanResult.SUCCESS, ScanResult.PARTIAL, ScanResult.INSUFFICIENT, ScanResult.SENSOR_DIRTY, ScanResult.TOO_SLOW, ScanResult.TOO_FAST, ScanResult.IMMOBILE, ScanResult.NO_MATCH})
-    public @interface EnumType {
-    }
+        ScanResult.SUCCESS,
+        ScanResult.PARTIAL,
+        ScanResult.INSUFFICIENT,
+        ScanResult.SENSOR_DIRTY,
+        ScanResult.TOO_SLOW,
+        ScanResult.TOO_FAST,
+        ScanResult.IMMOBILE,
+        ScanResult.NO_MATCH})
+    public @interface EnumType {}
 
     public static final int SUCCESS = 0;
     public static final int PARTIAL = 1;
@@ -43,9 +50,8 @@ public final class ScanResult {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private ScanResult() {
-    }
+    private ScanResult() {}
 }

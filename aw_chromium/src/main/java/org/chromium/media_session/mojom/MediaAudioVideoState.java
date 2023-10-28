@@ -17,10 +17,13 @@ import androidx.annotation.IntDef;
 
 public final class MediaAudioVideoState {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({MediaAudioVideoState.DEPRECATED_UNKNOWN, MediaAudioVideoState.AUDIO_ONLY, MediaAudioVideoState.AUDIO_VIDEO, MediaAudioVideoState.VIDEO_ONLY})
-    public @interface EnumType {
-    }
+        MediaAudioVideoState.DEPRECATED_UNKNOWN,
+        MediaAudioVideoState.AUDIO_ONLY,
+        MediaAudioVideoState.AUDIO_VIDEO,
+        MediaAudioVideoState.VIDEO_ONLY})
+    public @interface EnumType {}
 
     public static final int DEPRECATED_UNKNOWN = 0;
     public static final int AUDIO_ONLY = 1;
@@ -39,9 +42,8 @@ public final class MediaAudioVideoState {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private MediaAudioVideoState() {
-    }
+    private MediaAudioVideoState() {}
 }

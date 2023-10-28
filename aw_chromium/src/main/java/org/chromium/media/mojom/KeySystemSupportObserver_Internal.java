@@ -13,9 +13,13 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 class KeySystemSupportObserver_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<KeySystemSupportObserver, KeySystemSupportObserver.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<KeySystemSupportObserver, KeySystemSupportObserver.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<KeySystemSupportObserver, KeySystemSupportObserver.Proxy> MANAGER =
+            new org.chromium.mojo.bindings.Interface.Manager<KeySystemSupportObserver, KeySystemSupportObserver.Proxy>() {
 
         @Override
         public String getName() {
@@ -24,11 +28,12 @@ class KeySystemSupportObserver_Internal {
 
         @Override
         public int getVersion() {
-            return 0;
+          return 0;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -39,7 +44,7 @@ class KeySystemSupportObserver_Internal {
 
         @Override
         public KeySystemSupportObserver[] buildArray(int size) {
-            return new KeySystemSupportObserver[size];
+          return new KeySystemSupportObserver[size];
         }
     };
 
@@ -49,20 +54,25 @@ class KeySystemSupportObserver_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements KeySystemSupportObserver.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core,
+              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void onKeySystemSupportUpdated(java.util.Map<String, KeySystemCapability> keySystems) {
+        public void onKeySystemSupportUpdated(
+java.util.Map<String, KeySystemCapability> keySystems) {
 
             KeySystemSupportObserverOnKeySystemSupportUpdatedParams _message = new KeySystemSupportObserverOnKeySystemSupportUpdatedParams();
 
             _message.keySystems = keySystems;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_KEY_SYSTEM_SUPPORT_UPDATED_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_KEY_SYSTEM_SUPPORT_UPDATED_ORDINAL)));
 
         }
 
@@ -78,7 +88,8 @@ class KeySystemSupportObserver_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -87,15 +98,20 @@ class KeySystemSupportObserver_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(KeySystemSupportObserver_Internal.MANAGER, messageWithHeader);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
+                                KeySystemSupportObserver_Internal.MANAGER, messageWithHeader);
+
+
+
 
 
                     case ON_KEY_SYSTEM_SUPPORT_UPDATED_ORDINAL: {
 
-                        KeySystemSupportObserverOnKeySystemSupportUpdatedParams data = KeySystemSupportObserverOnKeySystemSupportUpdatedParams.deserialize(messageWithHeader.getPayload());
+                        KeySystemSupportObserverOnKeySystemSupportUpdatedParams data =
+                                KeySystemSupportObserverOnKeySystemSupportUpdatedParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onKeySystemSupportUpdated(data.keySystems);
                         return true;
@@ -106,7 +122,7 @@ class KeySystemSupportObserver_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -114,7 +130,8 @@ class KeySystemSupportObserver_Internal {
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -123,27 +140,31 @@ class KeySystemSupportObserver_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), KeySystemSupportObserver_Internal.MANAGER, messageWithHeader, receiver);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
+                                getCore(), KeySystemSupportObserver_Internal.MANAGER, messageWithHeader, receiver);
+
+
 
 
                     default:
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class KeySystemSupportObserverOnKeySystemSupportUpdatedParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public java.util.Map<String, KeySystemCapability> keySystems;
 
@@ -165,7 +186,8 @@ class KeySystemSupportObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static KeySystemSupportObserverOnKeySystemSupportUpdatedParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -179,33 +201,33 @@ class KeySystemSupportObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new KeySystemSupportObserverOnKeySystemSupportUpdatedParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     {
                         decoder1.readDataHeaderForMap();
                         String[] keys0;
                         KeySystemCapability[] values0;
                         {
-
+                            
                             org.chromium.mojo.bindings.Decoder decoder2 = decoder1.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                             {
                                 org.chromium.mojo.bindings.DataHeader si2 = decoder2.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                                 keys0 = new String[si2.elementsOrVersion];
                                 for (int i2 = 0; i2 < si2.elementsOrVersion; ++i2) {
-
+                                    
                                     keys0[i2] = decoder2.readString(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i2, false);
                                 }
                             }
                         }
                         {
-
+                            
                             org.chromium.mojo.bindings.Decoder decoder2 = decoder1.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE, false);
                             {
                                 org.chromium.mojo.bindings.DataHeader si2 = decoder2.readDataHeaderForPointerArray(keys0.length);
                                 values0 = new KeySystemCapability[si2.elementsOrVersion];
                                 for (int i2 = 0; i2 < si2.elementsOrVersion; ++i2) {
-
+                                    
                                     org.chromium.mojo.bindings.Decoder decoder3 = decoder2.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i2, false);
                                     values0[i2] = KeySystemCapability.decode(decoder3);
                                 }
@@ -213,10 +235,10 @@ class KeySystemSupportObserver_Internal {
                         }
                         result.keySystems = new java.util.HashMap<String, KeySystemCapability>();
                         for (int index0 = 0; index0 < keys0.length; ++index0) {
-                            result.keySystems.put(keys0[index0], values0[index0]);
+                            result.keySystems.put(keys0[index0],  values0[index0]);
                         }
                     }
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -228,7 +250,7 @@ class KeySystemSupportObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             if (this.keySystems == null) {
                 encoder0.encodeNullPointer(8, false);
             } else {
@@ -242,25 +264,26 @@ class KeySystemSupportObserver_Internal {
                     values0[index0] = entry0.getValue();
                     ++index0;
                 }
-
+                
                 {
                     org.chromium.mojo.bindings.Encoder encoder2 = encoder1.encodePointerArray(keys0.length, org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                     for (int i1 = 0; i1 < keys0.length; ++i1) {
-
+                        
                         encoder2.encode(keys0[i1], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                     }
                 }
-
+                
                 {
                     org.chromium.mojo.bindings.Encoder encoder2 = encoder1.encodePointerArray(values0.length, org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                     for (int i1 = 0; i1 < values0.length; ++i1) {
-
+                        
                         encoder2.encode(values0[i1], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                     }
                 }
             }
         }
     }
+
 
 
 }

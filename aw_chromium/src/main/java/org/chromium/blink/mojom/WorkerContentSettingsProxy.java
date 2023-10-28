@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface WorkerContentSettingsProxy extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends WorkerContentSettingsProxy, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends WorkerContentSettingsProxy, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<WorkerContentSettingsProxy, WorkerContentSettingsProxy.Proxy> MANAGER = WorkerContentSettingsProxy_Internal.MANAGER;

@@ -4,54 +4,73 @@
 package org.chromium.ui.base;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.annotation.SuppressLint;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
+import android.net.Uri;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.Callback;
+import org.chromium.base.ContextUtils;
+import org.chromium.base.Log;
+import org.chromium.url.GURL;
 
 @CheckDiscard("crbug.com/993421")
 class ClipboardJni implements Clipboard.Natives {
-    private static Clipboard.Natives testInstance;
+  private static Clipboard.Natives testInstance;
 
-    public static final JniStaticTestMocker<Clipboard.Natives> TEST_HOOKS = new JniStaticTestMocker<Clipboard.Natives>() {
-        @Override
-        public void setInstanceForTesting(Clipboard.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<Clipboard.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<Clipboard.Natives>() {
     @Override
-    public void cleanupForTesting() {
-        GEN_JNI.org_chromium_ui_base_Clipboard_cleanupForTesting();
+    public void setInstanceForTesting(Clipboard.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public long getLastModifiedTimeToJavaTime(long nativeClipboardAndroid) {
-        return (long) GEN_JNI.org_chromium_ui_base_Clipboard_getLastModifiedTimeToJavaTime(nativeClipboardAndroid);
-    }
+  @Override
+  public void cleanupForTesting() {
+    GEN_JNI.org_chromium_ui_base_Clipboard_cleanupForTesting();
+  }
 
-    @Override
-    public void onPrimaryClipChanged(long nativeClipboardAndroid, Clipboard caller) {
-        GEN_JNI.org_chromium_ui_base_Clipboard_onPrimaryClipChanged(nativeClipboardAndroid, caller);
-    }
+  @Override
+  public long getLastModifiedTimeToJavaTime(long nativeClipboardAndroid) {
+    return (long) GEN_JNI.org_chromium_ui_base_Clipboard_getLastModifiedTimeToJavaTime(nativeClipboardAndroid);
+  }
 
-    @Override
-    public void onPrimaryClipTimestampInvalidated(long nativeClipboardAndroid, Clipboard caller, long timestamp) {
-        GEN_JNI.org_chromium_ui_base_Clipboard_onPrimaryClipTimestampInvalidated(nativeClipboardAndroid, caller, timestamp);
-    }
+  @Override
+  public void onPrimaryClipChanged(long nativeClipboardAndroid, Clipboard caller) {
+    GEN_JNI.org_chromium_ui_base_Clipboard_onPrimaryClipChanged(nativeClipboardAndroid, caller);
+  }
 
-    public static Clipboard.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of Clipboard.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new ClipboardJni();
+  @Override
+  public void onPrimaryClipTimestampInvalidated(long nativeClipboardAndroid, Clipboard caller, long timestamp) {
+    GEN_JNI.org_chromium_ui_base_Clipboard_onPrimaryClipTimestampInvalidated(nativeClipboardAndroid, caller, timestamp);
+  }
+
+  public static Clipboard.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of Clipboard.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new ClipboardJni();
+  }
 }

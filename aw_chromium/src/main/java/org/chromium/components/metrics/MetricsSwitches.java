@@ -64,6 +64,5 @@ public final class MetricsSwitches {
     public static final String UMA_INSECURE_SERVER_URL = "uma-insecure-server-url";
 
     // Prevents instantiation.
-    private MetricsSwitches() {
-    }
+    private MetricsSwitches() {}
 }

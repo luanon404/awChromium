@@ -4,9 +4,10 @@
 
 package org.chromium.android_webview;
 
-import org.chromium.base.FeatureMap;
 import org.jni_zero.JNINamespace;
 import org.jni_zero.NativeMethods;
+
+import org.chromium.base.FeatureMap;
 
 /**
  * Java accessor for base/feature_map.h state.
@@ -16,8 +17,7 @@ public final class AwFeatureMap extends FeatureMap {
     private static final AwFeatureMap sInstance = new AwFeatureMap();
 
     // Do not instantiate this class.
-    private AwFeatureMap() {
-    }
+    private AwFeatureMap() {}
 
     /**
      * @return the singleton UiAndroidFeatureMap.

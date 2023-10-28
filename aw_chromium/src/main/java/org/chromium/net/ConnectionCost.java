@@ -1,3 +1,4 @@
+
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -14,11 +15,13 @@ import androidx.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@IntDef({ConnectionCost.UNKNOWN, ConnectionCost.UNMETERED, ConnectionCost.METERED, ConnectionCost.LAST})
+@IntDef({
+    ConnectionCost.UNKNOWN, ConnectionCost.UNMETERED, ConnectionCost.METERED, ConnectionCost.LAST
+})
 @Retention(RetentionPolicy.SOURCE)
 public @interface ConnectionCost {
-    int UNKNOWN = 0;
-    int UNMETERED = 1;
-    int METERED = 2;
-    int LAST = 3;
+  int UNKNOWN = 0;
+  int UNMETERED = 1;
+  int METERED = 2;
+  int LAST = 3;
 }

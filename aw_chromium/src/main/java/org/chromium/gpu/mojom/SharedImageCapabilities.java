@@ -13,10 +13,13 @@
 
 package org.chromium.gpu.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class SharedImageCapabilities extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 16;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public boolean supportsScanoutSharedImages;
     public boolean supportsLuminanceSharedImages;
@@ -43,7 +46,8 @@ public final class SharedImageCapabilities extends org.chromium.mojo.bindings.St
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static SharedImageCapabilities deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -57,30 +61,30 @@ public final class SharedImageCapabilities extends org.chromium.mojo.bindings.St
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new SharedImageCapabilities(elementsOrVersion);
-            {
-
+                {
+                    
                 result.supportsScanoutSharedImages = decoder0.readBoolean(8, 0);
-            }
-            {
-
+                }
+                {
+                    
                 result.supportsLuminanceSharedImages = decoder0.readBoolean(8, 1);
-            }
-            {
-
+                }
+                {
+                    
                 result.supportsR16SharedImages = decoder0.readBoolean(8, 2);
-            }
-            {
-
+                }
+                {
+                    
                 result.disableR8SharedImages = decoder0.readBoolean(8, 3);
-            }
-            {
-
+                }
+                {
+                    
                 result.sharedImageD3d = decoder0.readBoolean(8, 4);
-            }
-            {
-
+                }
+                {
+                    
                 result.sharedImageSwapChain = decoder0.readBoolean(8, 5);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -92,17 +96,17 @@ public final class SharedImageCapabilities extends org.chromium.mojo.bindings.St
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.supportsScanoutSharedImages, 8, 0);
-
+        
         encoder0.encode(this.supportsLuminanceSharedImages, 8, 1);
-
+        
         encoder0.encode(this.supportsR16SharedImages, 8, 2);
-
+        
         encoder0.encode(this.disableR8SharedImages, 8, 3);
-
+        
         encoder0.encode(this.sharedImageD3d, 8, 4);
-
+        
         encoder0.encode(this.sharedImageSwapChain, 8, 5);
     }
 }

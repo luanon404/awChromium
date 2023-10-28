@@ -17,10 +17,13 @@ import androidx.annotation.IntDef;
 
 public final class WaitingReason {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({WaitingReason.NO_CDM, WaitingReason.NO_DECRYPTION_KEY, WaitingReason.DECODER_STATE_LOST, WaitingReason.SECURE_SURFACE_LOST})
-    public @interface EnumType {
-    }
+        WaitingReason.NO_CDM,
+        WaitingReason.NO_DECRYPTION_KEY,
+        WaitingReason.DECODER_STATE_LOST,
+        WaitingReason.SECURE_SURFACE_LOST})
+    public @interface EnumType {}
 
     public static final int NO_CDM = 0;
     public static final int NO_DECRYPTION_KEY = 1;
@@ -40,12 +43,11 @@ public final class WaitingReason {
     }
 
     public static int toKnownValue(int value) {
-        if (isKnownValue(value)) {
-            return value;
-        }
-        return DEFAULT_VALUE;
+      if (isKnownValue(value)) {
+        return value;
+      }
+      return DEFAULT_VALUE;
     }
 
-    private WaitingReason() {
-    }
+    private WaitingReason() {}
 }

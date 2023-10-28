@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class InputDeviceSubsystem {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({InputDeviceSubsystem.SUBSYSTEM_HID, InputDeviceSubsystem.SUBSYSTEM_INPUT, InputDeviceSubsystem.SUBSYSTEM_UNKNOWN})
-    public @interface EnumType {
-    }
+        InputDeviceSubsystem.SUBSYSTEM_HID,
+        InputDeviceSubsystem.SUBSYSTEM_INPUT,
+        InputDeviceSubsystem.SUBSYSTEM_UNKNOWN})
+    public @interface EnumType {}
 
     public static final int SUBSYSTEM_HID = 0;
     public static final int SUBSYSTEM_INPUT = 1;
@@ -38,9 +40,8 @@ public final class InputDeviceSubsystem {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private InputDeviceSubsystem() {
-    }
+    private InputDeviceSubsystem() {}
 }

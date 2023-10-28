@@ -12,28 +12,30 @@ import org.chromium.components.environment_integrity.enums.IntegrityResponse;
 
 /**
  * Upstream implementation of {@link IntegrityServiceBridgeDelegate}.
- * <p>
+ *
  * This will be replaced in downstream builds through build system magic.
  */
 public class IntegrityServiceBridgeDelegateImpl implements IntegrityServiceBridgeDelegate {
     private static final String NOT_SUPPORTED_ERROR = "Environment Integrity not available.";
-
     @Override
-    public ListenableFuture<Long> createEnvironmentIntegrityHandle(boolean ignored, int timeoutMilliseconds) {
+    public ListenableFuture<Long> createEnvironmentIntegrityHandle(
+            boolean ignored, int timeoutMilliseconds) {
         return CallbackToFutureAdapter.getFuture(resolver -> {
-            resolver.setException(new IntegrityException(NOT_SUPPORTED_ERROR, IntegrityResponse.API_NOT_AVAILABLE));
+            resolver.setException(new IntegrityException(
+                    NOT_SUPPORTED_ERROR, IntegrityResponse.API_NOT_AVAILABLE));
             return "IntegrityServiceBridgeDelegateImpl.createEnvironmentIntegrityHandle";
         });
     }
 
     @Override
-    public ListenableFuture<byte[]> getEnvironmentIntegrityToken(long handle, byte[] requestHash, int timeoutMilliseconds) {
+    public ListenableFuture<byte[]> getEnvironmentIntegrityToken(
+            long handle, byte[] requestHash, int timeoutMilliseconds) {
         return CallbackToFutureAdapter.getFuture(resolver -> {
-            resolver.setException(new IntegrityException(NOT_SUPPORTED_ERROR, IntegrityResponse.API_NOT_AVAILABLE));
+            resolver.setException(new IntegrityException(
+                    NOT_SUPPORTED_ERROR, IntegrityResponse.API_NOT_AVAILABLE));
             return "IntegrityServiceBridgeDelegateImpl.getEnvironmentIntegrityToken";
         });
     }
-
     @Override
     public boolean canUseGms() {
         return false;

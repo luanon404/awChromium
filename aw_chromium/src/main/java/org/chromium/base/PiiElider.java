@@ -94,10 +94,10 @@ public class PiiElider {
     private static final Pattern CONSOLE_MSG = Pattern.compile("\\[\\w*:CONSOLE.*\\].*");
 
     private static final String[] APP_NAMESPACE =
-            new String[]{"org.chromium.", "com.google.", "com.chrome."};
+            new String[] {"org.chromium.", "com.google.", "com.chrome."};
 
     private static final String[] SYSTEM_NAMESPACE =
-            new String[]{"android.", "com.android.", "dalvik.", "java.", "javax.", "org.apache.",
+            new String[] {"android.", "com.android.", "dalvik.", "java.", "javax.", "org.apache.",
                     "org.json.", "org.w3c.dom.", "org.xml.", "org.xmlpull.", "System."};
 
     /**

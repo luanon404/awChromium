@@ -4,54 +4,68 @@
 package org.chromium.content.browser.sms;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import androidx.annotation.VisibleForTesting;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.ContextUtils;
+import org.chromium.base.Log;
+import org.chromium.base.ResettersForTesting;
+import org.chromium.ui.base.WindowAndroid;
 
 @CheckDiscard("crbug.com/993421")
 class SmsProviderGmsJni implements SmsProviderGms.Natives {
-    private static SmsProviderGms.Natives testInstance;
+  private static SmsProviderGms.Natives testInstance;
 
-    public static final JniStaticTestMocker<SmsProviderGms.Natives> TEST_HOOKS = new JniStaticTestMocker<SmsProviderGms.Natives>() {
-        @Override
-        public void setInstanceForTesting(SmsProviderGms.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<SmsProviderGms.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<SmsProviderGms.Natives>() {
     @Override
-    public void onCancel(long nativeSmsProviderGms) {
-        GEN_JNI.org_chromium_content_browser_sms_SmsProviderGms_onCancel(nativeSmsProviderGms);
+    public void setInstanceForTesting(SmsProviderGms.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public void onNotAvailable(long nativeSmsProviderGms) {
-        GEN_JNI.org_chromium_content_browser_sms_SmsProviderGms_onNotAvailable(nativeSmsProviderGms);
-    }
+  @Override
+  public void onCancel(long nativeSmsProviderGms) {
+    GEN_JNI.org_chromium_content_browser_sms_SmsProviderGms_onCancel(nativeSmsProviderGms);
+  }
 
-    @Override
-    public void onReceive(long nativeSmsProviderGms, String sms, int backend) {
-        GEN_JNI.org_chromium_content_browser_sms_SmsProviderGms_onReceive(nativeSmsProviderGms, sms, backend);
-    }
+  @Override
+  public void onNotAvailable(long nativeSmsProviderGms) {
+    GEN_JNI.org_chromium_content_browser_sms_SmsProviderGms_onNotAvailable(nativeSmsProviderGms);
+  }
 
-    @Override
-    public void onTimeout(long nativeSmsProviderGms) {
-        GEN_JNI.org_chromium_content_browser_sms_SmsProviderGms_onTimeout(nativeSmsProviderGms);
-    }
+  @Override
+  public void onReceive(long nativeSmsProviderGms, String sms, int backend) {
+    GEN_JNI.org_chromium_content_browser_sms_SmsProviderGms_onReceive(nativeSmsProviderGms, sms, backend);
+  }
 
-    public static SmsProviderGms.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of SmsProviderGms.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new SmsProviderGmsJni();
+  @Override
+  public void onTimeout(long nativeSmsProviderGms) {
+    GEN_JNI.org_chromium_content_browser_sms_SmsProviderGms_onTimeout(nativeSmsProviderGms);
+  }
+
+  public static SmsProviderGms.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of SmsProviderGms.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new SmsProviderGmsJni();
+  }
 }

@@ -15,7 +15,7 @@ public interface GestureListenerManager {
     /**
      * @param webContents {@link WebContents} object.
      * @return {@link GestureListenerManager} object used for the give WebContents.
-     * Creates one if not present.
+     *         Creates one if not present.
      */
     static GestureListenerManager fromWebContents(WebContents webContents) {
         return GestureListenerManagerImpl.fromWebContents(webContents);
@@ -33,26 +33,24 @@ public interface GestureListenerManager {
     /**
      * Add a listener that gets alerted on gesture state and potentially scroll offset changes based
      * on the `frequency` provided.
-     * <p>
+     *
      * WARNING: attaching a listener with a frequency higher than `NONE` results in extra IPC that
      * impacts rendering performance. Only attach listeners when absolutely necessary and remove as
      * soon as possible. See {@link RootScrollOffsetUpdateFrequency} for details.
      *
-     * @param listener  Listener to add.
+     * @param listener Listener to add.
      * @param frequency The {@link RootScrollOffsetUpdateFrequency} this listener needs.
      */
-    void addListener(GestureStateListener listener, @RootScrollOffsetUpdateFrequency.EnumType int frequency);
+    void addListener(
+            GestureStateListener listener, @RootScrollOffsetUpdateFrequency.EnumType int frequency);
 
     /**
      * Removes a listener that was added to watch for gesture state changes.
-     *
      * @param listener Listener to remove.
      */
     void removeListener(GestureStateListener listener);
 
-    /**
-     * Returns whether the provided listener has been added.
-     */
+    /** Returns whether the provided listener has been added. */
     boolean hasListener(GestureStateListener listener);
 
     /**
@@ -62,14 +60,12 @@ public interface GestureListenerManager {
 
     /**
      * Enable or disable multi-touch zoom support.
-     *
      * @param supportsMultiTouchZoom {@code true} if the feature is enabled.
      */
     void updateMultiTouchZoomSupport(boolean supportsMultiTouchZoom);
 
     /**
      * Enable or disable double tap support.
-     *
      * @param supportsDoubleTap {@code true} if the feature is enabled.
      */
     void updateDoubleTapSupport(boolean supportsDoubleTap);

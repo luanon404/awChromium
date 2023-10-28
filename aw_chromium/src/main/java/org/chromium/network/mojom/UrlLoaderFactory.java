@@ -13,18 +13,24 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface UrlLoaderFactory extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends UrlLoaderFactory, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends UrlLoaderFactory, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<UrlLoaderFactory, UrlLoaderFactory.Proxy> MANAGER = UrlLoaderFactory_Internal.MANAGER;
 
-    void createLoaderAndStart(org.chromium.mojo.bindings.InterfaceRequest<UrlLoader> loader, int requestId, int options, UrlRequest request, UrlLoaderClient client, MutableNetworkTrafficAnnotationTag trafficAnnotation);
+    void createLoaderAndStart(
+org.chromium.mojo.bindings.InterfaceRequest<UrlLoader> loader, int requestId, int options, UrlRequest request, UrlLoaderClient client, MutableNetworkTrafficAnnotationTag trafficAnnotation);
 
 
-    void clone(org.chromium.mojo.bindings.InterfaceRequest<UrlLoaderFactory> factory);
+    void clone(
+org.chromium.mojo.bindings.InterfaceRequest<UrlLoaderFactory> factory);
 
 
 }

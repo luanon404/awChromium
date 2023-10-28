@@ -18,6 +18,7 @@ import androidx.annotation.IntDef;
 public final class AnnotationType {
     private static final boolean IS_EXTENSIBLE = false;
     @IntDef({
+
         AnnotationType.SHARED_HIGHLIGHT,
         AnnotationType.USER_NOTE,
         AnnotationType.TEXT_FINDER})

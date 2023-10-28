@@ -13,39 +13,49 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface UsbDeviceManager extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends UsbDeviceManager, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends UsbDeviceManager, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<UsbDeviceManager, UsbDeviceManager.Proxy> MANAGER = UsbDeviceManager_Internal.MANAGER;
 
-    void enumerateDevicesAndSetClient(org.chromium.mojo.bindings.AssociatedInterfaceNotSupported client, EnumerateDevicesAndSetClient_Response callback);
+    void enumerateDevicesAndSetClient(
+org.chromium.mojo.bindings.AssociatedInterfaceNotSupported client, 
+EnumerateDevicesAndSetClient_Response callback);
 
-    interface EnumerateDevicesAndSetClient_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<UsbDeviceInfo[]> {
-    }
-
-
-    void getDevices(UsbEnumerationOptions options, GetDevices_Response callback);
-
-    interface GetDevices_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<UsbDeviceInfo[]> {
-    }
+    interface EnumerateDevicesAndSetClient_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<UsbDeviceInfo[]> { }
 
 
-    void getDevice(String guid, byte[] blockedInterfaceClasses, org.chromium.mojo.bindings.InterfaceRequest<UsbDevice> deviceReceiver, UsbDeviceClient deviceClient);
+    void getDevices(
+UsbEnumerationOptions options, 
+GetDevices_Response callback);
+
+    interface GetDevices_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<UsbDeviceInfo[]> { }
 
 
-    void getSecurityKeyDevice(String guid, org.chromium.mojo.bindings.InterfaceRequest<UsbDevice> deviceReceiver, UsbDeviceClient deviceClient);
+    void getDevice(
+String guid, byte[] blockedInterfaceClasses, org.chromium.mojo.bindings.InterfaceRequest<UsbDevice> deviceReceiver, UsbDeviceClient deviceClient);
 
 
-    void refreshDeviceInfo(String guid, RefreshDeviceInfo_Response callback);
-
-    interface RefreshDeviceInfo_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<UsbDeviceInfo> {
-    }
+    void getSecurityKeyDevice(
+String guid, org.chromium.mojo.bindings.InterfaceRequest<UsbDevice> deviceReceiver, UsbDeviceClient deviceClient);
 
 
-    void setClient(org.chromium.mojo.bindings.AssociatedInterfaceNotSupported client);
+    void refreshDeviceInfo(
+String guid, 
+RefreshDeviceInfo_Response callback);
+
+    interface RefreshDeviceInfo_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<UsbDeviceInfo> { }
+
+
+    void setClient(
+org.chromium.mojo.bindings.AssociatedInterfaceNotSupported client);
 
 
 }

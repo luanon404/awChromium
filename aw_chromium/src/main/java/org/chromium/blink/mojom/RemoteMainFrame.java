@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface RemoteMainFrame extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends RemoteMainFrame, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends RemoteMainFrame, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<RemoteMainFrame, RemoteMainFrame.Proxy> MANAGER = RemoteMainFrame_Internal.MANAGER;

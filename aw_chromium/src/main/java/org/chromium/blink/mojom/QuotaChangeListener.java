@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface QuotaChangeListener extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends QuotaChangeListener, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends QuotaChangeListener, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<QuotaChangeListener, QuotaChangeListener.Proxy> MANAGER = QuotaChangeListener_Internal.MANAGER;

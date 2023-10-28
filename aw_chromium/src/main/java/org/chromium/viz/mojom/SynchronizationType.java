@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class SynchronizationType {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({SynchronizationType.SYNC_TOKEN, SynchronizationType.GPU_COMMANDS_COMPLETED, SynchronizationType.RELEASE_FENCE})
-    public @interface EnumType {
-    }
+        SynchronizationType.SYNC_TOKEN,
+        SynchronizationType.GPU_COMMANDS_COMPLETED,
+        SynchronizationType.RELEASE_FENCE})
+    public @interface EnumType {}
 
     public static final int SYNC_TOKEN = 0;
     public static final int GPU_COMMANDS_COMPLETED = 1;
@@ -38,9 +40,8 @@ public final class SynchronizationType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private SynchronizationType() {
-    }
+    private SynchronizationType() {}
 }

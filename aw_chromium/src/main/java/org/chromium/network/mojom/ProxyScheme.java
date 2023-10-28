@@ -17,10 +17,16 @@ import androidx.annotation.IntDef;
 
 public final class ProxyScheme {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({ProxyScheme.INVALID, ProxyScheme.DIRECT, ProxyScheme.HTTP, ProxyScheme.SOCKS4, ProxyScheme.SOCKS5, ProxyScheme.HTTPS, ProxyScheme.QUIC})
-    public @interface EnumType {
-    }
+        ProxyScheme.INVALID,
+        ProxyScheme.DIRECT,
+        ProxyScheme.HTTP,
+        ProxyScheme.SOCKS4,
+        ProxyScheme.SOCKS5,
+        ProxyScheme.HTTPS,
+        ProxyScheme.QUIC})
+    public @interface EnumType {}
 
     public static final int INVALID = 0;
     public static final int DIRECT = 1;
@@ -42,9 +48,8 @@ public final class ProxyScheme {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private ProxyScheme() {
-    }
+    private ProxyScheme() {}
 }

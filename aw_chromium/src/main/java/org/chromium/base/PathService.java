@@ -17,8 +17,7 @@ public abstract class PathService {
     public static final int DIR_MODULE = 3;
 
     // Prevent instantiation.
-    private PathService() {
-    }
+    private PathService() {}
 
     public static void override(int what, String path) {
         PathServiceJni.get().override(what, path);

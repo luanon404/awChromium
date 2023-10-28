@@ -31,22 +31,23 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * A Chromium version of android.os.AsyncTask.
- * <p>
- * The API is quite close to Android's Oreo version, but with a number of things removed.
  *
+ * The API is quite close to Android's Oreo version, but with a number of things removed.
  * @param <Result> Return type of the background task.
  */
 public abstract class AsyncTask<Result> {
     private static final String TAG = "AsyncTask";
 
-    private static final String GET_STATUS_UMA_HISTOGRAM = "Android.Jank.AsyncTaskGetOnUiThreadStatus";
+    private static final String GET_STATUS_UMA_HISTOGRAM =
+            "Android.Jank.AsyncTaskGetOnUiThreadStatus";
 
     /**
      * An {@link Executor} that can be used to execute tasks in parallel.
      * We use the lowest task priority, and mayBlock = true since any user of this could
      * block.
      */
-    public static final Executor THREAD_POOL_EXECUTOR = (Runnable r) -> PostTask.postTask(TaskTraits.BEST_EFFORT_MAY_BLOCK, r);
+    public static final Executor THREAD_POOL_EXECUTOR =
+            (Runnable r) -> PostTask.postTask(TaskTraits.BEST_EFFORT_MAY_BLOCK, r);
 
     /**
      * An {@link Executor} that executes tasks one at a time in serial
@@ -143,9 +144,7 @@ public abstract class AsyncTask<Result> {
         if (this instanceof BackgroundOnlyAsyncTask) {
             mStatus = Status.FINISHED;
         } else if (mIterationIdForTesting == PostTask.sTestIterationForTesting) {
-            ThreadUtils.postOnUiThread(() -> {
-                finish(result);
-            });
+            ThreadUtils.postOnUiThread(() -> { finish(result); });
         }
     }
 
@@ -176,6 +175,7 @@ public abstract class AsyncTask<Result> {
      * Override this method to perform a computation on a background thread.
      *
      * @return A result, defined by the subclass of this task.
+     *
      * @see #onPreExecute()
      * @see #onPostExecute
      */
@@ -189,8 +189,7 @@ public abstract class AsyncTask<Result> {
      * @see #doInBackground
      */
     @MainThread
-    protected void onPreExecute() {
-    }
+    protected void onPreExecute() {}
 
     /**
      * <p>Runs on the UI thread after {@link #doInBackground}. The
@@ -202,6 +201,7 @@ public abstract class AsyncTask<Result> {
      * post-execution, is should extend BackgroundOnlyAsyncTask instead.
      *
      * @param result The result of the operation computed by {@link #doInBackground}.
+     *
      * @see #onPreExecute
      * @see #doInBackground
      * @see #onCancelled(Object)
@@ -220,6 +220,7 @@ public abstract class AsyncTask<Result> {
      *
      * @param result The result, if any, computed in
      *               {@link #doInBackground()}, can be null
+     *
      * @see #cancel(boolean)
      * @see #isCancelled()
      */
@@ -242,8 +243,7 @@ public abstract class AsyncTask<Result> {
      * @see #isCancelled()
      */
     @MainThread
-    protected void onCancelled() {
-    }
+    protected void onCancelled() {}
 
     /**
      * Returns <tt>true</tt> if this task was cancelled before it completed
@@ -252,6 +252,7 @@ public abstract class AsyncTask<Result> {
      * {@link #doInBackground()} to end the task as soon as possible.
      *
      * @return <tt>true</tt> if task was cancelled before it completed
+     *
      * @see #cancel(boolean)
      */
     public final boolean isCancelled() {
@@ -277,11 +278,13 @@ public abstract class AsyncTask<Result> {
      * possible.</p>
      *
      * @param mayInterruptIfRunning <tt>true</tt> if the thread executing this
-     *                              task should be interrupted; otherwise, in-progress tasks are allowed
-     *                              to complete.
+     *        task should be interrupted; otherwise, in-progress tasks are allowed
+     *        to complete.
+     *
      * @return <tt>false</tt> if the task could not be cancelled,
-     * typically because it has already completed normally;
-     * <tt>true</tt> otherwise
+     *         typically because it has already completed normally;
+     *         <tt>true</tt> otherwise
+     *
      * @see #isCancelled()
      * @see #onCancelled(Object)
      */
@@ -295,10 +298,11 @@ public abstract class AsyncTask<Result> {
      * retrieves its result.
      *
      * @return The computed result.
+     *
      * @throws CancellationException If the computation was cancelled.
-     * @throws ExecutionException    If the computation threw an exception.
-     * @throws InterruptedException  If the current thread was interrupted
-     *                               while waiting.
+     * @throws ExecutionException If the computation threw an exception.
+     * @throws InterruptedException If the current thread was interrupted
+     *         while waiting.
      */
     @DoNotInline
     // The string passed is safe since it is class and method name.
@@ -307,7 +311,8 @@ public abstract class AsyncTask<Result> {
         Result r;
         int status = getUmaStatus();
         if (status != Status.FINISHED && ThreadUtils.runningOnUiThread()) {
-            RecordHistogram.recordEnumeratedHistogram(GET_STATUS_UMA_HISTOGRAM, status, Status.NUM_ENTRIES);
+            RecordHistogram.recordEnumeratedHistogram(
+                    GET_STATUS_UMA_HISTOGRAM, status, Status.NUM_ENTRIES);
             StackTraceElement[] stackTrace = new Exception().getStackTrace();
             String caller = "";
             if (stackTrace.length > 1) {
@@ -327,21 +332,25 @@ public abstract class AsyncTask<Result> {
      * retrieves its result.
      *
      * @param timeout Time to wait before cancelling the operation.
-     * @param unit    The time unit for the timeout.
+     * @param unit The time unit for the timeout.
+     *
      * @return The computed result.
+     *
      * @throws CancellationException If the computation was cancelled.
-     * @throws ExecutionException    If the computation threw an exception.
-     * @throws InterruptedException  If the current thread was interrupted while waiting.
-     * @throws TimeoutException      If the wait timed out.
+     * @throws ExecutionException If the computation threw an exception.
+     * @throws InterruptedException If the current thread was interrupted while waiting.
+     * @throws TimeoutException If the wait timed out.
      */
     @DoNotInline
     // The string passed is safe since it is class and method name.
     @SuppressWarnings("NoDynamicStringsInTraceEventCheck")
-    public final Result get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException {
+    public final Result get(long timeout, TimeUnit unit)
+            throws InterruptedException, ExecutionException, TimeoutException {
         Result r;
         int status = getUmaStatus();
         if (status != Status.FINISHED && ThreadUtils.runningOnUiThread()) {
-            RecordHistogram.recordEnumeratedHistogram(GET_STATUS_UMA_HISTOGRAM, status, Status.NUM_ENTRIES);
+            RecordHistogram.recordEnumeratedHistogram(
+                    GET_STATUS_UMA_HISTOGRAM, status, Status.NUM_ENTRIES);
             StackTraceElement[] stackTrace = new Exception().getStackTrace();
             String caller = "";
             if (stackTrace.length > 1) {
@@ -361,9 +370,12 @@ public abstract class AsyncTask<Result> {
         if (mStatus != Status.PENDING) {
             switch (mStatus) {
                 case Status.RUNNING:
-                    throw new IllegalStateException("Cannot execute task:" + " the task is already running.");
+                    throw new IllegalStateException("Cannot execute task:"
+                            + " the task is already running.");
                 case Status.FINISHED:
-                    throw new IllegalStateException("Cannot execute task:" + " the task has already been executed " + "(a task can be executed only once)");
+                    throw new IllegalStateException("Cannot execute task:"
+                            + " the task has already been executed "
+                            + "(a task can be executed only once)");
             }
         }
 
@@ -395,10 +407,12 @@ public abstract class AsyncTask<Result> {
      * <p>This method must be invoked on the UI thread.
      *
      * @param exec The executor to use.  {@link #THREAD_POOL_EXECUTOR} is available as a
-     *             convenient process-wide thread pool for tasks that are loosely coupled.
+     *              convenient process-wide thread pool for tasks that are loosely coupled.
+     *
      * @return This instance of AsyncTask.
+     *
      * @throws IllegalStateException If {@link #getStatus()} returns either
-     *                               {@link AsyncTask.Status#RUNNING} or {@link AsyncTask.Status#FINISHED}.
+     *         {@link AsyncTask.Status#RUNNING} or {@link AsyncTask.Status#FINISHED}.
      */
     @MainThread
     public final AsyncTask<Result> executeOnExecutor(Executor exec) {
@@ -455,7 +469,8 @@ public abstract class AsyncTask<Result> {
         @Override
         @SuppressWarnings("NoDynamicStringsInTraceEventCheck")
         public void run() {
-            try (TraceEvent e = TraceEvent.scoped("AsyncTask.run: " + mFuture.getBlamedClass().getName())) {
+            try (TraceEvent e = TraceEvent.scoped(
+                         "AsyncTask.run: " + mFuture.getBlamedClass().getName())) {
                 super.run();
             } finally {
                 // Clear the interrupt on this background thread, if there is one, as it likely
@@ -478,7 +493,8 @@ public abstract class AsyncTask<Result> {
             } catch (InterruptedException e) {
                 Log.w(TAG, e.toString());
             } catch (ExecutionException e) {
-                throw new RuntimeException("An error occurred while executing doInBackground()", e.getCause());
+                throw new RuntimeException(
+                        "An error occurred while executing doInBackground()", e.getCause());
             } catch (CancellationException e) {
                 postResultIfNotInvoked(null);
             }

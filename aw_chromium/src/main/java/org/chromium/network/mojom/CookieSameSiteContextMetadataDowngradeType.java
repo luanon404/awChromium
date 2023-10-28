@@ -17,10 +17,13 @@ import androidx.annotation.IntDef;
 
 public final class CookieSameSiteContextMetadataDowngradeType {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({CookieSameSiteContextMetadataDowngradeType.NO_DOWNGRADE, CookieSameSiteContextMetadataDowngradeType.STRICT_TO_LAX, CookieSameSiteContextMetadataDowngradeType.STRICT_TO_CROSS, CookieSameSiteContextMetadataDowngradeType.LAX_TO_CROSS})
-    public @interface EnumType {
-    }
+        CookieSameSiteContextMetadataDowngradeType.NO_DOWNGRADE,
+        CookieSameSiteContextMetadataDowngradeType.STRICT_TO_LAX,
+        CookieSameSiteContextMetadataDowngradeType.STRICT_TO_CROSS,
+        CookieSameSiteContextMetadataDowngradeType.LAX_TO_CROSS})
+    public @interface EnumType {}
 
     public static final int NO_DOWNGRADE = 0;
     public static final int STRICT_TO_LAX = 1;
@@ -39,9 +42,8 @@ public final class CookieSameSiteContextMetadataDowngradeType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private CookieSameSiteContextMetadataDowngradeType() {
-    }
+    private CookieSameSiteContextMetadataDowngradeType() {}
 }

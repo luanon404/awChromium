@@ -46,7 +46,8 @@ public class SmsUserConsentReceiver extends BroadcastReceiver {
         if (DEBUG) Log.d(TAG, "Registering intent filters.");
         IntentFilter filter = new IntentFilter();
         filter.addAction(SmsRetriever.SMS_RETRIEVED_ACTION);
-        ContextUtils.registerExportedBroadcastReceiver(mContext, this, filter, SmsRetriever.SEND_PERMISSION);
+        ContextUtils.registerExportedBroadcastReceiver(
+                mContext, this, filter, SmsRetriever.SEND_PERMISSION);
     }
 
     public SmsRetrieverClient createClient() {
@@ -89,9 +90,11 @@ public class SmsUserConsentReceiver extends BroadcastReceiver {
             case CommonStatusCodes.SUCCESS:
                 assert mProvider.getWindow() != null;
 
-                Intent consentIntent = intent.getExtras().getParcelable(SmsRetriever.EXTRA_CONSENT_INTENT);
+                Intent consentIntent =
+                        intent.getExtras().getParcelable(SmsRetriever.EXTRA_CONSENT_INTENT);
                 try {
-                    mProvider.getWindow().showIntent(consentIntent, (resultCode, data) -> onConsentResult(resultCode, data), null);
+                    mProvider.getWindow().showIntent(consentIntent,
+                            (resultCode, data) -> onConsentResult(resultCode, data), null);
                 } catch (android.content.ActivityNotFoundException e) {
                     if (DEBUG) Log.d(TAG, "Error starting activity for result.");
                 }

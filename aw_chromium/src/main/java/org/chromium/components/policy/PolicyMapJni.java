@@ -4,69 +4,77 @@
 package org.chromium.components.policy;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeClassQualifiedName;
+import org.jni_zero.NativeMethods;
 
 @CheckDiscard("crbug.com/993421")
 public class PolicyMapJni implements PolicyMap.Natives {
-    private static PolicyMap.Natives testInstance;
+  private static PolicyMap.Natives testInstance;
 
-    public static final JniStaticTestMocker<PolicyMap.Natives> TEST_HOOKS = new JniStaticTestMocker<PolicyMap.Natives>() {
-        @Override
-        public void setInstanceForTesting(PolicyMap.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<PolicyMap.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<PolicyMap.Natives>() {
     @Override
-    public boolean equals(long nativePolicyMap, PolicyMap caller, long nativeOtherPolicyMap) {
-        return (boolean) GEN_JNI.org_chromium_components_policy_PolicyMap_equals(nativePolicyMap, caller, nativeOtherPolicyMap);
+    public void setInstanceForTesting(PolicyMap.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public boolean getBooleanValue(long nativePolicyMap, PolicyMap caller, String policy) {
-        return (boolean) GEN_JNI.org_chromium_components_policy_PolicyMap_getBooleanValue(nativePolicyMap, caller, policy);
-    }
+  @Override
+  public boolean equals(long nativePolicyMap, PolicyMap caller, long nativeOtherPolicyMap) {
+    return (boolean) GEN_JNI.org_chromium_components_policy_PolicyMap_equals(nativePolicyMap, caller, nativeOtherPolicyMap);
+  }
 
-    @Override
-    public String getDictValue(long nativePolicyMap, PolicyMap caller, String policy) {
-        return (String) GEN_JNI.org_chromium_components_policy_PolicyMap_getDictValue(nativePolicyMap, caller, policy);
-    }
+  @Override
+  public boolean getBooleanValue(long nativePolicyMap, PolicyMap caller, String policy) {
+    return (boolean) GEN_JNI.org_chromium_components_policy_PolicyMap_getBooleanValue(nativePolicyMap, caller, policy);
+  }
 
-    @Override
-    public int getIntValue(long nativePolicyMap, PolicyMap caller, String policy) {
-        return (int) GEN_JNI.org_chromium_components_policy_PolicyMap_getIntValue(nativePolicyMap, caller, policy);
-    }
+  @Override
+  public String getDictValue(long nativePolicyMap, PolicyMap caller, String policy) {
+    return (String) GEN_JNI.org_chromium_components_policy_PolicyMap_getDictValue(nativePolicyMap, caller, policy);
+  }
 
-    @Override
-    public String getListValue(long nativePolicyMap, PolicyMap caller, String policy) {
-        return (String) GEN_JNI.org_chromium_components_policy_PolicyMap_getListValue(nativePolicyMap, caller, policy);
-    }
+  @Override
+  public int getIntValue(long nativePolicyMap, PolicyMap caller, String policy) {
+    return (int) GEN_JNI.org_chromium_components_policy_PolicyMap_getIntValue(nativePolicyMap, caller, policy);
+  }
 
-    @Override
-    public String getStringValue(long nativePolicyMap, PolicyMap caller, String policy) {
-        return (String) GEN_JNI.org_chromium_components_policy_PolicyMap_getStringValue(nativePolicyMap, caller, policy);
-    }
+  @Override
+  public String getListValue(long nativePolicyMap, PolicyMap caller, String policy) {
+    return (String) GEN_JNI.org_chromium_components_policy_PolicyMap_getListValue(nativePolicyMap, caller, policy);
+  }
 
-    @Override
-    public boolean hasValue(long nativePolicyMap, PolicyMap caller, String policy) {
-        return (boolean) GEN_JNI.org_chromium_components_policy_PolicyMap_hasValue(nativePolicyMap, caller, policy);
-    }
+  @Override
+  public String getStringValue(long nativePolicyMap, PolicyMap caller, String policy) {
+    return (String) GEN_JNI.org_chromium_components_policy_PolicyMap_getStringValue(nativePolicyMap, caller, policy);
+  }
 
-    public static PolicyMap.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of PolicyMap.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new PolicyMapJni();
+  @Override
+  public boolean hasValue(long nativePolicyMap, PolicyMap caller, String policy) {
+    return (boolean) GEN_JNI.org_chromium_components_policy_PolicyMap_hasValue(nativePolicyMap, caller, policy);
+  }
+
+  public static PolicyMap.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of PolicyMap.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new PolicyMapJni();
+  }
 }

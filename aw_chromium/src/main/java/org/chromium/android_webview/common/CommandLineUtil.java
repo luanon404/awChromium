@@ -14,12 +14,12 @@ import org.chromium.base.CommandLine;
  * reached from WebView's separate minidump-uploading Services.
  */
 public class CommandLineUtil {
-    protected CommandLineUtil() {
-    }
+    protected CommandLineUtil() {}
 
     public static final String WEBVIEW_COMMAND_LINE_FILE = "/data/local/tmp/webview-command-line";
 
-    private static final String COMMAND_LINE_UTIL_INTERNAL = "org.chromium.android_webview.common.CommandLineUtilInternal";
+    private static final String COMMAND_LINE_UTIL_INTERNAL =
+            "org.chromium.android_webview.common.CommandLineUtilInternal";
 
     private static CommandLineUtil sInstance;
 
@@ -27,8 +27,8 @@ public class CommandLineUtil {
         if (sInstance != null) return sInstance;
         try {
             sInstance = (CommandLineUtil) Class.forName(COMMAND_LINE_UTIL_INTERNAL).newInstance();
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException |
-                 IllegalArgumentException e) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+                | IllegalArgumentException e) {
             sInstance = new CommandLineUtil();
         }
         return sInstance;
@@ -50,6 +50,5 @@ public class CommandLineUtil {
         getInstance().initCommandLineInternal(CommandLine.getInstance());
     }
 
-    protected void initCommandLineInternal(CommandLine commandLine) {
-    }
+    protected void initCommandLineInternal(CommandLine commandLine) {}
 }

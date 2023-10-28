@@ -13,10 +13,13 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class SmartCardReaderStateFlags extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 16;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public boolean unaware;
     public boolean ignore;
@@ -48,7 +51,8 @@ public final class SmartCardReaderStateFlags extends org.chromium.mojo.bindings.
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static SmartCardReaderStateFlags deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -62,50 +66,50 @@ public final class SmartCardReaderStateFlags extends org.chromium.mojo.bindings.
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new SmartCardReaderStateFlags(elementsOrVersion);
-            {
-
+                {
+                    
                 result.unaware = decoder0.readBoolean(8, 0);
-            }
-            {
-
+                }
+                {
+                    
                 result.ignore = decoder0.readBoolean(8, 1);
-            }
-            {
-
+                }
+                {
+                    
                 result.changed = decoder0.readBoolean(8, 2);
-            }
-            {
-
+                }
+                {
+                    
                 result.unknown = decoder0.readBoolean(8, 3);
-            }
-            {
-
+                }
+                {
+                    
                 result.unavailable = decoder0.readBoolean(8, 4);
-            }
-            {
-
+                }
+                {
+                    
                 result.empty = decoder0.readBoolean(8, 5);
-            }
-            {
-
+                }
+                {
+                    
                 result.present = decoder0.readBoolean(8, 6);
-            }
-            {
-
+                }
+                {
+                    
                 result.exclusive = decoder0.readBoolean(8, 7);
-            }
-            {
-
+                }
+                {
+                    
                 result.inuse = decoder0.readBoolean(9, 0);
-            }
-            {
-
+                }
+                {
+                    
                 result.mute = decoder0.readBoolean(9, 1);
-            }
-            {
-
+                }
+                {
+                    
                 result.unpowered = decoder0.readBoolean(9, 2);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -117,27 +121,27 @@ public final class SmartCardReaderStateFlags extends org.chromium.mojo.bindings.
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.unaware, 8, 0);
-
+        
         encoder0.encode(this.ignore, 8, 1);
-
+        
         encoder0.encode(this.changed, 8, 2);
-
+        
         encoder0.encode(this.unknown, 8, 3);
-
+        
         encoder0.encode(this.unavailable, 8, 4);
-
+        
         encoder0.encode(this.empty, 8, 5);
-
+        
         encoder0.encode(this.present, 8, 6);
-
+        
         encoder0.encode(this.exclusive, 8, 7);
-
+        
         encoder0.encode(this.inuse, 9, 0);
-
+        
         encoder0.encode(this.mute, 9, 1);
-
+        
         encoder0.encode(this.unpowered, 9, 2);
     }
 }

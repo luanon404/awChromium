@@ -13,9 +13,13 @@
 
 package org.chromium.cert_verifier.mojom;
 
+import androidx.annotation.IntDef;
+
+
 class UrlLoaderFactoryConnector_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<UrlLoaderFactoryConnector, UrlLoaderFactoryConnector.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<UrlLoaderFactoryConnector, UrlLoaderFactoryConnector.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<UrlLoaderFactoryConnector, UrlLoaderFactoryConnector.Proxy> MANAGER =
+            new org.chromium.mojo.bindings.Interface.Manager<UrlLoaderFactoryConnector, UrlLoaderFactoryConnector.Proxy>() {
 
         @Override
         public String getName() {
@@ -24,11 +28,12 @@ class UrlLoaderFactoryConnector_Internal {
 
         @Override
         public int getVersion() {
-            return 0;
+          return 0;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -39,7 +44,7 @@ class UrlLoaderFactoryConnector_Internal {
 
         @Override
         public UrlLoaderFactoryConnector[] buildArray(int size) {
-            return new UrlLoaderFactoryConnector[size];
+          return new UrlLoaderFactoryConnector[size];
         }
     };
 
@@ -49,20 +54,25 @@ class UrlLoaderFactoryConnector_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements UrlLoaderFactoryConnector.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core,
+              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void createUrlLoaderFactory(org.chromium.mojo.bindings.InterfaceRequest<org.chromium.network.mojom.UrlLoaderFactory> urlLoaderFactory) {
+        public void createUrlLoaderFactory(
+org.chromium.mojo.bindings.InterfaceRequest<org.chromium.network.mojom.UrlLoaderFactory> urlLoaderFactory) {
 
             UrlLoaderFactoryConnectorCreateUrlLoaderFactoryParams _message = new UrlLoaderFactoryConnectorCreateUrlLoaderFactoryParams();
 
             _message.urlLoaderFactory = urlLoaderFactory;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(CREATE_URL_LOADER_FACTORY_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(CREATE_URL_LOADER_FACTORY_ORDINAL)));
 
         }
 
@@ -78,7 +88,8 @@ class UrlLoaderFactoryConnector_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -87,15 +98,20 @@ class UrlLoaderFactoryConnector_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(UrlLoaderFactoryConnector_Internal.MANAGER, messageWithHeader);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
+                                UrlLoaderFactoryConnector_Internal.MANAGER, messageWithHeader);
+
+
+
 
 
                     case CREATE_URL_LOADER_FACTORY_ORDINAL: {
 
-                        UrlLoaderFactoryConnectorCreateUrlLoaderFactoryParams data = UrlLoaderFactoryConnectorCreateUrlLoaderFactoryParams.deserialize(messageWithHeader.getPayload());
+                        UrlLoaderFactoryConnectorCreateUrlLoaderFactoryParams data =
+                                UrlLoaderFactoryConnectorCreateUrlLoaderFactoryParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().createUrlLoaderFactory(data.urlLoaderFactory);
                         return true;
@@ -106,7 +122,7 @@ class UrlLoaderFactoryConnector_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -114,7 +130,8 @@ class UrlLoaderFactoryConnector_Internal {
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -123,27 +140,31 @@ class UrlLoaderFactoryConnector_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), UrlLoaderFactoryConnector_Internal.MANAGER, messageWithHeader, receiver);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
+                                getCore(), UrlLoaderFactoryConnector_Internal.MANAGER, messageWithHeader, receiver);
+
+
 
 
                     default:
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class UrlLoaderFactoryConnectorCreateUrlLoaderFactoryParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.mojo.bindings.InterfaceRequest<org.chromium.network.mojom.UrlLoaderFactory> urlLoaderFactory;
 
@@ -165,7 +186,8 @@ class UrlLoaderFactoryConnector_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static UrlLoaderFactoryConnectorCreateUrlLoaderFactoryParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -179,10 +201,10 @@ class UrlLoaderFactoryConnector_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new UrlLoaderFactoryConnectorCreateUrlLoaderFactoryParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.urlLoaderFactory = decoder0.readInterfaceRequest(8, false);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -194,10 +216,11 @@ class UrlLoaderFactoryConnector_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.urlLoaderFactory, 8, false);
         }
     }
+
 
 
 }

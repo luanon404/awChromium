@@ -13,16 +13,17 @@ import android.view.InputEvent;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 
-import org.chromium.base.ThreadUtils;
 import org.jni_zero.CalledByNative;
 import org.jni_zero.JNINamespace;
 import org.jni_zero.NativeMethods;
+
+import org.chromium.base.ThreadUtils;
 
 import java.util.Objects;
 
 /**
  * Class to manage connected gamepad devices list.
- * <p>
+ *
  * It is a Java counterpart of GamepadPlatformDataFetcherAndroid and feeds Gamepad API with input
  * data.
  */
@@ -179,7 +180,6 @@ public class GamepadList {
 
     /**
      * Handles key events from the gamepad devices.
-     *
      * @return True if the event has been consumed.
      */
     public static boolean dispatchKeyEvent(KeyEvent event) {
@@ -198,7 +198,6 @@ public class GamepadList {
 
     /**
      * Handles motion events from the gamepad devices.
-     *
      * @return True if the event has been consumed.
      */
     public static boolean onGenericMotionEvent(MotionEvent event) {
@@ -253,7 +252,8 @@ public class GamepadList {
         // The fingerprint sensor is a SOURCE_JOYSTICK but is not a gamepad.
         if (Objects.equals(inputDevice.getName(), "uinput-fpc")) return false;
 
-        return ((inputDevice.getSources() & InputDevice.SOURCE_JOYSTICK) == InputDevice.SOURCE_JOYSTICK);
+        return ((inputDevice.getSources() & InputDevice.SOURCE_JOYSTICK)
+                == InputDevice.SOURCE_JOYSTICK);
     }
 
     private GamepadDevice getGamepadForEvent(InputEvent event) {
@@ -286,7 +286,7 @@ public class GamepadList {
             case KeyEvent.KEYCODE_DPAD_DOWN:
             case KeyEvent.KEYCODE_DPAD_LEFT:
             case KeyEvent.KEYCODE_DPAD_RIGHT:
-                // Xbox Series X maps the Share button as KEYCODE_MEDIA_RECORD.
+            // Xbox Series X maps the Share button as KEYCODE_MEDIA_RECORD.
             case KeyEvent.KEYCODE_MEDIA_RECORD:
                 return true;
             default:
@@ -295,7 +295,8 @@ public class GamepadList {
 
         // If the scancode is in the BTN_TRIGGER_HAPPY range it is an extra gamepad button.
         int scanCode = event.getScanCode();
-        if (keyCode == KeyEvent.KEYCODE_UNKNOWN && scanCode >= GamepadDevice.MIN_BTN_TRIGGER_HAPPY && scanCode <= GamepadDevice.MAX_BTN_TRIGGER_HAPPY) {
+        if (keyCode == KeyEvent.KEYCODE_UNKNOWN && scanCode >= GamepadDevice.MIN_BTN_TRIGGER_HAPPY
+                && scanCode <= GamepadDevice.MAX_BTN_TRIGGER_HAPPY) {
             return true;
         }
 
@@ -314,7 +315,10 @@ public class GamepadList {
                 if (device != null) {
                     device.updateButtonsAndAxesMapping();
                     GamepadListJni.get().setGamepadData(GamepadList.this, webGamepadsPtr,
-                            /*index=*/i, device.isStandardGamepad(), /*connected=*/true, device.getName(), device.getVendorId(), device.getProductId(), device.getTimestamp(), device.getAxes(), device.getButtons(), device.getButtonsLength(), device.supportsDualRumble());
+                            /*index=*/i, device.isStandardGamepad(), /*connected=*/true,
+                            device.getName(), device.getVendorId(), device.getProductId(),
+                            device.getTimestamp(), device.getAxes(), device.getButtons(),
+                            device.getButtonsLength(), device.supportsDualRumble());
                 } else {
                     GamepadListJni.get().setGamepadData(GamepadList.this, webGamepadsPtr,
                             /*index=*/i, /*mapping=*/false, /*connected=*/false,
@@ -376,6 +380,8 @@ public class GamepadList {
 
     @NativeMethods
     interface Natives {
-        void setGamepadData(GamepadList caller, long webGamepadsPtr, int index, boolean mapping, boolean connected, String devicename, int vendorId, int productId, long timestamp, float[] axes, float[] buttons, int buttonsLength, boolean supportsDualRumble);
+        void setGamepadData(GamepadList caller, long webGamepadsPtr, int index, boolean mapping,
+                boolean connected, String devicename, int vendorId, int productId, long timestamp,
+                float[] axes, float[] buttons, int buttonsLength, boolean supportsDualRumble);
     }
 }

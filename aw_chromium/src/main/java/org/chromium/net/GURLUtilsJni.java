@@ -4,39 +4,46 @@
 package org.chromium.net;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import androidx.annotation.VisibleForTesting;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
 
 @CheckDiscard("crbug.com/993421")
 public class GURLUtilsJni implements GURLUtils.Natives {
-    private static GURLUtils.Natives testInstance;
+  private static GURLUtils.Natives testInstance;
 
-    public static final JniStaticTestMocker<GURLUtils.Natives> TEST_HOOKS = new JniStaticTestMocker<GURLUtils.Natives>() {
-        @Override
-        public void setInstanceForTesting(GURLUtils.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<GURLUtils.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<GURLUtils.Natives>() {
     @Override
-    public String getOrigin(String url) {
-        return (String) GEN_JNI.org_chromium_net_GURLUtils_getOrigin(url);
+    public void setInstanceForTesting(GURLUtils.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    public static GURLUtils.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of GURLUtils.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new GURLUtilsJni();
+  @Override
+  public String getOrigin(String url) {
+    return (String) GEN_JNI.org_chromium_net_GURLUtils_getOrigin(url);
+  }
+
+  public static GURLUtils.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of GURLUtils.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new GURLUtilsJni();
+  }
 }

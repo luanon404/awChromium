@@ -19,7 +19,7 @@ import java.util.Set;
 
 /**
  * Stores Android WebView Service Worker specific settings.
- * <p>
+ *
  * Methods in this class can be called from any thread, including threads created by
  * the client of WebView.
  */
@@ -47,7 +47,10 @@ public class AwServiceWorkerSettings {
 
     public AwServiceWorkerSettings(Context context, AwBrowserContext browserContext) {
         mBrowserContext = browserContext;
-        boolean hasInternetPermission = context.checkPermission(android.Manifest.permission.INTERNET, Process.myPid(), Process.myUid()) == PackageManager.PERMISSION_GRANTED;
+        boolean hasInternetPermission = context.checkPermission(
+                android.Manifest.permission.INTERNET,
+                Process.myPid(),
+                Process.myUid()) == PackageManager.PERMISSION_GRANTED;
         synchronized (mAwServiceWorkerSettingsLock) {
             mHasInternetPermission = hasInternetPermission;
             mBlockNetworkLoads = !hasInternetPermission;
@@ -59,8 +62,10 @@ public class AwServiceWorkerSettings {
             // hitting assets in the application context.
             mBlockSpecialFileUrls = ContextUtils.isSdkSandboxProcess();
 
-            if (AwFeatureMap.isEnabled(AwFeatures.WEBVIEW_X_REQUESTED_WITH_HEADER_MANIFEST_ALLOW_LIST)) {
-                mRequestedWithHeaderAllowedOriginRules = ManifestMetadataUtil.getXRequestedWithAllowList();
+            if (AwFeatureMap.isEnabled(
+                        AwFeatures.WEBVIEW_X_REQUESTED_WITH_HEADER_MANIFEST_ALLOW_LIST)) {
+                mRequestedWithHeaderAllowedOriginRules =
+                        ManifestMetadataUtil.getXRequestedWithAllowList();
             } else {
                 mRequestedWithHeaderAllowedOriginRules = Collections.emptySet();
             }
@@ -150,7 +155,8 @@ public class AwServiceWorkerSettings {
         if (TRACE) Log.d(TAG, "setBlockNetworkLoads=" + flag);
         synchronized (mAwServiceWorkerSettingsLock) {
             if (!flag && !mHasInternetPermission) {
-                throw new SecurityException("Permission denied - " + "application missing INTERNET permission");
+                throw new SecurityException("Permission denied - "
+                        + "application missing INTERNET permission");
             }
             mBlockNetworkLoads = flag;
         }
@@ -171,12 +177,17 @@ public class AwServiceWorkerSettings {
      */
     public void setRequestedWithHeaderOriginAllowList(Set<String> allowedOriginRules) {
         // Even though clients shouldn't pass in null, it's better to guard against it
-        allowedOriginRules = allowedOriginRules != null ? allowedOriginRules : Collections.emptySet();
+        allowedOriginRules =
+                allowedOriginRules != null ? allowedOriginRules : Collections.emptySet();
         synchronized (mAwServiceWorkerSettingsLock) {
-            AwWebContentsMetricsRecorder.recordRequestedWithHeaderModeServiceWorkerAPIUsage(allowedOriginRules);
-            Set<String> rejectedRules = mBrowserContext.updateServiceWorkerXRequestedWithAllowListOriginMatcher(allowedOriginRules);
+            AwWebContentsMetricsRecorder.recordRequestedWithHeaderModeServiceWorkerAPIUsage(
+                    allowedOriginRules);
+            Set<String> rejectedRules =
+                    mBrowserContext.updateServiceWorkerXRequestedWithAllowListOriginMatcher(
+                            allowedOriginRules);
             if (!rejectedRules.isEmpty()) {
-                throw new IllegalArgumentException("Malformed origin match rules: " + rejectedRules);
+                throw new IllegalArgumentException(
+                        "Malformed origin match rules: " + rejectedRules);
             }
             mRequestedWithHeaderAllowedOriginRules = allowedOriginRules;
         }

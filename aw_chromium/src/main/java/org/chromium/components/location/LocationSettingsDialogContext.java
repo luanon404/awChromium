@@ -1,3 +1,4 @@
+
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -14,15 +15,17 @@ import androidx.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@IntDef({LocationSettingsDialogContext.DEFAULT, LocationSettingsDialogContext.SEARCH})
+@IntDef({
+    LocationSettingsDialogContext.DEFAULT, LocationSettingsDialogContext.SEARCH
+})
 @Retention(RetentionPolicy.SOURCE)
 public @interface LocationSettingsDialogContext {
-    /**
-     * Default context.
-     */
-    int DEFAULT = 1;
-    /**
-     * Prompt triggered in the context of a search.
-     */
-    int SEARCH = 2;
+  /**
+   * Default context.
+   */
+  int DEFAULT = 1;
+  /**
+   * Prompt triggered in the context of a search.
+   */
+  int SEARCH = 2;
 }

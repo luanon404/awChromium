@@ -21,5 +21,5 @@ public @interface NativeClassQualifiedName {
      * The first parameter of the annotated method must be an int nativePtr pointing to
      * an instance of this class.
      */
-    String value();
+    public String value();
 }

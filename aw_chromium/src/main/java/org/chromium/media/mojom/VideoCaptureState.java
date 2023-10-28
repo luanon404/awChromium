@@ -17,10 +17,14 @@ import androidx.annotation.IntDef;
 
 public final class VideoCaptureState {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({VideoCaptureState.STARTED, VideoCaptureState.PAUSED, VideoCaptureState.RESUMED, VideoCaptureState.STOPPED, VideoCaptureState.ENDED})
-    public @interface EnumType {
-    }
+        VideoCaptureState.STARTED,
+        VideoCaptureState.PAUSED,
+        VideoCaptureState.RESUMED,
+        VideoCaptureState.STOPPED,
+        VideoCaptureState.ENDED})
+    public @interface EnumType {}
 
     public static final int STARTED = 0;
     public static final int PAUSED = 1;
@@ -40,9 +44,8 @@ public final class VideoCaptureState {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private VideoCaptureState() {
-    }
+    private VideoCaptureState() {}
 }

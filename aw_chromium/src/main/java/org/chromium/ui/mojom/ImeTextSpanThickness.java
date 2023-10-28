@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class ImeTextSpanThickness {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({ImeTextSpanThickness.NONE, ImeTextSpanThickness.THIN, ImeTextSpanThickness.THICK})
-    public @interface EnumType {
-    }
+        ImeTextSpanThickness.NONE,
+        ImeTextSpanThickness.THIN,
+        ImeTextSpanThickness.THICK})
+    public @interface EnumType {}
 
     public static final int NONE = 0;
     public static final int THIN = 1;
@@ -38,9 +40,8 @@ public final class ImeTextSpanThickness {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private ImeTextSpanThickness() {
-    }
+    private ImeTextSpanThickness() {}
 }

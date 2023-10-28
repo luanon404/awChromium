@@ -17,10 +17,14 @@ import androidx.annotation.IntDef;
 
 public final class CommandBufferNamespace {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({CommandBufferNamespace.INVALID, CommandBufferNamespace.GPU_IO, CommandBufferNamespace.IN_PROCESS, CommandBufferNamespace.MOJO, CommandBufferNamespace.MOJO_LOCAL})
-    public @interface EnumType {
-    }
+        CommandBufferNamespace.INVALID,
+        CommandBufferNamespace.GPU_IO,
+        CommandBufferNamespace.IN_PROCESS,
+        CommandBufferNamespace.MOJO,
+        CommandBufferNamespace.MOJO_LOCAL})
+    public @interface EnumType {}
 
     public static final int INVALID = -1;
     public static final int GPU_IO = 0;
@@ -40,9 +44,8 @@ public final class CommandBufferNamespace {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private CommandBufferNamespace() {
-    }
+    private CommandBufferNamespace() {}
 }

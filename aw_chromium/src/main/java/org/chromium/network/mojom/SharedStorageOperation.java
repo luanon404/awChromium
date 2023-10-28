@@ -13,10 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class SharedStorageOperation extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 32;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(32, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(32, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public int type;
     public String key;
@@ -42,7 +45,8 @@ public final class SharedStorageOperation extends org.chromium.mojo.bindings.Str
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static SharedStorageOperation deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -56,26 +60,26 @@ public final class SharedStorageOperation extends org.chromium.mojo.bindings.Str
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new SharedStorageOperation(elementsOrVersion);
-            {
-
+                {
+                    
                 result.type = decoder0.readInt(8);
-                SharedStorageOperationType.validate(result.type);
-                result.type = SharedStorageOperationType.toKnownValue(result.type);
-            }
-            {
-
+                    SharedStorageOperationType.validate(result.type);
+                    result.type = SharedStorageOperationType.toKnownValue(result.type);
+                }
+                {
+                    
                 result.ignoreIfPresent = decoder0.readInt(12);
-                OptionalBool.validate(result.ignoreIfPresent);
-                result.ignoreIfPresent = OptionalBool.toKnownValue(result.ignoreIfPresent);
-            }
-            {
-
+                    OptionalBool.validate(result.ignoreIfPresent);
+                    result.ignoreIfPresent = OptionalBool.toKnownValue(result.ignoreIfPresent);
+                }
+                {
+                    
                 result.key = decoder0.readString(16, true);
-            }
-            {
-
+                }
+                {
+                    
                 result.value = decoder0.readString(24, true);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -87,13 +91,13 @@ public final class SharedStorageOperation extends org.chromium.mojo.bindings.Str
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.type, 8);
-
+        
         encoder0.encode(this.ignoreIfPresent, 12);
-
+        
         encoder0.encode(this.key, 16, true);
-
+        
         encoder0.encode(this.value, 24, true);
     }
 }

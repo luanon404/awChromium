@@ -32,7 +32,10 @@ import androidx.annotation.Nullable;
 import androidx.annotation.Px;
 import androidx.annotation.VisibleForTesting;
 
-import org.chromium.android_webview.R;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+
 import org.chromium.base.Log;
 import org.chromium.base.PackageManagerUtils;
 import org.chromium.base.ResettersForTesting;
@@ -42,6 +45,7 @@ import org.chromium.base.metrics.RecordHistogram;
 import org.chromium.base.metrics.RecordUserAction;
 import org.chromium.base.supplier.ObservableSupplier;
 import org.chromium.base.supplier.ObservableSupplierImpl;
+import org.chromium.android_webview.R;
 import org.chromium.content.browser.GestureListenerManagerImpl;
 import org.chromium.content.browser.PopupController;
 import org.chromium.content.browser.PopupController.HideablePopup;
@@ -75,9 +79,6 @@ import org.chromium.ui.base.WindowAndroid;
 import org.chromium.ui.modelutil.MVCListAdapter;
 import org.chromium.ui.touch_selection.SelectionEventType;
 import org.chromium.ui.touch_selection.TouchSelectionDraggableType;
-import org.jni_zero.CalledByNative;
-import org.jni_zero.JNINamespace;
-import org.jni_zero.NativeMethods;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -89,7 +90,9 @@ import java.util.PriorityQueue;
  * Implementation of the interface {@link SelectionPopupController}.
  */
 @JNINamespace("content")
-public class SelectionPopupControllerImpl extends ActionModeCallbackHelper implements ImeEventObserver, SelectionPopupController, WindowEventObserver, HideablePopup, ContainerViewObserver, UserData, SelectActionMenuDelegate {
+public class SelectionPopupControllerImpl extends ActionModeCallbackHelper
+        implements ImeEventObserver, SelectionPopupController, WindowEventObserver, HideablePopup,
+                   ContainerViewObserver, UserData, SelectActionMenuDelegate {
     private static final String TAG = "SelectionPopupCtlr"; // 20 char limit
     private static final boolean DEBUG = false;
 
@@ -133,7 +136,8 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper imple
     private static boolean sEnableTabletUiModeForTesting;
 
     private static final class UserDataFactoryLazyHolder {
-        private static final UserDataFactory<SelectionPopupControllerImpl> INSTANCE = SelectionPopupControllerImpl::new;
+        private static final UserDataFactory<SelectionPopupControllerImpl> INSTANCE =
+                SelectionPopupControllerImpl::new;
     }
 
     @IntDef({SelectionMenuType.ACTION_MODE, SelectionMenuType.PASTE, SelectionMenuType.DROPDOWN})
@@ -170,7 +174,8 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper imple
     private ActionMode mActionMode;
 
     // Supplier of whether action bar is showing now.
-    private final ObservableSupplierImpl<Boolean> mIsActionBarShowingSupplier = new ObservableSupplierImpl<>();
+    private final ObservableSupplierImpl<Boolean> mIsActionBarShowingSupplier =
+            new ObservableSupplierImpl<>();
 
     // Bit field for mappings from menu item to a flag indicating it is allowed.
     private int mAllowedMenuItems;
@@ -264,34 +269,35 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper imple
     /**
      * Get {@link SelectionPopupController} object used for the give WebContents.
      * {@link #create()} should precede any calls to this.
-     *
      * @param webContents {@link WebContents} object.
      * @return {@link SelectionPopupController} object. {@code null} if not available because
-     * {@link #create()} is not called yet.
+     *         {@link #create()} is not called yet.
      */
     public static SelectionPopupControllerImpl fromWebContents(WebContents webContents) {
-        return ((WebContentsImpl) webContents).getOrSetUserData(SelectionPopupControllerImpl.class, UserDataFactoryLazyHolder.INSTANCE);
+        return ((WebContentsImpl) webContents)
+                .getOrSetUserData(
+                        SelectionPopupControllerImpl.class, UserDataFactoryLazyHolder.INSTANCE);
     }
 
     /**
      * Get {@link SelectionPopupController} object used for the given WebContents but does not
      * create a new one.
-     *
      * @param webContents {@link WebContents} object.
      * @return {@link SelectionPopupController} object. {@code null} if not available.
      */
     public static SelectionPopupControllerImpl fromWebContentsNoCreate(WebContents webContents) {
-        return ((WebContentsImpl) webContents).getOrSetUserData(SelectionPopupControllerImpl.class, null);
+        return ((WebContentsImpl) webContents)
+                .getOrSetUserData(SelectionPopupControllerImpl.class, null);
     }
 
     /**
      * Create {@link SelectionPopupController} instance. Note that it will create an instance with
      * no link to native side for testing only.
-     *
-     * @param webContents     {@link WebContents} mocked for testing.
+     * @param webContents {@link WebContents} mocked for testing.
      * @param popupController {@link PopupController} mocked for testing.
      */
-    public static SelectionPopupControllerImpl createForTesting(WebContents webContents, PopupController popupController) {
+    public static SelectionPopupControllerImpl createForTesting(
+            WebContents webContents, PopupController popupController) {
         return new SelectionPopupControllerImpl(webContents, popupController, false);
     }
 
@@ -300,7 +306,9 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper imple
     }
 
     public static boolean isMagnifierWithSurfaceControlSupported() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && sAllowSurfaceControlMagnifier && SelectionPopupControllerImplJni.get().isMagnifierWithSurfaceControlSupported();
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
+                && sAllowSurfaceControlMagnifier
+                && SelectionPopupControllerImplJni.get().isMagnifierWithSurfaceControlSupported();
     }
 
     public static void setDisableMagnifierForTesting(boolean disable) {
@@ -315,7 +323,6 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper imple
 
     /**
      * Create {@link SelectionPopupControllerImpl} instance.
-     *
      * @param webContents WebContents instance.
      */
     public SelectionPopupControllerImpl(WebContents webContents) {
@@ -323,7 +330,8 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper imple
         setActionModeCallback(ActionModeCallbackHelper.EMPTY_CALLBACK);
     }
 
-    private SelectionPopupControllerImpl(WebContents webContents, PopupController popupController, boolean initializeNative) {
+    private SelectionPopupControllerImpl(
+            WebContents webContents, PopupController popupController, boolean initializeNative) {
         mHandler = new Handler();
         mWebContents = (WebContentsImpl) webContents;
         mPopupController = popupController;
@@ -353,7 +361,8 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper imple
             manager.addObserver(this);
         }
         if (initializeNative) {
-            mNativeSelectionPopupController = SelectionPopupControllerImplJni.get().init(SelectionPopupControllerImpl.this, mWebContents);
+            mNativeSelectionPopupController = SelectionPopupControllerImplJni.get().init(
+                    SelectionPopupControllerImpl.this, mWebContents);
             ImeAdapterImpl imeAdapter = ImeAdapterImpl.fromWebContents(mWebContents);
             if (imeAdapter != null) imeAdapter.addEventObserver(this);
         }
@@ -419,7 +428,8 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper imple
     }
 
     @Override
-    public void setNonSelectionAdditionalMenuItemProvider(@Nullable AdditionalSelectionMenuItemProvider provider) {
+    public void setNonSelectionAdditionalMenuItemProvider(
+            @Nullable AdditionalSelectionMenuItemProvider provider) {
         mNonSelectionAdditionalItemProvider = provider;
     }
 
@@ -491,7 +501,8 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper imple
         if (!ContentFeatureMap.isEnabled(ContentFeatureList.MOUSE_AND_TRACKPAD_DROPDOWN_MENU)) {
             return false;
         }
-        return mView != null && mDropdownMenuDelegate != null && mMenuSourceType == MenuSourceType.MENU_SOURCE_MOUSE && isWindowOnTablet();
+        return mView != null && mDropdownMenuDelegate != null
+                && mMenuSourceType == MenuSourceType.MENU_SOURCE_MOUSE && isWindowOnTablet();
     }
 
     /**
@@ -508,8 +519,13 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper imple
 
     @VisibleForTesting
     @CalledByNative
-    public void showSelectionMenu(int xDip, int yDip, int left, int top, int right, int bottom, int handleHeight, boolean isEditable, boolean isPasswordType, String selectionText, int selectionStartOffset, boolean canSelectAll, boolean canRichlyEdit, boolean shouldSuggest, @MenuSourceType int sourceType, RenderFrameHost renderFrameHost) {
-        RecordHistogram.recordEnumeratedHistogram("Android.ShowSelectionMenuSourceType", sourceType, MenuSourceType.MENU_SOURCE_TYPE_LAST + 1);
+    public void showSelectionMenu(int xDip, int yDip, int left, int top, int right, int bottom,
+            int handleHeight, boolean isEditable, boolean isPasswordType, String selectionText,
+            int selectionStartOffset, boolean canSelectAll, boolean canRichlyEdit,
+            boolean shouldSuggest, @MenuSourceType int sourceType,
+            RenderFrameHost renderFrameHost) {
+        RecordHistogram.recordEnumeratedHistogram("Android.ShowSelectionMenuSourceType", sourceType,
+                MenuSourceType.MENU_SOURCE_TYPE_LAST + 1);
 
         int offsetBottom = bottom;
         offsetBottom += handleHeight;
@@ -532,16 +548,19 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper imple
             if (mSmartSelectionEventProcessor != null) {
                 switch (sourceType) {
                     case MenuSourceType.MENU_SOURCE_ADJUST_SELECTION:
-                        mSmartSelectionEventProcessor.onSelectionModified(mLastSelectedText, mLastSelectionOffset, mClassificationResult);
+                        mSmartSelectionEventProcessor.onSelectionModified(
+                                mLastSelectedText, mLastSelectionOffset, mClassificationResult);
                         break;
                     case MenuSourceType.MENU_SOURCE_ADJUST_SELECTION_RESET:
-                        mSmartSelectionEventProcessor.onSelectionAction(mLastSelectedText, mLastSelectionOffset, SelectionEvent.ACTION_RESET,
+                        mSmartSelectionEventProcessor.onSelectionAction(mLastSelectedText,
+                                mLastSelectionOffset, SelectionEvent.ACTION_RESET,
                                 /* SelectionClient.Result = */ null);
                         break;
                     case MenuSourceType.MENU_SOURCE_TOUCH_HANDLE:
                         break;
                     default:
-                        mSmartSelectionEventProcessor.onSelectionStarted(mLastSelectedText, mLastSelectionOffset, isEditable);
+                        mSmartSelectionEventProcessor.onSelectionStarted(
+                                mLastSelectedText, mLastSelectionOffset, isEditable);
                 }
             }
 
@@ -553,7 +572,8 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper imple
             }
 
             // Show menu there is no updates from SelectionClient.
-            if (mSelectionClient == null || !mSelectionClient.requestSelectionPopupUpdates(shouldSuggest)) {
+            if (mSelectionClient == null
+                    || !mSelectionClient.requestSelectionPopupUpdates(shouldSuggest)) {
                 showSelectionMenuInternal();
             }
         } else {
@@ -565,7 +585,8 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper imple
      * Shows the correct menu based on the current state (i.e. has selection).
      */
     private void showSelectionMenuInternal() {
-        @SelectionMenuType final int menuType = getMenuType();
+        @SelectionMenuType
+        final int menuType = getMenuType();
         switch (menuType) {
             case SelectionMenuType.ACTION_MODE:
                 showActionModeOrClearOnFailure();
@@ -587,7 +608,8 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper imple
      * <p> If the action mode cannot be created the selection is cleared.
      */
     public void showActionModeOrClearOnFailure() {
-        if (!isActionModeSupported() || !hasSelection() || mView == null || getMenuType() != SelectionMenuType.ACTION_MODE) {
+        if (!isActionModeSupported() || !hasSelection() || mView == null
+                || getMenuType() != SelectionMenuType.ACTION_MODE) {
             return;
         }
 
@@ -636,7 +658,8 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper imple
 
     @VisibleForTesting
     protected void createAndShowPastePopup() {
-        if (mView == null || mView.getParent() == null || mView.getVisibility() != View.VISIBLE || getMenuType() != SelectionMenuType.PASTE) {
+        if (mView == null || mView.getParent() == null || mView.getVisibility() != View.VISIBLE
+                || getMenuType() != SelectionMenuType.PASTE) {
             return;
         }
 
@@ -645,42 +668,44 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper imple
         setTextHandlesHiddenForDropdownMenu(false);
 
         destroyPastePopup();
-        PastePopupMenu.PastePopupMenuDelegate delegate = new PastePopupMenu.PastePopupMenuDelegate() {
-            @Override
-            public void paste() {
-                SelectionPopupControllerImpl.this.paste();
-                dismissTextHandles();
-            }
+        PastePopupMenu.PastePopupMenuDelegate delegate =
+                new PastePopupMenu.PastePopupMenuDelegate() {
+                    @Override
+                    public void paste() {
+                        SelectionPopupControllerImpl.this.paste();
+                        dismissTextHandles();
+                    }
 
-            @Override
-            public void pasteAsPlainText() {
-                SelectionPopupControllerImpl.this.pasteAsPlainText();
-                dismissTextHandles();
-            }
+                    @Override
+                    public void pasteAsPlainText() {
+                        SelectionPopupControllerImpl.this.pasteAsPlainText();
+                        dismissTextHandles();
+                    }
 
-            @Override
-            public boolean canPaste() {
-                return SelectionPopupControllerImpl.this.canPaste();
-            }
+                    @Override
+                    public boolean canPaste() {
+                        return SelectionPopupControllerImpl.this.canPaste();
+                    }
 
-            @Override
-            public void selectAll() {
-                SelectionPopupControllerImpl.this.selectAll();
-            }
+                    @Override
+                    public void selectAll() {
+                        SelectionPopupControllerImpl.this.selectAll();
+                    }
 
-            @Override
-            public boolean canSelectAll() {
-                return SelectionPopupControllerImpl.this.canSelectAll();
-            }
+                    @Override
+                    public boolean canSelectAll() {
+                        return SelectionPopupControllerImpl.this.canSelectAll();
+                    }
 
-            @Override
-            public boolean canPasteAsPlainText() {
-                return SelectionPopupControllerImpl.this.canPasteAsPlainText();
-            }
-        };
+                    @Override
+                    public boolean canPasteAsPlainText() {
+                        return SelectionPopupControllerImpl.this.canPasteAsPlainText();
+                    }
+                };
         Context windowContext = mWindowAndroid.getContext().get();
         if (windowContext == null) return;
-        mPastePopupMenu = new FloatingPastePopupMenu(windowContext, mView, delegate, mNonSelectionAdditionalItemProvider);
+        mPastePopupMenu = new FloatingPastePopupMenu(
+                windowContext, mView, delegate, mNonSelectionAdditionalItemProvider);
         showPastePopup();
     }
 
@@ -691,12 +716,14 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper imple
         }
     }
 
-    private SelectionDropdownMenuDelegate.ItemClickListener getDropdownItemClickListener(SelectionDropdownMenuDelegate delegate) {
+    private SelectionDropdownMenuDelegate.ItemClickListener getDropdownItemClickListener(
+            SelectionDropdownMenuDelegate delegate) {
         return item -> {
             final int groupId = delegate.getGroupId(item);
             final int id = delegate.getItemId(item);
             logSelectionAction(groupId, id);
-            mCallback.onDropdownItemClicked(groupId, id, delegate.getItemIntent(item), delegate.getClickListener(item));
+            mCallback.onDropdownItemClicked(
+                    groupId, id, delegate.getItemIntent(item), delegate.getClickListener(item));
         };
     }
 
@@ -736,7 +763,11 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper imple
                 for (SelectionMenuItem item : group.items) {
                     CharSequence title = item.getTitle(mContext);
                     CharSequence contentDescription = item.contentDescription;
-                    items.add(mDropdownMenuDelegate.getMenuItem(title != null ? title.toString() : null, contentDescription != null ? contentDescription.toString() : null, group.id, item.id, item.getIcon(mContext), item.isIconTintable, groupContainsIcon, item.isEnabled, item.clickListener, item.intent));
+                    items.add(mDropdownMenuDelegate.getMenuItem(
+                            title != null ? title.toString() : null,
+                            contentDescription != null ? contentDescription.toString() : null,
+                            group.id, item.id, item.getIcon(mContext), item.isIconTintable,
+                            groupContainsIcon, item.isEnabled, item.clickListener, item.intent));
                 }
                 group = allItemGroups.poll();
                 i++;
@@ -764,15 +795,19 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper imple
 
         // Convert coordinates to pixels and show the dropdown.
         final float deviceScaleFactor = getDeviceScaleFactor();
-        @Px final int x = (int) (mXDip * deviceScaleFactor);
+        @Px
+        final int x = (int) (mXDip * deviceScaleFactor);
 
         // The click down coordinates are relative to the content viewport, but we need
         // coordinates relative to the containing View, therefore we need to add the content offset
         // to the y value.
-        @Px final int y = ((int) ((mYDip * deviceScaleFactor) + mWebContents.getRenderCoordinates().getContentOffsetYPix()));
+        @Px
+        final int y = ((int) ((mYDip * deviceScaleFactor)
+                + mWebContents.getRenderCoordinates().getContentOffsetYPix()));
 
         MVCListAdapter.ModelList items = getDropdownItems();
-        SelectionDropdownMenuDelegate.ItemClickListener itemClickListener = getDropdownItemClickListener(mDropdownMenuDelegate);
+        SelectionDropdownMenuDelegate.ItemClickListener itemClickListener =
+                getDropdownItemClickListener(mDropdownMenuDelegate);
         mDropdownMenuDelegate.show(mContext, mView, items, itemClickListener, x, y);
     }
 
@@ -894,7 +929,8 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper imple
         if (gainFocus) {
             restoreSelectionPopupsIfNecessary();
         } else {
-            ImeAdapterImpl.fromWebContents(mWebContents).cancelRequestToScrollFocusedEditableNodeIntoView();
+            ImeAdapterImpl.fromWebContents(mWebContents)
+                    .cancelRequestToScrollFocusedEditableNodeIntoView();
             if (getPreserveSelectionOnNextLossOfFocus()) {
                 setPreserveSelectionOnNextLossOfFocus(false);
                 hidePopupsAndPreserveSelection();
@@ -906,7 +942,6 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper imple
 
     /**
      * Update scroll status.
-     *
      * @param scrollInProgress {@code true} if scroll is in progress.
      */
     public void setScrollInProgress(boolean scrollInProgress) {
@@ -916,7 +951,6 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper imple
     /**
      * Hide or reveal the ActionMode. Note that this only has visible
      * side-effects if the underlying ActionMode supports hiding.
-     *
      * @param hide whether to hide or show the ActionMode.
      */
     private void hideActionMode(boolean hide) {
@@ -941,7 +975,8 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper imple
     }
 
     private boolean isFloatingActionMode() {
-        return isActionModeValid() && ApiHelperForM.getActionModeType(mActionMode) == ActionMode.TYPE_FLOATING;
+        return isActionModeValid()
+                && ApiHelperForM.getActionModeType(mActionMode) == ActionMode.TYPE_FLOATING;
     }
 
     private long getDefaultHideDuration() {
@@ -952,7 +987,10 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper imple
 
     @Override
     public void onCreateActionMode(ActionMode mode, Menu menu) {
-        mode.setTitle(mWindowAndroid != null && DeviceFormFactor.isWindowOnTablet(mWindowAndroid) ? mContext.getString(R.string.actionbar_textselection_title) : null);
+        mode.setTitle(
+                mWindowAndroid != null && DeviceFormFactor.isWindowOnTablet(mWindowAndroid)
+                        ? mContext.getString(R.string.actionbar_textselection_title)
+                        : null);
         mode.setSubtitle(null);
     }
 
@@ -960,59 +998,74 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper imple
     public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
         SelectActionMenuHelper.removeAllAddedGroupsFromMenu(menu);
         mCustomActionMenuItemClickListeners.clear();
-        initializeActionMenu(mContext, getSelectionMenuItems(), menu, mCustomActionMenuItemClickListeners, item -> {
-            logSelectionAction(item.getGroupId(), item.getItemId());
-            return false;
-        });
+        initializeActionMenu(mContext, getSelectionMenuItems(), menu,
+                mCustomActionMenuItemClickListeners, item -> {
+                    logSelectionAction(item.getGroupId(), item.getItemId());
+                    return false;
+                });
         return true;
     }
 
     private PriorityQueue<SelectionMenuGroup> getSelectionMenuItems() {
-        TextProcessingIntentHandler textProcessingIntentHandler = isSelectActionModeAllowed(MENU_ITEM_PROCESS_TEXT) ? this::processText : null;
-        return SelectActionMenuHelper.getSelectionMenuItems(this, mContext, mClassificationResult, isSelectionPassword(), !isFocusedNodeEditable(), textProcessingIntentHandler);
+        TextProcessingIntentHandler textProcessingIntentHandler =
+                isSelectActionModeAllowed(MENU_ITEM_PROCESS_TEXT) ? this::processText : null;
+        return SelectActionMenuHelper.getSelectionMenuItems(this, mContext, mClassificationResult,
+                isSelectionPassword(), !isFocusedNodeEditable(), textProcessingIntentHandler);
     }
 
-    private static PriorityQueue<SelectionMenuGroup> getNonSelectionMenuItems(SelectActionMenuDelegate delegate, @Nullable AdditionalSelectionMenuItemProvider nonSelectionAdditionalItemProvider) {
-        return SelectActionMenuHelper.getNonSelectionMenuItems(delegate, nonSelectionAdditionalItemProvider);
+    private static PriorityQueue<SelectionMenuGroup> getNonSelectionMenuItems(
+            SelectActionMenuDelegate delegate,
+            @Nullable AdditionalSelectionMenuItemProvider nonSelectionAdditionalItemProvider) {
+        return SelectActionMenuHelper.getNonSelectionMenuItems(
+                delegate, nonSelectionAdditionalItemProvider);
     }
 
     /**
      * Initializes the action menu.
-     *
-     * @param customMenuItemClickListeners    map to populate any custom click listeners for menu
-     *                                        items.
+     * @param customMenuItemClickListeners map to populate any custom click listeners for menu
+     *         items.
      * @param additionalMenuItemClickListener executes after every menu item is clicked.
      */
-    public static void initializeActionMenu(Context context, PriorityQueue<SelectionMenuGroup> menuGroups, Menu menu, Map<MenuItem, View.OnClickListener> customMenuItemClickListeners, @Nullable MenuItem.OnMenuItemClickListener additionalMenuItemClickListener) {
+    public static void initializeActionMenu(Context context,
+            PriorityQueue<SelectionMenuGroup> menuGroups, Menu menu,
+            Map<MenuItem, View.OnClickListener> customMenuItemClickListeners,
+            @Nullable MenuItem.OnMenuItemClickListener additionalMenuItemClickListener) {
         for (SelectionMenuGroup group : menuGroups) {
-            addMenuItemsToActionMenu(context, group, menu, customMenuItemClickListeners, additionalMenuItemClickListener);
+            addMenuItemsToActionMenu(context, group, menu, customMenuItemClickListeners,
+                    additionalMenuItemClickListener);
         }
     }
 
     /**
      * Adds the menu items from the {@link SelectionMenuGroup} to the action menu.
-     *
      * @param additionalMenuItemClickListener executes after every menu item is clicked.
      */
-    private static void addMenuItemsToActionMenu(Context context, SelectionMenuGroup group, Menu menu, Map<MenuItem, View.OnClickListener> customMenuItemClickListeners, @Nullable MenuItem.OnMenuItemClickListener additionalMenuItemClickListener) {
+    private static void addMenuItemsToActionMenu(Context context, SelectionMenuGroup group,
+            Menu menu, Map<MenuItem, View.OnClickListener> customMenuItemClickListeners,
+            @Nullable MenuItem.OnMenuItemClickListener additionalMenuItemClickListener) {
         for (SelectionMenuItem item : group.items) {
             if (!item.isEnabled) {
                 // We will only add items if they are enabled. This will prevent us from
                 // needing to remove them.
                 continue;
             }
-            MenuItem menuItem = menu.add(group.id, item.id, item.orderInCategory, item.getTitle(context)).setShowAsActionFlags(item.showAsActionFlags);
-            @Nullable Drawable icon = item.getIcon(context);
+            MenuItem menuItem =
+                    menu.add(group.id, item.id, item.orderInCategory, item.getTitle(context))
+                            .setShowAsActionFlags(item.showAsActionFlags);
+            @Nullable
+            Drawable icon = item.getIcon(context);
             if (icon != null) {
                 menuItem.setIcon(icon);
             }
-            @Nullable Character alphabeticShortcut = item.alphabeticShortcut;
+            @Nullable
+            Character alphabeticShortcut = item.alphabeticShortcut;
             if (alphabeticShortcut != null) {
                 menuItem.setAlphabeticShortcut(alphabeticShortcut);
             }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 // Content descriptions supported on O+.
-                @Nullable CharSequence contentDescription = item.contentDescription;
+                @Nullable
+                CharSequence contentDescription = item.contentDescription;
                 if (contentDescription != null) {
                     menuItem.setContentDescription(contentDescription);
                 }
@@ -1043,7 +1096,8 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper imple
      */
     @Override
     public boolean canCut() {
-        return hasSelection() && isFocusedNodeEditable() && !isSelectionPassword() && Clipboard.getInstance().canCopy();
+        return hasSelection() && isFocusedNodeEditable() && !isSelectionPassword()
+                && Clipboard.getInstance().canCopy();
     }
 
     /**
@@ -1059,7 +1113,8 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper imple
      */
     @Override
     public boolean canShare() {
-        return hasSelection() && !isFocusedNodeEditable() && isSelectActionModeAllowed(MENU_ITEM_SHARE);
+        return hasSelection() && !isFocusedNodeEditable()
+                && isSelectActionModeAllowed(MENU_ITEM_SHARE);
     }
 
     /**
@@ -1067,7 +1122,8 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper imple
      */
     @Override
     public boolean canWebSearch() {
-        return hasSelection() && !isFocusedNodeEditable() && !isIncognito() && isSelectActionModeAllowed(MENU_ITEM_WEB_SEARCH);
+        return hasSelection() && !isFocusedNodeEditable() && !isIncognito()
+                && isSelectActionModeAllowed(MENU_ITEM_WEB_SEARCH);
     }
 
     /**
@@ -1098,9 +1154,11 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper imple
             return;
         }
 
-        SelectionMenuGroup textProcessingItems = SelectActionMenuHelper.getTextProcessingItems(mContext, false, false, this::processText);
+        SelectionMenuGroup textProcessingItems = SelectActionMenuHelper.getTextProcessingItems(
+                mContext, false, false, this::processText);
         if (textProcessingItems != null) {
-            addMenuItemsToActionMenu(mContext, textProcessingItems, menu, mCustomActionMenuItemClickListeners, null);
+            addMenuItemsToActionMenu(
+                    mContext, textProcessingItems, menu, mCustomActionMenuItemClickListeners, null);
         }
     }
 
@@ -1111,7 +1169,8 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper imple
         if (!isActionModeValid()) return true;
 
         // Check to see if this menu item has a custom click listener to handle it.
-        View.OnClickListener customMenuItemClickListener = mCustomActionMenuItemClickListeners.get(item);
+        View.OnClickListener customMenuItemClickListener =
+                mCustomActionMenuItemClickListeners.get(item);
         if (customMenuItemClickListener != null) {
             customMenuItemClickListener.onClick(mView);
         } else {
@@ -1126,7 +1185,8 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper imple
     }
 
     @Override
-    public boolean onDropdownItemClicked(int groupId, int id, @Nullable Intent intent, @Nullable View.OnClickListener clickListener) {
+    public boolean onDropdownItemClicked(int groupId, int id, @Nullable Intent intent,
+            @Nullable View.OnClickListener clickListener) {
         // Use the click listener for the item if it has one.
         if (clickListener != null) {
             clickListener.onClick(null);
@@ -1151,7 +1211,8 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper imple
             copy();
         } else if (id == R.id.select_action_menu_paste) {
             paste();
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && id == R.id.select_action_menu_paste_as_plain_text) {
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
+                && id == R.id.select_action_menu_paste_as_plain_text) {
             pasteAsPlainText();
         } else if (id == R.id.select_action_menu_share) {
             share();
@@ -1173,7 +1234,8 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper imple
             return;
         }
         if (hasSelection() && mSmartSelectionEventProcessor != null) {
-            mSmartSelectionEventProcessor.onSelectionAction(mLastSelectedText, mLastSelectionOffset, getActionType(id, groupId), mClassificationResult);
+            mSmartSelectionEventProcessor.onSelectionAction(mLastSelectedText, mLastSelectionOffset,
+                    getActionType(id, groupId), mClassificationResult);
         }
     }
 
@@ -1181,9 +1243,9 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper imple
      * Called when an ActionMode needs to be positioned on screen, potentially occluding view
      * content. Note this may be called on a per-frame basis.
      *
-     * @param mode    The ActionMode that requires positioning.
-     * @param view    The View that originated the ActionMode, in whose coordinates the Rect should
-     *                be provided.
+     * @param mode The ActionMode that requires positioning.
+     * @param view The View that originated the ActionMode, in whose coordinates the Rect should
+     *             be provided.
      * @param outRect The Rect to be populated with the content position.
      */
     @Override
@@ -1193,11 +1255,15 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper imple
 
     private Rect getSelectionRectRelativeToContainingView() {
         float deviceScale = getDeviceScaleFactor();
-        Rect viewSelectionRect = new Rect((int) (mSelectionRect.left * deviceScale), (int) (mSelectionRect.top * deviceScale), (int) (mSelectionRect.right * deviceScale), (int) (mSelectionRect.bottom * deviceScale));
+        Rect viewSelectionRect = new Rect((int) (mSelectionRect.left * deviceScale),
+                (int) (mSelectionRect.top * deviceScale),
+                (int) (mSelectionRect.right * deviceScale),
+                (int) (mSelectionRect.bottom * deviceScale));
 
         // The selection coordinates are relative to the content viewport, but we need
         // coordinates relative to the containing View.
-        viewSelectionRect.offset(0, (int) mWebContents.getRenderCoordinates().getContentOffsetYPix());
+        viewSelectionRect.offset(
+                0, (int) mWebContents.getRenderCoordinates().getContentOffsetYPix());
         return viewSelectionRect;
     }
 
@@ -1218,7 +1284,8 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper imple
         if (menuItemId == R.id.select_action_menu_copy) {
             return SelectionEvent.ACTION_COPY;
         }
-        if (menuItemId == R.id.select_action_menu_paste || menuItemId == R.id.select_action_menu_paste_as_plain_text) {
+        if (menuItemId == R.id.select_action_menu_paste
+                || menuItemId == R.id.select_action_menu_paste_as_plain_text) {
             return SelectionEvent.ACTION_PASTE;
         }
         if (menuItemId == R.id.select_action_menu_share) {
@@ -1373,7 +1440,7 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper imple
 
     /**
      * @return true if the current selection is for incognito content.
-     * Note: This should remain constant for the callback's lifetime.
+     *         Note: This should remain constant for the callback's lifetime.
      */
     private boolean isIncognito() {
         return mWebContents.isIncognito();
@@ -1381,10 +1448,10 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper imple
 
     /**
      * @param actionModeItem the flag for the action mode item in question. The valid flags are
-     *                       {@link #MENU_ITEM_SHARE}, {@link #MENU_ITEM_WEB_SEARCH}, and
-     *                       {@link #MENU_ITEM_PROCESS_TEXT}.
+     *        {@link #MENU_ITEM_SHARE}, {@link #MENU_ITEM_WEB_SEARCH}, and
+     *        {@link #MENU_ITEM_PROCESS_TEXT}.
      * @return true if the menu item action is allowed. Otherwise, the menu item
-     * should be removed from the menu.
+     *         should be removed from the menu.
      */
     private boolean isSelectActionModeAllowed(int actionModeItem) {
         boolean isAllowedByClient = (mAllowedMenuItems & actionModeItem) != 0;
@@ -1430,23 +1497,27 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper imple
     }
 
     @Override
-    public void setDropdownMenuDelegate(@NonNull SelectionDropdownMenuDelegate dropdownMenuDelegate) {
+    public void setDropdownMenuDelegate(
+            @NonNull SelectionDropdownMenuDelegate dropdownMenuDelegate) {
         mDropdownMenuDelegate = dropdownMenuDelegate;
     }
 
     private void setTextHandlesHiddenForDropdownMenu(boolean hide) {
         if (mNativeSelectionPopupController == 0) return;
-        SelectionPopupControllerImplJni.get().setTextHandlesHiddenForDropdownMenu(mNativeSelectionPopupController, SelectionPopupControllerImpl.this, hide);
+        SelectionPopupControllerImplJni.get().setTextHandlesHiddenForDropdownMenu(
+                mNativeSelectionPopupController, SelectionPopupControllerImpl.this, hide);
     }
 
     private void setTextHandlesTemporarilyHidden(boolean hide) {
         if (mNativeSelectionPopupController == 0) return;
-        SelectionPopupControllerImplJni.get().setTextHandlesTemporarilyHidden(mNativeSelectionPopupController, SelectionPopupControllerImpl.this, hide);
+        SelectionPopupControllerImplJni.get().setTextHandlesTemporarilyHidden(
+                mNativeSelectionPopupController, SelectionPopupControllerImpl.this, hide);
     }
 
     @CalledByNative
     public void restoreSelectionPopupsIfNecessary() {
-        if (hasSelection() && !isActionModeValid() && getMenuType() == SelectionMenuType.ACTION_MODE) {
+        if (hasSelection() && !isActionModeValid()
+                && getMenuType() == SelectionMenuType.ACTION_MODE) {
             showActionModeOrClearOnFailure();
         }
     }
@@ -1461,9 +1532,12 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper imple
     // All coordinates are in DIP.
     @VisibleForTesting
     @CalledByNative
-    void onSelectionEvent(@SelectionEventType int eventType, int left, int top, int right, int bottom) {
+    void onSelectionEvent(
+            @SelectionEventType int eventType, int left, int top, int right, int bottom) {
         if (DEBUG) {
-            Log.i(TAG, "onSelectionEvent: " + eventType + "[(" + left + ", " + top + ")-(" + right + ", " + bottom + ")]");
+            Log.i(TAG,
+                    "onSelectionEvent: " + eventType + "[(" + left + ", " + top + ")-(" + right
+                            + ", " + bottom + ")]");
         }
         // Ensure the provided selection coordinates form a non-empty rect, as required by
         // the selection action mode.
@@ -1572,15 +1646,16 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper imple
     }
 
     @VisibleForTesting
-        /* package */ GestureListenerManagerImpl getGestureListenerManager() {
+    /* package */ GestureListenerManagerImpl getGestureListenerManager() {
         return GestureListenerManagerImpl.fromWebContents(mWebContents);
     }
 
     @VisibleForTesting
     @CalledByNative
-        /* package */ void onDragUpdate(@TouchSelectionDraggableType int type, float x, float y) {
+    /* package */ void onDragUpdate(@TouchSelectionDraggableType int type, float x, float y) {
         // If this is for longpress drag selector, we can only have mangifier on S and above.
-        if (type == TouchSelectionDraggableType.LONGPRESS && Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
+        if (type == TouchSelectionDraggableType.LONGPRESS
+                && Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
             return;
         }
 
@@ -1610,7 +1685,7 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper imple
     }
 
     @VisibleForTesting
-        /* package */ void performHapticFeedback() {
+    /* package */ void performHapticFeedback() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && mView != null) {
             mView.performHapticFeedback(HapticFeedbackConstants.TEXT_HANDLE_MOVE);
         }
@@ -1626,11 +1701,12 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper imple
 
     @VisibleForTesting
     @CalledByNative
-        /* package */ void onSelectionChanged(String text) {
+    /* package */ void onSelectionChanged(String text) {
         final boolean unSelected = TextUtils.isEmpty(text) && hasSelection();
         if (unSelected || mIsProcessingSelectAll) {
             if (mSmartSelectionEventProcessor != null) {
-                mSmartSelectionEventProcessor.onSelectionAction(mLastSelectedText, mLastSelectionOffset, SelectionEvent.ACTION_ABANDON,
+                mSmartSelectionEventProcessor.onSelectionAction(mLastSelectedText,
+                        mLastSelectionOffset, SelectionEvent.ACTION_ABANDON,
                         /* SelectionClient.Result = */ null);
             }
             destroyActionModeAndKeepSelection();
@@ -1649,7 +1725,9 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper imple
     public void setSelectionClient(@Nullable SelectionClient selectionClient) {
         mSelectionClient = selectionClient;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            mSmartSelectionEventProcessor = mSelectionClient == null ? null : (SmartSelectionEventProcessor) mSelectionClient.getSelectionEventProcessor();
+            mSmartSelectionEventProcessor = mSelectionClient == null
+                    ? null
+                    : (SmartSelectionEventProcessor) mSelectionClient.getSelectionEventProcessor();
         } else {
             mSmartSelectionEventProcessor = null;
         }
@@ -1690,9 +1768,11 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper imple
     }
 
     @CalledByNative
-    private void onSelectAroundCaretSuccess(int extendedStartAdjust, int extendedEndAdjust, int wordStartAdjust, int wordEndAdjust) {
+    private void onSelectAroundCaretSuccess(int extendedStartAdjust, int extendedEndAdjust,
+            int wordStartAdjust, int wordEndAdjust) {
         if (mSelectionClient != null) {
-            SelectAroundCaretResult result = new SelectAroundCaretResult(extendedStartAdjust, extendedEndAdjust, wordStartAdjust, wordEndAdjust);
+            SelectAroundCaretResult result = new SelectAroundCaretResult(
+                    extendedStartAdjust, extendedEndAdjust, wordStartAdjust, wordEndAdjust);
             mSelectionClient.selectAroundCaretAck(result);
         }
     }
@@ -1778,7 +1858,8 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper imple
             // Update the selection range if needed.
             if (!(result.startAdjust == 0 && result.endAdjust == 0)) {
                 // This call will cause showSelectionMenu again.
-                mWebContents.adjustSelectionByCharacterOffset(result.startAdjust, result.endAdjust, /* showSelectionMenu = */ true);
+                mWebContents.adjustSelectionByCharacterOffset(
+                        result.startAdjust, result.endAdjust, /* showSelectionMenu = */ true);
                 return;
             }
 
@@ -1786,13 +1867,14 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper imple
             // session, log non selection expansion event to match the behavior of expansion case.
             // 2) log selection handle dragging triggered selection change.
             if (mSmartSelectionEventProcessor != null) {
-                mSmartSelectionEventProcessor.onSelectionModified(mLastSelectedText, mLastSelectionOffset, mClassificationResult);
+                mSmartSelectionEventProcessor.onSelectionModified(
+                        mLastSelectedText, mLastSelectionOffset, mClassificationResult);
             }
 
             // Rely on this method to clear |mHidden| and unhide the action mode.
             showSelectionMenuInternal();
         }
-    }
+    };
 
     @Override
     public void destroySelectActionMode() {
@@ -1843,11 +1925,10 @@ public class SelectionPopupControllerImpl extends ActionModeCallbackHelper imple
     @NativeMethods
     interface Natives {
         boolean isMagnifierWithSurfaceControlSupported();
-
         long init(SelectionPopupControllerImpl caller, WebContents webContents);
-
-        void setTextHandlesTemporarilyHidden(long nativeSelectionPopupController, SelectionPopupControllerImpl caller, boolean hidden);
-
-        void setTextHandlesHiddenForDropdownMenu(long nativeSelectionPopupController, SelectionPopupControllerImpl caller, boolean hidden);
+        void setTextHandlesTemporarilyHidden(long nativeSelectionPopupController,
+                SelectionPopupControllerImpl caller, boolean hidden);
+        void setTextHandlesHiddenForDropdownMenu(long nativeSelectionPopupController,
+                SelectionPopupControllerImpl caller, boolean hidden);
     }
 }

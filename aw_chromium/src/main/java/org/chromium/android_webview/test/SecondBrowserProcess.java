@@ -12,8 +12,8 @@ import android.os.Parcel;
 import android.os.Process;
 
 import org.chromium.android_webview.AwBrowserProcess;
-import org.chromium.android_webview.R;
 import org.chromium.android_webview.common.AwResource;
+import org.chromium.android_webview.R;
 
 /**
  * This is a service for imitating a second browser process in the application.

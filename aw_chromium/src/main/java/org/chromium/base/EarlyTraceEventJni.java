@@ -7,6 +7,17 @@ import org.jni_zero.CheckDiscard;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
 import org.jni_zero.GEN_JNI;
+import android.os.Process;
+import android.os.StrictMode;
+import android.os.SystemClock;
+import androidx.annotation.VisibleForTesting;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.concurrent.GuardedBy;
 
 @CheckDiscard("crbug.com/993421")
 class EarlyTraceEventJni implements EarlyTraceEvent.Natives {

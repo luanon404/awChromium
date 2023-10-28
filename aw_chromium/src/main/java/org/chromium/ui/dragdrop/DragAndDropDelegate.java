@@ -23,28 +23,23 @@ public interface DragAndDropDelegate {
         return (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O);
     }
 
-    /**
-     * @see View#startDragAndDrop
-     */
-    boolean startDragAndDrop(View containerView, Bitmap shadowImage, DropDataAndroid dropData, int cursorOffsetX, int cursorOffsetY, int dragObjRectWidth, int dragObjRectHeight);
+    /** @see View#startDragAndDrop */
+    boolean startDragAndDrop(View containerView, Bitmap shadowImage, DropDataAndroid dropData,
+            int cursorOffsetX, int cursorOffsetY, int dragObjRectWidth, int dragObjRectHeight);
 
     /**
      * @see View#startDragAndDrop
      */
-    boolean startDragAndDrop(View containerView, DragShadowBuilder dragShadowBuilder, DropDataAndroid dropData);
+    boolean startDragAndDrop(
+            View containerView, DragShadowBuilder dragShadowBuilder, DropDataAndroid dropData);
 
     /**
      * Set the {@link DragAndDropBrowserDelegate} that will be used to facilitate browser related
      * tasks required for Drag and Drop.
-     *
      * @param delegate The {@link DragAndDropBrowserDelegate} that will be used by this class.
      */
-    default void setDragAndDropBrowserDelegate(DragAndDropBrowserDelegate delegate) {
-    }
+    default void setDragAndDropBrowserDelegate(DragAndDropBrowserDelegate delegate) {}
 
-    /**
-     * Cleanup {@link DragAndDropBrowserDelegate}.
-     */
-    default void destroy() {
-    }
+    /** Cleanup {@link DragAndDropBrowserDelegate}. */
+    default void destroy() {}
 }

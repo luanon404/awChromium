@@ -13,10 +13,13 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class SerialConnectionInfo extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 32;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(32, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(32, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public int bitrate;
     public int dataBits;
@@ -46,7 +49,8 @@ public final class SerialConnectionInfo extends org.chromium.mojo.bindings.Struc
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static SerialConnectionInfo deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -60,32 +64,32 @@ public final class SerialConnectionInfo extends org.chromium.mojo.bindings.Struc
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new SerialConnectionInfo(elementsOrVersion);
-            {
-
+                {
+                    
                 result.bitrate = decoder0.readInt(8);
-            }
-            {
-
+                }
+                {
+                    
                 result.dataBits = decoder0.readInt(12);
-                SerialDataBits.validate(result.dataBits);
-                result.dataBits = SerialDataBits.toKnownValue(result.dataBits);
-            }
-            {
-
+                    SerialDataBits.validate(result.dataBits);
+                    result.dataBits = SerialDataBits.toKnownValue(result.dataBits);
+                }
+                {
+                    
                 result.parityBit = decoder0.readInt(16);
-                SerialParityBit.validate(result.parityBit);
-                result.parityBit = SerialParityBit.toKnownValue(result.parityBit);
-            }
-            {
-
+                    SerialParityBit.validate(result.parityBit);
+                    result.parityBit = SerialParityBit.toKnownValue(result.parityBit);
+                }
+                {
+                    
                 result.stopBits = decoder0.readInt(20);
-                SerialStopBits.validate(result.stopBits);
-                result.stopBits = SerialStopBits.toKnownValue(result.stopBits);
-            }
-            {
-
+                    SerialStopBits.validate(result.stopBits);
+                    result.stopBits = SerialStopBits.toKnownValue(result.stopBits);
+                }
+                {
+                    
                 result.ctsFlowControl = decoder0.readBoolean(24, 0);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -97,15 +101,15 @@ public final class SerialConnectionInfo extends org.chromium.mojo.bindings.Struc
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.bitrate, 8);
-
+        
         encoder0.encode(this.dataBits, 12);
-
+        
         encoder0.encode(this.parityBit, 16);
-
+        
         encoder0.encode(this.stopBits, 20);
-
+        
         encoder0.encode(this.ctsFlowControl, 24, 0);
     }
 }

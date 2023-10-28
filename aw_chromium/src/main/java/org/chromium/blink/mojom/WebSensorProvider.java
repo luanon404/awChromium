@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface WebSensorProvider extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends WebSensorProvider, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends WebSensorProvider, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<WebSensorProvider, WebSensorProvider.Proxy> MANAGER = WebSensorProvider_Internal.MANAGER;

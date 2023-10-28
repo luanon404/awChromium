@@ -38,15 +38,15 @@ public class FileUtils {
 
     /**
      * Delete the given File and (if it's a directory) everything within it.
-     *
      * @param currentFile The file or directory to delete. Does not need to exist.
-     * @param canDelete   the {@link Function} function used to check if the file can be deleted.
+     * @param canDelete the {@link Function} function used to check if the file can be deleted.
      * @return True if the files are deleted, or files reserved by |canDelete|, false if failed to
-     * delete files.
+     *         delete files.
      * @note Caveat: Return values from recursive deletes are ignored.
      * @note Caveat: |canDelete| is not robust; see https://crbug.com/1066733.
      */
-    public static boolean recursivelyDeleteFile(File currentFile, Function<String, Boolean> canDelete) {
+    public static boolean recursivelyDeleteFile(
+            File currentFile, Function<String, Boolean> canDelete) {
         if (!currentFile.exists()) {
             // This file could be a broken symlink, so try to delete. If we don't delete a broken
             // symlink, the directory containing it cannot be deleted.
@@ -76,11 +76,11 @@ public class FileUtils {
     /**
      * Delete the given files or directories by calling {@link #recursivelyDeleteFile(File)}. This
      * supports deletion of content URIs.
-     *
      * @param filePaths The file paths or content URIs to delete.
      * @param canDelete the {@link Function} function used to check if the file can be deleted.
      */
-    public static void batchDeleteFiles(List<String> filePaths, Function<String, Boolean> canDelete) {
+    public static void batchDeleteFiles(
+            List<String> filePaths, Function<String, Boolean> canDelete) {
         for (String filePath : filePaths) {
             if (canDelete != null && !canDelete.apply(filePath)) continue;
             if (ContentUriUtils.isContentUri(filePath)) {
@@ -94,7 +94,6 @@ public class FileUtils {
 
     /**
      * Get file size. If it is a directory, recursively get the size of all files within it.
-     *
      * @param file The file or directory.
      * @return The size in bytes.
      */
@@ -118,7 +117,8 @@ public class FileUtils {
     /**
      * Performs a simple copy of inputStream to outputStream.
      */
-    public static void copyStream(InputStream inputStream, OutputStream outputStream) throws IOException {
+    public static void copyStream(InputStream inputStream, OutputStream outputStream)
+            throws IOException {
         byte[] buffer = new byte[8192];
         int amountRead;
         while ((amountRead = inputStream.read(buffer)) != -1) {
@@ -128,8 +128,7 @@ public class FileUtils {
 
     /**
      * Atomically copies the data from an input stream into an output file.
-     *
-     * @param is      Input file stream to read data from.
+     * @param is Input file stream to read data from.
      * @param outFile Output file path.
      * @throws IOException in case of I/O error.
      */
@@ -156,7 +155,6 @@ public class FileUtils {
 
     /**
      * Returns a URI that points at the file.
-     *
      * @param file File to get a URI for.
      * @return URI that points at that file, either as a content:// URI or a file:// URI.
      */
@@ -180,7 +178,6 @@ public class FileUtils {
 
     /**
      * Returns the file extension, or an empty string if none.
-     *
      * @param file Name of the file, with or without the full path (Unix style).
      * @return empty string if no extension, extension otherwise.
      */
@@ -191,12 +188,11 @@ public class FileUtils {
         return file.substring(lastDot + 1).toLowerCase(Locale.US);
     }
 
-    /**
-     * Queries and decodes bitmap from content provider.
-     */
+    /** Queries and decodes bitmap from content provider. */
     @Nullable
     public static Bitmap queryBitmapFromContentProvider(Context context, Uri uri) {
-        try (ParcelFileDescriptor parcelFileDescriptor = context.getContentResolver().openFileDescriptor(uri, "r")) {
+        try (ParcelFileDescriptor parcelFileDescriptor =
+                        context.getContentResolver().openFileDescriptor(uri, "r")) {
             if (parcelFileDescriptor == null) {
                 Log.w(TAG, "Null ParcelFileDescriptor from uri " + uri);
                 return null;
@@ -221,7 +217,6 @@ public class FileUtils {
     /**
      * Gets the canonicalised absolute pathname for |filePath|. Returns empty string if the path is
      * invalid. This function can result in I/O so it can be slow.
-     *
      * @param filePath Path of the file, has to be a file path instead of a content URI.
      * @return canonicalised absolute pathname for |filePath|.
      */

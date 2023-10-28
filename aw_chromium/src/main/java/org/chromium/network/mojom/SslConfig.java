@@ -13,10 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class SslConfig extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 48;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(48, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(48, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public boolean revCheckingEnabled;
     public boolean revCheckingRequiredLocalAnchors;
@@ -59,7 +62,8 @@ public final class SslConfig extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static SslConfig deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -73,72 +77,72 @@ public final class SslConfig extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new SslConfig(elementsOrVersion);
-            {
-
+                {
+                    
                 result.revCheckingEnabled = decoder0.readBoolean(8, 0);
-            }
-            {
-
+                }
+                {
+                    
                 result.revCheckingRequiredLocalAnchors = decoder0.readBoolean(8, 1);
-            }
-            {
-
+                }
+                {
+                    
                 result.sha1LocalAnchorsEnabled = decoder0.readBoolean(8, 2);
-            }
-            {
-
+                }
+                {
+                    
                 result.symantecEnforcementDisabled = decoder0.readBoolean(8, 3);
-            }
-            {
-
+                }
+                {
+                    
                 result.echEnabled = decoder0.readBoolean(8, 4);
-            }
-            {
-
+                }
+                {
+                    
                 result.versionMin = decoder0.readInt(12);
-                SslVersion.validate(result.versionMin);
-                result.versionMin = SslVersion.toKnownValue(result.versionMin);
-            }
-            {
-
+                    SslVersion.validate(result.versionMin);
+                    result.versionMin = SslVersion.toKnownValue(result.versionMin);
+                }
+                {
+                    
                 result.versionMax = decoder0.readInt(16);
-                SslVersion.validate(result.versionMax);
-                result.versionMax = SslVersion.toKnownValue(result.versionMax);
-            }
-            {
-
+                    SslVersion.validate(result.versionMax);
+                    result.versionMax = SslVersion.toKnownValue(result.versionMax);
+                }
+                {
+                    
                 result.postQuantumOverride = decoder0.readInt(20);
-                OptionalBool.validate(result.postQuantumOverride);
-                result.postQuantumOverride = OptionalBool.toKnownValue(result.postQuantumOverride);
-            }
-            {
-
+                    OptionalBool.validate(result.postQuantumOverride);
+                    result.postQuantumOverride = OptionalBool.toKnownValue(result.postQuantumOverride);
+                }
+                {
+                    
                 result.disabledCipherSuites = decoder0.readShorts(24, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(32, false);
                 {
                     org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                     result.clientCertPoolingPolicy = new String[si1.elementsOrVersion];
                     for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                        
                         result.clientCertPoolingPolicy[i1] = decoder1.readString(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                     }
                 }
-            }
-            {
-
+                }
+                {
+                    
                 result.insecureHashOverride = decoder0.readInt(40);
-                OptionalBool.validate(result.insecureHashOverride);
-                result.insecureHashOverride = OptionalBool.toKnownValue(result.insecureHashOverride);
-            }
-            {
-
+                    OptionalBool.validate(result.insecureHashOverride);
+                    result.insecureHashOverride = OptionalBool.toKnownValue(result.insecureHashOverride);
+                }
+                {
+                    
                 result.rsaKeyUsageForLocalAnchorsOverride = decoder0.readInt(44);
-                OptionalBool.validate(result.rsaKeyUsageForLocalAnchorsOverride);
-                result.rsaKeyUsageForLocalAnchorsOverride = OptionalBool.toKnownValue(result.rsaKeyUsageForLocalAnchorsOverride);
-            }
+                    OptionalBool.validate(result.rsaKeyUsageForLocalAnchorsOverride);
+                    result.rsaKeyUsageForLocalAnchorsOverride = OptionalBool.toKnownValue(result.rsaKeyUsageForLocalAnchorsOverride);
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -150,37 +154,37 @@ public final class SslConfig extends org.chromium.mojo.bindings.Struct {
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.revCheckingEnabled, 8, 0);
-
+        
         encoder0.encode(this.revCheckingRequiredLocalAnchors, 8, 1);
-
+        
         encoder0.encode(this.sha1LocalAnchorsEnabled, 8, 2);
-
+        
         encoder0.encode(this.symantecEnforcementDisabled, 8, 3);
-
+        
         encoder0.encode(this.echEnabled, 8, 4);
-
+        
         encoder0.encode(this.versionMin, 12);
-
+        
         encoder0.encode(this.versionMax, 16);
-
+        
         encoder0.encode(this.postQuantumOverride, 20);
-
+        
         encoder0.encode(this.disabledCipherSuites, 24, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
-
+        
         if (this.clientCertPoolingPolicy == null) {
             encoder0.encodeNullPointer(32, false);
         } else {
             org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.clientCertPoolingPolicy.length, 32, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
             for (int i0 = 0; i0 < this.clientCertPoolingPolicy.length; ++i0) {
-
+                
                 encoder1.encode(this.clientCertPoolingPolicy[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
             }
         }
-
+        
         encoder0.encode(this.insecureHashOverride, 40);
-
+        
         encoder0.encode(this.rsaKeyUsageForLocalAnchorsOverride, 44);
     }
 }

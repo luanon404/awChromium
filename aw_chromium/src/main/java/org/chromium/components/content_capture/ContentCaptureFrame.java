@@ -20,11 +20,13 @@ public class ContentCaptureFrame extends ContentCaptureDataBase {
 
     @CalledByNative
     @VisibleForTesting
-    public static ContentCaptureFrame createContentCaptureFrame(long id, String value, int x, int y, int width, int height, String title, String favicon) {
+    public static ContentCaptureFrame createContentCaptureFrame(long id, String value, int x, int y,
+            int width, int height, String title, String favicon) {
         return new ContentCaptureFrame(id, value, x, y, width, height, title, favicon);
     }
 
-    private ContentCaptureFrame(long id, String value, int x, int y, int width, int height, String title, String favicon) {
+    private ContentCaptureFrame(long id, String value, int x, int y, int width, int height,
+            String title, String favicon) {
         super(id, new Rect(x, y, x + width, y + height));
         mUrl = value;
         mTitle = title;

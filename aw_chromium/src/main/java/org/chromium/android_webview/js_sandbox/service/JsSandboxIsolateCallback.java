@@ -6,10 +6,11 @@ package org.chromium.android_webview.js_sandbox.service;
 
 import android.os.RemoteException;
 
-import org.chromium.android_webview.js_sandbox.common.IJsSandboxIsolateCallback;
-import org.chromium.base.Log;
 import org.jni_zero.CalledByNative;
 import org.jni_zero.JNINamespace;
+
+import org.chromium.android_webview.js_sandbox.common.IJsSandboxIsolateCallback;
+import org.chromium.base.Log;
 
 /**
  * Callback interface for the native code to report a JavaScript evaluation outcome.
@@ -43,7 +44,7 @@ public class JsSandboxIsolateCallback {
      *
      * @param errorType See
      *                  {@link
-     *                  org.chromium.android_webview.js_sandbox.common.IJsSandboxIsolateCallback} for error types.
+     * org.chromium.android_webview.js_sandbox.common.IJsSandboxIsolateCallback} for error types.
      * @param error     String description of the error.
      */
     @CalledByNative

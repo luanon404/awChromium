@@ -13,10 +13,13 @@
 
 package org.chromium.content_settings.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class RuleMetaData extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 56;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(56, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(56, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public org.chromium.mojo_base.mojom.Time lastModified;
     public org.chromium.mojo_base.mojom.Time lastUsed;
@@ -43,7 +46,8 @@ public final class RuleMetaData extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static RuleMetaData deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -57,37 +61,37 @@ public final class RuleMetaData extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new RuleMetaData(elementsOrVersion);
-            {
-
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                 result.lastModified = org.chromium.mojo_base.mojom.Time.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                 result.lastUsed = org.chromium.mojo_base.mojom.Time.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, false);
                 result.lastVisited = org.chromium.mojo_base.mojom.Time.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(32, false);
                 result.expiration = org.chromium.mojo_base.mojom.Time.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.sessionModel = decoder0.readInt(40);
-                SessionModel.validate(result.sessionModel);
-                result.sessionModel = SessionModel.toKnownValue(result.sessionModel);
-            }
-            {
-
+                    SessionModel.validate(result.sessionModel);
+                    result.sessionModel = SessionModel.toKnownValue(result.sessionModel);
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(48, false);
                 result.lifetime = org.chromium.mojo_base.mojom.TimeDelta.decode(decoder1);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -99,17 +103,17 @@ public final class RuleMetaData extends org.chromium.mojo.bindings.Struct {
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.lastModified, 8, false);
-
+        
         encoder0.encode(this.lastUsed, 16, false);
-
+        
         encoder0.encode(this.lastVisited, 24, false);
-
+        
         encoder0.encode(this.expiration, 32, false);
-
+        
         encoder0.encode(this.sessionModel, 40);
-
+        
         encoder0.encode(this.lifetime, 48, false);
     }
 }

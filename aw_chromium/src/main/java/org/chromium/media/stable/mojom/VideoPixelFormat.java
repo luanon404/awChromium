@@ -17,10 +17,46 @@ import androidx.annotation.IntDef;
 
 public final class VideoPixelFormat {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({VideoPixelFormat.PIXEL_FORMAT_UNKNOWN, VideoPixelFormat.PIXEL_FORMAT_I420, VideoPixelFormat.PIXEL_FORMAT_YV12, VideoPixelFormat.PIXEL_FORMAT_I422, VideoPixelFormat.PIXEL_FORMAT_I420A, VideoPixelFormat.PIXEL_FORMAT_I444, VideoPixelFormat.PIXEL_FORMAT_NV12, VideoPixelFormat.PIXEL_FORMAT_NV21, VideoPixelFormat.PIXEL_FORMAT_UYVY, VideoPixelFormat.PIXEL_FORMAT_YUY2, VideoPixelFormat.PIXEL_FORMAT_ARGB, VideoPixelFormat.PIXEL_FORMAT_XRGB, VideoPixelFormat.PIXEL_FORMAT_RGB24, VideoPixelFormat.PIXEL_FORMAT_MJPEG, VideoPixelFormat.PIXEL_FORMAT_YUV420P9, VideoPixelFormat.PIXEL_FORMAT_YUV420P10, VideoPixelFormat.PIXEL_FORMAT_YUV422P9, VideoPixelFormat.PIXEL_FORMAT_YUV422P10, VideoPixelFormat.PIXEL_FORMAT_YUV444P9, VideoPixelFormat.PIXEL_FORMAT_YUV444P10, VideoPixelFormat.PIXEL_FORMAT_YUV420P12, VideoPixelFormat.PIXEL_FORMAT_YUV422P12, VideoPixelFormat.PIXEL_FORMAT_YUV444P12, VideoPixelFormat.PIXEL_FORMAT_Y16, VideoPixelFormat.PIXEL_FORMAT_ABGR, VideoPixelFormat.PIXEL_FORMAT_XBGR, VideoPixelFormat.PIXEL_FORMAT_P016LE, VideoPixelFormat.PIXEL_FORMAT_XR30, VideoPixelFormat.PIXEL_FORMAT_XB30, VideoPixelFormat.PIXEL_FORMAT_BGRA, VideoPixelFormat.PIXEL_FORMAT_RGBAF16, VideoPixelFormat.PIXEL_FORMAT_I422A, VideoPixelFormat.PIXEL_FORMAT_I444A, VideoPixelFormat.PIXEL_FORMAT_YUV420AP10, VideoPixelFormat.PIXEL_FORMAT_YUV422AP10, VideoPixelFormat.PIXEL_FORMAT_YUV444AP10, VideoPixelFormat.PIXEL_FORMAT_NV12A})
-    public @interface EnumType {
-    }
+        VideoPixelFormat.PIXEL_FORMAT_UNKNOWN,
+        VideoPixelFormat.PIXEL_FORMAT_I420,
+        VideoPixelFormat.PIXEL_FORMAT_YV12,
+        VideoPixelFormat.PIXEL_FORMAT_I422,
+        VideoPixelFormat.PIXEL_FORMAT_I420A,
+        VideoPixelFormat.PIXEL_FORMAT_I444,
+        VideoPixelFormat.PIXEL_FORMAT_NV12,
+        VideoPixelFormat.PIXEL_FORMAT_NV21,
+        VideoPixelFormat.PIXEL_FORMAT_UYVY,
+        VideoPixelFormat.PIXEL_FORMAT_YUY2,
+        VideoPixelFormat.PIXEL_FORMAT_ARGB,
+        VideoPixelFormat.PIXEL_FORMAT_XRGB,
+        VideoPixelFormat.PIXEL_FORMAT_RGB24,
+        VideoPixelFormat.PIXEL_FORMAT_MJPEG,
+        VideoPixelFormat.PIXEL_FORMAT_YUV420P9,
+        VideoPixelFormat.PIXEL_FORMAT_YUV420P10,
+        VideoPixelFormat.PIXEL_FORMAT_YUV422P9,
+        VideoPixelFormat.PIXEL_FORMAT_YUV422P10,
+        VideoPixelFormat.PIXEL_FORMAT_YUV444P9,
+        VideoPixelFormat.PIXEL_FORMAT_YUV444P10,
+        VideoPixelFormat.PIXEL_FORMAT_YUV420P12,
+        VideoPixelFormat.PIXEL_FORMAT_YUV422P12,
+        VideoPixelFormat.PIXEL_FORMAT_YUV444P12,
+        VideoPixelFormat.PIXEL_FORMAT_Y16,
+        VideoPixelFormat.PIXEL_FORMAT_ABGR,
+        VideoPixelFormat.PIXEL_FORMAT_XBGR,
+        VideoPixelFormat.PIXEL_FORMAT_P016LE,
+        VideoPixelFormat.PIXEL_FORMAT_XR30,
+        VideoPixelFormat.PIXEL_FORMAT_XB30,
+        VideoPixelFormat.PIXEL_FORMAT_BGRA,
+        VideoPixelFormat.PIXEL_FORMAT_RGBAF16,
+        VideoPixelFormat.PIXEL_FORMAT_I422A,
+        VideoPixelFormat.PIXEL_FORMAT_I444A,
+        VideoPixelFormat.PIXEL_FORMAT_YUV420AP10,
+        VideoPixelFormat.PIXEL_FORMAT_YUV422AP10,
+        VideoPixelFormat.PIXEL_FORMAT_YUV444AP10,
+        VideoPixelFormat.PIXEL_FORMAT_NV12A})
+    public @interface EnumType {}
 
     public static final int PIXEL_FORMAT_UNKNOWN = 0;
     public static final int PIXEL_FORMAT_I420 = 1;
@@ -113,12 +149,11 @@ public final class VideoPixelFormat {
     }
 
     public static int toKnownValue(int value) {
-        if (isKnownValue(value)) {
-            return value;
-        }
-        return DEFAULT_VALUE;
+      if (isKnownValue(value)) {
+        return value;
+      }
+      return DEFAULT_VALUE;
     }
 
-    private VideoPixelFormat() {
-    }
+    private VideoPixelFormat() {}
 }

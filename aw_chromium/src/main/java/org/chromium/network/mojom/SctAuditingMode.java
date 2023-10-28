@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class SctAuditingMode {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({SctAuditingMode.DISABLED, SctAuditingMode.ENHANCED_SAFE_BROWSING_REPORTING, SctAuditingMode.HASHDANCE})
-    public @interface EnumType {
-    }
+        SctAuditingMode.DISABLED,
+        SctAuditingMode.ENHANCED_SAFE_BROWSING_REPORTING,
+        SctAuditingMode.HASHDANCE})
+    public @interface EnumType {}
 
     public static final int DISABLED = 0;
     public static final int ENHANCED_SAFE_BROWSING_REPORTING = 1;
@@ -38,9 +40,8 @@ public final class SctAuditingMode {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private SctAuditingMode() {
-    }
+    private SctAuditingMode() {}
 }

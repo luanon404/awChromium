@@ -33,40 +33,40 @@ public interface Interface extends ConnectionErrorHandler, Closeable {
      * @see java.io.Closeable#close()
      */
     @Override
-    void close();
+    public void close();
 
     /**
      * A proxy to a mojo interface. This is base class for all generated proxies. It implements the
      * Interface and each time a method is called, the parameters are serialized and sent to the
      * {@link MessageReceiverWithResponder}, along with the response callback if needed.
      */
-    interface Proxy extends Interface {
+    public interface Proxy extends Interface {
         /**
          * Class allowing to interact with the proxy itself.
          */
-        interface Handler extends Closeable {
+        public interface Handler extends Closeable {
             /**
              * Sets the {@link ConnectionErrorHandler} that will be notified of errors.
              */
-            void setErrorHandler(ConnectionErrorHandler errorHandler);
+            public void setErrorHandler(ConnectionErrorHandler errorHandler);
 
             /**
              * Unbinds the proxy and passes the handle. Can return null if the proxy is not bound or
              * if the proxy is not over a message pipe.
              */
-            MessagePipeHandle passHandle();
+            public MessagePipeHandle passHandle();
 
             /**
              * Returns the version number of the interface that the remote side supports.
              */
-            int getVersion();
+            public int getVersion();
 
             /**
              * Queries the max version that the remote side supports. On completion, the result will
              * be returned as the input of |callback|. The version number of this interface pointer
              * will also be updated.
              */
-            void queryVersion(Callback1<Integer> callback);
+            public void queryVersion(Callback1<Integer> callback);
 
             /**
              * If the remote side doesn't support the specified version, it will close its end of
@@ -77,13 +77,13 @@ public interface Interface extends ConnectionErrorHandler, Closeable {
              * by the remote side, it is guaranteed that all calls to the interface methods after
              * requireVersion(X) will be ignored.
              */
-            void requireVersion(int version);
+            public void requireVersion(int version);
         }
 
         /**
          * Returns the {@link Handler} object allowing to interact with the proxy itself.
          */
-        Handler getProxyHandler();
+        public Handler getProxyHandler();
     }
 
     /**
@@ -118,7 +118,7 @@ public interface Interface extends ConnectionErrorHandler, Closeable {
             /**
              * Constructor.
              *
-             * @param core            the Core implementation used to create pipes and access the async waiter.
+             * @param core the Core implementation used to create pipes and access the async waiter.
              * @param messageReceiver the message receiver to send message to.
              */
             protected HandlerImpl(Core core, MessageReceiverWithResponder messageReceiver) {
@@ -204,7 +204,7 @@ public interface Interface extends ConnectionErrorHandler, Closeable {
                             public void call(RunResponseMessageParams response) {
                                 if (response.output != null
                                         && response.output.which()
-                                        == RunOutput.Tag.QueryVersionResult) {
+                                                == RunOutput.Tag.QueryVersionResult) {
                                     mVersion = response.output.getQueryVersionResult().version;
                                 }
                                 callback.call(mVersion);
@@ -338,7 +338,7 @@ public interface Interface extends ConnectionErrorHandler, Closeable {
         /**
          * Constructor.
          *
-         * @param core            the Core implementation used to create pipes and access the async waiter.
+         * @param core the Core implementation used to create pipes and access the async waiter.
          * @param messageReceiver the message receiver to send message to.
          */
         public ThreadSafeForwarder(Core core, MessageReceiverWithResponder messageReceiver) {
@@ -453,7 +453,7 @@ public interface Interface extends ConnectionErrorHandler, Closeable {
          * Constructs a thread-safe Proxy forwarding the calls to the given message receiver.
          * All calls can be performed from any thread and are posted to the {@link Executor} that
          * is associated with the thread on which this method was called on.
-         * <p>
+         *
          * The original Proxy object is unbound.
          */
         public final P buildThreadSafeProxy(P proxy) {
@@ -466,7 +466,7 @@ public interface Interface extends ConnectionErrorHandler, Closeable {
             proxy.close();
 
             proxy = buildProxy(
-                    core, new ThreadSafeForwarder(core, new AutoCloseableRouter(core, router)));
+                core, new ThreadSafeForwarder(core, new AutoCloseableRouter(core, router)));
             DelegatingConnectionErrorHandler handlers = new DelegatingConnectionErrorHandler();
             handlers.addConnectionErrorHandler(proxy);
             router.setErrorHandler(handlers);

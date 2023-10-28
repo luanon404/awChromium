@@ -13,9 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 class CrossOriginEmbedderPolicyReporter_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<CrossOriginEmbedderPolicyReporter, CrossOriginEmbedderPolicyReporter.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<CrossOriginEmbedderPolicyReporter, CrossOriginEmbedderPolicyReporter.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<CrossOriginEmbedderPolicyReporter, CrossOriginEmbedderPolicyReporter.Proxy> MANAGER =
+            new org.chromium.mojo.bindings.Interface.Manager<CrossOriginEmbedderPolicyReporter, CrossOriginEmbedderPolicyReporter.Proxy>() {
 
         @Override
         public String getName() {
@@ -24,11 +28,12 @@ class CrossOriginEmbedderPolicyReporter_Internal {
 
         @Override
         public int getVersion() {
-            return 0;
+          return 0;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -39,7 +44,7 @@ class CrossOriginEmbedderPolicyReporter_Internal {
 
         @Override
         public CrossOriginEmbedderPolicyReporter[] buildArray(int size) {
-            return new CrossOriginEmbedderPolicyReporter[size];
+          return new CrossOriginEmbedderPolicyReporter[size];
         }
     };
 
@@ -51,13 +56,15 @@ class CrossOriginEmbedderPolicyReporter_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements CrossOriginEmbedderPolicyReporter.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core,
+              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void queueCorpViolationReport(org.chromium.url.mojom.Url blockedUrl, int destination, boolean reportOnly) {
+        public void queueCorpViolationReport(
+org.chromium.url.mojom.Url blockedUrl, int destination, boolean reportOnly) {
 
             CrossOriginEmbedderPolicyReporterQueueCorpViolationReportParams _message = new CrossOriginEmbedderPolicyReporterQueueCorpViolationReportParams();
 
@@ -68,20 +75,27 @@ class CrossOriginEmbedderPolicyReporter_Internal {
             _message.reportOnly = reportOnly;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(QUEUE_CORP_VIOLATION_REPORT_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(QUEUE_CORP_VIOLATION_REPORT_ORDINAL)));
 
         }
 
 
         @Override
-        public void clone(org.chromium.mojo.bindings.InterfaceRequest<CrossOriginEmbedderPolicyReporter> receiver) {
+        public void clone(
+org.chromium.mojo.bindings.InterfaceRequest<CrossOriginEmbedderPolicyReporter> receiver) {
 
             CrossOriginEmbedderPolicyReporterCloneParams _message = new CrossOriginEmbedderPolicyReporterCloneParams();
 
             _message.receiver = receiver;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(CLONE_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(CLONE_ORDINAL)));
 
         }
 
@@ -97,7 +111,8 @@ class CrossOriginEmbedderPolicyReporter_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -106,24 +121,33 @@ class CrossOriginEmbedderPolicyReporter_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(CrossOriginEmbedderPolicyReporter_Internal.MANAGER, messageWithHeader);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
+                                CrossOriginEmbedderPolicyReporter_Internal.MANAGER, messageWithHeader);
+
+
+
 
 
                     case QUEUE_CORP_VIOLATION_REPORT_ORDINAL: {
 
-                        CrossOriginEmbedderPolicyReporterQueueCorpViolationReportParams data = CrossOriginEmbedderPolicyReporterQueueCorpViolationReportParams.deserialize(messageWithHeader.getPayload());
+                        CrossOriginEmbedderPolicyReporterQueueCorpViolationReportParams data =
+                                CrossOriginEmbedderPolicyReporterQueueCorpViolationReportParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().queueCorpViolationReport(data.blockedUrl, data.destination, data.reportOnly);
                         return true;
                     }
 
 
+
+
+
                     case CLONE_ORDINAL: {
 
-                        CrossOriginEmbedderPolicyReporterCloneParams data = CrossOriginEmbedderPolicyReporterCloneParams.deserialize(messageWithHeader.getPayload());
+                        CrossOriginEmbedderPolicyReporterCloneParams data =
+                                CrossOriginEmbedderPolicyReporterCloneParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().clone(data.receiver);
                         return true;
@@ -134,7 +158,7 @@ class CrossOriginEmbedderPolicyReporter_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -142,7 +166,8 @@ class CrossOriginEmbedderPolicyReporter_Internal {
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -151,27 +176,33 @@ class CrossOriginEmbedderPolicyReporter_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), CrossOriginEmbedderPolicyReporter_Internal.MANAGER, messageWithHeader, receiver);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
+                                getCore(), CrossOriginEmbedderPolicyReporter_Internal.MANAGER, messageWithHeader, receiver);
+
+
+
+
 
 
                     default:
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class CrossOriginEmbedderPolicyReporterQueueCorpViolationReportParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.url.mojom.Url blockedUrl;
         public int destination;
@@ -195,7 +226,8 @@ class CrossOriginEmbedderPolicyReporter_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static CrossOriginEmbedderPolicyReporterQueueCorpViolationReportParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -209,21 +241,21 @@ class CrossOriginEmbedderPolicyReporter_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new CrossOriginEmbedderPolicyReporterQueueCorpViolationReportParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.blockedUrl = org.chromium.url.mojom.Url.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.destination = decoder0.readInt(16);
-                    RequestDestination.validate(result.destination);
-                    result.destination = RequestDestination.toKnownValue(result.destination);
-                }
-                {
-
+                        RequestDestination.validate(result.destination);
+                        result.destination = RequestDestination.toKnownValue(result.destination);
+                    }
+                    {
+                        
                     result.reportOnly = decoder0.readBoolean(20, 0);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -235,20 +267,22 @@ class CrossOriginEmbedderPolicyReporter_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.blockedUrl, 8, false);
-
+            
             encoder0.encode(this.destination, 16);
-
+            
             encoder0.encode(this.reportOnly, 20, 0);
         }
     }
 
 
+
+    
     static final class CrossOriginEmbedderPolicyReporterCloneParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.mojo.bindings.InterfaceRequest<CrossOriginEmbedderPolicyReporter> receiver;
 
@@ -270,7 +304,8 @@ class CrossOriginEmbedderPolicyReporter_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static CrossOriginEmbedderPolicyReporterCloneParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -284,10 +319,10 @@ class CrossOriginEmbedderPolicyReporter_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new CrossOriginEmbedderPolicyReporterCloneParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.receiver = decoder0.readInterfaceRequest(8, false);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -299,10 +334,11 @@ class CrossOriginEmbedderPolicyReporter_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.receiver, 8, false);
         }
     }
+
 
 
 }

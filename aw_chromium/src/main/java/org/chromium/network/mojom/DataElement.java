@@ -13,6 +13,9 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class DataElement extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
@@ -20,8 +23,7 @@ public final class DataElement extends org.chromium.mojo.bindings.Union {
         public static final int File = 1;
         public static final int DataPipe = 2;
         public static final int ChunkedDataPipe = 3;
-    }
-
+    };
     private DataElementBytes mBytes;
     private DataElementFile mFile;
     private DataElementDataPipe mDataPipe;
@@ -74,22 +76,22 @@ public final class DataElement extends org.chromium.mojo.bindings.Union {
         encoder0.encode(this.mTag, offset + 4);
         switch (mTag) {
             case Tag.Bytes: {
-
+                
                 encoder0.encode(this.mBytes, offset + 8, false);
                 break;
             }
             case Tag.File: {
-
+                
                 encoder0.encode(this.mFile, offset + 8, false);
                 break;
             }
             case Tag.DataPipe: {
-
+                
                 encoder0.encode(this.mDataPipe, offset + 8, false);
                 break;
             }
             case Tag.ChunkedDataPipe: {
-
+                
                 encoder0.encode(this.mChunkedDataPipe, offset + 8, false);
                 break;
             }
@@ -111,28 +113,28 @@ public final class DataElement extends org.chromium.mojo.bindings.Union {
         DataElement result = new DataElement();
         switch (dataHeader.elementsOrVersion) {
             case Tag.Bytes: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mBytes = DataElementBytes.decode(decoder1);
                 result.mTag = Tag.Bytes;
                 break;
             }
             case Tag.File: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mFile = DataElementFile.decode(decoder1);
                 result.mTag = Tag.File;
                 break;
             }
             case Tag.DataPipe: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mDataPipe = DataElementDataPipe.decode(decoder1);
                 result.mTag = Tag.DataPipe;
                 break;
             }
             case Tag.ChunkedDataPipe: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mChunkedDataPipe = DataElementChunkedDataPipe.decode(decoder1);
                 result.mTag = Tag.ChunkedDataPipe;

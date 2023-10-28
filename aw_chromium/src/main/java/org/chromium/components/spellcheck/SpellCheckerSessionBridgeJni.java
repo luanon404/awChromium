@@ -4,39 +4,55 @@
 package org.chromium.components.spellcheck;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.content.Context;
+import android.text.style.SuggestionSpan;
+import android.view.textservice.SentenceSuggestionsInfo;
+import android.view.textservice.SpellCheckerSession;
+import android.view.textservice.SpellCheckerSession.SpellCheckerSessionListener;
+import android.view.textservice.SuggestionsInfo;
+import android.view.textservice.TextInfo;
+import android.view.textservice.TextServicesManager;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.ContextUtils;
+import java.util.ArrayList;
 
 @CheckDiscard("crbug.com/993421")
 class SpellCheckerSessionBridgeJni implements SpellCheckerSessionBridge.Natives {
-    private static SpellCheckerSessionBridge.Natives testInstance;
+  private static SpellCheckerSessionBridge.Natives testInstance;
 
-    public static final JniStaticTestMocker<SpellCheckerSessionBridge.Natives> TEST_HOOKS = new JniStaticTestMocker<SpellCheckerSessionBridge.Natives>() {
-        @Override
-        public void setInstanceForTesting(SpellCheckerSessionBridge.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<SpellCheckerSessionBridge.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<SpellCheckerSessionBridge.Natives>() {
     @Override
-    public void processSpellCheckResults(long nativeSpellCheckerSessionBridge, SpellCheckerSessionBridge caller, int[] offsets, int[] lengths, String[][] suggestions) {
-        GEN_JNI.org_chromium_components_spellcheck_SpellCheckerSessionBridge_processSpellCheckResults(nativeSpellCheckerSessionBridge, caller, offsets, lengths, suggestions);
+    public void setInstanceForTesting(SpellCheckerSessionBridge.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    public static SpellCheckerSessionBridge.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of SpellCheckerSessionBridge.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new SpellCheckerSessionBridgeJni();
+  @Override
+  public void processSpellCheckResults(long nativeSpellCheckerSessionBridge, SpellCheckerSessionBridge caller, int[] offsets, int[] lengths, String[][] suggestions) {
+    GEN_JNI.org_chromium_components_spellcheck_SpellCheckerSessionBridge_processSpellCheckResults(nativeSpellCheckerSessionBridge, caller, offsets, lengths, suggestions);
+  }
+
+  public static SpellCheckerSessionBridge.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of SpellCheckerSessionBridge.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new SpellCheckerSessionBridgeJni();
+  }
 }

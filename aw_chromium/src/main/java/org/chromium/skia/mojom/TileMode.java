@@ -17,10 +17,13 @@ import androidx.annotation.IntDef;
 
 public final class TileMode {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({TileMode.CLAMP, TileMode.REPEAT, TileMode.MIRROR, TileMode.DECAL})
-    public @interface EnumType {
-    }
+        TileMode.CLAMP,
+        TileMode.REPEAT,
+        TileMode.MIRROR,
+        TileMode.DECAL})
+    public @interface EnumType {}
 
     public static final int CLAMP = 0;
     public static final int REPEAT = 1;
@@ -39,9 +42,8 @@ public final class TileMode {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private TileMode() {
-    }
+    private TileMode() {}
 }

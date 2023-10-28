@@ -31,7 +31,8 @@ public interface CrashReportingPermissionManager {
      * @return Whether usage and crash reporting is permitted.
      */
     default boolean isUsageAndCrashReportingPermitted() {
-        return isUsageAndCrashReportingPermittedByUser() && isUsageAndCrashReportingPermittedByPolicy();
+        return isUsageAndCrashReportingPermittedByUser()
+                && isUsageAndCrashReportingPermittedByPolicy();
     }
 
     /**

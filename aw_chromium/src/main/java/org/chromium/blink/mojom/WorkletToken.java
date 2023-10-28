@@ -13,6 +13,8 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public final class WorkletToken extends org.chromium.mojo.bindings.Union {
 
@@ -22,8 +24,7 @@ public final class WorkletToken extends org.chromium.mojo.bindings.Union {
         public static final int LayoutWorkletToken = 2;
         public static final int PaintWorkletToken = 3;
         public static final int SharedStorageWorkletToken = 4;
-    }
-
+    };
     private AnimationWorkletToken mAnimationWorkletToken;
     private AudioWorkletToken mAudioWorkletToken;
     private LayoutWorkletToken mLayoutWorkletToken;

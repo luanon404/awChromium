@@ -13,10 +13,13 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class PipelineStatistics extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 48;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(48, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(48, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public long audioBytesDecoded;
     public long videoBytesDecoded;
@@ -43,7 +46,8 @@ public final class PipelineStatistics extends org.chromium.mojo.bindings.Struct 
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static PipelineStatistics deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -57,30 +61,30 @@ public final class PipelineStatistics extends org.chromium.mojo.bindings.Struct 
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new PipelineStatistics(elementsOrVersion);
-            {
-
+                {
+                    
                 result.audioBytesDecoded = decoder0.readLong(8);
-            }
-            {
-
+                }
+                {
+                    
                 result.videoBytesDecoded = decoder0.readLong(16);
-            }
-            {
-
+                }
+                {
+                    
                 result.videoFramesDecoded = decoder0.readInt(24);
-            }
-            {
-
+                }
+                {
+                    
                 result.videoFramesDropped = decoder0.readInt(28);
-            }
-            {
-
+                }
+                {
+                    
                 result.audioMemoryUsage = decoder0.readLong(32);
-            }
-            {
-
+                }
+                {
+                    
                 result.videoMemoryUsage = decoder0.readLong(40);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -92,17 +96,17 @@ public final class PipelineStatistics extends org.chromium.mojo.bindings.Struct 
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.audioBytesDecoded, 8);
-
+        
         encoder0.encode(this.videoBytesDecoded, 16);
-
+        
         encoder0.encode(this.videoFramesDecoded, 24);
-
+        
         encoder0.encode(this.videoFramesDropped, 28);
-
+        
         encoder0.encode(this.audioMemoryUsage, 32);
-
+        
         encoder0.encode(this.videoMemoryUsage, 40);
     }
 }

@@ -51,15 +51,16 @@ public final class FileDescriptorInfo implements Parcelable {
         dest.writeLong(size);
     }
 
-    public static final Parcelable.Creator<FileDescriptorInfo> CREATOR = new Parcelable.Creator<FileDescriptorInfo>() {
-        @Override
-        public FileDescriptorInfo createFromParcel(Parcel in) {
-            return new FileDescriptorInfo(in);
-        }
+    public static final Parcelable.Creator<FileDescriptorInfo> CREATOR =
+            new Parcelable.Creator<FileDescriptorInfo>() {
+                @Override
+                public FileDescriptorInfo createFromParcel(Parcel in) {
+                    return new FileDescriptorInfo(in);
+                }
 
-        @Override
-        public FileDescriptorInfo[] newArray(int size) {
-            return new FileDescriptorInfo[size];
-        }
-    };
+                @Override
+                public FileDescriptorInfo[] newArray(int size) {
+                    return new FileDescriptorInfo[size];
+                }
+            };
 }

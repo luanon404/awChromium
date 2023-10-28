@@ -21,5 +21,5 @@ public interface MessageReceiver extends Closeable {
      * @see java.io.Closeable#close()
      */
     @Override
-    void close();
+    public void close();
 }

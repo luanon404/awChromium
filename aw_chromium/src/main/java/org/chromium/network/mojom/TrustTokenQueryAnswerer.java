@@ -13,24 +13,30 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface TrustTokenQueryAnswerer extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends TrustTokenQueryAnswerer, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends TrustTokenQueryAnswerer, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<TrustTokenQueryAnswerer, TrustTokenQueryAnswerer.Proxy> MANAGER = TrustTokenQueryAnswerer_Internal.MANAGER;
 
-    void hasTrustTokens(org.chromium.url.internal.mojom.Origin issuer, HasTrustTokens_Response callback);
+    void hasTrustTokens(
+org.chromium.url.internal.mojom.Origin issuer, 
+HasTrustTokens_Response callback);
 
-    interface HasTrustTokens_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<HasTrustTokensResult> {
-    }
+    interface HasTrustTokens_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<HasTrustTokensResult> { }
 
 
-    void hasRedemptionRecord(org.chromium.url.internal.mojom.Origin issuer, HasRedemptionRecord_Response callback);
+    void hasRedemptionRecord(
+org.chromium.url.internal.mojom.Origin issuer, 
+HasRedemptionRecord_Response callback);
 
-    interface HasRedemptionRecord_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<HasRedemptionRecordResult> {
-    }
+    interface HasRedemptionRecord_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<HasRedemptionRecordResult> { }
 
 
 }

@@ -10,16 +10,15 @@ import android.graphics.Rect;
 import org.chromium.ui.resources.Resource;
 import org.chromium.ui.resources.statics.NinePatchData;
 
-/**
- * The current state of a dynamic resource.
- */
+/** The current state of a dynamic resource. */
 public class DynamicResourceSnapshot implements Resource {
     private final Bitmap mBitmap;
     private final boolean mShouldRemoveResourceOnNullBitmap;
     private final Rect mBitmapSize;
     private final long mNativeResourceId;
 
-    public DynamicResourceSnapshot(Bitmap bitmap, boolean shouldRemoveResourceOnNullBitmap, Rect bitmapSize, long nativeResourceId) {
+    public DynamicResourceSnapshot(Bitmap bitmap, boolean shouldRemoveResourceOnNullBitmap,
+            Rect bitmapSize, long nativeResourceId) {
         mBitmap = bitmap;
         mShouldRemoveResourceOnNullBitmap = shouldRemoveResourceOnNullBitmap;
         mBitmapSize = bitmapSize;

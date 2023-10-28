@@ -12,8 +12,7 @@ import org.chromium.base.PackageUtils;
  */
 public final class AwComputedFlags {
     // Do not instantiate this class.
-    private AwComputedFlags() {
-    }
+    private AwComputedFlags() {}
 
     private static final String GMS_PACKAGE = "com.google.android.gms";
 
@@ -33,7 +32,8 @@ public final class AwComputedFlags {
         if (sPageStartedOnCommitForBrowserNavigations != null) {
             return sPageStartedOnCommitForBrowserNavigations;
         }
-        sPageStartedOnCommitForBrowserNavigations = computePageStartedOnCommitForBrowserNavigations();
+        sPageStartedOnCommitForBrowserNavigations =
+                computePageStartedOnCommitForBrowserNavigations();
         return sPageStartedOnCommitForBrowserNavigations;
     }
 }

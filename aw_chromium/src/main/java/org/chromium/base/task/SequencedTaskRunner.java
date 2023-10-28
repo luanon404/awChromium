@@ -11,5 +11,4 @@ package org.chromium.base.task;
  * guarantees w.r.t. other SequencedTaskRunners. They have destroy() automatically called whenever
  * they go empty, so calling destroy() on them is not needed.
  */
-public interface SequencedTaskRunner extends TaskRunner {
-}
+public interface SequencedTaskRunner extends TaskRunner {}

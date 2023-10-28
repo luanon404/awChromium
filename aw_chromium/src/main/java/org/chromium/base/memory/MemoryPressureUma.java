@@ -20,7 +20,11 @@ import java.lang.annotation.RetentionPolicy;
  * Centralizes UMA data collection for Android-specific memory conditions.
  */
 public class MemoryPressureUma implements ComponentCallbacks2 {
-    @IntDef({Notification.UNKNOWN_TRIM_LEVEL, Notification.TRIM_MEMORY_COMPLETE, Notification.TRIM_MEMORY_MODERATE, Notification.TRIM_MEMORY_BACKGROUND, Notification.TRIM_MEMORY_UI_HIDDEN, Notification.TRIM_MEMORY_RUNNING_CRITICAL, Notification.TRIM_MEMORY_RUNNING_LOW, Notification.TRIM_MEMORY_RUNNING_MODERATE, Notification.ON_LOW_MEMORY, Notification.NUM_ENTRIES})
+    @IntDef({Notification.UNKNOWN_TRIM_LEVEL, Notification.TRIM_MEMORY_COMPLETE,
+            Notification.TRIM_MEMORY_MODERATE, Notification.TRIM_MEMORY_BACKGROUND,
+            Notification.TRIM_MEMORY_UI_HIDDEN, Notification.TRIM_MEMORY_RUNNING_CRITICAL,
+            Notification.TRIM_MEMORY_RUNNING_LOW, Notification.TRIM_MEMORY_RUNNING_MODERATE,
+            Notification.ON_LOW_MEMORY})
     @Retention(RetentionPolicy.SOURCE)
     private @interface Notification {
         // WARNING: These values are persisted to logs. Entries should not be
@@ -99,10 +103,10 @@ public class MemoryPressureUma implements ComponentCallbacks2 {
     }
 
     @Override
-    public void onConfigurationChanged(Configuration configuration) {
-    }
+    public void onConfigurationChanged(Configuration configuration) {}
 
     private void record(@Notification int notification) {
-        RecordHistogram.recordEnumeratedHistogram(mHistogramName, notification, Notification.NUM_ENTRIES);
+        RecordHistogram.recordEnumeratedHistogram(
+                mHistogramName, notification, Notification.NUM_ENTRIES);
     }
 }

@@ -17,10 +17,13 @@ import androidx.annotation.IntDef;
 
 public final class ChannelFormat {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({ChannelFormat.K8, ChannelFormat.K10, ChannelFormat.K16, ChannelFormat.K16_F})
-    public @interface EnumType {
-    }
+        ChannelFormat.K8,
+        ChannelFormat.K10,
+        ChannelFormat.K16,
+        ChannelFormat.K16_F})
+    public @interface EnumType {}
 
     public static final int K8 = 0;
     public static final int K10 = 1;
@@ -39,9 +42,8 @@ public final class ChannelFormat {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private ChannelFormat() {
-    }
+    private ChannelFormat() {}
 }

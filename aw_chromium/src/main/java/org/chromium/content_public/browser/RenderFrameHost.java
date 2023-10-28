@@ -18,22 +18,20 @@ import java.util.List;
  * The RenderFrameHost Java wrapper to allow communicating with the native RenderFrameHost object.
  */
 public interface RenderFrameHost {
-    /**
-     * The results of {@link #GetAssertionWebAuthSecurityChecks}.
-     */
+    /** The results of {@link #GetAssertionWebAuthSecurityChecks}. */
     final class WebAuthSecurityChecksResults {
         public final boolean isCrossOrigin;
         public final @AuthenticatorStatus.EnumType int securityCheckResult;
 
         /**
          * Creates an instance of this class.
-         *
          * @param securityCheckResult The status code indicating the result of the GetAssertion
-         *                            request security checks.
-         * @param isCrossOrigin       Whether the given origin is cross-origin with any frame in the
-         *                            current frame's ancestor chain.
+         *        request security checks.
+         * @param isCrossOrigin Whether the given origin is cross-origin with any frame in the
+         *        current frame's ancestor chain.
          */
-        public WebAuthSecurityChecksResults(@AuthenticatorStatus.EnumType int securityCheckResult, boolean isCrossOrigin) {
+        public WebAuthSecurityChecksResults(
+                @AuthenticatorStatus.EnumType int securityCheckResult, boolean isCrossOrigin) {
             this.securityCheckResult = securityCheckResult;
             this.isCrossOrigin = isCrossOrigin;
         }
@@ -69,12 +67,13 @@ public interface RenderFrameHost {
      *
      * @return A list of RenderFramesHosts including the current frame and all descendents.
      */
-    List<RenderFrameHost> getAllRenderFrameHosts();
+    public List<RenderFrameHost> getAllRenderFrameHosts();
 
     /**
      * Returns whether the feature policy allows the feature in this frame.
      *
      * @param feature A feature controlled by feature policy.
+     *
      * @return Whether the feature policy allows the feature in this frame.
      */
     boolean isFeatureEnabled(@PermissionsPolicyFeature int feature);
@@ -83,13 +82,14 @@ public interface RenderFrameHost {
      * Returns an interface by name to the Frame in the renderer process. This
      * provides access to interfaces implemented in the renderer to Java code in
      * the browser process.
-     * <p>
+     *
      * Callers are responsible to ensure that the renderer Frame exists before
      * trying to make a mojo connection to it. This can be done via
      * isRenderFrameLive() if the caller is not inside the call-stack of an
      * IPC form the renderer (which would guarantee its existence at that time).
      */
-    <I extends Interface, P extends Interface.Proxy> P getInterfaceToRendererFrame(Interface.Manager<I, P> manager);
+    <I extends Interface, P extends Interface.Proxy> P getInterfaceToRendererFrame(
+            Interface.Manager<I, P> manager);
 
     /**
      * Kills the renderer process when it is detected to be misbehaving and has
@@ -116,7 +116,6 @@ public interface RenderFrameHost {
 
     /**
      * If a CloseWatcher is active in this RenderFrameHost, signal it to close.
-     *
      * @return Whether a close signal was sent.
      */
     boolean signalCloseWatcherIfActive();
@@ -152,10 +151,11 @@ public interface RenderFrameHost {
      * mojo enum.
      *
      * @return An object containing (1) the status code indicating the result of the GetAssertion
-     * request security checks. (2) whether the effectiveOrigin is a cross-origin with any
-     * frame in this frame's ancestor chain.
+     *         request security checks. (2) whether the effectiveOrigin is a cross-origin with any
+     *         frame in this frame's ancestor chain.
      */
-    WebAuthSecurityChecksResults performGetAssertionWebAuthSecurityChecks(String relyingPartyId, Origin effectiveOrigin, boolean isPaymentCredentialGetAssertion);
+    WebAuthSecurityChecksResults performGetAssertionWebAuthSecurityChecks(
+            String relyingPartyId, Origin effectiveOrigin, boolean isPaymentCredentialGetAssertion);
 
     /**
      * Runs security checks associated with a Web Authentication MakeCredential request for the
@@ -166,7 +166,8 @@ public interface RenderFrameHost {
      *
      * @return Status code indicating the result of the MakeCredential request security checks.
      */
-    int performMakeCredentialWebAuthSecurityChecks(String relyingPartyId, Origin effectiveOrigin, boolean isPaymentCredentialCreation);
+    int performMakeCredentialWebAuthSecurityChecks(
+            String relyingPartyId, Origin effectiveOrigin, boolean isPaymentCredentialCreation);
 
     /**
      * @return An identifier for this RenderFrameHost.
@@ -186,7 +187,7 @@ public interface RenderFrameHost {
 
     /**
      * Inserts a VisualStateCallback that's resolved once a visual update has been processed.
-     * <p>
+     *
      * The VisualStateCallback will be inserted in Blink and will be invoked when the contents of
      * the DOM tree at the moment that the callback was inserted (or later) are submitted to the
      * compositor in a CompositorFrame. In other words, the following events need to happen before
@@ -197,7 +198,7 @@ public interface RenderFrameHost {
      * The callback is synchronously invoked if this is called while being destroyed.
      *
      * @param callback the callback to be inserted. The callback takes a single Boolean parameter
-     *                 which will be true if the visual state update was successful or false if it was aborted.
+     *     which will be true if the visual state update was successful or false if it was aborted.
      */
     void insertVisualStateCallback(Callback<Boolean> callback);
 
@@ -214,5 +215,6 @@ public interface RenderFrameHost {
      *                 parameter, and the call will be made on the main thread.
      *                 If no result is required, pass null.
      */
-    void executeJavaScriptInIsolatedWorld(String script, int worldId, @Nullable JavaScriptCallback callback);
+    void executeJavaScriptInIsolatedWorld(
+            String script, int worldId, @Nullable JavaScriptCallback callback);
 }

@@ -9,8 +9,6 @@ package org.chromium.ui.modelutil;
  * Under the hood this class is just a shorthand for {@link ListModelBase} with a
  * {@link Void} partial change notification payload type, for list types {@code T} that don't
  * support partial change notification.
- *
  * @param <T> The object type that this class manages in a list.
  */
-public class ListModel<T> extends ListModelBase<T, Void> {
-}
+public class ListModel<T> extends ListModelBase<T, Void> {}

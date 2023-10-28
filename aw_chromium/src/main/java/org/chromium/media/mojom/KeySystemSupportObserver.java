@@ -13,15 +13,20 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface KeySystemSupportObserver extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends KeySystemSupportObserver, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends KeySystemSupportObserver, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<KeySystemSupportObserver, KeySystemSupportObserver.Proxy> MANAGER = KeySystemSupportObserver_Internal.MANAGER;
 
-    void onKeySystemSupportUpdated(java.util.Map<String, KeySystemCapability> keySystems);
+    void onKeySystemSupportUpdated(
+java.util.Map<String, KeySystemCapability> keySystems);
 
 
 }

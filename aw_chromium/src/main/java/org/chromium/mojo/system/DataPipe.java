@@ -16,7 +16,7 @@ public interface DataPipe {
     /**
      * Flags for the data pipe creation operation.
      */
-    class CreateFlags extends Flags<CreateFlags> {
+    public static class CreateFlags extends Flags<CreateFlags> {
         private static final int FLAG_NONE = 0;
 
         /**
@@ -45,7 +45,7 @@ public interface DataPipe {
     /**
      * Used to specify creation parameters for a data pipe to |Core.createDataPipe()|.
      */
-    class CreateOptions {
+    public static class CreateOptions {
 
         /**
          * Used to specify different modes of operation, see |DataPipe.CreateFlags|.
@@ -104,7 +104,7 @@ public interface DataPipe {
     /**
      * Flags for the write operations on MessagePipeHandle .
      */
-    class WriteFlags extends Flags<WriteFlags> {
+    public static class WriteFlags extends Flags<WriteFlags> {
         private static final int FLAG_NONE = 0;
         private static final int FLAG_ALL_OR_NONE = 1 << 0;
 
@@ -144,7 +144,7 @@ public interface DataPipe {
     /**
      * Flags for the read operations on MessagePipeHandle.
      */
-    class ReadFlags extends Flags<ReadFlags> {
+    public static class ReadFlags extends Flags<ReadFlags> {
         private static final int FLAG_NONE = 0;
         private static final int FLAG_ALL_OR_NONE = 1 << 0;
         private static final int FLAG_QUERY = 1 << 2;
@@ -210,13 +210,13 @@ public interface DataPipe {
     /**
      * Handle for the producer part of a data pipe.
      */
-    interface ProducerHandle extends Handle {
+    public static interface ProducerHandle extends Handle {
 
         /**
          * @see org.chromium.mojo.system.Handle#pass()
          */
         @Override
-        ProducerHandle pass();
+        public ProducerHandle pass();
 
         /**
          * Writes the given data to the data pipe producer. |elements| points to data; the buffer
@@ -234,7 +234,7 @@ public interface DataPipe {
          *
          * @return number of written bytes.
          */
-        ResultAnd<Integer> writeData(ByteBuffer elements, WriteFlags flags);
+        public ResultAnd<Integer> writeData(ByteBuffer elements, WriteFlags flags);
 
         /**
          * Begins a two-phase write to the data pipe producer . On success, returns a |ByteBuffer|
@@ -255,7 +255,7 @@ public interface DataPipe {
          *
          * @return The buffer to write to.
          */
-        ByteBuffer beginWriteData(int numBytes, WriteFlags flags);
+        public ByteBuffer beginWriteData(int numBytes, WriteFlags flags);
 
         /**
          * Ends a two-phase write to the data pipe producer that was begun by a call to
@@ -269,26 +269,26 @@ public interface DataPipe {
          * again, if there's space available) but no data written to the buffer is "put into" the
          * data pipe.
          */
-        void endWriteData(int numBytesWritten);
+        public void endWriteData(int numBytesWritten);
     }
 
     /**
      * Handle for the consumer part of a data pipe.
      */
-    interface ConsumerHandle extends Handle {
+    public static interface ConsumerHandle extends Handle {
         /**
          * @see org.chromium.mojo.system.Handle#pass()
          */
         @Override
-        ConsumerHandle pass();
+        public ConsumerHandle pass();
 
-        /**
+       /**
          * Discards data on the data pie consumer. This method discards up to |numBytes| (which
          * again be a multiple of the element size) bytes of data, returning the amount actually
          * discarded. if |flags| has |allOrNone|, it will either discard exactly |numBytes| bytes of
          * data or none. In this case, |query| must not be set.
          */
-        int discardData(int numBytes, ReadFlags flags);
+        public int discardData(int numBytes, ReadFlags flags);
 
         /**
          * Reads data from the data pipe consumer. May also be used to query the amount of data
@@ -301,7 +301,7 @@ public interface DataPipe {
          * If flags has |query| set, it queries the amount of data available, returning the number
          * of bytes available. In this case |allOrNone| is ignored, as are |elements|.
          */
-        ResultAnd<Integer> readData(ByteBuffer elements, ReadFlags flags);
+        public ResultAnd<Integer> readData(ByteBuffer elements, ReadFlags flags);
 
         /**
          * Begins a two-phase read from the data pipe consumer. On success, returns a |ByteBuffer|
@@ -317,7 +317,7 @@ public interface DataPipe {
          * Once the caller has finished reading data from the buffer, it should call |endReadData()|
          * to specify the amount read and to complete the two-phase read.
          */
-        ByteBuffer beginReadData(int numBytes, ReadFlags flags);
+        public ByteBuffer beginReadData(int numBytes, ReadFlags flags);
 
         /**
          * Ends a two-phase read from the data pipe consumer that was begun by a call to
@@ -328,7 +328,7 @@ public interface DataPipe {
          * On failure, the two-phase read (if any) is ended (so the handle may become readable
          * again) but no data is "removed" from the data pipe.
          */
-        void endReadData(int numBytesRead);
+        public void endReadData(int numBytesRead);
     }
 
 }

@@ -17,10 +17,15 @@ import androidx.annotation.IntDef;
 
 public final class FetchResponseType {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({FetchResponseType.BASIC, FetchResponseType.CORS, FetchResponseType.DEFAULT, FetchResponseType.ERROR, FetchResponseType.OPAQUE, FetchResponseType.OPAQUE_REDIRECT})
-    public @interface EnumType {
-    }
+        FetchResponseType.BASIC,
+        FetchResponseType.CORS,
+        FetchResponseType.DEFAULT,
+        FetchResponseType.ERROR,
+        FetchResponseType.OPAQUE,
+        FetchResponseType.OPAQUE_REDIRECT})
+    public @interface EnumType {}
 
     public static final int BASIC = 0;
     public static final int CORS = 1;
@@ -41,9 +46,8 @@ public final class FetchResponseType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private FetchResponseType() {
-    }
+    private FetchResponseType() {}
 }

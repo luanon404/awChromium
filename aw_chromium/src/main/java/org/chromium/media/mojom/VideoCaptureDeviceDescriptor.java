@@ -13,10 +13,13 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class VideoCaptureDeviceDescriptor extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 56;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(56, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(56, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public String displayName;
     public String deviceId;
@@ -44,7 +47,8 @@ public final class VideoCaptureDeviceDescriptor extends org.chromium.mojo.bindin
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static VideoCaptureDeviceDescriptor deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -58,41 +62,41 @@ public final class VideoCaptureDeviceDescriptor extends org.chromium.mojo.bindin
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new VideoCaptureDeviceDescriptor(elementsOrVersion);
-            {
-
+                {
+                    
                 result.displayName = decoder0.readString(8, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.deviceId = decoder0.readString(16, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.modelId = decoder0.readString(24, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.facingMode = decoder0.readInt(32);
-                VideoFacingMode.validate(result.facingMode);
-                result.facingMode = VideoFacingMode.toKnownValue(result.facingMode);
-            }
-            {
-
+                    VideoFacingMode.validate(result.facingMode);
+                    result.facingMode = VideoFacingMode.toKnownValue(result.facingMode);
+                }
+                {
+                    
                 result.captureApi = decoder0.readInt(36);
-                VideoCaptureApi.validate(result.captureApi);
-                result.captureApi = VideoCaptureApi.toKnownValue(result.captureApi);
-            }
-            {
-
+                    VideoCaptureApi.validate(result.captureApi);
+                    result.captureApi = VideoCaptureApi.toKnownValue(result.captureApi);
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(40, false);
                 result.controlSupport = VideoCaptureControlSupport.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.transportType = decoder0.readInt(48);
-                VideoCaptureTransportType.validate(result.transportType);
-                result.transportType = VideoCaptureTransportType.toKnownValue(result.transportType);
-            }
+                    VideoCaptureTransportType.validate(result.transportType);
+                    result.transportType = VideoCaptureTransportType.toKnownValue(result.transportType);
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -104,19 +108,19 @@ public final class VideoCaptureDeviceDescriptor extends org.chromium.mojo.bindin
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.displayName, 8, false);
-
+        
         encoder0.encode(this.deviceId, 16, false);
-
+        
         encoder0.encode(this.modelId, 24, false);
-
+        
         encoder0.encode(this.facingMode, 32);
-
+        
         encoder0.encode(this.captureApi, 36);
-
+        
         encoder0.encode(this.controlSupport, 40, false);
-
+        
         encoder0.encode(this.transportType, 48);
     }
 }

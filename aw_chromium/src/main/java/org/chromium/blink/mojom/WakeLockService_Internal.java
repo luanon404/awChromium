@@ -13,6 +13,8 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 class WakeLockService_Internal {
 
@@ -126,7 +128,7 @@ int type, int reason, String description, org.chromium.mojo.bindings.InterfaceRe
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -157,7 +159,7 @@ int type, int reason, String description, org.chromium.mojo.bindings.InterfaceRe
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }

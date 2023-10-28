@@ -37,47 +37,34 @@ import org.chromium.base.StrictModeContext;
  */
 @RequiresApi(Build.VERSION_CODES.O)
 public final class ApiHelperForO {
-    private ApiHelperForO() {
-    }
+    private ApiHelperForO() {}
 
-    /**
-     * See {@link Display#isWideColorGamut() }.
-     */
+    /** See {@link Display#isWideColorGamut() }. */
     public static boolean isWideColorGamut(Display display) {
         return display.isWideColorGamut();
     }
 
-    /**
-     * See {@link Window#setColorMode(int) }.
-     */
+    /** See {@link Window#setColorMode(int) }. */
     public static void setColorMode(Window window, int colorMode) {
         window.setColorMode(colorMode);
     }
 
-    /**
-     * See {@link Configuration#isScreenWideColorGamut() }.
-     */
+    /** See {@link Configuration#isScreenWideColorGamut() }. */
     public static boolean isScreenWideColorGamut(Configuration configuration) {
         return configuration.isScreenWideColorGamut();
     }
 
-    /**
-     * See {@link PackageManager#isInstantApp() }.
-     */
+    /** See {@link PackageManager#isInstantApp() }. */
     public static boolean isInstantApp(PackageManager packageManager) {
         return packageManager.isInstantApp();
     }
 
-    /**
-     * See {@link View#setDefaultFocusHighlightEnabled(boolean) }.
-     */
+    /** See {@link View#setDefaultFocusHighlightEnabled(boolean) }. */
     public static void setDefaultFocusHighlightEnabled(View view, boolean enabled) {
         view.setDefaultFocusHighlightEnabled(enabled);
     }
 
-    /**
-     * See {@link ClipDescription#getTimestamp()}.
-     */
+    /** See {@link ClipDescription#getTimestamp()}. */
     public static long getTimestamp(ClipDescription clipDescription) {
         return clipDescription.getTimestamp();
     }
@@ -88,15 +75,14 @@ public final class ApiHelperForO {
      * BundleUtils.createIsolatedSplitContext(Context, String) since it has workarounds for
      * framework bugs.
      */
-    public static Context createContextForSplit(Context context, String name) throws PackageManager.NameNotFoundException {
+    public static Context createContextForSplit(Context context, String name)
+            throws PackageManager.NameNotFoundException {
         try (StrictModeContext ignored = StrictModeContext.allowDiskReads()) {
             return context.createContextForSplit(name);
         }
     }
 
-    /**
-     * See {@link AutofillManager#cancel()}.
-     */
+    /** See {@link AutofillManager#cancel()}. */
     public static void cancelAutofillSession(Activity activity) {
         // The AutofillManager has to be retrieved from an activity context.
         // https://cs.android.com/android/platform/superproject/+/master:frameworks/base/core/java/android/app/Application.java;l=624;drc=5d123b67756dffcfdebdb936ab2de2b29c799321
@@ -106,9 +92,7 @@ public final class ApiHelperForO {
         }
     }
 
-    /**
-     * See {@link AutofillManager#notifyValueChanged(View)}.
-     */
+    /** See {@link AutofillManager#notifyValueChanged(View)}. */
     public static void notifyValueChangedForAutofill(View view) {
         final AutofillManager afm = view.getContext().getSystemService(AutofillManager.class);
         if (afm != null) {
@@ -116,23 +100,18 @@ public final class ApiHelperForO {
         }
     }
 
-    /**
-     * See {@link ValueAnimator#areAnimatorsEnabled()}.
-     */
+    /** See {@link ValueAnimator#areAnimatorsEnabled()}. */
     public static boolean areAnimatorsEnabled() {
         return ValueAnimator.areAnimatorsEnabled();
     }
 
-    /**
-     * See {@link Notification.Builder#setChannelId(String)}.
-     */
-    public static Notification.Builder setChannelId(Notification.Builder builder, String channelId) {
+    /** See {@link Notification.Builder#setChannelId(String)}. */
+    public static Notification.Builder setChannelId(
+            Notification.Builder builder, String channelId) {
         return builder.setChannelId(channelId);
     }
 
-    /**
-     * See {@link Notification.Builder#setTimeoutAfter(long)}.
-     */
+    /** See {@link Notification.Builder#setTimeoutAfter(long)}. */
     public static Notification.Builder setTimeoutAfter(Notification.Builder builder, long ms) {
         return builder.setTimeoutAfter(ms);
     }
@@ -142,13 +121,12 @@ public final class ApiHelperForO {
      * ConnectivityManager#registerDefaultNetworkCallback(ConnectivityManager.NetworkCallback,
      * Handler) }.
      */
-    public static void registerDefaultNetworkCallback(ConnectivityManager connectivityManager, NetworkCallback networkCallback, Handler handler) {
+    public static void registerDefaultNetworkCallback(ConnectivityManager connectivityManager,
+            NetworkCallback networkCallback, Handler handler) {
         connectivityManager.registerDefaultNetworkCallback(networkCallback, handler);
     }
 
-    /**
-     * See {@link Notification#getChannelId()}.
-     */
+    /** See {@link Notification#getChannelId()}. */
     public static String getNotificationChannelId(Notification notification) {
         return notification.getChannelId();
     }
@@ -156,7 +134,8 @@ public final class ApiHelperForO {
     /**
      * See {@link Context#registerReceiver(BroadcastReceiver, IntentFilter, String, Handler, int)}
      */
-    public static Intent registerReceiver(Context context, BroadcastReceiver receiver, IntentFilter filter, String permission, Handler scheduler, int flags) {
+    public static Intent registerReceiver(Context context, BroadcastReceiver receiver,
+            IntentFilter filter, String permission, Handler scheduler, int flags) {
         return context.registerReceiver(receiver, filter, permission, scheduler, flags);
     }
 

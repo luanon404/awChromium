@@ -28,7 +28,8 @@ import java.util.Set;
  * A browser-process class for querying SafeMode state and executing SafeModeActions.
  */
 public class SafeModeController {
-    public static final String SAFE_MODE_STATE_COMPONENT = "org.chromium.android_webview.SafeModeState";
+    public static final String SAFE_MODE_STATE_COMPONENT =
+            "org.chromium.android_webview.SafeModeState";
     public static final String URI_AUTHORITY_SUFFIX = ".SafeModeContentProvider";
     public static final String SAFE_MODE_ACTIONS_URI_PATH = "/safe-mode-actions";
     public static final String ACTIONS_COLUMN = "actions";
@@ -37,8 +38,7 @@ public class SafeModeController {
 
     private SafeModeAction[] mRegisteredActions;
 
-    private SafeModeController() {
-    }
+    private SafeModeController() {}
 
     private static SafeModeController sInstanceForTests;
 
@@ -48,8 +48,10 @@ public class SafeModeController {
 
     // These values are persisted to logs. Entries should not be renumbered and
     // numeric values should never be reused.
-    @IntDef({SafeModeExecutionResult.SUCCESS, SafeModeExecutionResult.UNKNOWN_ERROR, SafeModeExecutionResult.ACTION_FAILED, SafeModeExecutionResult.ACTION_UNKNOWN, SafeModeExecutionResult.COUNT})
-    public @interface SafeModeExecutionResult {
+    @IntDef({SafeModeExecutionResult.SUCCESS, SafeModeExecutionResult.UNKNOWN_ERROR,
+            SafeModeExecutionResult.ACTION_FAILED, SafeModeExecutionResult.ACTION_UNKNOWN,
+            SafeModeExecutionResult.COUNT})
+    public static @interface SafeModeExecutionResult {
         int SUCCESS = 0;
         int UNKNOWN_ERROR = 1;
         int ACTION_FAILED = 2;
@@ -60,9 +62,8 @@ public class SafeModeController {
     /**
      * Sets the singleton instance for testing. Not thread safe, must only be called from single
      * threaded tests.
-     *
      * @param controller The SafeModeController object to return from getInstance(). Passing in a
-     *                   null value resets this.
+     * null value resets this.
      */
     public static void setInstanceForTests(SafeModeController controller) {
         sInstanceForTests = controller;
@@ -77,7 +78,7 @@ public class SafeModeController {
      * Registers a list of {@link SafeModeAction}s which can be executed. This must only be called
      * once (per-process) and each action in the list must have a unique ID.
      *
-     * @throws IllegalStateException    if actions have already been registered.
+     * @throws IllegalStateException if actions have already been registered.
      * @throws IllegalArgumentException if there are any duplicates.
      */
     public void registerActions(@NonNull SafeModeAction[] actions) {
@@ -108,11 +109,15 @@ public class SafeModeController {
     public Set<String> queryActions(String webViewPackageName) {
         Set<String> actions = new HashSet<>();
 
-        Uri uri = new Uri.Builder().scheme("content").authority(webViewPackageName + URI_AUTHORITY_SUFFIX).path(SAFE_MODE_ACTIONS_URI_PATH).build();
+        Uri uri = new Uri.Builder()
+                          .scheme("content")
+                          .authority(webViewPackageName + URI_AUTHORITY_SUFFIX)
+                          .path(SAFE_MODE_ACTIONS_URI_PATH)
+                          .build();
 
         final Context appContext = ContextUtils.getApplicationContext();
         try (Cursor cursor = appContext.getContentResolver().query(uri, /* projection */ null,
-                /* selection */ null, /* selectionArgs */ null, /* sortOrder */ null)) {
+                     /* selection */ null, /* selectionArgs */ null, /* sortOrder */ null)) {
             assert cursor != null : "ContentProvider doesn't support querying '" + uri + "'";
             int actionIdColumnIndex = cursor.getColumnIndexOrThrow(ACTIONS_COLUMN);
             while (cursor.moveToNext()) {
@@ -131,14 +136,17 @@ public class SafeModeController {
      * @return {@code true} if <b>all</b> actions succeeded, {@code false} otherwise.
      * @throws IllegalStateException if this is called before {@link registerActions}.
      */
-    public @SafeModeExecutionResult int executeActions(Set<String> actionsToExecute) throws Throwable {
+    public @SafeModeExecutionResult int executeActions(Set<String> actionsToExecute)
+            throws Throwable {
         // Execute SafeModeActions in a deterministic order.
         if (mRegisteredActions == null) {
-            throw new IllegalStateException("Must registerActions() before calling executeActions()");
+            throw new IllegalStateException(
+                    "Must registerActions() before calling executeActions()");
         }
 
         try {
-            @SafeModeExecutionResult int overallStatus = SafeModeExecutionResult.SUCCESS;
+            @SafeModeExecutionResult
+            int overallStatus = SafeModeExecutionResult.SUCCESS;
             Set<String> allIds = new HashSet<>();
             for (SafeModeAction action : mRegisteredActions) {
                 allIds.add(action.getId());
@@ -173,6 +181,7 @@ public class SafeModeController {
     }
 
     /**
+     *
      * @return A copy of the list of registered {@link SafeModeAction} actions.
      */
     public SafeModeAction[] getRegisteredActions() {
@@ -183,19 +192,22 @@ public class SafeModeController {
     }
 
     private static void logSafeModeExecutionResult(@SafeModeExecutionResult int result) {
-        RecordHistogram.recordEnumeratedHistogram("Android.WebView.SafeMode.ExecutionResult", result, SafeModeExecutionResult.COUNT);
+        RecordHistogram.recordEnumeratedHistogram(
+                "Android.WebView.SafeMode.ExecutionResult", result, SafeModeExecutionResult.COUNT);
     }
 
     /**
      * Quickly determine whether SafeMode is enabled. SafeMode is off-by-default.
      *
      * @param webViewPackageName the package name of the WebView implementation to query about
-     *                           SafeMode (generally this is the current WebView provider).
+     *     SafeMode (generally this is the current WebView provider).
      */
     public boolean isSafeModeEnabled(String webViewPackageName) {
         final Context context = ContextUtils.getApplicationContext();
-        ComponentName safeModeComponent = new ComponentName(webViewPackageName, SAFE_MODE_STATE_COMPONENT);
-        int enabledState = context.getPackageManager().getComponentEnabledSetting(safeModeComponent);
+        ComponentName safeModeComponent =
+                new ComponentName(webViewPackageName, SAFE_MODE_STATE_COMPONENT);
+        int enabledState =
+                context.getPackageManager().getComponentEnabledSetting(safeModeComponent);
         return enabledState == PackageManager.COMPONENT_ENABLED_STATE_ENABLED;
     }
 }

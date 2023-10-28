@@ -13,10 +13,13 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class SupportedVideoDecoderConfig extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 40;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(40, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(40, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public int profileMin;
     public int profileMax;
@@ -43,7 +46,8 @@ public final class SupportedVideoDecoderConfig extends org.chromium.mojo.binding
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static SupportedVideoDecoderConfig deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -57,36 +61,36 @@ public final class SupportedVideoDecoderConfig extends org.chromium.mojo.binding
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new SupportedVideoDecoderConfig(elementsOrVersion);
-            {
-
+                {
+                    
                 result.profileMin = decoder0.readInt(8);
-                VideoCodecProfile.validate(result.profileMin);
-                result.profileMin = VideoCodecProfile.toKnownValue(result.profileMin);
-            }
-            {
-
+                    VideoCodecProfile.validate(result.profileMin);
+                    result.profileMin = VideoCodecProfile.toKnownValue(result.profileMin);
+                }
+                {
+                    
                 result.profileMax = decoder0.readInt(12);
-                VideoCodecProfile.validate(result.profileMax);
-                result.profileMax = VideoCodecProfile.toKnownValue(result.profileMax);
-            }
-            {
-
+                    VideoCodecProfile.validate(result.profileMax);
+                    result.profileMax = VideoCodecProfile.toKnownValue(result.profileMax);
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                 result.codedSizeMin = org.chromium.gfx.mojom.Size.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, false);
                 result.codedSizeMax = org.chromium.gfx.mojom.Size.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.allowEncrypted = decoder0.readBoolean(32, 0);
-            }
-            {
-
+                }
+                {
+                    
                 result.requireEncrypted = decoder0.readBoolean(32, 1);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -98,17 +102,17 @@ public final class SupportedVideoDecoderConfig extends org.chromium.mojo.binding
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.profileMin, 8);
-
+        
         encoder0.encode(this.profileMax, 12);
-
+        
         encoder0.encode(this.codedSizeMin, 16, false);
-
+        
         encoder0.encode(this.codedSizeMax, 24, false);
-
+        
         encoder0.encode(this.allowEncrypted, 32, 0);
-
+        
         encoder0.encode(this.requireEncrypted, 32, 1);
     }
 }

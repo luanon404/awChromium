@@ -13,42 +13,51 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface SensorProvider extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends SensorProvider, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends SensorProvider, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<SensorProvider, SensorProvider.Proxy> MANAGER = SensorProvider_Internal.MANAGER;
 
-    void getSensor(int type, GetSensor_Response callback);
+    void getSensor(
+int type, 
+GetSensor_Response callback);
 
-    interface GetSensor_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<Integer, SensorInitParams> {
-    }
-
-
-    void createVirtualSensor(int type, VirtualSensorMetadata metadata, CreateVirtualSensor_Response callback);
-
-    interface CreateVirtualSensor_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> {
-    }
+    interface GetSensor_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<Integer, SensorInitParams> { }
 
 
-    void updateVirtualSensor(int type, SensorReadingRaw reading, UpdateVirtualSensor_Response callback);
+    void createVirtualSensor(
+int type, VirtualSensorMetadata metadata, 
+CreateVirtualSensor_Response callback);
 
-    interface UpdateVirtualSensor_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> {
-    }
-
-
-    void removeVirtualSensor(int type, RemoveVirtualSensor_Response callback);
-
-    interface RemoveVirtualSensor_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 {
-    }
+    interface CreateVirtualSensor_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> { }
 
 
-    void getVirtualSensorInformation(int type, GetVirtualSensorInformation_Response callback);
+    void updateVirtualSensor(
+int type, SensorReadingRaw reading, 
+UpdateVirtualSensor_Response callback);
 
-    interface GetVirtualSensorInformation_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<GetVirtualSensorInformationResult> {
-    }
+    interface UpdateVirtualSensor_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> { }
+
+
+    void removeVirtualSensor(
+int type, 
+RemoveVirtualSensor_Response callback);
+
+    interface RemoveVirtualSensor_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 { }
+
+
+    void getVirtualSensorInformation(
+int type, 
+GetVirtualSensorInformation_Response callback);
+
+    interface GetVirtualSensorInformation_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<GetVirtualSensorInformationResult> { }
 
 
 }

@@ -4,54 +4,62 @@
 package org.chromium.android_webview.metrics;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.android_webview.ManifestMetadataUtil;
+import org.chromium.base.ThreadUtils;
 
 @CheckDiscard("crbug.com/993421")
 class AwMetricsServiceClientJni implements AwMetricsServiceClient.Natives {
-    private static AwMetricsServiceClient.Natives testInstance;
+  private static AwMetricsServiceClient.Natives testInstance;
 
-    public static final JniStaticTestMocker<AwMetricsServiceClient.Natives> TEST_HOOKS = new JniStaticTestMocker<AwMetricsServiceClient.Natives>() {
-        @Override
-        public void setInstanceForTesting(AwMetricsServiceClient.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<AwMetricsServiceClient.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<AwMetricsServiceClient.Natives>() {
     @Override
-    public void setFastStartupForTesting(boolean fastStartupForTesting) {
-        GEN_JNI.org_chromium_android_1webview_metrics_AwMetricsServiceClient_setFastStartupForTesting(fastStartupForTesting);
+    public void setInstanceForTesting(AwMetricsServiceClient.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public void setHaveMetricsConsent(boolean userConsent, boolean appConsent) {
-        GEN_JNI.org_chromium_android_1webview_metrics_AwMetricsServiceClient_setHaveMetricsConsent(userConsent, appConsent);
-    }
+  @Override
+  public void setFastStartupForTesting(boolean fastStartupForTesting) {
+    GEN_JNI.org_chromium_android_1webview_metrics_AwMetricsServiceClient_setFastStartupForTesting(fastStartupForTesting);
+  }
 
-    @Override
-    public void setOnFinalMetricsCollectedListenerForTesting(Runnable listener) {
-        GEN_JNI.org_chromium_android_1webview_metrics_AwMetricsServiceClient_setOnFinalMetricsCollectedListenerForTesting(listener);
-    }
+  @Override
+  public void setHaveMetricsConsent(boolean userConsent, boolean appConsent) {
+    GEN_JNI.org_chromium_android_1webview_metrics_AwMetricsServiceClient_setHaveMetricsConsent(userConsent, appConsent);
+  }
 
-    @Override
-    public void setUploadIntervalForTesting(long uploadIntervalMs) {
-        GEN_JNI.org_chromium_android_1webview_metrics_AwMetricsServiceClient_setUploadIntervalForTesting(uploadIntervalMs);
-    }
+  @Override
+  public void setOnFinalMetricsCollectedListenerForTesting(Runnable listener) {
+    GEN_JNI.org_chromium_android_1webview_metrics_AwMetricsServiceClient_setOnFinalMetricsCollectedListenerForTesting(listener);
+  }
 
-    public static AwMetricsServiceClient.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of AwMetricsServiceClient.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new AwMetricsServiceClientJni();
+  @Override
+  public void setUploadIntervalForTesting(long uploadIntervalMs) {
+    GEN_JNI.org_chromium_android_1webview_metrics_AwMetricsServiceClient_setUploadIntervalForTesting(uploadIntervalMs);
+  }
+
+  public static AwMetricsServiceClient.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of AwMetricsServiceClient.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new AwMetricsServiceClientJni();
+  }
 }

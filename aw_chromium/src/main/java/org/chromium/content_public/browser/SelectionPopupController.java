@@ -20,19 +20,19 @@ import org.chromium.ui.base.WindowAndroid;
  * An interface that handles input-related web content selection UI like action mode
  * and paste popup view. It wraps an {@link ActionMode} created by the associated view,
  * providing modified interaction with it.
- * <p>
+ *
  * Embedders can use {@link ActionModeCallbackHelper} provided by the implementation of
  * this interface to create {@link ActionMode.Callback} instance and configure the selection
  * action mode tasks to their requirements.
  */
 public interface SelectionPopupController {
     // User action of clicking on the Share option within the selection UI.
-    String UMA_MOBILE_ACTION_MODE_SHARE = "MobileActionMode.Share";
+    static final String UMA_MOBILE_ACTION_MODE_SHARE = "MobileActionMode.Share";
 
     /**
      * @param webContents {@link WebContents} object.
      * @return {@link SelectionPopupController} object used for the give WebContents.
-     * {@code null} if not available.
+     *         {@code null} if not available.
      */
     static SelectionPopupController fromWebContents(WebContents webContents) {
         return SelectionPopupControllerImpl.fromWebContents(webContents);
@@ -41,7 +41,7 @@ public interface SelectionPopupController {
     /**
      * @param webContents {@link WebContents} object.
      * @return {@link SelectionPopupController} object used for the given WebContents if created.
-     * {@code null} if not available.
+     *         {@code null} if not available.
      */
     static SelectionPopupController fromWebContentsNoCreate(WebContents webContents) {
         return SelectionPopupControllerImpl.fromWebContentsNoCreate(webContents);
@@ -84,7 +84,8 @@ public interface SelectionPopupController {
      * Sets the {@link AdditionalSelectionMenuItemProvider} used by {@link SelectionPopupController}
      * when no text is selected.
      */
-    void setNonSelectionAdditionalMenuItemProvider(@Nullable AdditionalSelectionMenuItemProvider provider);
+    void setNonSelectionAdditionalMenuItemProvider(
+            @Nullable AdditionalSelectionMenuItemProvider provider);
 
     /**
      * @return {@link SelectionClient.ResultCallback} instance.
@@ -115,7 +116,7 @@ public interface SelectionPopupController {
 
     /**
      * @return An {@link ObservableSupplier<Boolean>} which holds true when a selection action bar
-     * is showing; otherwise, it holds false.
+     *         is showing; otherwise, it holds false.
      */
     ObservableSupplier<Boolean> isSelectActionBarShowingSupplier();
 
@@ -133,15 +134,12 @@ public interface SelectionPopupController {
     /**
      * Called when the processed text is replied from an activity that supports
      * Intent.ACTION_PROCESS_TEXT.
-     *
      * @param resultCode the code that indicates if the activity successfully processed the text
-     * @param data       the reply that contains the processed text.
+     * @param data the reply that contains the processed text.
      */
     void onReceivedProcessTextResult(int resultCode, Intent data);
 
-    /**
-     * Sets the given {@link SelectionClient} in the selection popup controller.
-     */
+    /** Sets the given {@link SelectionClient} in the selection popup controller. */
     void setSelectionClient(SelectionClient selectionClient);
 
     /**
@@ -163,7 +161,6 @@ public interface SelectionPopupController {
 
     /**
      * Set the flag indicating where the selection is preserved the next time the view loses focus.
-     *
      * @param preserve {@code true} if the selection needs to be preserved.
      */
     void setPreserveSelectionOnNextLossOfFocus(boolean preserve);
@@ -174,7 +171,6 @@ public interface SelectionPopupController {
      * TODO(mdjones): This was added as a temporary measure to hide text UI while Reader Mode or
      * Contextual Search are showing. This should be removed in favor of proper focusing of the
      * panel's WebContents (which is currently not being added to the view hierarchy).
-     *
      * @param focused If the WebContents currently has focus.
      */
     void updateTextSelectionUI(boolean focused);

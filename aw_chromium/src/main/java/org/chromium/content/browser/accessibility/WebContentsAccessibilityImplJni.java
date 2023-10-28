@@ -3,290 +3,346 @@
 //
 package org.chromium.content.browser.accessibility;
 
-import android.view.accessibility.AccessibilityEvent;
-
-import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
-
-import org.chromium.content_public.browser.WebContents;
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.ReceiverCallNotAllowedException;
+import android.graphics.Rect;
+import android.graphics.RectF;
+import android.os.Bundle;
+import android.util.SparseArray;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
+import android.view.ViewStructure;
+import android.view.accessibility.AccessibilityEvent;
+import android.view.accessibility.AccessibilityManager;
+import android.view.accessibility.AccessibilityNodeInfo;
+import android.view.accessibility.AccessibilityNodeProvider;
+import android.view.autofill.AutofillManager;
+import android.view.inputmethod.EditorInfo;
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
+import androidx.core.view.accessibility.AccessibilityNodeProviderCompat;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.ContextUtils;
+import org.chromium.base.Log;
+import org.chromium.base.ResettersForTesting;
+import org.chromium.base.StrictModeContext;
+import org.chromium.base.TraceEvent;
+import org.chromium.base.UserData;
+import org.chromium.build.BuildConfig;
+import org.chromium.content.browser.WindowEventObserver;
+import org.chromium.content.browser.WindowEventObserverManager;
+import org.chromium.content.browser.accessibility.AccessibilityDelegate.AccessibilityCoordinates;
+import org.chromium.content.browser.accessibility.AccessibilityNodeInfoBuilder.BuilderDelegate;
+import org.chromium.content.browser.accessibility.AutoDisableAccessibilityHandler.Client;
+import org.chromium.content.browser.accessibility.captioning.CaptioningController;
+import org.chromium.content.browser.input.ImeAdapterImpl;
+import org.chromium.content.browser.webcontents.WebContentsImpl;
+import org.chromium.content.browser.webcontents.WebContentsImpl.UserDataFactory;
+import org.chromium.content_public.browser.ContentFeatureList;
+import org.chromium.content_public.browser.ContentFeatureMap;
+import org.chromium.content_public.browser.WebContents;
+import org.chromium.content_public.browser.WebContentsAccessibility;
+import org.chromium.content_public.browser.WebContentsObserver;
+import org.chromium.ui.accessibility.AccessibilityState;
+import org.chromium.ui.base.ViewAndroidDelegate;
+import org.chromium.ui.base.WindowAndroid;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
 
 @CheckDiscard("crbug.com/993421")
 class WebContentsAccessibilityImplJni implements WebContentsAccessibilityImpl.Natives {
-    private static WebContentsAccessibilityImpl.Natives testInstance;
+  private static WebContentsAccessibilityImpl.Natives testInstance;
 
-    public static final JniStaticTestMocker<WebContentsAccessibilityImpl.Natives> TEST_HOOKS = new JniStaticTestMocker<WebContentsAccessibilityImpl.Natives>() {
-        @Override
-        public void setInstanceForTesting(WebContentsAccessibilityImpl.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<WebContentsAccessibilityImpl.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<WebContentsAccessibilityImpl.Natives>() {
     @Override
-    public void addSpellingErrorForTesting(long nativeWebContentsAccessibilityAndroid, int id, int startOffset, int endOffset) {
-        GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_addSpellingErrorForTesting(nativeWebContentsAccessibilityAndroid, id, startOffset, endOffset);
+    public void setInstanceForTesting(WebContentsAccessibilityImpl.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public boolean adjustSlider(long nativeWebContentsAccessibilityAndroid, int id, boolean increment) {
-        return (boolean) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_adjustSlider(nativeWebContentsAccessibilityAndroid, id, increment);
-    }
+  @Override
+  public void addSpellingErrorForTesting(long nativeWebContentsAccessibilityAndroid, int id, int startOffset, int endOffset) {
+    GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_addSpellingErrorForTesting(nativeWebContentsAccessibilityAndroid, id, startOffset, endOffset);
+  }
 
-    @Override
-    public boolean areInlineTextBoxesLoaded(long nativeWebContentsAccessibilityAndroid, int id) {
-        return (boolean) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_areInlineTextBoxesLoaded(nativeWebContentsAccessibilityAndroid, id);
-    }
+  @Override
+  public boolean adjustSlider(long nativeWebContentsAccessibilityAndroid, int id, boolean increment) {
+    return (boolean) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_adjustSlider(nativeWebContentsAccessibilityAndroid, id, increment);
+  }
 
-    @Override
-    public void blur(long nativeWebContentsAccessibilityAndroid) {
-        GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_blur(nativeWebContentsAccessibilityAndroid);
-    }
+  @Override
+  public boolean areInlineTextBoxesLoaded(long nativeWebContentsAccessibilityAndroid, int id) {
+    return (boolean) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_areInlineTextBoxesLoaded(nativeWebContentsAccessibilityAndroid, id);
+  }
 
-    @Override
-    public void click(long nativeWebContentsAccessibilityAndroid, int id) {
-        GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_click(nativeWebContentsAccessibilityAndroid, id);
-    }
+  @Override
+  public void blur(long nativeWebContentsAccessibilityAndroid) {
+    GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_blur(nativeWebContentsAccessibilityAndroid);
+  }
 
-    @Override
-    public void connectInstanceToRootManager(long nativeWebContentsAccessibilityAndroid) {
-        GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_connectInstanceToRootManager(nativeWebContentsAccessibilityAndroid);
-    }
+  @Override
+  public void click(long nativeWebContentsAccessibilityAndroid, int id) {
+    GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_click(nativeWebContentsAccessibilityAndroid, id);
+  }
 
-    @Override
-    public void deleteEarly(long nativeWebContentsAccessibilityAndroid) {
-        GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_deleteEarly(nativeWebContentsAccessibilityAndroid);
-    }
+  @Override
+  public void connectInstanceToRootManager(long nativeWebContentsAccessibilityAndroid) {
+    GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_connectInstanceToRootManager(nativeWebContentsAccessibilityAndroid);
+  }
 
-    @Override
-    public void disableRendererAccessibility(long nativeWebContentsAccessibilityAndroid) {
-        GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_disableRendererAccessibility(nativeWebContentsAccessibilityAndroid);
-    }
+  @Override
+  public void deleteEarly(long nativeWebContentsAccessibilityAndroid) {
+    GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_deleteEarly(nativeWebContentsAccessibilityAndroid);
+  }
 
-    @Override
-    public int findElementType(long nativeWebContentsAccessibilityAndroid, int startId, String elementType, boolean forwards, boolean canWrapToLastElement, boolean useDefaultPredicate) {
-        return (int) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_findElementType(nativeWebContentsAccessibilityAndroid, startId, elementType, forwards, canWrapToLastElement, useDefaultPredicate);
-    }
+  @Override
+  public void disableRendererAccessibility(long nativeWebContentsAccessibilityAndroid) {
+    GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_disableRendererAccessibility(nativeWebContentsAccessibilityAndroid);
+  }
 
-    @Override
-    public void focus(long nativeWebContentsAccessibilityAndroid, int id) {
-        GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_focus(nativeWebContentsAccessibilityAndroid, id);
-    }
+  @Override
+  public int findElementType(long nativeWebContentsAccessibilityAndroid, int startId, String elementType, boolean forwards, boolean canWrapToLastElement, boolean useDefaultPredicate) {
+    return (int) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_findElementType(nativeWebContentsAccessibilityAndroid, startId, elementType, forwards, canWrapToLastElement, useDefaultPredicate);
+  }
 
-    @Override
-    public int[] getAbsolutePositionForNode(long nativeWebContentsAccessibilityAndroid, int id) {
-        return (int[]) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_getAbsolutePositionForNode(nativeWebContentsAccessibilityAndroid, id);
-    }
+  @Override
+  public void focus(long nativeWebContentsAccessibilityAndroid, int id) {
+    GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_focus(nativeWebContentsAccessibilityAndroid, id);
+  }
 
-    @Override
-    public int[] getCharacterBoundingBoxes(long nativeWebContentsAccessibilityAndroid, int id, int start, int len) {
-        return (int[]) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_getCharacterBoundingBoxes(nativeWebContentsAccessibilityAndroid, id, start, len);
-    }
+  @Override
+  public int[] getAbsolutePositionForNode(long nativeWebContentsAccessibilityAndroid, int id) {
+    return (int[]) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_getAbsolutePositionForNode(nativeWebContentsAccessibilityAndroid, id);
+  }
 
-    @Override
-    public int getEditableTextSelectionEnd(long nativeWebContentsAccessibilityAndroid, int id) {
-        return (int) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_getEditableTextSelectionEnd(nativeWebContentsAccessibilityAndroid, id);
-    }
+  @Override
+  public int[] getCharacterBoundingBoxes(long nativeWebContentsAccessibilityAndroid, int id, int start, int len) {
+    return (int[]) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_getCharacterBoundingBoxes(nativeWebContentsAccessibilityAndroid, id, start, len);
+  }
 
-    @Override
-    public int getEditableTextSelectionStart(long nativeWebContentsAccessibilityAndroid, int id) {
-        return (int) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_getEditableTextSelectionStart(nativeWebContentsAccessibilityAndroid, id);
-    }
+  @Override
+  public int getEditableTextSelectionEnd(long nativeWebContentsAccessibilityAndroid, int id) {
+    return (int) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_getEditableTextSelectionEnd(nativeWebContentsAccessibilityAndroid, id);
+  }
 
-    @Override
-    public int getIdForElementAfterElementHostingAutofillPopup(long nativeWebContentsAccessibilityAndroid) {
-        return (int) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_getIdForElementAfterElementHostingAutofillPopup(nativeWebContentsAccessibilityAndroid);
-    }
+  @Override
+  public int getEditableTextSelectionStart(long nativeWebContentsAccessibilityAndroid, int id) {
+    return (int) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_getEditableTextSelectionStart(nativeWebContentsAccessibilityAndroid, id);
+  }
 
-    @Override
-    public boolean getImageData(long nativeWebContentsAccessibilityAndroid, AccessibilityNodeInfoCompat info, int id, boolean hasSentPreviousRequest) {
-        return (boolean) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_getImageData(nativeWebContentsAccessibilityAndroid, info, id, hasSentPreviousRequest);
-    }
+  @Override
+  public int getIdForElementAfterElementHostingAutofillPopup(long nativeWebContentsAccessibilityAndroid) {
+    return (int) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_getIdForElementAfterElementHostingAutofillPopup(nativeWebContentsAccessibilityAndroid);
+  }
 
-    @Override
-    public int getMaxContentChangedEventsToFireForTesting(long nativeWebContentsAccessibilityAndroid) {
-        return (int) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_getMaxContentChangedEventsToFireForTesting(nativeWebContentsAccessibilityAndroid);
-    }
+  @Override
+  public boolean getImageData(long nativeWebContentsAccessibilityAndroid, AccessibilityNodeInfoCompat info, int id, boolean hasSentPreviousRequest) {
+    return (boolean) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_getImageData(nativeWebContentsAccessibilityAndroid, info, id, hasSentPreviousRequest);
+  }
 
-    @Override
-    public int getRootId(long nativeWebContentsAccessibilityAndroid) {
-        return (int) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_getRootId(nativeWebContentsAccessibilityAndroid);
-    }
+  @Override
+  public int getMaxContentChangedEventsToFireForTesting(long nativeWebContentsAccessibilityAndroid) {
+    return (int) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_getMaxContentChangedEventsToFireForTesting(nativeWebContentsAccessibilityAndroid);
+  }
 
-    @Override
-    public String getSupportedHtmlElementTypes(long nativeWebContentsAccessibilityAndroid) {
-        return (String) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_getSupportedHtmlElementTypes(nativeWebContentsAccessibilityAndroid);
-    }
+  @Override
+  public int getRootId(long nativeWebContentsAccessibilityAndroid) {
+    return (int) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_getRootId(nativeWebContentsAccessibilityAndroid);
+  }
 
-    @Override
-    public int getTextLength(long nativeWebContentsAccessibilityAndroid, int id) {
-        return (int) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_getTextLength(nativeWebContentsAccessibilityAndroid, id);
-    }
+  @Override
+  public String getSupportedHtmlElementTypes(long nativeWebContentsAccessibilityAndroid) {
+    return (String) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_getSupportedHtmlElementTypes(nativeWebContentsAccessibilityAndroid);
+  }
 
-    @Override
-    public long init(WebContentsAccessibilityImpl caller, WebContents webContents, AccessibilityNodeInfoBuilder builder) {
-        return (long) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_init(caller, webContents, builder);
-    }
+  @Override
+  public int getTextLength(long nativeWebContentsAccessibilityAndroid, int id) {
+    return (int) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_getTextLength(nativeWebContentsAccessibilityAndroid, id);
+  }
 
-    @Override
-    public long initWithAXTree(WebContentsAccessibilityImpl caller, long axTreePtr, AccessibilityNodeInfoBuilder builder) {
-        return (long) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_initWithAXTree(caller, axTreePtr, builder);
-    }
+  @Override
+  public long init(WebContentsAccessibilityImpl caller, WebContents webContents, AccessibilityNodeInfoBuilder builder) {
+    return (long) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_init(caller, webContents, builder);
+  }
 
-    @Override
-    public boolean isAutofillPopupNode(long nativeWebContentsAccessibilityAndroid, int id) {
-        return (boolean) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_isAutofillPopupNode(nativeWebContentsAccessibilityAndroid, id);
-    }
+  @Override
+  public long initWithAXTree(WebContentsAccessibilityImpl caller, long axTreePtr, AccessibilityNodeInfoBuilder builder) {
+    return (long) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_initWithAXTree(caller, axTreePtr, builder);
+  }
 
-    @Override
-    public boolean isEditableText(long nativeWebContentsAccessibilityAndroid, int id) {
-        return (boolean) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_isEditableText(nativeWebContentsAccessibilityAndroid, id);
-    }
+  @Override
+  public boolean isAutofillPopupNode(long nativeWebContentsAccessibilityAndroid, int id) {
+    return (boolean) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_isAutofillPopupNode(nativeWebContentsAccessibilityAndroid, id);
+  }
 
-    @Override
-    public boolean isFocused(long nativeWebContentsAccessibilityAndroid, int id) {
-        return (boolean) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_isFocused(nativeWebContentsAccessibilityAndroid, id);
-    }
+  @Override
+  public boolean isEditableText(long nativeWebContentsAccessibilityAndroid, int id) {
+    return (boolean) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_isEditableText(nativeWebContentsAccessibilityAndroid, id);
+  }
 
-    @Override
-    public boolean isNodeValid(long nativeWebContentsAccessibilityAndroid, int id) {
-        return (boolean) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_isNodeValid(nativeWebContentsAccessibilityAndroid, id);
-    }
+  @Override
+  public boolean isFocused(long nativeWebContentsAccessibilityAndroid, int id) {
+    return (boolean) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_isFocused(nativeWebContentsAccessibilityAndroid, id);
+  }
 
-    @Override
-    public boolean isRootManagerConnected(long nativeWebContentsAccessibilityAndroid) {
-        return (boolean) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_isRootManagerConnected(nativeWebContentsAccessibilityAndroid);
-    }
+  @Override
+  public boolean isNodeValid(long nativeWebContentsAccessibilityAndroid, int id) {
+    return (boolean) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_isNodeValid(nativeWebContentsAccessibilityAndroid, id);
+  }
 
-    @Override
-    public boolean isSlider(long nativeWebContentsAccessibilityAndroid, int id) {
-        return (boolean) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_isSlider(nativeWebContentsAccessibilityAndroid, id);
-    }
+  @Override
+  public boolean isRootManagerConnected(long nativeWebContentsAccessibilityAndroid) {
+    return (boolean) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_isRootManagerConnected(nativeWebContentsAccessibilityAndroid);
+  }
 
-    @Override
-    public void loadInlineTextBoxes(long nativeWebContentsAccessibilityAndroid, int id) {
-        GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_loadInlineTextBoxes(nativeWebContentsAccessibilityAndroid, id);
-    }
+  @Override
+  public boolean isSlider(long nativeWebContentsAccessibilityAndroid, int id) {
+    return (boolean) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_isSlider(nativeWebContentsAccessibilityAndroid, id);
+  }
 
-    @Override
-    public void moveAccessibilityFocus(long nativeWebContentsAccessibilityAndroid, int oldId, int newId) {
-        GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_moveAccessibilityFocus(nativeWebContentsAccessibilityAndroid, oldId, newId);
-    }
+  @Override
+  public void loadInlineTextBoxes(long nativeWebContentsAccessibilityAndroid, int id) {
+    GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_loadInlineTextBoxes(nativeWebContentsAccessibilityAndroid, id);
+  }
 
-    @Override
-    public boolean nextAtGranularity(long nativeWebContentsAccessibilityAndroid, int selectionGranularity, boolean extendSelection, int id, int cursorIndex) {
-        return (boolean) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_nextAtGranularity(nativeWebContentsAccessibilityAndroid, selectionGranularity, extendSelection, id, cursorIndex);
-    }
+  @Override
+  public void moveAccessibilityFocus(long nativeWebContentsAccessibilityAndroid, int oldId, int newId) {
+    GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_moveAccessibilityFocus(nativeWebContentsAccessibilityAndroid, oldId, newId);
+  }
 
-    @Override
-    public void onAutofillPopupDismissed(long nativeWebContentsAccessibilityAndroid) {
-        GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_onAutofillPopupDismissed(nativeWebContentsAccessibilityAndroid);
-    }
+  @Override
+  public boolean nextAtGranularity(long nativeWebContentsAccessibilityAndroid, int selectionGranularity, boolean extendSelection, int id, int cursorIndex) {
+    return (boolean) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_nextAtGranularity(nativeWebContentsAccessibilityAndroid, selectionGranularity, extendSelection, id, cursorIndex);
+  }
 
-    @Override
-    public void onAutofillPopupDisplayed(long nativeWebContentsAccessibilityAndroid) {
-        GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_onAutofillPopupDisplayed(nativeWebContentsAccessibilityAndroid);
-    }
+  @Override
+  public void onAutofillPopupDismissed(long nativeWebContentsAccessibilityAndroid) {
+    GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_onAutofillPopupDismissed(nativeWebContentsAccessibilityAndroid);
+  }
 
-    @Override
-    public boolean onHoverEventNoRenderer(long nativeWebContentsAccessibilityAndroid, float x, float y) {
-        return (boolean) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_onHoverEventNoRenderer(nativeWebContentsAccessibilityAndroid, x, y);
-    }
+  @Override
+  public void onAutofillPopupDisplayed(long nativeWebContentsAccessibilityAndroid) {
+    GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_onAutofillPopupDisplayed(nativeWebContentsAccessibilityAndroid);
+  }
 
-    @Override
-    public boolean populateAccessibilityEvent(long nativeWebContentsAccessibilityAndroid, AccessibilityEvent event, int id, int eventType) {
-        return (boolean) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_populateAccessibilityEvent(nativeWebContentsAccessibilityAndroid, event, id, eventType);
-    }
+  @Override
+  public boolean onHoverEventNoRenderer(long nativeWebContentsAccessibilityAndroid, float x, float y) {
+    return (boolean) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_onHoverEventNoRenderer(nativeWebContentsAccessibilityAndroid, x, y);
+  }
 
-    @Override
-    public boolean populateAccessibilityNodeInfo(long nativeWebContentsAccessibilityAndroid, AccessibilityNodeInfoCompat info, int id) {
-        return (boolean) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_populateAccessibilityNodeInfo(nativeWebContentsAccessibilityAndroid, info, id);
-    }
+  @Override
+  public boolean populateAccessibilityEvent(long nativeWebContentsAccessibilityAndroid, AccessibilityEvent event, int id, int eventType) {
+    return (boolean) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_populateAccessibilityEvent(nativeWebContentsAccessibilityAndroid, event, id, eventType);
+  }
 
-    @Override
-    public boolean previousAtGranularity(long nativeWebContentsAccessibilityAndroid, int selectionGranularity, boolean extendSelection, int id, int cursorIndex) {
-        return (boolean) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_previousAtGranularity(nativeWebContentsAccessibilityAndroid, selectionGranularity, extendSelection, id, cursorIndex);
-    }
+  @Override
+  public boolean populateAccessibilityNodeInfo(long nativeWebContentsAccessibilityAndroid, AccessibilityNodeInfoCompat info, int id) {
+    return (boolean) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_populateAccessibilityNodeInfo(nativeWebContentsAccessibilityAndroid, info, id);
+  }
 
-    @Override
-    public void reEnableRendererAccessibility(long nativeWebContentsAccessibilityAndroid, WebContents webContents) {
-        GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_reEnableRendererAccessibility(nativeWebContentsAccessibilityAndroid, webContents);
-    }
+  @Override
+  public boolean previousAtGranularity(long nativeWebContentsAccessibilityAndroid, int selectionGranularity, boolean extendSelection, int id, int cursorIndex) {
+    return (boolean) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_previousAtGranularity(nativeWebContentsAccessibilityAndroid, selectionGranularity, extendSelection, id, cursorIndex);
+  }
 
-    @Override
-    public boolean scroll(long nativeWebContentsAccessibilityAndroid, int id, int direction, boolean pageScroll) {
-        return (boolean) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_scroll(nativeWebContentsAccessibilityAndroid, id, direction, pageScroll);
-    }
+  @Override
+  public void reEnableRendererAccessibility(long nativeWebContentsAccessibilityAndroid, WebContents webContents) {
+    GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_reEnableRendererAccessibility(nativeWebContentsAccessibilityAndroid, webContents);
+  }
 
-    @Override
-    public void scrollToMakeNodeVisible(long nativeWebContentsAccessibilityAndroid, int id) {
-        GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_scrollToMakeNodeVisible(nativeWebContentsAccessibilityAndroid, id);
-    }
+  @Override
+  public boolean scroll(long nativeWebContentsAccessibilityAndroid, int id, int direction, boolean pageScroll) {
+    return (boolean) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_scroll(nativeWebContentsAccessibilityAndroid, id, direction, pageScroll);
+  }
 
-    @Override
-    public void setAllowImageDescriptions(long nativeWebContentsAccessibilityAndroid, boolean allowImageDescriptions) {
-        GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_setAllowImageDescriptions(nativeWebContentsAccessibilityAndroid, allowImageDescriptions);
-    }
+  @Override
+  public void scrollToMakeNodeVisible(long nativeWebContentsAccessibilityAndroid, int id) {
+    GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_scrollToMakeNodeVisible(nativeWebContentsAccessibilityAndroid, id);
+  }
 
-    @Override
-    public void setBrowserAXMode(WebContentsAccessibilityImpl caller, boolean screenReaderMode, boolean formControlsMode, boolean isAccessibilityEnabled) {
-        GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_setBrowserAXMode(caller, screenReaderMode, formControlsMode, isAccessibilityEnabled);
-    }
+  @Override
+  public void setAllowImageDescriptions(long nativeWebContentsAccessibilityAndroid, boolean allowImageDescriptions) {
+    GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_setAllowImageDescriptions(nativeWebContentsAccessibilityAndroid, allowImageDescriptions);
+  }
 
-    @Override
-    public void setMaxContentChangedEventsToFireForTesting(long nativeWebContentsAccessibilityAndroid, int maxEvents) {
-        GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_setMaxContentChangedEventsToFireForTesting(nativeWebContentsAccessibilityAndroid, maxEvents);
-    }
+  @Override
+  public void setBrowserAXMode(WebContentsAccessibilityImpl caller, boolean screenReaderMode, boolean formControlsMode, boolean isAccessibilityEnabled) {
+    GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_setBrowserAXMode(caller, screenReaderMode, formControlsMode, isAccessibilityEnabled);
+  }
 
-    @Override
-    public void setPasswordRules(long nativeWebContentsAccessibilityAndroid, boolean shouldRespectDisplayedPasswordText, boolean shouldExposePasswordText) {
-        GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_setPasswordRules(nativeWebContentsAccessibilityAndroid, shouldRespectDisplayedPasswordText, shouldExposePasswordText);
-    }
+  @Override
+  public void setMaxContentChangedEventsToFireForTesting(long nativeWebContentsAccessibilityAndroid, int maxEvents) {
+    GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_setMaxContentChangedEventsToFireForTesting(nativeWebContentsAccessibilityAndroid, maxEvents);
+  }
 
-    @Override
-    public boolean setRangeValue(long nativeWebContentsAccessibilityAndroid, int id, float value) {
-        return (boolean) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_setRangeValue(nativeWebContentsAccessibilityAndroid, id, value);
-    }
+  @Override
+  public void setPasswordRules(long nativeWebContentsAccessibilityAndroid, boolean shouldRespectDisplayedPasswordText, boolean shouldExposePasswordText) {
+    GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_setPasswordRules(nativeWebContentsAccessibilityAndroid, shouldRespectDisplayedPasswordText, shouldExposePasswordText);
+  }
 
-    @Override
-    public void setSelection(long nativeWebContentsAccessibilityAndroid, int id, int start, int end) {
-        GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_setSelection(nativeWebContentsAccessibilityAndroid, id, start, end);
-    }
+  @Override
+  public boolean setRangeValue(long nativeWebContentsAccessibilityAndroid, int id, float value) {
+    return (boolean) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_setRangeValue(nativeWebContentsAccessibilityAndroid, id, value);
+  }
 
-    @Override
-    public void setTextFieldValue(long nativeWebContentsAccessibilityAndroid, int id, String newValue) {
-        GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_setTextFieldValue(nativeWebContentsAccessibilityAndroid, id, newValue);
-    }
+  @Override
+  public void setSelection(long nativeWebContentsAccessibilityAndroid, int id, int start, int end) {
+    GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_setSelection(nativeWebContentsAccessibilityAndroid, id, start, end);
+  }
 
-    @Override
-    public void showContextMenu(long nativeWebContentsAccessibilityAndroid, int id) {
-        GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_showContextMenu(nativeWebContentsAccessibilityAndroid, id);
-    }
+  @Override
+  public void setTextFieldValue(long nativeWebContentsAccessibilityAndroid, int id, String newValue) {
+    GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_setTextFieldValue(nativeWebContentsAccessibilityAndroid, id, newValue);
+  }
 
-    @Override
-    public void signalEndOfTestForTesting(long nativeWebContentsAccessibilityAndroid) {
-        GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_signalEndOfTestForTesting(nativeWebContentsAccessibilityAndroid);
-    }
+  @Override
+  public void showContextMenu(long nativeWebContentsAccessibilityAndroid, int id) {
+    GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_showContextMenu(nativeWebContentsAccessibilityAndroid, id);
+  }
 
-    @Override
-    public boolean updateCachedAccessibilityNodeInfo(long nativeWebContentsAccessibilityAndroid, AccessibilityNodeInfoCompat info, int id) {
-        return (boolean) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_updateCachedAccessibilityNodeInfo(nativeWebContentsAccessibilityAndroid, info, id);
-    }
+  @Override
+  public void signalEndOfTestForTesting(long nativeWebContentsAccessibilityAndroid) {
+    GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_signalEndOfTestForTesting(nativeWebContentsAccessibilityAndroid);
+  }
 
-    public static WebContentsAccessibilityImpl.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of WebContentsAccessibilityImpl.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new WebContentsAccessibilityImplJni();
+  @Override
+  public boolean updateCachedAccessibilityNodeInfo(long nativeWebContentsAccessibilityAndroid, AccessibilityNodeInfoCompat info, int id) {
+    return (boolean) GEN_JNI.org_chromium_content_browser_accessibility_WebContentsAccessibilityImpl_updateCachedAccessibilityNodeInfo(nativeWebContentsAccessibilityAndroid, info, id);
+  }
+
+  public static WebContentsAccessibilityImpl.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of WebContentsAccessibilityImpl.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new WebContentsAccessibilityImplJni();
+  }
 }

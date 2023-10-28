@@ -13,10 +13,13 @@
 
 package org.chromium.payments.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class SecurePaymentConfirmationRequest extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 80;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(80, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(80, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public byte[][] credentialIds;
     public byte[] challenge;
@@ -46,7 +49,8 @@ public final class SecurePaymentConfirmationRequest extends org.chromium.mojo.bi
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static SecurePaymentConfirmationRequest deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -60,54 +64,54 @@ public final class SecurePaymentConfirmationRequest extends org.chromium.mojo.bi
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new SecurePaymentConfirmationRequest(elementsOrVersion);
-            {
-
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                 {
                     org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                     result.credentialIds = new byte[si1.elementsOrVersion][];
                     for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                        
                         result.credentialIds[i1] = decoder1.readBytes(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                     }
                 }
-            }
-            {
-
+                }
+                {
+                    
                 result.challenge = decoder0.readBytes(16, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, false);
                 result.instrument = org.chromium.blink.mojom.PaymentCredentialInstrument.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(32, true);
                 result.timeout = org.chromium.mojo_base.mojom.TimeDelta.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(40, true);
                 result.payeeOrigin = org.chromium.url.internal.mojom.Origin.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.payeeName = decoder0.readString(48, true);
-            }
-            {
-
+                }
+                {
+                    
                 result.rpId = decoder0.readString(56, false);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(64, true);
                 result.extensions = org.chromium.blink.mojom.AuthenticationExtensionsClientInputs.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.showOptOut = decoder0.readBoolean(72, 0);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -119,31 +123,31 @@ public final class SecurePaymentConfirmationRequest extends org.chromium.mojo.bi
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         if (this.credentialIds == null) {
             encoder0.encodeNullPointer(8, false);
         } else {
             org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.credentialIds.length, 8, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
             for (int i0 = 0; i0 < this.credentialIds.length; ++i0) {
-
+                
                 encoder1.encode(this.credentialIds[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
             }
         }
-
+        
         encoder0.encode(this.challenge, 16, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
-
+        
         encoder0.encode(this.instrument, 24, false);
-
+        
         encoder0.encode(this.timeout, 32, true);
-
+        
         encoder0.encode(this.payeeOrigin, 40, true);
-
+        
         encoder0.encode(this.payeeName, 48, true);
-
+        
         encoder0.encode(this.rpId, 56, false);
-
+        
         encoder0.encode(this.extensions, 64, true);
-
+        
         encoder0.encode(this.showOptOut, 72, 0);
     }
 }

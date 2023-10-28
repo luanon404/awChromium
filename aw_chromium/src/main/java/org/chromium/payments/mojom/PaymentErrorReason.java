@@ -17,10 +17,18 @@ import androidx.annotation.IntDef;
 
 public final class PaymentErrorReason {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({PaymentErrorReason.UNKNOWN, PaymentErrorReason.USER_CANCEL, PaymentErrorReason.NOT_SUPPORTED, PaymentErrorReason.NOT_SUPPORTED_FOR_INVALID_ORIGIN_OR_SSL, PaymentErrorReason.ALREADY_SHOWING, PaymentErrorReason.INVALID_DATA_FROM_RENDERER, PaymentErrorReason.NOT_ALLOWED_ERROR, PaymentErrorReason.USER_OPT_OUT, PaymentErrorReason.USER_ACTIVATION_REQUIRED})
-    public @interface EnumType {
-    }
+        PaymentErrorReason.UNKNOWN,
+        PaymentErrorReason.USER_CANCEL,
+        PaymentErrorReason.NOT_SUPPORTED,
+        PaymentErrorReason.NOT_SUPPORTED_FOR_INVALID_ORIGIN_OR_SSL,
+        PaymentErrorReason.ALREADY_SHOWING,
+        PaymentErrorReason.INVALID_DATA_FROM_RENDERER,
+        PaymentErrorReason.NOT_ALLOWED_ERROR,
+        PaymentErrorReason.USER_OPT_OUT,
+        PaymentErrorReason.USER_ACTIVATION_REQUIRED})
+    public @interface EnumType {}
 
     public static final int UNKNOWN = 0;
     public static final int USER_CANCEL = 1;
@@ -44,9 +52,8 @@ public final class PaymentErrorReason {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private PaymentErrorReason() {
-    }
+    private PaymentErrorReason() {}
 }

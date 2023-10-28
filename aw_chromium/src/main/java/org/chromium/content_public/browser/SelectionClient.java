@@ -25,7 +25,7 @@ public interface SelectionClient {
     /**
      * The result of the text analysis.
      */
-    class Result {
+    public static class Result {
         /**
          * The number of characters that the left boundary of the original
          * selection should be moved. Negative number means moving left.
@@ -85,7 +85,7 @@ public interface SelectionClient {
     /**
      * The interface that returns the result of the selected text analysis.
      */
-    interface ResultCallback {
+    public interface ResultCallback {
         /**
          * The result is delivered with this method.
          */
@@ -94,32 +94,28 @@ public interface SelectionClient {
 
     /**
      * Notification that the web content selection has changed, regardless of the causal action.
-     *
      * @param selection The newly established selection.
      */
     void onSelectionChanged(String selection);
 
     /**
      * Notification that a user-triggered selection or insertion-related event has occurred.
-     *
      * @param eventType The selection event type, see {@link SelectionEventType}.
-     * @param posXPix   The x coordinate of the selection start handle.
-     * @param posYPix   The y coordinate of the selection start handle.
+     * @param posXPix The x coordinate of the selection start handle.
+     * @param posYPix The y coordinate of the selection start handle.
      */
     void onSelectionEvent(@SelectionEventType int eventType, float posXPix, float posYPix);
 
     /**
      * Acknowledges that a selectAroundCaret action has completed with the given result.
-     *
      * @param result Information about the selection including selection state and offset
-     *               adjustments to determine the original or extended selection. {@code null} if the
-     *               selection couldn't be made.
+     *         adjustments to determine the original or extended selection. {@code null} if the
+     *         selection couldn't be made.
      */
     void selectAroundCaretAck(@Nullable SelectAroundCaretResult result);
 
     /**
      * Notifies the SelectionClient that the selection menu has been requested.
-     *
      * @param shouldSuggest Whether SelectionClient should suggest and classify or just classify.
      * @return True if embedder should wait for a response before showing selection menu.
      */
@@ -141,12 +137,10 @@ public interface SelectionClient {
     /**
      * Sets the TextClassifier for the Smart Text Selection feature. Pass {@code null} to use the
      * system classifier.
-     *
      * @param textClassifier The custom {@link TextClassifier} to start using or {@code null} to
-     *                       switch back to the system's classifier.
+     *        switch back to the system's classifier.
      */
-    default void setTextClassifier(TextClassifier textClassifier) {
-    }
+    default void setTextClassifier(TextClassifier textClassifier) {}
 
     /**
      * Gets TextClassifier that is used for the Smart Text selection. If the custom classifier
@@ -164,11 +158,10 @@ public interface SelectionClient {
         return null;
     }
 
-    /**
-     * Creates a {@link SelectionClient} instance.
-     */
-    static SelectionClient createSmartSelectionClient(WebContents webContents) {
-        SelectionClient.ResultCallback callback = SelectionPopupController.fromWebContents(webContents).getResultCallback();
+    /** Creates a {@link SelectionClient} instance. */
+    public static SelectionClient createSmartSelectionClient(WebContents webContents) {
+        SelectionClient.ResultCallback callback =
+                SelectionPopupController.fromWebContents(webContents).getResultCallback();
         return SmartSelectionClient.create(callback, webContents);
     }
 }

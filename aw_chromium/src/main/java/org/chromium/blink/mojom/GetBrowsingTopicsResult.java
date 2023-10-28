@@ -13,14 +13,15 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public final class GetBrowsingTopicsResult extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
         public static final int ErrorMessage = 0;
         public static final int BrowsingTopics = 1;
-    }
-
+    };
     private String mErrorMessage;
     private EpochTopic[] mBrowsingTopics;
 

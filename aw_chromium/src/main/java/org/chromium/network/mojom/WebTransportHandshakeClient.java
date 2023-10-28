@@ -13,18 +13,24 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface WebTransportHandshakeClient extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends WebTransportHandshakeClient, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends WebTransportHandshakeClient, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<WebTransportHandshakeClient, WebTransportHandshakeClient.Proxy> MANAGER = WebTransportHandshakeClient_Internal.MANAGER;
 
-    void onConnectionEstablished(WebTransport transport, org.chromium.mojo.bindings.InterfaceRequest<WebTransportClient> client, HttpResponseHeaders responseHeaders);
+    void onConnectionEstablished(
+WebTransport transport, org.chromium.mojo.bindings.InterfaceRequest<WebTransportClient> client, HttpResponseHeaders responseHeaders);
 
 
-    void onHandshakeFailed(WebTransportError error);
+    void onHandshakeFailed(
+WebTransportError error);
 
 
 }

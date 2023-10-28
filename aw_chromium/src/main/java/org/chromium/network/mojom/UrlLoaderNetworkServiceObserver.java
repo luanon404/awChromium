@@ -13,54 +13,67 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface UrlLoaderNetworkServiceObserver extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends UrlLoaderNetworkServiceObserver, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends UrlLoaderNetworkServiceObserver, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<UrlLoaderNetworkServiceObserver, UrlLoaderNetworkServiceObserver.Proxy> MANAGER = UrlLoaderNetworkServiceObserver_Internal.MANAGER;
 
-    void onSslCertificateError(org.chromium.url.mojom.Url url, int netError, SslInfo sslInfo, boolean fatal, OnSslCertificateError_Response callback);
+    void onSslCertificateError(
+org.chromium.url.mojom.Url url, int netError, SslInfo sslInfo, boolean fatal, 
+OnSslCertificateError_Response callback);
 
-    interface OnSslCertificateError_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> {
-    }
-
-
-    void onCertificateRequested(org.chromium.mojo_base.mojom.UnguessableToken windowId, SslCertRequestInfo certInfo, ClientCertificateResponder certResponder);
+    interface OnSslCertificateError_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> { }
 
 
-    void onAuthRequired(org.chromium.mojo_base.mojom.UnguessableToken windowId, int requestId, org.chromium.url.mojom.Url url, boolean firstAuthAttempt, AuthChallengeInfo authInfo, HttpResponseHeaders headHeaders, AuthChallengeResponder authChallengeResponder);
+    void onCertificateRequested(
+org.chromium.mojo_base.mojom.UnguessableToken windowId, SslCertRequestInfo certInfo, ClientCertificateResponder certResponder);
 
 
-    void onPrivateNetworkAccessPermissionRequired(org.chromium.url.mojom.Url url, IpAddress ipAddress, String privateNetworkDeviceId, String privateNetworkDeviceName, OnPrivateNetworkAccessPermissionRequired_Response callback);
-
-    interface OnPrivateNetworkAccessPermissionRequired_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> {
-    }
+    void onAuthRequired(
+org.chromium.mojo_base.mojom.UnguessableToken windowId, int requestId, org.chromium.url.mojom.Url url, boolean firstAuthAttempt, AuthChallengeInfo authInfo, HttpResponseHeaders headHeaders, AuthChallengeResponder authChallengeResponder);
 
 
-    void onClearSiteData(org.chromium.url.mojom.Url url, String headerValue, int loadFlags, CookiePartitionKey cookiePartitionKey, boolean partitionedStateAllowedOnly, OnClearSiteData_Response callback);
+    void onPrivateNetworkAccessPermissionRequired(
+org.chromium.url.mojom.Url url, IpAddress ipAddress, String privateNetworkDeviceId, String privateNetworkDeviceName, 
+OnPrivateNetworkAccessPermissionRequired_Response callback);
 
-    interface OnClearSiteData_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 {
-    }
-
-
-    void onLoadingStateUpdate(LoadInfo info, OnLoadingStateUpdate_Response callback);
-
-    interface OnLoadingStateUpdate_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 {
-    }
+    interface OnPrivateNetworkAccessPermissionRequired_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> { }
 
 
-    void onDataUseUpdate(int networkTrafficAnnotationIdHash, long recvBytes, long sentBytes);
+    void onClearSiteData(
+org.chromium.url.mojom.Url url, String headerValue, int loadFlags, CookiePartitionKey cookiePartitionKey, boolean partitionedStateAllowedOnly, 
+OnClearSiteData_Response callback);
+
+    interface OnClearSiteData_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 { }
 
 
-    void onSharedStorageHeaderReceived(org.chromium.url.internal.mojom.Origin requestOrigin, SharedStorageOperation[] operations, OnSharedStorageHeaderReceived_Response callback);
+    void onLoadingStateUpdate(
+LoadInfo info, 
+OnLoadingStateUpdate_Response callback);
 
-    interface OnSharedStorageHeaderReceived_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 {
-    }
+    interface OnLoadingStateUpdate_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 { }
 
 
-    void clone(org.chromium.mojo.bindings.InterfaceRequest<UrlLoaderNetworkServiceObserver> listener);
+    void onDataUseUpdate(
+int networkTrafficAnnotationIdHash, long recvBytes, long sentBytes);
+
+
+    void onSharedStorageHeaderReceived(
+org.chromium.url.internal.mojom.Origin requestOrigin, SharedStorageOperation[] operations, 
+OnSharedStorageHeaderReceived_Response callback);
+
+    interface OnSharedStorageHeaderReceived_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 { }
+
+
+    void clone(
+org.chromium.mojo.bindings.InterfaceRequest<UrlLoaderNetworkServiceObserver> listener);
 
 
 }

@@ -3,46 +3,53 @@
 //
 package org.chromium.content.browser.accessibility.captioning;
 
-import org.chromium.content_public.browser.WebContents;
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.content_public.browser.WebContents;
 
 @CheckDiscard("crbug.com/993421")
 class CaptioningControllerJni implements CaptioningController.Natives {
-    private static CaptioningController.Natives testInstance;
+  private static CaptioningController.Natives testInstance;
 
-    public static final JniStaticTestMocker<CaptioningController.Natives> TEST_HOOKS = new JniStaticTestMocker<CaptioningController.Natives>() {
-        @Override
-        public void setInstanceForTesting(CaptioningController.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<CaptioningController.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<CaptioningController.Natives>() {
     @Override
-    public long init(CaptioningController caller, WebContents webContents) {
-        return (long) GEN_JNI.org_chromium_content_browser_accessibility_captioning_CaptioningController_init(caller, webContents);
+    public void setInstanceForTesting(CaptioningController.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public void setTextTrackSettings(long nativeCaptioningController, CaptioningController caller, boolean textTracksEnabled, String textTrackBackgroundColor, String textTrackFontFamily, String textTrackFontStyle, String textTrackFontVariant, String textTrackTextColor, String textTrackTextShadow, String textTrackTextSize) {
-        GEN_JNI.org_chromium_content_browser_accessibility_captioning_CaptioningController_setTextTrackSettings(nativeCaptioningController, caller, textTracksEnabled, textTrackBackgroundColor, textTrackFontFamily, textTrackFontStyle, textTrackFontVariant, textTrackTextColor, textTrackTextShadow, textTrackTextSize);
-    }
+  @Override
+  public long init(CaptioningController caller, WebContents webContents) {
+    return (long) GEN_JNI.org_chromium_content_browser_accessibility_captioning_CaptioningController_init(caller, webContents);
+  }
 
-    public static CaptioningController.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of CaptioningController.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new CaptioningControllerJni();
+  @Override
+  public void setTextTrackSettings(long nativeCaptioningController, CaptioningController caller, boolean textTracksEnabled, String textTrackBackgroundColor, String textTrackFontFamily, String textTrackFontStyle, String textTrackFontVariant, String textTrackTextColor, String textTrackTextShadow, String textTrackTextSize) {
+    GEN_JNI.org_chromium_content_browser_accessibility_captioning_CaptioningController_setTextTrackSettings(nativeCaptioningController, caller, textTracksEnabled, textTrackBackgroundColor, textTrackFontFamily, textTrackFontStyle, textTrackFontVariant, textTrackTextColor, textTrackTextShadow, textTrackTextSize);
+  }
+
+  public static CaptioningController.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of CaptioningController.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new CaptioningControllerJni();
+  }
 }

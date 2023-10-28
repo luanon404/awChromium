@@ -31,7 +31,7 @@ import org.chromium.ui.base.WindowAndroid;
  * Encapsulates logic to retrieve OTP code via SMS Browser Code API.
  * See also:
  * https://developers.google.com/android/reference/com/google/android/gms/auth/api/phone/SmsCodeBrowserClient
- * <p>
+ *
  * TODO(majidvp): rename legacy Verification name to more appropriate name (
  *  e.g., BrowserCode.
  */
@@ -42,9 +42,12 @@ public class SmsVerificationReceiver extends BroadcastReceiver {
     private final SmsProviderGms mProvider;
     private boolean mDestroyed;
     private Wrappers.WebOTPServiceContext mContext;
-
     private enum BackendAvailability {
-        AVAILABLE, API_NOT_CONNECTED, PLATFORM_NOT_SUPPORTED, API_NOT_AVAILABLE, NUM_ENTRIES
+        AVAILABLE,
+        API_NOT_CONNECTED,
+        PLATFORM_NOT_SUPPORTED,
+        API_NOT_AVAILABLE,
+        NUM_ENTRIES
     }
 
     public SmsVerificationReceiver(SmsProviderGms provider, WebOTPServiceContext context) {
@@ -68,7 +71,8 @@ public class SmsVerificationReceiver extends BroadcastReceiver {
         // but it's coming from the same place the UserConsent (SmsRetriever.SMS_RETRIEVED_ACTION)
         // broadcast is coming from, so the sender will be holding this permission. This prevents
         // other apps from spoofing verification codes.
-        ContextUtils.registerExportedBroadcastReceiver(mContext, this, filter, SmsRetriever.SEND_PERMISSION);
+        ContextUtils.registerExportedBroadcastReceiver(
+                mContext, this, filter, SmsRetriever.SEND_PERMISSION);
     }
 
     public SmsCodeBrowserClient createClient() {
@@ -164,14 +168,15 @@ public class SmsVerificationReceiver extends BroadcastReceiver {
                 ResolvableApiException rex = (ResolvableApiException) exception;
                 try {
                     PendingIntent resolutionIntent = rex.getResolution();
-                    mProvider.getWindow().showIntent(resolutionIntent, new WindowAndroid.IntentCallback() {
-                        @Override
-                        public void onIntentCompleted(int resultCode, Intent data) {
-                            // Backend availability will be recorded inside
-                            // |onPermissionDone|.
-                            onPermissionDone(resultCode, isLocalRequest);
-                        }
-                    }, null);
+                    mProvider.getWindow().showIntent(
+                            resolutionIntent, new WindowAndroid.IntentCallback() {
+                                @Override
+                                public void onIntentCompleted(int resultCode, Intent data) {
+                                    // Backend availability will be recorded inside
+                                    // |onPermissionDone|.
+                                    onPermissionDone(resultCode, isLocalRequest);
+                                }
+                            }, null);
                 } catch (Exception ex) {
                     cancelRequestAndReportBackendAvailability();
                     Log.e(TAG, "Cannot launch user permission", ex);
@@ -200,7 +205,8 @@ public class SmsVerificationReceiver extends BroadcastReceiver {
 
     public void reportBackendAvailability(BackendAvailability availability) {
         if (DEBUG) Log.d(TAG, "Backend availability: %d", availability.ordinal());
-        RecordHistogram.recordEnumeratedHistogram("Blink.Sms.BackendAvailability", availability.ordinal(), BackendAvailability.NUM_ENTRIES.ordinal());
+        RecordHistogram.recordEnumeratedHistogram("Blink.Sms.BackendAvailability",
+                availability.ordinal(), BackendAvailability.NUM_ENTRIES.ordinal());
     }
 
     // Handles the case when the backend is available but user has previously denied to grant the

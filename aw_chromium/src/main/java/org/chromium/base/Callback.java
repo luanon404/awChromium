@@ -20,11 +20,11 @@ public interface Callback<T> {
 
     /**
      * Returns a Runnable that will invoke the callback with the given value.
-     * <p>
+     *
      * For example, instead of:
-     * mView.post(() -> myCallback.onResult(result));
+     *     mView.post(() -> myCallback.onResult(result));
      * Avoid creating an inner class via:
-     * mView.post(myCallback.bind(result));
+     *     mView.post(myCallback.bind(result));
      */
     default Runnable bind(T result) {
         return () -> onResult(result);

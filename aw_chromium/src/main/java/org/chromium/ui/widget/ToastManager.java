@@ -13,7 +13,6 @@ import androidx.annotation.VisibleForTesting;
 
 import org.jni_zero.JNINamespace;
 
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.PriorityQueue;
 
@@ -35,12 +34,12 @@ public class ToastManager {
     private static ToastManager sInstance;
 
     // A queue for toasts waiting to be shown.
-    private final PriorityQueue<Toast> mToastQueue = new PriorityQueue<>(Comparator.comparingInt(Toast::getPriority));
+    private final PriorityQueue<Toast> mToastQueue =
+            new PriorityQueue<>((toast1, toast2) -> toast1.getPriority() - toast2.getPriority());
 
     // Handles toast events per SDK version.
     private interface ToastEvent {
         void onShow(Toast toast);
-
         void onCancel();
     }
 
@@ -64,7 +63,6 @@ public class ToastManager {
 
     /**
      * Request to show a toast.
-     *
      * @param toast {@link Toast} object to show.
      */
     public void requestShow(Toast toast) {
@@ -77,14 +75,13 @@ public class ToastManager {
 
     /**
      * Cancel a toast if it is showing now, or removes it from the queue if found in it.
-     *
      * @param toast {@link Toast} to cancel.
      */
     public void cancel(Toast toast) {
         if (toast == getCurrentToast()) {
             cancelAndShowNextToast();
         } else {
-            Iterator<Toast> it = mToastQueue.iterator();
+            Iterator it = mToastQueue.iterator();
             Toast toastToRemove = null;
             while (it.hasNext()) {
                 Toast t = (Toast) it.next();
@@ -97,7 +94,7 @@ public class ToastManager {
         }
     }
 
-    @VisibleForTesting()
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     Toast getCurrentToast() {
         return mToast;
     }
@@ -113,7 +110,9 @@ public class ToastManager {
         }
 
         CharSequence text = toast.getText();
-        for (Toast t : mToastQueue) {
+        Iterator it = mToastQueue.iterator();
+        while (it.hasNext()) {
+            Toast t = (Toast) it.next();
             if (t == toast || TextUtils.equals(t.getText(), toast.getText())) {
                 return true;
             }
@@ -146,7 +145,8 @@ public class ToastManager {
 
         @Override
         public void onShow(Toast toast) {
-            int durationMs = (mToast.getDuration() == Toast.LENGTH_SHORT) ? DURATION_SHORT_MS : DURATION_LONG_MS;
+            int durationMs = (mToast.getDuration() == Toast.LENGTH_SHORT) ? DURATION_SHORT_MS
+                                                                          : DURATION_LONG_MS;
             mHandler.postDelayed(mPostToastRunnable, durationMs);
         }
 
@@ -158,7 +158,7 @@ public class ToastManager {
     }
 
     @RequiresApi(Build.VERSION_CODES.R)
-    private static class ToastEventR implements ToastEvent {
+    private class ToastEventR implements ToastEvent {
         private final android.widget.Toast.Callback mToastCallback;
 
         ToastEventR(Runnable finishRunnable) {

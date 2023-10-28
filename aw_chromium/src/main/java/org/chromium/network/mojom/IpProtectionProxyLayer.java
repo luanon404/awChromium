@@ -17,10 +17,11 @@ import androidx.annotation.IntDef;
 
 public final class IpProtectionProxyLayer {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({IpProtectionProxyLayer.PROXY_A, IpProtectionProxyLayer.PROXY_B})
-    public @interface EnumType {
-    }
+        IpProtectionProxyLayer.PROXY_A,
+        IpProtectionProxyLayer.PROXY_B})
+    public @interface EnumType {}
 
     public static final int PROXY_A = 0;
     public static final int PROXY_B = 1;
@@ -37,9 +38,8 @@ public final class IpProtectionProxyLayer {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private IpProtectionProxyLayer() {
-    }
+    private IpProtectionProxyLayer() {}
 }

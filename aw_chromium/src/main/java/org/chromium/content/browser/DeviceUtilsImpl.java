@@ -13,8 +13,7 @@ import org.chromium.ui.base.DeviceFormFactor;
  * A utility class that has helper methods for device configuration.
  */
 public class DeviceUtilsImpl {
-    private DeviceUtilsImpl() {
-    }
+    private DeviceUtilsImpl() {}
 
     public static void addDeviceSpecificUserAgentSwitch() {
         try (StrictModeContext ignored = StrictModeContext.allowDiskReads()) {

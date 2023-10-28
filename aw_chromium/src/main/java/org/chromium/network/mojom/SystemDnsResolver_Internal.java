@@ -13,9 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 class SystemDnsResolver_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<SystemDnsResolver, SystemDnsResolver.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<SystemDnsResolver, SystemDnsResolver.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<SystemDnsResolver, SystemDnsResolver.Proxy> MANAGER =
+            new org.chromium.mojo.bindings.Interface.Manager<SystemDnsResolver, SystemDnsResolver.Proxy>() {
 
         @Override
         public String getName() {
@@ -24,11 +28,12 @@ class SystemDnsResolver_Internal {
 
         @Override
         public int getVersion() {
-            return 0;
+          return 0;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -39,7 +44,7 @@ class SystemDnsResolver_Internal {
 
         @Override
         public SystemDnsResolver[] buildArray(int size) {
-            return new SystemDnsResolver[size];
+          return new SystemDnsResolver[size];
         }
     };
 
@@ -49,13 +54,16 @@ class SystemDnsResolver_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements SystemDnsResolver.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core,
+              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void resolve(String hostname, int addrFamily, int flags, long network, Resolve_Response callback) {
+        public void resolve(
+String hostname, int addrFamily, int flags, long network, 
+Resolve_Response callback) {
 
             SystemDnsResolverResolveParams _message = new SystemDnsResolverResolveParams();
 
@@ -68,7 +76,14 @@ class SystemDnsResolver_Internal {
             _message.network = network;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(RESOLVE_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new SystemDnsResolverResolveResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    RESOLVE_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new SystemDnsResolverResolveResponseParamsForwardToCallback(callback));
 
         }
 
@@ -84,7 +99,8 @@ class SystemDnsResolver_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -93,17 +109,20 @@ class SystemDnsResolver_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(SystemDnsResolver_Internal.MANAGER, messageWithHeader);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
+                                SystemDnsResolver_Internal.MANAGER, messageWithHeader);
+
+
 
 
                     default:
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -111,7 +130,8 @@ class SystemDnsResolver_Internal {
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -120,15 +140,22 @@ class SystemDnsResolver_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), SystemDnsResolver_Internal.MANAGER, messageWithHeader, receiver);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
+                                getCore(), SystemDnsResolver_Internal.MANAGER, messageWithHeader, receiver);
+
+
+
+
+
 
 
                     case RESOLVE_ORDINAL: {
 
-                        SystemDnsResolverResolveParams data = SystemDnsResolverResolveParams.deserialize(messageWithHeader.getPayload());
+                        SystemDnsResolverResolveParams data =
+                                SystemDnsResolverResolveParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().resolve(data.hostname, data.addrFamily, data.flags, data.network, new SystemDnsResolverResolveResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
@@ -139,17 +166,18 @@ class SystemDnsResolver_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class SystemDnsResolverResolveParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 32;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(32, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(32, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public String hostname;
         public int addrFamily;
@@ -174,7 +202,8 @@ class SystemDnsResolver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static SystemDnsResolverResolveParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -188,24 +217,24 @@ class SystemDnsResolver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new SystemDnsResolverResolveParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.hostname = decoder0.readString(8, true);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.addrFamily = decoder0.readInt(16);
-                    AddressFamily.validate(result.addrFamily);
-                    result.addrFamily = AddressFamily.toKnownValue(result.addrFamily);
-                }
-                {
-
+                        AddressFamily.validate(result.addrFamily);
+                        result.addrFamily = AddressFamily.toKnownValue(result.addrFamily);
+                    }
+                    {
+                        
                     result.flags = decoder0.readInt(20);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.network = decoder0.readLong(24);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -217,22 +246,24 @@ class SystemDnsResolver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.hostname, 8, true);
-
+            
             encoder0.encode(this.addrFamily, 16);
-
+            
             encoder0.encode(this.flags, 20);
-
+            
             encoder0.encode(this.network, 24);
         }
     }
 
 
+
+    
     static final class SystemDnsResolverResolveResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public AddressList addrList;
         public int osError;
@@ -256,7 +287,8 @@ class SystemDnsResolver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static SystemDnsResolverResolveResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -270,19 +302,19 @@ class SystemDnsResolver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new SystemDnsResolverResolveResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.addrList = AddressList.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.osError = decoder0.readInt(16);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.netError = decoder0.readInt(20);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -294,16 +326,17 @@ class SystemDnsResolver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.addrList, 8, false);
-
+            
             encoder0.encode(this.osError, 16);
-
+            
             encoder0.encode(this.netError, 20);
         }
     }
 
-    static class SystemDnsResolverResolveResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class SystemDnsResolverResolveResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final SystemDnsResolver.Resolve_Response mCallback;
 
         SystemDnsResolverResolveResponseParamsForwardToCallback(SystemDnsResolver.Resolve_Response callback) {
@@ -313,9 +346,11 @@ class SystemDnsResolver_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(RESOLVE_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(RESOLVE_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -335,7 +370,10 @@ class SystemDnsResolver_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        SystemDnsResolverResolveResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        SystemDnsResolverResolveResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -351,10 +389,17 @@ class SystemDnsResolver_Internal {
 
             _response.netError = netError;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(RESOLVE_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    RESOLVE_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
+
 
 
 }

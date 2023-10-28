@@ -33,8 +33,7 @@ public final class AwSiteVisitLogger {
 
     private static final long MILLIS_PER_WEEK = (TimeUtils.SECONDS_PER_DAY * 7) * 1000;
 
-    private AwSiteVisitLogger() {
-    }
+    private AwSiteVisitLogger() {}
 
     /**
      * Stores the sites and logs the count of distinct sites if there are any past visits older
@@ -44,26 +43,32 @@ public final class AwSiteVisitLogger {
     @WorkerThread
     public static void logVisit(long siteHash) {
         try (StrictModeContext ignored = StrictModeContext.allowDiskReads()) {
-            SharedPreferences prefs = ContextUtils.getApplicationContext().getSharedPreferences(PREFS_FILE, Context.MODE_PRIVATE);
+            SharedPreferences prefs = ContextUtils.getApplicationContext().getSharedPreferences(
+                    PREFS_FILE, Context.MODE_PRIVATE);
 
             // TimeUtils is used to make testing easier.
             long now = TimeUtils.currentTimeMillis();
             long storedTime = prefs.getLong(KEY_VISITED_WEEKLY_TIME, now);
             long expiryTime = storedTime + MILLIS_PER_WEEK;
 
-            Set<String> sitesVisited = new HashSet<>(prefs.getStringSet(KEY_VISITED_WEEKLY_SET, Collections.emptySet()));
+            Set<String> sitesVisited = new HashSet<>(
+                    prefs.getStringSet(KEY_VISITED_WEEKLY_SET, Collections.emptySet()));
 
             // If there are any stored site hashes from the previous week, then their count must be
             // logged exactly once and the set cleared before we start storing hashes for this week.
             if (!sitesVisited.isEmpty() && now > expiryTime) {
-                RecordHistogram.recordLinearCountHistogram("Android.WebView.SitesVisitedWeekly", sitesVisited.size(), 1, 99, 100);
+                RecordHistogram.recordLinearCountHistogram(
+                        "Android.WebView.SitesVisitedWeekly", sitesVisited.size(), 1, 99, 100);
                 sitesVisited.clear();
                 storedTime = now;
             }
 
             // Store the time and site to be logged after a week has passed.
             sitesVisited.add(Long.toString(siteHash));
-            prefs.edit().putLong(KEY_VISITED_WEEKLY_TIME, storedTime).putStringSet(KEY_VISITED_WEEKLY_SET, sitesVisited).apply();
+            prefs.edit()
+                    .putLong(KEY_VISITED_WEEKLY_TIME, storedTime)
+                    .putStringSet(KEY_VISITED_WEEKLY_SET, sitesVisited)
+                    .apply();
         }
     }
 }

@@ -4,39 +4,46 @@
 package org.chromium.content_public.browser;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.FeatureMap;
 
 @CheckDiscard("crbug.com/993421")
 public class ContentFeatureMapJni implements ContentFeatureMap.Natives {
-    private static ContentFeatureMap.Natives testInstance;
+  private static ContentFeatureMap.Natives testInstance;
 
-    public static final JniStaticTestMocker<ContentFeatureMap.Natives> TEST_HOOKS = new JniStaticTestMocker<ContentFeatureMap.Natives>() {
-        @Override
-        public void setInstanceForTesting(ContentFeatureMap.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<ContentFeatureMap.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<ContentFeatureMap.Natives>() {
     @Override
-    public long getNativeMap() {
-        return (long) GEN_JNI.org_chromium_content_1public_browser_ContentFeatureMap_getNativeMap();
+    public void setInstanceForTesting(ContentFeatureMap.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    public static ContentFeatureMap.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of ContentFeatureMap.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new ContentFeatureMapJni();
+  @Override
+  public long getNativeMap() {
+    return (long) GEN_JNI.org_chromium_content_1public_browser_ContentFeatureMap_getNativeMap();
+  }
+
+  public static ContentFeatureMap.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of ContentFeatureMap.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new ContentFeatureMapJni();
+  }
 }

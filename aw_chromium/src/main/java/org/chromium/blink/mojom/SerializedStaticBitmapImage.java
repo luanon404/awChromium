@@ -13,14 +13,15 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public final class SerializedStaticBitmapImage extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
         public static final int Bitmap = 0;
         public static final int AcceleratedImage = 1;
-    }
-
+    };
     private org.chromium.skia.mojom.BitmapN32 mBitmap;
     private AcceleratedStaticBitmapImage mAcceleratedImage;
 

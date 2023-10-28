@@ -17,10 +17,14 @@ import androidx.annotation.IntDef;
 
 public final class BlockedByResponseReason {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({BlockedByResponseReason.COEP_FRAME_RESOURCE_NEEDS_COEP_HEADER, BlockedByResponseReason.COOP_SANDBOXED_I_FRAME_CANNOT_NAVIGATE_TO_COOP_PAGE, BlockedByResponseReason.CORP_NOT_SAME_ORIGIN, BlockedByResponseReason.CORP_NOT_SAME_ORIGIN_AFTER_DEFAULTED_TO_SAME_ORIGIN_BY_COEP, BlockedByResponseReason.CORP_NOT_SAME_SITE})
-    public @interface EnumType {
-    }
+        BlockedByResponseReason.COEP_FRAME_RESOURCE_NEEDS_COEP_HEADER,
+        BlockedByResponseReason.COOP_SANDBOXED_I_FRAME_CANNOT_NAVIGATE_TO_COOP_PAGE,
+        BlockedByResponseReason.CORP_NOT_SAME_ORIGIN,
+        BlockedByResponseReason.CORP_NOT_SAME_ORIGIN_AFTER_DEFAULTED_TO_SAME_ORIGIN_BY_COEP,
+        BlockedByResponseReason.CORP_NOT_SAME_SITE})
+    public @interface EnumType {}
 
     public static final int COEP_FRAME_RESOURCE_NEEDS_COEP_HEADER = 0;
     public static final int COOP_SANDBOXED_I_FRAME_CANNOT_NAVIGATE_TO_COOP_PAGE = 1;
@@ -40,9 +44,8 @@ public final class BlockedByResponseReason {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private BlockedByResponseReason() {
-    }
+    private BlockedByResponseReason() {}
 }

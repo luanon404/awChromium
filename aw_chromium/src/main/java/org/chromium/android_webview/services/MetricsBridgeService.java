@@ -53,12 +53,14 @@ public final class MetricsBridgeService extends Service {
     // To avoid any potential synchronization issues as well as avoid blocking the caller thread
     // (e.g when the caller is a thread from the same process.), we post all read/write operations
     // to be run serially using a SequencedTaskRunner instead of using a lock.
-    private static final TaskRunner sSequencedTaskRunner = PostTask.createSequencedTaskRunner(TaskTraits.BEST_EFFORT_MAY_BLOCK);
+    private static final TaskRunner sSequencedTaskRunner =
+            PostTask.createSequencedTaskRunner(TaskTraits.BEST_EFFORT_MAY_BLOCK);
 
     // These values are persisted to logs. Entries should not be renumbered and
     // numeric values should never be reused.
     @VisibleForTesting
-    @IntDef({ParsingLogResult.SUCCESS, ParsingLogResult.MALFORMED_PROTOBUF, ParsingLogResult.IO_EXCEPTION})
+    @IntDef({ParsingLogResult.SUCCESS, ParsingLogResult.MALFORMED_PROTOBUF,
+            ParsingLogResult.IO_EXCEPTION})
     public @interface ParsingLogResult {
         int SUCCESS = 0;
         int MALFORMED_PROTOBUF = 1;
@@ -72,7 +74,15 @@ public final class MetricsBridgeService extends Service {
         // Similar to calling RecordHistogram.recordEnumeratedHistogram(
         //        "Android.WebView.NonEmbeddedMetrics.ParsingLogResult", sample,
         //        ParsingLogResult.COUNT);
-        HistogramRecord record = HistogramRecord.newBuilder().setRecordType(RecordType.HISTOGRAM_LINEAR).setHistogramName("Android.WebView.NonEmbeddedMetrics.ParsingLogResult").setSample(sample).setMin(1).setMax(ParsingLogResult.COUNT).setNumBuckets(ParsingLogResult.COUNT + 1).build();
+        HistogramRecord record =
+                HistogramRecord.newBuilder()
+                        .setRecordType(RecordType.HISTOGRAM_LINEAR)
+                        .setHistogramName("Android.WebView.NonEmbeddedMetrics.ParsingLogResult")
+                        .setSample(sample)
+                        .setMin(1)
+                        .setMax(ParsingLogResult.COUNT)
+                        .setNumBuckets(ParsingLogResult.COUNT + 1)
+                        .build();
         // Add to the in-memory list but never written to file to avoid filling up the record list
         // and file with redundant records. However, this means when this record is sent to embedded
         // WebView it represents the parsing result for the most recent service start only.
@@ -82,7 +92,8 @@ public final class MetricsBridgeService extends Service {
     // These values are persisted to logs. Entries should not be renumbered and
     // numeric values should never be reused.
     @VisibleForTesting
-    @IntDef({RetrieveMetricsTaskStatus.SUCCESS, RetrieveMetricsTaskStatus.EXECUTION_EXCEPTION, RetrieveMetricsTaskStatus.INTERRUPTED_EXCEPTION})
+    @IntDef({RetrieveMetricsTaskStatus.SUCCESS, RetrieveMetricsTaskStatus.EXECUTION_EXCEPTION,
+            RetrieveMetricsTaskStatus.INTERRUPTED_EXCEPTION})
     public @interface RetrieveMetricsTaskStatus {
         int SUCCESS = 0;
         int EXECUTION_EXCEPTION = 1;
@@ -99,7 +110,16 @@ public final class MetricsBridgeService extends Service {
         // Similar to calling RecordHistogram.recordEnumeratedHistogram(
         //        "Android.WebView.NonEmbeddedMetrics.RetrieveMetricsTaskStatus", sample,
         //        RetrieveMetricsTaskStatus.COUNT);
-        HistogramRecord record = HistogramRecord.newBuilder().setRecordType(RecordType.HISTOGRAM_LINEAR).setHistogramName("Android.WebView.NonEmbeddedMetrics.RetrieveMetricsTaskStatus").setSample(sample).setMin(1).setMax(RetrieveMetricsTaskStatus.COUNT).setNumBuckets(ParsingLogResult.COUNT + 1).build();
+        HistogramRecord record =
+                HistogramRecord.newBuilder()
+                        .setRecordType(RecordType.HISTOGRAM_LINEAR)
+                        .setHistogramName(
+                                "Android.WebView.NonEmbeddedMetrics.RetrieveMetricsTaskStatus")
+                        .setSample(sample)
+                        .setMin(1)
+                        .setMax(RetrieveMetricsTaskStatus.COUNT)
+                        .setNumBuckets(ParsingLogResult.COUNT + 1)
+                        .build();
         return record.toByteArray();
     }
 
@@ -142,7 +162,8 @@ public final class MetricsBridgeService extends Service {
         @Override
         public void recordMetrics(byte[] data) {
             if (Binder.getCallingUid() != Process.myUid()) {
-                throw new SecurityException("recordMetrics() may only be called by non-embedded WebView processes");
+                throw new SecurityException(
+                        "recordMetrics() may only be called by non-embedded WebView processes");
             }
             // If this is called within the same process, it will run on the caller thread, so we
             // will always punt this to thread pool.
@@ -187,10 +208,12 @@ public final class MetricsBridgeService extends Service {
                 return retrieveFutureTask.get();
             } catch (ExecutionException e) {
                 Log.e(TAG, "error executing retrieveNonembeddedMetrics future task", e);
-                return Collections.singletonList(logRetrieveMetricsTaskStatus(RetrieveMetricsTaskStatus.EXECUTION_EXCEPTION));
+                return Collections.singletonList(logRetrieveMetricsTaskStatus(
+                        RetrieveMetricsTaskStatus.EXECUTION_EXCEPTION));
             } catch (InterruptedException e) {
                 Log.e(TAG, "retrieveNonembeddedMetrics future task interrupted", e);
-                return Collections.singletonList(logRetrieveMetricsTaskStatus(RetrieveMetricsTaskStatus.INTERRUPTED_EXCEPTION));
+                return Collections.singletonList(logRetrieveMetricsTaskStatus(
+                        RetrieveMetricsTaskStatus.INTERRUPTED_EXCEPTION));
             }
         }
     };
@@ -239,8 +262,7 @@ public final class MetricsBridgeService extends Service {
      */
     @VisibleForTesting
     public FutureTask addTaskToBlock() {
-        FutureTask<Object> blockTask = new FutureTask<Object>(() -> {
-        }, new Object());
+        FutureTask<Object> blockTask = new FutureTask<Object>(() -> {}, new Object());
         sSequencedTaskRunner.postTask(blockTask);
         return blockTask;
     }

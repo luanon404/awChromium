@@ -22,12 +22,10 @@ public final class ContactsPicker {
      */
     private static Object sPicker;
 
-    private ContactsPicker() {
-    }
+    private ContactsPicker() {}
 
     /**
      * Allows setting a delegate for an Android contacts picker.
-     *
      * @param delegate A {@link ContactsPickerDelegate} instance.
      */
     public static void setContactsPickerDelegate(ContactsPickerDelegate delegate) {
@@ -49,28 +47,32 @@ public final class ContactsPicker {
 
     /**
      * Called to display the contacts picker.
-     *
-     * @param webContents      The Web Contents that triggered this call.
-     * @param listener         The listener that will be notified of the action the user took in the
-     *                         picker.
-     * @param allowMultiple    Whether to allow multiple contacts to be selected.
-     * @param includeNames     Whether to include names of the shared contacts.
-     * @param includeEmails    Whether to include emails of the shared contacts.
-     * @param includeTel       Whether to include telephone numbers of the shared contacts.
+     * @param webContents The Web Contents that triggered this call.
+     * @param listener The listener that will be notified of the action the user took in the
+     *                 picker.
+     * @param allowMultiple Whether to allow multiple contacts to be selected.
+     * @param includeNames Whether to include names of the shared contacts.
+     * @param includeEmails Whether to include emails of the shared contacts.
+     * @param includeTel Whether to include telephone numbers of the shared contacts.
      * @param includeAddresses Whether to include addresses of the shared contacts.
-     * @param includeIcons     Whether to include icons of the shared contacts.
-     * @param formattedOrigin  The origin the data will be shared with, formatted for display with
-     *                         the scheme omitted.
+     * @param includeIcons Whether to include icons of the shared contacts.
+     * @param formattedOrigin The origin the data will be shared with, formatted for display with
+     *         the scheme omitted.
      * @return whether a contacts picker is successfully shown.
      */
-    public static boolean showContactsPicker(WebContents webContents, ContactsPickerListener listener, boolean allowMultiple, boolean includeNames, boolean includeEmails, boolean includeTel, boolean includeAddresses, boolean includeIcons, String formattedOrigin) {
+    public static boolean showContactsPicker(WebContents webContents,
+            ContactsPickerListener listener, boolean allowMultiple, boolean includeNames,
+            boolean includeEmails, boolean includeTel, boolean includeAddresses,
+            boolean includeIcons, String formattedOrigin) {
         if (sContactsPickerDelegate == null) return false;
         assert sPicker == null;
 
         if (!canShowContactsPicker(webContents)) {
             return false;
         }
-        sPicker = sContactsPickerDelegate.showContactsPicker(webContents.getTopLevelNativeWindow(), listener, allowMultiple, includeNames, includeEmails, includeTel, includeAddresses, includeIcons, formattedOrigin);
+        sPicker = sContactsPickerDelegate.showContactsPicker(webContents.getTopLevelNativeWindow(),
+                listener, allowMultiple, includeNames, includeEmails, includeTel, includeAddresses,
+                includeIcons, formattedOrigin);
         return true;
     }
 

@@ -13,9 +13,13 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 class WakeLockProvider_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<WakeLockProvider, WakeLockProvider.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<WakeLockProvider, WakeLockProvider.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<WakeLockProvider, WakeLockProvider.Proxy> MANAGER =
+            new org.chromium.mojo.bindings.Interface.Manager<WakeLockProvider, WakeLockProvider.Proxy>() {
 
         @Override
         public String getName() {
@@ -24,11 +28,12 @@ class WakeLockProvider_Internal {
 
         @Override
         public int getVersion() {
-            return 0;
+          return 0;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -39,7 +44,7 @@ class WakeLockProvider_Internal {
 
         @Override
         public WakeLockProvider[] buildArray(int size) {
-            return new WakeLockProvider[size];
+          return new WakeLockProvider[size];
         }
     };
 
@@ -55,13 +60,15 @@ class WakeLockProvider_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements WakeLockProvider.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core,
+              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void getWakeLockContextForId(int contextId, org.chromium.mojo.bindings.InterfaceRequest<WakeLockContext> context) {
+        public void getWakeLockContextForId(
+int contextId, org.chromium.mojo.bindings.InterfaceRequest<WakeLockContext> context) {
 
             WakeLockProviderGetWakeLockContextForIdParams _message = new WakeLockProviderGetWakeLockContextForIdParams();
 
@@ -70,13 +77,17 @@ class WakeLockProvider_Internal {
             _message.context = context;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(GET_WAKE_LOCK_CONTEXT_FOR_ID_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(GET_WAKE_LOCK_CONTEXT_FOR_ID_ORDINAL)));
 
         }
 
 
         @Override
-        public void getWakeLockWithoutContext(int type, int reason, String description, org.chromium.mojo.bindings.InterfaceRequest<WakeLock> wakeLock) {
+        public void getWakeLockWithoutContext(
+int type, int reason, String description, org.chromium.mojo.bindings.InterfaceRequest<WakeLock> wakeLock) {
 
             WakeLockProviderGetWakeLockWithoutContextParams _message = new WakeLockProviderGetWakeLockWithoutContextParams();
 
@@ -89,13 +100,17 @@ class WakeLockProvider_Internal {
             _message.wakeLock = wakeLock;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(GET_WAKE_LOCK_WITHOUT_CONTEXT_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(GET_WAKE_LOCK_WITHOUT_CONTEXT_ORDINAL)));
 
         }
 
 
         @Override
-        public void notifyOnWakeLockDeactivation(int type, WakeLockObserver observer) {
+        public void notifyOnWakeLockDeactivation(
+int type, WakeLockObserver observer) {
 
             WakeLockProviderNotifyOnWakeLockDeactivationParams _message = new WakeLockProviderNotifyOnWakeLockDeactivationParams();
 
@@ -104,20 +119,32 @@ class WakeLockProvider_Internal {
             _message.observer = observer;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(NOTIFY_ON_WAKE_LOCK_DEACTIVATION_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(NOTIFY_ON_WAKE_LOCK_DEACTIVATION_ORDINAL)));
 
         }
 
 
         @Override
-        public void getActiveWakeLocksForTests(int type, GetActiveWakeLocksForTests_Response callback) {
+        public void getActiveWakeLocksForTests(
+int type, 
+GetActiveWakeLocksForTests_Response callback) {
 
             WakeLockProviderGetActiveWakeLocksForTestsParams _message = new WakeLockProviderGetActiveWakeLocksForTestsParams();
 
             _message.type = type;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(GET_ACTIVE_WAKE_LOCKS_FOR_TESTS_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new WakeLockProviderGetActiveWakeLocksForTestsResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    GET_ACTIVE_WAKE_LOCKS_FOR_TESTS_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new WakeLockProviderGetActiveWakeLocksForTestsResponseParamsForwardToCallback(callback));
 
         }
 
@@ -133,7 +160,8 @@ class WakeLockProvider_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -142,44 +170,59 @@ class WakeLockProvider_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(WakeLockProvider_Internal.MANAGER, messageWithHeader);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
+                                WakeLockProvider_Internal.MANAGER, messageWithHeader);
+
+
+
 
 
                     case GET_WAKE_LOCK_CONTEXT_FOR_ID_ORDINAL: {
 
-                        WakeLockProviderGetWakeLockContextForIdParams data = WakeLockProviderGetWakeLockContextForIdParams.deserialize(messageWithHeader.getPayload());
+                        WakeLockProviderGetWakeLockContextForIdParams data =
+                                WakeLockProviderGetWakeLockContextForIdParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().getWakeLockContextForId(data.contextId, data.context);
                         return true;
                     }
 
 
+
+
+
                     case GET_WAKE_LOCK_WITHOUT_CONTEXT_ORDINAL: {
 
-                        WakeLockProviderGetWakeLockWithoutContextParams data = WakeLockProviderGetWakeLockWithoutContextParams.deserialize(messageWithHeader.getPayload());
+                        WakeLockProviderGetWakeLockWithoutContextParams data =
+                                WakeLockProviderGetWakeLockWithoutContextParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().getWakeLockWithoutContext(data.type, data.reason, data.description, data.wakeLock);
                         return true;
                     }
 
 
+
+
+
                     case NOTIFY_ON_WAKE_LOCK_DEACTIVATION_ORDINAL: {
 
-                        WakeLockProviderNotifyOnWakeLockDeactivationParams data = WakeLockProviderNotifyOnWakeLockDeactivationParams.deserialize(messageWithHeader.getPayload());
+                        WakeLockProviderNotifyOnWakeLockDeactivationParams data =
+                                WakeLockProviderNotifyOnWakeLockDeactivationParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().notifyOnWakeLockDeactivation(data.type, data.observer);
                         return true;
                     }
 
 
+
+
                     default:
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -187,7 +230,8 @@ class WakeLockProvider_Internal {
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -196,15 +240,28 @@ class WakeLockProvider_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), WakeLockProvider_Internal.MANAGER, messageWithHeader, receiver);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
+                                getCore(), WakeLockProvider_Internal.MANAGER, messageWithHeader, receiver);
+
+
+
+
+
+
+
+
+
+
+
 
 
                     case GET_ACTIVE_WAKE_LOCKS_FOR_TESTS_ORDINAL: {
 
-                        WakeLockProviderGetActiveWakeLocksForTestsParams data = WakeLockProviderGetActiveWakeLocksForTestsParams.deserialize(messageWithHeader.getPayload());
+                        WakeLockProviderGetActiveWakeLocksForTestsParams data =
+                                WakeLockProviderGetActiveWakeLocksForTestsParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().getActiveWakeLocksForTests(data.type, new WakeLockProviderGetActiveWakeLocksForTestsResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
@@ -215,17 +272,18 @@ class WakeLockProvider_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class WakeLockProviderGetWakeLockContextForIdParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int contextId;
         public org.chromium.mojo.bindings.InterfaceRequest<WakeLockContext> context;
@@ -248,7 +306,8 @@ class WakeLockProvider_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static WakeLockProviderGetWakeLockContextForIdParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -262,14 +321,14 @@ class WakeLockProvider_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new WakeLockProviderGetWakeLockContextForIdParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.contextId = decoder0.readInt(8);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.context = decoder0.readInterfaceRequest(12, false);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -281,18 +340,20 @@ class WakeLockProvider_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.contextId, 8);
-
+            
             encoder0.encode(this.context, 12, false);
         }
     }
 
 
+
+    
     static final class WakeLockProviderGetWakeLockWithoutContextParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 32;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(32, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(32, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int type;
         public int reason;
@@ -317,7 +378,8 @@ class WakeLockProvider_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static WakeLockProviderGetWakeLockWithoutContextParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -331,26 +393,26 @@ class WakeLockProvider_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new WakeLockProviderGetWakeLockWithoutContextParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.type = decoder0.readInt(8);
-                    WakeLockType.validate(result.type);
-                    result.type = WakeLockType.toKnownValue(result.type);
-                }
-                {
-
+                        WakeLockType.validate(result.type);
+                        result.type = WakeLockType.toKnownValue(result.type);
+                    }
+                    {
+                        
                     result.reason = decoder0.readInt(12);
-                    WakeLockReason.validate(result.reason);
-                    result.reason = WakeLockReason.toKnownValue(result.reason);
-                }
-                {
-
+                        WakeLockReason.validate(result.reason);
+                        result.reason = WakeLockReason.toKnownValue(result.reason);
+                    }
+                    {
+                        
                     result.description = decoder0.readString(16, false);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.wakeLock = decoder0.readInterfaceRequest(24, false);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -362,22 +424,24 @@ class WakeLockProvider_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.type, 8);
-
+            
             encoder0.encode(this.reason, 12);
-
+            
             encoder0.encode(this.description, 16, false);
-
+            
             encoder0.encode(this.wakeLock, 24, false);
         }
     }
 
 
+
+    
     static final class WakeLockProviderNotifyOnWakeLockDeactivationParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int type;
         public WakeLockObserver observer;
@@ -400,7 +464,8 @@ class WakeLockProvider_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static WakeLockProviderNotifyOnWakeLockDeactivationParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -414,16 +479,16 @@ class WakeLockProvider_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new WakeLockProviderNotifyOnWakeLockDeactivationParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.type = decoder0.readInt(8);
-                    WakeLockType.validate(result.type);
-                    result.type = WakeLockType.toKnownValue(result.type);
-                }
-                {
-
+                        WakeLockType.validate(result.type);
+                        result.type = WakeLockType.toKnownValue(result.type);
+                    }
+                    {
+                        
                     result.observer = decoder0.readServiceInterface(12, false, WakeLockObserver.MANAGER);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -435,18 +500,20 @@ class WakeLockProvider_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.type, 8);
-
+            
             encoder0.encode(this.observer, 12, false, WakeLockObserver.MANAGER);
         }
     }
 
 
+
+    
     static final class WakeLockProviderGetActiveWakeLocksForTestsParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int type;
 
@@ -468,7 +535,8 @@ class WakeLockProvider_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static WakeLockProviderGetActiveWakeLocksForTestsParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -482,12 +550,12 @@ class WakeLockProvider_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new WakeLockProviderGetActiveWakeLocksForTestsParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.type = decoder0.readInt(8);
-                    WakeLockType.validate(result.type);
-                    result.type = WakeLockType.toKnownValue(result.type);
-                }
+                        WakeLockType.validate(result.type);
+                        result.type = WakeLockType.toKnownValue(result.type);
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -499,16 +567,18 @@ class WakeLockProvider_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.type, 8);
         }
     }
 
 
+
+    
     static final class WakeLockProviderGetActiveWakeLocksForTestsResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int count;
 
@@ -530,7 +600,8 @@ class WakeLockProvider_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static WakeLockProviderGetActiveWakeLocksForTestsResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -544,10 +615,10 @@ class WakeLockProvider_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new WakeLockProviderGetActiveWakeLocksForTestsResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.count = decoder0.readInt(8);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -559,12 +630,13 @@ class WakeLockProvider_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.count, 8);
         }
     }
 
-    static class WakeLockProviderGetActiveWakeLocksForTestsResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class WakeLockProviderGetActiveWakeLocksForTestsResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final WakeLockProvider.GetActiveWakeLocksForTests_Response mCallback;
 
         WakeLockProviderGetActiveWakeLocksForTestsResponseParamsForwardToCallback(WakeLockProvider.GetActiveWakeLocksForTests_Response callback) {
@@ -574,9 +646,11 @@ class WakeLockProvider_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(GET_ACTIVE_WAKE_LOCKS_FOR_TESTS_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(GET_ACTIVE_WAKE_LOCKS_FOR_TESTS_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -596,7 +670,10 @@ class WakeLockProvider_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        WakeLockProviderGetActiveWakeLocksForTestsResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        WakeLockProviderGetActiveWakeLocksForTestsResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -608,10 +685,17 @@ class WakeLockProvider_Internal {
 
             _response.count = count;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(GET_ACTIVE_WAKE_LOCKS_FOR_TESTS_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    GET_ACTIVE_WAKE_LOCKS_FOR_TESTS_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
+
 
 
 }

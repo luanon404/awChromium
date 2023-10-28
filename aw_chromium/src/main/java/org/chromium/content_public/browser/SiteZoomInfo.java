@@ -6,9 +6,7 @@ package org.chromium.content_public.browser;
 
 import org.chromium.build.annotations.UsedByReflection;
 
-/**
- * Represents the zoom information for a host.
- */
+/** Represents the zoom information for a host. */
 @UsedByReflection("host_zoom_map_impl.cc")
 public final class SiteZoomInfo {
     public final String host;

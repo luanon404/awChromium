@@ -16,8 +16,7 @@ import androidx.annotation.RequiresApi;
  */
 @RequiresApi(Build.VERSION_CODES.Q)
 public final class PowerMonitorForQ {
-    private PowerMonitorForQ() {
-    }
+    private PowerMonitorForQ() {}
 
     public static void addThermalStatusListener(PowerManager powerManager) {
         powerManager.addThermalStatusListener(new PowerManager.OnThermalStatusChangedListener() {

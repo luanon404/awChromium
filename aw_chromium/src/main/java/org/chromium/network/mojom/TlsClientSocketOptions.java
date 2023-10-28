@@ -13,10 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class TlsClientSocketOptions extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 24;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public int versionMin;
     public int versionMax;
@@ -45,7 +48,8 @@ public final class TlsClientSocketOptions extends org.chromium.mojo.bindings.Str
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static TlsClientSocketOptions deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -59,26 +63,26 @@ public final class TlsClientSocketOptions extends org.chromium.mojo.bindings.Str
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new TlsClientSocketOptions(elementsOrVersion);
-            {
-
+                {
+                    
                 result.versionMin = decoder0.readInt(8);
-                SslVersion.validate(result.versionMin);
-                result.versionMin = SslVersion.toKnownValue(result.versionMin);
-            }
-            {
-
+                    SslVersion.validate(result.versionMin);
+                    result.versionMin = SslVersion.toKnownValue(result.versionMin);
+                }
+                {
+                    
                 result.versionMax = decoder0.readInt(12);
-                SslVersion.validate(result.versionMax);
-                result.versionMax = SslVersion.toKnownValue(result.versionMax);
-            }
-            {
-
+                    SslVersion.validate(result.versionMax);
+                    result.versionMax = SslVersion.toKnownValue(result.versionMax);
+                }
+                {
+                    
                 result.sendSslInfo = decoder0.readBoolean(16, 0);
-            }
-            {
-
+                }
+                {
+                    
                 result.unsafelySkipCertVerification = decoder0.readBoolean(16, 1);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -90,13 +94,13 @@ public final class TlsClientSocketOptions extends org.chromium.mojo.bindings.Str
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.versionMin, 8);
-
+        
         encoder0.encode(this.versionMax, 12);
-
+        
         encoder0.encode(this.sendSslInfo, 16, 0);
-
+        
         encoder0.encode(this.unsafelySkipCertVerification, 16, 1);
     }
 }

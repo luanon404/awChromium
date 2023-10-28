@@ -13,15 +13,20 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface WebrtcVideoPerfRecorder extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends WebrtcVideoPerfRecorder, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends WebrtcVideoPerfRecorder, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<WebrtcVideoPerfRecorder, WebrtcVideoPerfRecorder.Proxy> MANAGER = WebrtcVideoPerfRecorder_Internal.MANAGER;
 
-    void updateRecord(WebrtcPredictionFeatures features, WebrtcVideoStats videoStats);
+    void updateRecord(
+WebrtcPredictionFeatures features, WebrtcVideoStats videoStats);
 
 
 }

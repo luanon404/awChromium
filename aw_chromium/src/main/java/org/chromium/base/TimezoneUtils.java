@@ -17,8 +17,7 @@ class TimezoneUtils {
      * Guards this class from being instantiated.
      */
 
-    private TimezoneUtils() {
-    }
+    private TimezoneUtils() {}
 
     /**
      * @return the Olson timezone ID of the current system time zone.

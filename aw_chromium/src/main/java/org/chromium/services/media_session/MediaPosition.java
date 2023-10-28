@@ -68,7 +68,9 @@ public final class MediaPosition {
         if (!(obj instanceof MediaPosition)) return false;
 
         MediaPosition other = (MediaPosition) obj;
-        return mDuration == other.getDuration() && mPosition == other.getPosition() && mPlaybackRate == other.getPlaybackRate() && mLastUpdatedTime == other.getLastUpdatedTime();
+        return mDuration == other.getDuration() && mPosition == other.getPosition()
+                && mPlaybackRate == other.getPlaybackRate()
+                && mLastUpdatedTime == other.getLastUpdatedTime();
     }
 
     @Override
@@ -82,19 +84,20 @@ public final class MediaPosition {
 
     @Override
     public String toString() {
-        return "duration=" + mDuration + ", position=" + mPosition + ", rate=" + mPlaybackRate + ", updated=" + mLastUpdatedTime;
+        return "duration=" + mDuration + ", position=" + mPosition + ", rate=" + mPlaybackRate
+                + ", updated=" + mLastUpdatedTime;
     }
 
     /**
      * Create a new {@link MediaPosition} from the C++ code.
-     *
-     * @param duration        The duration of the media in ms.
-     * @param position        The position of the media in ms.
-     * @param playbackRate    The playback rate of the media as a coefficient.
+     * @param duration The duration of the media in ms.
+     * @param position The position of the media in ms.
+     * @param playbackRate The playback rate of the media as a coefficient.
      * @param lastUpdatedTime The time the position was last updated in ms (epoch time).
      */
     @CalledByNative
-    private static MediaPosition create(long duration, long position, float playbackRate, long lastUpdatedTime) {
+    private static MediaPosition create(
+            long duration, long position, float playbackRate, long lastUpdatedTime) {
         long currentTime = System.currentTimeMillis();
         long elapsedRealtime = SystemClock.elapsedRealtime();
         long bootTime = currentTime - elapsedRealtime;

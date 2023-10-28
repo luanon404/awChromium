@@ -17,10 +17,14 @@ import androidx.annotation.IntDef;
 
 public final class ContextRedirectTypeBug1221316 {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({ContextRedirectTypeBug1221316.UNSET, ContextRedirectTypeBug1221316.NO_REDIRECT, ContextRedirectTypeBug1221316.CROSS_SITE_REDIRECT, ContextRedirectTypeBug1221316.PARTIAL_SAME_SITE_REDIRECT, ContextRedirectTypeBug1221316.ALL_SAME_SITE_REDIRECT})
-    public @interface EnumType {
-    }
+        ContextRedirectTypeBug1221316.UNSET,
+        ContextRedirectTypeBug1221316.NO_REDIRECT,
+        ContextRedirectTypeBug1221316.CROSS_SITE_REDIRECT,
+        ContextRedirectTypeBug1221316.PARTIAL_SAME_SITE_REDIRECT,
+        ContextRedirectTypeBug1221316.ALL_SAME_SITE_REDIRECT})
+    public @interface EnumType {}
 
     public static final int UNSET = 0;
     public static final int NO_REDIRECT = 1;
@@ -40,9 +44,8 @@ public final class ContextRedirectTypeBug1221316 {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private ContextRedirectTypeBug1221316() {
-    }
+    private ContextRedirectTypeBug1221316() {}
 }

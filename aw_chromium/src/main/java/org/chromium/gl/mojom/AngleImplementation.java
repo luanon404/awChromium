@@ -17,10 +17,19 @@ import androidx.annotation.IntDef;
 
 public final class AngleImplementation {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({AngleImplementation.NONE, AngleImplementation.D3D9, AngleImplementation.D3D11, AngleImplementation.OPEN_GL, AngleImplementation.OPEN_GLES, AngleImplementation.NULL, AngleImplementation.VULKAN, AngleImplementation.SWIFT_SHADER, AngleImplementation.METAL, AngleImplementation.DEFAULT})
-    public @interface EnumType {
-    }
+        AngleImplementation.NONE,
+        AngleImplementation.D3D9,
+        AngleImplementation.D3D11,
+        AngleImplementation.OPEN_GL,
+        AngleImplementation.OPEN_GLES,
+        AngleImplementation.NULL,
+        AngleImplementation.VULKAN,
+        AngleImplementation.SWIFT_SHADER,
+        AngleImplementation.METAL,
+        AngleImplementation.DEFAULT})
+    public @interface EnumType {}
 
     public static final int NONE = 0;
     public static final int D3D9 = 1;
@@ -45,9 +54,8 @@ public final class AngleImplementation {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private AngleImplementation() {
-    }
+    private AngleImplementation() {}
 }

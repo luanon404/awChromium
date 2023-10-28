@@ -19,14 +19,15 @@ import java.util.Locale;
 
 /**
  * A time picker dialog with upto 5 number pickers left to right:
- * hour, minute, second, milli, AM/PM.
- * <p>
+ *  hour, minute, second, milli, AM/PM.
+ *
  * If is24hourFormat is true then AM/PM picker is not displayed and
  * hour range is 0..23. Otherwise hour range is 1..12.
  * The milli picker is not displayed if step >= SECOND_IN_MILLIS
  * The second picker is not displayed if step >= MINUTE_IN_MILLIS.
  */
-public class MultiFieldTimePickerDialog extends AlertDialog implements OnClickListener {
+public class MultiFieldTimePickerDialog
+        extends AlertDialog implements OnClickListener {
 
     private final NumberPicker mHourSpinner;
     private final NumberPicker mMinuteSpinner;
@@ -49,7 +50,12 @@ public class MultiFieldTimePickerDialog extends AlertDialog implements OnClickLi
     private static final int MINUTE_IN_MILLIS = 60 * SECOND_IN_MILLIS;
     private static final int HOUR_IN_MILLIS = 60 * MINUTE_IN_MILLIS;
 
-    public MultiFieldTimePickerDialog(Context context, int theme, int hour, int minute, int second, int milli, int min, int max, int step, boolean is24hourFormat, OnMultiFieldTimeSetListener listener) {
+    public MultiFieldTimePickerDialog(
+            Context context,
+            int theme,
+            int hour, int minute, int second, int milli,
+            int min, int max, int step, boolean is24hourFormat,
+            OnMultiFieldTimeSetListener listener) {
         super(context, theme);
         mListener = listener;
         mStep = step;
@@ -63,7 +69,9 @@ public class MultiFieldTimePickerDialog extends AlertDialog implements OnClickLi
             step = MINUTE_IN_MILLIS;
         }
 
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater =
+                (LayoutInflater) context.getSystemService(
+                        Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.multi_field_time_picker_dialog, null);
         setView(view);
 
@@ -91,7 +99,10 @@ public class MultiFieldTimePickerDialog extends AlertDialog implements OnClickLi
             int amPm = hour / 12;
             mAmPmSpinner.setMinValue(minAmPm);
             mAmPmSpinner.setMaxValue(maxAmPm);
-            mAmPmSpinner.setDisplayedValues(new String[]{context.getString(R.string.time_picker_dialog_am), context.getString(R.string.time_picker_dialog_pm)});
+            mAmPmSpinner.setDisplayedValues(new String[] {
+                    context.getString(R.string.time_picker_dialog_am),
+                    context.getString(R.string.time_picker_dialog_pm)
+            });
 
             hour %= 12;
             if (hour == 0) {
@@ -138,7 +149,8 @@ public class MultiFieldTimePickerDialog extends AlertDialog implements OnClickLi
             mMinuteSpinner.setMaxValue(maxMinute);
             if (minMinute == maxMinute) {
                 // Set this otherwise the box is empty until you stroke it.
-                mMinuteSpinner.setDisplayedValues(new String[]{twoDigitPaddingFormatter.format(minMinute)});
+                mMinuteSpinner.setDisplayedValues(
+                        new String[] { twoDigitPaddingFormatter.format(minMinute) });
                 mMinuteSpinner.setEnabled(false);
                 minute = minMinute;
             }
@@ -173,7 +185,8 @@ public class MultiFieldTimePickerDialog extends AlertDialog implements OnClickLi
             mSecSpinner.setMaxValue(maxSecond);
             if (minSecond == maxSecond) {
                 // Set this otherwise the box is empty until you stroke it.
-                mSecSpinner.setDisplayedValues(new String[]{twoDigitPaddingFormatter.format(minSecond)});
+                mSecSpinner.setDisplayedValues(
+                        new String[] { twoDigitPaddingFormatter.format(minSecond) });
                 mSecSpinner.setEnabled(false);
                 second = minSecond;
             }
@@ -255,7 +268,7 @@ public class MultiFieldTimePickerDialog extends AlertDialog implements OnClickLi
     /**
      * Clear focus before retrieving so that values inserted with
      * keyboard are taken into account.
-     */
+    */
     private int getPickerValue(NumberPicker picker) {
         picker.clearFocus();
         return picker.getValue();

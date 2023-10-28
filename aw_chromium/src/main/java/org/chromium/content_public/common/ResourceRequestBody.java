@@ -15,7 +15,7 @@ import org.jni_zero.NativeMethods;
 public final class ResourceRequestBody {
     /**
      * Result of EncodeResourceRequestBody call from page_state_serialization.h.
-     * <p>
+     *
      * Note that this is *not* the content of HTTP body (i.e. format of the
      * value of mSerializedFormOfNativeResourceRequestBody is opaque and
      * different from the value passed as an argument of
@@ -54,7 +54,8 @@ public final class ResourceRequestBody {
      * @param body the HTTP body
      */
     public static ResourceRequestBody createFromBytes(byte[] httpBody) {
-        byte[] encodedNativeForm = ResourceRequestBodyJni.get().createResourceRequestBodyFromBytes(httpBody);
+        byte[] encodedNativeForm =
+                ResourceRequestBodyJni.get().createResourceRequestBodyFromBytes(httpBody);
         return createFromEncodedNativeForm(encodedNativeForm);
     }
 
@@ -64,6 +65,7 @@ public final class ResourceRequestBody {
          * Equivalent of the native content::ResourceRequestBody::CreateFromBytes.
          *
          * @param body the HTTP body
+         *
          * @return result of a call to EncodeResourceRequestBody on
          * ResourceRequestBody created from |httpBody|.
          */

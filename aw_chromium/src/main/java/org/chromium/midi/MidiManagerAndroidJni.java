@@ -4,54 +4,73 @@
 package org.chromium.midi;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.media.midi.MidiDevice;
+import android.media.midi.MidiDeviceInfo;
+import android.media.midi.MidiManager;
+import android.os.Handler;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.ContextUtils;
+import org.chromium.base.ThreadUtils;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @CheckDiscard("crbug.com/993421")
 class MidiManagerAndroidJni implements MidiManagerAndroid.Natives {
-    private static MidiManagerAndroid.Natives testInstance;
+  private static MidiManagerAndroid.Natives testInstance;
 
-    public static final JniStaticTestMocker<MidiManagerAndroid.Natives> TEST_HOOKS = new JniStaticTestMocker<MidiManagerAndroid.Natives>() {
-        @Override
-        public void setInstanceForTesting(MidiManagerAndroid.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<MidiManagerAndroid.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<MidiManagerAndroid.Natives>() {
     @Override
-    public void onAttached(long nativeMidiManagerAndroid, MidiDeviceAndroid device) {
-        GEN_JNI.org_chromium_midi_MidiManagerAndroid_onAttached(nativeMidiManagerAndroid, device);
+    public void setInstanceForTesting(MidiManagerAndroid.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public void onDetached(long nativeMidiManagerAndroid, MidiDeviceAndroid device) {
-        GEN_JNI.org_chromium_midi_MidiManagerAndroid_onDetached(nativeMidiManagerAndroid, device);
-    }
+  @Override
+  public void onAttached(long nativeMidiManagerAndroid, MidiDeviceAndroid device) {
+    GEN_JNI.org_chromium_midi_MidiManagerAndroid_onAttached(nativeMidiManagerAndroid, device);
+  }
 
-    @Override
-    public void onInitializationFailed(long nativeMidiManagerAndroid) {
-        GEN_JNI.org_chromium_midi_MidiManagerAndroid_onInitializationFailed(nativeMidiManagerAndroid);
-    }
+  @Override
+  public void onDetached(long nativeMidiManagerAndroid, MidiDeviceAndroid device) {
+    GEN_JNI.org_chromium_midi_MidiManagerAndroid_onDetached(nativeMidiManagerAndroid, device);
+  }
 
-    @Override
-    public void onInitialized(long nativeMidiManagerAndroid, MidiDeviceAndroid[] devices) {
-        GEN_JNI.org_chromium_midi_MidiManagerAndroid_onInitialized(nativeMidiManagerAndroid, devices);
-    }
+  @Override
+  public void onInitializationFailed(long nativeMidiManagerAndroid) {
+    GEN_JNI.org_chromium_midi_MidiManagerAndroid_onInitializationFailed(nativeMidiManagerAndroid);
+  }
 
-    public static MidiManagerAndroid.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of MidiManagerAndroid.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new MidiManagerAndroidJni();
+  @Override
+  public void onInitialized(long nativeMidiManagerAndroid, MidiDeviceAndroid[] devices) {
+    GEN_JNI.org_chromium_midi_MidiManagerAndroid_onInitialized(nativeMidiManagerAndroid, devices);
+  }
+
+  public static MidiManagerAndroid.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of MidiManagerAndroid.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new MidiManagerAndroidJni();
+  }
 }

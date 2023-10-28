@@ -17,10 +17,15 @@ import androidx.annotation.IntDef;
 
 public final class VkPhysicalDeviceType {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({VkPhysicalDeviceType.OTHER, VkPhysicalDeviceType.INTEGRATED_GPU, VkPhysicalDeviceType.DISCRETE_GPU, VkPhysicalDeviceType.VIRTUAL_GPU, VkPhysicalDeviceType.CPU, VkPhysicalDeviceType.INVALID_VALUE})
-    public @interface EnumType {
-    }
+        VkPhysicalDeviceType.OTHER,
+        VkPhysicalDeviceType.INTEGRATED_GPU,
+        VkPhysicalDeviceType.DISCRETE_GPU,
+        VkPhysicalDeviceType.VIRTUAL_GPU,
+        VkPhysicalDeviceType.CPU,
+        VkPhysicalDeviceType.INVALID_VALUE})
+    public @interface EnumType {}
 
     public static final int OTHER = 0;
     public static final int INTEGRATED_GPU = 1;
@@ -41,9 +46,8 @@ public final class VkPhysicalDeviceType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private VkPhysicalDeviceType() {
-    }
+    private VkPhysicalDeviceType() {}
 }

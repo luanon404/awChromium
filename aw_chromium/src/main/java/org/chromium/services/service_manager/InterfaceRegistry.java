@@ -14,17 +14,18 @@ import java.util.Map;
 
 /**
  * A registry where interfaces may be registered to be exposed to another application.
- * <p>
+ *
  * To use, define a class that implements your specific interface. Then
  * implement an InterfaceFactory that creates instances of your implementation
  * and register that on the registry with a Manager for the interface like this:
- * <p>
- * registry.addInterface(InterfaceType.MANAGER, factory);
+ *
+ *   registry.addInterface(InterfaceType.MANAGER, factory);
  */
 public class InterfaceRegistry implements InterfaceProvider {
     private final Map<String, InterfaceBinder> mBinders = new HashMap<String, InterfaceBinder>();
 
-    public <I extends Interface> void addInterface(Interface.Manager<I, ? extends Interface.Proxy> manager, InterfaceFactory<I> factory) {
+    public <I extends Interface> void addInterface(
+            Interface.Manager<I, ? extends Interface.Proxy> manager, InterfaceFactory<I> factory) {
         mBinders.put(manager.getName(), new InterfaceBinder<I>(manager, factory));
     }
 
@@ -53,14 +54,14 @@ public class InterfaceRegistry implements InterfaceProvider {
         close();
     }
 
-    InterfaceRegistry() {
-    }
+    InterfaceRegistry() {}
 
     private static class InterfaceBinder<I extends Interface> {
         private Interface.Manager<I, ? extends Interface.Proxy> mManager;
         private InterfaceFactory<I> mFactory;
 
-        public InterfaceBinder(Interface.Manager<I, ? extends Interface.Proxy> manager, InterfaceFactory<I> factory) {
+        public InterfaceBinder(Interface.Manager<I, ? extends Interface.Proxy> manager,
+                InterfaceFactory<I> factory) {
             mManager = manager;
             mFactory = factory;
         }

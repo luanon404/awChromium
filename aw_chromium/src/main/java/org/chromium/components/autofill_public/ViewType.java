@@ -48,7 +48,8 @@ public class ViewType implements Parcelable {
         }
     };
 
-    public ViewType(AutofillId id, String serverType, String computedType, String[] serverPredictions) {
+    public ViewType(
+            AutofillId id, String serverType, String computedType, String[] serverPredictions) {
         mAutofillId = id;
         mServerType = serverType;
         mComputedType = computedType;

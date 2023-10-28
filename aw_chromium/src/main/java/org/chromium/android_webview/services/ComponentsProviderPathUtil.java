@@ -4,9 +4,10 @@
 
 package org.chromium.android_webview.services;
 
-import org.chromium.base.PathUtils;
 import org.jni_zero.CalledByNative;
 import org.jni_zero.JNINamespace;
+
+import org.chromium.base.PathUtils;
 
 import java.io.File;
 import java.util.Arrays;
@@ -21,7 +22,7 @@ public class ComponentsProviderPathUtil {
 
     /**
      * @return The absolute path to the serving directory that {@link ComponentsProviderService}
-     * uses to look components up.
+     *         uses to look components up.
      */
     @CalledByNative
     public static String getComponentsServingDirectoryPath() {
@@ -32,7 +33,8 @@ public class ComponentsProviderPathUtil {
      * @return The absolute path to the directory where the update service stores components.
      */
     public static String getComponentUpdateServiceDirectoryPath() {
-        return new File(PathUtils.getDataDirectory(), COMPONENT_UPDATE_SERVICE_DIRECTORY_PATH).getAbsolutePath();
+        return new File(PathUtils.getDataDirectory(), COMPONENT_UPDATE_SERVICE_DIRECTORY_PATH)
+                .getAbsolutePath();
     }
 
     /**
@@ -42,7 +44,7 @@ public class ComponentsProviderPathUtil {
      *
      * @param componentDirectoryPath the absolute path of the component directory.
      * @return the highest sequence number or 0 if the directory is empty or no valid directories
-     * that match the format.
+     *         that match the format.
      */
     @CalledByNative
     private static int getTheHighestSequenceNumber(String componentDirectoryPath) {
@@ -60,14 +62,16 @@ public class ComponentsProviderPathUtil {
      *
      * @param componentDirectory the component directory that has components versions.
      * @return Sorted array of directories under {@code componentDirectory}, {@code null} if it's
-     * not a valid directory.
+     *         not a valid directory.
      */
     public static File[] getComponentsNewestFirst(File componentDirectory) {
-        final File[] files = componentDirectory.listFiles(file -> (file.isDirectory() && file.getName().matches("[0-9]+_.+")));
+        final File[] files = componentDirectory.listFiles(
+                file -> (file.isDirectory() && file.getName().matches("[0-9]+_.+")));
 
         if (files != null && files.length > 1) {
             // Sort the array in descending order of sequence numbers.
-            Arrays.sort(files, (v1, v2) -> sequenceNumberForDirectory(v2) - sequenceNumberForDirectory(v1));
+            Arrays.sort(files,
+                    (v1, v2) -> sequenceNumberForDirectory(v2) - sequenceNumberForDirectory(v1));
         }
         return files;
     }
@@ -79,6 +83,5 @@ public class ComponentsProviderPathUtil {
     }
 
     // Don't instaniate this class.
-    private ComponentsProviderPathUtil() {
-    }
+    private ComponentsProviderPathUtil() {}
 }

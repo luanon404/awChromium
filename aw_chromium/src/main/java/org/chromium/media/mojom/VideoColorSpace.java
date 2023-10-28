@@ -19,15 +19,14 @@ import androidx.annotation.IntDef;
 public final class VideoColorSpace extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 24;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
 
     public static final class PrimaryId {
         private static final boolean IS_EXTENSIBLE = false;
-
-        @IntDef({})
-        public @interface EnumType {
-        }
+        @IntDef({
+    })
+        public @interface EnumType {}
 
 
         public static boolean isKnownValue(int value) {
@@ -40,19 +39,17 @@ public final class VideoColorSpace extends org.chromium.mojo.bindings.Struct {
         }
 
         public static int toKnownValue(int value) {
-            return value;
+          return value;
         }
 
-        private PrimaryId() {
-        }
+        private PrimaryId() {}
     }
 
     public static final class TransferId {
         private static final boolean IS_EXTENSIBLE = false;
-
-        @IntDef({})
-        public @interface EnumType {
-        }
+        @IntDef({
+    })
+        public @interface EnumType {}
 
 
         public static boolean isKnownValue(int value) {
@@ -65,19 +62,17 @@ public final class VideoColorSpace extends org.chromium.mojo.bindings.Struct {
         }
 
         public static int toKnownValue(int value) {
-            return value;
+          return value;
         }
 
-        private TransferId() {
-        }
+        private TransferId() {}
     }
 
     public static final class MatrixId {
         private static final boolean IS_EXTENSIBLE = false;
-
-        @IntDef({})
-        public @interface EnumType {
-        }
+        @IntDef({
+    })
+        public @interface EnumType {}
 
 
         public static boolean isKnownValue(int value) {
@@ -90,19 +85,17 @@ public final class VideoColorSpace extends org.chromium.mojo.bindings.Struct {
         }
 
         public static int toKnownValue(int value) {
-            return value;
+          return value;
         }
 
-        private MatrixId() {
-        }
+        private MatrixId() {}
     }
 
     public static final class RangeId {
         private static final boolean IS_EXTENSIBLE = false;
-
-        @IntDef({})
-        public @interface EnumType {
-        }
+        @IntDef({
+    })
+        public @interface EnumType {}
 
 
         public static boolean isKnownValue(int value) {
@@ -115,13 +108,11 @@ public final class VideoColorSpace extends org.chromium.mojo.bindings.Struct {
         }
 
         public static int toKnownValue(int value) {
-            return value;
+          return value;
         }
 
-        private RangeId() {
-        }
+        private RangeId() {}
     }
-
     public int primaries;
     public int transfer;
     public int matrix;
@@ -145,7 +136,8 @@ public final class VideoColorSpace extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static VideoColorSpace deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -159,30 +151,30 @@ public final class VideoColorSpace extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new VideoColorSpace(elementsOrVersion);
-            {
-
+                {
+                    
                 result.primaries = decoder0.readInt(8);
-                VideoColorSpace.PrimaryId.validate(result.primaries);
-                result.primaries = VideoColorSpace.PrimaryId.toKnownValue(result.primaries);
-            }
-            {
-
+                    VideoColorSpace.PrimaryId.validate(result.primaries);
+                    result.primaries = VideoColorSpace.PrimaryId.toKnownValue(result.primaries);
+                }
+                {
+                    
                 result.transfer = decoder0.readInt(12);
-                VideoColorSpace.TransferId.validate(result.transfer);
-                result.transfer = VideoColorSpace.TransferId.toKnownValue(result.transfer);
-            }
-            {
-
+                    VideoColorSpace.TransferId.validate(result.transfer);
+                    result.transfer = VideoColorSpace.TransferId.toKnownValue(result.transfer);
+                }
+                {
+                    
                 result.matrix = decoder0.readInt(16);
-                VideoColorSpace.MatrixId.validate(result.matrix);
-                result.matrix = VideoColorSpace.MatrixId.toKnownValue(result.matrix);
-            }
-            {
-
+                    VideoColorSpace.MatrixId.validate(result.matrix);
+                    result.matrix = VideoColorSpace.MatrixId.toKnownValue(result.matrix);
+                }
+                {
+                    
                 result.range = decoder0.readInt(20);
-                VideoColorSpace.RangeId.validate(result.range);
-                result.range = VideoColorSpace.RangeId.toKnownValue(result.range);
-            }
+                    VideoColorSpace.RangeId.validate(result.range);
+                    result.range = VideoColorSpace.RangeId.toKnownValue(result.range);
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -194,13 +186,13 @@ public final class VideoColorSpace extends org.chromium.mojo.bindings.Struct {
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.primaries, 8);
-
+        
         encoder0.encode(this.transfer, 12);
-
+        
         encoder0.encode(this.matrix, 16);
-
+        
         encoder0.encode(this.range, 20);
     }
 }

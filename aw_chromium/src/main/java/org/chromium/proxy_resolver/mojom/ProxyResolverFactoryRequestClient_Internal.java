@@ -13,9 +13,13 @@
 
 package org.chromium.proxy_resolver.mojom;
 
+import androidx.annotation.IntDef;
+
+
 class ProxyResolverFactoryRequestClient_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<ProxyResolverFactoryRequestClient, ProxyResolverFactoryRequestClient.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<ProxyResolverFactoryRequestClient, ProxyResolverFactoryRequestClient.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<ProxyResolverFactoryRequestClient, ProxyResolverFactoryRequestClient.Proxy> MANAGER =
+            new org.chromium.mojo.bindings.Interface.Manager<ProxyResolverFactoryRequestClient, ProxyResolverFactoryRequestClient.Proxy>() {
 
         @Override
         public String getName() {
@@ -24,11 +28,12 @@ class ProxyResolverFactoryRequestClient_Internal {
 
         @Override
         public int getVersion() {
-            return 0;
+          return 0;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -39,7 +44,7 @@ class ProxyResolverFactoryRequestClient_Internal {
 
         @Override
         public ProxyResolverFactoryRequestClient[] buildArray(int size) {
-            return new ProxyResolverFactoryRequestClient[size];
+          return new ProxyResolverFactoryRequestClient[size];
         }
     };
 
@@ -55,39 +60,49 @@ class ProxyResolverFactoryRequestClient_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements ProxyResolverFactoryRequestClient.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core,
+              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void reportResult(int error) {
+        public void reportResult(
+int error) {
 
             ProxyResolverFactoryRequestClientReportResultParams _message = new ProxyResolverFactoryRequestClientReportResultParams();
 
             _message.error = error;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(REPORT_RESULT_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(REPORT_RESULT_ORDINAL)));
 
         }
 
 
         @Override
-        public void alert(String error) {
+        public void alert(
+String error) {
 
             ProxyResolverFactoryRequestClientAlertParams _message = new ProxyResolverFactoryRequestClientAlertParams();
 
             _message.error = error;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ALERT_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ALERT_ORDINAL)));
 
         }
 
 
         @Override
-        public void onError(int lineNumber, String error) {
+        public void onError(
+int lineNumber, String error) {
 
             ProxyResolverFactoryRequestClientOnErrorParams _message = new ProxyResolverFactoryRequestClientOnErrorParams();
 
@@ -96,13 +111,17 @@ class ProxyResolverFactoryRequestClient_Internal {
             _message.error = error;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_ERROR_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_ERROR_ORDINAL)));
 
         }
 
 
         @Override
-        public void resolveDns(String host, int operation, org.chromium.network.mojom.NetworkAnonymizationKey networkAnonymizationKey, HostResolverRequestClient client) {
+        public void resolveDns(
+String host, int operation, org.chromium.network.mojom.NetworkAnonymizationKey networkAnonymizationKey, HostResolverRequestClient client) {
 
             ProxyResolverFactoryRequestClientResolveDnsParams _message = new ProxyResolverFactoryRequestClientResolveDnsParams();
 
@@ -115,7 +134,10 @@ class ProxyResolverFactoryRequestClient_Internal {
             _message.client = client;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(RESOLVE_DNS_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(RESOLVE_DNS_ORDINAL)));
 
         }
 
@@ -131,7 +153,8 @@ class ProxyResolverFactoryRequestClient_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -140,42 +163,59 @@ class ProxyResolverFactoryRequestClient_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(ProxyResolverFactoryRequestClient_Internal.MANAGER, messageWithHeader);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
+                                ProxyResolverFactoryRequestClient_Internal.MANAGER, messageWithHeader);
+
+
+
 
 
                     case REPORT_RESULT_ORDINAL: {
 
-                        ProxyResolverFactoryRequestClientReportResultParams data = ProxyResolverFactoryRequestClientReportResultParams.deserialize(messageWithHeader.getPayload());
+                        ProxyResolverFactoryRequestClientReportResultParams data =
+                                ProxyResolverFactoryRequestClientReportResultParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().reportResult(data.error);
                         return true;
                     }
 
 
+
+
+
                     case ALERT_ORDINAL: {
 
-                        ProxyResolverFactoryRequestClientAlertParams data = ProxyResolverFactoryRequestClientAlertParams.deserialize(messageWithHeader.getPayload());
+                        ProxyResolverFactoryRequestClientAlertParams data =
+                                ProxyResolverFactoryRequestClientAlertParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().alert(data.error);
                         return true;
                     }
 
 
+
+
+
                     case ON_ERROR_ORDINAL: {
 
-                        ProxyResolverFactoryRequestClientOnErrorParams data = ProxyResolverFactoryRequestClientOnErrorParams.deserialize(messageWithHeader.getPayload());
+                        ProxyResolverFactoryRequestClientOnErrorParams data =
+                                ProxyResolverFactoryRequestClientOnErrorParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onError(data.lineNumber, data.error);
                         return true;
                     }
 
 
+
+
+
                     case RESOLVE_DNS_ORDINAL: {
 
-                        ProxyResolverFactoryRequestClientResolveDnsParams data = ProxyResolverFactoryRequestClientResolveDnsParams.deserialize(messageWithHeader.getPayload());
+                        ProxyResolverFactoryRequestClientResolveDnsParams data =
+                                ProxyResolverFactoryRequestClientResolveDnsParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().resolveDns(data.host, data.operation, data.networkAnonymizationKey, data.client);
                         return true;
@@ -186,7 +226,7 @@ class ProxyResolverFactoryRequestClient_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -194,7 +234,8 @@ class ProxyResolverFactoryRequestClient_Internal {
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -203,27 +244,37 @@ class ProxyResolverFactoryRequestClient_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), ProxyResolverFactoryRequestClient_Internal.MANAGER, messageWithHeader, receiver);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
+                                getCore(), ProxyResolverFactoryRequestClient_Internal.MANAGER, messageWithHeader, receiver);
+
+
+
+
+
+
+
+
 
 
                     default:
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class ProxyResolverFactoryRequestClientReportResultParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int error;
 
@@ -245,7 +296,8 @@ class ProxyResolverFactoryRequestClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static ProxyResolverFactoryRequestClientReportResultParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -259,10 +311,10 @@ class ProxyResolverFactoryRequestClient_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new ProxyResolverFactoryRequestClientReportResultParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.error = decoder0.readInt(8);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -274,16 +326,18 @@ class ProxyResolverFactoryRequestClient_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.error, 8);
         }
     }
 
 
+
+    
     static final class ProxyResolverFactoryRequestClientAlertParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public String error;
 
@@ -305,7 +359,8 @@ class ProxyResolverFactoryRequestClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static ProxyResolverFactoryRequestClientAlertParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -319,10 +374,10 @@ class ProxyResolverFactoryRequestClient_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new ProxyResolverFactoryRequestClientAlertParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.error = decoder0.readString(8, false);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -334,16 +389,18 @@ class ProxyResolverFactoryRequestClient_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.error, 8, false);
         }
     }
 
 
+
+    
     static final class ProxyResolverFactoryRequestClientOnErrorParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int lineNumber;
         public String error;
@@ -366,7 +423,8 @@ class ProxyResolverFactoryRequestClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static ProxyResolverFactoryRequestClientOnErrorParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -380,14 +438,14 @@ class ProxyResolverFactoryRequestClient_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new ProxyResolverFactoryRequestClientOnErrorParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.lineNumber = decoder0.readInt(8);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.error = decoder0.readString(16, false);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -399,18 +457,20 @@ class ProxyResolverFactoryRequestClient_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.lineNumber, 8);
-
+            
             encoder0.encode(this.error, 16, false);
         }
     }
 
 
+
+    
     static final class ProxyResolverFactoryRequestClientResolveDnsParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 48;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(48, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(48, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public String host;
         public int operation;
@@ -435,7 +495,8 @@ class ProxyResolverFactoryRequestClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static ProxyResolverFactoryRequestClientResolveDnsParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -449,24 +510,24 @@ class ProxyResolverFactoryRequestClient_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new ProxyResolverFactoryRequestClientResolveDnsParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.host = decoder0.readString(8, false);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.operation = decoder0.readInt(16);
-                    HostResolveOperation.validate(result.operation);
-                    result.operation = HostResolveOperation.toKnownValue(result.operation);
-                }
-                {
-
+                        HostResolveOperation.validate(result.operation);
+                        result.operation = HostResolveOperation.toKnownValue(result.operation);
+                    }
+                    {
+                        
                     result.networkAnonymizationKey = org.chromium.network.mojom.NetworkAnonymizationKey.decode(decoder0, 24);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.client = decoder0.readServiceInterface(40, false, HostResolverRequestClient.MANAGER);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -478,16 +539,17 @@ class ProxyResolverFactoryRequestClient_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.host, 8, false);
-
+            
             encoder0.encode(this.operation, 16);
-
+            
             encoder0.encode(this.networkAnonymizationKey, 24, false);
-
+            
             encoder0.encode(this.client, 40, false, HostResolverRequestClient.MANAGER);
         }
     }
+
 
 
 }

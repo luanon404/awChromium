@@ -17,10 +17,13 @@ import androidx.annotation.IntDef;
 
 public final class EventFrom {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({EventFrom.NONE, EventFrom.USER, EventFrom.PAGE, EventFrom.ACTION})
-    public @interface EnumType {
-    }
+        EventFrom.NONE,
+        EventFrom.USER,
+        EventFrom.PAGE,
+        EventFrom.ACTION})
+    public @interface EnumType {}
 
     public static final int NONE = 0;
     public static final int USER = 1;
@@ -40,12 +43,11 @@ public final class EventFrom {
     }
 
     public static int toKnownValue(int value) {
-        if (isKnownValue(value)) {
-            return value;
-        }
-        return DEFAULT_VALUE;
+      if (isKnownValue(value)) {
+        return value;
+      }
+      return DEFAULT_VALUE;
     }
 
-    private EventFrom() {
-    }
+    private EventFrom() {}
 }

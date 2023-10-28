@@ -17,10 +17,20 @@ import androidx.annotation.IntDef;
 
 public final class Command {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({Command.NONE, Command.CLEAR_SELECTION, Command.DELETE, Command.DICTATE, Command.EXTEND_SELECTION, Command.FORMAT, Command.HISTORY, Command.INSERT, Command.MARKER, Command.MOVE_SELECTION, Command.SET_SELECTION})
-    public @interface EnumType {
-    }
+        Command.NONE,
+        Command.CLEAR_SELECTION,
+        Command.DELETE,
+        Command.DICTATE,
+        Command.EXTEND_SELECTION,
+        Command.FORMAT,
+        Command.HISTORY,
+        Command.INSERT,
+        Command.MARKER,
+        Command.MOVE_SELECTION,
+        Command.SET_SELECTION})
+    public @interface EnumType {}
 
     public static final int NONE = 0;
     public static final int CLEAR_SELECTION = 1;
@@ -47,12 +57,11 @@ public final class Command {
     }
 
     public static int toKnownValue(int value) {
-        if (isKnownValue(value)) {
-            return value;
-        }
-        return DEFAULT_VALUE;
+      if (isKnownValue(value)) {
+        return value;
+      }
+      return DEFAULT_VALUE;
     }
 
-    private Command() {
-    }
+    private Command() {}
 }

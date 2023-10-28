@@ -13,10 +13,14 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface SocketConnectionTracker extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends SocketConnectionTracker, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends SocketConnectionTracker, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<SocketConnectionTracker, SocketConnectionTracker.Proxy> MANAGER = SocketConnectionTracker_Internal.MANAGER;

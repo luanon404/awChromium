@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface WakeLockService extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends WakeLockService, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends WakeLockService, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<WakeLockService, WakeLockService.Proxy> MANAGER = WakeLockService_Internal.MANAGER;

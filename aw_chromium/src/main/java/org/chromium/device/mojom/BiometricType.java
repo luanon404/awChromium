@@ -17,10 +17,11 @@ import androidx.annotation.IntDef;
 
 public final class BiometricType {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({BiometricType.UNKNOWN, BiometricType.FINGERPRINT})
-    public @interface EnumType {
-    }
+        BiometricType.UNKNOWN,
+        BiometricType.FINGERPRINT})
+    public @interface EnumType {}
 
     public static final int UNKNOWN = 0;
     public static final int FINGERPRINT = 1;
@@ -37,9 +38,8 @@ public final class BiometricType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private BiometricType() {
-    }
+    private BiometricType() {}
 }

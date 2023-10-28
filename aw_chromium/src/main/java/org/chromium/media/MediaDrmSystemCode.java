@@ -1,3 +1,4 @@
+
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -14,23 +15,32 @@ import androidx.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@IntDef({MediaDrmSystemCode.MIN_VALUE, MediaDrmSystemCode.SET_SERVER_CERTIFICATE_FAILED, MediaDrmSystemCode.NO_MEDIA_DRM, MediaDrmSystemCode.INVALID_SESSION_ID, MediaDrmSystemCode.NOT_PROVISIONED, MediaDrmSystemCode.CREATE_SESSION_FAILED, MediaDrmSystemCode.OPEN_SESSION_FAILED, MediaDrmSystemCode.UPDATE_FAILED, MediaDrmSystemCode.NOT_PERSISTENT_LICENSE, MediaDrmSystemCode.SET_KEY_TYPE_RELEASE_FAILED, MediaDrmSystemCode.GET_KEY_REQUEST_FAILED, MediaDrmSystemCode.KEY_UPDATE_FAILED, MediaDrmSystemCode.GET_KEY_RELEASE_REQUEST_FAILED, MediaDrmSystemCode.DENIED_BY_SERVER, MediaDrmSystemCode.ILLEGAL_STATE, MediaDrmSystemCode.MAX_VALUE})
+@IntDef({
+    MediaDrmSystemCode.MIN_VALUE, MediaDrmSystemCode.SET_SERVER_CERTIFICATE_FAILED,
+    MediaDrmSystemCode.NO_MEDIA_DRM, MediaDrmSystemCode.INVALID_SESSION_ID,
+    MediaDrmSystemCode.NOT_PROVISIONED, MediaDrmSystemCode.CREATE_SESSION_FAILED,
+    MediaDrmSystemCode.OPEN_SESSION_FAILED, MediaDrmSystemCode.UPDATE_FAILED,
+    MediaDrmSystemCode.NOT_PERSISTENT_LICENSE, MediaDrmSystemCode.SET_KEY_TYPE_RELEASE_FAILED,
+    MediaDrmSystemCode.GET_KEY_REQUEST_FAILED, MediaDrmSystemCode.KEY_UPDATE_FAILED,
+    MediaDrmSystemCode.GET_KEY_RELEASE_REQUEST_FAILED, MediaDrmSystemCode.DENIED_BY_SERVER,
+    MediaDrmSystemCode.ILLEGAL_STATE, MediaDrmSystemCode.MAX_VALUE
+})
 @Retention(RetentionPolicy.SOURCE)
 public @interface MediaDrmSystemCode {
-    int MIN_VALUE = 1100000;
-    int SET_SERVER_CERTIFICATE_FAILED = MIN_VALUE;
-    int NO_MEDIA_DRM = 1100001;
-    int INVALID_SESSION_ID = 1100002;
-    int NOT_PROVISIONED = 1100003;
-    int CREATE_SESSION_FAILED = 1100004;
-    int OPEN_SESSION_FAILED = 1100005;
-    int UPDATE_FAILED = 1100006;
-    int NOT_PERSISTENT_LICENSE = 1100007;
-    int SET_KEY_TYPE_RELEASE_FAILED = 1100008;
-    int GET_KEY_REQUEST_FAILED = 1100009;
-    int KEY_UPDATE_FAILED = 1100010;
-    int GET_KEY_RELEASE_REQUEST_FAILED = 1100011;
-    int DENIED_BY_SERVER = 1100012;
-    int ILLEGAL_STATE = 1100013;
-    int MAX_VALUE = 1100013;
+  int MIN_VALUE = 1100000;
+  int SET_SERVER_CERTIFICATE_FAILED = 1100000;
+  int NO_MEDIA_DRM = 1100001;
+  int INVALID_SESSION_ID = 1100002;
+  int NOT_PROVISIONED = 1100003;
+  int CREATE_SESSION_FAILED = 1100004;
+  int OPEN_SESSION_FAILED = 1100005;
+  int UPDATE_FAILED = 1100006;
+  int NOT_PERSISTENT_LICENSE = 1100007;
+  int SET_KEY_TYPE_RELEASE_FAILED = 1100008;
+  int GET_KEY_REQUEST_FAILED = 1100009;
+  int KEY_UPDATE_FAILED = 1100010;
+  int GET_KEY_RELEASE_REQUEST_FAILED = 1100011;
+  int DENIED_BY_SERVER = 1100012;
+  int ILLEGAL_STATE = 1100013;
+  int MAX_VALUE = 1100013;
 }

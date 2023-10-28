@@ -4,39 +4,73 @@
 package org.chromium.android_webview;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.res.Configuration;
+import android.graphics.Canvas;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
+import android.os.SystemClock;
+import android.view.Gravity;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
+import android.view.WindowManager;
+import android.view.animation.AnimationUtils;
+import android.widget.PopupWindow;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.android_webview.common.Lifetime;
+import org.chromium.base.ObserverList;
+import org.chromium.content_public.browser.GestureListenerManager;
+import org.chromium.content_public.browser.GestureStateListener;
+import org.chromium.content_public.browser.WebContents;
+import org.chromium.ui.base.ViewUtils;
+import org.chromium.ui.base.WindowAndroid;
+import org.chromium.ui.display.DisplayAndroid.DisplayAndroidObserver;
+import org.chromium.ui.resources.HandleViewResources;
+import org.chromium.ui.touch_selection.TouchHandleOrientation;
+import java.util.Collections;
 
 @CheckDiscard("crbug.com/993421")
 class PopupTouchHandleDrawableJni implements PopupTouchHandleDrawable.Natives {
-    private static PopupTouchHandleDrawable.Natives testInstance;
+  private static PopupTouchHandleDrawable.Natives testInstance;
 
-    public static final JniStaticTestMocker<PopupTouchHandleDrawable.Natives> TEST_HOOKS = new JniStaticTestMocker<PopupTouchHandleDrawable.Natives>() {
-        @Override
-        public void setInstanceForTesting(PopupTouchHandleDrawable.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<PopupTouchHandleDrawable.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<PopupTouchHandleDrawable.Natives>() {
     @Override
-    public long init(PopupTouchHandleDrawable caller, float horizontalPaddingRatio) {
-        return (long) GEN_JNI.org_chromium_android_1webview_PopupTouchHandleDrawable_init(caller, horizontalPaddingRatio);
+    public void setInstanceForTesting(PopupTouchHandleDrawable.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    public static PopupTouchHandleDrawable.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of PopupTouchHandleDrawable.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new PopupTouchHandleDrawableJni();
+  @Override
+  public long init(PopupTouchHandleDrawable caller, float horizontalPaddingRatio) {
+    return (long) GEN_JNI.org_chromium_android_1webview_PopupTouchHandleDrawable_init(caller, horizontalPaddingRatio);
+  }
+
+  public static PopupTouchHandleDrawable.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of PopupTouchHandleDrawable.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new PopupTouchHandleDrawableJni();
+  }
 }

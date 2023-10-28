@@ -13,15 +13,20 @@
 
 package org.chromium.media.stable.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface CdmContextEventCallback extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends CdmContextEventCallback, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends CdmContextEventCallback, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<CdmContextEventCallback, CdmContextEventCallback.Proxy> MANAGER = CdmContextEventCallback_Internal.MANAGER;
 
-    void eventCallback(int event);
+    void eventCallback(
+int event);
 
 
 }

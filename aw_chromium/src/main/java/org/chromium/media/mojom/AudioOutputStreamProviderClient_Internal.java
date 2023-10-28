@@ -13,9 +13,13 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 class AudioOutputStreamProviderClient_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<AudioOutputStreamProviderClient, AudioOutputStreamProviderClient.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<AudioOutputStreamProviderClient, AudioOutputStreamProviderClient.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<AudioOutputStreamProviderClient, AudioOutputStreamProviderClient.Proxy> MANAGER =
+            new org.chromium.mojo.bindings.Interface.Manager<AudioOutputStreamProviderClient, AudioOutputStreamProviderClient.Proxy>() {
 
         @Override
         public String getName() {
@@ -24,11 +28,12 @@ class AudioOutputStreamProviderClient_Internal {
 
         @Override
         public int getVersion() {
-            return 0;
+          return 0;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -39,7 +44,7 @@ class AudioOutputStreamProviderClient_Internal {
 
         @Override
         public AudioOutputStreamProviderClient[] buildArray(int size) {
-            return new AudioOutputStreamProviderClient[size];
+          return new AudioOutputStreamProviderClient[size];
         }
     };
 
@@ -49,13 +54,15 @@ class AudioOutputStreamProviderClient_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements AudioOutputStreamProviderClient.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core,
+              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void created(AudioOutputStream stream, ReadWriteAudioDataPipe dataPipe) {
+        public void created(
+AudioOutputStream stream, ReadWriteAudioDataPipe dataPipe) {
 
             AudioOutputStreamProviderClientCreatedParams _message = new AudioOutputStreamProviderClientCreatedParams();
 
@@ -64,7 +71,10 @@ class AudioOutputStreamProviderClient_Internal {
             _message.dataPipe = dataPipe;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(CREATED_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(CREATED_ORDINAL)));
 
         }
 
@@ -80,7 +90,8 @@ class AudioOutputStreamProviderClient_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -89,15 +100,20 @@ class AudioOutputStreamProviderClient_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(AudioOutputStreamProviderClient_Internal.MANAGER, messageWithHeader);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
+                                AudioOutputStreamProviderClient_Internal.MANAGER, messageWithHeader);
+
+
+
 
 
                     case CREATED_ORDINAL: {
 
-                        AudioOutputStreamProviderClientCreatedParams data = AudioOutputStreamProviderClientCreatedParams.deserialize(messageWithHeader.getPayload());
+                        AudioOutputStreamProviderClientCreatedParams data =
+                                AudioOutputStreamProviderClientCreatedParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().created(data.stream, data.dataPipe);
                         return true;
@@ -108,7 +124,7 @@ class AudioOutputStreamProviderClient_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -116,7 +132,8 @@ class AudioOutputStreamProviderClient_Internal {
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -125,27 +142,31 @@ class AudioOutputStreamProviderClient_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), AudioOutputStreamProviderClient_Internal.MANAGER, messageWithHeader, receiver);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
+                                getCore(), AudioOutputStreamProviderClient_Internal.MANAGER, messageWithHeader, receiver);
+
+
 
 
                     default:
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class AudioOutputStreamProviderClientCreatedParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public AudioOutputStream stream;
         public ReadWriteAudioDataPipe dataPipe;
@@ -168,7 +189,8 @@ class AudioOutputStreamProviderClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static AudioOutputStreamProviderClientCreatedParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -182,15 +204,15 @@ class AudioOutputStreamProviderClient_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new AudioOutputStreamProviderClientCreatedParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.stream = decoder0.readServiceInterface(8, false, AudioOutputStream.MANAGER);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                     result.dataPipe = ReadWriteAudioDataPipe.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -202,12 +224,13 @@ class AudioOutputStreamProviderClient_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.stream, 8, false, AudioOutputStream.MANAGER);
-
+            
             encoder0.encode(this.dataPipe, 16, false);
         }
     }
+
 
 
 }

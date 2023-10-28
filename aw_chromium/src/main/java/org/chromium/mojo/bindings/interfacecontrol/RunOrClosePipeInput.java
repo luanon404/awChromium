@@ -13,6 +13,9 @@
 
 package org.chromium.mojo.bindings.interfacecontrol;
 
+import androidx.annotation.IntDef;
+
+
 public final class RunOrClosePipeInput extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
@@ -20,8 +23,7 @@ public final class RunOrClosePipeInput extends org.chromium.mojo.bindings.Union 
         public static final int EnableIdleTracking = 1;
         public static final int MessageAck = 2;
         public static final int NotifyIdle = 3;
-    }
-
+    };
     private RequireVersion mRequireVersion;
     private EnableIdleTracking mEnableIdleTracking;
     private MessageAck mMessageAck;
@@ -74,22 +76,22 @@ public final class RunOrClosePipeInput extends org.chromium.mojo.bindings.Union 
         encoder0.encode(this.mTag, offset + 4);
         switch (mTag) {
             case Tag.RequireVersion: {
-
+                
                 encoder0.encode(this.mRequireVersion, offset + 8, false);
                 break;
             }
             case Tag.EnableIdleTracking: {
-
+                
                 encoder0.encode(this.mEnableIdleTracking, offset + 8, false);
                 break;
             }
             case Tag.MessageAck: {
-
+                
                 encoder0.encode(this.mMessageAck, offset + 8, false);
                 break;
             }
             case Tag.NotifyIdle: {
-
+                
                 encoder0.encode(this.mNotifyIdle, offset + 8, false);
                 break;
             }
@@ -111,28 +113,28 @@ public final class RunOrClosePipeInput extends org.chromium.mojo.bindings.Union 
         RunOrClosePipeInput result = new RunOrClosePipeInput();
         switch (dataHeader.elementsOrVersion) {
             case Tag.RequireVersion: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mRequireVersion = RequireVersion.decode(decoder1);
                 result.mTag = Tag.RequireVersion;
                 break;
             }
             case Tag.EnableIdleTracking: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mEnableIdleTracking = EnableIdleTracking.decode(decoder1);
                 result.mTag = Tag.EnableIdleTracking;
                 break;
             }
             case Tag.MessageAck: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mMessageAck = MessageAck.decode(decoder1);
                 result.mTag = Tag.MessageAck;
                 break;
             }
             case Tag.NotifyIdle: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mNotifyIdle = NotifyIdle.decode(decoder1);
                 result.mTag = Tag.NotifyIdle;

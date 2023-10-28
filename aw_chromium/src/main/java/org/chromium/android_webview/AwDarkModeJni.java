@@ -3,51 +3,60 @@
 //
 package org.chromium.android_webview;
 
-import org.chromium.content_public.browser.WebContents;
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.content.Context;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.android_webview.common.Lifetime;
+import org.chromium.content_public.browser.WebContents;
 
 @CheckDiscard("crbug.com/993421")
 class AwDarkModeJni implements AwDarkMode.Natives {
-    private static AwDarkMode.Natives testInstance;
+  private static AwDarkMode.Natives testInstance;
 
-    public static final JniStaticTestMocker<AwDarkMode.Natives> TEST_HOOKS = new JniStaticTestMocker<AwDarkMode.Natives>() {
-        @Override
-        public void setInstanceForTesting(AwDarkMode.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<AwDarkMode.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<AwDarkMode.Natives>() {
     @Override
-    public void detachFromJavaObject(long nativeAwDarkMode, AwDarkMode caller) {
-        GEN_JNI.org_chromium_android_1webview_AwDarkMode_detachFromJavaObject(nativeAwDarkMode, caller);
+    public void setInstanceForTesting(AwDarkMode.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public void enableSimplifiedDarkMode() {
-        GEN_JNI.org_chromium_android_1webview_AwDarkMode_enableSimplifiedDarkMode();
-    }
+  @Override
+  public void detachFromJavaObject(long nativeAwDarkMode, AwDarkMode caller) {
+    GEN_JNI.org_chromium_android_1webview_AwDarkMode_detachFromJavaObject(nativeAwDarkMode, caller);
+  }
 
-    @Override
-    public long init(AwDarkMode caller, WebContents webContents) {
-        return (long) GEN_JNI.org_chromium_android_1webview_AwDarkMode_init(caller, webContents);
-    }
+  @Override
+  public void enableSimplifiedDarkMode() {
+    GEN_JNI.org_chromium_android_1webview_AwDarkMode_enableSimplifiedDarkMode();
+  }
 
-    public static AwDarkMode.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of AwDarkMode.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new AwDarkModeJni();
+  @Override
+  public long init(AwDarkMode caller, WebContents webContents) {
+    return (long) GEN_JNI.org_chromium_android_1webview_AwDarkMode_init(caller, webContents);
+  }
+
+  public static AwDarkMode.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of AwDarkMode.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new AwDarkModeJni();
+  }
 }

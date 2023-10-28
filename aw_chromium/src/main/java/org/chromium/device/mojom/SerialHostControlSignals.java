@@ -13,10 +13,13 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class SerialHostControlSignals extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 16;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public boolean dtr;
     public boolean hasDtr;
@@ -46,7 +49,8 @@ public final class SerialHostControlSignals extends org.chromium.mojo.bindings.S
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static SerialHostControlSignals deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -60,30 +64,30 @@ public final class SerialHostControlSignals extends org.chromium.mojo.bindings.S
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new SerialHostControlSignals(elementsOrVersion);
-            {
-
+                {
+                    
                 result.dtr = decoder0.readBoolean(8, 0);
-            }
-            {
-
+                }
+                {
+                    
                 result.hasDtr = decoder0.readBoolean(8, 1);
-            }
-            {
-
+                }
+                {
+                    
                 result.rts = decoder0.readBoolean(8, 2);
-            }
-            {
-
+                }
+                {
+                    
                 result.hasRts = decoder0.readBoolean(8, 3);
-            }
-            {
-
+                }
+                {
+                    
                 result.brk = decoder0.readBoolean(8, 4);
-            }
-            {
-
+                }
+                {
+                    
                 result.hasBrk = decoder0.readBoolean(8, 5);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -95,17 +99,17 @@ public final class SerialHostControlSignals extends org.chromium.mojo.bindings.S
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.dtr, 8, 0);
-
+        
         encoder0.encode(this.hasDtr, 8, 1);
-
+        
         encoder0.encode(this.rts, 8, 2);
-
+        
         encoder0.encode(this.hasRts, 8, 3);
-
+        
         encoder0.encode(this.brk, 8, 4);
-
+        
         encoder0.encode(this.hasBrk, 8, 5);
     }
 }

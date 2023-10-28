@@ -44,13 +44,15 @@ public class RouterImpl implements Router {
     }
 
     /**
+     *
      * {@link MessageReceiver} used to return responses to the caller.
      */
     class ResponderThunk implements MessageReceiver {
         private boolean mAcceptWasInvoked;
 
         /**
-         * @see MessageReceiver#accept(Message)
+         * @see
+         * MessageReceiver#accept(Message)
          */
         @Override
         public boolean accept(Message message) {
@@ -119,8 +121,8 @@ public class RouterImpl implements Router {
      * Constructor.
      *
      * @param messagePipeHandle The {@link MessagePipeHandle} to route message for.
-     * @param watcher           the {@link Watcher} to use to get notification of new messages on the
-     *                          handle.
+     * @param watcher the {@link Watcher} to use to get notification of new messages on the
+     *            handle.
      */
     public RouterImpl(MessagePipeHandle messagePipeHandle, Watcher watcher) {
         mConnector = new Connector(messagePipeHandle, watcher);

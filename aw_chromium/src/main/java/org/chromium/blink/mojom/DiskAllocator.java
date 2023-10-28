@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface DiskAllocator extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends DiskAllocator, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends DiskAllocator, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<DiskAllocator, DiskAllocator.Proxy> MANAGER = DiskAllocator_Internal.MANAGER;

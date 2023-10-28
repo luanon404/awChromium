@@ -13,14 +13,15 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public final class FileSystemAccessAccessHandleFile extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
         public static final int RegularFile = 0;
         public static final int IncognitoFileDelegate = 1;
-    }
-
+    };
     private FileSystemAccessRegularFile mRegularFile;
     private FileSystemAccessFileDelegateHost mIncognitoFileDelegate;
 

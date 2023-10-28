@@ -13,10 +13,13 @@
 
 package org.chromium.media.stable.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class VideoFrame extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 80;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(80, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(80, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public int format;
     public org.chromium.gfx.mojom.Size codedSize;
@@ -46,7 +49,8 @@ public final class VideoFrame extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static VideoFrame deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -60,52 +64,52 @@ public final class VideoFrame extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new VideoFrame(elementsOrVersion);
-            {
-
+                {
+                    
                 result.format = decoder0.readInt(8);
-                VideoPixelFormat.validate(result.format);
-                result.format = VideoPixelFormat.toKnownValue(result.format);
-            }
-            {
-
+                    VideoPixelFormat.validate(result.format);
+                    result.format = VideoPixelFormat.toKnownValue(result.format);
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                 result.codedSize = org.chromium.gfx.mojom.Size.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, false);
                 result.visibleRect = org.chromium.gfx.mojom.Rect.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(32, false);
                 result.naturalSize = org.chromium.gfx.mojom.Size.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(40, false);
                 result.timestamp = org.chromium.mojo_base.mojom.TimeDelta.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(48, false);
                 result.gpuMemoryBufferHandle = NativeGpuMemoryBufferHandle.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(56, false);
                 result.metadata = VideoFrameMetadata.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(64, false);
                 result.colorSpace = ColorSpace.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(72, true);
                 result.hdrMetadata = HdrMetadata.decode(decoder1);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -117,23 +121,23 @@ public final class VideoFrame extends org.chromium.mojo.bindings.Struct {
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.format, 8);
-
+        
         encoder0.encode(this.codedSize, 16, false);
-
+        
         encoder0.encode(this.visibleRect, 24, false);
-
+        
         encoder0.encode(this.naturalSize, 32, false);
-
+        
         encoder0.encode(this.timestamp, 40, false);
-
+        
         encoder0.encode(this.gpuMemoryBufferHandle, 48, false);
-
+        
         encoder0.encode(this.metadata, 56, false);
-
+        
         encoder0.encode(this.colorSpace, 64, false);
-
+        
         encoder0.encode(this.hdrMetadata, 72, true);
     }
 }

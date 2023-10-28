@@ -13,10 +13,13 @@
 
 package org.chromium.payments.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class PaymentRequestDetailsUpdate extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 56;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(56, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(56, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public PaymentCurrencyAmount total;
     public PaymentShippingOption[] shippingOptions;
@@ -44,7 +47,8 @@ public final class PaymentRequestDetailsUpdate extends org.chromium.mojo.binding
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static PaymentRequestDetailsUpdate deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -58,13 +62,13 @@ public final class PaymentRequestDetailsUpdate extends org.chromium.mojo.binding
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new PaymentRequestDetailsUpdate(elementsOrVersion);
-            {
-
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, true);
                 result.total = PaymentCurrencyAmount.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, true);
                 if (decoder1 == null) {
                     result.shippingOptions = null;
@@ -72,14 +76,14 @@ public final class PaymentRequestDetailsUpdate extends org.chromium.mojo.binding
                     org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                     result.shippingOptions = new PaymentShippingOption[si1.elementsOrVersion];
                     for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                        
                         org.chromium.mojo.bindings.Decoder decoder2 = decoder1.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                         result.shippingOptions[i1] = PaymentShippingOption.decode(decoder2);
                     }
                 }
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, true);
                 if (decoder1 == null) {
                     result.modifiers = null;
@@ -87,25 +91,25 @@ public final class PaymentRequestDetailsUpdate extends org.chromium.mojo.binding
                     org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                     result.modifiers = new PaymentHandlerModifier[si1.elementsOrVersion];
                     for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                        
                         org.chromium.mojo.bindings.Decoder decoder2 = decoder1.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                         result.modifiers[i1] = PaymentHandlerModifier.decode(decoder2);
                     }
                 }
-            }
-            {
-
+                }
+                {
+                    
                 result.error = decoder0.readString(32, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.stringifiedPaymentMethodErrors = decoder0.readString(40, true);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(48, true);
                 result.shippingAddressErrors = AddressErrors.decode(decoder1);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -117,33 +121,33 @@ public final class PaymentRequestDetailsUpdate extends org.chromium.mojo.binding
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.total, 8, true);
-
+        
         if (this.shippingOptions == null) {
             encoder0.encodeNullPointer(16, true);
         } else {
             org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.shippingOptions.length, 16, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
             for (int i0 = 0; i0 < this.shippingOptions.length; ++i0) {
-
+                
                 encoder1.encode(this.shippingOptions[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
             }
         }
-
+        
         if (this.modifiers == null) {
             encoder0.encodeNullPointer(24, true);
         } else {
             org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.modifiers.length, 24, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
             for (int i0 = 0; i0 < this.modifiers.length; ++i0) {
-
+                
                 encoder1.encode(this.modifiers[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
             }
         }
-
+        
         encoder0.encode(this.error, 32, false);
-
+        
         encoder0.encode(this.stringifiedPaymentMethodErrors, 40, true);
-
+        
         encoder0.encode(this.shippingAddressErrors, 48, true);
     }
 }

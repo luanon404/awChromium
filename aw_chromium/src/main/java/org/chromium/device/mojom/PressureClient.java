@@ -13,15 +13,20 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface PressureClient extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends PressureClient, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends PressureClient, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<PressureClient, PressureClient.Proxy> MANAGER = PressureClient_Internal.MANAGER;
 
-    void onPressureUpdated(PressureUpdate update);
+    void onPressureUpdated(
+PressureUpdate update);
 
 
 }

@@ -13,20 +13,23 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface ScreenOrientationListener extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends ScreenOrientationListener, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends ScreenOrientationListener, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<ScreenOrientationListener, ScreenOrientationListener.Proxy> MANAGER = ScreenOrientationListener_Internal.MANAGER;
 
     void isAutoRotateEnabledByUser(
 
-            IsAutoRotateEnabledByUser_Response callback);
+IsAutoRotateEnabledByUser_Response callback);
 
-    interface IsAutoRotateEnabledByUser_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> {
-    }
+    interface IsAutoRotateEnabledByUser_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> { }
 
 
 }

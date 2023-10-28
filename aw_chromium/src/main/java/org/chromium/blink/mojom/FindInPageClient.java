@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface FindInPageClient extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends FindInPageClient, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends FindInPageClient, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<FindInPageClient, FindInPageClient.Proxy> MANAGER = FindInPageClient_Internal.MANAGER;

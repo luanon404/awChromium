@@ -12,7 +12,7 @@ import org.chromium.url.GURL;
 /**
  * This interface provides a means for checking whether to load or block a url
  * for a supervised user. The result is returned via the callback.
- * <p>
+ *
  * callback.onResult(false) - indicates the url should be loaded as normal.
  * callback.onResult(true) - indicates the url should be blocked and an appropriate
  * error page shown instead.

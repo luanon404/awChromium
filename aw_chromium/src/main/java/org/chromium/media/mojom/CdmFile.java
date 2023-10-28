@@ -19,12 +19,14 @@ import androidx.annotation.IntDef;
 public interface CdmFile extends org.chromium.mojo.bindings.Interface {
 
 
-    final class Status {
-        private static final boolean IS_EXTENSIBLE = false;
 
-        @IntDef({Status.SUCCESS, Status.FAILURE})
-        public @interface EnumType {
-        }
+    public static final class Status {
+        private static final boolean IS_EXTENSIBLE = false;
+        @IntDef({
+
+            Status.SUCCESS,
+            Status.FAILURE})
+        public @interface EnumType {}
 
         public static final int SUCCESS = 0;
         public static final int FAILURE = 1;
@@ -41,31 +43,30 @@ public interface CdmFile extends org.chromium.mojo.bindings.Interface {
         }
 
         public static int toKnownValue(int value) {
-            return value;
+          return value;
         }
 
-        private Status() {
-        }
+        private Status() {}
     }
 
 
-    interface Proxy extends CdmFile, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends CdmFile, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<CdmFile, CdmFile.Proxy> MANAGER = CdmFile_Internal.MANAGER;
 
     void read(
 
-            Read_Response callback);
+Read_Response callback);
 
-    interface Read_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<Integer, byte[]> {
-    }
+    interface Read_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<Integer, byte[]> { }
 
 
-    void write(byte[] data, Write_Response callback);
+    void write(
+byte[] data, 
+Write_Response callback);
 
-    interface Write_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> {
-    }
+    interface Write_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> { }
 
 
 }

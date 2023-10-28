@@ -19,12 +19,15 @@ import androidx.annotation.IntDef;
 public interface CdmStorage extends org.chromium.mojo.bindings.Interface {
 
 
-    final class Status {
-        private static final boolean IS_EXTENSIBLE = false;
 
-        @IntDef({Status.SUCCESS, Status.IN_USE, Status.FAILURE})
-        public @interface EnumType {
-        }
+    public static final class Status {
+        private static final boolean IS_EXTENSIBLE = false;
+        @IntDef({
+
+            Status.SUCCESS,
+            Status.IN_USE,
+            Status.FAILURE})
+        public @interface EnumType {}
 
         public static final int SUCCESS = 0;
         public static final int IN_USE = 1;
@@ -42,23 +45,23 @@ public interface CdmStorage extends org.chromium.mojo.bindings.Interface {
         }
 
         public static int toKnownValue(int value) {
-            return value;
+          return value;
         }
 
-        private Status() {
-        }
+        private Status() {}
     }
 
 
-    interface Proxy extends CdmStorage, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends CdmStorage, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<CdmStorage, CdmStorage.Proxy> MANAGER = CdmStorage_Internal.MANAGER;
 
-    void open(String fileName, Open_Response callback);
+    void open(
+String fileName, 
+Open_Response callback);
 
-    interface Open_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<Integer, org.chromium.mojo.bindings.AssociatedInterfaceNotSupported> {
-    }
+    interface Open_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<Integer, org.chromium.mojo.bindings.AssociatedInterfaceNotSupported> { }
 
 
 }

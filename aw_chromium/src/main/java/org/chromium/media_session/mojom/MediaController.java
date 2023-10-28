@@ -13,75 +13,100 @@
 
 package org.chromium.media_session.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface MediaController extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends MediaController, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends MediaController, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<MediaController, MediaController.Proxy> MANAGER = MediaController_Internal.MANAGER;
 
-    void suspend();
+    void suspend(
+);
 
 
-    void resume();
+    void resume(
+);
 
 
-    void stop();
+    void stop(
+);
 
 
-    void toggleSuspendResume();
+    void toggleSuspendResume(
+);
 
 
-    void addObserver(MediaControllerObserver observer);
+    void addObserver(
+MediaControllerObserver observer);
 
 
-    void previousTrack();
+    void previousTrack(
+);
 
 
-    void nextTrack();
+    void nextTrack(
+);
 
 
-    void seek(org.chromium.mojo_base.mojom.TimeDelta seekTime);
+    void seek(
+org.chromium.mojo_base.mojom.TimeDelta seekTime);
 
 
-    void observeImages(int type, int minimumSizePx, int desiredSizePx, MediaControllerImageObserver observer);
+    void observeImages(
+int type, int minimumSizePx, int desiredSizePx, MediaControllerImageObserver observer);
 
 
-    void seekTo(org.chromium.mojo_base.mojom.TimeDelta seekTime);
+    void seekTo(
+org.chromium.mojo_base.mojom.TimeDelta seekTime);
 
 
-    void scrubTo(org.chromium.mojo_base.mojom.TimeDelta seekTime);
+    void scrubTo(
+org.chromium.mojo_base.mojom.TimeDelta seekTime);
 
 
-    void enterPictureInPicture();
+    void enterPictureInPicture(
+);
 
 
-    void exitPictureInPicture();
+    void exitPictureInPicture(
+);
 
 
-    void setAudioSinkId(String id);
+    void setAudioSinkId(
+String id);
 
 
-    void toggleMicrophone();
+    void toggleMicrophone(
+);
 
 
-    void toggleCamera();
+    void toggleCamera(
+);
 
 
-    void hangUp();
+    void hangUp(
+);
 
 
-    void raise();
+    void raise(
+);
 
 
-    void setMute(boolean mute);
+    void setMute(
+boolean mute);
 
 
-    void requestMediaRemoting();
+    void requestMediaRemoting(
+);
 
 
-    void enterAutoPictureInPicture();
+    void enterAutoPictureInPicture(
+);
 
 
 }

@@ -5,8 +5,8 @@
 package org.chromium.ui.accessibility;
 
 /**
- * Contains features that are specific to accessibility.
- */
+* Contains features that are specific to accessibility.
+*/
 public final class AccessibilityFeatures {
 
 
@@ -142,7 +142,6 @@ public final class AccessibilityFeatures {
 
     public static final String ACCESSIBILITY_REMOTE_UI_APP = "AccessibilityRemoteUIApp";
 
-    // Prevents instantiation.
-    private AccessibilityFeatures() {
-    }
+ // Prevents instantiation.
+ private AccessibilityFeatures() {}
 }

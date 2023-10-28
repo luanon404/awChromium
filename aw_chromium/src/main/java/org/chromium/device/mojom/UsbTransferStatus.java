@@ -17,10 +17,18 @@ import androidx.annotation.IntDef;
 
 public final class UsbTransferStatus {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({UsbTransferStatus.COMPLETED, UsbTransferStatus.TRANSFER_ERROR, UsbTransferStatus.TIMEOUT, UsbTransferStatus.CANCELLED, UsbTransferStatus.STALLED, UsbTransferStatus.DISCONNECT, UsbTransferStatus.BABBLE, UsbTransferStatus.SHORT_PACKET, UsbTransferStatus.PERMISSION_DENIED})
-    public @interface EnumType {
-    }
+        UsbTransferStatus.COMPLETED,
+        UsbTransferStatus.TRANSFER_ERROR,
+        UsbTransferStatus.TIMEOUT,
+        UsbTransferStatus.CANCELLED,
+        UsbTransferStatus.STALLED,
+        UsbTransferStatus.DISCONNECT,
+        UsbTransferStatus.BABBLE,
+        UsbTransferStatus.SHORT_PACKET,
+        UsbTransferStatus.PERMISSION_DENIED})
+    public @interface EnumType {}
 
     public static final int COMPLETED = 0;
     public static final int TRANSFER_ERROR = 1;
@@ -44,9 +52,8 @@ public final class UsbTransferStatus {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private UsbTransferStatus() {
-    }
+    private UsbTransferStatus() {}
 }

@@ -7,9 +7,10 @@ package org.chromium.midi;
 import android.media.midi.MidiDevice;
 import android.media.midi.MidiInputPort;
 
-import org.chromium.base.Log;
 import org.jni_zero.CalledByNative;
 import org.jni_zero.JNINamespace;
+
+import org.chromium.base.Log;
 
 import java.io.IOException;
 
@@ -37,9 +38,8 @@ class MidiOutputPortAndroid {
 
     /**
      * constructor
-     *
      * @param device The device this port belongs to.
-     * @param index  The index of the port in the associated device.
+     * @param index The index of the port in the associated device.
      */
     MidiOutputPortAndroid(MidiDevice device, int index) {
         mDevice = device;
@@ -48,7 +48,6 @@ class MidiOutputPortAndroid {
 
     /**
      * Opens this port.
-     *
      * @return true when the operation succeeds or the port is already open.
      */
     @CalledByNative

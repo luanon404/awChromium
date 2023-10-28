@@ -4,7 +4,6 @@
 package org.chromium.components.environment_integrity;
 
 import org.chromium.components.environment_integrity.enums.IntegrityResponse;
-
 /**
  * Exceptions for calling the Environment Integrity API.
  * Allows passing known error codes back to the browser.

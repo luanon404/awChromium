@@ -13,33 +13,43 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface UrlLoaderClient extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends UrlLoaderClient, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends UrlLoaderClient, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<UrlLoaderClient, UrlLoaderClient.Proxy> MANAGER = UrlLoaderClient_Internal.MANAGER;
 
-    void onReceiveEarlyHints(EarlyHints earlyHints);
+    void onReceiveEarlyHints(
+EarlyHints earlyHints);
 
 
-    void onReceiveResponse(UrlResponseHead head, org.chromium.mojo.system.DataPipe.ConsumerHandle body, org.chromium.mojo_base.mojom.BigBuffer cachedMetadata);
+    void onReceiveResponse(
+UrlResponseHead head, org.chromium.mojo.system.DataPipe.ConsumerHandle body, org.chromium.mojo_base.mojom.BigBuffer cachedMetadata);
 
 
-    void onReceiveRedirect(UrlRequestRedirectInfo redirectInfo, UrlResponseHead head);
+    void onReceiveRedirect(
+UrlRequestRedirectInfo redirectInfo, UrlResponseHead head);
 
 
-    void onUploadProgress(long currentPosition, long totalSize, OnUploadProgress_Response callback);
+    void onUploadProgress(
+long currentPosition, long totalSize, 
+OnUploadProgress_Response callback);
 
-    interface OnUploadProgress_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 {
-    }
-
-
-    void onTransferSizeUpdated(int transferSizeDiff);
+    interface OnUploadProgress_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 { }
 
 
-    void onComplete(UrlLoaderCompletionStatus status);
+    void onTransferSizeUpdated(
+int transferSizeDiff);
+
+
+    void onComplete(
+UrlLoaderCompletionStatus status);
 
 
 }

@@ -4,39 +4,52 @@
 package org.chromium.device.time_zone_monitor;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.ContextUtils;
+import org.chromium.base.Log;
 
 @CheckDiscard("crbug.com/993421")
 class TimeZoneMonitorJni implements TimeZoneMonitor.Natives {
-    private static TimeZoneMonitor.Natives testInstance;
+  private static TimeZoneMonitor.Natives testInstance;
 
-    public static final JniStaticTestMocker<TimeZoneMonitor.Natives> TEST_HOOKS = new JniStaticTestMocker<TimeZoneMonitor.Natives>() {
-        @Override
-        public void setInstanceForTesting(TimeZoneMonitor.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<TimeZoneMonitor.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<TimeZoneMonitor.Natives>() {
     @Override
-    public void timeZoneChangedFromJava(long nativeTimeZoneMonitorAndroid, TimeZoneMonitor caller) {
-        GEN_JNI.org_chromium_device_time_1zone_1monitor_TimeZoneMonitor_timeZoneChangedFromJava(nativeTimeZoneMonitorAndroid, caller);
+    public void setInstanceForTesting(TimeZoneMonitor.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    public static TimeZoneMonitor.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of TimeZoneMonitor.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new TimeZoneMonitorJni();
+  @Override
+  public void timeZoneChangedFromJava(long nativeTimeZoneMonitorAndroid, TimeZoneMonitor caller) {
+    GEN_JNI.org_chromium_device_time_1zone_1monitor_TimeZoneMonitor_timeZoneChangedFromJava(nativeTimeZoneMonitorAndroid, caller);
+  }
+
+  public static TimeZoneMonitor.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of TimeZoneMonitor.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new TimeZoneMonitorJni();
+  }
 }

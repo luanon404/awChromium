@@ -17,10 +17,20 @@ import androidx.annotation.IntDef;
 
 public final class MenuSourceType {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({MenuSourceType.NONE, MenuSourceType.MOUSE, MenuSourceType.KEYBOARD, MenuSourceType.TOUCH, MenuSourceType.TOUCH_EDIT_MENU, MenuSourceType.LONG_PRESS, MenuSourceType.LONG_TAP, MenuSourceType.TOUCH_HANDLE, MenuSourceType.STYLUS, MenuSourceType.ADJUST_SELECTION, MenuSourceType.ADJUST_SELECTION_RESET})
-    public @interface EnumType {
-    }
+        MenuSourceType.NONE,
+        MenuSourceType.MOUSE,
+        MenuSourceType.KEYBOARD,
+        MenuSourceType.TOUCH,
+        MenuSourceType.TOUCH_EDIT_MENU,
+        MenuSourceType.LONG_PRESS,
+        MenuSourceType.LONG_TAP,
+        MenuSourceType.TOUCH_HANDLE,
+        MenuSourceType.STYLUS,
+        MenuSourceType.ADJUST_SELECTION,
+        MenuSourceType.ADJUST_SELECTION_RESET})
+    public @interface EnumType {}
 
     public static final int NONE = 0;
     public static final int MOUSE = 1;
@@ -47,12 +57,11 @@ public final class MenuSourceType {
     }
 
     public static int toKnownValue(int value) {
-        if (isKnownValue(value)) {
-            return value;
-        }
-        return DEFAULT_VALUE;
+      if (isKnownValue(value)) {
+        return value;
+      }
+      return DEFAULT_VALUE;
     }
 
-    private MenuSourceType() {
-    }
+    private MenuSourceType() {}
 }

@@ -17,10 +17,11 @@ import androidx.annotation.IntDef;
 
 public final class CdmContextEvent {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({CdmContextEvent.HAS_ADDITIONAL_USABLE_KEY, CdmContextEvent.HARDWARE_CONTEXT_RESET})
-    public @interface EnumType {
-    }
+        CdmContextEvent.HAS_ADDITIONAL_USABLE_KEY,
+        CdmContextEvent.HARDWARE_CONTEXT_RESET})
+    public @interface EnumType {}
 
     public static final int HAS_ADDITIONAL_USABLE_KEY = 0;
     public static final int HARDWARE_CONTEXT_RESET = 1;
@@ -38,12 +39,11 @@ public final class CdmContextEvent {
     }
 
     public static int toKnownValue(int value) {
-        if (isKnownValue(value)) {
-            return value;
-        }
-        return DEFAULT_VALUE;
+      if (isKnownValue(value)) {
+        return value;
+      }
+      return DEFAULT_VALUE;
     }
 
-    private CdmContextEvent() {
-    }
+    private CdmContextEvent() {}
 }

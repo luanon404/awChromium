@@ -35,12 +35,13 @@ abstract class NotificationTask extends AsyncTask<Boolean> {
      * the crash, the current NotificationTask can't be recovered from exception and has to
      * exit, the next task shall continue to run even it could cause the inconsistent state in
      * Android framework and aiai service who shall bear with it.
-     * <p>
+     *
      * Refer to crbug.com/1131430 for details.
      */
     private static boolean isMainContentCaptureSesionSentEventException(NullPointerException e) {
         for (StackTraceElement s : e.getStackTrace()) {
-            if (s.getClassName().startsWith("android.view.contentcapture.MainContentCaptureSession") && s.getMethodName().startsWith("sendEvent")) {
+            if (s.getClassName().startsWith("android.view.contentcapture.MainContentCaptureSession")
+                    && s.getMethodName().startsWith("sendEvent")) {
                 return true;
             }
         }
@@ -68,25 +69,37 @@ abstract class NotificationTask extends AsyncTask<Boolean> {
         return platformSessionData;
     }
 
-    protected AutofillId notifyViewAppeared(PlatformSessionData parentPlatformSessionData, ContentCaptureDataBase data) {
-        ViewStructure viewStructure = PlatformAPIWrapper.getInstance().newVirtualViewStructure(parentPlatformSessionData.contentCaptureSession, parentPlatformSessionData.autofillId, data.getId());
+    protected AutofillId notifyViewAppeared(
+            PlatformSessionData parentPlatformSessionData, ContentCaptureDataBase data) {
+        ViewStructure viewStructure = PlatformAPIWrapper.getInstance().newVirtualViewStructure(
+                parentPlatformSessionData.contentCaptureSession,
+                parentPlatformSessionData.autofillId, data.getId());
 
         viewStructure.setText(data.getText());
         Rect rect = data.getBounds();
         // Always set scroll as (0, 0).
         viewStructure.setDimens(rect.left, rect.top, 0, 0, rect.width(), rect.height());
-        PlatformAPIWrapper.getInstance().notifyViewAppeared(parentPlatformSessionData.contentCaptureSession, viewStructure);
+        PlatformAPIWrapper.getInstance().notifyViewAppeared(
+                parentPlatformSessionData.contentCaptureSession, viewStructure);
         return viewStructure.getAutofillId();
     }
 
-    public PlatformSessionData createOrGetSession(PlatformSessionData parentPlatformSessionData, ContentCaptureFrame frame) {
-        PlatformSessionData platformSessionData = mPlatformSession.getFrameIdToPlatformSessionData().get(frame.getId());
+    public PlatformSessionData createOrGetSession(
+            PlatformSessionData parentPlatformSessionData, ContentCaptureFrame frame) {
+        PlatformSessionData platformSessionData =
+                mPlatformSession.getFrameIdToPlatformSessionData().get(frame.getId());
         if (platformSessionData == null && !TextUtils.isEmpty(frame.getUrl())) {
-            ContentCaptureSession session = PlatformAPIWrapper.getInstance().createContentCaptureSession(parentPlatformSessionData.contentCaptureSession, frame.getUrl(), frame.getFavicon());
-            AutofillId autofillId = PlatformAPIWrapper.getInstance().newAutofillId(parentPlatformSessionData.contentCaptureSession, mPlatformSession.getRootPlatformSessionData().autofillId, frame.getId());
+            ContentCaptureSession session =
+                    PlatformAPIWrapper.getInstance().createContentCaptureSession(
+                            parentPlatformSessionData.contentCaptureSession, frame.getUrl(),
+                            frame.getFavicon());
+            AutofillId autofillId = PlatformAPIWrapper.getInstance().newAutofillId(
+                    parentPlatformSessionData.contentCaptureSession,
+                    mPlatformSession.getRootPlatformSessionData().autofillId, frame.getId());
             autofillId = notifyViewAppeared(parentPlatformSessionData, frame);
             platformSessionData = new PlatformSessionData(session, autofillId);
-            mPlatformSession.getFrameIdToPlatformSessionData().put(frame.getId(), platformSessionData);
+            mPlatformSession.getFrameIdToPlatformSessionData().put(
+                    frame.getId(), platformSessionData);
         }
         return platformSessionData;
     }
@@ -100,8 +113,7 @@ abstract class NotificationTask extends AsyncTask<Boolean> {
     }
 
     @Override
-    protected void onPostExecute(Boolean result) {
-    }
+    protected void onPostExecute(Boolean result) {}
 
     @Override
     public final Boolean doInBackground() {

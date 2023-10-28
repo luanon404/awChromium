@@ -17,10 +17,21 @@ import androidx.annotation.IntDef;
 
 public final class ColorSpaceMatrixId {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({ColorSpaceMatrixId.INVALID, ColorSpaceMatrixId.RGB, ColorSpaceMatrixId.BT709, ColorSpaceMatrixId.FCC, ColorSpaceMatrixId.BT470BG, ColorSpaceMatrixId.SMPTE170M, ColorSpaceMatrixId.SMPTE240M, ColorSpaceMatrixId.YCOCG, ColorSpaceMatrixId.BT2020_NCL, ColorSpaceMatrixId.BT2020_CL, ColorSpaceMatrixId.YDZDX, ColorSpaceMatrixId.GBR})
-    public @interface EnumType {
-    }
+        ColorSpaceMatrixId.INVALID,
+        ColorSpaceMatrixId.RGB,
+        ColorSpaceMatrixId.BT709,
+        ColorSpaceMatrixId.FCC,
+        ColorSpaceMatrixId.BT470BG,
+        ColorSpaceMatrixId.SMPTE170M,
+        ColorSpaceMatrixId.SMPTE240M,
+        ColorSpaceMatrixId.YCOCG,
+        ColorSpaceMatrixId.BT2020_NCL,
+        ColorSpaceMatrixId.BT2020_CL,
+        ColorSpaceMatrixId.YDZDX,
+        ColorSpaceMatrixId.GBR})
+    public @interface EnumType {}
 
     public static final int INVALID = 0;
     public static final int RGB = 1;
@@ -48,12 +59,11 @@ public final class ColorSpaceMatrixId {
     }
 
     public static int toKnownValue(int value) {
-        if (isKnownValue(value)) {
-            return value;
-        }
-        return DEFAULT_VALUE;
+      if (isKnownValue(value)) {
+        return value;
+      }
+      return DEFAULT_VALUE;
     }
 
-    private ColorSpaceMatrixId() {
-    }
+    private ColorSpaceMatrixId() {}
 }

@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface UnhandledTapNotifier extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends UnhandledTapNotifier, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends UnhandledTapNotifier, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<UnhandledTapNotifier, UnhandledTapNotifier.Proxy> MANAGER = UnhandledTapNotifier_Internal.MANAGER;

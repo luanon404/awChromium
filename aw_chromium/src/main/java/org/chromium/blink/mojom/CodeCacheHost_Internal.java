@@ -13,6 +13,8 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 class CodeCacheHost_Internal {
 
@@ -226,7 +228,7 @@ org.chromium.url.mojom.Url url, org.chromium.mojo_base.mojom.Time expectedRespon
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -276,7 +278,7 @@ org.chromium.url.mojom.Url url, org.chromium.mojo_base.mojom.Time expectedRespon
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }

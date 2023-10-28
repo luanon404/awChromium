@@ -13,26 +13,30 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface VibrationManager extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends VibrationManager, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends VibrationManager, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<VibrationManager, VibrationManager.Proxy> MANAGER = VibrationManager_Internal.MANAGER;
 
-    void vibrate(long milliseconds, Vibrate_Response callback);
+    void vibrate(
+long milliseconds, 
+Vibrate_Response callback);
 
-    interface Vibrate_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 {
-    }
+    interface Vibrate_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 { }
 
 
     void cancel(
 
-            Cancel_Response callback);
+Cancel_Response callback);
 
-    interface Cancel_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 {
-    }
+    interface Cancel_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 { }
 
 
 }

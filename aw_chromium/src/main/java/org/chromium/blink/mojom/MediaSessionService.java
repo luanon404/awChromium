@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface MediaSessionService extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends MediaSessionService, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends MediaSessionService, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<MediaSessionService, MediaSessionService.Proxy> MANAGER = MediaSessionService_Internal.MANAGER;

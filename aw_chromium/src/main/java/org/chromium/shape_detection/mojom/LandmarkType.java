@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class LandmarkType {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({LandmarkType.MOUTH, LandmarkType.EYE, LandmarkType.NOSE})
-    public @interface EnumType {
-    }
+        LandmarkType.MOUTH,
+        LandmarkType.EYE,
+        LandmarkType.NOSE})
+    public @interface EnumType {}
 
     public static final int MOUTH = 0;
     public static final int EYE = 1;
@@ -38,9 +40,8 @@ public final class LandmarkType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private LandmarkType() {
-    }
+    private LandmarkType() {}
 }

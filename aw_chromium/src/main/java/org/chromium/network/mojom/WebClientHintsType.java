@@ -17,10 +17,36 @@ import androidx.annotation.IntDef;
 
 public final class WebClientHintsType {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({WebClientHintsType.DEVICE_MEMORY_DEPRECATED, WebClientHintsType.DPR_DEPRECATED, WebClientHintsType.RESOURCE_WIDTH_DEPRECATED, WebClientHintsType.VIEWPORT_WIDTH_DEPRECATED, WebClientHintsType.RTT_DEPRECATED, WebClientHintsType.DOWNLINK_DEPRECATED, WebClientHintsType.ECT_DEPRECATED, WebClientHintsType.UA, WebClientHintsType.UA_ARCH, WebClientHintsType.UA_PLATFORM, WebClientHintsType.UA_MODEL, WebClientHintsType.UA_MOBILE, WebClientHintsType.UA_FULL_VERSION, WebClientHintsType.UA_PLATFORM_VERSION, WebClientHintsType.PREFERS_COLOR_SCHEME, WebClientHintsType.UA_BITNESS, WebClientHintsType.VIEWPORT_HEIGHT, WebClientHintsType.DEVICE_MEMORY, WebClientHintsType.DPR, WebClientHintsType.RESOURCE_WIDTH, WebClientHintsType.VIEWPORT_WIDTH, WebClientHintsType.UA_FULL_VERSION_LIST, WebClientHintsType.UA_WO_W64, WebClientHintsType.SAVE_DATA, WebClientHintsType.PREFERS_REDUCED_MOTION, WebClientHintsType.UA_FORM_FACTOR, WebClientHintsType.PREFERS_REDUCED_TRANSPARENCY})
-    public @interface EnumType {
-    }
+        WebClientHintsType.DEVICE_MEMORY_DEPRECATED,
+        WebClientHintsType.DPR_DEPRECATED,
+        WebClientHintsType.RESOURCE_WIDTH_DEPRECATED,
+        WebClientHintsType.VIEWPORT_WIDTH_DEPRECATED,
+        WebClientHintsType.RTT_DEPRECATED,
+        WebClientHintsType.DOWNLINK_DEPRECATED,
+        WebClientHintsType.ECT_DEPRECATED,
+        WebClientHintsType.UA,
+        WebClientHintsType.UA_ARCH,
+        WebClientHintsType.UA_PLATFORM,
+        WebClientHintsType.UA_MODEL,
+        WebClientHintsType.UA_MOBILE,
+        WebClientHintsType.UA_FULL_VERSION,
+        WebClientHintsType.UA_PLATFORM_VERSION,
+        WebClientHintsType.PREFERS_COLOR_SCHEME,
+        WebClientHintsType.UA_BITNESS,
+        WebClientHintsType.VIEWPORT_HEIGHT,
+        WebClientHintsType.DEVICE_MEMORY,
+        WebClientHintsType.DPR,
+        WebClientHintsType.RESOURCE_WIDTH,
+        WebClientHintsType.VIEWPORT_WIDTH,
+        WebClientHintsType.UA_FULL_VERSION_LIST,
+        WebClientHintsType.UA_WO_W64,
+        WebClientHintsType.SAVE_DATA,
+        WebClientHintsType.PREFERS_REDUCED_MOTION,
+        WebClientHintsType.UA_FORM_FACTOR,
+        WebClientHintsType.PREFERS_REDUCED_TRANSPARENCY})
+    public @interface EnumType {}
 
     public static final int DEVICE_MEMORY_DEPRECATED = 0;
     public static final int DPR_DEPRECATED = 1;
@@ -92,9 +118,8 @@ public final class WebClientHintsType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private WebClientHintsType() {
-    }
+    private WebClientHintsType() {}
 }

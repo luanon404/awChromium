@@ -99,11 +99,10 @@ class AudioDeviceSelectorPreS extends AudioDeviceSelector {
         mDeviceExistence[deviceId] = exists;
     }
 
-    /**
-     * Checks if the process has as specified permission or not.
-     */
+    /** Checks if the process has as specified permission or not. */
     private boolean hasPermission(String permission) {
-        return ContextUtils.getApplicationContext().checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED;
+        return ContextUtils.getApplicationContext().checkSelfPermission(permission)
+                == PackageManager.PERMISSION_GRANTED;
     }
 
     /**
@@ -117,9 +116,11 @@ class AudioDeviceSelectorPreS extends AudioDeviceSelector {
         mBluetoothScoReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                int state = intent.getIntExtra(AudioManager.EXTRA_SCO_AUDIO_STATE, AudioManager.SCO_AUDIO_STATE_DISCONNECTED);
+                int state = intent.getIntExtra(AudioManager.EXTRA_SCO_AUDIO_STATE,
+                        AudioManager.SCO_AUDIO_STATE_DISCONNECTED);
                 if (DEBUG) {
-                    logd("BroadcastReceiver.onReceive: a=" + intent.getAction() + ", s=" + state + ", sb=" + isInitialStickyBroadcast());
+                    logd("BroadcastReceiver.onReceive: a=" + intent.getAction() + ", s=" + state
+                            + ", sb=" + isInitialStickyBroadcast());
                 }
 
                 switch (state) {
@@ -144,7 +145,8 @@ class AudioDeviceSelectorPreS extends AudioDeviceSelector {
             }
         };
 
-        ContextUtils.registerProtectedBroadcastReceiver(ContextUtils.getApplicationContext(), mBluetoothScoReceiver, filter);
+        ContextUtils.registerProtectedBroadcastReceiver(
+                ContextUtils.getApplicationContext(), mBluetoothScoReceiver, filter);
     }
 
     private void unregisterForBluetoothScoIntentBroadcast() {
@@ -152,14 +154,13 @@ class AudioDeviceSelectorPreS extends AudioDeviceSelector {
         mBluetoothScoReceiver = null;
     }
 
-    /**
-     * Enables BT audio using the SCO audio channel.
-     */
+    /** Enables BT audio using the SCO audio channel. */
     private void startBluetoothSco() {
         if (!mHasBluetoothPermission) {
             return;
         }
-        if (mBluetoothScoState == STATE_BLUETOOTH_SCO_ON || mBluetoothScoState == STATE_BLUETOOTH_SCO_TURNING_ON) {
+        if (mBluetoothScoState == STATE_BLUETOOTH_SCO_ON
+                || mBluetoothScoState == STATE_BLUETOOTH_SCO_TURNING_ON) {
             // Unable to turn on BT in this state.
             return;
         }
@@ -176,15 +177,14 @@ class AudioDeviceSelectorPreS extends AudioDeviceSelector {
         mAudioManager.startBluetoothSco();
     }
 
-    /**
-     * Disables BT audio using the SCO audio channel.
-     */
+    /** Disables BT audio using the SCO audio channel. */
     private void stopBluetoothSco() {
         if (!mHasBluetoothPermission) {
             return;
         }
 
-        if (mBluetoothScoState != STATE_BLUETOOTH_SCO_ON && mBluetoothScoState != STATE_BLUETOOTH_SCO_TURNING_ON) {
+        if (mBluetoothScoState != STATE_BLUETOOTH_SCO_ON
+                && mBluetoothScoState != STATE_BLUETOOTH_SCO_TURNING_ON) {
             // No need to turn off BT in this state.
             return;
         }

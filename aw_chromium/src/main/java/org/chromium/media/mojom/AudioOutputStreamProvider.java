@@ -13,15 +13,20 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface AudioOutputStreamProvider extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends AudioOutputStreamProvider, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends AudioOutputStreamProvider, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<AudioOutputStreamProvider, AudioOutputStreamProvider.Proxy> MANAGER = AudioOutputStreamProvider_Internal.MANAGER;
 
-    void acquire(AudioParameters params, AudioOutputStreamProviderClient client);
+    void acquire(
+AudioParameters params, AudioOutputStreamProviderClient client);
 
 
 }

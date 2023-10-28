@@ -38,7 +38,10 @@ public abstract class AndroidPermissionDelegateWithRequester implements AndroidP
 
     @Override
     public final boolean hasPermission(String permission) {
-        boolean isGranted = ApiCompatibilityUtils.checkPermission(ContextUtils.getApplicationContext(), permission, Process.myPid(), Process.myUid()) == PackageManager.PERMISSION_GRANTED;
+        boolean isGranted =
+                ApiCompatibilityUtils.checkPermission(ContextUtils.getApplicationContext(),
+                        permission, Process.myPid(), Process.myUid())
+                == PackageManager.PERMISSION_GRANTED;
         if (isGranted) {
             PermissionPrefs.clearPermissionWasDenied(permission);
         }
@@ -70,9 +73,7 @@ public abstract class AndroidPermissionDelegateWithRequester implements AndroidP
         return !PermissionPrefs.wasPermissionDenied(permission);
     }
 
-    /**
-     * @see PackageManager#isPermissionRevokedByPolicy(String, String)
-     */
+    /** @see PackageManager#isPermissionRevokedByPolicy(String, String) */
     protected abstract boolean isPermissionRevokedByPolicyInternal(String permission);
 
     @Override
@@ -81,7 +82,8 @@ public abstract class AndroidPermissionDelegateWithRequester implements AndroidP
     }
 
     @Override
-    public final void requestPermissions(final String[] permissions, final PermissionCallback callback) {
+    public final void requestPermissions(
+            final String[] permissions, final PermissionCallback callback) {
         if (requestPermissionsInternal(permissions, callback)) {
             PermissionPrefs.onAndroidPermissionRequestUiShown(permissions);
             return;
@@ -96,7 +98,8 @@ public abstract class AndroidPermissionDelegateWithRequester implements AndroidP
             public void run() {
                 int[] results = new int[permissions.length];
                 for (int i = 0; i < permissions.length; i++) {
-                    results[i] = hasPermission(permissions[i]) ? PackageManager.PERMISSION_GRANTED : PackageManager.PERMISSION_DENIED;
+                    results[i] = hasPermission(permissions[i]) ? PackageManager.PERMISSION_GRANTED
+                                                               : PackageManager.PERMISSION_DENIED;
                 }
                 callback.onRequestPermissionsResult(permissions, results);
             }
@@ -104,7 +107,8 @@ public abstract class AndroidPermissionDelegateWithRequester implements AndroidP
     }
 
     @Override
-    public final boolean handlePermissionResult(int requestCode, String[] permissions, int[] grantResults) {
+    public final boolean handlePermissionResult(
+            int requestCode, String[] permissions, int[] grantResults) {
         PermissionRequestInfo requestInfo = mOutstandingPermissionRequests.get(requestCode);
         mOutstandingPermissionRequests.delete(requestCode);
 
@@ -146,10 +150,9 @@ public abstract class AndroidPermissionDelegateWithRequester implements AndroidP
         return initialShowRationaleState || shouldShowRequestPermissionRationale(permission);
     }
 
-    /**
-     * @see Activity.requestPermissions
-     */
-    protected abstract boolean requestPermissionsFromRequester(String[] permissions, int requestCode);
+    /** @see Activity.requestPermissions */
+    protected abstract boolean requestPermissionsFromRequester(
+            String[] permissions, int requestCode);
 
     /**
      * Issues the permission request and returns whether it was sent successfully.
@@ -157,7 +160,8 @@ public abstract class AndroidPermissionDelegateWithRequester implements AndroidP
     private boolean requestPermissionsInternal(String[] permissions, PermissionCallback callback) {
         int requestCode = REQUEST_CODE_PREFIX + mNextRequestCode;
         mNextRequestCode = (mNextRequestCode + 1) % REQUEST_CODE_RANGE_SIZE;
-        mOutstandingPermissionRequests.put(requestCode, new PermissionRequestInfo(permissions, callback));
+        mOutstandingPermissionRequests.put(
+                requestCode, new PermissionRequestInfo(permissions, callback));
         if (!requestPermissionsFromRequester(permissions, requestCode)) {
             mOutstandingPermissionRequests.delete(requestCode);
             return false;
@@ -165,9 +169,7 @@ public abstract class AndroidPermissionDelegateWithRequester implements AndroidP
         return true;
     }
 
-    /**
-     * Wrapper holding information relevant to a permission request.
-     */
+    /** Wrapper holding information relevant to a permission request. */
     private class PermissionRequestInfo {
         public final PermissionCallback callback;
         public final Map<String, Boolean> initialShowRationaleState;
@@ -176,7 +178,8 @@ public abstract class AndroidPermissionDelegateWithRequester implements AndroidP
             initialShowRationaleState = new HashMap<>();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 for (String permission : permissions) {
-                    initialShowRationaleState.put(permission, shouldShowRequestPermissionRationale(permission));
+                    initialShowRationaleState.put(
+                            permission, shouldShowRequestPermissionRationale(permission));
                 }
             }
             this.callback = callback;
@@ -188,7 +191,9 @@ public abstract class AndroidPermissionDelegateWithRequester implements AndroidP
          */
         public boolean getInitialShowRationaleStateFor(String permission) {
             assert initialShowRationaleState.get(permission) != null;
-            return initialShowRationaleState.get(permission) != null ? initialShowRationaleState.get(permission) : false;
+            return initialShowRationaleState.get(permission) != null
+                    ? initialShowRationaleState.get(permission)
+                    : false;
         }
     }
 }

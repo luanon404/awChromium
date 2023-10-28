@@ -45,7 +45,8 @@ class AwWebContentsDelegateAdapter extends AwWebContentsDelegate {
     private FrameLayout mCustomView;
     private boolean mDidSynthesizePageLoad;
 
-    public AwWebContentsDelegateAdapter(AwContents awContents, AwContentsClient contentsClient, AwSettings settings, Context context, View containerView) {
+    public AwWebContentsDelegateAdapter(AwContents awContents, AwContentsClient contentsClient,
+            AwSettings settings, Context context, View containerView) {
         mAwContents = awContents;
         mContentsClient = contentsClient;
         mAwSettings = settings;
@@ -117,7 +118,9 @@ class AwWebContentsDelegateAdapter extends AwWebContentsDelegate {
 
     @Override
     public boolean takeFocus(boolean reverse) {
-        int direction = (reverse == (mContainerView.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL)) ? View.FOCUS_RIGHT : View.FOCUS_LEFT;
+        int direction =
+                (reverse == (mContainerView.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL))
+                ? View.FOCUS_RIGHT : View.FOCUS_LEFT;
         if (tryToMoveFocus(direction)) return true;
         direction = reverse ? View.FOCUS_BACKWARD : View.FOCUS_FORWARD;
         return tryToMoveFocus(direction);
@@ -129,9 +132,11 @@ class AwWebContentsDelegateAdapter extends AwWebContentsDelegate {
     }
 
     @Override
-    public boolean addMessageToConsole(int level, String message, int lineNumber, String sourceId) {
-        @AwConsoleMessage.MessageLevel int messageLevel = AwConsoleMessage.MESSAGE_LEVEL_DEBUG;
-        switch (level) {
+    public boolean addMessageToConsole(int level, String message, int lineNumber,
+            String sourceId) {
+        @AwConsoleMessage.MessageLevel
+        int messageLevel = AwConsoleMessage.MESSAGE_LEVEL_DEBUG;
+        switch(level) {
             case LOG_LEVEL_TIP:
                 messageLevel = AwConsoleMessage.MESSAGE_LEVEL_TIP;
                 break;
@@ -148,7 +153,8 @@ class AwWebContentsDelegateAdapter extends AwWebContentsDelegate {
                 Log.w(TAG, "Unknown message level, defaulting to DEBUG");
                 break;
         }
-        boolean result = mContentsClient.onConsoleMessage(new AwConsoleMessage(message, sourceId, lineNumber, messageLevel));
+        boolean result = mContentsClient.onConsoleMessage(
+                new AwConsoleMessage(message, sourceId, lineNumber, messageLevel));
         return result;
     }
 
@@ -158,7 +164,8 @@ class AwWebContentsDelegateAdapter extends AwWebContentsDelegate {
     }
 
     @Override
-    public void openNewTab(GURL url, String extraHeaders, ResourceRequestBody postData, int disposition, boolean isRendererInitiated) {
+    public void openNewTab(GURL url, String extraHeaders, ResourceRequestBody postData,
+            int disposition, boolean isRendererInitiated) {
         // This is only called in chrome layers.
         assert false;
     }
@@ -182,7 +189,7 @@ class AwWebContentsDelegateAdapter extends AwWebContentsDelegate {
             public void handleMessage(Message msg) {
                 if (mAwContents.getNavigationController() == null) return;
 
-                switch (msg.what) {
+                switch(msg.what) {
                     case msgContinuePendingReload: {
                         mAwContents.getNavigationController().continuePendingReload();
                         break;
@@ -192,7 +199,8 @@ class AwWebContentsDelegateAdapter extends AwWebContentsDelegate {
                         break;
                     }
                     default:
-                        throw new IllegalStateException("WebContentsDelegateAdapter: unhandled message " + msg.what);
+                        throw new IllegalStateException(
+                                "WebContentsDelegateAdapter: unhandled message " + msg.what);
                 }
             }
         };
@@ -203,13 +211,14 @@ class AwWebContentsDelegateAdapter extends AwWebContentsDelegate {
     }
 
     @Override
-    public void runFileChooser(final int processId, final int renderId, final int modeFlags, String acceptTypes, String title, String defaultFilename, boolean capture) {
+    public void runFileChooser(final int processId, final int renderId, final int modeFlags,
+            String acceptTypes, String title, String defaultFilename, boolean capture) {
         int correctedModeFlags = FileModeConversionHelper.convertFileChooserMode(modeFlags);
-        AwContentsClient.FileChooserParamsImpl params = new AwContentsClient.FileChooserParamsImpl(correctedModeFlags, acceptTypes, title, defaultFilename, capture);
+        AwContentsClient.FileChooserParamsImpl params = new AwContentsClient.FileChooserParamsImpl(
+                correctedModeFlags, acceptTypes, title, defaultFilename, capture);
 
         mContentsClient.showFileChooser(new Callback<String[]>() {
             boolean mCompleted;
-
             @Override
             public void onResult(String[] results) {
                 if (mCompleted) {
@@ -217,10 +226,12 @@ class AwWebContentsDelegateAdapter extends AwWebContentsDelegate {
                 }
                 mCompleted = true;
                 if (results == null) {
-                    AwWebContentsDelegateJni.get().filesSelectedInChooser(processId, renderId, correctedModeFlags, null, null);
+                    AwWebContentsDelegateJni.get().filesSelectedInChooser(
+                            processId, renderId, correctedModeFlags, null, null);
                     return;
                 }
-                GetDisplayNameTask task = new GetDisplayNameTask(mContext, processId, renderId, correctedModeFlags, results);
+                GetDisplayNameTask task = new GetDisplayNameTask(
+                        mContext, processId, renderId, correctedModeFlags, results);
                 task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
         }, params);
@@ -246,7 +257,9 @@ class AwWebContentsDelegateAdapter extends AwWebContentsDelegate {
         // must match InvalidateTypes.URL (the flag fired by
         // NavigationControllerImpl::DidAccessInitialMainDocument()) and we must
         // check whether a page load has previously been synthesized here.
-        boolean shouldSynthesizePageLoad = mAwContents.isPopupWindow() && mAwContents.hasAccessedInitialDocument() && (flags == InvalidateTypes.URL) && !mDidSynthesizePageLoad;
+        boolean shouldSynthesizePageLoad = mAwContents.isPopupWindow()
+                && mAwContents.hasAccessedInitialDocument() && (flags == InvalidateTypes.URL)
+                && !mDidSynthesizePageLoad;
         if (shouldSynthesizePageLoad) {
             String url = mAwContents.getLastCommittedUrl();
             url = TextUtils.isEmpty(url) ? ContentUrlConstants.ABOUT_BLANK_DISPLAY_URL : url;
@@ -314,7 +327,9 @@ class AwWebContentsDelegateAdapter extends AwWebContentsDelegate {
 
     @Override
     public boolean shouldBlockMediaRequest(GURL url) {
-        return mAwSettings == null || mAwSettings.getBlockNetworkLoads() && URLUtil.isNetworkUrl(url.getSpec());
+        return mAwSettings != null
+                ? mAwSettings.getBlockNetworkLoads() && URLUtil.isNetworkUrl(url.getSpec())
+                : true;
     }
 
     private static class GetDisplayNameTask extends AsyncTask<String[]> {
@@ -327,7 +342,8 @@ class AwWebContentsDelegateAdapter extends AwWebContentsDelegate {
         @SuppressLint("StaticFieldLeak")
         final Context mContext;
 
-        public GetDisplayNameTask(Context context, int processId, int renderId, int modeFlags, String[] filePaths) {
+        public GetDisplayNameTask(
+                Context context, int processId, int renderId, int modeFlags, String[] filePaths) {
             mProcessId = processId;
             mRenderId = renderId;
             mModeFlags = modeFlags;
@@ -346,7 +362,8 @@ class AwWebContentsDelegateAdapter extends AwWebContentsDelegate {
 
         @Override
         protected void onPostExecute(String[] result) {
-            AwWebContentsDelegateJni.get().filesSelectedInChooser(mProcessId, mRenderId, mModeFlags, mFilePaths, result);
+            AwWebContentsDelegateJni.get().filesSelectedInChooser(
+                    mProcessId, mRenderId, mModeFlags, mFilePaths, result);
         }
 
         /**
@@ -356,7 +373,8 @@ class AwWebContentsDelegateAdapter extends AwWebContentsDelegate {
         private String resolveFileName(String filePath) {
             if (filePath == null) return "";
             Uri uri = Uri.parse(filePath);
-            return ContentUriUtils.getDisplayName(uri, mContext, MediaStore.MediaColumns.DISPLAY_NAME);
+            return ContentUriUtils.getDisplayName(
+                    uri, mContext, MediaStore.MediaColumns.DISPLAY_NAME);
         }
     }
 }

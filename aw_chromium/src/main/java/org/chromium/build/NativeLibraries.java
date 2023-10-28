@@ -16,9 +16,9 @@ public class NativeLibraries {
 
     // This is the list of native libraries to be loaded (in the correct order)
     // by LibraryLoader.java.
-    public static final String[] LIBRARIES = {"test_trace_processor", "standalonelibwebviewchromium"};
+    public static final String[] LIBRARIES = {"test_trace_processor","standalonelibwebviewchromium"};
 
-    public static final int sCpuFamily = CPU_FAMILY_X86;
+    public static final int sCpuFamily = CPU_FAMILY_ARM;
 
     public static final boolean sSupport32Bit = false;
 

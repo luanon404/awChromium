@@ -13,13 +13,15 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class TransferableDirectory extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
         public static final int HandleForIpc = 0;
         public static final int Path = 1;
-    }
-
+    };
     private org.chromium.mojo.system.UntypedHandle mHandleForIpc;
     private org.chromium.mojo_base.mojom.FilePath mPath;
 
@@ -50,12 +52,12 @@ public final class TransferableDirectory extends org.chromium.mojo.bindings.Unio
         encoder0.encode(this.mTag, offset + 4);
         switch (mTag) {
             case Tag.HandleForIpc: {
-
+                
                 encoder0.encode(this.mHandleForIpc, offset + 8, false);
                 break;
             }
             case Tag.Path: {
-
+                
                 encoder0.encode(this.mPath, offset + 8, false);
                 break;
             }
@@ -77,13 +79,13 @@ public final class TransferableDirectory extends org.chromium.mojo.bindings.Unio
         TransferableDirectory result = new TransferableDirectory();
         switch (dataHeader.elementsOrVersion) {
             case Tag.HandleForIpc: {
-
+                
                 result.mHandleForIpc = decoder0.readUntypedHandle(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mTag = Tag.HandleForIpc;
                 break;
             }
             case Tag.Path: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mPath = org.chromium.mojo_base.mojom.FilePath.decode(decoder1);
                 result.mTag = Tag.Path;

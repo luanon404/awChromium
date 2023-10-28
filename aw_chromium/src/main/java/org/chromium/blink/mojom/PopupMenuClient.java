@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface PopupMenuClient extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends PopupMenuClient, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends PopupMenuClient, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<PopupMenuClient, PopupMenuClient.Proxy> MANAGER = PopupMenuClient_Internal.MANAGER;

@@ -33,7 +33,8 @@ public class ThreadedInputConnectionProxyView extends View {
     private final AtomicReference<View> mRootView = new AtomicReference<>();
     private final ThreadedInputConnectionFactory mFactory;
 
-    ThreadedInputConnectionProxyView(Context context, Handler imeThreadHandler, View containerView, ThreadedInputConnectionFactory factory) {
+    ThreadedInputConnectionProxyView(Context context, Handler imeThreadHandler, View containerView,
+            ThreadedInputConnectionFactory factory) {
         super(context);
         mImeThreadHandler = imeThreadHandler;
         mContainerView = containerView;

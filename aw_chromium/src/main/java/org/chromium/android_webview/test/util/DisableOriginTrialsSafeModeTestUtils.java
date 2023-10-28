@@ -15,15 +15,10 @@ public class DisableOriginTrialsSafeModeTestUtils {
     @NativeMethods
     public interface Natives {
         boolean isNonDeprecationTrialDisabled();
-
         boolean isDeprecationTrialDisabled();
-
         boolean doesPolicyExist();
-
         boolean isFlagSet();
     }
-
     // Don't instantiate this class
-    private DisableOriginTrialsSafeModeTestUtils() {
-    }
+    private DisableOriginTrialsSafeModeTestUtils() {}
 }

@@ -11,10 +11,11 @@ import android.os.Build;
 import android.os.UserHandle;
 import android.os.UserManager;
 
-import org.chromium.base.BuildInfo;
-import org.chromium.base.ContextUtils;
 import org.jni_zero.CalledByNative;
 import org.jni_zero.JNINamespace;
+
+import org.chromium.base.BuildInfo;
+import org.chromium.base.ContextUtils;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -25,15 +26,16 @@ import java.util.Set;
  */
 @JNINamespace("android_webview")
 public class SystemStateUtil {
-    /**
-     * Returns whether Android has multiple user profiles.
-     */
+    /** Returns whether Android has multiple user profiles. */
     @CalledByNative
     public static @MultipleUserProfilesState int getMultipleUserProfilesState() {
-        UserManager userManager = (UserManager) ContextUtils.getApplicationContext().getSystemService(Context.USER_SERVICE);
+        UserManager userManager =
+                (UserManager) ContextUtils.getApplicationContext().getSystemService(
+                        Context.USER_SERVICE);
         List<UserHandle> userHandles = userManager.getUserProfiles();
         assert !userHandles.isEmpty();
-        return userHandles.size() > 1 ? MultipleUserProfilesState.MULTIPLE_PROFILES : MultipleUserProfilesState.SINGLE_PROFILE;
+        return userHandles.size() > 1 ? MultipleUserProfilesState.MULTIPLE_PROFILES
+                                      : MultipleUserProfilesState.SINGLE_PROFILE;
     }
 
     @CalledByNative
@@ -42,7 +44,10 @@ public class SystemStateUtil {
         ApplicationInfo applicationInfo = null;
         String packageName = BuildInfo.getInstance().packageName;
         try {
-            applicationInfo = ContextUtils.getApplicationContext().getPackageManager().getPackageInfo(packageName, 0).applicationInfo;
+            applicationInfo = ContextUtils.getApplicationContext()
+                                      .getPackageManager()
+                                      .getPackageInfo(packageName, 0)
+                                      .applicationInfo;
             Field primaryCpuAbiField = ApplicationInfo.class.getDeclaredField("primaryCpuAbi");
             String primaryCpuAbi = (String) primaryCpuAbiField.get(applicationInfo);
             if (primaryCpuAbi != null) {

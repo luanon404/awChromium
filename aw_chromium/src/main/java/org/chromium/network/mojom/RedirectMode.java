@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class RedirectMode {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({RedirectMode.FOLLOW, RedirectMode.ERROR, RedirectMode.MANUAL})
-    public @interface EnumType {
-    }
+        RedirectMode.FOLLOW,
+        RedirectMode.ERROR,
+        RedirectMode.MANUAL})
+    public @interface EnumType {}
 
     public static final int FOLLOW = 0;
     public static final int ERROR = 1;
@@ -38,9 +40,8 @@ public final class RedirectMode {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private RedirectMode() {
-    }
+    private RedirectMode() {}
 }

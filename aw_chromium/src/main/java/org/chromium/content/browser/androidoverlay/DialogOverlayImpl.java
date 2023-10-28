@@ -10,6 +10,10 @@ import android.view.Surface;
 import android.view.View;
 import android.view.ViewTreeObserver;
 
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+
 import org.chromium.base.ContextUtils;
 import org.chromium.base.ThreadUtils;
 import org.chromium.content.browser.webcontents.WebContentsImpl;
@@ -20,9 +24,6 @@ import org.chromium.media.mojom.AndroidOverlayConfig;
 import org.chromium.mojo.system.MessagePipeHandle;
 import org.chromium.mojo.system.MojoException;
 import org.chromium.ui.base.WindowAndroid;
-import org.jni_zero.CalledByNative;
-import org.jni_zero.JNINamespace;
-import org.jni_zero.NativeMethods;
 
 /**
  * Default AndroidOverlay impl.  Uses a separate (shared) overlay thread to own a Dialog instance,
@@ -30,7 +31,8 @@ import org.jni_zero.NativeMethods;
  * from that thread from the UI thread.
  */
 @JNINamespace("content")
-public class DialogOverlayImpl implements AndroidOverlay, DialogOverlayCore.Host, ViewTreeObserver.OnPreDrawListener {
+public class DialogOverlayImpl
+        implements AndroidOverlay, DialogOverlayCore.Host, ViewTreeObserver.OnPreDrawListener {
     private static final String TAG = "DialogOverlayImpl";
 
     private AndroidOverlayClient mClient;
@@ -66,12 +68,13 @@ public class DialogOverlayImpl implements AndroidOverlay, DialogOverlayCore.Host
     private WebContentsImpl mWebContents;
 
     /**
-     * @param client   Mojo client interface.
-     * @param config   initial overlay configuration.
+     * @param client Mojo client interface.
+     * @param config initial overlay configuration.
      * @param provider the overlay provider that owns us.
-     * @param asPanel  the overlay should be a panel, above the compositor.  This is for testing.
+     * @param asPanel the overlay should be a panel, above the compositor.  This is for testing.
      */
-    public DialogOverlayImpl(AndroidOverlayClient client, final AndroidOverlayConfig config, Runnable releasedRunnable, final boolean asPanel) {
+    public DialogOverlayImpl(AndroidOverlayClient client, final AndroidOverlayConfig config,
+            Runnable releasedRunnable, final boolean asPanel) {
         ThreadUtils.assertOnUiThread();
 
         mClient = client;
@@ -82,7 +85,8 @@ public class DialogOverlayImpl implements AndroidOverlay, DialogOverlayCore.Host
 
         // Register to get token updates.  Note that this may not call us back directly, since
         // |mDialogCore| hasn't been initialized yet.
-        mNativeHandle = DialogOverlayImplJni.get().init(DialogOverlayImpl.this, config.routingToken.high, config.routingToken.low, config.powerEfficient);
+        mNativeHandle = DialogOverlayImplJni.get().init(DialogOverlayImpl.this,
+                config.routingToken.high, config.routingToken.low, config.powerEfficient);
 
         if (mNativeHandle == 0) {
             notifyDestroyed();
@@ -90,7 +94,8 @@ public class DialogOverlayImpl implements AndroidOverlay, DialogOverlayCore.Host
             return;
         }
 
-        DialogOverlayImplJni.get().getCompositorOffset(mNativeHandle, DialogOverlayImpl.this, config.rect);
+        DialogOverlayImplJni.get().getCompositorOffset(
+                mNativeHandle, DialogOverlayImpl.this, config.rect);
         DialogOverlayImplJni.get().completeInit(mNativeHandle, DialogOverlayImpl.this);
     }
 
@@ -262,9 +267,7 @@ public class DialogOverlayImpl implements AndroidOverlay, DialogOverlayCore.Host
         mWebContents.addTearDownDialogOverlaysHandler(mTearDownDialogOverlaysHandler);
     }
 
-    /**
-     * Initialize |mDialogCore| when the window is available.
-     */
+    /** Initialize |mDialogCore| when the window is available. */
     private void initializeDialogCore(WindowAndroid window) {
         ThreadUtils.assertOnUiThread();
 
@@ -364,7 +367,6 @@ public class DialogOverlayImpl implements AndroidOverlay, DialogOverlayCore.Host
         long init(DialogOverlayImpl caller, long high, long low, boolean isPowerEfficient);
 
         void completeInit(long nativeDialogOverlayImpl, DialogOverlayImpl caller);
-
         /**
          * Stops native side and deallocates |handle|.
          */
@@ -379,7 +381,6 @@ public class DialogOverlayImpl implements AndroidOverlay, DialogOverlayCore.Host
 
         /**
          * Register a surface and return the surface id for it.
-         *
          * @param surface Surface that we should register.
          * @return surface id that we associated with |surface|.
          */
@@ -387,23 +388,20 @@ public class DialogOverlayImpl implements AndroidOverlay, DialogOverlayCore.Host
 
         /**
          * Unregister a surface.
-         *
          * @param surfaceId Id that was returned by registerSurface.
          */
         void unregisterSurface(int surfaceId);
 
         /**
          * Look up and return a surface.
-         *
          * @param surfaceId Id that was returned by registerSurface.
          */
         Surface lookupSurfaceForTesting(int surfaceId);
 
         /**
          * Send a synchronous OnDestroyed message to the client.
-         *
          * @param messagePipe Mojo message pipe ID.
-         * @param version     Mojo interface version.
+         * @param version Mojo interface version.
          * @return none, but the message pipe is closed.
          */
         void notifyDestroyedSynchronously(long messagePipeHandle);

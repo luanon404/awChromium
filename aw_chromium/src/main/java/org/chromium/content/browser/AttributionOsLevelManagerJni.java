@@ -4,49 +4,89 @@
 package org.chromium.content.browser;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
+import android.os.LimitExceededException;
+import android.os.Process;
+import android.view.MotionEvent;
+import androidx.annotation.IntDef;
+import androidx.privacysandbox.ads.adservices.java.measurement.MeasurementManagerFutures;
+import androidx.privacysandbox.ads.adservices.measurement.DeletionRequest;
+import androidx.privacysandbox.ads.adservices.measurement.WebSourceParams;
+import androidx.privacysandbox.ads.adservices.measurement.WebSourceRegistrationRequest;
+import androidx.privacysandbox.ads.adservices.measurement.WebTriggerParams;
+import androidx.privacysandbox.ads.adservices.measurement.WebTriggerRegistrationRequest;
+import com.google.common.collect.ImmutableList;
+import com.google.common.util.concurrent.FutureCallback;
+import com.google.common.util.concurrent.Futures;
+import com.google.common.util.concurrent.ListenableFuture;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.ContextUtils;
+import org.chromium.base.Log;
+import org.chromium.base.ResettersForTesting;
+import org.chromium.base.ThreadUtils;
+import org.chromium.base.metrics.RecordHistogram;
+import org.chromium.base.task.PostTask;
+import org.chromium.base.task.TaskTraits;
+import org.chromium.url.GURL;
+import java.io.IOException;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Locale;
+import java.util.concurrent.TimeoutException;
 
 @CheckDiscard("crbug.com/993421")
 class AttributionOsLevelManagerJni implements AttributionOsLevelManager.Natives {
-    private static AttributionOsLevelManager.Natives testInstance;
+  private static AttributionOsLevelManager.Natives testInstance;
 
-    public static final JniStaticTestMocker<AttributionOsLevelManager.Natives> TEST_HOOKS = new JniStaticTestMocker<AttributionOsLevelManager.Natives>() {
-        @Override
-        public void setInstanceForTesting(AttributionOsLevelManager.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<AttributionOsLevelManager.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<AttributionOsLevelManager.Natives>() {
     @Override
-    public void onDataDeletionCompleted(long nativeAttributionOsLevelManagerAndroid, int requestId) {
-        GEN_JNI.org_chromium_content_browser_AttributionOsLevelManager_onDataDeletionCompleted(nativeAttributionOsLevelManagerAndroid, requestId);
+    public void setInstanceForTesting(AttributionOsLevelManager.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public void onMeasurementStateReturned(int state) {
-        GEN_JNI.org_chromium_content_browser_AttributionOsLevelManager_onMeasurementStateReturned(state);
-    }
+  @Override
+  public void onDataDeletionCompleted(long nativeAttributionOsLevelManagerAndroid, int requestId) {
+    GEN_JNI.org_chromium_content_browser_AttributionOsLevelManager_onDataDeletionCompleted(nativeAttributionOsLevelManagerAndroid, requestId);
+  }
 
-    @Override
-    public void onRegistrationCompleted(long nativeAttributionOsLevelManagerAndroid, int requestId, boolean success) {
-        GEN_JNI.org_chromium_content_browser_AttributionOsLevelManager_onRegistrationCompleted(nativeAttributionOsLevelManagerAndroid, requestId, success);
-    }
+  @Override
+  public void onMeasurementStateReturned(int state) {
+    GEN_JNI.org_chromium_content_browser_AttributionOsLevelManager_onMeasurementStateReturned(state);
+  }
 
-    public static AttributionOsLevelManager.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of AttributionOsLevelManager.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new AttributionOsLevelManagerJni();
+  @Override
+  public void onRegistrationCompleted(long nativeAttributionOsLevelManagerAndroid, int requestId, boolean success) {
+    GEN_JNI.org_chromium_content_browser_AttributionOsLevelManager_onRegistrationCompleted(nativeAttributionOsLevelManagerAndroid, requestId, success);
+  }
+
+  public static AttributionOsLevelManager.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of AttributionOsLevelManager.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new AttributionOsLevelManagerJni();
+  }
 }

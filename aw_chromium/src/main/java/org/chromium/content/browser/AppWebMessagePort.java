@@ -13,66 +13,67 @@ import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+
 import org.chromium.base.Log;
 import org.chromium.base.ThreadUtils;
 import org.chromium.base.task.PostTask;
 import org.chromium.base.task.TaskTraits;
 import org.chromium.content_public.browser.MessagePayload;
 import org.chromium.content_public.browser.MessagePort;
-import org.jni_zero.CalledByNative;
-import org.jni_zero.JNINamespace;
-import org.jni_zero.NativeMethods;
 
 /**
  * Represents the MessageChannel MessagePort object. Inspired from
  * http://www.whatwg.org/specs/web-apps/current-work/multipage/web-messaging.html#message-channels
- * <p>
+ *
  * State management:
- * <p>
+ *
  * A message port can be in transferred state while a transfer is pending or complete. An
  * application cannot use a transferred port to post messages. If a transferred port
  * receives messages, they will be queued. This state is not visible to embedder app.
- * <p>
+ *
  * A message port should be closed by the app when it is not needed any more. This will free
  * any resources used by it. A closed port cannot receive/send messages and cannot be transferred.
  * close() can be called multiple times. A transferred port cannot be closed by the application,
  * since the ownership is also transferred during the transfer. Closing a transferred port will
  * throw an exception.
- * <p>
+ *
  * All methods are called on the UI thread, except for MessageHandler.handleMessage, which is
  * used to dispatch messages on a potentially separate thread.
- * <p>
+ *
  * Restrictions:
  * The HTML5 message protocol is very flexible in transferring ports. However, this
  * sometimes leads to surprising behavior. For example, in current version of chrome (m41)
  * the code below
- * 1.  var c1 = new MessageChannel();
- * 2.  var c2 = new MessageChannel();
- * 3.  c1.port2.onmessage = function(e) { console.log("1"); }
- * 4.  c2.port2.onmessage = function(e) {
- * 5.     e.ports[0].onmessage = function(f) {
- * 6.          console.log("3");
- * 7.      }
- * 8.  }
- * 9.  c1.port1.postMessage("test");
- * 10. c2.port1.postMessage("test2",[c1.port2])
- * <p>
+ *  1.  var c1 = new MessageChannel();
+ *  2.  var c2 = new MessageChannel();
+ *  3.  c1.port2.onmessage = function(e) { console.log("1"); }
+ *  4.  c2.port2.onmessage = function(e) {
+ *  5.     e.ports[0].onmessage = function(f) {
+ *  6.          console.log("3");
+ *  7.      }
+ *  8.  }
+ *  9.  c1.port1.postMessage("test");
+ *  10. c2.port1.postMessage("test2",[c1.port2])
+ *
  * prints 1 or 3 depending on whether or not line 10 is included in code. Further if
  * it gets executed with a timeout, depending on timeout value, the printout value
  * changes.
- * <p>
+ *
  * To prevent such problems, this implementation limits the transfer of ports
  * as below:
  * A port is put to a "started" state if:
  * 1. The port is ever used to post a message, or
  * 2. The port was ever registered a handler to receive a message.
  * A started port cannot be transferred.
- * <p>
+ *
  * This restriction should not impact postmessage functionality in a big way,
  * because an app can still create as many channels as it wants to and use it for
  * transferring data. As a return, it simplifies implementation and prevents hard
  * to debug, racy corner cases while receiving/sending data.
- * <p>
+ *
  * This object is not thread safe but public methods may be called from any thread.
  */
 @JNINamespace("content::android")
@@ -94,7 +95,8 @@ public class AppWebMessagePort implements MessagePort {
         @Override
         public void handleMessage(@NonNull final Message msg) {
             if (msg.what == MESSAGE_RECEIVED) {
-                final Pair<MessagePayload, MessagePort[]> obj = (Pair<MessagePayload, MessagePort[]>) msg.obj;
+                final Pair<MessagePayload, MessagePort[]> obj =
+                        (Pair<MessagePayload, MessagePort[]>) msg.obj;
                 mMessageCallback.onMessage(obj.first, obj.second);
                 return;
             }
@@ -166,13 +168,16 @@ public class AppWebMessagePort implements MessagePort {
         mStarted = true;
         PostTask.runOrPostTask(TaskTraits.UI_DEFAULT, () -> {
             if (mNativeAppWebMessagePort == 0L) return;
-            mMessageHandler = messageCallback == null ? null : new MessageHandler(messageCallback, handler);
-            AppWebMessagePortJni.get().setShouldReceiveMessages(mNativeAppWebMessagePort, messageCallback != null);
+            mMessageHandler =
+                    messageCallback == null ? null : new MessageHandler(messageCallback, handler);
+            AppWebMessagePortJni.get().setShouldReceiveMessages(
+                    mNativeAppWebMessagePort, messageCallback != null);
         });
     }
 
     @Override
-    public void postMessage(MessagePayload messagePayload, MessagePort[] sentPorts) throws IllegalStateException {
+    public void postMessage(MessagePayload messagePayload, MessagePort[] sentPorts)
+            throws IllegalStateException {
         if (isClosed() || isTransferred()) {
             throw new IllegalStateException("Port is already closed or transferred");
         }
@@ -196,16 +201,17 @@ public class AppWebMessagePort implements MessagePort {
         mStarted = true;
         PostTask.runOrPostTask(TaskTraits.UI_DEFAULT, () -> {
             if (mNativeAppWebMessagePort == 0L) return;
-            AppWebMessagePortJni.get().postMessage(mNativeAppWebMessagePort, messagePayload, sentPorts);
+            AppWebMessagePortJni.get().postMessage(
+                    mNativeAppWebMessagePort, messagePayload, sentPorts);
         });
     }
 
     /**
      * A finalizer is required to ensure that the native object associated with
      * this descriptor gets torn down, otherwise there would be a memory leak.
-     * <p>
+     *
      * This is safe because posting a task is fast.
-     * <p>
+     *
      * TODO(chrisha): Chase down the existing offenders that don't call close,
      * and flip this to use LifetimeAssert.
      *
@@ -275,11 +281,9 @@ public class AppWebMessagePort implements MessagePort {
     interface Natives {
         @NonNull
         AppWebMessagePort[] createPair();
-
-        void postMessage(long nativeAppWebMessagePort, MessagePayload messagePayload, MessagePort[] sentPorts);
-
+        void postMessage(long nativeAppWebMessagePort, MessagePayload messagePayload,
+                MessagePort[] sentPorts);
         void setShouldReceiveMessages(long nativeAppWebMessagePort, boolean shouldReceiveMessage);
-
         void closeAndDestroy(long nativeAppWebMessagePort);
     }
 }

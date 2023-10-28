@@ -12,7 +12,6 @@ public interface JankTracker {
      * Starts tracking UI jank for a specific use scenario (e.g. Tab switcher, Omnibox, etc.),
      * calling this method more than once without calling {@code finishTrackingScenario} won't do
      * anything.
-     *
      * @param scenario A value from {@link JankScenario} that specifies a use scenario.
      */
     void startTrackingScenario(@JankScenario int scenario);
@@ -22,13 +21,11 @@ public interface JankTracker {
      * for that scenario (e.g. Android.Jank.FrameDuration.Omnibox) are recorded immediately after
      * calling this method. Calling this method without calling {@code startTrackingScenario}
      * beforehand won't do anything.
-     *
-     * @param scenario        A value from {@link JankScenario} that specifies a use scenario.
+     * @param scenario A value from {@link JankScenario} that specifies a use scenario.
      * @param endScenarioTime A value that determines the maximum frame metric (based on vsync time)
-     *                        that should be included.
+     *         that should be included.
      */
     void finishTrackingScenario(@JankScenario int scenario, long endScenarioTimeNs);
-
     void finishTrackingScenario(@JankScenario int scenario);
 
     /**

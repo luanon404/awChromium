@@ -13,13 +13,15 @@
 
 package org.chromium.ax.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class AxTreeId extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
         public static final int Unknown = 0;
         public static final int Token = 1;
-    }
-
+    };
     private byte mUnknown;
     private org.chromium.mojo_base.mojom.UnguessableToken mToken;
 
@@ -50,12 +52,12 @@ public final class AxTreeId extends org.chromium.mojo.bindings.Union {
         encoder0.encode(this.mTag, offset + 4);
         switch (mTag) {
             case Tag.Unknown: {
-
+                
                 encoder0.encode(this.mUnknown, offset + 8);
                 break;
             }
             case Tag.Token: {
-
+                
                 encoder0.encode(this.mToken, offset + 8, false);
                 break;
             }
@@ -77,13 +79,13 @@ public final class AxTreeId extends org.chromium.mojo.bindings.Union {
         AxTreeId result = new AxTreeId();
         switch (dataHeader.elementsOrVersion) {
             case Tag.Unknown: {
-
+                
                 result.mUnknown = decoder0.readByte(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE);
                 result.mTag = Tag.Unknown;
                 break;
             }
             case Tag.Token: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mToken = org.chromium.mojo_base.mojom.UnguessableToken.decode(decoder1);
                 result.mTag = Tag.Token;

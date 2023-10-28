@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface SubresourceLoaderUpdater extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends SubresourceLoaderUpdater, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends SubresourceLoaderUpdater, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<SubresourceLoaderUpdater, SubresourceLoaderUpdater.Proxy> MANAGER = SubresourceLoaderUpdater_Internal.MANAGER;

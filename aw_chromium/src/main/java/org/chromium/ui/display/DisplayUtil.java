@@ -71,13 +71,13 @@ public abstract class DisplayUtil {
 
     /**
      * Scales up the UI for the {@link DisplayMetrics} by the scaling factor for automotive devices.
-     *
      * @param displayMetrics The DisplayMetrics to scale up density for.
      * @return The DisplayMetrics that was scaled up.
      */
     public static DisplayMetrics scaleUpDisplayMetricsForAutomotive(DisplayMetrics displayMetrics) {
         displayMetrics.density *= getUiScalingFactorForAutomotive();
-        displayMetrics.densityDpi = (int) (displayMetrics.densityDpi * getUiScalingFactorForAutomotive());
+        displayMetrics.densityDpi =
+                (int) (displayMetrics.densityDpi * getUiScalingFactorForAutomotive());
         displayMetrics.xdpi *= getUiScalingFactorForAutomotive();
         displayMetrics.ydpi *= getUiScalingFactorForAutomotive();
         return displayMetrics;
@@ -85,20 +85,25 @@ public abstract class DisplayUtil {
 
     /**
      * Scales up the UI for the {@link DisplayMetrics} by the scaling factor for automotive devices.
-     *
-     * @param context       The context used to retrieve the system {@link WindowManager}.
+     * @param context The context used to retrieve the system {@link WindowManager}.
      * @param configuration The Configuration to scale up UI for.
      */
-    public static void scaleUpConfigurationForAutomotive(Context context, Configuration configuration) {
+    public static void scaleUpConfigurationForAutomotive(
+            Context context, Configuration configuration) {
         DisplayMetrics displayMetrics = new DisplayMetrics();
-        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        WindowManager windowManager =
+                (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         assert windowManager != null;
         windowManager.getDefaultDisplay().getRealMetrics(displayMetrics);
 
-        configuration.densityDpi = (int) (displayMetrics.densityDpi * getUiScalingFactorForAutomotive());
-        configuration.screenWidthDp = (int) (displayMetrics.widthPixels / (displayMetrics.density * getUiScalingFactorForAutomotive()));
-        configuration.screenHeightDp = (int) (displayMetrics.heightPixels / (displayMetrics.density * getUiScalingFactorForAutomotive()));
-        configuration.smallestScreenWidthDp = Math.min(configuration.screenWidthDp, configuration.screenHeightDp);
+        configuration.densityDpi =
+                (int) (displayMetrics.densityDpi * getUiScalingFactorForAutomotive());
+        configuration.screenWidthDp = (int) (displayMetrics.widthPixels
+                / (displayMetrics.density * getUiScalingFactorForAutomotive()));
+        configuration.screenHeightDp = (int) (displayMetrics.heightPixels
+                / (displayMetrics.density * getUiScalingFactorForAutomotive()));
+        configuration.smallestScreenWidthDp =
+                Math.min(configuration.screenWidthDp, configuration.screenHeightDp);
     }
 
     /**
@@ -112,15 +117,20 @@ public abstract class DisplayUtil {
         DisplayAndroid display = DisplayAndroid.getNonMultiDisplay(context);
         // Android T does not receive updated width upon foldable unfold from window context.
         // Continue to rely on context on this case.
-        Context windowManagerContext = (VERSION.SDK_INT >= VERSION_CODES.R && VERSION.SDK_INT < VERSION_CODES.TIRAMISU) ? (display.getWindowContext() != null ? display.getWindowContext() : context) : context;
+        Context windowManagerContext =
+                (VERSION.SDK_INT >= VERSION_CODES.R && VERSION.SDK_INT < VERSION_CODES.TIRAMISU)
+                ? (display.getWindowContext() != null ? display.getWindowContext() : context)
+                : context;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             // Context#getSystemService(Context.WINDOW_SERVICE) is preferred over
             // Activity#getWindowManager, because during #attachBaseContext, #getWindowManager
             // is not ready yet and always returns null. See crbug.com/1252150.
-            WindowManager manager = (WindowManager) windowManagerContext.getSystemService(Context.WINDOW_SERVICE);
+            WindowManager manager =
+                    (WindowManager) windowManagerContext.getSystemService(Context.WINDOW_SERVICE);
             assert manager != null;
             Rect bounds = ApiHelperForR.getMaximumWindowMetricsBounds(manager);
-            return DisplayUtil.pxToDp(display, Math.min(bounds.right - bounds.left, bounds.bottom - bounds.top));
+            return DisplayUtil.pxToDp(
+                    display, Math.min(bounds.right - bounds.left, bounds.bottom - bounds.top));
         }
         return DisplayUtil.pxToDp(display, DisplayUtil.getSmallestWidth(display));
     }

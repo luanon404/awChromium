@@ -17,10 +17,11 @@ import androidx.annotation.IntDef;
 
 public final class SourceRegistrationTimeConfig {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({SourceRegistrationTimeConfig.INCLUDE, SourceRegistrationTimeConfig.EXCLUDE})
-    public @interface EnumType {
-    }
+        SourceRegistrationTimeConfig.INCLUDE,
+        SourceRegistrationTimeConfig.EXCLUDE})
+    public @interface EnumType {}
 
     public static final int INCLUDE = 0;
     public static final int EXCLUDE = 1;
@@ -37,9 +38,8 @@ public final class SourceRegistrationTimeConfig {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private SourceRegistrationTimeConfig() {
-    }
+    private SourceRegistrationTimeConfig() {}
 }

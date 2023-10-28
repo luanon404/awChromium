@@ -4,8 +4,9 @@
 
 package org.chromium.content.browser;
 
-import org.chromium.net.ProxyChangeListener;
 import org.jni_zero.NativeMethods;
+
+import org.chromium.net.ProxyChangeListener;
 
 /**
  * Implementations of {@link ContentViewStatics}.

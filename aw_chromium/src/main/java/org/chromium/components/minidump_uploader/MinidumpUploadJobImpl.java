@@ -49,9 +49,8 @@ public class MinidumpUploadJobImpl implements MinidumpUploadJob {
 
     /**
      * Utility method to allow tests to customize the behavior of the crash file manager.
-     *
      * @param {crashParentDir} The directory that contains the "Crash Reports" directory, in which
-     *                         crash files (i.e. minidumps) are stored.
+     *     crash files (i.e. minidumps) are stored.
      */
     @VisibleForTesting
     public CrashFileManager createCrashFileManager(File crashParentDir) {
@@ -64,7 +63,8 @@ public class MinidumpUploadJobImpl implements MinidumpUploadJob {
      */
     @VisibleForTesting
     public MinidumpUploadCallable createMinidumpUploadCallable(File minidumpFile, File logfile) {
-        return new MinidumpUploadCallable(minidumpFile, logfile, mDelegate.createCrashReportingPermissionManager());
+        return new MinidumpUploadCallable(
+                minidumpFile, logfile, mDelegate.createCrashReportingPermissionManager());
     }
 
     /**
@@ -110,8 +110,10 @@ public class MinidumpUploadJobImpl implements MinidumpUploadJob {
             Log.i(TAG, "Attempting to upload %d minidumps.", minidumps.length);
             for (File minidump : minidumps) {
                 Log.i(TAG, "Attempting to upload " + minidump.getName());
-                MinidumpUploadCallable uploadCallable = createMinidumpUploadCallable(minidump, fileManager.getCrashUploadLogFile());
-                @MinidumpUploadStatus int uploadResult = uploadCallable.call();
+                MinidumpUploadCallable uploadCallable =
+                        createMinidumpUploadCallable(minidump, fileManager.getCrashUploadLogFile());
+                @MinidumpUploadStatus
+                int uploadResult = uploadCallable.call();
 
                 // Record metrics about the upload.
                 if (uploadResult == MinidumpUploadStatus.SUCCESS) {
@@ -159,13 +161,15 @@ public class MinidumpUploadJobImpl implements MinidumpUploadJob {
             fileManager.cleanOutAllNonFreshMinidumpFiles();
 
             // Reschedule if there are still minidumps to upload.
-            boolean reschedule = fileManager.getMinidumpsReadyForUpload(MAX_UPLOAD_TRIES_ALLOWED).length > 0;
+            boolean reschedule =
+                    fileManager.getMinidumpsReadyForUpload(MAX_UPLOAD_TRIES_ALLOWED).length > 0;
             invokeCallback(reschedule);
         }
     }
 
     @Override
-    public void uploadAllMinidumps(final MinidumpUploadJob.UploadsFinishedCallback uploadsFinishedCallback) {
+    public void uploadAllMinidumps(
+            final MinidumpUploadJob.UploadsFinishedCallback uploadsFinishedCallback) {
         ThreadUtils.assertOnUiThread();
         assert !mIsActive;
         mCancelUpload = false;
@@ -182,7 +186,8 @@ public class MinidumpUploadJobImpl implements MinidumpUploadJob {
                 // still a chance to upload at least one minidump per job, as long as that job
                 // starts before it is canceled by the next job. See the UploadRunnable
                 // implementation for more details.
-                PostTask.postTask(TaskTraits.BEST_EFFORT_MAY_BLOCK, new UploadRunnable(uploadsFinishedCallback));
+                PostTask.postTask(TaskTraits.BEST_EFFORT_MAY_BLOCK,
+                        new UploadRunnable(uploadsFinishedCallback));
             }
         });
     }

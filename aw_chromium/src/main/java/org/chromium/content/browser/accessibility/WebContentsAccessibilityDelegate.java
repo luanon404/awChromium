@@ -54,8 +54,7 @@ public class WebContentsAccessibilityDelegate implements AccessibilityDelegate {
     }
 
     class AccessibilityCoordinatesImpl implements AccessibilityCoordinates {
-        AccessibilityCoordinatesImpl() {
-        }
+        AccessibilityCoordinatesImpl() {}
 
         @Override
         public float fromLocalCssToPix(float css) {

@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface OomInterventionHost extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends OomInterventionHost, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends OomInterventionHost, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<OomInterventionHost, OomInterventionHost.Proxy> MANAGER = OomInterventionHost_Internal.MANAGER;

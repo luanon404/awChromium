@@ -13,53 +13,64 @@
 
 package org.chromium.media_session.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface AudioFocusManager extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends AudioFocusManager, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends AudioFocusManager, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<AudioFocusManager, AudioFocusManager.Proxy> MANAGER = AudioFocusManager_Internal.MANAGER;
 
-    void requestAudioFocus(org.chromium.mojo.bindings.InterfaceRequest<AudioFocusRequestClient> client, MediaSession session, MediaSessionInfo sessionInfo, int type, RequestAudioFocus_Response callback);
+    void requestAudioFocus(
+org.chromium.mojo.bindings.InterfaceRequest<AudioFocusRequestClient> client, MediaSession session, MediaSessionInfo sessionInfo, int type, 
+RequestAudioFocus_Response callback);
 
-    interface RequestAudioFocus_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<org.chromium.mojo_base.mojom.UnguessableToken> {
-    }
+    interface RequestAudioFocus_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<org.chromium.mojo_base.mojom.UnguessableToken> { }
 
 
-    void requestGroupedAudioFocus(org.chromium.mojo_base.mojom.UnguessableToken requestId, org.chromium.mojo.bindings.InterfaceRequest<AudioFocusRequestClient> client, MediaSession session, MediaSessionInfo sessionInfo, int type, org.chromium.mojo_base.mojom.UnguessableToken groupId, RequestGroupedAudioFocus_Response callback);
+    void requestGroupedAudioFocus(
+org.chromium.mojo_base.mojom.UnguessableToken requestId, org.chromium.mojo.bindings.InterfaceRequest<AudioFocusRequestClient> client, MediaSession session, MediaSessionInfo sessionInfo, int type, org.chromium.mojo_base.mojom.UnguessableToken groupId, 
+RequestGroupedAudioFocus_Response callback);
 
-    interface RequestGroupedAudioFocus_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> {
-    }
+    interface RequestGroupedAudioFocus_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> { }
 
 
     void getFocusRequests(
 
-            GetFocusRequests_Response callback);
+GetFocusRequests_Response callback);
 
-    interface GetFocusRequests_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<AudioFocusRequestState[]> {
-    }
-
-
-    void addObserver(AudioFocusObserver observer);
+    interface GetFocusRequests_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<AudioFocusRequestState[]> { }
 
 
-    void setSource(org.chromium.mojo_base.mojom.UnguessableToken identity, String name);
+    void addObserver(
+AudioFocusObserver observer);
 
 
-    void setEnforcementMode(int mode);
+    void setSource(
+org.chromium.mojo_base.mojom.UnguessableToken identity, String name);
 
 
-    void addSourceObserver(org.chromium.mojo_base.mojom.UnguessableToken sourceId, AudioFocusObserver observer);
+    void setEnforcementMode(
+int mode);
 
 
-    void getSourceFocusRequests(org.chromium.mojo_base.mojom.UnguessableToken sourceId, GetSourceFocusRequests_Response callback);
-
-    interface GetSourceFocusRequests_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<AudioFocusRequestState[]> {
-    }
+    void addSourceObserver(
+org.chromium.mojo_base.mojom.UnguessableToken sourceId, AudioFocusObserver observer);
 
 
-    void requestIdReleased(org.chromium.mojo_base.mojom.UnguessableToken requestId);
+    void getSourceFocusRequests(
+org.chromium.mojo_base.mojom.UnguessableToken sourceId, 
+GetSourceFocusRequests_Response callback);
+
+    interface GetSourceFocusRequests_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<AudioFocusRequestState[]> { }
+
+
+    void requestIdReleased(
+org.chromium.mojo_base.mojom.UnguessableToken requestId);
 
 
 }

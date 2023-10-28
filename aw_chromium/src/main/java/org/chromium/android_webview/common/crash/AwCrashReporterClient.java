@@ -20,7 +20,7 @@ public class AwCrashReporterClient {
 
     /**
      * Determine if a Throwable should be reported to the crash reporting mechanism.
-     * <p>
+     *
      * We report exceptions if any stack frame corresponds to a class directly defined in the
      * WebView classloader (which may have been proguarded) or is defined in an ancestral
      * classloader, but has package android.webkit. (i.e. it is a framework WebView class).
@@ -34,7 +34,11 @@ public class AwCrashReporterClient {
     @CalledByNative
     public static boolean stackTraceContainsWebViewCode(Throwable t) {
         for (StackTraceElement frame : t.getStackTrace()) {
-            if (frame.getClassName().startsWith("android.webkit.") || frame.getClassName().startsWith("com.android.webview.") || frame.getClassName().startsWith("org.chromium.") || (frame.getFileName() != null && frame.getFileName().startsWith(CHROMIUM_PREFIX))) {
+            if (frame.getClassName().startsWith("android.webkit.")
+                    || frame.getClassName().startsWith("com.android.webview.")
+                    || frame.getClassName().startsWith("org.chromium.")
+                    || (frame.getFileName() != null
+                            && frame.getFileName().startsWith(CHROMIUM_PREFIX))) {
                 return true;
             }
         }

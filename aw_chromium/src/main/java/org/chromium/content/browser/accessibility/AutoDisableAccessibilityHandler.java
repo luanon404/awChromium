@@ -21,7 +21,6 @@ public class AutoDisableAccessibilityHandler {
         /**
          * View of the Client. This View will be used to post a delayed Runnable for the
          * associated Handler's timer.
-         *
          * @return View of this Client
          */
         View getView();
@@ -43,7 +42,6 @@ public class AutoDisableAccessibilityHandler {
 
     /**
      * Starts running the timer for this instance that will run for the given duration in ms.
-     *
      * @param duration of the timer, in ms.
      */
     public void startDisableTimer(int duration) {

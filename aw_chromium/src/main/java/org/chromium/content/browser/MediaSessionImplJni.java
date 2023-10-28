@@ -3,76 +3,93 @@
 //
 package org.chromium.content.browser;
 
-import org.chromium.content_public.browser.WebContents;
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import androidx.annotation.Nullable;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.ObserverList;
+import org.chromium.content_public.browser.MediaSession;
+import org.chromium.content_public.browser.MediaSessionObserver;
+import org.chromium.content_public.browser.WebContents;
+import org.chromium.services.media_session.MediaImage;
+import org.chromium.services.media_session.MediaMetadata;
+import org.chromium.services.media_session.MediaPosition;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
 
 @CheckDiscard("crbug.com/993421")
 class MediaSessionImplJni implements MediaSessionImpl.Natives {
-    private static MediaSessionImpl.Natives testInstance;
+  private static MediaSessionImpl.Natives testInstance;
 
-    public static final JniStaticTestMocker<MediaSessionImpl.Natives> TEST_HOOKS = new JniStaticTestMocker<MediaSessionImpl.Natives>() {
-        @Override
-        public void setInstanceForTesting(MediaSessionImpl.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<MediaSessionImpl.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<MediaSessionImpl.Natives>() {
     @Override
-    public void didReceiveAction(long nativeMediaSessionAndroid, MediaSessionImpl caller, int action) {
-        GEN_JNI.org_chromium_content_browser_MediaSessionImpl_didReceiveAction(nativeMediaSessionAndroid, caller, action);
+    public void setInstanceForTesting(MediaSessionImpl.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public MediaSessionImpl getMediaSessionFromWebContents(WebContents contents) {
-        return (MediaSessionImpl) GEN_JNI.org_chromium_content_browser_MediaSessionImpl_getMediaSessionFromWebContents(contents);
-    }
+  @Override
+  public void didReceiveAction(long nativeMediaSessionAndroid, MediaSessionImpl caller, int action) {
+    GEN_JNI.org_chromium_content_browser_MediaSessionImpl_didReceiveAction(nativeMediaSessionAndroid, caller, action);
+  }
 
-    @Override
-    public void requestSystemAudioFocus(long nativeMediaSessionAndroid, MediaSessionImpl caller) {
-        GEN_JNI.org_chromium_content_browser_MediaSessionImpl_requestSystemAudioFocus(nativeMediaSessionAndroid, caller);
-    }
+  @Override
+  public MediaSessionImpl getMediaSessionFromWebContents(WebContents contents) {
+    return (MediaSessionImpl) GEN_JNI.org_chromium_content_browser_MediaSessionImpl_getMediaSessionFromWebContents(contents);
+  }
 
-    @Override
-    public void resume(long nativeMediaSessionAndroid, MediaSessionImpl caller) {
-        GEN_JNI.org_chromium_content_browser_MediaSessionImpl_resume(nativeMediaSessionAndroid, caller);
-    }
+  @Override
+  public void requestSystemAudioFocus(long nativeMediaSessionAndroid, MediaSessionImpl caller) {
+    GEN_JNI.org_chromium_content_browser_MediaSessionImpl_requestSystemAudioFocus(nativeMediaSessionAndroid, caller);
+  }
 
-    @Override
-    public void seek(long nativeMediaSessionAndroid, MediaSessionImpl caller, long millis) {
-        GEN_JNI.org_chromium_content_browser_MediaSessionImpl_seek(nativeMediaSessionAndroid, caller, millis);
-    }
+  @Override
+  public void resume(long nativeMediaSessionAndroid, MediaSessionImpl caller) {
+    GEN_JNI.org_chromium_content_browser_MediaSessionImpl_resume(nativeMediaSessionAndroid, caller);
+  }
 
-    @Override
-    public void seekTo(long nativeMediaSessionAndroid, MediaSessionImpl caller, long millis) {
-        GEN_JNI.org_chromium_content_browser_MediaSessionImpl_seekTo(nativeMediaSessionAndroid, caller, millis);
-    }
+  @Override
+  public void seek(long nativeMediaSessionAndroid, MediaSessionImpl caller, long millis) {
+    GEN_JNI.org_chromium_content_browser_MediaSessionImpl_seek(nativeMediaSessionAndroid, caller, millis);
+  }
 
-    @Override
-    public void stop(long nativeMediaSessionAndroid, MediaSessionImpl caller) {
-        GEN_JNI.org_chromium_content_browser_MediaSessionImpl_stop(nativeMediaSessionAndroid, caller);
-    }
+  @Override
+  public void seekTo(long nativeMediaSessionAndroid, MediaSessionImpl caller, long millis) {
+    GEN_JNI.org_chromium_content_browser_MediaSessionImpl_seekTo(nativeMediaSessionAndroid, caller, millis);
+  }
 
-    @Override
-    public void suspend(long nativeMediaSessionAndroid, MediaSessionImpl caller) {
-        GEN_JNI.org_chromium_content_browser_MediaSessionImpl_suspend(nativeMediaSessionAndroid, caller);
-    }
+  @Override
+  public void stop(long nativeMediaSessionAndroid, MediaSessionImpl caller) {
+    GEN_JNI.org_chromium_content_browser_MediaSessionImpl_stop(nativeMediaSessionAndroid, caller);
+  }
 
-    public static MediaSessionImpl.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of MediaSessionImpl.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new MediaSessionImplJni();
+  @Override
+  public void suspend(long nativeMediaSessionAndroid, MediaSessionImpl caller) {
+    GEN_JNI.org_chromium_content_browser_MediaSessionImpl_suspend(nativeMediaSessionAndroid, caller);
+  }
+
+  public static MediaSessionImpl.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of MediaSessionImpl.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new MediaSessionImplJni();
+  }
 }

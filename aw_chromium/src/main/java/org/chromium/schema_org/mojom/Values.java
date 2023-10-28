@@ -13,6 +13,9 @@
 
 package org.chromium.schema_org.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class Values extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
@@ -20,8 +23,7 @@ public final class Values extends org.chromium.mojo.bindings.Union {
         public static final int LongValues = 1;
         public static final int StringValues = 2;
         public static final int EntityValues = 3;
-    }
-
+    };
     private boolean[] mBoolValues;
     private long[] mLongValues;
     private String[] mStringValues;
@@ -74,36 +76,36 @@ public final class Values extends org.chromium.mojo.bindings.Union {
         encoder0.encode(this.mTag, offset + 4);
         switch (mTag) {
             case Tag.BoolValues: {
-
+                
                 encoder0.encode(this.mBoolValues, offset + 8, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                 break;
             }
             case Tag.LongValues: {
-
+                
                 encoder0.encode(this.mLongValues, offset + 8, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                 break;
             }
             case Tag.StringValues: {
-
+                
                 if (this.mStringValues == null) {
                     encoder0.encodeNullPointer(offset + 8, false);
                 } else {
                     org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.mStringValues.length, offset + 8, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                     for (int i0 = 0; i0 < this.mStringValues.length; ++i0) {
-
+                        
                         encoder1.encode(this.mStringValues[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
                     }
                 }
                 break;
             }
             case Tag.EntityValues: {
-
+                
                 if (this.mEntityValues == null) {
                     encoder0.encodeNullPointer(offset + 8, false);
                 } else {
                     org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.mEntityValues.length, offset + 8, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                     for (int i0 = 0; i0 < this.mEntityValues.length; ++i0) {
-
+                        
                         encoder1.encode(this.mEntityValues[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
                     }
                 }
@@ -127,25 +129,25 @@ public final class Values extends org.chromium.mojo.bindings.Union {
         Values result = new Values();
         switch (dataHeader.elementsOrVersion) {
             case Tag.BoolValues: {
-
+                
                 result.mBoolValues = decoder0.readBooleans(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                 result.mTag = Tag.BoolValues;
                 break;
             }
             case Tag.LongValues: {
-
+                
                 result.mLongValues = decoder0.readLongs(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                 result.mTag = Tag.LongValues;
                 break;
             }
             case Tag.StringValues: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 {
                     org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                     result.mStringValues = new String[si1.elementsOrVersion];
                     for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                        
                         result.mStringValues[i1] = decoder1.readString(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                     }
                 }
@@ -153,13 +155,13 @@ public final class Values extends org.chromium.mojo.bindings.Union {
                 break;
             }
             case Tag.EntityValues: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 {
                     org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                     result.mEntityValues = new Entity[si1.elementsOrVersion];
                     for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                        
                         org.chromium.mojo.bindings.Decoder decoder2 = decoder1.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                         result.mEntityValues[i1] = Entity.decode(decoder2);
                     }

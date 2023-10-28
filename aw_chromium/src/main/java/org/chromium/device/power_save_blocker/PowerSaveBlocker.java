@@ -16,7 +16,8 @@ import java.util.WeakHashMap;
 class PowerSaveBlocker {
     // Counter associated to a view to know how many PowerSaveBlocker are
     // currently registered. Using WeakHashMap to prevent leaks in Android WebView.
-    private static final WeakHashMap<View, Integer> sBlockViewCounter = new WeakHashMap<View, Integer>();
+    private static final WeakHashMap<View, Integer> sBlockViewCounter =
+            new WeakHashMap<View, Integer>();
 
     // WeakReference to prevent leaks in Android WebView.
     private WeakReference<View> mKeepScreenOnView;
@@ -26,8 +27,7 @@ class PowerSaveBlocker {
         return new PowerSaveBlocker();
     }
 
-    private PowerSaveBlocker() {
-    }
+    private PowerSaveBlocker() {}
 
     @CalledByNative
     private void applyBlock(View view) {

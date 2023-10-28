@@ -17,10 +17,11 @@ import androidx.annotation.IntDef;
 
 public final class SerialPortType {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({SerialPortType.PLATFORM_SERIAL, SerialPortType.BLUETOOTH_CLASSIC_RFCOMM})
-    public @interface EnumType {
-    }
+        SerialPortType.PLATFORM_SERIAL,
+        SerialPortType.BLUETOOTH_CLASSIC_RFCOMM})
+    public @interface EnumType {}
 
     public static final int PLATFORM_SERIAL = 0;
     public static final int BLUETOOTH_CLASSIC_RFCOMM = 1;
@@ -37,9 +38,8 @@ public final class SerialPortType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private SerialPortType() {
-    }
+    private SerialPortType() {}
 }

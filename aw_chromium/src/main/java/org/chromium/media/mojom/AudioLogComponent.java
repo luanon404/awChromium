@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class AudioLogComponent {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({AudioLogComponent.INPUT_CONTROLLER, AudioLogComponent.OUTPUT_CONTROLLER, AudioLogComponent.OUTPUT_STREAM})
-    public @interface EnumType {
-    }
+        AudioLogComponent.INPUT_CONTROLLER,
+        AudioLogComponent.OUTPUT_CONTROLLER,
+        AudioLogComponent.OUTPUT_STREAM})
+    public @interface EnumType {}
 
     public static final int INPUT_CONTROLLER = 0;
     public static final int OUTPUT_CONTROLLER = 1;
@@ -38,9 +40,8 @@ public final class AudioLogComponent {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private AudioLogComponent() {
-    }
+    private AudioLogComponent() {}
 }

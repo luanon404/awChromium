@@ -44,12 +44,14 @@ public class InputMethodManagerWrapperImpl implements InputMethodManagerWrapper 
 
     private boolean mOptimizeImmHideCalls;
 
-    public InputMethodManagerWrapperImpl(Context context, WindowAndroid windowAndroid, Delegate delegate) {
+    public InputMethodManagerWrapperImpl(
+            Context context, WindowAndroid windowAndroid, Delegate delegate) {
         if (DEBUG_LOGS) Log.i(TAG, "Constructor");
         mContext = context;
         mWindowAndroid = windowAndroid;
         mDelegate = delegate;
-        mOptimizeImmHideCalls = ContentFeatureMap.isEnabled(ContentFeatureList.OPTIMIZE_IMM_HIDE_CALLS);
+        mOptimizeImmHideCalls =
+                ContentFeatureMap.isEnabled(ContentFeatureList.OPTIMIZE_IMM_HIDE_CALLS);
     }
 
     @Override
@@ -105,7 +107,10 @@ public class InputMethodManagerWrapperImpl implements InputMethodManagerWrapper 
         int contextDisplayId = getDisplayId(context);
         int activityDisplayId = getDisplayId(activity);
         if (activityDisplayId != contextDisplayId) {
-            Log.w(TAG, "Activity's display ID(%d) does not match context's display ID(%d). " + "Using a workaround to show soft input on the correct display...", activityDisplayId, contextDisplayId);
+            Log.w(TAG,
+                    "Activity's display ID(%d) does not match context's display ID(%d). "
+                            + "Using a workaround to show soft input on the correct display...",
+                    activityDisplayId, contextDisplayId);
             return false;
         }
         return true;
@@ -162,7 +167,8 @@ public class InputMethodManagerWrapperImpl implements InputMethodManagerWrapper 
     }
 
     @Override
-    public boolean hideSoftInputFromWindow(IBinder windowToken, int flags, ResultReceiver resultReceiver) {
+    public boolean hideSoftInputFromWindow(
+            IBinder windowToken, int flags, ResultReceiver resultReceiver) {
         if (DEBUG_LOGS) Log.i(TAG, "hideSoftInputFromWindow");
         mPendingRunnableOnInputConnection = null;
         InputMethodManager manager = getInputMethodManager();
@@ -176,9 +182,11 @@ public class InputMethodManagerWrapperImpl implements InputMethodManagerWrapper 
     }
 
     @Override
-    public void updateSelection(View view, int selStart, int selEnd, int candidatesStart, int candidatesEnd) {
+    public void updateSelection(
+            View view, int selStart, int selEnd, int candidatesStart, int candidatesEnd) {
         if (DEBUG_LOGS) {
-            Log.i(TAG, "updateSelection: SEL [%d, %d], COM [%d, %d]", selStart, selEnd, candidatesStart, candidatesEnd);
+            Log.i(TAG, "updateSelection: SEL [%d, %d], COM [%d, %d]", selStart, selEnd,
+                    candidatesStart, candidatesEnd);
         }
         InputMethodManager manager = getInputMethodManager();
         if (manager == null) return;
@@ -194,7 +202,8 @@ public class InputMethodManagerWrapperImpl implements InputMethodManagerWrapper 
     }
 
     @Override
-    public void updateExtractedText(View view, int token, android.view.inputmethod.ExtractedText text) {
+    public void updateExtractedText(
+            View view, int token, android.view.inputmethod.ExtractedText text) {
         if (DEBUG_LOGS) Log.d(TAG, "updateExtractedText");
         InputMethodManager manager = getInputMethodManager();
         if (manager == null) return;

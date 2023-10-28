@@ -13,10 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class ReportingApiReport extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 72;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(72, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(72, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public org.chromium.mojo_base.mojom.UnguessableToken id;
     public org.chromium.url.mojom.Url url;
@@ -46,7 +49,8 @@ public final class ReportingApiReport extends org.chromium.mojo.bindings.Struct 
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static ReportingApiReport deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -60,48 +64,48 @@ public final class ReportingApiReport extends org.chromium.mojo.bindings.Struct 
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new ReportingApiReport(elementsOrVersion);
-            {
-
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                 result.id = org.chromium.mojo_base.mojom.UnguessableToken.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                 result.url = org.chromium.url.mojom.Url.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.group = decoder0.readString(24, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.type = decoder0.readString(32, false);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(40, false);
                 result.timestamp = org.chromium.mojo_base.mojom.TimeTicks.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.depth = decoder0.readInt(48);
-            }
-            {
-
+                }
+                {
+                    
                 result.attempts = decoder0.readInt(52);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(56, false);
                 result.body = org.chromium.mojo_base.mojom.DictionaryValue.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.status = decoder0.readInt(64);
-                ReportingApiReportStatus.validate(result.status);
-                result.status = ReportingApiReportStatus.toKnownValue(result.status);
-            }
+                    ReportingApiReportStatus.validate(result.status);
+                    result.status = ReportingApiReportStatus.toKnownValue(result.status);
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -113,23 +117,23 @@ public final class ReportingApiReport extends org.chromium.mojo.bindings.Struct 
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.id, 8, false);
-
+        
         encoder0.encode(this.url, 16, false);
-
+        
         encoder0.encode(this.group, 24, false);
-
+        
         encoder0.encode(this.type, 32, false);
-
+        
         encoder0.encode(this.timestamp, 40, false);
-
+        
         encoder0.encode(this.depth, 48);
-
+        
         encoder0.encode(this.attempts, 52);
-
+        
         encoder0.encode(this.body, 56, false);
-
+        
         encoder0.encode(this.status, 64);
     }
 }

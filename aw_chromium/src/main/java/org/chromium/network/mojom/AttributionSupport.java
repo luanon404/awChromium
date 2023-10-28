@@ -17,10 +17,13 @@ import androidx.annotation.IntDef;
 
 public final class AttributionSupport {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({AttributionSupport.WEB, AttributionSupport.WEB_AND_OS, AttributionSupport.OS, AttributionSupport.NONE})
-    public @interface EnumType {
-    }
+        AttributionSupport.WEB,
+        AttributionSupport.WEB_AND_OS,
+        AttributionSupport.OS,
+        AttributionSupport.NONE})
+    public @interface EnumType {}
 
     public static final int WEB = 0;
     public static final int WEB_AND_OS = 1;
@@ -39,9 +42,8 @@ public final class AttributionSupport {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private AttributionSupport() {
-    }
+    private AttributionSupport() {}
 }

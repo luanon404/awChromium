@@ -6,10 +6,10 @@ package org.chromium.content.browser.framehost;
 
 /**
  * The RenderFrameHost Java wrapper to allow communicating with the native RenderFrameHost object.
+ *
  */
 public interface RenderFrameHostDelegate {
     // Mirrors callbacks for native RenderFrameHostDelegate.
     void renderFrameCreated(RenderFrameHostImpl host);
-
     void renderFrameDeleted(RenderFrameHostImpl host);
 }

@@ -13,6 +13,8 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public final class FileSystemAccessChangeType extends org.chromium.mojo.bindings.Union {
 
@@ -23,8 +25,7 @@ public final class FileSystemAccessChangeType extends org.chromium.mojo.bindings
         public static final int Modified = 3;
         public static final int Moved = 4;
         public static final int Unsupported = 5;
-    }
-
+    };
     private FileSystemAccessChangeTypeCreated mCreated;
     private FileSystemAccessChangeTypeDeleted mDeleted;
     private FileSystemAccessChangeTypeErrored mErrored;

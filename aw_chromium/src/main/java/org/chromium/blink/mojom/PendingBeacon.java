@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface PendingBeacon extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends PendingBeacon, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends PendingBeacon, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<PendingBeacon, PendingBeacon.Proxy> MANAGER = PendingBeacon_Internal.MANAGER;

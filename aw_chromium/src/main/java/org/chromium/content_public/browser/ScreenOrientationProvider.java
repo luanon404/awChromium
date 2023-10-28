@@ -21,35 +21,28 @@ public interface ScreenOrientationProvider {
 
     /**
      * Locks screen rotation to a given orientation.
-     *
-     * @param window               Window to lock rotation on.
+     * @param window Window to lock rotation on.
      * @param webScreenOrientation Screen orientation.
      */
     void lockOrientation(@Nullable WindowAndroid window, byte webScreenOrientation);
 
     /**
      * Unlocks screen orientation.
-     *
      * @param window Window to unlock rotation on.
      */
     void unlockOrientation(@Nullable WindowAndroid window);
 
-    /**
-     * Delays screen orientation requests for the given window.
-     */
+    /** Delays screen orientation requests for the given window. */
     void delayOrientationRequests(WindowAndroid window);
 
-    /**
-     * Runs delayed screen orientation requests for the given window.
-     */
+    /** Runs delayed screen orientation requests for the given window. */
     void runDelayedOrientationRequests(WindowAndroid window);
 
     void setOrientationDelegate(ScreenOrientationDelegate delegate);
 
     /**
      * Sets a default screen orientation for a given window.
-     *
-     * @param window                Window to lock rotation on.
+     * @param window Window to lock rotation on.
      * @param defaultWebOrientation a default screen orientation for the window.
      */
     void setOverrideDefaultOrientation(WindowAndroid window, byte defaultWebOrientation);

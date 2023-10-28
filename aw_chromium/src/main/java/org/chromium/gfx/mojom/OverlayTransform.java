@@ -17,10 +17,17 @@ import androidx.annotation.IntDef;
 
 public final class OverlayTransform {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({OverlayTransform.OVERLAY_TRANSFORM_INVALID, OverlayTransform.OVERLAY_TRANSFORM_NONE, OverlayTransform.OVERLAY_TRANSFORM_FLIP_HORIZONTAL, OverlayTransform.OVERLAY_TRANSFORM_FLIP_VERTICAL, OverlayTransform.OVERLAY_TRANSFORM_ROTATE_90, OverlayTransform.OVERLAY_TRANSFORM_ROTATE_180, OverlayTransform.OVERLAY_TRANSFORM_ROTATE_270, OverlayTransform.OVERLAY_TRANSFORM_LAST})
-    public @interface EnumType {
-    }
+        OverlayTransform.OVERLAY_TRANSFORM_INVALID,
+        OverlayTransform.OVERLAY_TRANSFORM_NONE,
+        OverlayTransform.OVERLAY_TRANSFORM_FLIP_HORIZONTAL,
+        OverlayTransform.OVERLAY_TRANSFORM_FLIP_VERTICAL,
+        OverlayTransform.OVERLAY_TRANSFORM_ROTATE_90,
+        OverlayTransform.OVERLAY_TRANSFORM_ROTATE_180,
+        OverlayTransform.OVERLAY_TRANSFORM_ROTATE_270,
+        OverlayTransform.OVERLAY_TRANSFORM_LAST})
+    public @interface EnumType {}
 
     public static final int OVERLAY_TRANSFORM_INVALID = 0;
     public static final int OVERLAY_TRANSFORM_NONE = 1;
@@ -29,12 +36,12 @@ public final class OverlayTransform {
     public static final int OVERLAY_TRANSFORM_ROTATE_90 = 4;
     public static final int OVERLAY_TRANSFORM_ROTATE_180 = 5;
     public static final int OVERLAY_TRANSFORM_ROTATE_270 = 6;
-    public static final int OVERLAY_TRANSFORM_LAST = 7;
+    public static final int OVERLAY_TRANSFORM_LAST = 6;
     public static final int MIN_VALUE = 0;
-    public static final int MAX_VALUE = 7;
+    public static final int MAX_VALUE = 6;
 
     public static boolean isKnownValue(int value) {
-        return value >= 0 && value <= 7;
+        return value >= 0 && value <= 6;
     }
 
     public static void validate(int value) {
@@ -43,9 +50,8 @@ public final class OverlayTransform {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private OverlayTransform() {
-    }
+    private OverlayTransform() {}
 }

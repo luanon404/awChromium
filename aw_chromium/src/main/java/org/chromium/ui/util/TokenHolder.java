@@ -12,9 +12,7 @@ import java.util.Set;
  * boolean state, e.g. visibility of a view.
  */
 public class TokenHolder {
-    /**
-     * An invalid token; this can be used to indicate no token is being held.
-     */
+    /** An invalid token; this can be used to indicate no token is being held. */
     public static final int INVALID_TOKEN = -1;
 
     private int mNextToken;

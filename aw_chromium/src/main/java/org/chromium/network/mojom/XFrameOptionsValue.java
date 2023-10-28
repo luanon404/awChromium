@@ -17,10 +17,15 @@ import androidx.annotation.IntDef;
 
 public final class XFrameOptionsValue {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({XFrameOptionsValue.NONE, XFrameOptionsValue.DENY, XFrameOptionsValue.SAME_ORIGIN, XFrameOptionsValue.ALLOW_ALL, XFrameOptionsValue.INVALID, XFrameOptionsValue.CONFLICT})
-    public @interface EnumType {
-    }
+        XFrameOptionsValue.NONE,
+        XFrameOptionsValue.DENY,
+        XFrameOptionsValue.SAME_ORIGIN,
+        XFrameOptionsValue.ALLOW_ALL,
+        XFrameOptionsValue.INVALID,
+        XFrameOptionsValue.CONFLICT})
+    public @interface EnumType {}
 
     public static final int NONE = 0;
     public static final int DENY = 1;
@@ -41,9 +46,8 @@ public final class XFrameOptionsValue {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private XFrameOptionsValue() {
-    }
+    private XFrameOptionsValue() {}
 }

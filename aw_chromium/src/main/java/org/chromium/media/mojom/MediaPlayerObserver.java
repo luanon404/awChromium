@@ -13,48 +13,64 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface MediaPlayerObserver extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends MediaPlayerObserver, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends MediaPlayerObserver, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<MediaPlayerObserver, MediaPlayerObserver.Proxy> MANAGER = MediaPlayerObserver_Internal.MANAGER;
 
-    void onMediaPlaying();
+    void onMediaPlaying(
+);
 
 
-    void onMediaPaused(boolean streamEnded);
+    void onMediaPaused(
+boolean streamEnded);
 
 
-    void onMutedStatusChanged(boolean muted);
+    void onMutedStatusChanged(
+boolean muted);
 
 
-    void onMediaMetadataChanged(boolean hasAudio, boolean hasVideo, int contentType);
+    void onMediaMetadataChanged(
+boolean hasAudio, boolean hasVideo, int contentType);
 
 
-    void onMediaPositionStateChanged(org.chromium.media_session.mojom.MediaPosition mediaPosition);
+    void onMediaPositionStateChanged(
+org.chromium.media_session.mojom.MediaPosition mediaPosition);
 
 
-    void onMediaEffectivelyFullscreenChanged(int status);
+    void onMediaEffectivelyFullscreenChanged(
+int status);
 
 
-    void onMediaSizeChanged(org.chromium.gfx.mojom.Size size);
+    void onMediaSizeChanged(
+org.chromium.gfx.mojom.Size size);
 
 
-    void onPictureInPictureAvailabilityChanged(boolean available);
+    void onPictureInPictureAvailabilityChanged(
+boolean available);
 
 
-    void onAudioOutputSinkChanged(String hashedDeviceId);
+    void onAudioOutputSinkChanged(
+String hashedDeviceId);
 
 
-    void onUseAudioServiceChanged(boolean usesAudioService);
+    void onUseAudioServiceChanged(
+boolean usesAudioService);
 
 
-    void onAudioOutputSinkChangingDisabled();
+    void onAudioOutputSinkChangingDisabled(
+);
 
 
-    void onRemotePlaybackMetadataChange(org.chromium.media_session.mojom.RemotePlaybackMetadata remotePlaybackMetadata);
+    void onRemotePlaybackMetadataChange(
+org.chromium.media_session.mojom.RemotePlaybackMetadata remotePlaybackMetadata);
 
 
 }

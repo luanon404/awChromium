@@ -10,12 +10,13 @@ import android.net.Uri;
 import android.util.Log;
 import android.util.TypedValue;
 
-import org.chromium.android_webview.common.Lifetime;
-import org.chromium.base.ContextUtils;
-import org.chromium.url.GURL;
 import org.jni_zero.CalledByNative;
 import org.jni_zero.JNINamespace;
 import org.jni_zero.NativeMethods;
+
+import org.chromium.android_webview.common.Lifetime;
+import org.chromium.base.ContextUtils;
+import org.chromium.url.GURL;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -67,7 +68,8 @@ public class AndroidProtocolHandler {
                 String path = uri.getPath();
                 if (path.startsWith(AndroidProtocolHandlerJni.get().getAndroidAssetPath())) {
                     return openAsset(uri);
-                } else if (path.startsWith(AndroidProtocolHandlerJni.get().getAndroidResourcePath())) {
+                } else if (path.startsWith(
+                                   AndroidProtocolHandlerJni.get().getAndroidResourcePath())) {
                     return openResource(uri);
                 }
             } else if (uri.getScheme().equals(CONTENT_SCHEME)) {
@@ -88,13 +90,16 @@ public class AndroidProtocolHandler {
         return input.substring(0, lastDotIndex);
     }
 
-    private static Class<?> getClazz(String packageName, String assetType) throws ClassNotFoundException {
-        return ContextUtils.getApplicationContext().getClassLoader().loadClass(packageName + ".R$" + assetType);
+    private static Class<?> getClazz(String packageName, String assetType)
+            throws ClassNotFoundException {
+        return ContextUtils.getApplicationContext().getClassLoader().loadClass(
+                packageName + ".R$" + assetType);
     }
 
     // file://android_res/ has no choice but to do name-based resource lookups
     @SuppressWarnings("DiscouragedApi")
-    private static int getFieldId(String assetType, String assetName) throws ClassNotFoundException, NoSuchFieldException, IllegalAccessException {
+    private static int getFieldId(String assetType, String assetName)
+            throws ClassNotFoundException, NoSuchFieldException, IllegalAccessException {
         Context appContext = ContextUtils.getApplicationContext();
         String packageName = appContext.getPackageName();
         int id = appContext.getResources().getIdentifier(assetName, assetType, packageName);
@@ -144,8 +149,12 @@ public class AndroidProtocolHandler {
         String assetPath = pathSegments.get(0);
         String assetType = pathSegments.get(1);
         String assetName = pathSegments.get(2);
-        if (!("/" + assetPath + "/").equals(AndroidProtocolHandlerJni.get().getAndroidResourcePath())) {
-            Log.e(TAG, "Resource path does not start with " + AndroidProtocolHandlerJni.get().getAndroidResourcePath() + ": " + uri);
+        if (!("/" + assetPath + "/")
+                        .equals(AndroidProtocolHandlerJni.get().getAndroidResourcePath())) {
+            Log.e(TAG,
+                    "Resource path does not start with "
+                            + AndroidProtocolHandlerJni.get().getAndroidResourcePath() + ": "
+                            + uri);
             return null;
         }
         // Drop the file extension.
@@ -175,7 +184,8 @@ public class AndroidProtocolHandler {
         assert uri.getScheme().equals(FILE_SCHEME);
         assert uri.getPath() != null;
         assert uri.getPath().startsWith(AndroidProtocolHandlerJni.get().getAndroidAssetPath());
-        String path = uri.getPath().replaceFirst(AndroidProtocolHandlerJni.get().getAndroidAssetPath(), "");
+        String path = uri.getPath().replaceFirst(
+                AndroidProtocolHandlerJni.get().getAndroidAssetPath(), "");
         try {
             AssetManager assets = ContextUtils.getApplicationContext().getAssets();
             return assets.open(path, AssetManager.ACCESS_STREAMING);
@@ -198,8 +208,8 @@ public class AndroidProtocolHandler {
     /**
      * Determine the mime type for an Android resource.
      *
-     * @param stream The opened input stream which to examine.
-     * @param url    The url from which the stream was opened.
+     * @param stream  The opened input stream which to examine.
+     * @param url     The url from which the stream was opened.
      * @return The mime type or null if the type is unknown.
      */
     @CalledByNative
@@ -214,7 +224,8 @@ public class AndroidProtocolHandler {
             if (uri.getScheme().equals(CONTENT_SCHEME)) {
                 return ContextUtils.getApplicationContext().getContentResolver().getType(uri);
                 // Asset files may have a known extension.
-            } else if (uri.getScheme().equals(FILE_SCHEME) && path.startsWith(AndroidProtocolHandlerJni.get().getAndroidAssetPath())) {
+            } else if (uri.getScheme().equals(FILE_SCHEME)
+                    && path.startsWith(AndroidProtocolHandlerJni.get().getAndroidAssetPath())) {
                 String mimeType = URLConnection.guessContentTypeFromName(path);
 
                 // If the OS didn't find anything we fall back to Chromium's implementation which
@@ -248,7 +259,8 @@ public class AndroidProtocolHandler {
     private static Uri verifyUrl(GURL url) {
         if (url == null) return null;
         if (url.isEmpty()) return null;
-        Uri uri = Uri.parse(url.getSpec()); // Never null. parse() doesn't actually parse or verify anything.
+        Uri uri = Uri.parse(
+                url.getSpec()); // Never null. parse() doesn't actually parse or verify anything.
         String path = uri.getPath();
         if (path == null || path.isEmpty() || path.equals("/")) {
             Log.e(TAG, "URL does not have a path: " + url);
@@ -260,9 +272,7 @@ public class AndroidProtocolHandler {
     @NativeMethods
     interface Natives {
         String getAndroidAssetPath();
-
         String getAndroidResourcePath();
-
         String getWellKnownMimeType(String path);
     }
 }

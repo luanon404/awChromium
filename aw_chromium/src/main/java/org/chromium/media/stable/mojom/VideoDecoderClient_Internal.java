@@ -13,9 +13,13 @@
 
 package org.chromium.media.stable.mojom;
 
+import androidx.annotation.IntDef;
+
+
 class VideoDecoderClient_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<VideoDecoderClient, VideoDecoderClient.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<VideoDecoderClient, VideoDecoderClient.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<VideoDecoderClient, VideoDecoderClient.Proxy> MANAGER =
+            new org.chromium.mojo.bindings.Interface.Manager<VideoDecoderClient, VideoDecoderClient.Proxy>() {
 
         @Override
         public String getName() {
@@ -24,11 +28,12 @@ class VideoDecoderClient_Internal {
 
         @Override
         public int getVersion() {
-            return 0;
+          return 0;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -39,7 +44,7 @@ class VideoDecoderClient_Internal {
 
         @Override
         public VideoDecoderClient[] buildArray(int size) {
-            return new VideoDecoderClient[size];
+          return new VideoDecoderClient[size];
         }
     };
 
@@ -51,13 +56,15 @@ class VideoDecoderClient_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements VideoDecoderClient.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core,
+              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void onVideoFrameDecoded(VideoFrame frame, boolean canReadWithoutStalling, org.chromium.mojo_base.mojom.UnguessableToken releaseToken) {
+        public void onVideoFrameDecoded(
+VideoFrame frame, boolean canReadWithoutStalling, org.chromium.mojo_base.mojom.UnguessableToken releaseToken) {
 
             VideoDecoderClientOnVideoFrameDecodedParams _message = new VideoDecoderClientOnVideoFrameDecodedParams();
 
@@ -68,20 +75,27 @@ class VideoDecoderClient_Internal {
             _message.releaseToken = releaseToken;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_VIDEO_FRAME_DECODED_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_VIDEO_FRAME_DECODED_ORDINAL)));
 
         }
 
 
         @Override
-        public void onWaiting(int reason) {
+        public void onWaiting(
+int reason) {
 
             VideoDecoderClientOnWaitingParams _message = new VideoDecoderClientOnWaitingParams();
 
             _message.reason = reason;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_WAITING_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_WAITING_ORDINAL)));
 
         }
 
@@ -97,7 +111,8 @@ class VideoDecoderClient_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -106,24 +121,33 @@ class VideoDecoderClient_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(VideoDecoderClient_Internal.MANAGER, messageWithHeader);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
+                                VideoDecoderClient_Internal.MANAGER, messageWithHeader);
+
+
+
 
 
                     case ON_VIDEO_FRAME_DECODED_ORDINAL: {
 
-                        VideoDecoderClientOnVideoFrameDecodedParams data = VideoDecoderClientOnVideoFrameDecodedParams.deserialize(messageWithHeader.getPayload());
+                        VideoDecoderClientOnVideoFrameDecodedParams data =
+                                VideoDecoderClientOnVideoFrameDecodedParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onVideoFrameDecoded(data.frame, data.canReadWithoutStalling, data.releaseToken);
                         return true;
                     }
 
 
+
+
+
                     case ON_WAITING_ORDINAL: {
 
-                        VideoDecoderClientOnWaitingParams data = VideoDecoderClientOnWaitingParams.deserialize(messageWithHeader.getPayload());
+                        VideoDecoderClientOnWaitingParams data =
+                                VideoDecoderClientOnWaitingParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onWaiting(data.reason);
                         return true;
@@ -134,7 +158,7 @@ class VideoDecoderClient_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -142,7 +166,8 @@ class VideoDecoderClient_Internal {
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -151,27 +176,33 @@ class VideoDecoderClient_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), VideoDecoderClient_Internal.MANAGER, messageWithHeader, receiver);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
+                                getCore(), VideoDecoderClient_Internal.MANAGER, messageWithHeader, receiver);
+
+
+
+
 
 
                     default:
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class VideoDecoderClientOnVideoFrameDecodedParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 32;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(32, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(32, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public VideoFrame frame;
         public boolean canReadWithoutStalling;
@@ -195,7 +226,8 @@ class VideoDecoderClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static VideoDecoderClientOnVideoFrameDecodedParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -209,20 +241,20 @@ class VideoDecoderClient_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new VideoDecoderClientOnVideoFrameDecodedParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.frame = VideoFrame.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.canReadWithoutStalling = decoder0.readBoolean(16, 0);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, false);
                     result.releaseToken = org.chromium.mojo_base.mojom.UnguessableToken.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -234,20 +266,22 @@ class VideoDecoderClient_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.frame, 8, false);
-
+            
             encoder0.encode(this.canReadWithoutStalling, 16, 0);
-
+            
             encoder0.encode(this.releaseToken, 24, false);
         }
     }
 
 
+
+    
     static final class VideoDecoderClientOnWaitingParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int reason;
 
@@ -269,7 +303,8 @@ class VideoDecoderClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static VideoDecoderClientOnWaitingParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -283,12 +318,12 @@ class VideoDecoderClient_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new VideoDecoderClientOnWaitingParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.reason = decoder0.readInt(8);
-                    WaitingReason.validate(result.reason);
-                    result.reason = WaitingReason.toKnownValue(result.reason);
-                }
+                        WaitingReason.validate(result.reason);
+                        result.reason = WaitingReason.toKnownValue(result.reason);
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -300,10 +335,11 @@ class VideoDecoderClient_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.reason, 8);
         }
     }
+
 
 
 }

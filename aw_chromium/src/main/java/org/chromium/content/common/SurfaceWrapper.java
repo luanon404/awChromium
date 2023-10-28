@@ -95,25 +95,26 @@ public class SurfaceWrapper implements Parcelable {
         return new SurfaceWrapper(surfaceControl);
     }
 
-    public static final Parcelable.Creator<SurfaceWrapper> CREATOR = new Parcelable.Creator<SurfaceWrapper>() {
-        @Override
-        public SurfaceWrapper createFromParcel(Parcel in) {
-            final boolean wrapsSurface = (in.readInt() == 1);
-            if (wrapsSurface) {
-                Surface surface = Surface.CREATOR.createFromParcel(in);
-                boolean canBeUsedWithSurfaceControl = (in.readInt() == 1);
-                return new SurfaceWrapper(surface, canBeUsedWithSurfaceControl);
-            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                SurfaceControl surfaceControl = SurfaceControl.CREATOR.createFromParcel(in);
-                return new SurfaceWrapper(surfaceControl);
-            } else {
-                throw new RuntimeException("not reached");
-            }
-        }
+    public static final Parcelable.Creator<SurfaceWrapper> CREATOR =
+            new Parcelable.Creator<SurfaceWrapper>() {
+                @Override
+                public SurfaceWrapper createFromParcel(Parcel in) {
+                    final boolean wrapsSurface = (in.readInt() == 1);
+                    if (wrapsSurface) {
+                        Surface surface = Surface.CREATOR.createFromParcel(in);
+                        boolean canBeUsedWithSurfaceControl = (in.readInt() == 1);
+                        return new SurfaceWrapper(surface, canBeUsedWithSurfaceControl);
+                    } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                        SurfaceControl surfaceControl = SurfaceControl.CREATOR.createFromParcel(in);
+                        return new SurfaceWrapper(surfaceControl);
+                    } else {
+                        throw new RuntimeException("not reached");
+                    }
+                }
 
-        @Override
-        public SurfaceWrapper[] newArray(int size) {
-            return new SurfaceWrapper[size];
-        }
-    };
+                @Override
+                public SurfaceWrapper[] newArray(int size) {
+                    return new SurfaceWrapper[size];
+                }
+            };
 }

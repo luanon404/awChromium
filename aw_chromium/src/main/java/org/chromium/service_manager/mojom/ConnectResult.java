@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class ConnectResult {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({ConnectResult.SUCCEEDED, ConnectResult.INVALID_ARGUMENT, ConnectResult.ACCESS_DENIED})
-    public @interface EnumType {
-    }
+        ConnectResult.SUCCEEDED,
+        ConnectResult.INVALID_ARGUMENT,
+        ConnectResult.ACCESS_DENIED})
+    public @interface EnumType {}
 
     public static final int SUCCEEDED = 0;
     public static final int INVALID_ARGUMENT = 1;
@@ -38,9 +40,8 @@ public final class ConnectResult {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private ConnectResult() {
-    }
+    private ConnectResult() {}
 }

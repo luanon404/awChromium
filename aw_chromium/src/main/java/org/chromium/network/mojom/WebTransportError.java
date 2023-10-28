@@ -13,10 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class WebTransportError extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 32;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(32, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(32, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public int netError;
     public int quicError;
@@ -44,7 +47,8 @@ public final class WebTransportError extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static WebTransportError deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -58,22 +62,22 @@ public final class WebTransportError extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new WebTransportError(elementsOrVersion);
-            {
-
+                {
+                    
                 result.netError = decoder0.readInt(8);
-            }
-            {
-
+                }
+                {
+                    
                 result.quicError = decoder0.readInt(12);
-            }
-            {
-
+                }
+                {
+                    
                 result.details = decoder0.readString(16, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.safeToReportDetails = decoder0.readBoolean(24, 0);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -85,13 +89,13 @@ public final class WebTransportError extends org.chromium.mojo.bindings.Struct {
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.netError, 8);
-
+        
         encoder0.encode(this.quicError, 12);
-
+        
         encoder0.encode(this.details, 16, false);
-
+        
         encoder0.encode(this.safeToReportDetails, 24, 0);
     }
 }

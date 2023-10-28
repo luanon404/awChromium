@@ -4,39 +4,61 @@
 package org.chromium.content.browser;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.content.pm.PackageManager;
+import android.os.Process;
+import androidx.annotation.VisibleForTesting;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeClassQualifiedName;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.ApiCompatibilityUtils;
+import org.chromium.base.ContextUtils;
+import org.chromium.base.ThreadUtils;
+import org.chromium.base.metrics.RecordHistogram;
+import org.chromium.net.ConnectionType;
+import org.chromium.net.NetworkChangeNotifierAutoDetect;
+import org.chromium.net.RegistrationPolicyAlwaysRegister;
+import java.util.ArrayList;
+import java.util.List;
 
 @CheckDiscard("crbug.com/993421")
 class BackgroundSyncNetworkObserverJni implements BackgroundSyncNetworkObserver.Natives {
-    private static BackgroundSyncNetworkObserver.Natives testInstance;
+  private static BackgroundSyncNetworkObserver.Natives testInstance;
 
-    public static final JniStaticTestMocker<BackgroundSyncNetworkObserver.Natives> TEST_HOOKS = new JniStaticTestMocker<BackgroundSyncNetworkObserver.Natives>() {
-        @Override
-        public void setInstanceForTesting(BackgroundSyncNetworkObserver.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<BackgroundSyncNetworkObserver.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<BackgroundSyncNetworkObserver.Natives>() {
     @Override
-    public void notifyConnectionTypeChanged(long nativePtr, BackgroundSyncNetworkObserver caller, int newConnectionType) {
-        GEN_JNI.org_chromium_content_browser_BackgroundSyncNetworkObserver_notifyConnectionTypeChanged(nativePtr, caller, newConnectionType);
+    public void setInstanceForTesting(BackgroundSyncNetworkObserver.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    public static BackgroundSyncNetworkObserver.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of BackgroundSyncNetworkObserver.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new BackgroundSyncNetworkObserverJni();
+  @Override
+  public void notifyConnectionTypeChanged(long nativePtr, BackgroundSyncNetworkObserver caller, int newConnectionType) {
+    GEN_JNI.org_chromium_content_browser_BackgroundSyncNetworkObserver_notifyConnectionTypeChanged(nativePtr, caller, newConnectionType);
+  }
+
+  public static BackgroundSyncNetworkObserver.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of BackgroundSyncNetworkObserver.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new BackgroundSyncNetworkObserverJni();
+  }
 }

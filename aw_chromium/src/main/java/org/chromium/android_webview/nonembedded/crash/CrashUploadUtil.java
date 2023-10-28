@@ -37,9 +37,9 @@ public final class CrashUploadUtil {
         /**
          * Schedule a MinidumpUploadJobService to attempt uploading all ready crash minidumps.
          *
-         * @param context                  the context where the upload job will be scheduled from.
+         * @param context the context where the upload job will be scheduled from.
          * @param requiresUnmeteredNetwork true if we want to restrict the upload job to unmetered
-         *                                 network only.
+         *         network only.
          */
         void scheduleNewJob(@NonNull Context context, boolean requiresUnmeteredNetwork);
 
@@ -52,14 +52,22 @@ public final class CrashUploadUtil {
     private static CrashUploadDelegate sDelegate = new CrashUploadDelegate() {
         @Override
         public void scheduleNewJob(@NonNull Context context, boolean requiresUnmeteredNetwork) {
-            int networkType = requiresUnmeteredNetwork ? JobInfo.NETWORK_TYPE_UNMETERED : JobInfo.NETWORK_TYPE_ANY;
-            JobInfo.Builder builder = new JobInfo.Builder(TaskIds.WEBVIEW_MINIDUMP_UPLOADING_JOB_ID, new ComponentName(context, ServiceNames.AW_MINIDUMP_UPLOAD_JOB_SERVICE)).setRequiredNetworkType(networkType);
+            int networkType = requiresUnmeteredNetwork ? JobInfo.NETWORK_TYPE_UNMETERED
+                                                       : JobInfo.NETWORK_TYPE_ANY;
+            JobInfo.Builder builder =
+                    new JobInfo
+                            .Builder(TaskIds.WEBVIEW_MINIDUMP_UPLOADING_JOB_ID,
+                                    new ComponentName(
+                                            context, ServiceNames.AW_MINIDUMP_UPLOAD_JOB_SERVICE))
+                            .setRequiredNetworkType(networkType);
             MinidumpUploadJobService.scheduleUpload(builder);
         }
 
         @Override
         public boolean isNetworkUnmetered(@NonNull Context context) {
-            ConnectivityManager connectivityManager = (ConnectivityManager) context.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+            ConnectivityManager connectivityManager =
+                    (ConnectivityManager) context.getApplicationContext().getSystemService(
+                            Context.CONNECTIVITY_SERVICE);
             return NetworkPermissionUtil.isNetworkUnmetered(connectivityManager);
         }
     };
@@ -75,9 +83,9 @@ public final class CrashUploadUtil {
     /**
      * Schedule a MinidumpUploadJobService to attempt uploading all ready crash minidumps.
      *
-     * @param context                  the context where the upload job will be scheduled from.
+     * @param context the context where the upload job will be scheduled from.
      * @param requiresUnmeteredNetwork true if we want to restrict the upload job to unmetered
-     *                                 network only.
+     *         network only.
      */
     public static void scheduleNewJob(@NonNull Context context, boolean requiresUnmeteredNetwork) {
         sDelegate.scheduleNewJob(context, requiresUnmeteredNetwork);
@@ -85,7 +93,7 @@ public final class CrashUploadUtil {
 
     /**
      * Attempts to upload a crash report with the given local ID.
-     * <p>
+     *
      * Note that this method is asynchronous. All that is guaranteed is that upload attempts will be
      * enqueued. It marks the file as requested to be uploaded and then schedule an upload job that
      * attempts uploading all files available to upload (including the given minidump file). The
@@ -95,8 +103,10 @@ public final class CrashUploadUtil {
      * @param localId The local ID of the crash report.
      */
     @UiThread
-    public static void tryUploadCrashDumpWithLocalId(@NonNull Context context, @NonNull String localId) {
-        CrashFileManager fileManager = new CrashFileManager(SystemWideCrashDirectories.getWebViewCrashDir());
+    public static void tryUploadCrashDumpWithLocalId(
+            @NonNull Context context, @NonNull String localId) {
+        CrashFileManager fileManager =
+                new CrashFileManager(SystemWideCrashDirectories.getWebViewCrashDir());
         File minidumpFile = fileManager.getCrashFileWithLocalId(localId);
         if (minidumpFile == null) {
             Log.e(TAG, "Could not find a crash dump with local ID " + localId);
@@ -124,6 +134,5 @@ public final class CrashUploadUtil {
     }
 
     // Do not instantiate this class.
-    private CrashUploadUtil() {
-    }
+    private CrashUploadUtil() {}
 }

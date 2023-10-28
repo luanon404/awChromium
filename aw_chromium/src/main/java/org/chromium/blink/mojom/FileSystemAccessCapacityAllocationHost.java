@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface FileSystemAccessCapacityAllocationHost extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends FileSystemAccessCapacityAllocationHost, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends FileSystemAccessCapacityAllocationHost, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<FileSystemAccessCapacityAllocationHost, FileSystemAccessCapacityAllocationHost.Proxy> MANAGER = FileSystemAccessCapacityAllocationHost_Internal.MANAGER;

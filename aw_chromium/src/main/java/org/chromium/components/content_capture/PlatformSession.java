@@ -46,7 +46,8 @@ class PlatformSession {
         AutofillId autofillId = structure.getAutofillId();
         if (autofillId == null) return null;
         // Simulate the logical in View.onProvideStructure()
-        structure.setDimens(view.getLeft(), view.getTop(), 0, 0, view.getRight() - view.getLeft(), view.getBottom() - view.getTop());
+        structure.setDimens(view.getLeft(), view.getTop(), 0, 0, view.getRight() - view.getLeft(),
+                view.getBottom() - view.getTop());
         structure.setVisibility(view.getVisibility());
         structure.setEnabled(view.isEnabled());
         structure.setClickable(view.isClickable());

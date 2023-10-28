@@ -13,6 +13,10 @@ import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+
 import org.chromium.base.ObserverList;
 import org.chromium.base.ObserverList.RewindableIterator;
 import org.chromium.base.ResettersForTesting;
@@ -30,9 +34,6 @@ import org.chromium.content_public.browser.ViewEventSink.InternalAccessDelegate;
 import org.chromium.content_public.browser.WebContents;
 import org.chromium.ui.base.GestureEventType;
 import org.chromium.ui.base.ViewAndroidDelegate;
-import org.jni_zero.CalledByNative;
-import org.jni_zero.JNINamespace;
-import org.jni_zero.NativeMethods;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -44,9 +45,12 @@ import java.util.HashMap;
  * Instantiated object is held inside {@link UserDataHost} that is managed by {@link WebContents}.
  */
 @JNINamespace("content")
-public class GestureListenerManagerImpl implements GestureListenerManager, WindowEventObserver, UserData, ViewAndroidDelegate.VerticalScrollDirectionChangeListener {
+public class GestureListenerManagerImpl
+        implements GestureListenerManager, WindowEventObserver, UserData,
+                   ViewAndroidDelegate.VerticalScrollDirectionChangeListener {
     private static final class UserDataFactoryLazyHolder {
-        private static final UserDataFactory<GestureListenerManagerImpl> INSTANCE = GestureListenerManagerImpl::new;
+        private static final UserDataFactory<GestureListenerManagerImpl> INSTANCE =
+                GestureListenerManagerImpl::new;
     }
 
     private static GestureListenerManagerImpl sInstanceForTesting;
@@ -56,7 +60,7 @@ public class GestureListenerManagerImpl implements GestureListenerManager, Windo
     private final RewindableIterator<GestureStateListener> mIterator;
     private final HashMap<GestureStateListener, Integer> mListenerFrequency;
     private SelectionPopupControllerImpl mSelectionPopupController;
-    private final ViewAndroidDelegate mViewDelegate;
+    private ViewAndroidDelegate mViewDelegate;
     private InternalAccessDelegate mScrollDelegate;
     private final Point mRootScrollOffsetStruct = new Point();
 
@@ -81,11 +85,13 @@ public class GestureListenerManagerImpl implements GestureListenerManager, Windo
     /**
      * @param webContents {@link WebContents} object.
      * @return {@link GestureListenerManager} object used for the give WebContents.
-     * Creates one if not present.
+     *         Creates one if not present.
      */
     public static GestureListenerManagerImpl fromWebContents(WebContents webContents) {
         if (sInstanceForTesting != null) return sInstanceForTesting;
-        return ((WebContentsImpl) webContents).getOrSetUserData(GestureListenerManagerImpl.class, UserDataFactoryLazyHolder.INSTANCE);
+        return ((WebContentsImpl) webContents)
+                .getOrSetUserData(
+                        GestureListenerManagerImpl.class, UserDataFactoryLazyHolder.INSTANCE);
     }
 
     // TODO(https://crbug.com/1340593): Mocking |#fromWebContents()| may be a better option, when
@@ -103,12 +109,14 @@ public class GestureListenerManagerImpl implements GestureListenerManager, Windo
         mViewDelegate = mWebContents.getViewAndroidDelegate();
         mViewDelegate.addVerticalScrollDirectionChangeListener(this);
         WindowEventObserverManager.from(mWebContents).addObserver(this);
-        mNativeGestureListenerManager = GestureListenerManagerImplJni.get().init(GestureListenerManagerImpl.this, mWebContents);
+        mNativeGestureListenerManager = GestureListenerManagerImplJni.get().init(
+                GestureListenerManagerImpl.this, mWebContents);
     }
 
     public void resetGestureDetection() {
         if (mNativeGestureListenerManager != 0) {
-            GestureListenerManagerImplJni.get().resetGestureDetection(mNativeGestureListenerManager, GestureListenerManagerImpl.this);
+            GestureListenerManagerImplJni.get().resetGestureDetection(
+                    mNativeGestureListenerManager, GestureListenerManagerImpl.this);
         }
     }
 
@@ -122,7 +130,8 @@ public class GestureListenerManagerImpl implements GestureListenerManager, Windo
     }
 
     @Override
-    public void addListener(GestureStateListener listener, @RootScrollOffsetUpdateFrequency.EnumType int frequency) {
+    public void addListener(GestureStateListener listener,
+            @RootScrollOffsetUpdateFrequency.EnumType int frequency) {
         final boolean didAdd = mListeners.addObserver(listener);
         if (mNativeGestureListenerManager != 0 && didAdd) {
             mListenerFrequency.put(listener, frequency);
@@ -130,7 +139,8 @@ public class GestureListenerManagerImpl implements GestureListenerManager, Windo
             if (!frequencyChanged) {
                 // If the frequency changed, this update will come from the renderer, so we don't
                 // need to call this with the cached offset.
-                listener.onScrollOffsetOrExtentChanged(verticalScrollOffset(), verticalScrollExtent());
+                listener.onScrollOffsetOrExtentChanged(
+                        verticalScrollOffset(), verticalScrollExtent());
             }
         }
     }
@@ -152,20 +162,22 @@ public class GestureListenerManagerImpl implements GestureListenerManager, Windo
 
     /**
      * Calculates and updates the root scroll offset update frequency.
-     *
      * @return Whether the root scroll offset update frequency changed.
      */
     private boolean updateRootScrollOffsetUpdateFrequency() {
         int newFrequency = calculateMaxRootScrollOffsetUpdateFrequency();
-        boolean frequencyChanged = mRootScrollOffsetUpdateFrequency == null || !mRootScrollOffsetUpdateFrequency.equals(newFrequency);
+        boolean frequencyChanged = mRootScrollOffsetUpdateFrequency == null
+                || !mRootScrollOffsetUpdateFrequency.equals(newFrequency);
         mRootScrollOffsetUpdateFrequency = newFrequency;
         if (!frequencyChanged) return false;
 
-        GestureListenerManagerImplJni.get().setRootScrollOffsetUpdateFrequency(mNativeGestureListenerManager, mRootScrollOffsetUpdateFrequency);
+        GestureListenerManagerImplJni.get().setRootScrollOffsetUpdateFrequency(
+                mNativeGestureListenerManager, mRootScrollOffsetUpdateFrequency);
         return true;
     }
 
-    private @RootScrollOffsetUpdateFrequency.EnumType int calculateMaxRootScrollOffsetUpdateFrequency() {
+    private @RootScrollOffsetUpdateFrequency.EnumType
+    int calculateMaxRootScrollOffsetUpdateFrequency() {
         if (mListenerFrequency.isEmpty()) return NONE;
         return Collections.max(mListenerFrequency.values());
     }
@@ -173,26 +185,25 @@ public class GestureListenerManagerImpl implements GestureListenerManager, Windo
     @Override
     public void updateMultiTouchZoomSupport(boolean supportsMultiTouchZoom) {
         if (mNativeGestureListenerManager == 0) return;
-        GestureListenerManagerImplJni.get().setMultiTouchZoomSupportEnabled(mNativeGestureListenerManager, GestureListenerManagerImpl.this, supportsMultiTouchZoom);
+        GestureListenerManagerImplJni.get().setMultiTouchZoomSupportEnabled(
+                mNativeGestureListenerManager, GestureListenerManagerImpl.this,
+                supportsMultiTouchZoom);
     }
 
     @Override
     public void updateDoubleTapSupport(boolean supportsDoubleTap) {
         if (mNativeGestureListenerManager == 0) return;
-        GestureListenerManagerImplJni.get().setDoubleTapSupportEnabled(mNativeGestureListenerManager, GestureListenerManagerImpl.this, supportsDoubleTap);
+        GestureListenerManagerImplJni.get().setDoubleTapSupportEnabled(
+                mNativeGestureListenerManager, GestureListenerManagerImpl.this, supportsDoubleTap);
     }
 
-    /**
-     * Update all the listeners after touch down event occurred.
-     */
+    /** Update all the listeners after touch down event occurred. */
     @CalledByNative
     private void updateOnTouchDown() {
-        for (mIterator.rewind(); mIterator.hasNext(); ) mIterator.next().onTouchDown();
+        for (mIterator.rewind(); mIterator.hasNext();) mIterator.next().onTouchDown();
     }
 
-    /**
-     * Returns whether there's an active, ongoing fling scroll.
-     */
+    /** Returns whether there's an active, ongoing fling scroll. */
     public boolean hasActiveFlingScroll() {
         return mHasActiveFlingScroll;
     }
@@ -208,49 +219,45 @@ public class GestureListenerManagerImpl implements GestureListenerManager, Windo
     @Override
     public void onWindowFocusChanged(boolean gainFocus) {
         if (!gainFocus) resetGestureDetection();
-        for (mIterator.rewind(); mIterator.hasNext(); ) {
+        for (mIterator.rewind(); mIterator.hasNext();) {
             mIterator.next().onWindowFocusChanged(gainFocus);
         }
     }
 
     /**
      * Update all the listeners after vertical scroll offset/extent has changed.
-     *
      * @param offset New vertical scroll offset.
      * @param extent New vertical scroll extent, or viewport height.
      */
     public void updateOnScrollChanged(int offset, int extent) {
-        for (mIterator.rewind(); mIterator.hasNext(); ) {
+        for (mIterator.rewind(); mIterator.hasNext();) {
             GestureStateListener listener = mIterator.next();
             listener.onScrollOffsetOrExtentChanged(offset, extent);
         }
     }
 
-    /**
-     * Update all the listeners after scrolling end event occurred.
-     */
+    /** Update all the listeners after scrolling end event occurred. */
     public void updateOnScrollEnd() {
         setGestureScrollInProgress(false);
-        for (mIterator.rewind(); mIterator.hasNext(); ) {
+        for (mIterator.rewind(); mIterator.hasNext();) {
             mIterator.next().onScrollEnded(verticalScrollOffset(), verticalScrollExtent());
         }
     }
 
     /**
      * Update all the listeners after min/max scale limit has changed.
-     *
      * @param minScale New minimum scale.
      * @param maxScale New maximum scale.
      */
     public void updateOnScaleLimitsChanged(float minScale, float maxScale) {
-        for (mIterator.rewind(); mIterator.hasNext(); ) {
+        for (mIterator.rewind(); mIterator.hasNext();) {
             mIterator.next().onScaleLimitsChanged(minScale, maxScale);
         }
     }
 
     @Override
     public void onVerticalScrollDirectionChanged(boolean directionUp, float currentScrollRatio) {
-        for (mIterator.rewind(); mIterator.hasNext(); ) {
+        for (mIterator.rewind(); mIterator.hasNext();) {
             mIterator.next().onVerticalScrollDirectionChanged(directionUp, currentScrollRatio);
         }
     }
@@ -267,7 +274,7 @@ public class GestureListenerManagerImpl implements GestureListenerManager, Windo
     @VisibleForTesting
     void onFlingEnd() {
         mHasActiveFlingScroll = false;
-        for (mIterator.rewind(); mIterator.hasNext(); ) {
+        for (mIterator.rewind(); mIterator.hasNext();) {
             mIterator.next().onFlingEndGesture(verticalScrollOffset(), verticalScrollExtent());
         }
     }
@@ -289,7 +296,7 @@ public class GestureListenerManagerImpl implements GestureListenerManager, Windo
             case EventType.GESTURE_SCROLL_UPDATE:
                 if (!consumed) break;
                 destroyPastePopup();
-                for (mIterator.rewind(); mIterator.hasNext(); ) {
+                for (mIterator.rewind(); mIterator.hasNext();) {
                     // TODO(sinansahin): Can we update the RenderCoordinates using these values
                     // and make them available through other scroll events?
                     Point scrollOffset = getRootScrollOffsetStruct(scrollOffsetX, scrollOffsetY);
@@ -300,21 +307,22 @@ public class GestureListenerManagerImpl implements GestureListenerManager, Windo
                 updateOnScrollEnd();
                 break;
             case EventType.GESTURE_PINCH_BEGIN:
-                for (mIterator.rewind(); mIterator.hasNext(); ) mIterator.next().onPinchStarted();
+                for (mIterator.rewind(); mIterator.hasNext();) mIterator.next().onPinchStarted();
                 break;
             case EventType.GESTURE_PINCH_END:
-                for (mIterator.rewind(); mIterator.hasNext(); ) mIterator.next().onPinchEnded();
+                for (mIterator.rewind(); mIterator.hasNext();) mIterator.next().onPinchEnded();
                 break;
             case EventType.GESTURE_TAP:
                 destroyPastePopup();
-                for (mIterator.rewind(); mIterator.hasNext(); ) {
+                for (mIterator.rewind(); mIterator.hasNext();) {
                     mIterator.next().onSingleTap(consumed);
                 }
                 break;
             case EventType.GESTURE_LONG_PRESS:
                 if (!consumed) break;
-                mViewDelegate.getContainerView().performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
-                for (mIterator.rewind(); mIterator.hasNext(); ) mIterator.next().onLongPress();
+                mViewDelegate.getContainerView().performHapticFeedback(
+                        HapticFeedbackConstants.LONG_PRESS);
+                for (mIterator.rewind(); mIterator.hasNext();) mIterator.next().onLongPress();
                 break;
             default:
                 break;
@@ -342,8 +350,9 @@ public class GestureListenerManagerImpl implements GestureListenerManager, Windo
     @VisibleForTesting
     void onScrollBegin(boolean isDirectionUp) {
         setGestureScrollInProgress(true);
-        for (mIterator.rewind(); mIterator.hasNext(); ) {
-            mIterator.next().onScrollStarted(verticalScrollOffset(), verticalScrollExtent(), isDirectionUp);
+        for (mIterator.rewind(); mIterator.hasNext();) {
+            mIterator.next().onScrollStarted(
+                    verticalScrollOffset(), verticalScrollExtent(), isDirectionUp);
         }
     }
 
@@ -355,14 +364,16 @@ public class GestureListenerManagerImpl implements GestureListenerManager, Windo
     void onFlingStart(boolean isDirectionUp) {
         // The view expects the fling velocity in pixels/s.
         mHasActiveFlingScroll = true;
-        for (mIterator.rewind(); mIterator.hasNext(); ) {
-            mIterator.next().onFlingStartGesture(verticalScrollOffset(), verticalScrollExtent(), isDirectionUp);
+        for (mIterator.rewind(); mIterator.hasNext();) {
+            mIterator.next().onFlingStartGesture(
+                    verticalScrollOffset(), verticalScrollExtent(), isDirectionUp);
         }
     }
 
     private void destroyPastePopup() {
         if (mSelectionPopupController == null) {
-            mSelectionPopupController = SelectionPopupControllerImpl.fromWebContentsNoCreate(mWebContents);
+            mSelectionPopupController =
+                    SelectionPopupControllerImpl.fromWebContentsNoCreate(mWebContents);
         }
         if (mSelectionPopupController != null) {
             mSelectionPopupController.destroyPastePopup();
@@ -382,7 +393,7 @@ public class GestureListenerManagerImpl implements GestureListenerManager, Windo
 
     @CalledByNative
     private void onNativeDestroyed() {
-        for (mIterator.rewind(); mIterator.hasNext(); ) mIterator.next().onDestroyed();
+        for (mIterator.rewind(); mIterator.hasNext();) mIterator.next().onDestroyed();
         mListeners.clear();
         mListenerFrequency.clear();
         mViewDelegate.removeVerticalScrollDirectionChangeListener(this);
@@ -395,12 +406,16 @@ public class GestureListenerManagerImpl implements GestureListenerManager, Windo
     @SuppressWarnings("unused")
     @CalledByNative
     private boolean filterTapOrPressEvent(int type, int x, int y) {
-        return type == GestureEventType.LONG_PRESS && offerLongPressToEmbedder();
+        if (type == GestureEventType.LONG_PRESS && offerLongPressToEmbedder()) {
+            return true;
+        }
+
+        return false;
     }
 
     @CalledByNative
     private void didOverscroll(float accumulatedOverscrollX, float accumulatedOverscrollY) {
-        for (mIterator.rewind(); mIterator.hasNext(); ) {
+        for (mIterator.rewind(); mIterator.hasNext();) {
             GestureStateListener listener = mIterator.next();
             listener.didOverscroll(accumulatedOverscrollX, accumulatedOverscrollY);
         }
@@ -408,7 +423,10 @@ public class GestureListenerManagerImpl implements GestureListenerManager, Windo
 
     @SuppressWarnings("unused")
     @CalledByNative
-    private void updateScrollInfo(float scrollOffsetX, float scrollOffsetY, float pageScaleFactor, float minPageScaleFactor, float maxPageScaleFactor, float contentWidth, float contentHeight, float viewportWidth, float viewportHeight, float topBarShownPix, boolean topBarChanged) {
+    private void updateScrollInfo(float scrollOffsetX, float scrollOffsetY, float pageScaleFactor,
+            float minPageScaleFactor, float maxPageScaleFactor, float contentWidth,
+            float contentHeight, float viewportWidth, float viewportHeight, float topBarShownPix,
+            boolean topBarChanged) {
         TraceEvent.begin("GestureListenerManagerImpl:updateScrollInfo");
         RenderCoordinatesImpl rc = mWebContents.getRenderCoordinates();
 
@@ -416,19 +434,24 @@ public class GestureListenerManagerImpl implements GestureListenerManager, Windo
         // the actual viewport (as set by onSizeChanged).
         final float deviceScale = rc.getDeviceScaleFactor();
         View containerView = mViewDelegate.getContainerView();
-        contentWidth = Math.max(contentWidth, containerView.getWidth() / (deviceScale * pageScaleFactor));
-        contentHeight = Math.max(contentHeight, containerView.getHeight() / (deviceScale * pageScaleFactor));
+        contentWidth =
+                Math.max(contentWidth, containerView.getWidth() / (deviceScale * pageScaleFactor));
+        contentHeight = Math.max(
+                contentHeight, containerView.getHeight() / (deviceScale * pageScaleFactor));
 
-        final boolean scaleLimitsChanged = minPageScaleFactor != rc.getMinPageScaleFactor() || maxPageScaleFactor != rc.getMaxPageScaleFactor();
+        final boolean scaleLimitsChanged = minPageScaleFactor != rc.getMinPageScaleFactor()
+                || maxPageScaleFactor != rc.getMaxPageScaleFactor();
         final boolean pageScaleChanged = pageScaleFactor != rc.getPageScaleFactor();
-        final boolean scrollChanged = pageScaleChanged || scrollOffsetX != rc.getScrollX() || scrollOffsetY != rc.getScrollY();
+        final boolean scrollChanged = pageScaleChanged || scrollOffsetX != rc.getScrollX()
+                || scrollOffsetY != rc.getScrollY();
 
         if (scrollChanged) {
             onRootScrollOffsetChangedImpl(pageScaleFactor, scrollOffsetX, scrollOffsetY);
         }
 
         // TODO(jinsukkim): Consider updating the info directly through RenderCoordinates.
-        rc.updateFrameInfo(contentWidth, contentHeight, viewportWidth, viewportHeight, minPageScaleFactor, maxPageScaleFactor, topBarShownPix);
+        rc.updateFrameInfo(contentWidth, contentHeight, viewportWidth, viewportHeight,
+                minPageScaleFactor, maxPageScaleFactor, topBarShownPix);
 
         if (!scrollChanged && topBarChanged) {
             updateOnScrollChanged(verticalScrollOffset(), verticalScrollExtent());
@@ -440,15 +463,18 @@ public class GestureListenerManagerImpl implements GestureListenerManager, Windo
     @SuppressWarnings("unused")
     @CalledByNative
     private void onRootScrollOffsetChanged(float scrollOffsetX, float scrollOffsetY) {
-        onRootScrollOffsetChangedImpl(mWebContents.getRenderCoordinates().getPageScaleFactor(), scrollOffsetX, scrollOffsetY);
+        onRootScrollOffsetChangedImpl(mWebContents.getRenderCoordinates().getPageScaleFactor(),
+                scrollOffsetX, scrollOffsetY);
     }
 
-    private void onRootScrollOffsetChangedImpl(float pageScaleFactor, float scrollOffsetX, float scrollOffsetY) {
+    private void onRootScrollOffsetChangedImpl(
+            float pageScaleFactor, float scrollOffsetX, float scrollOffsetY) {
         TraceEvent.begin("GestureListenerManagerImpl:onRootScrollOffsetChanged");
 
         notifyDelegateOfScrollChange(scrollOffsetX, scrollOffsetY);
 
-        mWebContents.getRenderCoordinates().updateScrollInfo(pageScaleFactor, scrollOffsetX, scrollOffsetY);
+        mWebContents.getRenderCoordinates().updateScrollInfo(
+                pageScaleFactor, scrollOffsetX, scrollOffsetY);
 
         updateOnScrollChanged(verticalScrollOffset(), verticalScrollExtent());
         TraceEvent.end("GestureListenerManagerImpl:onRootScrollOffsetChanged");
@@ -456,7 +482,9 @@ public class GestureListenerManagerImpl implements GestureListenerManager, Windo
 
     private void notifyDelegateOfScrollChange(float scrollOffsetX, float scrollOffsetY) {
         RenderCoordinatesImpl rc = mWebContents.getRenderCoordinates();
-        mScrollDelegate.onScrollChanged((int) rc.fromLocalCssToPix(scrollOffsetX), (int) rc.fromLocalCssToPix(scrollOffsetY), (int) rc.getScrollXPix(), (int) rc.getScrollYPix());
+        mScrollDelegate.onScrollChanged((int) rc.fromLocalCssToPix(scrollOffsetX),
+                (int) rc.fromLocalCssToPix(scrollOffsetY), (int) rc.getScrollXPix(),
+                (int) rc.getScrollYPix());
     }
 
     @Override
@@ -512,13 +540,13 @@ public class GestureListenerManagerImpl implements GestureListenerManager, Windo
     @NativeMethods
     interface Natives {
         long init(GestureListenerManagerImpl caller, WebContentsImpl webContents);
-
-        void resetGestureDetection(long nativeGestureListenerManager, GestureListenerManagerImpl caller);
-
-        void setDoubleTapSupportEnabled(long nativeGestureListenerManager, GestureListenerManagerImpl caller, boolean enabled);
-
-        void setMultiTouchZoomSupportEnabled(long nativeGestureListenerManager, GestureListenerManagerImpl caller, boolean enabled);
-
-        void setRootScrollOffsetUpdateFrequency(long nativeGestureListenerManager, @RootScrollOffsetUpdateFrequency.EnumType int frequency);
+        void resetGestureDetection(
+                long nativeGestureListenerManager, GestureListenerManagerImpl caller);
+        void setDoubleTapSupportEnabled(long nativeGestureListenerManager,
+                GestureListenerManagerImpl caller, boolean enabled);
+        void setMultiTouchZoomSupportEnabled(long nativeGestureListenerManager,
+                GestureListenerManagerImpl caller, boolean enabled);
+        void setRootScrollOffsetUpdateFrequency(long nativeGestureListenerManager,
+                @RootScrollOffsetUpdateFrequency.EnumType int frequency);
     }
 }

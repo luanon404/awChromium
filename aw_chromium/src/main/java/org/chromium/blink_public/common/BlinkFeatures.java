@@ -1837,6 +1837,5 @@ public final class BlinkFeatures {
     public static final String WEBVIEW_ACCELERATE_SMALL_CANVASES = "WebviewAccelerateSmallCanvases";
 
     // Do not instantiate this class.
-    private BlinkFeatures() {
-    }
+    private BlinkFeatures() {}
 }

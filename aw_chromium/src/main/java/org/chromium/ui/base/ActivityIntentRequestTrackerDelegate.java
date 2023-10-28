@@ -23,7 +23,6 @@ public class ActivityIntentRequestTrackerDelegate implements Delegate {
 
     /**
      * Create an instance of delegate for the given activity that will own the IntentRequestTracker.
-     *
      * @param activity The activity to own the IntentRequestTracker.
      */
     public ActivityIntentRequestTrackerDelegate(Activity activity) {

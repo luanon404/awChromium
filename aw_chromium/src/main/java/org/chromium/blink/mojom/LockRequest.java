@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface LockRequest extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends LockRequest, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends LockRequest, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<LockRequest, LockRequest.Proxy> MANAGER = LockRequest_Internal.MANAGER;

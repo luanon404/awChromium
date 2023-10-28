@@ -13,10 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class CertVerifierServiceRemoteParams extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 24;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public org.chromium.cert_verifier.mojom.CertVerifierService certVerifierService;
     public org.chromium.mojo.bindings.InterfaceRequest<org.chromium.cert_verifier.mojom.CertVerifierServiceClient> certVerifierServiceClientReceiver;
@@ -39,7 +42,8 @@ public final class CertVerifierServiceRemoteParams extends org.chromium.mojo.bin
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static CertVerifierServiceRemoteParams deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -53,14 +57,14 @@ public final class CertVerifierServiceRemoteParams extends org.chromium.mojo.bin
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new CertVerifierServiceRemoteParams(elementsOrVersion);
-            {
-
+                {
+                    
                 result.certVerifierService = decoder0.readServiceInterface(8, true, org.chromium.cert_verifier.mojom.CertVerifierService.MANAGER);
-            }
-            {
-
+                }
+                {
+                    
                 result.certVerifierServiceClientReceiver = decoder0.readInterfaceRequest(16, true);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -72,9 +76,9 @@ public final class CertVerifierServiceRemoteParams extends org.chromium.mojo.bin
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.certVerifierService, 8, true, org.chromium.cert_verifier.mojom.CertVerifierService.MANAGER);
-
+        
         encoder0.encode(this.certVerifierServiceClientReceiver, 16, true);
     }
 }

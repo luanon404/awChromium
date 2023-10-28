@@ -1,3 +1,4 @@
+
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -14,11 +15,13 @@ import androidx.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@IntDef({RendererPriority.INITIAL, RendererPriority.WAIVED, RendererPriority.LOW, RendererPriority.HIGH})
+@IntDef({
+    RendererPriority.INITIAL, RendererPriority.WAIVED, RendererPriority.LOW, RendererPriority.HIGH
+})
 @Retention(RetentionPolicy.SOURCE)
 public @interface RendererPriority {
-    int INITIAL = -1;
-    int WAIVED = 0;
-    int LOW = 1;
-    int HIGH = 2;
+  int INITIAL = -1;
+  int WAIVED = 0;
+  int LOW = 1;
+  int HIGH = 2;
 }

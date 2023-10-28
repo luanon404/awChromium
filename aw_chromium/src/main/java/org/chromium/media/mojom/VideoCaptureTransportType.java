@@ -17,10 +17,11 @@ import androidx.annotation.IntDef;
 
 public final class VideoCaptureTransportType {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({VideoCaptureTransportType.APPLE_USB_OR_BUILT_IN, VideoCaptureTransportType.OTHER_TRANSPORT})
-    public @interface EnumType {
-    }
+        VideoCaptureTransportType.APPLE_USB_OR_BUILT_IN,
+        VideoCaptureTransportType.OTHER_TRANSPORT})
+    public @interface EnumType {}
 
     public static final int APPLE_USB_OR_BUILT_IN = 0;
     public static final int OTHER_TRANSPORT = 1;
@@ -37,9 +38,8 @@ public final class VideoCaptureTransportType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private VideoCaptureTransportType() {
-    }
+    private VideoCaptureTransportType() {}
 }

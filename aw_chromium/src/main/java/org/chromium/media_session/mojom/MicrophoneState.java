@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class MicrophoneState {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({MicrophoneState.UNKNOWN, MicrophoneState.MUTED, MicrophoneState.UNMUTED})
-    public @interface EnumType {
-    }
+        MicrophoneState.UNKNOWN,
+        MicrophoneState.MUTED,
+        MicrophoneState.UNMUTED})
+    public @interface EnumType {}
 
     public static final int UNKNOWN = 0;
     public static final int MUTED = 1;
@@ -38,9 +40,8 @@ public final class MicrophoneState {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private MicrophoneState() {
-    }
+    private MicrophoneState() {}
 }

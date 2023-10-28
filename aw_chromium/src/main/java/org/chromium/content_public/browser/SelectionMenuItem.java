@@ -40,7 +40,11 @@ public final class SelectionMenuItem implements Comparable<SelectionMenuItem> {
     public final boolean isEnabled;
     public final boolean isIconTintable;
 
-    private SelectionMenuItem(@IdRes int id, @AttrRes int iconAttr, @Nullable Drawable icon, @StringRes int titleRes, @Nullable CharSequence title, @Nullable Character alphabeticShortcut, int orderInCategory, int showAsActionFlags, @Nullable CharSequence contentDescription, @Nullable View.OnClickListener clickListener, @Nullable Intent intent, boolean isEnabled, boolean isIconTintable) {
+    private SelectionMenuItem(@IdRes int id, @AttrRes int iconAttr, @Nullable Drawable icon,
+            @StringRes int titleRes, @Nullable CharSequence title,
+            @Nullable Character alphabeticShortcut, int orderInCategory, int showAsActionFlags,
+            @Nullable CharSequence contentDescription, @Nullable View.OnClickListener clickListener,
+            @Nullable Intent intent, boolean isEnabled, boolean isIconTintable) {
         mIconAttr = iconAttr;
         mIcon = icon;
         mTitleRes = titleRes;
@@ -74,9 +78,10 @@ public final class SelectionMenuItem implements Comparable<SelectionMenuItem> {
     public Drawable getIcon(Context context) {
         if (mIconAttr != 0) {
             try {
-                TypedArray a = context.obtainStyledAttributes(new int[]{mIconAttr});
+                TypedArray a = context.obtainStyledAttributes(new int[] {mIconAttr});
                 int iconResId = a.getResourceId(0, 0);
-                Drawable icon = iconResId == 0 ? null : AppCompatResources.getDrawable(context, iconResId);
+                Drawable icon =
+                        iconResId == 0 ? null : AppCompatResources.getDrawable(context, iconResId);
                 a.recycle();
                 return icon;
             } catch (Resources.NotFoundException e) {
@@ -244,7 +249,9 @@ public final class SelectionMenuItem implements Comparable<SelectionMenuItem> {
          * Builds the menu item.
          */
         public SelectionMenuItem build() {
-            return new SelectionMenuItem(mId, mIconAttr, mIcon, mTitleRes, mTitle, mAlphabeticShortcut, mOrderInCategory, mShowAsActionFlags, mContentDescription, mClickListener, mIntent, mIsEnabled, mIsIconTintable);
+            return new SelectionMenuItem(mId, mIconAttr, mIcon, mTitleRes, mTitle,
+                    mAlphabeticShortcut, mOrderInCategory, mShowAsActionFlags, mContentDescription,
+                    mClickListener, mIntent, mIsEnabled, mIsIconTintable);
         }
     }
 }

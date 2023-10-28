@@ -15,7 +15,7 @@ public interface SafeModeAction {
      * action.
      */
     @NonNull
-    String getId();
+    public String getId();
 
     /**
      * Executes the given action. Implementations of this method should be Java-only (no JNI/C++)

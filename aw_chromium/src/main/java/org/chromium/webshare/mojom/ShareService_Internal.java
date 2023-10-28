@@ -13,12 +13,13 @@
 
 package org.chromium.webshare.mojom;
 
-import org.chromium.mojo.bindings.InterfaceControlMessagesHelper;
-import org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants;
+import androidx.annotation.IntDef;
+
 
 class ShareService_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<ShareService, ShareService.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<ShareService, ShareService.Proxy> MANAGER =
+            new org.chromium.mojo.bindings.Interface.Manager<ShareService, ShareService.Proxy>() {
 
         @Override
         public String getName() {
@@ -27,11 +28,12 @@ class ShareService_Internal {
 
         @Override
         public int getVersion() {
-            return 0;
+          return 0;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -42,7 +44,7 @@ class ShareService_Internal {
 
         @Override
         public ShareService[] buildArray(int size) {
-            return new ShareService[size];
+          return new ShareService[size];
         }
     };
 
@@ -52,13 +54,16 @@ class ShareService_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements ShareService.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core,
+              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void share(String title, String text, org.chromium.url.mojom.Url url, SharedFile[] files, Share_Response callback) {
+        public void share(
+String title, String text, org.chromium.url.mojom.Url url, SharedFile[] files, 
+Share_Response callback) {
 
             ShareServiceShareParams _message = new ShareServiceShareParams();
 
@@ -71,7 +76,14 @@ class ShareService_Internal {
             _message.files = files;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(SHARE_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new ShareServiceShareResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    SHARE_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new ShareServiceShareResponseParamsForwardToCallback(callback));
 
         }
 
@@ -87,7 +99,8 @@ class ShareService_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -96,12 +109,20 @@ class ShareService_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                if (header.getType() == InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID) {
-                    return InterfaceControlMessagesHelper.handleRunOrClosePipe(ShareService_Internal.MANAGER, messageWithHeader);
+                switch(header.getType()) {
+
+                    case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
+                                ShareService_Internal.MANAGER, messageWithHeader);
+
+
+
+
+                    default:
+                        return false;
                 }
-                return false;
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -109,7 +130,8 @@ class ShareService_Internal {
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -118,15 +140,22 @@ class ShareService_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), ShareService_Internal.MANAGER, messageWithHeader, receiver);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
+                                getCore(), ShareService_Internal.MANAGER, messageWithHeader, receiver);
+
+
+
+
+
 
 
                     case SHARE_ORDINAL: {
 
-                        ShareServiceShareParams data = ShareServiceShareParams.deserialize(messageWithHeader.getPayload());
+                        ShareServiceShareParams data =
+                                ShareServiceShareParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().share(data.title, data.text, data.url, data.files, new ShareServiceShareResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
@@ -137,17 +166,18 @@ class ShareService_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class ShareServiceShareParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 40;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(40, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(40, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public String title;
         public String text;
@@ -166,6 +196,17 @@ class ShareService_Internal {
             return decode(new org.chromium.mojo.bindings.Decoder(message));
         }
 
+        /**
+         * Similar to the method above, but deserializes from a |ByteBuffer| instance.
+         *
+         * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
+         */
+        public static ShareServiceShareParams deserialize(java.nio.ByteBuffer data) {
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        }
+
+        @SuppressWarnings("unchecked")
         public static ShareServiceShareParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -176,32 +217,32 @@ class ShareService_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new ShareServiceShareParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.title = decoder0.readString(8, false);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.text = decoder0.readString(16, false);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, false);
                     result.url = org.chromium.url.mojom.Url.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(32, false);
                     {
                         org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                         result.files = new SharedFile[si1.elementsOrVersion];
                         for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                            
                             org.chromium.mojo.bindings.Decoder decoder2 = decoder1.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                             result.files[i1] = SharedFile.decode(decoder2);
                         }
                     }
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -209,22 +250,23 @@ class ShareService_Internal {
             return result;
         }
 
+        @SuppressWarnings("unchecked")
         @Override
-        protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
+        protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.title, 8, false);
-
+            
             encoder0.encode(this.text, 16, false);
-
+            
             encoder0.encode(this.url, 24, false);
-
+            
             if (this.files == null) {
                 encoder0.encodeNullPointer(32, false);
             } else {
                 org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.files.length, 32, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                 for (int i0 = 0; i0 < this.files.length; ++i0) {
-
+                    
                     encoder1.encode(this.files[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
                 }
             }
@@ -232,10 +274,12 @@ class ShareService_Internal {
     }
 
 
+
+    
     static final class ShareServiceShareResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int error;
 
@@ -251,6 +295,17 @@ class ShareService_Internal {
             return decode(new org.chromium.mojo.bindings.Decoder(message));
         }
 
+        /**
+         * Similar to the method above, but deserializes from a |ByteBuffer| instance.
+         *
+         * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
+         */
+        public static ShareServiceShareResponseParams deserialize(java.nio.ByteBuffer data) {
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        }
+
+        @SuppressWarnings("unchecked")
         public static ShareServiceShareResponseParams decode(org.chromium.mojo.bindings.Decoder decoder0) {
             if (decoder0 == null) {
                 return null;
@@ -261,12 +316,12 @@ class ShareService_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new ShareServiceShareResponseParams(elementsOrVersion);
-                {
-
-                    int error = decoder0.readInt(8);
-                    ShareError.validate(error);
-                    result.error = ShareError.toKnownValue(error);
-                }
+                    {
+                        
+                    result.error = decoder0.readInt(8);
+                        ShareError.validate(result.error);
+                        result.error = ShareError.toKnownValue(result.error);
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -274,15 +329,17 @@ class ShareService_Internal {
             return result;
         }
 
+        @SuppressWarnings("unchecked")
         @Override
-        protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
+        protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.error, 8);
         }
     }
 
-    static class ShareServiceShareResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class ShareServiceShareResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final ShareService.Share_Response mCallback;
 
         ShareServiceShareResponseParamsForwardToCallback(ShareService.Share_Response callback) {
@@ -292,9 +349,11 @@ class ShareService_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(SHARE_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(SHARE_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -314,7 +373,10 @@ class ShareService_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        ShareServiceShareResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        ShareServiceShareResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -326,10 +388,17 @@ class ShareService_Internal {
 
             _response.error = error;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(SHARE_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    SHARE_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
+
 
 
 }

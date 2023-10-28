@@ -13,11 +13,13 @@ public class MessageHeader {
 
     private static final int SIMPLE_MESSAGE_SIZE = 24;
     private static final int SIMPLE_MESSAGE_VERSION = 0;
-    private static final DataHeader SIMPLE_MESSAGE_STRUCT_INFO = new DataHeader(SIMPLE_MESSAGE_SIZE, SIMPLE_MESSAGE_VERSION);
+    private static final DataHeader SIMPLE_MESSAGE_STRUCT_INFO =
+            new DataHeader(SIMPLE_MESSAGE_SIZE, SIMPLE_MESSAGE_VERSION);
 
     private static final int MESSAGE_WITH_REQUEST_ID_SIZE = 32;
     private static final int MESSAGE_WITH_REQUEST_ID_VERSION = 1;
-    private static final DataHeader MESSAGE_WITH_REQUEST_ID_STRUCT_INFO = new DataHeader(MESSAGE_WITH_REQUEST_ID_SIZE, MESSAGE_WITH_REQUEST_ID_VERSION);
+    private static final DataHeader MESSAGE_WITH_REQUEST_ID_STRUCT_INFO =
+            new DataHeader(MESSAGE_WITH_REQUEST_ID_SIZE, MESSAGE_WITH_REQUEST_ID_VERSION);
 
     private static final int INTERFACE_ID_OFFSET = 8;
     private static final int TYPE_OFFSET = 12;
@@ -82,14 +84,17 @@ public class MessageHeader {
         // Currently associated interfaces are not supported.
         int interfaceId = decoder.readInt(INTERFACE_ID_OFFSET);
         if (interfaceId != 0) {
-            throw new DeserializationException("Non-zero interface ID, expecting zero since " + "associated interfaces are not yet supported.");
+          throw new DeserializationException("Non-zero interface ID, expecting zero since "
+                  + "associated interfaces are not yet supported.");
         }
 
         mType = decoder.readInt(TYPE_OFFSET);
         mFlags = decoder.readInt(FLAGS_OFFSET);
         if (mustHaveRequestId(mFlags)) {
             if (mDataHeader.size < MESSAGE_WITH_REQUEST_ID_SIZE) {
-                throw new DeserializationException("Incorrect message size, expecting at least " + MESSAGE_WITH_REQUEST_ID_SIZE + " for a message with a request identifier, but got: " + mDataHeader.size);
+                throw new DeserializationException("Incorrect message size, expecting at least "
+                        + MESSAGE_WITH_REQUEST_ID_SIZE
+                        + " for a message with a request identifier, but got: " + mDataHeader.size);
 
             }
             mRequestId = decoder.readLong(REQUEST_ID_OFFSET);
@@ -160,7 +165,8 @@ public class MessageHeader {
      * about in order to allow this class to work with future version of the header format.
      */
     public boolean validateHeader(int expectedFlags) {
-        int knownFlags = getFlags() & (MESSAGE_EXPECTS_RESPONSE_FLAG | MESSAGE_IS_RESPONSE_FLAG | MESSAGE_IS_SYNC_FLAG);
+        int knownFlags = getFlags()
+                & (MESSAGE_EXPECTS_RESPONSE_FLAG | MESSAGE_IS_RESPONSE_FLAG | MESSAGE_IS_SYNC_FLAG);
         return knownFlags == expectedFlags;
     }
 
@@ -196,7 +202,10 @@ public class MessageHeader {
         if (getClass() != object.getClass()) return false;
 
         MessageHeader other = (MessageHeader) object;
-        return (BindingsHelper.equals(mDataHeader, other.mDataHeader) && mFlags == other.mFlags && mRequestId == other.mRequestId && mType == other.mType);
+        return (BindingsHelper.equals(mDataHeader, other.mDataHeader)
+                && mFlags == other.mFlags
+                && mRequestId == other.mRequestId
+                && mType == other.mType);
     }
 
     /**
@@ -220,16 +229,25 @@ public class MessageHeader {
      */
     private static void validateDataHeader(DataHeader dataHeader) {
         if (dataHeader.elementsOrVersion < SIMPLE_MESSAGE_VERSION) {
-            throw new DeserializationException("Incorrect number of fields, expecting at least " + SIMPLE_MESSAGE_VERSION + ", but got: " + dataHeader.elementsOrVersion);
+            throw new DeserializationException("Incorrect number of fields, expecting at least "
+                    + SIMPLE_MESSAGE_VERSION + ", but got: " + dataHeader.elementsOrVersion);
         }
         if (dataHeader.size < SIMPLE_MESSAGE_SIZE) {
-            throw new DeserializationException("Incorrect message size, expecting at least " + SIMPLE_MESSAGE_SIZE + ", but got: " + dataHeader.size);
+            throw new DeserializationException(
+                    "Incorrect message size, expecting at least " + SIMPLE_MESSAGE_SIZE
+                    + ", but got: " + dataHeader.size);
         }
-        if (dataHeader.elementsOrVersion == SIMPLE_MESSAGE_VERSION && dataHeader.size != SIMPLE_MESSAGE_SIZE) {
-            throw new DeserializationException("Incorrect message size for a message with " + SIMPLE_MESSAGE_VERSION + " fields, expecting " + SIMPLE_MESSAGE_SIZE + ", but got: " + dataHeader.size);
+        if (dataHeader.elementsOrVersion == SIMPLE_MESSAGE_VERSION
+                && dataHeader.size != SIMPLE_MESSAGE_SIZE) {
+            throw new DeserializationException("Incorrect message size for a message with "
+                    + SIMPLE_MESSAGE_VERSION + " fields, expecting " + SIMPLE_MESSAGE_SIZE
+                    + ", but got: " + dataHeader.size);
         }
-        if (dataHeader.elementsOrVersion == MESSAGE_WITH_REQUEST_ID_VERSION && dataHeader.size != MESSAGE_WITH_REQUEST_ID_SIZE) {
-            throw new DeserializationException("Incorrect message size for a message with " + MESSAGE_WITH_REQUEST_ID_VERSION + " fields, expecting " + MESSAGE_WITH_REQUEST_ID_SIZE + ", but got: " + dataHeader.size);
+        if (dataHeader.elementsOrVersion == MESSAGE_WITH_REQUEST_ID_VERSION
+                && dataHeader.size != MESSAGE_WITH_REQUEST_ID_SIZE) {
+            throw new DeserializationException("Incorrect message size for a message with "
+                    + MESSAGE_WITH_REQUEST_ID_VERSION + " fields, expecting "
+                    + MESSAGE_WITH_REQUEST_ID_SIZE + ", but got: " + dataHeader.size);
         }
     }
 

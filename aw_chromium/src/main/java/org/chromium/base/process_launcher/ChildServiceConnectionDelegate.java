@@ -12,6 +12,5 @@ import android.os.IBinder;
  */
 /* package */ interface ChildServiceConnectionDelegate {
     void onServiceConnected(IBinder service);
-
     void onServiceDisconnected();
 }

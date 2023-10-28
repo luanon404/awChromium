@@ -17,7 +17,7 @@ import org.chromium.base.ApiCompatibilityUtils;
 /**
  * Encapsulates a single gradient view of the HSV color display, including its label, gradient
  * view and seek bar.
- * <p>
+ *
  * Mirrors a "color_picker_advanced_component" layout.
  */
 public class ColorPickerAdvancedComponent {
@@ -35,12 +35,13 @@ public class ColorPickerAdvancedComponent {
     /**
      * Initializes the views.
      *
-     * @param rootView        View that contains all the content, such as the label, gradient view, etc.
-     * @param textResourceId  The resource ID of the text to show on the label.
-     * @param seekBarMax      The range of the seek bar.
+     * @param rootView View that contains all the content, such as the label, gradient view, etc.
+     * @param textResourceId The resource ID of the text to show on the label.
+     * @param seekBarMax The range of the seek bar.
      * @param seekBarListener The listener for when the seek bar value changes.
      */
-    ColorPickerAdvancedComponent(final View rootView, final int textResourceId, final int seekBarMax, final OnSeekBarChangeListener seekBarListener) {
+    ColorPickerAdvancedComponent(final View rootView, final int textResourceId,
+            final int seekBarMax, final OnSeekBarChangeListener seekBarListener) {
         mGradientView = rootView.findViewById(R.id.gradient);
         mText = (TextView) rootView.findViewById(R.id.text);
         mText.setText(textResourceId);
@@ -51,7 +52,10 @@ public class ColorPickerAdvancedComponent {
         // Setting the thumb offset means the seek bar thumb can move all the way to each end
         // of the gradient view.
         Context context = rootView.getContext();
-        int offset = ApiCompatibilityUtils.getDrawable(context.getResources(), R.drawable.color_picker_advanced_select_handle).getIntrinsicWidth();
+        int offset = ApiCompatibilityUtils
+                             .getDrawable(context.getResources(),
+                                     R.drawable.color_picker_advanced_select_handle)
+                             .getIntrinsicWidth();
         mSeekBar.setThumbOffset(offset / 2);
     }
 

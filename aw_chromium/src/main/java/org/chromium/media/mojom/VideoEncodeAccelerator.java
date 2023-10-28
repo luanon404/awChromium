@@ -13,49 +13,56 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface VideoEncodeAccelerator extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends VideoEncodeAccelerator, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends VideoEncodeAccelerator, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<VideoEncodeAccelerator, VideoEncodeAccelerator.Proxy> MANAGER = VideoEncodeAccelerator_Internal.MANAGER;
 
-    void initialize(VideoEncodeAcceleratorConfig config, org.chromium.mojo.bindings.AssociatedInterfaceNotSupported client, MediaLog mediaLog, Initialize_Response callback);
+    void initialize(
+VideoEncodeAcceleratorConfig config, org.chromium.mojo.bindings.AssociatedInterfaceNotSupported client, MediaLog mediaLog, 
+Initialize_Response callback);
 
-    interface Initialize_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> {
-    }
-
-
-    void encode(VideoFrame frame, VideoEncodeOptions options, Encode_Response callback);
-
-    interface Encode_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 {
-    }
+    interface Initialize_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> { }
 
 
-    void useOutputBitstreamBuffer(int bitstreamBufferId, org.chromium.mojo_base.mojom.UnsafeSharedMemoryRegion region);
+    void encode(
+VideoFrame frame, VideoEncodeOptions options, 
+Encode_Response callback);
+
+    interface Encode_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 { }
 
 
-    void requestEncodingParametersChangeWithLayers(VideoBitrateAllocation bitrateAllocation, int framerate);
+    void useOutputBitstreamBuffer(
+int bitstreamBufferId, org.chromium.mojo_base.mojom.UnsafeSharedMemoryRegion region);
 
 
-    void requestEncodingParametersChangeWithBitrate(Bitrate bitrate, int framerate);
+    void requestEncodingParametersChangeWithLayers(
+VideoBitrateAllocation bitrateAllocation, int framerate);
+
+
+    void requestEncodingParametersChangeWithBitrate(
+Bitrate bitrate, int framerate);
 
 
     void isFlushSupported(
 
-            IsFlushSupported_Response callback);
+IsFlushSupported_Response callback);
 
-    interface IsFlushSupported_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> {
-    }
+    interface IsFlushSupported_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> { }
 
 
     void flush(
 
-            Flush_Response callback);
+Flush_Response callback);
 
-    interface Flush_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> {
-    }
+    interface Flush_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> { }
 
 
 }

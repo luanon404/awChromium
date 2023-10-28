@@ -23,22 +23,22 @@ import java.util.List;
 
 /**
  * The WebContents Java wrapper to allow communicating with the native WebContents object.
- * <p>
+ *
  * Note about serialization and {@link Parcelable}:
- * This object is serializable and deserializable as long as it is done in the same process.  That
+ *   This object is serializable and deserializable as long as it is done in the same process.  That
  * means it can be passed between Activities inside this process, but not preserved beyond the
  * process lifetime.  This class will automatically deserialize into {@code null} if a deserialize
  * attempt happens in another process.
- * <p>
+ *
  * To properly deserialize a custom Parcelable the right class loader must be used.  See below for
  * some examples.
- * <p>
+ *
  * Intent Serialization/Deserialization Example:
  * intent.putExtra("WEBCONTENTSKEY", webContents);
  * // ... send to other location ...
  * intent.setExtrasClassLoader(WebContents.class.getClassLoader());
  * webContents = intent.getParcelableExtra("WEBCONTENTSKEY");
- * <p>
+ *
  * Bundle Serialization/Deserialization Example:
  * bundle.putParcelable("WEBCONTENTSKEY", webContents);
  * // ... send to other location ...
@@ -67,7 +67,7 @@ public interface WebContents extends Parcelable {
      * @return a default implementation of {@link InternalsHolder} that holds a reference to
      * {@link WebContentsInternals} object owned by {@link WebContents} instance.
      */
-    static InternalsHolder createDefaultInternalsHolder() {
+    public static InternalsHolder createDefaultInternalsHolder() {
         return new InternalsHolder() {
             private WebContentsInternals mInternals;
 
@@ -85,26 +85,28 @@ public interface WebContents extends Parcelable {
 
     /**
      * TODO(ctzsm): Rename this method to setDelegates()
-     * <p>
+     *
      * Initialize various content objects of {@link WebContents} lifetime.
-     * <p>
+     *
      * Note: This method is more of to set the {@link ViewAndroidDelegate} and {@link
      * ViewEventSink.InternalAccessDelegate}, most of the embedder should only call this once during
      * the whole lifecycle of the {@link WebContents}, but it is safe to call it multiple times.
      *
-     * @param productVersion  Product version for accessibility.
-     * @param viewDelegate    Delegate to add/remove anchor views.
-     * @param accessDelegate  Handles dispatching all hidden or super methods to the containerView.
-     * @param windowAndroid   An instance of the WindowAndroid.
+     * @param productVersion Product version for accessibility.
+     * @param viewDelegate Delegate to add/remove anchor views.
+     * @param accessDelegate Handles dispatching all hidden or super methods to the containerView.
+     * @param windowAndroid An instance of the WindowAndroid.
      * @param internalsHolder A holder of objects used internally by WebContents.
      */
-    void initialize(String productVersion, ViewAndroidDelegate viewDelegate, ViewEventSink.InternalAccessDelegate accessDelegate, WindowAndroid windowAndroid, @NonNull InternalsHolder internalsHolder);
+    void initialize(String productVersion, ViewAndroidDelegate viewDelegate,
+            ViewEventSink.InternalAccessDelegate accessDelegate, WindowAndroid windowAndroid,
+            @NonNull InternalsHolder internalsHolder);
 
     /**
      * Clear Java WebContentsObservers so we can put this WebContents to the background. Use this
      * method only when the WebContents will not be destroyed shortly. Currently only used by Chrome
      * for swapping WebContents in Tab.
-     * <p>
+     *
      * Note: This is a temporary workaround for Chrome until it can clean up Observers directly.
      * Avoid new calls to this method.
      */
@@ -126,7 +128,7 @@ public interface WebContents extends Parcelable {
 
     /**
      * @return The {@link ViewAndroidDelegate} from which to get the container view.
-     * This can be null.
+     *         This can be null.
      */
     @Nullable
     ViewAndroidDelegate getViewAndroidDelegate();
@@ -167,20 +169,20 @@ public interface WebContents extends Parcelable {
 
     /**
      * @return Whether the focused frame element in this WebContents is editable. Will be false if
-     * the WebContents does not have focus.
+     *         the WebContents does not have focus.
      */
     boolean isFocusedElementEditable();
 
     /**
      * @return The frame associated with the id. Will be null if the ID does not correspond to a
-     * live RenderFrameHost.
+     *         live RenderFrameHost.
      */
     @Nullable
     RenderFrameHost getRenderFrameHostFromId(GlobalRenderFrameHostId id);
 
     /**
      * @return The root level view from the renderer, or {@code null} in some cases where there is
-     * none.
+     *         none.
      */
     @Nullable
     RenderWidgetHostView getRenderWidgetHostView();
@@ -261,7 +263,6 @@ public interface WebContents extends Parcelable {
      * ChildProcessImportance on Android allows controls of the renderer process bindings
      * independent of visibility. Note this does not affect importance of subframe processes
      * or main frames processeses for non-primary pages.
-     *
      * @param primaryMainFrameImportance importance of the primary page's main frame process.
      */
     void setImportance(@ChildProcessImportance int primaryMainFrameImportance);
@@ -287,7 +288,6 @@ public interface WebContents extends Parcelable {
 
     /**
      * Sets or removes page level focus.
-     *
      * @param hasFocus Indicates if focus should be set or removed.
      */
     void setFocus(boolean hasFocus);
@@ -311,23 +311,23 @@ public interface WebContents extends Parcelable {
      * Selects at the specified granularity around the caret and potentially shows the selection
      * handles and context menu. The caller can check if selection actually occurred by listening to
      * OnSelectionChanged.
-     *
-     * @param granularity           The granularity at which the selection should happen.
-     * @param shouldShowHandle      Whether the selection handles should be shown after selection.
+     * @param granularity The granularity at which the selection should happen.
+     * @param shouldShowHandle Whether the selection handles should be shown after selection.
      * @param shouldShowContextMenu Whether the context menu should be shown after selection.
      */
-    void selectAroundCaret(@SelectionGranularity int granularity, boolean shouldShowHandle, boolean shouldShowContextMenu);
+    void selectAroundCaret(@SelectionGranularity int granularity, boolean shouldShowHandle,
+            boolean shouldShowContextMenu);
 
     /**
      * Adjusts the selection starting and ending points by the given amount.
      * A negative amount moves the selection towards the beginning of the document, a positive
      * amount moves the selection towards the end of the document.
-     *
-     * @param startAdjust       The amount to adjust the start of the selection.
-     * @param endAdjust         The amount to adjust the end of the selection.
+     * @param startAdjust The amount to adjust the start of the selection.
+     * @param endAdjust The amount to adjust the end of the selection.
      * @param showSelectionMenu if true, show selection menu after adjustment.
      */
-    void adjustSelectionByCharacterOffset(int startAdjust, int endAdjust, boolean showSelectionMenu);
+    void adjustSelectionByCharacterOffset(
+            int startAdjust, int endAdjust, boolean showSelectionMenu);
 
     /**
      * Gets the last committed URL. It represents the current page that is
@@ -352,11 +352,11 @@ public interface WebContents extends Parcelable {
     /**
      * Injects the passed Javascript code in the current page and evaluates it.
      * If a result is required, pass in a callback.
-     * <p>
+     *
      * It is not possible to use this method to evaluate JavaScript on web
      * content, only on WebUI pages.
      *
-     * @param script   The Javascript to execute.
+     * @param script The Javascript to execute.
      * @param callback The callback to be fired off when a result is ready. The script's
      *                 result will be json encoded and passed as the parameter, and the call
      *                 will be made on the main thread.
@@ -368,7 +368,7 @@ public interface WebContents extends Parcelable {
      * Injects the passed Javascript code in the current page and evaluates it.
      * If a result is required, pass in a callback.
      *
-     * @param script   The Javascript to execute.
+     * @param script The Javascript to execute.
      * @param callback The callback to be fired off when a result is ready. The script's
      *                 result will be json encoded and passed as the parameter, and the call
      *                 will be made on the main thread.
@@ -385,18 +385,18 @@ public interface WebContents extends Parcelable {
     /**
      * Post a message to main frame.
      *
-     * @param messagePayload The message payload.
-     * @param targetOrigin   The target origin. If the target origin is a "*" or a
-     *                       empty string, it indicates a wildcard target origin.
-     * @param ports          The sent message ports, if any. Pass null if there is no
-     *                       message ports to pass.
+     * @param messagePayload   The message payload.
+     * @param targetOrigin  The target origin. If the target origin is a "*" or a
+     *                  empty string, it indicates a wildcard target origin.
+     * @param ports The sent message ports, if any. Pass null if there is no
+     *                  message ports to pass.
      */
-    void postMessageToMainFrame(MessagePayload messagePayload, String sourceOrigin, String targetOrigin, @Nullable MessagePort[] ports);
+    void postMessageToMainFrame(MessagePayload messagePayload, String sourceOrigin,
+            String targetOrigin, @Nullable MessagePort[] ports);
 
     /**
      * Creates a message channel for sending postMessage requests and returns the ports for
      * each end of the channel.
-     *
      * @return The ports that forms the ends of the message channel created.
      */
     MessagePort[] createMessageChannel();
@@ -471,7 +471,6 @@ public interface WebContents extends Parcelable {
 
     /**
      * Controls use of spatial-navigation mode.
-     *
      * @param disable True if spatial navigation should never be used.
      */
     void setSpatialNavigationDisabled(boolean disabled);
@@ -479,22 +478,22 @@ public interface WebContents extends Parcelable {
     /**
      * Sends a request to download the given image {@link url}.
      * This method delegates the call to the downloadImage() method of native WebContents.
-     *
-     * @param url           The URL of the image to download.
-     * @param isFavicon     Whether the image is a favicon. If true, the cookies are not sent and not
-     *                      accepted during download.
+     * @param url The URL of the image to download.
+     * @param isFavicon Whether the image is a favicon. If true, the cookies are not sent and not
+     *                 accepted during download.
      * @param maxBitmapSize The maximum bitmap size. Bitmaps with pixel sizes larger than {@link
-     *                      max_bitmap_size} are filtered out from the bitmap results. If there are no
-     *                      bitmap results <= {@link max_bitmap_size}, the smallest bitmap is resized to
-     *                      {@link max_bitmap_size} and is the only result. A {@link max_bitmap_size} of
-     *                      0 means unlimited.
-     * @param bypassCache   If true, {@link url} is requested from the server even if it is present in
-     *                      the browser cache.
-     * @param callback      The callback which will be called when the bitmaps are received from the
-     *                      renderer.
+     *                 max_bitmap_size} are filtered out from the bitmap results. If there are no
+     *                 bitmap results <= {@link max_bitmap_size}, the smallest bitmap is resized to
+     *                 {@link max_bitmap_size} and is the only result. A {@link max_bitmap_size} of
+     *                 0 means unlimited.
+     * @param bypassCache If true, {@link url} is requested from the server even if it is present in
+     *                 the browser cache.
+     * @param callback The callback which will be called when the bitmaps are received from the
+     *                 renderer.
      * @return The unique id of the download request
      */
-    int downloadImage(GURL url, boolean isFavicon, int maxBitmapSize, boolean bypassCache, ImageDownloadCallback callback);
+    int downloadImage(GURL url, boolean isFavicon, int maxBitmapSize, boolean bypassCache,
+            ImageDownloadCallback callback);
 
     /**
      * Whether the WebContents has an active fullscreen video with native or custom controls.
@@ -528,7 +527,7 @@ public interface WebContents extends Parcelable {
     /**
      * Set the view size of the WebContents. The size is in physical pixels.
      *
-     * @param width  The width of the view.
+     * @param width The width of the view.
      * @param height The height of the view.
      */
     void setSize(int width, int height);

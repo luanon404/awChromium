@@ -17,10 +17,11 @@ import androidx.annotation.IntDef;
 
 public final class AndroidPayEnvironment {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({AndroidPayEnvironment.PRODUCTION, AndroidPayEnvironment.TEST})
-    public @interface EnumType {
-    }
+        AndroidPayEnvironment.PRODUCTION,
+        AndroidPayEnvironment.TEST})
+    public @interface EnumType {}
 
     public static final int PRODUCTION = 0;
     public static final int TEST = 1;
@@ -37,9 +38,8 @@ public final class AndroidPayEnvironment {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private AndroidPayEnvironment() {
-    }
+    private AndroidPayEnvironment() {}
 }

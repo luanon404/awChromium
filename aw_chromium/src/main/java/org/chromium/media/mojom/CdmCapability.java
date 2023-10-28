@@ -13,10 +13,13 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class CdmCapability extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 40;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(40, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(40, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public int[] audioCodecs;
     public java.util.Map<Integer, VideoCodecInfo> videoCodecs;
@@ -41,7 +44,8 @@ public final class CdmCapability extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static CdmCapability deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -55,24 +59,24 @@ public final class CdmCapability extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new CdmCapability(elementsOrVersion);
-            {
-
+                {
+                    
                 result.audioCodecs = decoder0.readInts(8, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                 {
                     for (int i1 = 0; i1 < result.audioCodecs.length; ++i1) {
                         AudioCodec.validate(result.audioCodecs[i1]);
                     }
                 }
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                 {
                     decoder1.readDataHeaderForMap();
                     int[] keys0;
                     VideoCodecInfo[] values0;
                     {
-
+                        
                         keys0 = decoder1.readInts(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                         {
                             for (int i2 = 0; i2 < keys0.length; ++i2) {
@@ -81,13 +85,13 @@ public final class CdmCapability extends org.chromium.mojo.bindings.Struct {
                         }
                     }
                     {
-
+                        
                         org.chromium.mojo.bindings.Decoder decoder2 = decoder1.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE, false);
                         {
                             org.chromium.mojo.bindings.DataHeader si2 = decoder2.readDataHeaderForPointerArray(keys0.length);
                             values0 = new VideoCodecInfo[si2.elementsOrVersion];
                             for (int i2 = 0; i2 < si2.elementsOrVersion; ++i2) {
-
+                                
                                 org.chromium.mojo.bindings.Decoder decoder3 = decoder2.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i2, false);
                                 values0[i2] = VideoCodecInfo.decode(decoder3);
                             }
@@ -95,28 +99,28 @@ public final class CdmCapability extends org.chromium.mojo.bindings.Struct {
                     }
                     result.videoCodecs = new java.util.HashMap<Integer, VideoCodecInfo>();
                     for (int index0 = 0; index0 < keys0.length; ++index0) {
-                        result.videoCodecs.put(keys0[index0], values0[index0]);
+                        result.videoCodecs.put(keys0[index0],  values0[index0]);
                     }
                 }
-            }
-            {
-
+                }
+                {
+                    
                 result.encryptionSchemes = decoder0.readInts(24, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                 {
                     for (int i1 = 0; i1 < result.encryptionSchemes.length; ++i1) {
                         EncryptionScheme.validate(result.encryptionSchemes[i1]);
                     }
                 }
-            }
-            {
-
+                }
+                {
+                    
                 result.sessionTypes = decoder0.readInts(32, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                 {
                     for (int i1 = 0; i1 < result.sessionTypes.length; ++i1) {
                         CdmSessionType.validate(result.sessionTypes[i1]);
                     }
                 }
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -128,9 +132,9 @@ public final class CdmCapability extends org.chromium.mojo.bindings.Struct {
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.audioCodecs, 8, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
-
+        
         if (this.videoCodecs == null) {
             encoder0.encodeNullPointer(16, false);
         } else {
@@ -144,20 +148,20 @@ public final class CdmCapability extends org.chromium.mojo.bindings.Struct {
                 values0[index0] = entry0.getValue();
                 ++index0;
             }
-
+            
             encoder1.encode(keys0, org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
-
+            
             {
                 org.chromium.mojo.bindings.Encoder encoder2 = encoder1.encodePointerArray(values0.length, org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                 for (int i1 = 0; i1 < values0.length; ++i1) {
-
+                    
                     encoder2.encode(values0[i1], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                 }
             }
         }
-
+        
         encoder0.encode(this.encryptionSchemes, 24, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
-
+        
         encoder0.encode(this.sessionTypes, 32, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
     }
 }

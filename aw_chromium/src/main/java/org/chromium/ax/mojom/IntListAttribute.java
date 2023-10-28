@@ -17,10 +17,36 @@ import androidx.annotation.IntDef;
 
 public final class IntListAttribute {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({IntListAttribute.NONE, IntListAttribute.INDIRECT_CHILD_IDS, IntListAttribute.CONTROLS_IDS, IntListAttribute.DETAILS_IDS, IntListAttribute.DESCRIBEDBY_IDS, IntListAttribute.ERRORMESSAGE_IDS, IntListAttribute.FLOWTO_IDS, IntListAttribute.LABELLEDBY_IDS, IntListAttribute.RADIO_GROUP_IDS, IntListAttribute.MARKER_TYPES, IntListAttribute.MARKER_STARTS, IntListAttribute.MARKER_ENDS, IntListAttribute.HIGHLIGHT_TYPES, IntListAttribute.CARET_BOUNDS, IntListAttribute.CHARACTER_OFFSETS, IntListAttribute.LINE_STARTS, IntListAttribute.LINE_ENDS, IntListAttribute.SENTENCE_STARTS, IntListAttribute.SENTENCE_ENDS, IntListAttribute.WORD_STARTS, IntListAttribute.WORD_ENDS, IntListAttribute.CUSTOM_ACTION_IDS, IntListAttribute.TEXT_OPERATION_START_ANCHOR_IDS, IntListAttribute.TEXT_OPERATION_START_OFFSETS, IntListAttribute.TEXT_OPERATION_END_ANCHOR_IDS, IntListAttribute.TEXT_OPERATION_END_OFFSETS, IntListAttribute.TEXT_OPERATIONS})
-    public @interface EnumType {
-    }
+        IntListAttribute.NONE,
+        IntListAttribute.INDIRECT_CHILD_IDS,
+        IntListAttribute.CONTROLS_IDS,
+        IntListAttribute.DETAILS_IDS,
+        IntListAttribute.DESCRIBEDBY_IDS,
+        IntListAttribute.ERRORMESSAGE_IDS,
+        IntListAttribute.FLOWTO_IDS,
+        IntListAttribute.LABELLEDBY_IDS,
+        IntListAttribute.RADIO_GROUP_IDS,
+        IntListAttribute.MARKER_TYPES,
+        IntListAttribute.MARKER_STARTS,
+        IntListAttribute.MARKER_ENDS,
+        IntListAttribute.HIGHLIGHT_TYPES,
+        IntListAttribute.CARET_BOUNDS,
+        IntListAttribute.CHARACTER_OFFSETS,
+        IntListAttribute.LINE_STARTS,
+        IntListAttribute.LINE_ENDS,
+        IntListAttribute.SENTENCE_STARTS,
+        IntListAttribute.SENTENCE_ENDS,
+        IntListAttribute.WORD_STARTS,
+        IntListAttribute.WORD_ENDS,
+        IntListAttribute.CUSTOM_ACTION_IDS,
+        IntListAttribute.TEXT_OPERATION_START_ANCHOR_IDS,
+        IntListAttribute.TEXT_OPERATION_START_OFFSETS,
+        IntListAttribute.TEXT_OPERATION_END_ANCHOR_IDS,
+        IntListAttribute.TEXT_OPERATION_END_OFFSETS,
+        IntListAttribute.TEXT_OPERATIONS})
+    public @interface EnumType {}
 
     public static final int NONE = 0;
     public static final int INDIRECT_CHILD_IDS = 1;
@@ -63,12 +89,11 @@ public final class IntListAttribute {
     }
 
     public static int toKnownValue(int value) {
-        if (isKnownValue(value)) {
-            return value;
-        }
-        return DEFAULT_VALUE;
+      if (isKnownValue(value)) {
+        return value;
+      }
+      return DEFAULT_VALUE;
     }
 
-    private IntListAttribute() {
-    }
+    private IntListAttribute() {}
 }

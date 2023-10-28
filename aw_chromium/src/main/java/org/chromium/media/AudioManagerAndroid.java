@@ -19,12 +19,13 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.provider.Settings;
 
-import org.chromium.base.ContextUtils;
-import org.chromium.base.Log;
-import org.chromium.base.ThreadUtils.ThreadChecker;
 import org.jni_zero.CalledByNative;
 import org.jni_zero.JNINamespace;
 import org.jni_zero.NativeMethods;
+
+import org.chromium.base.ContextUtils;
+import org.chromium.base.Log;
+import org.chromium.base.ThreadUtils.ThreadChecker;
 
 import java.lang.reflect.Method;
 import java.util.Optional;
@@ -37,9 +38,7 @@ class AudioManagerAndroid {
     // NOTE: always check in as false.
     private static final boolean DEBUG = false;
 
-    /**
-     * Simple container for device information.
-     */
+    /** Simple container for device information. */
     public static class AudioDeviceName {
         private final int mId;
         private final String mName;
@@ -89,9 +88,7 @@ class AudioManagerAndroid {
 
     private AudioDeviceSelector mAudioDeviceSelector;
 
-    /**
-     * Construction
-     */
+    /** Construction */
     @CalledByNative
     private static AudioManagerAndroid createAudioManagerAndroid(long nativeAudioManagerAndroid) {
         return new AudioManagerAndroid(nativeAudioManagerAndroid);
@@ -99,7 +96,8 @@ class AudioManagerAndroid {
 
     private AudioManagerAndroid(long nativeAudioManagerAndroid) {
         mNativeAudioManagerAndroid = nativeAudioManagerAndroid;
-        mAudioManager = (AudioManager) ContextUtils.getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+        mAudioManager = (AudioManager) ContextUtils.getApplicationContext().getSystemService(
+                Context.AUDIO_SERVICE);
         mContentResolver = ContextUtils.getApplicationContext().getContentResolver();
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
@@ -123,7 +121,8 @@ class AudioManagerAndroid {
 
         // Check if process has MODIFY_AUDIO_SETTINGS and RECORD_AUDIO
         // permissions. Both are required for full functionality.
-        mHasModifyAudioSettingsPermission = hasPermission(android.Manifest.permission.MODIFY_AUDIO_SETTINGS);
+        mHasModifyAudioSettingsPermission =
+                hasPermission(android.Manifest.permission.MODIFY_AUDIO_SETTINGS);
         if (DEBUG && !mHasModifyAudioSettingsPermission) {
             logd("MODIFY_AUDIO_SETTINGS permission is missing");
         }
@@ -164,7 +163,9 @@ class AudioManagerAndroid {
         // The MODIFY_AUDIO_SETTINGS permission is required to allow an
         // application to modify global audio settings.
         if (!mHasModifyAudioSettingsPermission) {
-            Log.w(TAG, "MODIFY_AUDIO_SETTINGS is missing => client will run " + "with reduced functionality");
+            Log.w(TAG,
+                    "MODIFY_AUDIO_SETTINGS is missing => client will run "
+                            + "with reduced functionality");
             return;
         }
 
@@ -228,10 +229,10 @@ class AudioManagerAndroid {
      * Activates, i.e., starts routing audio to, the specified audio device.
      *
      * @param deviceId Unique device ID (integer converted to string)
-     *                 representing the selected device. This string is empty if the so-called
-     *                 default device is requested.
-     *                 Required permissions: android.Manifest.permission.MODIFY_AUDIO_SETTINGS
-     *                 and android.Manifest.permission.RECORD_AUDIO.
+     * representing the selected device. This string is empty if the so-called
+     * default device is requested.
+     * Required permissions: android.Manifest.permission.MODIFY_AUDIO_SETTINGS
+     * and android.Manifest.permission.RECORD_AUDIO.
      */
     @CalledByNative
     private boolean setDevice(String deviceId) {
@@ -240,7 +241,9 @@ class AudioManagerAndroid {
 
         boolean hasRecordAudioPermission = hasPermission(android.Manifest.permission.RECORD_AUDIO);
         if (!mHasModifyAudioSettingsPermission || !hasRecordAudioPermission) {
-            Log.w(TAG, "Requires MODIFY_AUDIO_SETTINGS and RECORD_AUDIO. " + "Selected device will not be available for recording");
+            Log.w(TAG,
+                    "Requires MODIFY_AUDIO_SETTINGS and RECORD_AUDIO. "
+                            + "Selected device will not be available for recording");
             return false;
         }
 
@@ -261,7 +264,9 @@ class AudioManagerAndroid {
 
         boolean hasRecordAudioPermission = hasPermission(android.Manifest.permission.RECORD_AUDIO);
         if (!mHasModifyAudioSettingsPermission || !hasRecordAudioPermission) {
-            Log.w(TAG, "Requires MODIFY_AUDIO_SETTINGS and RECORD_AUDIO. " + "No audio device will be available for recording");
+            Log.w(TAG,
+                    "Requires MODIFY_AUDIO_SETTINGS and RECORD_AUDIO. "
+                            + "No audio device will be available for recording");
             return null;
         }
 
@@ -270,15 +275,17 @@ class AudioManagerAndroid {
 
     @CalledByNative
     private int getNativeOutputSampleRate() {
-        String sampleRateString = mAudioManager.getProperty(AudioManager.PROPERTY_OUTPUT_SAMPLE_RATE);
-        return sampleRateString == null ? DEFAULT_SAMPLING_RATE : Integer.parseInt(sampleRateString);
+        String sampleRateString =
+                mAudioManager.getProperty(AudioManager.PROPERTY_OUTPUT_SAMPLE_RATE);
+        return sampleRateString == null ? DEFAULT_SAMPLING_RATE
+                                        : Integer.parseInt(sampleRateString);
     }
 
     /**
      * Returns the minimum frame size required for audio input.
      *
      * @param sampleRate sampling rate
-     * @param channels   number of channels
+     * @param channels number of channels
      */
     @CalledByNative
     private static int getMinInputFrameSize(int sampleRate, int channels) {
@@ -290,14 +297,16 @@ class AudioManagerAndroid {
         } else {
             return -1;
         }
-        return AudioRecord.getMinBufferSize(sampleRate, channelConfig, AudioFormat.ENCODING_PCM_16BIT) / 2 / channels;
+        return AudioRecord.getMinBufferSize(
+                       sampleRate, channelConfig, AudioFormat.ENCODING_PCM_16BIT)
+                / 2 / channels;
     }
 
     /**
      * Returns the minimum frame size required for audio output.
      *
      * @param sampleRate sampling rate
-     * @param channels   number of channels
+     * @param channels number of channels
      */
     @CalledByNative
     private static int getMinOutputFrameSize(int sampleRate, int channels) {
@@ -309,18 +318,23 @@ class AudioManagerAndroid {
         } else {
             return -1;
         }
-        return AudioTrack.getMinBufferSize(sampleRate, channelConfig, AudioFormat.ENCODING_PCM_16BIT) / 2 / channels;
+        return AudioTrack.getMinBufferSize(
+                       sampleRate, channelConfig, AudioFormat.ENCODING_PCM_16BIT)
+                / 2 / channels;
     }
 
     @CalledByNative
     private boolean isAudioLowLatencySupported() {
-        return ContextUtils.getApplicationContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_AUDIO_LOW_LATENCY);
+        return ContextUtils.getApplicationContext().getPackageManager().hasSystemFeature(
+                PackageManager.FEATURE_AUDIO_LOW_LATENCY);
     }
 
     @CalledByNative
     private int getAudioLowLatencyOutputFrameSize() {
-        String framesPerBuffer = mAudioManager.getProperty(AudioManager.PROPERTY_OUTPUT_FRAMES_PER_BUFFER);
-        return framesPerBuffer == null ? DEFAULT_FRAME_PER_BUFFER : Integer.parseInt(framesPerBuffer);
+        String framesPerBuffer =
+                mAudioManager.getProperty(AudioManager.PROPERTY_OUTPUT_FRAMES_PER_BUFFER);
+        return framesPerBuffer == null ? DEFAULT_FRAME_PER_BUFFER
+                                       : Integer.parseInt(framesPerBuffer);
     }
 
     @CalledByNative
@@ -359,17 +373,17 @@ class AudioManagerAndroid {
         int result = 0;
         if (sGetOutputLatency.isPresent()) {
             try {
-                result = (Integer) sGetOutputLatency.get().invoke(mAudioManager, AudioManager.STREAM_MUSIC);
+                result = (Integer) sGetOutputLatency.get().invoke(
+                        mAudioManager, AudioManager.STREAM_MUSIC);
             } catch (Exception e) {
+                ;
             }
         }
 
         return result;
     }
 
-    /**
-     * Sets the microphone mute state.
-     */
+    /** Sets the microphone mute state. */
     private void setMicrophoneMute(boolean on) {
         boolean wasMuted = mAudioManager.isMicrophoneMute();
         if (wasMuted == on) {
@@ -378,44 +392,41 @@ class AudioManagerAndroid {
         mAudioManager.setMicrophoneMute(on);
     }
 
-    /**
-     * Gets  the current microphone mute state.
-     */
+    /** Gets  the current microphone mute state. */
     private boolean isMicrophoneMute() {
         return mAudioManager.isMicrophoneMute();
     }
 
-    /**
-     * Checks if the process has as specified permission or not.
-     */
+    /** Checks if the process has as specified permission or not. */
     private boolean hasPermission(String permission) {
-        return ContextUtils.getApplicationContext().checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED;
+        return ContextUtils.getApplicationContext().checkSelfPermission(permission)
+                == PackageManager.PERMISSION_GRANTED;
     }
 
-    /**
-     * Information about the current build, taken from system properties.
-     */
+    /** Information about the current build, taken from system properties. */
     private void logDeviceInfo() {
-        logd("Android SDK: " + Build.VERSION.SDK_INT + ", " + "Release: " + Build.VERSION.RELEASE + ", " + "Brand: " + Build.BRAND + ", " + "Device: " + Build.DEVICE + ", " + "Id: " + Build.ID + ", " + "Hardware: " + Build.HARDWARE + ", " + "Manufacturer: " + Build.MANUFACTURER + ", " + "Model: " + Build.MODEL + ", " + "Product: " + Build.PRODUCT);
+        logd("Android SDK: " + Build.VERSION.SDK_INT + ", "
+                + "Release: " + Build.VERSION.RELEASE + ", "
+                + "Brand: " + Build.BRAND + ", "
+                + "Device: " + Build.DEVICE + ", "
+                + "Id: " + Build.ID + ", "
+                + "Hardware: " + Build.HARDWARE + ", "
+                + "Manufacturer: " + Build.MANUFACTURER + ", "
+                + "Model: " + Build.MODEL + ", "
+                + "Product: " + Build.PRODUCT);
     }
 
-    /**
-     * Trivial helper method for debug logging
-     */
+    /** Trivial helper method for debug logging */
     private static void logd(String msg) {
         Log.d(TAG, msg);
     }
 
-    /**
-     * Trivial helper method for error logging
-     */
+    /** Trivial helper method for error logging */
     private static void loge(String msg) {
         Log.e(TAG, msg);
     }
 
-    /**
-     * Start thread which observes volume changes on the voice stream.
-     */
+    /** Start thread which observes volume changes on the voice stream. */
     private void startObservingVolumeChanges() {
         if (DEBUG) logd("startObservingVolumeChanges");
         if (mSettingsObserverThread != null) return;
@@ -434,16 +445,16 @@ class AudioManagerAndroid {
                 // implementation can ensure that the volume is completely muted.
                 int volume = mAudioManager.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
                 if (DEBUG) logd("AudioManagerAndroidJni.get().setMute: " + (volume == 0));
-                AudioManagerAndroidJni.get().setMute(mNativeAudioManagerAndroid, AudioManagerAndroid.this, (volume == 0));
+                AudioManagerAndroidJni.get().setMute(
+                        mNativeAudioManagerAndroid, AudioManagerAndroid.this, (volume == 0));
             }
         };
 
-        mContentResolver.registerContentObserver(Settings.System.CONTENT_URI, true, mSettingsObserver);
+        mContentResolver.registerContentObserver(
+                Settings.System.CONTENT_URI, true, mSettingsObserver);
     }
 
-    /**
-     * Quit observer thread and stop listening for volume changes.
-     */
+    /** Quit observer thread and stop listening for volume changes. */
     private void stopObservingVolumeChanges() {
         if (DEBUG) logd("stopObservingVolumeChanges");
         if (mSettingsObserverThread == null) return;
@@ -460,17 +471,15 @@ class AudioManagerAndroid {
         mSettingsObserverThread = null;
     }
 
-    /**
-     * Return the AudioDeviceInfo array as reported by the Android OS.
-     */
+    /** Return the AudioDeviceInfo array as reported by the Android OS. */
     private static AudioDeviceInfo[] getAudioDeviceInfo() {
-        AudioManager audioManager = (AudioManager) ContextUtils.getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+        AudioManager audioManager =
+                (AudioManager) ContextUtils.getApplicationContext().getSystemService(
+                        Context.AUDIO_SERVICE);
         return audioManager.getDevices(AudioManager.GET_DEVICES_OUTPUTS);
     }
 
-    /**
-     * Returns whether an audio sink device is connected.
-     */
+    /** Returns whether an audio sink device is connected. */
     @CalledByNative
     private static boolean isAudioSinkConnected() {
         for (AudioDeviceInfo deviceInfo : getAudioDeviceInfo()) {

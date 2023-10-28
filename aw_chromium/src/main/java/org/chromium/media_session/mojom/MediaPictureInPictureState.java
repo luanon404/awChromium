@@ -17,10 +17,11 @@ import androidx.annotation.IntDef;
 
 public final class MediaPictureInPictureState {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({MediaPictureInPictureState.NOT_IN_PICTURE_IN_PICTURE, MediaPictureInPictureState.IN_PICTURE_IN_PICTURE})
-    public @interface EnumType {
-    }
+        MediaPictureInPictureState.NOT_IN_PICTURE_IN_PICTURE,
+        MediaPictureInPictureState.IN_PICTURE_IN_PICTURE})
+    public @interface EnumType {}
 
     public static final int NOT_IN_PICTURE_IN_PICTURE = 0;
     public static final int IN_PICTURE_IN_PICTURE = 1;
@@ -37,9 +38,8 @@ public final class MediaPictureInPictureState {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private MediaPictureInPictureState() {
-    }
+    private MediaPictureInPictureState() {}
 }

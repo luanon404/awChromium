@@ -13,37 +13,40 @@
 
 package org.chromium.cc.mojom;
 
+import androidx.annotation.IntDef;
+
+
 class RenderFrameMetadataObserver_Internal {
 
     public static final org.chromium.mojo.bindings.Interface.Manager<RenderFrameMetadataObserver, RenderFrameMetadataObserver.Proxy> MANAGER =
             new org.chromium.mojo.bindings.Interface.Manager<RenderFrameMetadataObserver, RenderFrameMetadataObserver.Proxy>() {
 
-                @Override
-                public String getName() {
-                    return "cc.mojom.RenderFrameMetadataObserver";
-                }
+        @Override
+        public String getName() {
+            return "cc.mojom.RenderFrameMetadataObserver";
+        }
 
-                @Override
-                public int getVersion() {
-                    return 0;
-                }
+        @Override
+        public int getVersion() {
+          return 0;
+        }
 
-                @Override
-                public Proxy buildProxy(org.chromium.mojo.system.Core core,
-                                        org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
-                    return new Proxy(core, messageReceiver);
-                }
+        @Override
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+            return new Proxy(core, messageReceiver);
+        }
 
-                @Override
-                public Stub buildStub(org.chromium.mojo.system.Core core, RenderFrameMetadataObserver impl) {
-                    return new Stub(core, impl);
-                }
+        @Override
+        public Stub buildStub(org.chromium.mojo.system.Core core, RenderFrameMetadataObserver impl) {
+            return new Stub(core, impl);
+        }
 
-                @Override
-                public RenderFrameMetadataObserver[] buildArray(int size) {
-                    return new RenderFrameMetadataObserver[size];
-                }
-            };
+        @Override
+        public RenderFrameMetadataObserver[] buildArray(int size) {
+          return new RenderFrameMetadataObserver[size];
+        }
+    };
 
 
     private static final int UPDATE_ROOT_SCROLL_OFFSET_UPDATE_FREQUENCY_ORDINAL = 0;
@@ -61,7 +64,7 @@ class RenderFrameMetadataObserver_Internal {
 
         @Override
         public void updateRootScrollOffsetUpdateFrequency(
-                int frequency) {
+int frequency) {
 
             RenderFrameMetadataObserverUpdateRootScrollOffsetUpdateFrequencyParams _message = new RenderFrameMetadataObserverUpdateRootScrollOffsetUpdateFrequencyParams();
 
@@ -78,7 +81,7 @@ class RenderFrameMetadataObserver_Internal {
 
         @Override
         public void reportAllFrameSubmissionsForTesting(
-                boolean enabled) {
+boolean enabled) {
 
             RenderFrameMetadataObserverReportAllFrameSubmissionsForTestingParams _message = new RenderFrameMetadataObserverReportAllFrameSubmissionsForTestingParams();
 
@@ -114,11 +117,14 @@ class RenderFrameMetadataObserver_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
                         return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
                                 RenderFrameMetadataObserver_Internal.MANAGER, messageWithHeader);
+
+
+
 
 
                     case UPDATE_ROOT_SCROLL_OFFSET_UPDATE_FREQUENCY_ORDINAL: {
@@ -129,6 +135,9 @@ class RenderFrameMetadataObserver_Internal {
                         getImpl().updateRootScrollOffsetUpdateFrequency(data.frequency);
                         return true;
                     }
+
+
+
 
 
                     case REPORT_ALL_FRAME_SUBMISSIONS_FOR_TESTING_ORDINAL: {
@@ -145,7 +154,7 @@ class RenderFrameMetadataObserver_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -163,28 +172,33 @@ class RenderFrameMetadataObserver_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
                         return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
                                 getCore(), RenderFrameMetadataObserver_Internal.MANAGER, messageWithHeader, receiver);
 
 
+
+
+
+
                     default:
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class RenderFrameMetadataObserverUpdateRootScrollOffsetUpdateFrequencyParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int frequency;
 
@@ -221,12 +235,12 @@ class RenderFrameMetadataObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new RenderFrameMetadataObserverUpdateRootScrollOffsetUpdateFrequencyParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.frequency = decoder0.readInt(8);
-                    RootScrollOffsetUpdateFrequency.validate(result.frequency);
-                    result.frequency = RootScrollOffsetUpdateFrequency.toKnownValue(result.frequency);
-                }
+                        RootScrollOffsetUpdateFrequency.validate(result.frequency);
+                        result.frequency = RootScrollOffsetUpdateFrequency.toKnownValue(result.frequency);
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -238,16 +252,18 @@ class RenderFrameMetadataObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.frequency, 8);
         }
     }
 
 
+
+    
     static final class RenderFrameMetadataObserverReportAllFrameSubmissionsForTestingParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public boolean enabled;
 
@@ -284,10 +300,10 @@ class RenderFrameMetadataObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new RenderFrameMetadataObserverReportAllFrameSubmissionsForTestingParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.enabled = decoder0.readBoolean(8, 0);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -299,10 +315,11 @@ class RenderFrameMetadataObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.enabled, 8, 0);
         }
     }
+
 
 
 }

@@ -13,6 +13,8 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public final class PolicyContainerBindParams extends org.chromium.mojo.bindings.Struct {
 

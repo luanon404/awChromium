@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface SessionStorageNamespace extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends SessionStorageNamespace, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends SessionStorageNamespace, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<SessionStorageNamespace, SessionStorageNamespace.Proxy> MANAGER = SessionStorageNamespace_Internal.MANAGER;

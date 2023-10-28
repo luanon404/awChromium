@@ -1,3 +1,4 @@
+
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -14,20 +15,25 @@ import androidx.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@IntDef({LoadSeedResult.SUCCESS, LoadSeedResult.EMPTY, LoadSeedResult.INVALID_SIGNATURE, LoadSeedResult.CORRUPT_BASE64, LoadSeedResult.CORRUPT_PROTOBUF, LoadSeedResult.CORRUPT_GZIP, LoadSeedResult.LOAD_TIMED_OUT, LoadSeedResult.LOAD_INTERRUPTED, LoadSeedResult.LOAD_OTHER_FAILURE, LoadSeedResult.MAX_VALUE})
+@IntDef({
+    LoadSeedResult.SUCCESS, LoadSeedResult.EMPTY, LoadSeedResult.INVALID_SIGNATURE,
+    LoadSeedResult.CORRUPT_BASE64, LoadSeedResult.CORRUPT_PROTOBUF, LoadSeedResult.CORRUPT_GZIP,
+    LoadSeedResult.LOAD_TIMED_OUT, LoadSeedResult.LOAD_INTERRUPTED,
+    LoadSeedResult.LOAD_OTHER_FAILURE, LoadSeedResult.MAX_VALUE
+})
 @Retention(RetentionPolicy.SOURCE)
 public @interface LoadSeedResult {
-    int SUCCESS = 0;
-    int EMPTY = 1;
-    /**
-     * kCorrupt = 2,  // Deprecated.
-     */
-    int INVALID_SIGNATURE = 3;
-    int CORRUPT_BASE64 = 4;
-    int CORRUPT_PROTOBUF = 5;
-    int CORRUPT_GZIP = 6;
-    int LOAD_TIMED_OUT = 7;
-    int LOAD_INTERRUPTED = 8;
-    int LOAD_OTHER_FAILURE = 9;
-    int MAX_VALUE = LOAD_OTHER_FAILURE;
+  int SUCCESS = 0;
+  int EMPTY = 1;
+  /**
+   * kCorrupt = 2,  // Deprecated.
+   */
+  int INVALID_SIGNATURE = 3;
+  int CORRUPT_BASE64 = 4;
+  int CORRUPT_PROTOBUF = 5;
+  int CORRUPT_GZIP = 6;
+  int LOAD_TIMED_OUT = 7;
+  int LOAD_INTERRUPTED = 8;
+  int LOAD_OTHER_FAILURE = 9;
+  int MAX_VALUE = LOAD_OTHER_FAILURE;
 }

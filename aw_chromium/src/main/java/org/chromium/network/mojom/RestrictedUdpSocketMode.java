@@ -17,10 +17,11 @@ import androidx.annotation.IntDef;
 
 public final class RestrictedUdpSocketMode {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({RestrictedUdpSocketMode.CONNECTED, RestrictedUdpSocketMode.BOUND})
-    public @interface EnumType {
-    }
+        RestrictedUdpSocketMode.CONNECTED,
+        RestrictedUdpSocketMode.BOUND})
+    public @interface EnumType {}
 
     public static final int CONNECTED = 0;
     public static final int BOUND = 1;
@@ -37,9 +38,8 @@ public final class RestrictedUdpSocketMode {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private RestrictedUdpSocketMode() {
-    }
+    private RestrictedUdpSocketMode() {}
 }

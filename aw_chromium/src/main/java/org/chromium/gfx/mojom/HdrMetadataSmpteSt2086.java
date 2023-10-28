@@ -13,10 +13,13 @@
 
 package org.chromium.gfx.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class HdrMetadataSmpteSt2086 extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 24;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public org.chromium.skia.mojom.SkColorSpacePrimaries primaries;
     public float luminanceMax;
@@ -40,7 +43,8 @@ public final class HdrMetadataSmpteSt2086 extends org.chromium.mojo.bindings.Str
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static HdrMetadataSmpteSt2086 deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -54,19 +58,19 @@ public final class HdrMetadataSmpteSt2086 extends org.chromium.mojo.bindings.Str
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new HdrMetadataSmpteSt2086(elementsOrVersion);
-            {
-
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                 result.primaries = org.chromium.skia.mojom.SkColorSpacePrimaries.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.luminanceMax = decoder0.readFloat(16);
-            }
-            {
-
+                }
+                {
+                    
                 result.luminanceMin = decoder0.readFloat(20);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -78,11 +82,11 @@ public final class HdrMetadataSmpteSt2086 extends org.chromium.mojo.bindings.Str
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.primaries, 8, false);
-
+        
         encoder0.encode(this.luminanceMax, 16);
-
+        
         encoder0.encode(this.luminanceMin, 20);
     }
 }

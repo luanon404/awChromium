@@ -18,7 +18,8 @@ public class HostZoomMap {
     // not use the slider. These zoom factors correspond to the zoom levels that are used on
     // desktop, i.e. {0.50, 0.67, ... 3.00}, excluding the smallest/largest two, since they are
     // of little value on a mobile device.
-    public static final double[] AVAILABLE_ZOOM_FACTORS = new double[]{-3.80, -2.20, -1.58, -1.22, -0.58, 0.00, 0.52, 1.22, 1.56, 2.22, 3.07, 3.80, 5.03, 6.03};
+    public static final double[] AVAILABLE_ZOOM_FACTORS = new double[] {-3.80, -2.20, -1.58, -1.22,
+            -0.58, 0.00, 0.52, 1.22, 1.56, 2.22, 3.07, 3.80, 5.03, 6.03};
 
     // The value of the base for zoom factor, should match |kTextSizeMultiplierRatio|.
     public static final float TEXT_SIZE_MULTIPLIER_RATIO = 1.2f;
@@ -31,14 +32,12 @@ public class HostZoomMap {
     private static float sSystemFontScale = 1.0f;
 
     // Private constructor to prevent unwanted construction.
-    private HostZoomMap() {
-    }
+    private HostZoomMap() {}
 
     /**
      * Set a new zoom level for the given web contents.
-     *
-     * @param webContents  WebContents to update
-     * @param newZoomLevel double - new zoom level
+     * @param webContents   WebContents to update
+     * @param newZoomLevel  double - new zoom level
      */
     public static void setZoomLevel(@NonNull WebContents webContents, double newZoomLevel) {
         assert !webContents.isDestroyed();
@@ -52,7 +51,9 @@ public class HostZoomMap {
         // then really that choice is 195% * 1.1 = 214.5%. If the user then switches to default
         // |fontScale| or switches to a mobile site, we would still want the value to be 150% shown
         // to the user, and not the 214.5%.
-        HostZoomMapImpl.setZoomLevel(webContents, newZoomLevel, HostZoomMapImpl.adjustZoomLevel(newZoomLevel, sSystemFontScale, HostZoomMapImpl.getDesktopSiteZoomScale(webContents)));
+        HostZoomMapImpl.setZoomLevel(webContents, newZoomLevel,
+                HostZoomMapImpl.adjustZoomLevel(newZoomLevel, sSystemFontScale,
+                        HostZoomMapImpl.getDesktopSiteZoomScale(webContents)));
     }
 
     /**
@@ -64,8 +65,7 @@ public class HostZoomMap {
 
     /**
      * Set the current system font scale
-     *
-     * @param newSystemFontScale float, new value.
+     * @param newSystemFontScale   float, new value.
      */
     public static void setSystemFontScale(float newSystemFontScale) {
         sSystemFontScale = newSystemFontScale;
@@ -73,8 +73,7 @@ public class HostZoomMap {
 
     /**
      * Get the current zoom level for a given web contents.
-     *
-     * @param webContents WebContents to get zoom level for
+     * @param webContents   WebContents to get zoom level for
      * @return double       current zoom level
      */
     public static double getZoomLevel(@NonNull WebContents webContents) {
@@ -84,45 +83,46 @@ public class HostZoomMap {
         // system level setting and the desktop site zoom scale. Here we need to do the reverse
         // operation of the above, effectively divide rather than multiply, so we will pass the
         // reciprocal of |sSystemFontScale| and |DESKTOP_SITE_ZOOM_SCALE| respectively.
-        return HostZoomMapImpl.adjustZoomLevel(HostZoomMapImpl.getZoomLevel(webContents), (float) 1 / sSystemFontScale, (float) 1 / HostZoomMapImpl.getDesktopSiteZoomScale(webContents));
+        return HostZoomMapImpl.adjustZoomLevel(HostZoomMapImpl.getZoomLevel(webContents),
+                (float) 1 / sSystemFontScale,
+                (float) 1 / HostZoomMapImpl.getDesktopSiteZoomScale(webContents));
     }
 
     /**
      * Get the zoom levels for all hosts.
-     *
      * @param browserContextHandle BrowserContextHandle to get zoom level for.
-     * @return HashMap<String, Double> map containing the host name as a string to the zoom factor
-     * (called zoom level on the c++ side) as a double.
+     * @return  HashMap<String, Double> map containing the host name as a string to the zoom factor
+     *         (called zoom level on the c++ side) as a double.
      */
-    public static Map<String, Double> getAllHostZoomLevels(BrowserContextHandle browserContextHandle) {
+    public static Map<String, Double> getAllHostZoomLevels(
+            BrowserContextHandle browserContextHandle) {
         return HostZoomMapImpl.getAllHostZoomLevels(browserContextHandle);
     }
 
     /**
      * Set the zoom level to the given level for the given host.
-     *
-     * @param host                 host to set zoom level for.
-     * @param level                new zoom level (as a zoom factor as described in PageZoomUtils.java).
-     * @param browserContextHandle BrowserContextHandle to set zoom level for.
+     * @param host  host to set zoom level for.
+     * @param level new zoom level (as a zoom factor as described in PageZoomUtils.java).
+     * @param browserContextHandle  BrowserContextHandle to set zoom level for.
      */
-    public static void setZoomLevelForHost(BrowserContextHandle browserContextHandle, String host, double level) {
+    public static void setZoomLevelForHost(
+            BrowserContextHandle browserContextHandle, String host, double level) {
         HostZoomMapImpl.setZoomLevelForHost(browserContextHandle, host, level);
     }
 
     /**
      * Set the default zoom level for a given browser context handle (e.g. Profile).
-     *
-     * @param context             BrowserContextHandle to update default for.
-     * @param newDefaultZoomLevel double, new default value.
+     * @param context       BrowserContextHandle to update default for.
+     * @param newDefaultZoomLevel   double, new default value.
      */
-    public static void setDefaultZoomLevel(BrowserContextHandle context, double newDefaultZoomLevel) {
+    public static void setDefaultZoomLevel(
+            BrowserContextHandle context, double newDefaultZoomLevel) {
         HostZoomMapImpl.setDefaultZoomLevel(context, newDefaultZoomLevel);
     }
 
     /**
      * Returns true when the field trial param to adjust zoom for OS-level font setting is
      * true, false otherwise.
-     *
      * @return bool True if zoom should be adjusted.
      */
     public static boolean shouldAdjustForOSLevel() {
@@ -131,8 +131,7 @@ public class HostZoomMap {
 
     /**
      * Get the default zoom level for a given browser context handle (e.g. Profile).
-     *
-     * @param context BrowserContextHandle to get default for.
+     * @param context       BrowserContextHandle to get default for.
      * @return double       default zoom level.
      */
     public static double getDefaultZoomLevel(BrowserContextHandle context) {

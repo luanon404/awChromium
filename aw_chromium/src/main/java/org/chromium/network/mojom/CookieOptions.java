@@ -13,10 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class CookieOptions extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 24;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public boolean excludeHttponly;
     public CookieSameSiteContext sameSiteCookieContext;
@@ -44,7 +47,8 @@ public final class CookieOptions extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static CookieOptions deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -58,23 +62,23 @@ public final class CookieOptions extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new CookieOptions(elementsOrVersion);
-            {
-
+                {
+                    
                 result.excludeHttponly = decoder0.readBoolean(8, 0);
-            }
-            {
-
+                }
+                {
+                    
                 result.updateAccessTime = decoder0.readBoolean(8, 1);
-            }
-            {
-
+                }
+                {
+                    
                 result.returnExcludedCookies = decoder0.readBoolean(8, 2);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                 result.sameSiteCookieContext = CookieSameSiteContext.decode(decoder1);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -86,13 +90,13 @@ public final class CookieOptions extends org.chromium.mojo.bindings.Struct {
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.excludeHttponly, 8, 0);
-
+        
         encoder0.encode(this.updateAccessTime, 8, 1);
-
+        
         encoder0.encode(this.returnExcludedCookies, 8, 2);
-
+        
         encoder0.encode(this.sameSiteCookieContext, 16, false);
     }
 }

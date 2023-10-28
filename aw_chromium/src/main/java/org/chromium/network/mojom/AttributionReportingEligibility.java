@@ -17,10 +17,15 @@ import androidx.annotation.IntDef;
 
 public final class AttributionReportingEligibility {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({AttributionReportingEligibility.UNSET, AttributionReportingEligibility.EMPTY, AttributionReportingEligibility.EVENT_SOURCE, AttributionReportingEligibility.NAVIGATION_SOURCE, AttributionReportingEligibility.TRIGGER, AttributionReportingEligibility.EVENT_SOURCE_OR_TRIGGER})
-    public @interface EnumType {
-    }
+        AttributionReportingEligibility.UNSET,
+        AttributionReportingEligibility.EMPTY,
+        AttributionReportingEligibility.EVENT_SOURCE,
+        AttributionReportingEligibility.NAVIGATION_SOURCE,
+        AttributionReportingEligibility.TRIGGER,
+        AttributionReportingEligibility.EVENT_SOURCE_OR_TRIGGER})
+    public @interface EnumType {}
 
     public static final int UNSET = 0;
     public static final int EMPTY = 1;
@@ -41,9 +46,8 @@ public final class AttributionReportingEligibility {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private AttributionReportingEligibility() {
-    }
+    private AttributionReportingEligibility() {}
 }

@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface Portal extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends Portal, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends Portal, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<Portal, Portal.Proxy> MANAGER = Portal_Internal.MANAGER;

@@ -3,56 +3,136 @@
 //
 package org.chromium.content.browser.selection;
 
-import org.chromium.content_public.browser.WebContents;
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.app.Activity;
+import android.app.SearchManager;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
+import android.os.Handler;
+import android.provider.Browser;
+import android.text.TextUtils;
+import android.view.ActionMode;
+import android.view.HapticFeedbackConstants;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.textclassifier.SelectionEvent;
+import android.view.textclassifier.TextClassifier;
+import androidx.annotation.IdRes;
+import androidx.annotation.IntDef;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.Px;
+import androidx.annotation.VisibleForTesting;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.Log;
+import org.chromium.base.PackageManagerUtils;
+import org.chromium.base.ResettersForTesting;
+import org.chromium.base.UserData;
+import org.chromium.base.compat.ApiHelperForM;
+import org.chromium.base.metrics.RecordHistogram;
+import org.chromium.base.metrics.RecordUserAction;
+import org.chromium.base.supplier.ObservableSupplier;
+import org.chromium.base.supplier.ObservableSupplierImpl;
+import org.chromium.android_webview.R;
+import org.chromium.content.browser.GestureListenerManagerImpl;
+import org.chromium.content.browser.PopupController;
+import org.chromium.content.browser.PopupController.HideablePopup;
+import org.chromium.content.browser.WindowEventObserver;
+import org.chromium.content.browser.WindowEventObserverManager;
+import org.chromium.content.browser.input.ImeAdapterImpl;
+import org.chromium.content.browser.selection.SelectActionMenuHelper.SelectActionMenuDelegate;
+import org.chromium.content.browser.selection.SelectActionMenuHelper.TextProcessingIntentHandler;
+import org.chromium.content.browser.webcontents.WebContentsImpl;
+import org.chromium.content.browser.webcontents.WebContentsImpl.UserDataFactory;
+import org.chromium.content_public.browser.ActionModeCallback;
+import org.chromium.content_public.browser.ActionModeCallbackHelper;
+import org.chromium.content_public.browser.AdditionalSelectionMenuItemProvider;
+import org.chromium.content_public.browser.ContentFeatureList;
+import org.chromium.content_public.browser.ContentFeatureMap;
+import org.chromium.content_public.browser.ImeEventObserver;
+import org.chromium.content_public.browser.RenderFrameHost;
+import org.chromium.content_public.browser.SelectAroundCaretResult;
+import org.chromium.content_public.browser.SelectionClient;
+import org.chromium.content_public.browser.SelectionMenuGroup;
+import org.chromium.content_public.browser.SelectionMenuItem;
+import org.chromium.content_public.browser.SelectionPopupController;
+import org.chromium.content_public.browser.WebContents;
+import org.chromium.content_public.browser.selection.SelectionDropdownMenuDelegate;
+import org.chromium.ui.base.Clipboard;
+import org.chromium.ui.base.DeviceFormFactor;
+import org.chromium.ui.base.MenuSourceType;
+import org.chromium.ui.base.ViewAndroidDelegate;
+import org.chromium.ui.base.ViewAndroidDelegate.ContainerViewObserver;
+import org.chromium.ui.base.WindowAndroid;
+import org.chromium.ui.modelutil.MVCListAdapter;
+import org.chromium.ui.touch_selection.SelectionEventType;
+import org.chromium.ui.touch_selection.TouchSelectionDraggableType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.PriorityQueue;
 
 @CheckDiscard("crbug.com/993421")
 class SelectionPopupControllerImplJni implements SelectionPopupControllerImpl.Natives {
-    private static SelectionPopupControllerImpl.Natives testInstance;
+  private static SelectionPopupControllerImpl.Natives testInstance;
 
-    public static final JniStaticTestMocker<SelectionPopupControllerImpl.Natives> TEST_HOOKS = new JniStaticTestMocker<SelectionPopupControllerImpl.Natives>() {
-        @Override
-        public void setInstanceForTesting(SelectionPopupControllerImpl.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<SelectionPopupControllerImpl.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<SelectionPopupControllerImpl.Natives>() {
     @Override
-    public long init(SelectionPopupControllerImpl caller, WebContents webContents) {
-        return (long) GEN_JNI.org_chromium_content_browser_selection_SelectionPopupControllerImpl_init(caller, webContents);
+    public void setInstanceForTesting(SelectionPopupControllerImpl.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public boolean isMagnifierWithSurfaceControlSupported() {
-        return (boolean) GEN_JNI.org_chromium_content_browser_selection_SelectionPopupControllerImpl_isMagnifierWithSurfaceControlSupported();
-    }
+  @Override
+  public long init(SelectionPopupControllerImpl caller, WebContents webContents) {
+    return (long) GEN_JNI.org_chromium_content_browser_selection_SelectionPopupControllerImpl_init(caller, webContents);
+  }
 
-    @Override
-    public void setTextHandlesHiddenForDropdownMenu(long nativeSelectionPopupController, SelectionPopupControllerImpl caller, boolean hidden) {
-        GEN_JNI.org_chromium_content_browser_selection_SelectionPopupControllerImpl_setTextHandlesHiddenForDropdownMenu(nativeSelectionPopupController, caller, hidden);
-    }
+  @Override
+  public boolean isMagnifierWithSurfaceControlSupported() {
+    return (boolean) GEN_JNI.org_chromium_content_browser_selection_SelectionPopupControllerImpl_isMagnifierWithSurfaceControlSupported();
+  }
 
-    @Override
-    public void setTextHandlesTemporarilyHidden(long nativeSelectionPopupController, SelectionPopupControllerImpl caller, boolean hidden) {
-        GEN_JNI.org_chromium_content_browser_selection_SelectionPopupControllerImpl_setTextHandlesTemporarilyHidden(nativeSelectionPopupController, caller, hidden);
-    }
+  @Override
+  public void setTextHandlesHiddenForDropdownMenu(long nativeSelectionPopupController, SelectionPopupControllerImpl caller, boolean hidden) {
+    GEN_JNI.org_chromium_content_browser_selection_SelectionPopupControllerImpl_setTextHandlesHiddenForDropdownMenu(nativeSelectionPopupController, caller, hidden);
+  }
 
-    public static SelectionPopupControllerImpl.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of SelectionPopupControllerImpl.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new SelectionPopupControllerImplJni();
+  @Override
+  public void setTextHandlesTemporarilyHidden(long nativeSelectionPopupController, SelectionPopupControllerImpl caller, boolean hidden) {
+    GEN_JNI.org_chromium_content_browser_selection_SelectionPopupControllerImpl_setTextHandlesTemporarilyHidden(nativeSelectionPopupController, caller, hidden);
+  }
+
+  public static SelectionPopupControllerImpl.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of SelectionPopupControllerImpl.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new SelectionPopupControllerImplJni();
+  }
 }

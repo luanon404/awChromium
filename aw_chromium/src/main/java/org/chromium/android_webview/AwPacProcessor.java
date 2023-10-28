@@ -14,10 +14,11 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
-import org.chromium.base.ContextUtils;
-import org.chromium.build.annotations.UsedByReflection;
 import org.jni_zero.JNINamespace;
 import org.jni_zero.NativeMethods;
+
+import org.chromium.base.ContextUtils;
+import org.chromium.build.annotations.UsedByReflection;
 
 import java.net.InetAddress;
 
@@ -57,13 +58,18 @@ public class AwPacProcessor {
         if (network == null || linkProperties == null) {
             setNetworkAndLinkAddresses(NETWORK_UNSPECIFIED, new String[0]);
         } else {
-            String[] addresses = linkProperties.getLinkAddresses().stream().map(LinkAddress::getAddress).map(InetAddress::getHostAddress).toArray(String[]::new);
+            String[] addresses = linkProperties.getLinkAddresses()
+                                         .stream()
+                                         .map(LinkAddress::getAddress)
+                                         .map(InetAddress::getHostAddress)
+                                         .toArray(String[] ::new);
             setNetworkAndLinkAddresses(network.getNetworkHandle(), addresses);
         }
     }
 
     public void setNetworkAndLinkAddresses(long networkHandle, String[] addresses) {
-        AwPacProcessorJni.get().setNetworkAndLinkAddresses(mNativePacProcessor, networkHandle, addresses);
+        AwPacProcessorJni.get().setNetworkAndLinkAddresses(
+                mNativePacProcessor, networkHandle, addresses);
     }
 
     private void registerNetworkCallback() {
@@ -129,15 +135,11 @@ public class AwPacProcessor {
     @NativeMethods
     interface Natives {
         void initializeEnvironment();
-
         long createNativePacProcessor();
-
         boolean setProxyScript(long nativeAwPacProcessor, AwPacProcessor caller, String script);
-
         String makeProxyRequest(long nativeAwPacProcessor, AwPacProcessor caller, String url);
-
         void destroyNative(long nativeAwPacProcessor, AwPacProcessor caller);
-
-        void setNetworkAndLinkAddresses(long nativeAwPacProcessor, long networkHandle, String[] adresses);
+        void setNetworkAndLinkAddresses(
+                long nativeAwPacProcessor, long networkHandle, String[] adresses);
     }
 }

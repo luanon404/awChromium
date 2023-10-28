@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class MoveDirection {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({MoveDirection.NONE, MoveDirection.BACKWARD, MoveDirection.FORWARD})
-    public @interface EnumType {
-    }
+        MoveDirection.NONE,
+        MoveDirection.BACKWARD,
+        MoveDirection.FORWARD})
+    public @interface EnumType {}
 
     public static final int NONE = 0;
     public static final int BACKWARD = 1;
@@ -39,12 +41,11 @@ public final class MoveDirection {
     }
 
     public static int toKnownValue(int value) {
-        if (isKnownValue(value)) {
-            return value;
-        }
-        return DEFAULT_VALUE;
+      if (isKnownValue(value)) {
+        return value;
+      }
+      return DEFAULT_VALUE;
     }
 
-    private MoveDirection() {
-    }
+    private MoveDirection() {}
 }

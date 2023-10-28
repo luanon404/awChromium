@@ -17,8 +17,7 @@ import java.util.List;
  * Utility functions for calculating Rectangle properties (i.e. Area of a single Rect)
  */
 public final class RectUtils {
-    private RectUtils() {
-    }
+    private RectUtils() {}
 
     public static int getRectArea(Rect rect) {
         return rect.width() * rect.height();
@@ -96,7 +95,8 @@ public final class RectUtils {
         }
     }
 
-    private static void insertSorted(VerticalSegment arr[], int n, VerticalSegment verticalSegment, int capacity) {
+    private static void insertSorted(
+            VerticalSegment arr[], int n, VerticalSegment verticalSegment, int capacity) {
         assert n < capacity;
 
         int i;
@@ -109,7 +109,8 @@ public final class RectUtils {
         arr[insert_index].set(verticalSegment);
     }
 
-    private static int deleteElement(VerticalSegment arr[], int n, VerticalSegment verticalSegment) {
+    private static int deleteElement(
+            VerticalSegment arr[], int n, VerticalSegment verticalSegment) {
         int pos = Arrays.binarySearch(arr, 0, n, verticalSegment);
         if (pos < 0) {
             return -1;
@@ -122,7 +123,8 @@ public final class RectUtils {
         return n - 1;
     }
 
-    private static int getCoverageOfVerticalSegments(VerticalSegment vSegments[], int numVerticalSegments) {
+    private static int getCoverageOfVerticalSegments(
+            VerticalSegment vSegments[], int numVerticalSegments) {
         int scanCount = 0;
         int coveredPixels = 0;
         int start = -1;
@@ -191,7 +193,7 @@ public final class RectUtils {
         for (int i = 0; i < coverageRects.size(); i++) {
             Rect clipRect = coverageRects.get(i);
             if (clipRect.intersect(screenRect)) { // This line may modify the value of the passed
-                // in coverage rects
+                                                  // in coverage rects
                 sClippedRects[numClippedRects++] = clipRect;
             }
         }
@@ -215,8 +217,10 @@ public final class RectUtils {
 
         for (int i = 0; i < maxSegments; i += 2) {
             Rect coverageRect = sClippedRects[i / 2];
-            sHorizontalSegments[i].set(coverageRect.left, coverageRect.top, coverageRect.bottom, SegmentType.START);
-            sHorizontalSegments[i + 1].set(coverageRect.right, coverageRect.top, coverageRect.bottom, SegmentType.END);
+            sHorizontalSegments[i].set(
+                    coverageRect.left, coverageRect.top, coverageRect.bottom, SegmentType.START);
+            sHorizontalSegments[i + 1].set(
+                    coverageRect.right, coverageRect.top, coverageRect.bottom, SegmentType.END);
         }
 
         Arrays.sort(sHorizontalSegments, 0, maxSegments);
@@ -225,14 +229,17 @@ public final class RectUtils {
         int coveredPixels = 0;
         for (int i = 0; i < maxSegments; i++) {
             HorizontalSegment hSegment = sHorizontalSegments[i];
-            coveredPixels += getCoverageOfVerticalSegments(sVerticalSegments, numVerticalSegments) * (hSegment.mX - prev_x);
+            coveredPixels += getCoverageOfVerticalSegments(sVerticalSegments, numVerticalSegments)
+                    * (hSegment.mX - prev_x);
             sVerticalSegment1.set(hSegment.mTop, SegmentType.START);
             sVerticalSegment2.set(hSegment.mBottom, SegmentType.END);
 
             if (hSegment.mSegmentType == SegmentType.START) {
-                insertSorted(sVerticalSegments, numVerticalSegments, sVerticalSegment1, maxSegments);
+                insertSorted(
+                        sVerticalSegments, numVerticalSegments, sVerticalSegment1, maxSegments);
                 numVerticalSegments++;
-                insertSorted(sVerticalSegments, numVerticalSegments, sVerticalSegment2, maxSegments);
+                insertSorted(
+                        sVerticalSegments, numVerticalSegments, sVerticalSegment2, maxSegments);
                 numVerticalSegments++;
             } else {
                 int ret;

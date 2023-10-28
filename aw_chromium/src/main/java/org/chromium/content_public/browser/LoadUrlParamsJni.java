@@ -4,39 +4,60 @@
 package org.chromium.content_public.browser;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.UserDataHost;
+import org.chromium.base.supplier.Supplier;
+import org.chromium.content_public.browser.navigation_controller.LoadURLType;
+import org.chromium.content_public.browser.navigation_controller.UserAgentOverrideOption;
+import org.chromium.content_public.common.Referrer;
+import org.chromium.content_public.common.ResourceRequestBody;
+import org.chromium.ui.base.PageTransition;
+import org.chromium.url.GURL;
+import org.chromium.url.Origin;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 @CheckDiscard("crbug.com/993421")
 class LoadUrlParamsJni implements LoadUrlParams.Natives {
-    private static LoadUrlParams.Natives testInstance;
+  private static LoadUrlParams.Natives testInstance;
 
-    public static final JniStaticTestMocker<LoadUrlParams.Natives> TEST_HOOKS = new JniStaticTestMocker<LoadUrlParams.Natives>() {
-        @Override
-        public void setInstanceForTesting(LoadUrlParams.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<LoadUrlParams.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<LoadUrlParams.Natives>() {
     @Override
-    public boolean isDataScheme(String url) {
-        return (boolean) GEN_JNI.org_chromium_content_1public_browser_LoadUrlParams_isDataScheme(url);
+    public void setInstanceForTesting(LoadUrlParams.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    public static LoadUrlParams.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of LoadUrlParams.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new LoadUrlParamsJni();
+  @Override
+  public boolean isDataScheme(String url) {
+    return (boolean) GEN_JNI.org_chromium_content_1public_browser_LoadUrlParams_isDataScheme(url);
+  }
+
+  public static LoadUrlParams.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of LoadUrlParams.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new LoadUrlParamsJni();
+  }
 }

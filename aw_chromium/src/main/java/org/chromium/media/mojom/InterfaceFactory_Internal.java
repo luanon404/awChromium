@@ -13,9 +13,13 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 class InterfaceFactory_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<InterfaceFactory, InterfaceFactory.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<InterfaceFactory, InterfaceFactory.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<InterfaceFactory, InterfaceFactory.Proxy> MANAGER =
+            new org.chromium.mojo.bindings.Interface.Manager<InterfaceFactory, InterfaceFactory.Proxy>() {
 
         @Override
         public String getName() {
@@ -24,11 +28,12 @@ class InterfaceFactory_Internal {
 
         @Override
         public int getVersion() {
-            return 0;
+          return 0;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -39,7 +44,7 @@ class InterfaceFactory_Internal {
 
         @Override
         public InterfaceFactory[] buildArray(int size) {
-            return new InterfaceFactory[size];
+          return new InterfaceFactory[size];
         }
     };
 
@@ -61,26 +66,32 @@ class InterfaceFactory_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements InterfaceFactory.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core,
+              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void createAudioDecoder(org.chromium.mojo.bindings.InterfaceRequest<AudioDecoder> audioDecoder) {
+        public void createAudioDecoder(
+org.chromium.mojo.bindings.InterfaceRequest<AudioDecoder> audioDecoder) {
 
             InterfaceFactoryCreateAudioDecoderParams _message = new InterfaceFactoryCreateAudioDecoderParams();
 
             _message.audioDecoder = audioDecoder;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(CREATE_AUDIO_DECODER_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(CREATE_AUDIO_DECODER_ORDINAL)));
 
         }
 
 
         @Override
-        public void createVideoDecoder(org.chromium.mojo.bindings.InterfaceRequest<VideoDecoder> videoDecoder, org.chromium.media.stable.mojom.StableVideoDecoder dstVideoDecoder) {
+        public void createVideoDecoder(
+org.chromium.mojo.bindings.InterfaceRequest<VideoDecoder> videoDecoder, org.chromium.media.stable.mojom.StableVideoDecoder dstVideoDecoder) {
 
             InterfaceFactoryCreateVideoDecoderParams _message = new InterfaceFactoryCreateVideoDecoderParams();
 
@@ -89,26 +100,34 @@ class InterfaceFactory_Internal {
             _message.dstVideoDecoder = dstVideoDecoder;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(CREATE_VIDEO_DECODER_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(CREATE_VIDEO_DECODER_ORDINAL)));
 
         }
 
 
         @Override
-        public void createAudioEncoder(org.chromium.mojo.bindings.InterfaceRequest<AudioEncoder> audioEncoder) {
+        public void createAudioEncoder(
+org.chromium.mojo.bindings.InterfaceRequest<AudioEncoder> audioEncoder) {
 
             InterfaceFactoryCreateAudioEncoderParams _message = new InterfaceFactoryCreateAudioEncoderParams();
 
             _message.audioEncoder = audioEncoder;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(CREATE_AUDIO_ENCODER_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(CREATE_AUDIO_ENCODER_ORDINAL)));
 
         }
 
 
         @Override
-        public void createDefaultRenderer(String audioDeviceId, org.chromium.mojo.bindings.InterfaceRequest<Renderer> renderer) {
+        public void createDefaultRenderer(
+String audioDeviceId, org.chromium.mojo.bindings.InterfaceRequest<Renderer> renderer) {
 
             InterfaceFactoryCreateDefaultRendererParams _message = new InterfaceFactoryCreateDefaultRendererParams();
 
@@ -117,13 +136,17 @@ class InterfaceFactory_Internal {
             _message.renderer = renderer;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(CREATE_DEFAULT_RENDERER_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(CREATE_DEFAULT_RENDERER_ORDINAL)));
 
         }
 
 
         @Override
-        public void createMediaPlayerRenderer(MediaPlayerRendererClientExtension clientExtension, org.chromium.mojo.bindings.InterfaceRequest<Renderer> renderer, org.chromium.mojo.bindings.InterfaceRequest<MediaPlayerRendererExtension> rendererExtension) {
+        public void createMediaPlayerRenderer(
+MediaPlayerRendererClientExtension clientExtension, org.chromium.mojo.bindings.InterfaceRequest<Renderer> renderer, org.chromium.mojo.bindings.InterfaceRequest<MediaPlayerRendererExtension> rendererExtension) {
 
             InterfaceFactoryCreateMediaPlayerRendererParams _message = new InterfaceFactoryCreateMediaPlayerRendererParams();
 
@@ -134,13 +157,17 @@ class InterfaceFactory_Internal {
             _message.rendererExtension = rendererExtension;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(CREATE_MEDIA_PLAYER_RENDERER_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(CREATE_MEDIA_PLAYER_RENDERER_ORDINAL)));
 
         }
 
 
         @Override
-        public void createFlingingRenderer(String presentationId, FlingingRendererClientExtension clientExtension, org.chromium.mojo.bindings.InterfaceRequest<Renderer> renderer) {
+        public void createFlingingRenderer(
+String presentationId, FlingingRendererClientExtension clientExtension, org.chromium.mojo.bindings.InterfaceRequest<Renderer> renderer) {
 
             InterfaceFactoryCreateFlingingRendererParams _message = new InterfaceFactoryCreateFlingingRendererParams();
 
@@ -151,20 +178,32 @@ class InterfaceFactory_Internal {
             _message.renderer = renderer;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(CREATE_FLINGING_RENDERER_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(CREATE_FLINGING_RENDERER_ORDINAL)));
 
         }
 
 
         @Override
-        public void createCdm(CdmConfig cdmConfig, CreateCdm_Response callback) {
+        public void createCdm(
+CdmConfig cdmConfig, 
+CreateCdm_Response callback) {
 
             InterfaceFactoryCreateCdmParams _message = new InterfaceFactoryCreateCdmParams();
 
             _message.cdmConfig = cdmConfig;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(CREATE_CDM_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new InterfaceFactoryCreateCdmResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    CREATE_CDM_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new InterfaceFactoryCreateCdmResponseParamsForwardToCallback(callback));
 
         }
 
@@ -180,7 +219,8 @@ class InterfaceFactory_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -189,71 +229,98 @@ class InterfaceFactory_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(InterfaceFactory_Internal.MANAGER, messageWithHeader);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
+                                InterfaceFactory_Internal.MANAGER, messageWithHeader);
+
+
+
 
 
                     case CREATE_AUDIO_DECODER_ORDINAL: {
 
-                        InterfaceFactoryCreateAudioDecoderParams data = InterfaceFactoryCreateAudioDecoderParams.deserialize(messageWithHeader.getPayload());
+                        InterfaceFactoryCreateAudioDecoderParams data =
+                                InterfaceFactoryCreateAudioDecoderParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().createAudioDecoder(data.audioDecoder);
                         return true;
                     }
 
 
+
+
+
                     case CREATE_VIDEO_DECODER_ORDINAL: {
 
-                        InterfaceFactoryCreateVideoDecoderParams data = InterfaceFactoryCreateVideoDecoderParams.deserialize(messageWithHeader.getPayload());
+                        InterfaceFactoryCreateVideoDecoderParams data =
+                                InterfaceFactoryCreateVideoDecoderParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().createVideoDecoder(data.videoDecoder, data.dstVideoDecoder);
                         return true;
                     }
 
 
+
+
+
                     case CREATE_AUDIO_ENCODER_ORDINAL: {
 
-                        InterfaceFactoryCreateAudioEncoderParams data = InterfaceFactoryCreateAudioEncoderParams.deserialize(messageWithHeader.getPayload());
+                        InterfaceFactoryCreateAudioEncoderParams data =
+                                InterfaceFactoryCreateAudioEncoderParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().createAudioEncoder(data.audioEncoder);
                         return true;
                     }
 
 
+
+
+
                     case CREATE_DEFAULT_RENDERER_ORDINAL: {
 
-                        InterfaceFactoryCreateDefaultRendererParams data = InterfaceFactoryCreateDefaultRendererParams.deserialize(messageWithHeader.getPayload());
+                        InterfaceFactoryCreateDefaultRendererParams data =
+                                InterfaceFactoryCreateDefaultRendererParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().createDefaultRenderer(data.audioDeviceId, data.renderer);
                         return true;
                     }
 
 
+
+
+
                     case CREATE_MEDIA_PLAYER_RENDERER_ORDINAL: {
 
-                        InterfaceFactoryCreateMediaPlayerRendererParams data = InterfaceFactoryCreateMediaPlayerRendererParams.deserialize(messageWithHeader.getPayload());
+                        InterfaceFactoryCreateMediaPlayerRendererParams data =
+                                InterfaceFactoryCreateMediaPlayerRendererParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().createMediaPlayerRenderer(data.clientExtension, data.renderer, data.rendererExtension);
                         return true;
                     }
 
 
+
+
+
                     case CREATE_FLINGING_RENDERER_ORDINAL: {
 
-                        InterfaceFactoryCreateFlingingRendererParams data = InterfaceFactoryCreateFlingingRendererParams.deserialize(messageWithHeader.getPayload());
+                        InterfaceFactoryCreateFlingingRendererParams data =
+                                InterfaceFactoryCreateFlingingRendererParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().createFlingingRenderer(data.presentationId, data.clientExtension, data.renderer);
                         return true;
                     }
 
 
+
+
                     default:
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -261,7 +328,8 @@ class InterfaceFactory_Internal {
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -270,15 +338,34 @@ class InterfaceFactory_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), InterfaceFactory_Internal.MANAGER, messageWithHeader, receiver);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
+                                getCore(), InterfaceFactory_Internal.MANAGER, messageWithHeader, receiver);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
                     case CREATE_CDM_ORDINAL: {
 
-                        InterfaceFactoryCreateCdmParams data = InterfaceFactoryCreateCdmParams.deserialize(messageWithHeader.getPayload());
+                        InterfaceFactoryCreateCdmParams data =
+                                InterfaceFactoryCreateCdmParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().createCdm(data.cdmConfig, new InterfaceFactoryCreateCdmResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
@@ -289,17 +376,18 @@ class InterfaceFactory_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class InterfaceFactoryCreateAudioDecoderParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.mojo.bindings.InterfaceRequest<AudioDecoder> audioDecoder;
 
@@ -321,7 +409,8 @@ class InterfaceFactory_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static InterfaceFactoryCreateAudioDecoderParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -335,10 +424,10 @@ class InterfaceFactory_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new InterfaceFactoryCreateAudioDecoderParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.audioDecoder = decoder0.readInterfaceRequest(8, false);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -350,16 +439,18 @@ class InterfaceFactory_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.audioDecoder, 8, false);
         }
     }
 
 
+
+    
     static final class InterfaceFactoryCreateVideoDecoderParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.mojo.bindings.InterfaceRequest<VideoDecoder> videoDecoder;
         public org.chromium.media.stable.mojom.StableVideoDecoder dstVideoDecoder;
@@ -382,7 +473,8 @@ class InterfaceFactory_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static InterfaceFactoryCreateVideoDecoderParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -396,14 +488,14 @@ class InterfaceFactory_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new InterfaceFactoryCreateVideoDecoderParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.videoDecoder = decoder0.readInterfaceRequest(8, false);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.dstVideoDecoder = decoder0.readServiceInterface(12, true, org.chromium.media.stable.mojom.StableVideoDecoder.MANAGER);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -415,18 +507,20 @@ class InterfaceFactory_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.videoDecoder, 8, false);
-
+            
             encoder0.encode(this.dstVideoDecoder, 12, true, org.chromium.media.stable.mojom.StableVideoDecoder.MANAGER);
         }
     }
 
 
+
+    
     static final class InterfaceFactoryCreateAudioEncoderParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.mojo.bindings.InterfaceRequest<AudioEncoder> audioEncoder;
 
@@ -448,7 +542,8 @@ class InterfaceFactory_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static InterfaceFactoryCreateAudioEncoderParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -462,10 +557,10 @@ class InterfaceFactory_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new InterfaceFactoryCreateAudioEncoderParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.audioEncoder = decoder0.readInterfaceRequest(8, false);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -477,16 +572,18 @@ class InterfaceFactory_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.audioEncoder, 8, false);
         }
     }
 
 
+
+    
     static final class InterfaceFactoryCreateDefaultRendererParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public String audioDeviceId;
         public org.chromium.mojo.bindings.InterfaceRequest<Renderer> renderer;
@@ -509,7 +606,8 @@ class InterfaceFactory_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static InterfaceFactoryCreateDefaultRendererParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -523,14 +621,14 @@ class InterfaceFactory_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new InterfaceFactoryCreateDefaultRendererParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.audioDeviceId = decoder0.readString(8, false);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.renderer = decoder0.readInterfaceRequest(16, false);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -542,18 +640,20 @@ class InterfaceFactory_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.audioDeviceId, 8, false);
-
+            
             encoder0.encode(this.renderer, 16, false);
         }
     }
 
 
+
+    
     static final class InterfaceFactoryCreateMediaPlayerRendererParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public MediaPlayerRendererClientExtension clientExtension;
         public org.chromium.mojo.bindings.InterfaceRequest<Renderer> renderer;
@@ -577,7 +677,8 @@ class InterfaceFactory_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static InterfaceFactoryCreateMediaPlayerRendererParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -591,18 +692,18 @@ class InterfaceFactory_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new InterfaceFactoryCreateMediaPlayerRendererParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.clientExtension = decoder0.readServiceInterface(8, false, MediaPlayerRendererClientExtension.MANAGER);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.renderer = decoder0.readInterfaceRequest(16, false);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.rendererExtension = decoder0.readInterfaceRequest(20, false);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -614,20 +715,22 @@ class InterfaceFactory_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.clientExtension, 8, false, MediaPlayerRendererClientExtension.MANAGER);
-
+            
             encoder0.encode(this.renderer, 16, false);
-
+            
             encoder0.encode(this.rendererExtension, 20, false);
         }
     }
 
 
+
+    
     static final class InterfaceFactoryCreateFlingingRendererParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 32;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(32, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(32, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public String presentationId;
         public FlingingRendererClientExtension clientExtension;
@@ -651,7 +754,8 @@ class InterfaceFactory_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static InterfaceFactoryCreateFlingingRendererParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -665,18 +769,18 @@ class InterfaceFactory_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new InterfaceFactoryCreateFlingingRendererParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.presentationId = decoder0.readString(8, false);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.clientExtension = decoder0.readServiceInterface(16, false, FlingingRendererClientExtension.MANAGER);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.renderer = decoder0.readInterfaceRequest(24, false);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -688,20 +792,22 @@ class InterfaceFactory_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.presentationId, 8, false);
-
+            
             encoder0.encode(this.clientExtension, 16, false, FlingingRendererClientExtension.MANAGER);
-
+            
             encoder0.encode(this.renderer, 24, false);
         }
     }
 
 
+
+    
     static final class InterfaceFactoryCreateCdmParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public CdmConfig cdmConfig;
 
@@ -723,7 +829,8 @@ class InterfaceFactory_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static InterfaceFactoryCreateCdmParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -737,11 +844,11 @@ class InterfaceFactory_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new InterfaceFactoryCreateCdmParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.cdmConfig = CdmConfig.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -753,16 +860,18 @@ class InterfaceFactory_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.cdmConfig, 8, false);
         }
     }
 
 
+
+    
     static final class InterfaceFactoryCreateCdmResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 32;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(32, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(32, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public ContentDecryptionModule cdm;
         public CdmContext cdmContext;
@@ -786,7 +895,8 @@ class InterfaceFactory_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static InterfaceFactoryCreateCdmResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -800,19 +910,19 @@ class InterfaceFactory_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new InterfaceFactoryCreateCdmResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.cdm = decoder0.readServiceInterface(8, true, ContentDecryptionModule.MANAGER);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, true);
                     result.cdmContext = CdmContext.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.errorMessage = decoder0.readString(24, false);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -824,16 +934,17 @@ class InterfaceFactory_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.cdm, 8, true, ContentDecryptionModule.MANAGER);
-
+            
             encoder0.encode(this.cdmContext, 16, true);
-
+            
             encoder0.encode(this.errorMessage, 24, false);
         }
     }
 
-    static class InterfaceFactoryCreateCdmResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class InterfaceFactoryCreateCdmResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final InterfaceFactory.CreateCdm_Response mCallback;
 
         InterfaceFactoryCreateCdmResponseParamsForwardToCallback(InterfaceFactory.CreateCdm_Response callback) {
@@ -843,9 +954,11 @@ class InterfaceFactory_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(CREATE_CDM_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(CREATE_CDM_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -865,7 +978,10 @@ class InterfaceFactory_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        InterfaceFactoryCreateCdmResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        InterfaceFactoryCreateCdmResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -881,10 +997,17 @@ class InterfaceFactory_Internal {
 
             _response.errorMessage = errorMessage;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(CREATE_CDM_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    CREATE_CDM_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
+
 
 
 }

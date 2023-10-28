@@ -13,9 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 class NetworkChangeManagerClient_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<NetworkChangeManagerClient, NetworkChangeManagerClient.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<NetworkChangeManagerClient, NetworkChangeManagerClient.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<NetworkChangeManagerClient, NetworkChangeManagerClient.Proxy> MANAGER =
+            new org.chromium.mojo.bindings.Interface.Manager<NetworkChangeManagerClient, NetworkChangeManagerClient.Proxy>() {
 
         @Override
         public String getName() {
@@ -24,11 +28,12 @@ class NetworkChangeManagerClient_Internal {
 
         @Override
         public int getVersion() {
-            return 0;
+          return 0;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -39,7 +44,7 @@ class NetworkChangeManagerClient_Internal {
 
         @Override
         public NetworkChangeManagerClient[] buildArray(int size) {
-            return new NetworkChangeManagerClient[size];
+          return new NetworkChangeManagerClient[size];
         }
     };
 
@@ -51,33 +56,42 @@ class NetworkChangeManagerClient_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements NetworkChangeManagerClient.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core,
+              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void onInitialConnectionType(int type) {
+        public void onInitialConnectionType(
+int type) {
 
             NetworkChangeManagerClientOnInitialConnectionTypeParams _message = new NetworkChangeManagerClientOnInitialConnectionTypeParams();
 
             _message.type = type;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_INITIAL_CONNECTION_TYPE_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_INITIAL_CONNECTION_TYPE_ORDINAL)));
 
         }
 
 
         @Override
-        public void onNetworkChanged(int type) {
+        public void onNetworkChanged(
+int type) {
 
             NetworkChangeManagerClientOnNetworkChangedParams _message = new NetworkChangeManagerClientOnNetworkChangedParams();
 
             _message.type = type;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_NETWORK_CHANGED_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_NETWORK_CHANGED_ORDINAL)));
 
         }
 
@@ -93,7 +107,8 @@ class NetworkChangeManagerClient_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -102,24 +117,33 @@ class NetworkChangeManagerClient_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(NetworkChangeManagerClient_Internal.MANAGER, messageWithHeader);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
+                                NetworkChangeManagerClient_Internal.MANAGER, messageWithHeader);
+
+
+
 
 
                     case ON_INITIAL_CONNECTION_TYPE_ORDINAL: {
 
-                        NetworkChangeManagerClientOnInitialConnectionTypeParams data = NetworkChangeManagerClientOnInitialConnectionTypeParams.deserialize(messageWithHeader.getPayload());
+                        NetworkChangeManagerClientOnInitialConnectionTypeParams data =
+                                NetworkChangeManagerClientOnInitialConnectionTypeParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onInitialConnectionType(data.type);
                         return true;
                     }
 
 
+
+
+
                     case ON_NETWORK_CHANGED_ORDINAL: {
 
-                        NetworkChangeManagerClientOnNetworkChangedParams data = NetworkChangeManagerClientOnNetworkChangedParams.deserialize(messageWithHeader.getPayload());
+                        NetworkChangeManagerClientOnNetworkChangedParams data =
+                                NetworkChangeManagerClientOnNetworkChangedParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onNetworkChanged(data.type);
                         return true;
@@ -130,7 +154,7 @@ class NetworkChangeManagerClient_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -138,7 +162,8 @@ class NetworkChangeManagerClient_Internal {
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -147,27 +172,33 @@ class NetworkChangeManagerClient_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), NetworkChangeManagerClient_Internal.MANAGER, messageWithHeader, receiver);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
+                                getCore(), NetworkChangeManagerClient_Internal.MANAGER, messageWithHeader, receiver);
+
+
+
+
 
 
                     default:
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class NetworkChangeManagerClientOnInitialConnectionTypeParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int type;
 
@@ -189,7 +220,8 @@ class NetworkChangeManagerClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static NetworkChangeManagerClientOnInitialConnectionTypeParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -203,12 +235,12 @@ class NetworkChangeManagerClient_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new NetworkChangeManagerClientOnInitialConnectionTypeParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.type = decoder0.readInt(8);
-                    ConnectionType.validate(result.type);
-                    result.type = ConnectionType.toKnownValue(result.type);
-                }
+                        ConnectionType.validate(result.type);
+                        result.type = ConnectionType.toKnownValue(result.type);
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -220,16 +252,18 @@ class NetworkChangeManagerClient_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.type, 8);
         }
     }
 
 
+
+    
     static final class NetworkChangeManagerClientOnNetworkChangedParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int type;
 
@@ -251,7 +285,8 @@ class NetworkChangeManagerClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static NetworkChangeManagerClientOnNetworkChangedParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -265,12 +300,12 @@ class NetworkChangeManagerClient_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new NetworkChangeManagerClientOnNetworkChangedParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.type = decoder0.readInt(8);
-                    ConnectionType.validate(result.type);
-                    result.type = ConnectionType.toKnownValue(result.type);
-                }
+                        ConnectionType.validate(result.type);
+                        result.type = ConnectionType.toKnownValue(result.type);
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -282,10 +317,11 @@ class NetworkChangeManagerClient_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.type, 8);
         }
     }
+
 
 
 }

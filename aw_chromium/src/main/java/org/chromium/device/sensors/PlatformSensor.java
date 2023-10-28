@@ -11,13 +11,14 @@ import android.hardware.SensorManager;
 
 import androidx.annotation.GuardedBy;
 
-import org.chromium.base.Log;
-import org.chromium.device.mojom.ReportingMode;
-import org.chromium.device.mojom.SensorType;
 import org.jni_zero.CalledByNative;
 import org.jni_zero.CalledByNativeForTesting;
 import org.jni_zero.JNINamespace;
 import org.jni_zero.NativeMethods;
+
+import org.chromium.base.Log;
+import org.chromium.device.mojom.ReportingMode;
+import org.chromium.device.mojom.SensorType;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -36,7 +37,6 @@ public class PlatformSensor implements SensorEventListener {
 
     /**
      * The SENSOR_FREQUENCY_NORMAL is defined as 5Hz which corresponds to a polling delay
-     *
      * @see android.hardware.SensorManager.SENSOR_DELAY_NORMAL value that is defined as 200000
      * microseconds.
      */
@@ -55,7 +55,6 @@ public class PlatformSensor implements SensorEventListener {
 
     /**
      * Used for fetching sensor reading values and obtaining information about the sensor.
-     *
      * @see android.hardware.Sensor
      */
     private final Sensor mSensor;
@@ -83,12 +82,13 @@ public class PlatformSensor implements SensorEventListener {
     /**
      * Creates new PlatformSensor.
      *
-     * @param provider                    object that shares SensorManager and polling thread Handler with sensors.
-     * @param type                        type of the sensor to be constructed. @see android.hardware.Sensor.TYPE_*
+     * @param provider object that shares SensorManager and polling thread Handler with sensors.
+     * @param type type of the sensor to be constructed. @see android.hardware.Sensor.TYPE_*
      * @param nativePlatformSensorAndroid identifier of device::PlatformSensorAndroid instance.
      */
     @CalledByNative
-    public static PlatformSensor create(PlatformSensorProvider provider, int type, long nativePlatformSensorAndroid) {
+    public static PlatformSensor create(
+            PlatformSensorProvider provider, int type, long nativePlatformSensorAndroid) {
         SensorManager sensorManager = provider.getSensorManager();
         if (sensorManager == null) return null;
 
@@ -133,13 +133,15 @@ public class PlatformSensor implements SensorEventListener {
 
         List<Sensor> sensors = sensorManager.getSensorList(sensorType);
         if (sensors.isEmpty()) return null;
-        return new PlatformSensor(sensors.get(0), readingCount, provider, nativePlatformSensorAndroid);
+        return new PlatformSensor(
+                sensors.get(0), readingCount, provider, nativePlatformSensorAndroid);
     }
 
     /**
      * Constructor.
      */
-    protected PlatformSensor(Sensor sensor, int readingCount, PlatformSensorProvider provider, long nativePlatformSensorAndroid) {
+    protected PlatformSensor(Sensor sensor, int readingCount, PlatformSensorProvider provider,
+            long nativePlatformSensorAndroid) {
         mReadingCount = readingCount;
         mProvider = provider;
         mSensor = sensor;
@@ -154,7 +156,9 @@ public class PlatformSensor implements SensorEventListener {
      */
     @CalledByNative
     protected int getReportingMode() {
-        return mSensor.getReportingMode() == Sensor.REPORTING_MODE_CONTINUOUS ? ReportingMode.CONTINUOUS : ReportingMode.ON_CHANGE;
+        return mSensor.getReportingMode() == Sensor.REPORTING_MODE_CONTINUOUS
+                ? ReportingMode.CONTINUOUS
+                : ReportingMode.ON_CHANGE;
     }
 
     /**
@@ -192,7 +196,8 @@ public class PlatformSensor implements SensorEventListener {
         mProvider.sensorStarted(this);
         boolean sensorStarted;
         try {
-            sensorStarted = mProvider.getSensorManager().registerListener(this, mSensor, getSamplingPeriod(frequency), mProvider.getHandler());
+            sensorStarted = mProvider.getSensorManager().registerListener(
+                    this, mSensor, getSamplingPeriod(frequency), mProvider.getHandler());
         } catch (RuntimeException e) {
             // This can fail due to internal framework errors. https://crbug.com/884190
             Log.w(TAG, "Failed to register sensor listener.", e);
@@ -260,7 +265,8 @@ public class PlatformSensor implements SensorEventListener {
     @GuardedBy("mLock")
     protected void sensorError() {
         if (mNativePlatformSensorAndroid != 0) {
-            PlatformSensorJni.get().notifyPlatformSensorError(mNativePlatformSensorAndroid, PlatformSensor.this);
+            PlatformSensorJni.get().notifyPlatformSensorError(
+                    mNativePlatformSensorAndroid, PlatformSensor.this);
         }
     }
 
@@ -268,13 +274,14 @@ public class PlatformSensor implements SensorEventListener {
      * Updates reading at native device::PlatformSensorAndroid.
      */
     @GuardedBy("mLock")
-    protected void updateSensorReading(double timestamp, double value1, double value2, double value3, double value4) {
-        PlatformSensorJni.get().updatePlatformSensorReading(mNativePlatformSensorAndroid, PlatformSensor.this, timestamp, value1, value2, value3, value4);
+    protected void updateSensorReading(
+            double timestamp, double value1, double value2, double value3, double value4) {
+        PlatformSensorJni.get().updatePlatformSensorReading(mNativePlatformSensorAndroid,
+                PlatformSensor.this, timestamp, value1, value2, value3, value4);
     }
 
     @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-    }
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {}
 
     @Override
     public void onSensorChanged(SensorEvent event) {
@@ -282,7 +289,8 @@ public class PlatformSensor implements SensorEventListener {
         // and when it is used.
         synchronized (mLock) {
             if (mNativePlatformSensorAndroid == 0) {
-                Log.w(TAG, "Should not get sensor events after PlatformSensorAndroid is destroyed.");
+                Log.w(TAG,
+                        "Should not get sensor events after PlatformSensorAndroid is destroyed.");
                 return;
             }
 
@@ -301,10 +309,12 @@ public class PlatformSensor implements SensorEventListener {
                     updateSensorReading(timestamp, event.values[0], event.values[1], 0.0, 0.0);
                     break;
                 case 3:
-                    updateSensorReading(timestamp, event.values[0], event.values[1], event.values[2], 0.0);
+                    updateSensorReading(
+                            timestamp, event.values[0], event.values[1], event.values[2], 0.0);
                     break;
                 default:
-                    updateSensorReading(timestamp, event.values[0], event.values[1], event.values[2], event.values[3]);
+                    updateSensorReading(timestamp, event.values[0], event.values[1],
+                            event.values[2], event.values[3]);
             }
         }
     }
@@ -317,7 +327,8 @@ public class PlatformSensor implements SensorEventListener {
     @CalledByNativeForTesting
     public void simulateSensorEventForTesting(int readingValuesLength) {
         try {
-            Constructor<SensorEvent> sensorEventConstructor = SensorEvent.class.getDeclaredConstructor(Integer.TYPE);
+            Constructor<SensorEvent> sensorEventConstructor =
+                    SensorEvent.class.getDeclaredConstructor(Integer.TYPE);
             sensorEventConstructor.setAccessible(true);
             SensorEvent event = sensorEventConstructor.newInstance(readingValuesLength);
             event.timestamp = 123L;
@@ -325,8 +336,10 @@ public class PlatformSensor implements SensorEventListener {
                 event.values[i] = (float) (i + 0.1);
             }
             onSensorChanged(event);
-        } catch (InvocationTargetException | NoSuchMethodException | InstantiationException |
-                 IllegalAccessException e) {
+        } catch (InvocationTargetException
+                | NoSuchMethodException
+                | InstantiationException
+                | IllegalAccessException e) {
             Log.e(TAG, "Failed to create simulated SensorEvent.", e);
             return;
         }
@@ -335,7 +348,7 @@ public class PlatformSensor implements SensorEventListener {
     @NativeMethods
     interface Natives {
         void notifyPlatformSensorError(long nativePlatformSensorAndroid, PlatformSensor caller);
-
-        void updatePlatformSensorReading(long nativePlatformSensorAndroid, PlatformSensor caller, double timestamp, double value1, double value2, double value3, double value4);
+        void updatePlatformSensorReading(long nativePlatformSensorAndroid, PlatformSensor caller,
+                double timestamp, double value1, double value2, double value3, double value4);
     }
 }

@@ -13,18 +13,24 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface TrustedUrlLoaderHeaderClient extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends TrustedUrlLoaderHeaderClient, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends TrustedUrlLoaderHeaderClient, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<TrustedUrlLoaderHeaderClient, TrustedUrlLoaderHeaderClient.Proxy> MANAGER = TrustedUrlLoaderHeaderClient_Internal.MANAGER;
 
-    void onLoaderCreated(int requestId, org.chromium.mojo.bindings.InterfaceRequest<TrustedHeaderClient> headerClient);
+    void onLoaderCreated(
+int requestId, org.chromium.mojo.bindings.InterfaceRequest<TrustedHeaderClient> headerClient);
 
 
-    void onLoaderForCorsPreflightCreated(UrlRequest request, org.chromium.mojo.bindings.InterfaceRequest<TrustedHeaderClient> headerClient);
+    void onLoaderForCorsPreflightCreated(
+UrlRequest request, org.chromium.mojo.bindings.InterfaceRequest<TrustedHeaderClient> headerClient);
 
 
 }

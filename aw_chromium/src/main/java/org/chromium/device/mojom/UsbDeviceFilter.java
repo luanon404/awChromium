@@ -13,10 +13,13 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class UsbDeviceFilter extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 24;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public boolean hasVendorId;
     public short vendorId;
@@ -48,7 +51,8 @@ public final class UsbDeviceFilter extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static UsbDeviceFilter deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -62,51 +66,51 @@ public final class UsbDeviceFilter extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new UsbDeviceFilter(elementsOrVersion);
-            {
-
+                {
+                    
                 result.hasVendorId = decoder0.readBoolean(8, 0);
-            }
-            {
-
+                }
+                {
+                    
                 result.hasProductId = decoder0.readBoolean(8, 1);
-            }
-            {
-
+                }
+                {
+                    
                 result.hasClassCode = decoder0.readBoolean(8, 2);
-            }
-            {
-
+                }
+                {
+                    
                 result.hasSubclassCode = decoder0.readBoolean(8, 3);
-            }
-            {
-
+                }
+                {
+                    
                 result.hasProtocolCode = decoder0.readBoolean(8, 4);
-            }
-            {
-
+                }
+                {
+                    
                 result.classCode = decoder0.readByte(9);
-            }
-            {
-
+                }
+                {
+                    
                 result.vendorId = decoder0.readShort(10);
-            }
-            {
-
+                }
+                {
+                    
                 result.productId = decoder0.readShort(12);
-            }
-            {
-
+                }
+                {
+                    
                 result.subclassCode = decoder0.readByte(14);
-            }
-            {
-
+                }
+                {
+                    
                 result.protocolCode = decoder0.readByte(15);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, true);
                 result.serialNumber = org.chromium.mojo_base.mojom.String16.decode(decoder1);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -118,27 +122,27 @@ public final class UsbDeviceFilter extends org.chromium.mojo.bindings.Struct {
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.hasVendorId, 8, 0);
-
+        
         encoder0.encode(this.hasProductId, 8, 1);
-
+        
         encoder0.encode(this.hasClassCode, 8, 2);
-
+        
         encoder0.encode(this.hasSubclassCode, 8, 3);
-
+        
         encoder0.encode(this.hasProtocolCode, 8, 4);
-
+        
         encoder0.encode(this.classCode, 9);
-
+        
         encoder0.encode(this.vendorId, 10);
-
+        
         encoder0.encode(this.productId, 12);
-
+        
         encoder0.encode(this.subclassCode, 14);
-
+        
         encoder0.encode(this.protocolCode, 15);
-
+        
         encoder0.encode(this.serialNumber, 16, true);
     }
 }

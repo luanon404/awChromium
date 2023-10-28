@@ -13,13 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public final class MediaSessionActionDetails extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
         public static final int SeekTo = 0;
-    }
-
+    };
     private MediaSessionSeekToDetails mSeekTo;
 
     public void setSeekTo(MediaSessionSeekToDetails seekTo) {

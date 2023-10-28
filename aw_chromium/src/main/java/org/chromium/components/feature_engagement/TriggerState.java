@@ -1,3 +1,4 @@
+
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -14,10 +15,12 @@ import androidx.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@IntDef({TriggerState.HAS_BEEN_DISPLAYED, TriggerState.HAS_NOT_BEEN_DISPLAYED, TriggerState.NOT_READY})
+@IntDef({
+    TriggerState.HAS_BEEN_DISPLAYED, TriggerState.HAS_NOT_BEEN_DISPLAYED, TriggerState.NOT_READY
+})
 @Retention(RetentionPolicy.SOURCE)
 public @interface TriggerState {
-    int HAS_BEEN_DISPLAYED = 0;
-    int HAS_NOT_BEEN_DISPLAYED = 1;
-    int NOT_READY = 2;
+  int HAS_BEEN_DISPLAYED = 0;
+  int HAS_NOT_BEEN_DISPLAYED = 1;
+  int NOT_READY = 2;
 }

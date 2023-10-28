@@ -13,30 +13,40 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface VideoCaptureObserver extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends VideoCaptureObserver, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends VideoCaptureObserver, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<VideoCaptureObserver, VideoCaptureObserver.Proxy> MANAGER = VideoCaptureObserver_Internal.MANAGER;
 
-    void onStateChanged(VideoCaptureResult result);
+    void onStateChanged(
+VideoCaptureResult result);
 
 
-    void onNewBuffer(int bufferId, VideoBufferHandle bufferHandle);
+    void onNewBuffer(
+int bufferId, VideoBufferHandle bufferHandle);
 
 
-    void onBufferReady(ReadyBuffer buffer);
+    void onBufferReady(
+ReadyBuffer buffer);
 
 
-    void onBufferDestroyed(int bufferId);
+    void onBufferDestroyed(
+int bufferId);
 
 
-    void onFrameDropped(int reason);
+    void onFrameDropped(
+int reason);
 
 
-    void onNewCropVersion(int cropVersion);
+    void onNewCropVersion(
+int cropVersion);
 
 
 }

@@ -19,15 +19,14 @@ import androidx.annotation.IntDef;
 public final class SessionData extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 32;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(32, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(32, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
 
     public static final class KeyType {
         private static final boolean IS_EXTENSIBLE = false;
-
-        @IntDef({})
-        public @interface EnumType {
-        }
+        @IntDef({
+    })
+        public @interface EnumType {}
 
 
         public static boolean isKnownValue(int value) {
@@ -40,13 +39,11 @@ public final class SessionData extends org.chromium.mojo.bindings.Struct {
         }
 
         public static int toKnownValue(int value) {
-            return value;
+          return value;
         }
 
-        private KeyType() {
-        }
+        private KeyType() {}
     }
-
     public byte[] keySetId;
     public String mimeType;
     public int keyType;
@@ -69,7 +66,8 @@ public final class SessionData extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static SessionData deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -83,20 +81,20 @@ public final class SessionData extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new SessionData(elementsOrVersion);
-            {
-
+                {
+                    
                 result.keySetId = decoder0.readBytes(8, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
-            }
-            {
-
+                }
+                {
+                    
                 result.mimeType = decoder0.readString(16, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.keyType = decoder0.readInt(24);
-                SessionData.KeyType.validate(result.keyType);
-                result.keyType = SessionData.KeyType.toKnownValue(result.keyType);
-            }
+                    SessionData.KeyType.validate(result.keyType);
+                    result.keyType = SessionData.KeyType.toKnownValue(result.keyType);
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -108,11 +106,11 @@ public final class SessionData extends org.chromium.mojo.bindings.Struct {
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.keySetId, 8, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
-
+        
         encoder0.encode(this.mimeType, 16, false);
-
+        
         encoder0.encode(this.keyType, 24);
     }
 }

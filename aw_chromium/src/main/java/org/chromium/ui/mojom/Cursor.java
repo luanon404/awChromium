@@ -13,10 +13,13 @@
 
 package org.chromium.ui.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class Cursor extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 32;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(32, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(32, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public int type;
     public org.chromium.gfx.mojom.Point hotspot;
@@ -41,9 +44,11 @@ public final class Cursor extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static Cursor deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
+    @SuppressWarnings("unchecked")
     public static Cursor decode(org.chromium.mojo.bindings.Decoder decoder0) {
         if (decoder0 == null) {
             return null;
@@ -54,26 +59,26 @@ public final class Cursor extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new Cursor(elementsOrVersion);
-            {
-
-                int type = decoder0.readInt(8);
-                CursorType.validate(type);
-                result.type = CursorType.toKnownValue(type);
-            }
-            {
-
+                {
+                    
+                result.type = decoder0.readInt(8);
+                    CursorType.validate(result.type);
+                    result.type = CursorType.toKnownValue(result.type);
+                }
+                {
+                    
                 result.imageScaleFactor = decoder0.readFloat(12);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                 result.hotspot = org.chromium.gfx.mojom.Point.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, true);
                 result.bitmap = org.chromium.skia.mojom.BitmapN32.decode(decoder1);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -81,16 +86,17 @@ public final class Cursor extends org.chromium.mojo.bindings.Struct {
         return result;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
+    protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.type, 8);
-
+        
         encoder0.encode(this.imageScaleFactor, 12);
-
+        
         encoder0.encode(this.hotspot, 16, false);
-
+        
         encoder0.encode(this.bitmap, 24, true);
     }
 }

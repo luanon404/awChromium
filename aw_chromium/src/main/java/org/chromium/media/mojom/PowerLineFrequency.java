@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class PowerLineFrequency {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({PowerLineFrequency.DEFAULT, PowerLineFrequency.HZ_50, PowerLineFrequency.HZ_60})
-    public @interface EnumType {
-    }
+        PowerLineFrequency.DEFAULT,
+        PowerLineFrequency.HZ_50,
+        PowerLineFrequency.HZ_60})
+    public @interface EnumType {}
 
     public static final int DEFAULT = 0;
     public static final int HZ_50 = 1;
@@ -38,9 +40,8 @@ public final class PowerLineFrequency {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private PowerLineFrequency() {
-    }
+    private PowerLineFrequency() {}
 }

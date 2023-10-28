@@ -7,6 +7,10 @@ package org.chromium.android_webview;
 import android.content.Context;
 import android.net.Uri;
 
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+
 import org.chromium.android_webview.common.Flag;
 import org.chromium.android_webview.common.FlagOverrideHelper;
 import org.chromium.android_webview.common.Lifetime;
@@ -18,9 +22,6 @@ import org.chromium.base.ThreadUtils;
 import org.chromium.base.metrics.RecordHistogram;
 import org.chromium.base.task.PostTask;
 import org.chromium.base.task.TaskTraits;
-import org.jni_zero.CalledByNative;
-import org.jni_zero.JNINamespace;
-import org.jni_zero.NativeMethods;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +40,8 @@ public class AwContentsStatics {
 
     private static boolean sRecordFullDocument;
 
-    private static final String sSafeBrowsingWarmUpHelper = "com.android.webview.chromium.SafeBrowsingWarmUpHelper";
+    private static final String sSafeBrowsingWarmUpHelper =
+            "com.android.webview.chromium.SafeBrowsingWarmUpHelper";
 
     /**
      * Return the client certificate lookup table.
@@ -82,8 +84,7 @@ public class AwContentsStatics {
         sRecordFullDocument = recordFullDocument;
     }
 
-    /* package */
-    static boolean getRecordFullDocument() {
+    /* package */ static boolean getRecordFullDocument() {
         return sRecordFullDocument;
     }
 
@@ -121,7 +122,8 @@ public class AwContentsStatics {
             return;
         }
 
-        PlatformServiceBridge.getInstance().warmUpSafeBrowsing(context.getApplicationContext(), wrapperCallback);
+        PlatformServiceBridge.getInstance().warmUpSafeBrowsing(
+                context.getApplicationContext(), wrapperCallback);
     }
 
     public static Uri getSafeBrowsingPrivacyPolicyUrl() {
@@ -139,7 +141,8 @@ public class AwContentsStatics {
     public static void logFlagOverridesWithNative(Map<String, Boolean> flagOverrides) {
         // Do work asynchronously to avoid blocking startup.
         PostTask.postTask(TaskTraits.BEST_EFFORT, () -> {
-            FlagOverrideHelper helper = new FlagOverrideHelper(ProductionSupportedFlagList.sFlagList);
+            FlagOverrideHelper helper =
+                    new FlagOverrideHelper(ProductionSupportedFlagList.sFlagList);
             ArrayList<String> switches = new ArrayList<>();
             ArrayList<String> features = new ArrayList<>();
             for (Map.Entry<String, Boolean> entry : flagOverrides.entrySet()) {
@@ -153,16 +156,17 @@ public class AwContentsStatics {
                 // Only insert enabled switches; ignore explicitly disabled switches since this is
                 // usually a NOOP.
             }
-            AwContentsStaticsJni.get().logFlagMetrics(switches.toArray(new String[0]), features.toArray(new String[0]));
+            AwContentsStaticsJni.get().logFlagMetrics(
+                    switches.toArray(new String[0]), features.toArray(new String[0]));
         });
     }
 
     /**
      * Return the first substring consisting of the address of a physical location.
+     * @see {@link android.webkit.WebView#findAddress(String)}
      *
      * @param addr The string to search for addresses.
      * @return the address, or if no address is found, return null.
-     * @see {@link android.webkit.WebView#findAddress(String)}
      */
     public static String findAddress(String addr) {
         if (addr == null) {
@@ -183,30 +187,23 @@ public class AwContentsStatics {
      */
     public static String getVariationsHeader() {
         String header = AwContentsStaticsJni.get().getVariationsHeader();
-        RecordHistogram.recordCount100Histogram("Android.WebView.VariationsHeaderLength", header.length());
+        RecordHistogram.recordCount100Histogram(
+                "Android.WebView.VariationsHeaderLength", header.length());
         return header;
     }
 
     @NativeMethods
     interface Natives {
         void logCommandLineForDebugging();
-
         void logFlagMetrics(String[] switches, String[] features);
 
         String getSafeBrowsingPrivacyPolicyUrl();
-
         void clearClientCertPreferences(Runnable callback);
-
         String getUnreachableWebDataUrl();
-
         String getProductVersion();
-
         void setSafeBrowsingAllowlist(String[] urls, Callback<Boolean> callback);
-
         void setCheckClearTextPermitted(boolean permitted);
-
         boolean isMultiProcessEnabled();
-
         String getVariationsHeader();
     }
 }

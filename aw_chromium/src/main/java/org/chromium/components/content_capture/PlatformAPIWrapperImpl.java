@@ -20,10 +20,12 @@ import androidx.annotation.RequiresApi;
 @RequiresApi(Build.VERSION_CODES.Q)
 public class PlatformAPIWrapperImpl extends PlatformAPIWrapper {
     @Override
-    public ContentCaptureSession createContentCaptureSession(ContentCaptureSession parent, String url, String favicon) {
+    public ContentCaptureSession createContentCaptureSession(
+            ContentCaptureSession parent, String url, String favicon) {
         Bundle bundle = new Bundle();
         if (favicon != null) bundle.putCharSequence("favicon", favicon);
-        return parent.createContentCaptureSession(new ContentCaptureContext.Builder(new LocusId(url)).setExtras(bundle).build());
+        return parent.createContentCaptureSession(
+                new ContentCaptureContext.Builder(new LocusId(url)).setExtras(bundle).build());
     }
 
     @Override
@@ -32,12 +34,14 @@ public class PlatformAPIWrapperImpl extends PlatformAPIWrapper {
     }
 
     @Override
-    public AutofillId newAutofillId(ContentCaptureSession parent, AutofillId rootAutofillId, long id) {
+    public AutofillId newAutofillId(
+            ContentCaptureSession parent, AutofillId rootAutofillId, long id) {
         return parent.newAutofillId(rootAutofillId, id);
     }
 
     @Override
-    public ViewStructure newVirtualViewStructure(ContentCaptureSession parent, AutofillId parentAutofillId, long id) {
+    public ViewStructure newVirtualViewStructure(
+            ContentCaptureSession parent, AutofillId parentAutofillId, long id) {
         return parent.newVirtualViewStructure(parentAutofillId, id);
     }
 
@@ -52,12 +56,14 @@ public class PlatformAPIWrapperImpl extends PlatformAPIWrapper {
     }
 
     @Override
-    public void notifyViewsDisappeared(ContentCaptureSession session, AutofillId autofillId, long[] ids) {
+    public void notifyViewsDisappeared(
+            ContentCaptureSession session, AutofillId autofillId, long[] ids) {
         session.notifyViewsDisappeared(autofillId, ids);
     }
 
     @Override
-    public void notifyViewTextChanged(ContentCaptureSession session, AutofillId autofillId, String newContent) {
+    public void notifyViewTextChanged(
+            ContentCaptureSession session, AutofillId autofillId, String newContent) {
         session.notifyViewTextChanged(autofillId, newContent);
     }
 
@@ -65,6 +71,9 @@ public class PlatformAPIWrapperImpl extends PlatformAPIWrapper {
     public void notifyFaviconUpdated(ContentCaptureSession session, String favicon) {
         Bundle bundle = new Bundle();
         if (favicon != null) bundle.putCharSequence("favicon", favicon);
-        session.setContentCaptureContext(new ContentCaptureContext.Builder(session.getContentCaptureContext().getLocusId()).setExtras(bundle).build());
+        session.setContentCaptureContext(
+                new ContentCaptureContext.Builder(session.getContentCaptureContext().getLocusId())
+                        .setExtras(bundle)
+                        .build());
     }
 }

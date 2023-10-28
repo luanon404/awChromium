@@ -3,66 +3,74 @@
 //
 package org.chromium.content.browser;
 
-import org.chromium.base.Callback;
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.Callback;
+import org.chromium.content_public.browser.RenderWidgetHostView;
 
 @CheckDiscard("crbug.com/993421")
 class RenderWidgetHostViewImplJni implements RenderWidgetHostViewImpl.Natives {
-    private static RenderWidgetHostViewImpl.Natives testInstance;
+  private static RenderWidgetHostViewImpl.Natives testInstance;
 
-    public static final JniStaticTestMocker<RenderWidgetHostViewImpl.Natives> TEST_HOOKS = new JniStaticTestMocker<RenderWidgetHostViewImpl.Natives>() {
-        @Override
-        public void setInstanceForTesting(RenderWidgetHostViewImpl.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<RenderWidgetHostViewImpl.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<RenderWidgetHostViewImpl.Natives>() {
     @Override
-    public void dismissTextHandles(long nativeRenderWidgetHostViewAndroid, RenderWidgetHostViewImpl caller) {
-        GEN_JNI.org_chromium_content_browser_RenderWidgetHostViewImpl_dismissTextHandles(nativeRenderWidgetHostViewAndroid, caller);
+    public void setInstanceForTesting(RenderWidgetHostViewImpl.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public int getBackgroundColor(long nativeRenderWidgetHostViewAndroid, RenderWidgetHostViewImpl caller) {
-        return GEN_JNI.org_chromium_content_browser_RenderWidgetHostViewImpl_getBackgroundColor(nativeRenderWidgetHostViewAndroid, caller);
-    }
+  @Override
+  public void dismissTextHandles(long nativeRenderWidgetHostViewAndroid, RenderWidgetHostViewImpl caller) {
+    GEN_JNI.org_chromium_content_browser_RenderWidgetHostViewImpl_dismissTextHandles(nativeRenderWidgetHostViewAndroid, caller);
+  }
 
-    @Override
-    public boolean isReady(long nativeRenderWidgetHostViewAndroid, RenderWidgetHostViewImpl caller) {
-        return GEN_JNI.org_chromium_content_browser_RenderWidgetHostViewImpl_isReady(nativeRenderWidgetHostViewAndroid, caller);
-    }
+  @Override
+  public int getBackgroundColor(long nativeRenderWidgetHostViewAndroid, RenderWidgetHostViewImpl caller) {
+    return (int) GEN_JNI.org_chromium_content_browser_RenderWidgetHostViewImpl_getBackgroundColor(nativeRenderWidgetHostViewAndroid, caller);
+  }
 
-    @Override
-    public void onViewportInsetBottomChanged(long nativeRenderWidgetHostViewAndroid, RenderWidgetHostViewImpl caller) {
-        GEN_JNI.org_chromium_content_browser_RenderWidgetHostViewImpl_onViewportInsetBottomChanged(nativeRenderWidgetHostViewAndroid, caller);
-    }
+  @Override
+  public boolean isReady(long nativeRenderWidgetHostViewAndroid, RenderWidgetHostViewImpl caller) {
+    return (boolean) GEN_JNI.org_chromium_content_browser_RenderWidgetHostViewImpl_isReady(nativeRenderWidgetHostViewAndroid, caller);
+  }
 
-    @Override
-    public void showContextMenuAtTouchHandle(long nativeRenderWidgetHostViewAndroid, RenderWidgetHostViewImpl caller, int x, int y) {
-        GEN_JNI.org_chromium_content_browser_RenderWidgetHostViewImpl_showContextMenuAtTouchHandle(nativeRenderWidgetHostViewAndroid, caller, x, y);
-    }
+  @Override
+  public void onViewportInsetBottomChanged(long nativeRenderWidgetHostViewAndroid, RenderWidgetHostViewImpl caller) {
+    GEN_JNI.org_chromium_content_browser_RenderWidgetHostViewImpl_onViewportInsetBottomChanged(nativeRenderWidgetHostViewAndroid, caller);
+  }
 
-    @Override
-    public void writeContentBitmapToDiskAsync(long nativeRenderWidgetHostViewAndroid, RenderWidgetHostViewImpl caller, int width, int height, String path, Callback callback) {
-        GEN_JNI.org_chromium_content_browser_RenderWidgetHostViewImpl_writeContentBitmapToDiskAsync(nativeRenderWidgetHostViewAndroid, caller, width, height, path, callback);
-    }
+  @Override
+  public void showContextMenuAtTouchHandle(long nativeRenderWidgetHostViewAndroid, RenderWidgetHostViewImpl caller, int x, int y) {
+    GEN_JNI.org_chromium_content_browser_RenderWidgetHostViewImpl_showContextMenuAtTouchHandle(nativeRenderWidgetHostViewAndroid, caller, x, y);
+  }
 
-    public static RenderWidgetHostViewImpl.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of RenderWidgetHostViewImpl.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new RenderWidgetHostViewImplJni();
+  @Override
+  public void writeContentBitmapToDiskAsync(long nativeRenderWidgetHostViewAndroid, RenderWidgetHostViewImpl caller, int width, int height, String path, Callback callback) {
+    GEN_JNI.org_chromium_content_browser_RenderWidgetHostViewImpl_writeContentBitmapToDiskAsync(nativeRenderWidgetHostViewAndroid, caller, width, height, path, callback);
+  }
+
+  public static RenderWidgetHostViewImpl.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of RenderWidgetHostViewImpl.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new RenderWidgetHostViewImplJni();
+  }
 }

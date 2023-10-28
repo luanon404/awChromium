@@ -13,24 +13,32 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface AudioOutputStream extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends AudioOutputStream, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends AudioOutputStream, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<AudioOutputStream, AudioOutputStream.Proxy> MANAGER = AudioOutputStream_Internal.MANAGER;
 
-    void play();
+    void play(
+);
 
 
-    void pause();
+    void pause(
+);
 
 
-    void flush();
+    void flush(
+);
 
 
-    void setVolume(double volume);
+    void setVolume(
+double volume);
 
 
 }

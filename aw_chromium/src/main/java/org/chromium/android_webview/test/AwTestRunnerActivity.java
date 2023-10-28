@@ -37,7 +37,8 @@ public class AwTestRunnerActivity extends Activity {
         mLinearLayout = new LinearLayout(this);
         mLinearLayout.setOrientation(LinearLayout.VERTICAL);
         mLinearLayout.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
-        mLinearLayout.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+        mLinearLayout.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
+                LayoutParams.MATCH_PARENT));
 
         hideActionBarIfNecessary();
 
@@ -65,7 +66,8 @@ public class AwTestRunnerActivity extends Activity {
      * Adds a view to the main linear layout.
      */
     public void addView(View view) {
-        view.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, 1f));
+        view.setLayoutParams(new LinearLayout.LayoutParams(
+                LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, 1f));
         mLinearLayout.addView(view);
     }
 

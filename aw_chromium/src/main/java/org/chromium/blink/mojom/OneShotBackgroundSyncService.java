@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface OneShotBackgroundSyncService extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends OneShotBackgroundSyncService, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends OneShotBackgroundSyncService, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<OneShotBackgroundSyncService, OneShotBackgroundSyncService.Proxy> MANAGER = OneShotBackgroundSyncService_Internal.MANAGER;

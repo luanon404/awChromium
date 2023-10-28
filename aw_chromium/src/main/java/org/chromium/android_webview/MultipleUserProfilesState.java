@@ -1,3 +1,4 @@
+
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -14,11 +15,14 @@ import androidx.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@IntDef({MultipleUserProfilesState.UNKNOWN, MultipleUserProfilesState.SINGLE_PROFILE, MultipleUserProfilesState.MULTIPLE_PROFILES, MultipleUserProfilesState.MAX_VALUE})
+@IntDef({
+    MultipleUserProfilesState.UNKNOWN, MultipleUserProfilesState.SINGLE_PROFILE,
+    MultipleUserProfilesState.MULTIPLE_PROFILES, MultipleUserProfilesState.MAX_VALUE
+})
 @Retention(RetentionPolicy.SOURCE)
 public @interface MultipleUserProfilesState {
-    int UNKNOWN = 0;
-    int SINGLE_PROFILE = 1;
-    int MULTIPLE_PROFILES = 2;
-    int MAX_VALUE = MULTIPLE_PROFILES;
+  int UNKNOWN = 0;
+  int SINGLE_PROFILE = 1;
+  int MULTIPLE_PROFILES = 2;
+  int MAX_VALUE = MULTIPLE_PROFILES;
 }

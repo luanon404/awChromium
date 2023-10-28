@@ -17,10 +17,13 @@ import androidx.annotation.IntDef;
 
 public final class VideoCaptureBufferType {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({VideoCaptureBufferType.SHARED_MEMORY, VideoCaptureBufferType.SHARED_MEMORY_VIA_RAW_FILE_DESCRIPTOR_DEPRECATED, VideoCaptureBufferType.MAILBOX_HOLDER, VideoCaptureBufferType.GPU_MEMORY_BUFFER})
-    public @interface EnumType {
-    }
+        VideoCaptureBufferType.SHARED_MEMORY,
+        VideoCaptureBufferType.SHARED_MEMORY_VIA_RAW_FILE_DESCRIPTOR_DEPRECATED,
+        VideoCaptureBufferType.MAILBOX_HOLDER,
+        VideoCaptureBufferType.GPU_MEMORY_BUFFER})
+    public @interface EnumType {}
 
     public static final int SHARED_MEMORY = 0;
     public static final int SHARED_MEMORY_VIA_RAW_FILE_DESCRIPTOR_DEPRECATED = 1;
@@ -39,9 +42,8 @@ public final class VideoCaptureBufferType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private VideoCaptureBufferType() {
-    }
+    private VideoCaptureBufferType() {}
 }

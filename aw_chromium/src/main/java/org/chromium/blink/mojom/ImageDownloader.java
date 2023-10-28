@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface ImageDownloader extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends ImageDownloader, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends ImageDownloader, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<ImageDownloader, ImageDownloader.Proxy> MANAGER = ImageDownloader_Internal.MANAGER;

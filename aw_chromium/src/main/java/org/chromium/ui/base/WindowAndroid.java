@@ -29,6 +29,10 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.VisibleForTesting;
 
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+
 import org.chromium.base.ActivityState;
 import org.chromium.base.ApiCompatibilityUtils;
 import org.chromium.base.Callback;
@@ -49,9 +53,6 @@ import org.chromium.ui.modaldialog.ModalDialogManager;
 import org.chromium.ui.permissions.AndroidPermissionDelegate;
 import org.chromium.ui.permissions.PermissionCallback;
 import org.chromium.ui.widget.Toast;
-import org.jni_zero.CalledByNative;
-import org.jni_zero.JNINamespace;
-import org.jni_zero.NativeMethods;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -64,7 +65,8 @@ import java.util.List;
 @JNINamespace("ui")
 public class WindowAndroid implements AndroidPermissionDelegate, DisplayAndroidObserver {
     private static final String TAG = "WindowAndroid";
-    private static final ImmutableWeakReference<Activity> NULL_ACTIVITY_WEAK_REF = new ImmutableWeakReference<>(null);
+    private static final ImmutableWeakReference<Activity> NULL_ACTIVITY_WEAK_REF =
+            new ImmutableWeakReference<>(null);
 
     // Arbitrary error margin to account for cases where the display's refresh rate might not
     // exactly match the target rate.
@@ -73,7 +75,8 @@ public class WindowAndroid implements AndroidPermissionDelegate, DisplayAndroidO
     private final LifetimeAssert mLifetimeAssert;
     private IntentRequestTrackerImpl mIntentRequestTracker;
 
-    private KeyboardVisibilityDelegate mKeyboardVisibilityDelegate = KeyboardVisibilityDelegate.getInstance();
+    private KeyboardVisibilityDelegate mKeyboardVisibilityDelegate =
+            KeyboardVisibilityDelegate.getInstance();
 
     // Native pointer to the c++ WindowAndroid object.
     private long mNativeWindowAndroid;
@@ -94,10 +97,9 @@ public class WindowAndroid implements AndroidPermissionDelegate, DisplayAndroidO
     private HashSet<Animator> mAnimationsOverContent = new HashSet<>();
     private View mAnimationPlaceholderView;
 
-    /**
-     * A mechanism for observing and updating the application window's bottom inset.
-     */
-    private ApplicationViewportInsetSupplier mApplicationBottomInsetSupplier = new ApplicationViewportInsetSupplier();
+    /** A mechanism for observing and updating the application window's bottom inset. */
+    private ApplicationViewportInsetSupplier mApplicationBottomInsetSupplier =
+            new ApplicationViewportInsetSupplier();
 
     private AndroidPermissionDelegate mPermissionDelegate;
 
@@ -135,7 +137,6 @@ public class WindowAndroid implements AndroidPermissionDelegate, DisplayAndroidO
          */
 
         void onActivityPaused();
-
         /**
          * Called when the activity goes into resumed state.
          */
@@ -160,7 +161,8 @@ public class WindowAndroid implements AndroidPermissionDelegate, DisplayAndroidO
     }
 
     private boolean mSelectionHandlesActive;
-    private ObserverList<SelectionHandlesObserver> mSelectionHandlesObservers = new ObserverList<>();
+    private ObserverList<SelectionHandlesObserver> mSelectionHandlesObservers =
+            new ObserverList<>();
 
     private final boolean mAllowChangeRefreshRate;
 
@@ -171,7 +173,8 @@ public class WindowAndroid implements AndroidPermissionDelegate, DisplayAndroidO
         return null;
     }
 
-    private final ObserverList<OnCloseContextMenuListener> mContextMenuCloseListeners = new ObserverList<>();
+    private final ObserverList<OnCloseContextMenuListener> mContextMenuCloseListeners =
+            new ObserverList<>();
 
     /**
      * @param context The application {@link Context}.
@@ -211,7 +214,8 @@ public class WindowAndroid implements AndroidPermissionDelegate, DisplayAndroidO
         // Because of crbug.com/756180, many devices report true for isScreenWideColorGamut in
         // 8.0.0, even when they don't actually support wide color gamut.
         // TODO(boliu): Observe configuration changes to update the value of isScreenWideColorGamut.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && !Build.VERSION.RELEASE.equals("8.0.0") && ContextUtils.activityFromContext(context) != null) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && !Build.VERSION.RELEASE.equals("8.0.0")
+                && ContextUtils.activityFromContext(context) != null) {
             Configuration configuration = context.getResources().getConfiguration();
             boolean isScreenWideColorGamut = ApiHelperForO.isScreenWideColorGamut(configuration);
             display.updateIsDisplayServerWideColorGamut(isScreenWideColorGamut);
@@ -223,8 +227,10 @@ public class WindowAndroid implements AndroidPermissionDelegate, DisplayAndroidO
     }
 
     private static boolean isTv(Context context) {
-        UiModeManager uiModeManager = (UiModeManager) context.getSystemService(Context.UI_MODE_SERVICE);
-        return uiModeManager != null && uiModeManager.getCurrentModeType() == Configuration.UI_MODE_TYPE_TELEVISION;
+        UiModeManager uiModeManager =
+                (UiModeManager) context.getSystemService(Context.UI_MODE_SERVICE);
+        return uiModeManager != null
+                && uiModeManager.getCurrentModeType() == Configuration.UI_MODE_TYPE_TELEVISION;
     }
 
     @CalledByNative
@@ -254,14 +260,15 @@ public class WindowAndroid implements AndroidPermissionDelegate, DisplayAndroidO
     @Nullable
     public final IntentRequestTracker getIntentRequestTracker() {
         if (mIntentRequestTracker == null) {
-            Log.w(TAG, "Cannot get IntentRequestTracker as the WindowAndroid is neither " + "a ActivityWindowAndroid or a FragmentWindowAndroid.");
+            Log.w(TAG,
+                    "Cannot get IntentRequestTracker as the WindowAndroid is neither "
+                            + "a ActivityWindowAndroid or a FragmentWindowAndroid.");
         }
         return mIntentRequestTracker;
     }
 
     /**
      * Shows an intent and returns the results to the callback object.
-     *
      * @param intent   The PendingIntent that needs to be shown.
      * @param callback The object that will receive the results for the intent.
      * @param errorId  The ID of error string to be shown if activity is paused before intent
@@ -278,7 +285,6 @@ public class WindowAndroid implements AndroidPermissionDelegate, DisplayAndroidO
 
     /**
      * Shows an intent and returns the results to the callback object.
-     *
      * @param intent   The intent that needs to be shown.
      * @param callback The object that will receive the results for the intent.
      * @param errorId  The ID of error string to be shown if activity is paused before intent
@@ -295,15 +301,15 @@ public class WindowAndroid implements AndroidPermissionDelegate, DisplayAndroidO
 
     /**
      * Shows an intent that could be canceled and returns the results to the callback object.
-     *
-     * @param intent   The PendingIntent that needs to be shown.
-     * @param callback The object that will receive the results for the intent.
-     * @param errorId  The ID of error string to be shown if activity is paused before intent
-     *                 results, or null if no message is required.
+     * @param  intent   The PendingIntent that needs to be shown.
+     * @param  callback The object that will receive the results for the intent.
+     * @param  errorId  The ID of error string to be shown if activity is paused before intent
+     *                  results, or null if no message is required.
      * @return A non-negative request code that could be used for finishActivity, or
-     * START_INTENT_FAILURE if failed.
+     *         START_INTENT_FAILURE if failed.
      */
-    public int showCancelableIntent(PendingIntent intent, IntentCallback callback, Integer errorId) {
+    public int showCancelableIntent(
+            PendingIntent intent, IntentCallback callback, Integer errorId) {
         if (mIntentRequestTracker == null) {
             Log.d(TAG, "Can't show intent as context is not an Activity: " + intent);
             return START_INTENT_FAILURE;
@@ -313,13 +319,12 @@ public class WindowAndroid implements AndroidPermissionDelegate, DisplayAndroidO
 
     /**
      * Shows an intent that could be canceled and returns the results to the callback object.
-     *
-     * @param intent   The intent that needs to be shown.
-     * @param callback The object that will receive the results for the intent.
-     * @param errorId  The ID of error string to be shown if activity is paused before intent
-     *                 results, or null if no message is required.
+     * @param  intent   The intent that needs to be shown.
+     * @param  callback The object that will receive the results for the intent.
+     * @param  errorId  The ID of error string to be shown if activity is paused before intent
+     *                  results, or null if no message is required.
      * @return A non-negative request code that could be used for finishActivity, or
-     * START_INTENT_FAILURE if failed.
+     *         START_INTENT_FAILURE if failed.
      */
     public int showCancelableIntent(Intent intent, IntentCallback callback, Integer errorId) {
         if (mIntentRequestTracker == null) {
@@ -329,7 +334,8 @@ public class WindowAndroid implements AndroidPermissionDelegate, DisplayAndroidO
         return mIntentRequestTracker.showCancelableIntent(intent, callback, errorId);
     }
 
-    public int showCancelableIntent(Callback<Integer> intentTrigger, IntentCallback callback, Integer errorId) {
+    public int showCancelableIntent(Callback<Integer> intentTrigger, IntentCallback callback,
+            Integer errorId) {
         if (mIntentRequestTracker == null) {
             Log.d(TAG, "Can't show intent as context is not an Activity");
             return START_INTENT_FAILURE;
@@ -339,7 +345,6 @@ public class WindowAndroid implements AndroidPermissionDelegate, DisplayAndroidO
 
     /**
      * Force finish another activity that you had previously started with showCancelableIntent.
-     *
      * @param requestCode The request code returned from showCancelableIntent.
      */
     public void cancelIntent(int requestCode) {
@@ -353,10 +358,9 @@ public class WindowAndroid implements AndroidPermissionDelegate, DisplayAndroidO
     /**
      * Removes a callback from the list of pending intents, so that nothing happens if/when the
      * result for that intent is received.
-     *
      * @param callback The object that should have received the results
      * @return True if the callback was removed, false if it was not found.
-     */
+    */
     public boolean removeIntentCallback(IntentCallback callback) {
         if (mIntentRequestTracker == null) return false;
         return mIntentRequestTracker.removeIntentCallback(callback);
@@ -364,7 +368,6 @@ public class WindowAndroid implements AndroidPermissionDelegate, DisplayAndroidO
 
     /**
      * Determine whether access to a particular permission is granted.
-     *
      * @param permission The permission whose access is to be checked.
      * @return Whether access to the permission is granted.
      */
@@ -373,7 +376,9 @@ public class WindowAndroid implements AndroidPermissionDelegate, DisplayAndroidO
     public boolean hasPermission(String permission) {
         if (mPermissionDelegate != null) return mPermissionDelegate.hasPermission(permission);
 
-        return ApiCompatibilityUtils.checkPermission(ContextUtils.getApplicationContext(), permission, Process.myPid(), Process.myUid()) == PackageManager.PERMISSION_GRANTED;
+        return ApiCompatibilityUtils.checkPermission(ContextUtils.getApplicationContext(),
+                       permission, Process.myPid(), Process.myUid())
+                == PackageManager.PERMISSION_GRANTED;
     }
 
     /**
@@ -383,7 +388,7 @@ public class WindowAndroid implements AndroidPermissionDelegate, DisplayAndroidO
      * A permission can be requested in the following states:
      * 1.) Default un-granted state, permission can be requested
      * 2.) Permission previously requested but denied by the user, but the user did not select
-     * "Never ask again".
+     *     "Never ask again".
      *
      * @param permission The permission name.
      * @return Whether the requesting the permission is allowed.
@@ -395,8 +400,10 @@ public class WindowAndroid implements AndroidPermissionDelegate, DisplayAndroidO
             return mPermissionDelegate.canRequestPermission(permission);
         }
 
-        Log.w(TAG, "Cannot determine the request permission state as the context " + "is not an Activity");
-        assert false : "Failed to determine the request permission state using a WindowAndroid " + "without an Activity";
+        Log.w(TAG, "Cannot determine the request permission state as the context "
+                + "is not an Activity");
+        assert false : "Failed to determine the request permission state using a WindowAndroid "
+                + "without an Activity";
         return false;
     }
 
@@ -412,16 +419,17 @@ public class WindowAndroid implements AndroidPermissionDelegate, DisplayAndroidO
             return mPermissionDelegate.isPermissionRevokedByPolicy(permission);
         }
 
-        Log.w(TAG, "Cannot determine the policy permission state as the context " + "is not an Activity");
-        assert false : "Failed to determine the policy permission state using a WindowAndroid " + "without an Activity";
+        Log.w(TAG, "Cannot determine the policy permission state as the context "
+                + "is not an Activity");
+        assert false : "Failed to determine the policy permission state using a WindowAndroid "
+                + "without an Activity";
         return false;
     }
 
     /**
      * Requests the specified permissions are granted for further use.
-     *
      * @param permissions The list of permissions to request access to.
-     * @param callback    The callback to be notified whether the permissions were granted.
+     * @param callback The callback to be notified whether the permissions were granted.
      */
     @Override
     public void requestPermissions(String[] permissions, PermissionCallback callback) {
@@ -435,21 +443,23 @@ public class WindowAndroid implements AndroidPermissionDelegate, DisplayAndroidO
     }
 
     @Override
-    public boolean handlePermissionResult(int requestCode, String[] permissions, int[] grantResults) {
+    public boolean handlePermissionResult(
+            int requestCode, String[] permissions, int[] grantResults) {
         if (mPermissionDelegate != null) {
-            return mPermissionDelegate.handlePermissionResult(requestCode, permissions, grantResults);
+            return mPermissionDelegate.handlePermissionResult(
+                    requestCode, permissions, grantResults);
         }
         return false;
     }
 
     @Override
     public boolean shouldShowRequestPermissionRationale(String permission) {
-        return mPermissionDelegate != null && mPermissionDelegate.shouldShowRequestPermissionRationale(permission);
+        return mPermissionDelegate != null
+                && mPermissionDelegate.shouldShowRequestPermissionRationale(permission);
     }
 
     /**
      * Displays an error message with a provided error message string.
-     *
      * @param error The error message string to be displayed.
      */
     public static void showError(String error) {
@@ -460,7 +470,6 @@ public class WindowAndroid implements AndroidPermissionDelegate, DisplayAndroidO
 
     /**
      * Displays an error message from the given resource id.
-     *
      * @param resId The error message string's resource id.
      */
     public static void showError(int resId) {
@@ -483,9 +492,9 @@ public class WindowAndroid implements AndroidPermissionDelegate, DisplayAndroidO
 
     /**
      * @return A reference to owning Activity.  The returned WeakReference will never be null, but
-     * the contained Activity can be null (either if it has been garbage collected or if
-     * this is in the context of a WebView that was not created using an Activity).
-     * The returned WeakReference is immutable and calling clear will throw an exception.
+     *         the contained Activity can be null (either if it has been garbage collected or if
+     *         this is in the context of a WebView that was not created using an Activity).
+     *         The returned WeakReference is immutable and calling clear will throw an exception.
      */
     public WeakReference<Activity> getActivity() {
         return NULL_ACTIVITY_WEAK_REF;
@@ -501,12 +510,12 @@ public class WindowAndroid implements AndroidPermissionDelegate, DisplayAndroidO
     /**
      * Notify any observers that the visibility of the Android Window associated
      * with this Window has changed.
-     *
      * @param visible whether the View is visible.
      */
     public void onVisibilityChanged(boolean visible) {
         if (mNativeWindowAndroid == 0) return;
-        WindowAndroidJni.get().onVisibilityChanged(mNativeWindowAndroid, WindowAndroid.this, visible);
+        WindowAndroidJni.get().onVisibilityChanged(
+                mNativeWindowAndroid, WindowAndroid.this, visible);
     }
 
     /**
@@ -581,7 +590,7 @@ public class WindowAndroid implements AndroidPermissionDelegate, DisplayAndroidO
 
     /**
      * @return Current state of the associated {@link Activity}. Can be overridden
-     * to return the correct state. {@code ActivityState.DESTROYED} by default.
+     *         to return the correct state. {@code ActivityState.DESTROYED} by default.
      */
     @ActivityState
     public int getActivityState() {
@@ -594,19 +603,17 @@ public class WindowAndroid implements AndroidPermissionDelegate, DisplayAndroidO
     public interface IntentCallback {
         /**
          * Handles the data returned by the requested intent.
-         *
          * @param resultCode Result code of the requested intent.
-         * @param data       The data returned by the intent.
+         * @param data The data returned by the intent.
          */
         void onIntentCompleted(int resultCode, Intent data);
     }
 
     /**
      * Tests that an activity is available to handle the passed in intent.
-     *
-     * @param intent The intent to check.
+     * @param  intent The intent to check.
      * @return True if an activity is available to process this intent when started, meaning that
-     * Context.startActivity will not throw ActivityNotFoundException.
+     *         Context.startActivity will not throw ActivityNotFoundException.
      */
     public boolean canResolveActivity(Intent intent) {
         return PackageManagerUtils.canResolveActivity(intent);
@@ -614,7 +621,6 @@ public class WindowAndroid implements AndroidPermissionDelegate, DisplayAndroidO
 
     /**
      * Returns the ModalDialogManager to be used with this window.
-     *
      * @return a {@link ModalDialogManager} for this window, or null if there is none.
      */
     public @Nullable ModalDialogManager getModalDialogManager() {
@@ -645,27 +651,30 @@ public class WindowAndroid implements AndroidPermissionDelegate, DisplayAndroidO
     /**
      * Returns a pointer to the c++ AndroidWindow object and calls the initializer if
      * the object has not been previously initialized.
-     *
      * @return A pointer to the c++ AndroidWindow.
      */
     @CalledByNative
     private long getNativePointer() {
         if (mNativeWindowAndroid == 0) {
-            mNativeWindowAndroid = WindowAndroidJni.get().init(WindowAndroid.this, mDisplayAndroid.getDisplayId(), getMouseWheelScrollFactor(), getWindowIsWideColorGamut());
-            WindowAndroidJni.get().setVSyncPaused(mNativeWindowAndroid, WindowAndroid.this, mVSyncPaused);
+            mNativeWindowAndroid =
+                    WindowAndroidJni.get().init(WindowAndroid.this, mDisplayAndroid.getDisplayId(),
+                            getMouseWheelScrollFactor(), getWindowIsWideColorGamut());
+            WindowAndroidJni.get().setVSyncPaused(
+                    mNativeWindowAndroid, WindowAndroid.this, mVSyncPaused);
         }
         return mNativeWindowAndroid;
     }
 
     /**
      * Returns current wheel scroll factor (physical pixels per mouse scroll click).
-     *
      * @return wheel scroll factor or zero if attr retrieval fails.
      */
     private float getMouseWheelScrollFactor() {
         TypedValue outValue = new TypedValue();
         Context context = getContext().get();
-        if (context != null && context.getTheme().resolveAttribute(android.R.attr.listPreferredItemHeight, outValue, true)) {
+        if (context != null
+                && context.getTheme().resolveAttribute(
+                           android.R.attr.listPreferredItemHeight, outValue, true)) {
             // This is the same attribute used by Android Views to scale wheel
             // event motion into scroll deltas.
             return outValue.getDimension(context.getResources().getDisplayMetrics());
@@ -703,16 +712,13 @@ public class WindowAndroid implements AndroidPermissionDelegate, DisplayAndroidO
 
     /**
      * The returned {@link KeyboardVisibilityDelegate} can read and influence the soft keyboard.
-     *
      * @return a {@link KeyboardVisibilityDelegate} specific for this window.
      */
     public KeyboardVisibilityDelegate getKeyboardDelegate() {
         return mKeyboardVisibilityDelegate;
     }
 
-    /**
-     * @return A mechanism for updating and observing the bottom inset of the browser window.
-     */
+    /** @return A mechanism for updating and observing the bottom inset of the browser window. */
     public ApplicationViewportInsetSupplier getApplicationBottomInsetSupplier() {
         return mApplicationBottomInsetSupplier;
     }
@@ -751,7 +757,7 @@ public class WindowAndroid implements AndroidPermissionDelegate, DisplayAndroidO
 
     /**
      * Start a post-layout animation on top of web content.
-     * <p>
+     *
      * By default, Android optimizes what it shows on top of SurfaceViews (saves power).
      * Effectively, layouts determine what gets drawn and post-layout animations outside
      * of this area may be 'clipped'. Using this method to start such animations will
@@ -812,7 +818,6 @@ public class WindowAndroid implements AndroidPermissionDelegate, DisplayAndroidO
 
     /**
      * As long as there are still animations which haven't ended, this will return false.
-     *
      * @return True if all known animations have ended.
      */
     @VisibleForTesting
@@ -835,7 +840,8 @@ public class WindowAndroid implements AndroidPermissionDelegate, DisplayAndroidO
     @Override
     public void onRefreshRateChanged(float refreshRate) {
         if (mNativeWindowAndroid != 0) {
-            WindowAndroidJni.get().onUpdateRefreshRate(mNativeWindowAndroid, WindowAndroid.this, refreshRate);
+            WindowAndroidJni.get().onUpdateRefreshRate(
+                    mNativeWindowAndroid, WindowAndroid.this, refreshRate);
         }
     }
 
@@ -872,7 +878,8 @@ public class WindowAndroid implements AndroidPermissionDelegate, DisplayAndroidO
         Window window = getWindow();
         if (window == null) return;
 
-        int colorMode = enabled ? ActivityInfo.COLOR_MODE_WIDE_COLOR_GAMUT : ActivityInfo.COLOR_MODE_DEFAULT;
+        int colorMode = enabled ? ActivityInfo.COLOR_MODE_WIDE_COLOR_GAMUT
+                                : ActivityInfo.COLOR_MODE_DEFAULT;
         ApiHelperForO.setColorMode(window, colorMode);
     }
 
@@ -894,7 +901,9 @@ public class WindowAndroid implements AndroidPermissionDelegate, DisplayAndroidO
 
             // Only advertise refresh rates which wouldn't change other configurations on the
             // Display.
-            if (currentMode.getPhysicalWidth() == supportedModes.get(i).getPhysicalWidth() && currentMode.getPhysicalHeight() == supportedModes.get(i).getPhysicalHeight() && currentMode.getRefreshRate() != supportedModes.get(i).getRefreshRate()) {
+            if (currentMode.getPhysicalWidth() == supportedModes.get(i).getPhysicalWidth()
+                    && currentMode.getPhysicalHeight() == supportedModes.get(i).getPhysicalHeight()
+                    && currentMode.getRefreshRate() != supportedModes.get(i).getRefreshRate()) {
                 supportedRefreshRateModes.add(supportedModes.get(i));
                 continue;
             }
@@ -904,7 +913,8 @@ public class WindowAndroid implements AndroidPermissionDelegate, DisplayAndroidO
         if (changed) {
             mSupportedRefreshRateModes = supportedRefreshRateModes;
             if (mNativeWindowAndroid != 0) {
-                WindowAndroidJni.get().onSupportedRefreshRatesUpdated(mNativeWindowAndroid, WindowAndroid.this, getSupportedRefreshRates());
+                WindowAndroidJni.get().onSupportedRefreshRatesUpdated(
+                        mNativeWindowAndroid, WindowAndroid.this, getSupportedRefreshRates());
             }
         }
     }
@@ -988,7 +998,8 @@ public class WindowAndroid implements AndroidPermissionDelegate, DisplayAndroidO
     @CalledByNative
     private @OverlayTransform int getOverlayTransform() {
         int overlayTransform = OverlayTransform.INVALID;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S_V2 && mOverlayTransformApiHelper != null) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S_V2
+                && mOverlayTransformApiHelper != null) {
             overlayTransform = mOverlayTransformApiHelper.getOverlayTransform();
         }
         // Fallback to display rotation
@@ -1012,31 +1023,25 @@ public class WindowAndroid implements AndroidPermissionDelegate, DisplayAndroidO
     public void setUnfoldLatencyBeginTime(long beginTimestampMs) {
         try (TraceEvent e = TraceEvent.scoped("setUnfoldLatencyBeginTime")) {
             if (mNativeWindowAndroid != 0) {
-                WindowAndroidJni.get().sendUnfoldLatencyBeginTimestamp(mNativeWindowAndroid, beginTimestampMs);
+                WindowAndroidJni.get().sendUnfoldLatencyBeginTimestamp(
+                        mNativeWindowAndroid, beginTimestampMs);
             }
         }
     }
 
     @NativeMethods
     interface Natives {
-        long init(WindowAndroid caller, int displayId, float scrollFactor, boolean windowIsWideColorGamut);
-
+        long init(WindowAndroid caller, int displayId, float scrollFactor,
+                boolean windowIsWideColorGamut);
         void onVisibilityChanged(long nativeWindowAndroid, WindowAndroid caller, boolean visible);
-
         void onActivityStopped(long nativeWindowAndroid, WindowAndroid caller);
-
         void onActivityStarted(long nativeWindowAndroid, WindowAndroid caller);
-
         void setVSyncPaused(long nativeWindowAndroid, WindowAndroid caller, boolean paused);
-
         void onUpdateRefreshRate(long nativeWindowAndroid, WindowAndroid caller, float refreshRate);
-
         void destroy(long nativeWindowAndroid, WindowAndroid caller);
-
-        void onSupportedRefreshRatesUpdated(long nativeWindowAndroid, WindowAndroid caller, float[] supportedRefreshRates);
-
+        void onSupportedRefreshRatesUpdated(
+                long nativeWindowAndroid, WindowAndroid caller, float[] supportedRefreshRates);
         void onOverlayTransformUpdated(long nativeWindowAndroid, WindowAndroid caller);
-
         void sendUnfoldLatencyBeginTimestamp(long nativeWindowAndroid, long beginTimestampMs);
     }
 }

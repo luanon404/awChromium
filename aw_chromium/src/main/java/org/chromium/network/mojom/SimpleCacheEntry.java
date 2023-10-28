@@ -13,44 +13,51 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface SimpleCacheEntry extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends SimpleCacheEntry, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends SimpleCacheEntry, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<SimpleCacheEntry, SimpleCacheEntry.Proxy> MANAGER = SimpleCacheEntry_Internal.MANAGER;
 
-    void writeData(int index, int offset, byte[] data, boolean truncate, WriteData_Response callback);
+    void writeData(
+int index, int offset, byte[] data, boolean truncate, 
+WriteData_Response callback);
 
-    interface WriteData_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> {
-    }
-
-
-    void readData(int index, int offset, int length, ReadData_Response callback);
-
-    interface ReadData_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<byte[], Integer> {
-    }
+    interface WriteData_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> { }
 
 
-    void writeSparseData(int offset, byte[] data, WriteSparseData_Response callback);
+    void readData(
+int index, int offset, int length, 
+ReadData_Response callback);
 
-    interface WriteSparseData_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> {
-    }
+    interface ReadData_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<byte[], Integer> { }
 
 
-    void readSparseData(int offset, int length, ReadSparseData_Response callback);
+    void writeSparseData(
+int offset, byte[] data, 
+WriteSparseData_Response callback);
 
-    interface ReadSparseData_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<byte[], Integer> {
-    }
+    interface WriteSparseData_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> { }
+
+
+    void readSparseData(
+int offset, int length, 
+ReadSparseData_Response callback);
+
+    interface ReadSparseData_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<byte[], Integer> { }
 
 
     void close(
 
-            Close_Response callback);
+Close_Response callback);
 
-    interface Close_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 {
-    }
+    interface Close_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 { }
 
 
 }

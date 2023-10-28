@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class FsFileType {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({FsFileType.UNKNOWN, FsFileType.REGULAR_FILE, FsFileType.DIRECTORY})
-    public @interface EnumType {
-    }
+        FsFileType.UNKNOWN,
+        FsFileType.REGULAR_FILE,
+        FsFileType.DIRECTORY})
+    public @interface EnumType {}
 
     public static final int UNKNOWN = 0;
     public static final int REGULAR_FILE = 1;
@@ -38,9 +40,8 @@ public final class FsFileType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private FsFileType() {
-    }
+    private FsFileType() {}
 }

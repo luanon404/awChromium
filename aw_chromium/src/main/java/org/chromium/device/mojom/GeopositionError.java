@@ -13,10 +13,13 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class GeopositionError extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 32;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(32, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(32, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public int errorCode;
     public String errorMessage;
@@ -40,7 +43,8 @@ public final class GeopositionError extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static GeopositionError deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -54,20 +58,20 @@ public final class GeopositionError extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new GeopositionError(elementsOrVersion);
-            {
-
+                {
+                    
                 result.errorCode = decoder0.readInt(8);
-                GeopositionErrorCode.validate(result.errorCode);
-                result.errorCode = GeopositionErrorCode.toKnownValue(result.errorCode);
-            }
-            {
-
+                    GeopositionErrorCode.validate(result.errorCode);
+                    result.errorCode = GeopositionErrorCode.toKnownValue(result.errorCode);
+                }
+                {
+                    
                 result.errorMessage = decoder0.readString(16, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.errorTechnical = decoder0.readString(24, false);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -79,11 +83,11 @@ public final class GeopositionError extends org.chromium.mojo.bindings.Struct {
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.errorCode, 8);
-
+        
         encoder0.encode(this.errorMessage, 16, false);
-
+        
         encoder0.encode(this.errorTechnical, 24, false);
     }
 }

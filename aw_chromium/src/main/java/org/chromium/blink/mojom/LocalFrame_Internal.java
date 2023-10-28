@@ -13,6 +13,8 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 class LocalFrame_Internal {
 
@@ -1510,7 +1512,7 @@ FrameToken subframeToken, org.chromium.url.mojom.Url initialUrl, org.chromium.mo
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -1768,7 +1770,7 @@ FrameToken subframeToken, org.chromium.url.mojom.Url initialUrl, org.chromium.mo
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }

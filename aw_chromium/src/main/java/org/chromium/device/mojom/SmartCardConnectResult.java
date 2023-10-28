@@ -13,13 +13,15 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class SmartCardConnectResult extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
         public static final int Success = 0;
         public static final int Error = 1;
-    }
-
+    };
     private SmartCardConnectSuccess mSuccess;
     private int mError;
 
@@ -50,12 +52,12 @@ public final class SmartCardConnectResult extends org.chromium.mojo.bindings.Uni
         encoder0.encode(this.mTag, offset + 4);
         switch (mTag) {
             case Tag.Success: {
-
+                
                 encoder0.encode(this.mSuccess, offset + 8, false);
                 break;
             }
             case Tag.Error: {
-
+                
                 encoder0.encode(this.mError, offset + 8);
                 break;
             }
@@ -77,17 +79,17 @@ public final class SmartCardConnectResult extends org.chromium.mojo.bindings.Uni
         SmartCardConnectResult result = new SmartCardConnectResult();
         switch (dataHeader.elementsOrVersion) {
             case Tag.Success: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mSuccess = SmartCardConnectSuccess.decode(decoder1);
                 result.mTag = Tag.Success;
                 break;
             }
             case Tag.Error: {
-
+                
                 result.mError = decoder0.readInt(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE);
-                SmartCardError.validate(result.mError);
-                result.mError = SmartCardError.toKnownValue(result.mError);
+                    SmartCardError.validate(result.mError);
+                    result.mError = SmartCardError.toKnownValue(result.mError);
                 result.mTag = Tag.Error;
                 break;
             }

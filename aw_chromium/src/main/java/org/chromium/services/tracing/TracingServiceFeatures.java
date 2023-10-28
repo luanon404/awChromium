@@ -24,6 +24,5 @@ public final class TracingServiceFeatures {
     public static final String ENABLE_PERFETTO_SYSTEM_TRACING = "EnablePerfettoSystemTracing";
 
     // Do not instantiate this class.
-    private TracingServiceFeatures() {
-    }
+    private TracingServiceFeatures() {}
 }

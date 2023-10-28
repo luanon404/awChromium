@@ -4,109 +4,129 @@
 package org.chromium.android_webview;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.content.Context;
+import android.content.SharedPreferences;
+import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.android_webview.common.Lifetime;
+import org.chromium.base.ContextUtils;
+import org.chromium.base.StrictModeContext;
+import org.chromium.base.memory.MemoryPressureMonitor;
+import org.chromium.content_public.browser.BrowserContextHandle;
+import org.chromium.content_public.browser.ContentViewStatics;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 
 @CheckDiscard("crbug.com/993421")
 class AwBrowserContextJni implements AwBrowserContext.Natives {
-    private static AwBrowserContext.Natives testInstance;
+  private static AwBrowserContext.Natives testInstance;
 
-    public static final JniStaticTestMocker<AwBrowserContext.Natives> TEST_HOOKS = new JniStaticTestMocker<AwBrowserContext.Natives>() {
-        @Override
-        public void setInstanceForTesting(AwBrowserContext.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<AwBrowserContext.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<AwBrowserContext.Natives>() {
     @Override
-    public boolean checkNamedContextExists(String name) {
-        return (boolean) GEN_JNI.org_chromium_android_1webview_AwBrowserContext_checkNamedContextExists(name);
+    public void setInstanceForTesting(AwBrowserContext.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public void clearFormData(long nativeAwBrowserContext) {
-        GEN_JNI.org_chromium_android_1webview_AwBrowserContext_clearFormData(nativeAwBrowserContext);
-    }
+  @Override
+  public boolean checkNamedContextExists(String name) {
+    return (boolean) GEN_JNI.org_chromium_android_1webview_AwBrowserContext_checkNamedContextExists(name);
+  }
 
-    @Override
-    public void clearPersistentOriginTrialStorageForTesting(long nativeAwBrowserContext) {
-        GEN_JNI.org_chromium_android_1webview_AwBrowserContext_clearPersistentOriginTrialStorageForTesting(nativeAwBrowserContext);
-    }
+  @Override
+  public void clearFormData(long nativeAwBrowserContext) {
+    GEN_JNI.org_chromium_android_1webview_AwBrowserContext_clearFormData(nativeAwBrowserContext);
+  }
 
-    @Override
-    public boolean deleteNamedContext(String name) {
-        return (boolean) GEN_JNI.org_chromium_android_1webview_AwBrowserContext_deleteNamedContext(name);
-    }
+  @Override
+  public void clearPersistentOriginTrialStorageForTesting(long nativeAwBrowserContext) {
+    GEN_JNI.org_chromium_android_1webview_AwBrowserContext_clearPersistentOriginTrialStorageForTesting(nativeAwBrowserContext);
+  }
 
-    @Override
-    public String getDefaultContextName() {
-        return (String) GEN_JNI.org_chromium_android_1webview_AwBrowserContext_getDefaultContextName();
-    }
+  @Override
+  public boolean deleteNamedContext(String name) {
+    return (boolean) GEN_JNI.org_chromium_android_1webview_AwBrowserContext_deleteNamedContext(name);
+  }
 
-    @Override
-    public String getDefaultContextRelativePath() {
-        return (String) GEN_JNI.org_chromium_android_1webview_AwBrowserContext_getDefaultContextRelativePath();
-    }
+  @Override
+  public String getDefaultContextName() {
+    return (String) GEN_JNI.org_chromium_android_1webview_AwBrowserContext_getDefaultContextName();
+  }
 
-    @Override
-    public AwBrowserContext getDefaultJava() {
-        return (AwBrowserContext) GEN_JNI.org_chromium_android_1webview_AwBrowserContext_getDefaultJava();
-    }
+  @Override
+  public String getDefaultContextRelativePath() {
+    return (String) GEN_JNI.org_chromium_android_1webview_AwBrowserContext_getDefaultContextRelativePath();
+  }
 
-    @Override
-    public AwBrowserContext getNamedContextJava(String name, boolean createIfNeeded) {
-        return (AwBrowserContext) GEN_JNI.org_chromium_android_1webview_AwBrowserContext_getNamedContextJava(name, createIfNeeded);
-    }
+  @Override
+  public AwBrowserContext getDefaultJava() {
+    return (AwBrowserContext) GEN_JNI.org_chromium_android_1webview_AwBrowserContext_getDefaultJava();
+  }
 
-    @Override
-    public String getNamedContextPathForTesting(String name) {
-        return (String) GEN_JNI.org_chromium_android_1webview_AwBrowserContext_getNamedContextPathForTesting(name);
-    }
+  @Override
+  public AwBrowserContext getNamedContextJava(String name, boolean createIfNeeded) {
+    return (AwBrowserContext) GEN_JNI.org_chromium_android_1webview_AwBrowserContext_getNamedContextJava(name, createIfNeeded);
+  }
 
-    @Override
-    public long getQuotaManagerBridge(long nativeAwBrowserContext) {
-        return (long) GEN_JNI.org_chromium_android_1webview_AwBrowserContext_getQuotaManagerBridge(nativeAwBrowserContext);
-    }
+  @Override
+  public String getNamedContextPathForTesting(String name) {
+    return (String) GEN_JNI.org_chromium_android_1webview_AwBrowserContext_getNamedContextPathForTesting(name);
+  }
 
-    @Override
-    public boolean hasFormData(long nativeAwBrowserContext) {
-        return (boolean) GEN_JNI.org_chromium_android_1webview_AwBrowserContext_hasFormData(nativeAwBrowserContext);
-    }
+  @Override
+  public long getQuotaManagerBridge(long nativeAwBrowserContext) {
+    return (long) GEN_JNI.org_chromium_android_1webview_AwBrowserContext_getQuotaManagerBridge(nativeAwBrowserContext);
+  }
 
-    @Override
-    public String[] listAllContexts() {
-        return (String[]) GEN_JNI.org_chromium_android_1webview_AwBrowserContext_listAllContexts();
-    }
+  @Override
+  public boolean hasFormData(long nativeAwBrowserContext) {
+    return (boolean) GEN_JNI.org_chromium_android_1webview_AwBrowserContext_hasFormData(nativeAwBrowserContext);
+  }
 
-    @Override
-    public void setServiceWorkerIoThreadClient(long nativeAwBrowserContext, AwContentsIoThreadClient ioThreadClient) {
-        GEN_JNI.org_chromium_android_1webview_AwBrowserContext_setServiceWorkerIoThreadClient(nativeAwBrowserContext, ioThreadClient);
-    }
+  @Override
+  public String[] listAllContexts() {
+    return (String[]) GEN_JNI.org_chromium_android_1webview_AwBrowserContext_listAllContexts();
+  }
 
-    @Override
-    public void setWebLayerRunningInSameProcess(long nativeAwBrowserContext) {
-        GEN_JNI.org_chromium_android_1webview_AwBrowserContext_setWebLayerRunningInSameProcess(nativeAwBrowserContext);
-    }
+  @Override
+  public void setServiceWorkerIoThreadClient(long nativeAwBrowserContext, AwContentsIoThreadClient ioThreadClient) {
+    GEN_JNI.org_chromium_android_1webview_AwBrowserContext_setServiceWorkerIoThreadClient(nativeAwBrowserContext, ioThreadClient);
+  }
 
-    @Override
-    public String[] updateServiceWorkerXRequestedWithAllowListOriginMatcher(long nativeAwBrowserContext, String[] rules) {
-        return (String[]) GEN_JNI.org_chromium_android_1webview_AwBrowserContext_updateServiceWorkerXRequestedWithAllowListOriginMatcher(nativeAwBrowserContext, rules);
-    }
+  @Override
+  public void setWebLayerRunningInSameProcess(long nativeAwBrowserContext) {
+    GEN_JNI.org_chromium_android_1webview_AwBrowserContext_setWebLayerRunningInSameProcess(nativeAwBrowserContext);
+  }
 
-    public static AwBrowserContext.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of AwBrowserContext.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new AwBrowserContextJni();
+  @Override
+  public String[] updateServiceWorkerXRequestedWithAllowListOriginMatcher(long nativeAwBrowserContext, String[] rules) {
+    return (String[]) GEN_JNI.org_chromium_android_1webview_AwBrowserContext_updateServiceWorkerXRequestedWithAllowListOriginMatcher(nativeAwBrowserContext, rules);
+  }
+
+  public static AwBrowserContext.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of AwBrowserContext.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new AwBrowserContextJni();
+  }
 }

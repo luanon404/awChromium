@@ -13,36 +13,47 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface InterfaceFactory extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends InterfaceFactory, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends InterfaceFactory, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<InterfaceFactory, InterfaceFactory.Proxy> MANAGER = InterfaceFactory_Internal.MANAGER;
 
-    void createAudioDecoder(org.chromium.mojo.bindings.InterfaceRequest<AudioDecoder> audioDecoder);
+    void createAudioDecoder(
+org.chromium.mojo.bindings.InterfaceRequest<AudioDecoder> audioDecoder);
 
 
-    void createVideoDecoder(org.chromium.mojo.bindings.InterfaceRequest<VideoDecoder> videoDecoder, org.chromium.media.stable.mojom.StableVideoDecoder dstVideoDecoder);
+    void createVideoDecoder(
+org.chromium.mojo.bindings.InterfaceRequest<VideoDecoder> videoDecoder, org.chromium.media.stable.mojom.StableVideoDecoder dstVideoDecoder);
 
 
-    void createAudioEncoder(org.chromium.mojo.bindings.InterfaceRequest<AudioEncoder> audioEncoder);
+    void createAudioEncoder(
+org.chromium.mojo.bindings.InterfaceRequest<AudioEncoder> audioEncoder);
 
 
-    void createDefaultRenderer(String audioDeviceId, org.chromium.mojo.bindings.InterfaceRequest<Renderer> renderer);
+    void createDefaultRenderer(
+String audioDeviceId, org.chromium.mojo.bindings.InterfaceRequest<Renderer> renderer);
 
 
-    void createMediaPlayerRenderer(MediaPlayerRendererClientExtension clientExtension, org.chromium.mojo.bindings.InterfaceRequest<Renderer> renderer, org.chromium.mojo.bindings.InterfaceRequest<MediaPlayerRendererExtension> rendererExtension);
+    void createMediaPlayerRenderer(
+MediaPlayerRendererClientExtension clientExtension, org.chromium.mojo.bindings.InterfaceRequest<Renderer> renderer, org.chromium.mojo.bindings.InterfaceRequest<MediaPlayerRendererExtension> rendererExtension);
 
 
-    void createFlingingRenderer(String presentationId, FlingingRendererClientExtension clientExtension, org.chromium.mojo.bindings.InterfaceRequest<Renderer> renderer);
+    void createFlingingRenderer(
+String presentationId, FlingingRendererClientExtension clientExtension, org.chromium.mojo.bindings.InterfaceRequest<Renderer> renderer);
 
 
-    void createCdm(CdmConfig cdmConfig, CreateCdm_Response callback);
+    void createCdm(
+CdmConfig cdmConfig, 
+CreateCdm_Response callback);
 
-    interface CreateCdm_Response extends org.chromium.mojo.bindings.Callbacks.Callback3<ContentDecryptionModule, CdmContext, String> {
-    }
+    interface CreateCdm_Response extends org.chromium.mojo.bindings.Callbacks.Callback3<ContentDecryptionModule, CdmContext, String> { }
 
 
 }

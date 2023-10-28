@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface CookieDeprecationLabelDocumentService extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends CookieDeprecationLabelDocumentService, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends CookieDeprecationLabelDocumentService, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<CookieDeprecationLabelDocumentService, CookieDeprecationLabelDocumentService.Proxy> MANAGER = CookieDeprecationLabelDocumentService_Internal.MANAGER;

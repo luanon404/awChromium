@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class SiteType {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({SiteType.PRIMARY, SiteType.ASSOCIATED, SiteType.SERVICE})
-    public @interface EnumType {
-    }
+        SiteType.PRIMARY,
+        SiteType.ASSOCIATED,
+        SiteType.SERVICE})
+    public @interface EnumType {}
 
     public static final int PRIMARY = 0;
     public static final int ASSOCIATED = 1;
@@ -38,9 +40,8 @@ public final class SiteType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private SiteType() {
-    }
+    private SiteType() {}
 }

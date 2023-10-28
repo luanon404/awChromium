@@ -13,20 +13,23 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface SimpleCacheEntryEnumerator extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends SimpleCacheEntryEnumerator, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends SimpleCacheEntryEnumerator, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<SimpleCacheEntryEnumerator, SimpleCacheEntryEnumerator.Proxy> MANAGER = SimpleCacheEntryEnumerator_Internal.MANAGER;
 
     void getNext(
 
-            GetNext_Response callback);
+GetNext_Response callback);
 
-    interface GetNext_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<SimpleCacheOpenEntryResult> {
-    }
+    interface GetNext_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<SimpleCacheOpenEntryResult> { }
 
 
 }

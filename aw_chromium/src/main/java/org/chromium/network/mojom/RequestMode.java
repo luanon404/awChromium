@@ -17,10 +17,14 @@ import androidx.annotation.IntDef;
 
 public final class RequestMode {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({RequestMode.SAME_ORIGIN, RequestMode.NO_CORS, RequestMode.CORS, RequestMode.CORS_WITH_FORCED_PREFLIGHT, RequestMode.NAVIGATE})
-    public @interface EnumType {
-    }
+        RequestMode.SAME_ORIGIN,
+        RequestMode.NO_CORS,
+        RequestMode.CORS,
+        RequestMode.CORS_WITH_FORCED_PREFLIGHT,
+        RequestMode.NAVIGATE})
+    public @interface EnumType {}
 
     public static final int SAME_ORIGIN = 0;
     public static final int NO_CORS = 1;
@@ -40,9 +44,8 @@ public final class RequestMode {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private RequestMode() {
-    }
+    private RequestMode() {}
 }

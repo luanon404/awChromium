@@ -3,136 +3,155 @@
 //
 package org.chromium.content.browser.framehost;
 
-import org.chromium.base.Callback;
-import org.chromium.base.UnguessableToken;
-import org.chromium.content_public.browser.JavaScriptCallback;
-import org.chromium.content_public.browser.RenderFrameHost;
-import org.chromium.url.GURL;
-import org.chromium.url.Origin;
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import androidx.annotation.Nullable;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.Callback;
+import org.chromium.base.UnguessableToken;
+import org.chromium.blink.mojom.AuthenticatorStatus;
+import org.chromium.content_public.browser.GlobalRenderFrameHostId;
+import org.chromium.content_public.browser.JavaScriptCallback;
+import org.chromium.content_public.browser.LifecycleState;
+import org.chromium.content_public.browser.PermissionsPolicyFeature;
+import org.chromium.content_public.browser.RenderFrameHost;
+import org.chromium.mojo.bindings.Interface;
+import org.chromium.mojo.bindings.InterfaceRequest;
+import org.chromium.mojo.system.Pair;
+import org.chromium.mojo.system.impl.CoreImpl;
+import org.chromium.url.GURL;
+import org.chromium.url.Origin;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 @CheckDiscard("crbug.com/993421")
 class RenderFrameHostImplJni implements RenderFrameHostImpl.Natives {
-    private static RenderFrameHostImpl.Natives testInstance;
+  private static RenderFrameHostImpl.Natives testInstance;
 
-    public static final JniStaticTestMocker<RenderFrameHostImpl.Natives> TEST_HOOKS = new JniStaticTestMocker<RenderFrameHostImpl.Natives>() {
-        @Override
-        public void setInstanceForTesting(RenderFrameHostImpl.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<RenderFrameHostImpl.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<RenderFrameHostImpl.Natives>() {
     @Override
-    public void executeJavaScriptInIsolatedWorld(long nativeRenderFrameHostAndroid, String stript, int isolatedWorldId, JavaScriptCallback callback) {
-        GEN_JNI.org_chromium_content_browser_framehost_RenderFrameHostImpl_executeJavaScriptInIsolatedWorld(nativeRenderFrameHostAndroid, stript, isolatedWorldId, callback);
+    public void setInstanceForTesting(RenderFrameHostImpl.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public RenderFrameHost[] getAllRenderFrameHosts(long nativeRenderFrameHostAndroid, RenderFrameHostImpl caller) {
-        return (RenderFrameHost[]) GEN_JNI.org_chromium_content_browser_framehost_RenderFrameHostImpl_getAllRenderFrameHosts(nativeRenderFrameHostAndroid, caller);
-    }
+  @Override
+  public void executeJavaScriptInIsolatedWorld(long nativeRenderFrameHostAndroid, String stript, int isolatedWorldId, JavaScriptCallback callback) {
+    GEN_JNI.org_chromium_content_browser_framehost_RenderFrameHostImpl_executeJavaScriptInIsolatedWorld(nativeRenderFrameHostAndroid, stript, isolatedWorldId, callback);
+  }
 
-    @Override
-    public UnguessableToken getAndroidOverlayRoutingToken(long nativeRenderFrameHostAndroid, RenderFrameHostImpl caller) {
-        return (UnguessableToken) GEN_JNI.org_chromium_content_browser_framehost_RenderFrameHostImpl_getAndroidOverlayRoutingToken(nativeRenderFrameHostAndroid, caller);
-    }
+  @Override
+  public RenderFrameHost[] getAllRenderFrameHosts(long nativeRenderFrameHostAndroid, RenderFrameHostImpl caller) {
+    return (RenderFrameHost[]) GEN_JNI.org_chromium_content_browser_framehost_RenderFrameHostImpl_getAllRenderFrameHosts(nativeRenderFrameHostAndroid, caller);
+  }
 
-    @Override
-    public void getCanonicalUrlForSharing(long nativeRenderFrameHostAndroid, RenderFrameHostImpl caller, Callback callback) {
-        GEN_JNI.org_chromium_content_browser_framehost_RenderFrameHostImpl_getCanonicalUrlForSharing(nativeRenderFrameHostAndroid, caller, callback);
-    }
+  @Override
+  public UnguessableToken getAndroidOverlayRoutingToken(long nativeRenderFrameHostAndroid, RenderFrameHostImpl caller) {
+    return (UnguessableToken) GEN_JNI.org_chromium_content_browser_framehost_RenderFrameHostImpl_getAndroidOverlayRoutingToken(nativeRenderFrameHostAndroid, caller);
+  }
 
-    @Override
-    public void getInterfaceToRendererFrame(long nativeRenderFrameHostAndroid, RenderFrameHostImpl caller, String interfacename, long messagePipeRawHandle) {
-        GEN_JNI.org_chromium_content_browser_framehost_RenderFrameHostImpl_getInterfaceToRendererFrame(nativeRenderFrameHostAndroid, caller, interfacename, messagePipeRawHandle);
-    }
+  @Override
+  public void getCanonicalUrlForSharing(long nativeRenderFrameHostAndroid, RenderFrameHostImpl caller, Callback callback) {
+    GEN_JNI.org_chromium_content_browser_framehost_RenderFrameHostImpl_getCanonicalUrlForSharing(nativeRenderFrameHostAndroid, caller, callback);
+  }
 
-    @Override
-    public Origin getLastCommittedOrigin(long nativeRenderFrameHostAndroid, RenderFrameHostImpl caller) {
-        return (Origin) GEN_JNI.org_chromium_content_browser_framehost_RenderFrameHostImpl_getLastCommittedOrigin(nativeRenderFrameHostAndroid, caller);
-    }
+  @Override
+  public void getInterfaceToRendererFrame(long nativeRenderFrameHostAndroid, RenderFrameHostImpl caller, String interfacename, long messagePipeRawHandle) {
+    GEN_JNI.org_chromium_content_browser_framehost_RenderFrameHostImpl_getInterfaceToRendererFrame(nativeRenderFrameHostAndroid, caller, interfacename, messagePipeRawHandle);
+  }
 
-    @Override
-    public GURL getLastCommittedURL(long nativeRenderFrameHostAndroid, RenderFrameHostImpl caller) {
-        return (GURL) GEN_JNI.org_chromium_content_browser_framehost_RenderFrameHostImpl_getLastCommittedURL(nativeRenderFrameHostAndroid, caller);
-    }
+  @Override
+  public Origin getLastCommittedOrigin(long nativeRenderFrameHostAndroid, RenderFrameHostImpl caller) {
+    return (Origin) GEN_JNI.org_chromium_content_browser_framehost_RenderFrameHostImpl_getLastCommittedOrigin(nativeRenderFrameHostAndroid, caller);
+  }
 
-    @Override
-    public int getLifecycleState(long nativeRenderFrameHostAndroid, RenderFrameHostImpl caller) {
-        return (int) GEN_JNI.org_chromium_content_browser_framehost_RenderFrameHostImpl_getLifecycleState(nativeRenderFrameHostAndroid, caller);
-    }
+  @Override
+  public GURL getLastCommittedURL(long nativeRenderFrameHostAndroid, RenderFrameHostImpl caller) {
+    return (GURL) GEN_JNI.org_chromium_content_browser_framehost_RenderFrameHostImpl_getLastCommittedURL(nativeRenderFrameHostAndroid, caller);
+  }
 
-    @Override
-    public void insertVisualStateCallback(long nativeRenderFrameHostAndroid, Callback callback) {
-        GEN_JNI.org_chromium_content_browser_framehost_RenderFrameHostImpl_insertVisualStateCallback(nativeRenderFrameHostAndroid, callback);
-    }
+  @Override
+  public int getLifecycleState(long nativeRenderFrameHostAndroid, RenderFrameHostImpl caller) {
+    return (int) GEN_JNI.org_chromium_content_browser_framehost_RenderFrameHostImpl_getLifecycleState(nativeRenderFrameHostAndroid, caller);
+  }
 
-    @Override
-    public boolean isCloseWatcherActive(long nativeRenderFrameHostAndroid, RenderFrameHostImpl caller) {
-        return (boolean) GEN_JNI.org_chromium_content_browser_framehost_RenderFrameHostImpl_isCloseWatcherActive(nativeRenderFrameHostAndroid, caller);
-    }
+  @Override
+  public void insertVisualStateCallback(long nativeRenderFrameHostAndroid, Callback callback) {
+    GEN_JNI.org_chromium_content_browser_framehost_RenderFrameHostImpl_insertVisualStateCallback(nativeRenderFrameHostAndroid, callback);
+  }
 
-    @Override
-    public boolean isFeatureEnabled(long nativeRenderFrameHostAndroid, RenderFrameHostImpl caller, int feature) {
-        return (boolean) GEN_JNI.org_chromium_content_browser_framehost_RenderFrameHostImpl_isFeatureEnabled(nativeRenderFrameHostAndroid, caller, feature);
-    }
+  @Override
+  public boolean isCloseWatcherActive(long nativeRenderFrameHostAndroid, RenderFrameHostImpl caller) {
+    return (boolean) GEN_JNI.org_chromium_content_browser_framehost_RenderFrameHostImpl_isCloseWatcherActive(nativeRenderFrameHostAndroid, caller);
+  }
 
-    @Override
-    public boolean isProcessBlocked(long nativeRenderFrameHostAndroid, RenderFrameHostImpl caller) {
-        return (boolean) GEN_JNI.org_chromium_content_browser_framehost_RenderFrameHostImpl_isProcessBlocked(nativeRenderFrameHostAndroid, caller);
-    }
+  @Override
+  public boolean isFeatureEnabled(long nativeRenderFrameHostAndroid, RenderFrameHostImpl caller, int feature) {
+    return (boolean) GEN_JNI.org_chromium_content_browser_framehost_RenderFrameHostImpl_isFeatureEnabled(nativeRenderFrameHostAndroid, caller, feature);
+  }
 
-    @Override
-    public boolean isRenderFrameLive(long nativeRenderFrameHostAndroid, RenderFrameHostImpl caller) {
-        return (boolean) GEN_JNI.org_chromium_content_browser_framehost_RenderFrameHostImpl_isRenderFrameLive(nativeRenderFrameHostAndroid, caller);
-    }
+  @Override
+  public boolean isProcessBlocked(long nativeRenderFrameHostAndroid, RenderFrameHostImpl caller) {
+    return (boolean) GEN_JNI.org_chromium_content_browser_framehost_RenderFrameHostImpl_isProcessBlocked(nativeRenderFrameHostAndroid, caller);
+  }
 
-    @Override
-    public void notifyUserActivation(long nativeRenderFrameHostAndroid, RenderFrameHostImpl caller) {
-        GEN_JNI.org_chromium_content_browser_framehost_RenderFrameHostImpl_notifyUserActivation(nativeRenderFrameHostAndroid, caller);
-    }
+  @Override
+  public boolean isRenderFrameLive(long nativeRenderFrameHostAndroid, RenderFrameHostImpl caller) {
+    return (boolean) GEN_JNI.org_chromium_content_browser_framehost_RenderFrameHostImpl_isRenderFrameLive(nativeRenderFrameHostAndroid, caller);
+  }
 
-    @Override
-    public void notifyWebAuthnAssertionRequestSucceeded(long nativeRenderFrameHostAndroid, RenderFrameHostImpl caller) {
-        GEN_JNI.org_chromium_content_browser_framehost_RenderFrameHostImpl_notifyWebAuthnAssertionRequestSucceeded(nativeRenderFrameHostAndroid, caller);
-    }
+  @Override
+  public void notifyUserActivation(long nativeRenderFrameHostAndroid, RenderFrameHostImpl caller) {
+    GEN_JNI.org_chromium_content_browser_framehost_RenderFrameHostImpl_notifyUserActivation(nativeRenderFrameHostAndroid, caller);
+  }
 
-    @Override
-    public org.chromium.content_public.browser.RenderFrameHost.WebAuthSecurityChecksResults performGetAssertionWebAuthSecurityChecks(long nativeRenderFrameHostAndroid, RenderFrameHostImpl caller, String relyingPartyId, Origin effectiveOrigin, boolean isPaymentCredentialGetAssertion) {
-        return (org.chromium.content_public.browser.RenderFrameHost.WebAuthSecurityChecksResults) GEN_JNI.org_chromium_content_browser_framehost_RenderFrameHostImpl_performGetAssertionWebAuthSecurityChecks(nativeRenderFrameHostAndroid, caller, relyingPartyId, effectiveOrigin, isPaymentCredentialGetAssertion);
-    }
+  @Override
+  public void notifyWebAuthnAssertionRequestSucceeded(long nativeRenderFrameHostAndroid, RenderFrameHostImpl caller) {
+    GEN_JNI.org_chromium_content_browser_framehost_RenderFrameHostImpl_notifyWebAuthnAssertionRequestSucceeded(nativeRenderFrameHostAndroid, caller);
+  }
 
-    @Override
-    public int performMakeCredentialWebAuthSecurityChecks(long nativeRenderFrameHostAndroid, RenderFrameHostImpl caller, String relyingPartyId, Origin effectiveOrigin, boolean isPaymentCredentialCreation) {
-        return (int) GEN_JNI.org_chromium_content_browser_framehost_RenderFrameHostImpl_performMakeCredentialWebAuthSecurityChecks(nativeRenderFrameHostAndroid, caller, relyingPartyId, effectiveOrigin, isPaymentCredentialCreation);
-    }
+  @Override
+  public org.chromium.content_public.browser.RenderFrameHost.WebAuthSecurityChecksResults performGetAssertionWebAuthSecurityChecks(long nativeRenderFrameHostAndroid, RenderFrameHostImpl caller, String relyingPartyId, Origin effectiveOrigin, boolean isPaymentCredentialGetAssertion) {
+    return (org.chromium.content_public.browser.RenderFrameHost.WebAuthSecurityChecksResults) GEN_JNI.org_chromium_content_browser_framehost_RenderFrameHostImpl_performGetAssertionWebAuthSecurityChecks(nativeRenderFrameHostAndroid, caller, relyingPartyId, effectiveOrigin, isPaymentCredentialGetAssertion);
+  }
 
-    @Override
-    public boolean signalCloseWatcherIfActive(long nativeRenderFrameHostAndroid, RenderFrameHostImpl caller) {
-        return (boolean) GEN_JNI.org_chromium_content_browser_framehost_RenderFrameHostImpl_signalCloseWatcherIfActive(nativeRenderFrameHostAndroid, caller);
-    }
+  @Override
+  public int performMakeCredentialWebAuthSecurityChecks(long nativeRenderFrameHostAndroid, RenderFrameHostImpl caller, String relyingPartyId, Origin effectiveOrigin, boolean isPaymentCredentialCreation) {
+    return (int) GEN_JNI.org_chromium_content_browser_framehost_RenderFrameHostImpl_performMakeCredentialWebAuthSecurityChecks(nativeRenderFrameHostAndroid, caller, relyingPartyId, effectiveOrigin, isPaymentCredentialCreation);
+  }
 
-    @Override
-    public void terminateRendererDueToBadMessage(long nativeRenderFrameHostAndroid, RenderFrameHostImpl caller, int reason) {
-        GEN_JNI.org_chromium_content_browser_framehost_RenderFrameHostImpl_terminateRendererDueToBadMessage(nativeRenderFrameHostAndroid, caller, reason);
-    }
+  @Override
+  public boolean signalCloseWatcherIfActive(long nativeRenderFrameHostAndroid, RenderFrameHostImpl caller) {
+    return (boolean) GEN_JNI.org_chromium_content_browser_framehost_RenderFrameHostImpl_signalCloseWatcherIfActive(nativeRenderFrameHostAndroid, caller);
+  }
 
-    public static RenderFrameHostImpl.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of RenderFrameHostImpl.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new RenderFrameHostImplJni();
+  @Override
+  public void terminateRendererDueToBadMessage(long nativeRenderFrameHostAndroid, RenderFrameHostImpl caller, int reason) {
+    GEN_JNI.org_chromium_content_browser_framehost_RenderFrameHostImpl_terminateRendererDueToBadMessage(nativeRenderFrameHostAndroid, caller, reason);
+  }
+
+  public static RenderFrameHostImpl.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of RenderFrameHostImpl.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new RenderFrameHostImplJni();
+  }
 }

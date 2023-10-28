@@ -44,7 +44,8 @@ public class StylusWritingController {
         mContext = context;
         int iconType = getHandler().getStylusPointerIcon();
         if (iconType != PointerIcon.TYPE_NULL) {
-            mHandwritingIcon = PointerIcon.getSystemIcon(context, getHandler().getStylusPointerIcon());
+            mHandwritingIcon =
+                    PointerIcon.getSystemIcon(context, getHandler().getStylusPointerIcon());
         }
     }
 
@@ -64,7 +65,8 @@ public class StylusWritingController {
 
         // The check for Android T is already in isEnabled but we are adding it here too to make
         // lint happy.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && AndroidStylusWritingHandler.isEnabled(mContext)) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
+                && AndroidStylusWritingHandler.isEnabled(mContext)) {
             if (mAndroidHandler == null) {
                 mAndroidHandler = new AndroidStylusWritingHandler(mContext);
             }
@@ -91,7 +93,8 @@ public class StylusWritingController {
         mCurrentWebContents = webContents;
         StylusApiOption handler = getHandler();
         handler.onWebContentsChanged(mContext, webContents);
-        webContents.getViewAndroidDelegate().setShouldShowStylusHoverIconCallback(this::setShouldOverrideStylusHoverIcon);
+        webContents.getViewAndroidDelegate().setShouldShowStylusHoverIconCallback(
+                this::setShouldOverrideStylusHoverIcon);
     }
 
     /**
@@ -108,7 +111,8 @@ public class StylusWritingController {
         if (mCurrentWebContents == null) return;
         handler.onWebContentsChanged(mContext, mCurrentWebContents);
         if (mCurrentWebContents.getViewAndroidDelegate() == null) return;
-        mCurrentWebContents.getViewAndroidDelegate().setShouldShowStylusHoverIconCallback(this::setShouldOverrideStylusHoverIcon);
+        mCurrentWebContents.getViewAndroidDelegate().setShouldShowStylusHoverIconCallback(
+                this::setShouldOverrideStylusHoverIcon);
     }
 
     @Nullable

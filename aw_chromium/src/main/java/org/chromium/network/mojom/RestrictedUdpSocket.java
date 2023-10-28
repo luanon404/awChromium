@@ -13,27 +13,34 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface RestrictedUdpSocket extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends RestrictedUdpSocket, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends RestrictedUdpSocket, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<RestrictedUdpSocket, RestrictedUdpSocket.Proxy> MANAGER = RestrictedUdpSocket_Internal.MANAGER;
 
-    void receiveMore(int numAdditionalDatagrams);
+    void receiveMore(
+int numAdditionalDatagrams);
 
 
-    void send(org.chromium.mojo_base.mojom.ReadOnlyBuffer data, Send_Response callback);
+    void send(
+org.chromium.mojo_base.mojom.ReadOnlyBuffer data, 
+Send_Response callback);
 
-    interface Send_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> {
-    }
+    interface Send_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> { }
 
 
-    void sendTo(org.chromium.mojo_base.mojom.ReadOnlyBuffer data, HostPortPair destAddr, int dnsQueryType, SendTo_Response callback);
+    void sendTo(
+org.chromium.mojo_base.mojom.ReadOnlyBuffer data, HostPortPair destAddr, int dnsQueryType, 
+SendTo_Response callback);
 
-    interface SendTo_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> {
-    }
+    interface SendTo_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> { }
 
 
 }

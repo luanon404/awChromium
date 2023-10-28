@@ -19,7 +19,6 @@ public class AwSafeBrowsingResponse {
     public int action() {
         return mAction;
     }
-
     public boolean reporting() {
         return mReporting;
     }

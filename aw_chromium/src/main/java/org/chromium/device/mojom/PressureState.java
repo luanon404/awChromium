@@ -17,10 +17,13 @@ import androidx.annotation.IntDef;
 
 public final class PressureState {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({PressureState.NOMINAL, PressureState.FAIR, PressureState.SERIOUS, PressureState.CRITICAL})
-    public @interface EnumType {
-    }
+        PressureState.NOMINAL,
+        PressureState.FAIR,
+        PressureState.SERIOUS,
+        PressureState.CRITICAL})
+    public @interface EnumType {}
 
     public static final int NOMINAL = 0;
     public static final int FAIR = 1;
@@ -39,9 +42,8 @@ public final class PressureState {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private PressureState() {
-    }
+    private PressureState() {}
 }

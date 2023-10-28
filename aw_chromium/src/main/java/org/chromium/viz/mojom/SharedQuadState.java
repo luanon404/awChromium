@@ -13,10 +13,13 @@
 
 package org.chromium.viz.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class SharedQuadState extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 72;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(72, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(72, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public org.chromium.gfx.mojom.Transform quadToTargetTransform;
     public org.chromium.gfx.mojom.Rect quadLayerRect;
@@ -34,6 +37,10 @@ public final class SharedQuadState extends org.chromium.mojo.bindings.Struct {
         super(STRUCT_SIZE, version);
     }
 
+    public SharedQuadState() {
+        this(0);
+    }
+
     public static SharedQuadState deserialize(org.chromium.mojo.bindings.Message message) {
         return decode(new org.chromium.mojo.bindings.Decoder(message));
     }
@@ -44,9 +51,11 @@ public final class SharedQuadState extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static SharedQuadState deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
+    @SuppressWarnings("unchecked")
     public static SharedQuadState decode(org.chromium.mojo.bindings.Decoder decoder0) {
         if (decoder0 == null) {
             return null;
@@ -57,55 +66,55 @@ public final class SharedQuadState extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new SharedQuadState(elementsOrVersion);
-            {
-
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                 result.quadToTargetTransform = org.chromium.gfx.mojom.Transform.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                 result.quadLayerRect = org.chromium.gfx.mojom.Rect.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, false);
                 result.visibleQuadLayerRect = org.chromium.gfx.mojom.Rect.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(32, true);
                 result.maskFilterInfo = org.chromium.gfx.mojom.MaskFilterInfo.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(40, true);
                 result.clipRect = org.chromium.gfx.mojom.Rect.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.areContentsOpaque = decoder0.readBoolean(48, 0);
-            }
-            {
-
+                }
+                {
+                    
                 result.isFastRoundedCorner = decoder0.readBoolean(48, 1);
-            }
-            {
-
+                }
+                {
+                    
                 result.opacity = decoder0.readFloat(52);
-            }
-            {
-
+                }
+                {
+                    
                 result.blendMode = decoder0.readInt(56);
-            }
-            {
-
+                }
+                {
+                    
                 result.sortingContextId = decoder0.readInt(60);
-            }
-            {
-
+                }
+                {
+                    
                 result.layerId = decoder0.readInt(64);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -113,30 +122,31 @@ public final class SharedQuadState extends org.chromium.mojo.bindings.Struct {
         return result;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
+    protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.quadToTargetTransform, 8, false);
-
+        
         encoder0.encode(this.quadLayerRect, 16, false);
-
+        
         encoder0.encode(this.visibleQuadLayerRect, 24, false);
-
+        
         encoder0.encode(this.maskFilterInfo, 32, true);
-
+        
         encoder0.encode(this.clipRect, 40, true);
-
+        
         encoder0.encode(this.areContentsOpaque, 48, 0);
-
+        
         encoder0.encode(this.isFastRoundedCorner, 48, 1);
-
+        
         encoder0.encode(this.opacity, 52);
-
+        
         encoder0.encode(this.blendMode, 56);
-
+        
         encoder0.encode(this.sortingContextId, 60);
-
+        
         encoder0.encode(this.layerId, 64);
     }
 }

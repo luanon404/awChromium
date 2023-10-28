@@ -13,21 +13,28 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface ReportingApiObserver extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends ReportingApiObserver, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends ReportingApiObserver, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<ReportingApiObserver, ReportingApiObserver.Proxy> MANAGER = ReportingApiObserver_Internal.MANAGER;
 
-    void onReportAdded(ReportingApiReport report);
+    void onReportAdded(
+ReportingApiReport report);
 
 
-    void onReportUpdated(ReportingApiReport report);
+    void onReportUpdated(
+ReportingApiReport report);
 
 
-    void onEndpointsUpdatedForOrigin(ReportingApiEndpoint[] endpoints);
+    void onEndpointsUpdatedForOrigin(
+ReportingApiEndpoint[] endpoints);
 
 
 }

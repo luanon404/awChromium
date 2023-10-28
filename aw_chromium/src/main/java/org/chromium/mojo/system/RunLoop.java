@@ -13,30 +13,29 @@ public interface RunLoop extends Closeable {
     /**
      * Start the run loop. It will continue until quit() is called.
      */
-    void run();
+    public void run();
 
     /**
      * Start the run loop and stop it as soon as no task is present in the work queue.
      */
-    void runUntilIdle();
+    public void runUntilIdle();
 
     /*
      * Quit the currently running run loop.
      */
-    void quit();
+    public void quit();
 
     /**
      * Add a runnable to the queue of tasks.
-     *
      * @param runnable Callback to be executed by the run loop.
-     * @param delay    Delay, in MojoTimeTicks (microseconds) before the callback should
-     *                 be executed.
+     * @param delay Delay, in MojoTimeTicks (microseconds) before the callback should
+     * be executed.
      */
-    void postDelayedTask(Runnable runnable, long delay);
+    public void postDelayedTask(Runnable runnable, long delay);
 
     /**
      * Destroy the run loop and deregister it from Core.
      */
     @Override
-    void close();
+    public abstract void close();
 }

@@ -12,7 +12,6 @@ import androidx.annotation.RequiresApi;
 import org.chromium.content.browser.RenderCoordinatesImpl;
 
 /**
- *
  */
 public class OViewStructureBuilder extends ViewStructureBuilder {
     public OViewStructureBuilder(RenderCoordinatesImpl renderCoordinates) {
@@ -21,7 +20,8 @@ public class OViewStructureBuilder extends ViewStructureBuilder {
 
     @RequiresApi(Build.VERSION_CODES.O)
     @Override
-    protected void setViewStructureNodeHtmlInfo(ViewStructure node, String htmlTag, String cssDisplay, String[][] htmlAttributes) {
+    protected void setViewStructureNodeHtmlInfo(
+            ViewStructure node, String htmlTag, String cssDisplay, String[][] htmlAttributes) {
         super.setViewStructureNodeHtmlInfo(node, htmlTag, cssDisplay, htmlAttributes);
 
         ViewStructure.HtmlInfo.Builder htmlBuilder = node.newHtmlInfoBuilder(htmlTag);

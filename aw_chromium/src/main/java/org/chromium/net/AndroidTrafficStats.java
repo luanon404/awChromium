@@ -15,13 +15,12 @@ import org.jni_zero.JNINamespace;
  */
 @JNINamespace("net::android::traffic_stats")
 public class AndroidTrafficStats {
-    private AndroidTrafficStats() {
-    }
+    private AndroidTrafficStats() {}
 
     /**
      * @return Number of bytes transmitted since device boot. Counts packets across all network
-     * interfaces, and always increases monotonically since device boot. Statistics are
-     * measured at the network layer, so they include both TCP and UDP usage.
+     *         interfaces, and always increases monotonically since device boot. Statistics are
+     *         measured at the network layer, so they include both TCP and UDP usage.
      */
     @CalledByNative
     private static long getTotalTxBytes() {
@@ -31,8 +30,8 @@ public class AndroidTrafficStats {
 
     /**
      * @return Number of bytes received since device boot. Counts packets across all network
-     * interfaces, and always increases monotonically since device boot. Statistics are
-     * measured at the network layer, so they include both TCP and UDP usage.
+     *         interfaces, and always increases monotonically since device boot. Statistics are
+     *         measured at the network layer, so they include both TCP and UDP usage.
      */
     @CalledByNative
     private static long getTotalRxBytes() {
@@ -42,9 +41,9 @@ public class AndroidTrafficStats {
 
     /**
      * @return Number of bytes transmitted since device boot that were attributed to caller's UID.
-     * Counts packets across all network interfaces, and always increases monotonically
-     * since device boot. Statistics are measured at the network layer, so they include
-     * both TCP and UDP usage.
+     *         Counts packets across all network interfaces, and always increases monotonically
+     *         since device boot. Statistics are measured at the network layer, so they include
+     *         both TCP and UDP usage.
      */
     @CalledByNative
     private static long getCurrentUidTxBytes() {
@@ -54,9 +53,9 @@ public class AndroidTrafficStats {
 
     /**
      * @return Number of bytes received since device boot that were attributed to caller's UID.
-     * Counts packets across all network interfaces, and always increases monotonically
-     * since device boot. Statistics are measured at the network layer, so they include
-     * both TCP and UDP usage.
+     *         Counts packets across all network interfaces, and always increases monotonically
+     *         since device boot. Statistics are measured at the network layer, so they include
+     *         both TCP and UDP usage.
      */
     @CalledByNative
     private static long getCurrentUidRxBytes() {

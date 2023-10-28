@@ -17,10 +17,9 @@ import androidx.annotation.IntDef;
 
 public final class MediaContentType {
     private static final boolean IS_EXTENSIBLE = false;
-
-    @IntDef({})
-    public @interface EnumType {
-    }
+    @IntDef({
+})
+    public @interface EnumType {}
 
 
     public static boolean isKnownValue(int value) {
@@ -33,9 +32,8 @@ public final class MediaContentType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private MediaContentType() {
-    }
+    private MediaContentType() {}
 }

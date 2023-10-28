@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface ServiceWorkerInstalledScriptsManager extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends ServiceWorkerInstalledScriptsManager, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends ServiceWorkerInstalledScriptsManager, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<ServiceWorkerInstalledScriptsManager, ServiceWorkerInstalledScriptsManager.Proxy> MANAGER = ServiceWorkerInstalledScriptsManager_Internal.MANAGER;

@@ -13,21 +13,28 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface WebSocketHandshakeClient extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends WebSocketHandshakeClient, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends WebSocketHandshakeClient, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<WebSocketHandshakeClient, WebSocketHandshakeClient.Proxy> MANAGER = WebSocketHandshakeClient_Internal.MANAGER;
 
-    void onOpeningHandshakeStarted(WebSocketHandshakeRequest request);
+    void onOpeningHandshakeStarted(
+WebSocketHandshakeRequest request);
 
 
-    void onFailure(String message, int netError, int responseCode);
+    void onFailure(
+String message, int netError, int responseCode);
 
 
-    void onConnectionEstablished(WebSocket socket, org.chromium.mojo.bindings.InterfaceRequest<WebSocketClient> clientReceiver, WebSocketHandshakeResponse response, org.chromium.mojo.system.DataPipe.ConsumerHandle readable, org.chromium.mojo.system.DataPipe.ProducerHandle writable);
+    void onConnectionEstablished(
+WebSocket socket, org.chromium.mojo.bindings.InterfaceRequest<WebSocketClient> clientReceiver, WebSocketHandshakeResponse response, org.chromium.mojo.system.DataPipe.ConsumerHandle readable, org.chromium.mojo.system.DataPipe.ProducerHandle writable);
 
 
 }

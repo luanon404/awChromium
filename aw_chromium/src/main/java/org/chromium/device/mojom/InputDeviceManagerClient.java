@@ -13,18 +13,24 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface InputDeviceManagerClient extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends InputDeviceManagerClient, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends InputDeviceManagerClient, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<InputDeviceManagerClient, InputDeviceManagerClient.Proxy> MANAGER = InputDeviceManagerClient_Internal.MANAGER;
 
-    void inputDeviceAdded(InputDeviceInfo deviceInfo);
+    void inputDeviceAdded(
+InputDeviceInfo deviceInfo);
 
 
-    void inputDeviceRemoved(String id);
+    void inputDeviceRemoved(
+String id);
 
 
 }

@@ -13,6 +13,8 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public final class ServiceWorkerRouterCondition extends org.chromium.mojo.bindings.Union {
 
@@ -21,8 +23,7 @@ public final class ServiceWorkerRouterCondition extends org.chromium.mojo.bindin
         public static final int Request = 1;
         public static final int RunningStatus = 2;
         public static final int OrCondition = 3;
-    }
-
+    };
     private SafeUrlPattern mUrlPattern;
     private ServiceWorkerRouterRequestCondition mRequest;
     private ServiceWorkerRouterRunningStatusCondition mRunningStatus;

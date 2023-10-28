@@ -13,10 +13,13 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class AudioBuffer extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 48;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(48, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(48, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public int sampleFormat;
     public int channelLayout;
@@ -45,7 +48,8 @@ public final class AudioBuffer extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static AudioBuffer deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -59,43 +63,43 @@ public final class AudioBuffer extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new AudioBuffer(elementsOrVersion);
-            {
-
+                {
+                    
                 result.sampleFormat = decoder0.readInt(8);
-                SampleFormat.validate(result.sampleFormat);
-                result.sampleFormat = SampleFormat.toKnownValue(result.sampleFormat);
-            }
-            {
-
+                    SampleFormat.validate(result.sampleFormat);
+                    result.sampleFormat = SampleFormat.toKnownValue(result.sampleFormat);
+                }
+                {
+                    
                 result.channelLayout = decoder0.readInt(12);
-                ChannelLayout.validate(result.channelLayout);
-                result.channelLayout = ChannelLayout.toKnownValue(result.channelLayout);
-            }
-            {
-
+                    ChannelLayout.validate(result.channelLayout);
+                    result.channelLayout = ChannelLayout.toKnownValue(result.channelLayout);
+                }
+                {
+                    
                 result.channelCount = decoder0.readInt(16);
-            }
-            {
-
+                }
+                {
+                    
                 result.sampleRate = decoder0.readInt(20);
-            }
-            {
-
+                }
+                {
+                    
                 result.frameCount = decoder0.readInt(24);
-            }
-            {
-
+                }
+                {
+                    
                 result.endOfStream = decoder0.readBoolean(28, 0);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(32, false);
                 result.timestamp = org.chromium.mojo_base.mojom.TimeDelta.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.data = decoder0.readBytes(40, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -107,21 +111,21 @@ public final class AudioBuffer extends org.chromium.mojo.bindings.Struct {
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.sampleFormat, 8);
-
+        
         encoder0.encode(this.channelLayout, 12);
-
+        
         encoder0.encode(this.channelCount, 16);
-
+        
         encoder0.encode(this.sampleRate, 20);
-
+        
         encoder0.encode(this.frameCount, 24);
-
+        
         encoder0.encode(this.endOfStream, 28, 0);
-
+        
         encoder0.encode(this.timestamp, 32, false);
-
+        
         encoder0.encode(this.data, 40, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
     }
 }

@@ -13,26 +13,30 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface IpProtectionConfigGetter extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends IpProtectionConfigGetter, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends IpProtectionConfigGetter, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<IpProtectionConfigGetter, IpProtectionConfigGetter.Proxy> MANAGER = IpProtectionConfigGetter_Internal.MANAGER;
 
-    void tryGetAuthTokens(int batchSize, int proxyLayer, TryGetAuthTokens_Response callback);
+    void tryGetAuthTokens(
+int batchSize, int proxyLayer, 
+TryGetAuthTokens_Response callback);
 
-    interface TryGetAuthTokens_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<BlindSignedAuthToken[], org.chromium.mojo_base.mojom.Time> {
-    }
+    interface TryGetAuthTokens_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<BlindSignedAuthToken[], org.chromium.mojo_base.mojom.Time> { }
 
 
     void getProxyList(
 
-            GetProxyList_Response callback);
+GetProxyList_Response callback);
 
-    interface GetProxyList_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<String[]> {
-    }
+    interface GetProxyList_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<String[]> { }
 
 
 }

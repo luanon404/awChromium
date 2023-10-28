@@ -11,20 +11,18 @@ public interface MagnifierWrapper {
     /**
      * Wrapper of {@link Magnifier#show()}.
      */
-    void show(float x, float y);
+    public void show(float x, float y);
 
     /**
      * Wrapper of {@link Magnifier#dismiss()}.
      */
-    void dismiss();
+    public void dismiss();
 
     /**
      * To check if this MagnifierWrapper is available to show.
      */
-    boolean isAvailable();
+    public boolean isAvailable();
 
-    /**
-     * Only implemented on MagnifierSurfaceControl.
-     */
-    void childLocalSurfaceIdChanged();
+    /** Only implemented on MagnifierSurfaceControl. */
+    public void childLocalSurfaceIdChanged();
 }

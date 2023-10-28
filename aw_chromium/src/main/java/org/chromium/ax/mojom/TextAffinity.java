@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class TextAffinity {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({TextAffinity.NONE, TextAffinity.DOWNSTREAM, TextAffinity.UPSTREAM})
-    public @interface EnumType {
-    }
+        TextAffinity.NONE,
+        TextAffinity.DOWNSTREAM,
+        TextAffinity.UPSTREAM})
+    public @interface EnumType {}
 
     public static final int NONE = 0;
     public static final int DOWNSTREAM = 1;
@@ -39,12 +41,11 @@ public final class TextAffinity {
     }
 
     public static int toKnownValue(int value) {
-        if (isKnownValue(value)) {
-            return value;
-        }
-        return DEFAULT_VALUE;
+      if (isKnownValue(value)) {
+        return value;
+      }
+      return DEFAULT_VALUE;
     }
 
-    private TextAffinity() {
-    }
+    private TextAffinity() {}
 }

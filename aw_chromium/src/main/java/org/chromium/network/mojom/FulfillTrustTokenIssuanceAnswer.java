@@ -19,15 +19,17 @@ import androidx.annotation.IntDef;
 public final class FulfillTrustTokenIssuanceAnswer extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 24;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
 
     public static final class Status {
         private static final boolean IS_EXTENSIBLE = false;
+        @IntDef({
 
-        @IntDef({Status.OK, Status.NOT_FOUND, Status.UNKNOWN_ERROR})
-        public @interface EnumType {
-        }
+            Status.OK,
+            Status.NOT_FOUND,
+            Status.UNKNOWN_ERROR})
+        public @interface EnumType {}
 
         public static final int OK = 0;
         public static final int NOT_FOUND = 1;
@@ -45,13 +47,11 @@ public final class FulfillTrustTokenIssuanceAnswer extends org.chromium.mojo.bin
         }
 
         public static int toKnownValue(int value) {
-            return value;
+          return value;
         }
 
-        private Status() {
-        }
+        private Status() {}
     }
-
     public int status;
     public String response;
 
@@ -73,7 +73,8 @@ public final class FulfillTrustTokenIssuanceAnswer extends org.chromium.mojo.bin
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static FulfillTrustTokenIssuanceAnswer deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -87,16 +88,16 @@ public final class FulfillTrustTokenIssuanceAnswer extends org.chromium.mojo.bin
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new FulfillTrustTokenIssuanceAnswer(elementsOrVersion);
-            {
-
+                {
+                    
                 result.status = decoder0.readInt(8);
-                FulfillTrustTokenIssuanceAnswer.Status.validate(result.status);
-                result.status = FulfillTrustTokenIssuanceAnswer.Status.toKnownValue(result.status);
-            }
-            {
-
+                    FulfillTrustTokenIssuanceAnswer.Status.validate(result.status);
+                    result.status = FulfillTrustTokenIssuanceAnswer.Status.toKnownValue(result.status);
+                }
+                {
+                    
                 result.response = decoder0.readString(16, false);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -108,9 +109,9 @@ public final class FulfillTrustTokenIssuanceAnswer extends org.chromium.mojo.bin
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.status, 8);
-
+        
         encoder0.encode(this.response, 16, false);
     }
 }

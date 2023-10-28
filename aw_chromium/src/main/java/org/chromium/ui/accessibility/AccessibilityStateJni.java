@@ -4,54 +4,87 @@
 package org.chromium.ui.accessibility;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.accessibilityservice.AccessibilityServiceInfo;
+import android.app.Activity;
+import android.content.ComponentName;
+import android.content.ContentResolver;
+import android.content.Context;
+import android.database.ContentObserver;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Handler;
+import android.provider.Settings;
+import android.view.accessibility.AccessibilityEvent;
+import android.view.accessibility.AccessibilityManager;
+import android.view.autofill.AutofillManager;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.ActivityState;
+import org.chromium.base.ApplicationState;
+import org.chromium.base.ApplicationStatus;
+import org.chromium.base.ContextUtils;
+import org.chromium.base.Log;
+import org.chromium.base.ThreadUtils;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+import java.util.WeakHashMap;
 
 @CheckDiscard("crbug.com/993421")
 class AccessibilityStateJni implements AccessibilityState.Natives {
-    private static AccessibilityState.Natives testInstance;
+  private static AccessibilityState.Natives testInstance;
 
-    public static final JniStaticTestMocker<AccessibilityState.Natives> TEST_HOOKS = new JniStaticTestMocker<AccessibilityState.Natives>() {
-        @Override
-        public void setInstanceForTesting(AccessibilityState.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<AccessibilityState.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<AccessibilityState.Natives>() {
     @Override
-    public void onAnimatorDurationScaleChanged() {
-        GEN_JNI.org_chromium_ui_accessibility_AccessibilityState_onAnimatorDurationScaleChanged();
+    public void setInstanceForTesting(AccessibilityState.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public void onContrastLevelChanged(boolean highContrastEnabled) {
-        GEN_JNI.org_chromium_ui_accessibility_AccessibilityState_onContrastLevelChanged(highContrastEnabled);
-    }
+  @Override
+  public void onAnimatorDurationScaleChanged() {
+    GEN_JNI.org_chromium_ui_accessibility_AccessibilityState_onAnimatorDurationScaleChanged();
+  }
 
-    @Override
-    public void onDisplayInversionEnabledChanged(boolean enabled) {
-        GEN_JNI.org_chromium_ui_accessibility_AccessibilityState_onDisplayInversionEnabledChanged(enabled);
-    }
+  @Override
+  public void onContrastLevelChanged(boolean highContrastEnabled) {
+    GEN_JNI.org_chromium_ui_accessibility_AccessibilityState_onContrastLevelChanged(highContrastEnabled);
+  }
 
-    @Override
-    public void recordAccessibilityServiceInfoHistograms() {
-        GEN_JNI.org_chromium_ui_accessibility_AccessibilityState_recordAccessibilityServiceInfoHistograms();
-    }
+  @Override
+  public void onDisplayInversionEnabledChanged(boolean enabled) {
+    GEN_JNI.org_chromium_ui_accessibility_AccessibilityState_onDisplayInversionEnabledChanged(enabled);
+  }
 
-    public static AccessibilityState.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of AccessibilityState.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new AccessibilityStateJni();
+  @Override
+  public void recordAccessibilityServiceInfoHistograms() {
+    GEN_JNI.org_chromium_ui_accessibility_AccessibilityState_recordAccessibilityServiceInfoHistograms();
+  }
+
+  public static AccessibilityState.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of AccessibilityState.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new AccessibilityStateJni();
+  }
 }

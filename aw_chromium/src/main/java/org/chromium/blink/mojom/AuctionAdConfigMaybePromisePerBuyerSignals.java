@@ -13,14 +13,15 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public final class AuctionAdConfigMaybePromisePerBuyerSignals extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
         public static final int Promise = 0;
         public static final int Value = 1;
-    }
-
+    };
     private int mPromise;
     private java.util.Map<org.chromium.url.internal.mojom.Origin, String> mValue;
 

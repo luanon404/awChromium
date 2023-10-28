@@ -17,10 +17,11 @@ import androidx.annotation.IntDef;
 
 public final class SecureDnsPolicy {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({SecureDnsPolicy.ALLOW, SecureDnsPolicy.DISABLE})
-    public @interface EnumType {
-    }
+        SecureDnsPolicy.ALLOW,
+        SecureDnsPolicy.DISABLE})
+    public @interface EnumType {}
 
     public static final int ALLOW = 0;
     public static final int DISABLE = 1;
@@ -37,9 +38,8 @@ public final class SecureDnsPolicy {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private SecureDnsPolicy() {
-    }
+    private SecureDnsPolicy() {}
 }

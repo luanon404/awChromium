@@ -15,7 +15,7 @@ import org.chromium.blink.mojom.DisplayMode;
 
 /**
  * Display mode controller for WebView.
- * <p>
+ *
  * Display mode will be used for display cutout controller's internal implementation since we only
  * apply display cutout to fullscreen mode. Also, display mode will be reported as CSS property.
  */
@@ -28,14 +28,9 @@ public class AwDisplayModeController {
      * This is a delegate that the embedder needs to implement.
      */
     public interface Delegate {
-        /**
-         * @return The display width.
-         */
+        /** @return The display width. */
         int getDisplayWidth();
-
-        /**
-         * @return The display height.
-         */
+        /** @return The display height. */
         int getDisplayHeight();
     }
 
@@ -52,7 +47,7 @@ public class AwDisplayModeController {
     /**
      * Constructor for AwDisplayModeController.
      *
-     * @param delegate      The delegate.
+     * @param delegate The delegate.
      * @param containerView The container view (WebView).
      */
     public AwDisplayModeController(Delegate delegate, View containerView) {
@@ -75,7 +70,9 @@ public class AwDisplayModeController {
         sCachedDisplayRect.set(0, 0, displayWidth, displayHeight);
 
         if (DEBUG) {
-            Log.i(TAG, "isDisplayInFullscreen. view rect: " + sCachedViewRect + ", display rect: " + sCachedDisplayRect + ", window rect: " + sCachedWindowRect);
+            Log.i(TAG,
+                    "isDisplayInFullscreen. view rect: " + sCachedViewRect + ", display rect: "
+                            + sCachedDisplayRect + ", window rect: " + sCachedWindowRect);
         }
 
         // Display is in fullscreen only when webview is occupying the entire window and display.
@@ -109,7 +106,8 @@ public class AwDisplayModeController {
         int width = view.getMeasuredWidth();
         int height = view.getMeasuredHeight();
 
-        rect.set(sCachedLocationOnScreen[0], sCachedLocationOnScreen[1], sCachedLocationOnScreen[0] + width, sCachedLocationOnScreen[1] + height);
+        rect.set(sCachedLocationOnScreen[0], sCachedLocationOnScreen[1],
+                sCachedLocationOnScreen[0] + width, sCachedLocationOnScreen[1] + height);
     }
 
     @SuppressLint("NewApi") // need this exception since we will try using Q API in P

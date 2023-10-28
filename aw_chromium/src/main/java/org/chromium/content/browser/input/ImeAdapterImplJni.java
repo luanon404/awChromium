@@ -3,125 +3,203 @@
 //
 package org.chromium.content.browser.input;
 
-import android.view.KeyEvent;
-
-import org.chromium.content_public.browser.WebContents;
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
-
+import org.jni_zero.GEN_JNI;
+import android.content.Context;
+import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.Point;
+import android.graphics.Rect;
+import android.graphics.RectF;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.ResultReceiver;
+import android.os.SystemClock;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextUtils;
+import android.text.style.BackgroundColorSpan;
+import android.text.style.CharacterStyle;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.SuggestionSpan;
+import android.text.style.UnderlineSpan;
+import android.util.SparseArray;
+import android.view.KeyCharacterMap;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.inputmethod.BaseInputConnection;
+import android.view.inputmethod.DeleteGesture;
+import android.view.inputmethod.DeleteRangeGesture;
+import android.view.inputmethod.EditorBoundsInfo;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.ExtractedText;
+import android.view.inputmethod.HandwritingGesture;
+import android.view.inputmethod.InputConnection;
+import android.view.inputmethod.InputMethodManager;
+import android.view.inputmethod.InsertGesture;
+import android.view.inputmethod.JoinOrSplitGesture;
+import android.view.inputmethod.RemoveSpaceGesture;
+import android.view.inputmethod.SelectGesture;
+import android.view.inputmethod.SelectRangeGesture;
+import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
+import androidx.core.view.inputmethod.EditorInfoCompat;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.ContextUtils;
+import org.chromium.base.Log;
+import org.chromium.base.TraceEvent;
+import org.chromium.base.UserData;
+import org.chromium.blink.mojom.EventType;
+import org.chromium.blink.mojom.FocusType;
+import org.chromium.blink.mojom.HandwritingGestureResult;
+import org.chromium.blink.mojom.StylusWritingGestureData;
+import org.chromium.blink_public.web.WebInputEventModifier;
+import org.chromium.blink_public.web.WebTextInputMode;
+import org.chromium.content.browser.GestureListenerManagerImpl;
+import org.chromium.content.browser.WindowEventObserver;
+import org.chromium.content.browser.WindowEventObserverManager;
+import org.chromium.content.browser.picker.InputDialogContainer;
+import org.chromium.content.browser.webcontents.WebContentsImpl;
+import org.chromium.content.browser.webcontents.WebContentsImpl.UserDataFactory;
+import org.chromium.content_public.browser.ImeAdapter;
+import org.chromium.content_public.browser.ImeEventObserver;
+import org.chromium.content_public.browser.InputMethodManagerWrapper;
+import org.chromium.content_public.browser.StylusWritingImeCallback;
+import org.chromium.content_public.browser.WebContents;
+import org.chromium.ui.base.ViewAndroidDelegate;
+import org.chromium.ui.base.ViewUtils;
+import org.chromium.ui.base.WindowAndroid;
+import org.chromium.ui.base.ime.TextInputAction;
+import org.chromium.ui.base.ime.TextInputType;
+import org.chromium.ui.mojom.VirtualKeyboardPolicy;
+import org.chromium.ui.mojom.VirtualKeyboardVisibilityRequest;
+import java.lang.ref.WeakReference;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @CheckDiscard("crbug.com/993421")
 class ImeAdapterImplJni implements ImeAdapterImpl.Natives {
-    private static ImeAdapterImpl.Natives testInstance;
+  private static ImeAdapterImpl.Natives testInstance;
 
-    public static final JniStaticTestMocker<ImeAdapterImpl.Natives> TEST_HOOKS = new JniStaticTestMocker<ImeAdapterImpl.Natives>() {
-        @Override
-        public void setInstanceForTesting(ImeAdapterImpl.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<ImeAdapterImpl.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<ImeAdapterImpl.Natives>() {
     @Override
-    public void advanceFocusForIME(long nativeImeAdapterAndroid, ImeAdapterImpl caller, int focusType) {
-        GEN_JNI.org_chromium_content_browser_input_ImeAdapterImpl_advanceFocusForIME(nativeImeAdapterAndroid, caller, focusType);
+    public void setInstanceForTesting(ImeAdapterImpl.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public void appendBackgroundColorSpan(long spanPtr, int start, int end, int backgroundColor) {
-        GEN_JNI.org_chromium_content_browser_input_ImeAdapterImpl_appendBackgroundColorSpan(spanPtr, start, end, backgroundColor);
-    }
+  @Override
+  public void advanceFocusForIME(long nativeImeAdapterAndroid, ImeAdapterImpl caller, int focusType) {
+    GEN_JNI.org_chromium_content_browser_input_ImeAdapterImpl_advanceFocusForIME(nativeImeAdapterAndroid, caller, focusType);
+  }
 
-    @Override
-    public void appendForegroundColorSpan(long spanPtr, int start, int end, int backgroundColor) {
-        GEN_JNI.org_chromium_content_browser_input_ImeAdapterImpl_appendForegroundColorSpan(spanPtr, start, end, backgroundColor);
-    }
+  @Override
+  public void appendBackgroundColorSpan(long spanPtr, int start, int end, int backgroundColor) {
+    GEN_JNI.org_chromium_content_browser_input_ImeAdapterImpl_appendBackgroundColorSpan(spanPtr, start, end, backgroundColor);
+  }
 
-    @Override
-    public void appendSuggestionSpan(long spanPtr, int start, int end, boolean isMisspelling, boolean removeOnFinishComposing, int underlineColor, int suggestionHighlightColor, String[] suggestions) {
-        GEN_JNI.org_chromium_content_browser_input_ImeAdapterImpl_appendSuggestionSpan(spanPtr, start, end, isMisspelling, removeOnFinishComposing, underlineColor, suggestionHighlightColor, suggestions);
-    }
+  @Override
+  public void appendForegroundColorSpan(long spanPtr, int start, int end, int backgroundColor) {
+    GEN_JNI.org_chromium_content_browser_input_ImeAdapterImpl_appendForegroundColorSpan(spanPtr, start, end, backgroundColor);
+  }
 
-    @Override
-    public void appendUnderlineSpan(long spanPtr, int start, int end) {
-        GEN_JNI.org_chromium_content_browser_input_ImeAdapterImpl_appendUnderlineSpan(spanPtr, start, end);
-    }
+  @Override
+  public void appendSuggestionSpan(long spanPtr, int start, int end, boolean isMisspelling, boolean removeOnFinishComposing, int underlineColor, int suggestionHighlightColor, String[] suggestions) {
+    GEN_JNI.org_chromium_content_browser_input_ImeAdapterImpl_appendSuggestionSpan(spanPtr, start, end, isMisspelling, removeOnFinishComposing, underlineColor, suggestionHighlightColor, suggestions);
+  }
 
-    @Override
-    public void commitText(long nativeImeAdapterAndroid, ImeAdapterImpl caller, CharSequence text, String textStr, int newCursorPosition) {
-        GEN_JNI.org_chromium_content_browser_input_ImeAdapterImpl_commitText(nativeImeAdapterAndroid, caller, text, textStr, newCursorPosition);
-    }
+  @Override
+  public void appendUnderlineSpan(long spanPtr, int start, int end) {
+    GEN_JNI.org_chromium_content_browser_input_ImeAdapterImpl_appendUnderlineSpan(spanPtr, start, end);
+  }
 
-    @Override
-    public void deleteSurroundingText(long nativeImeAdapterAndroid, ImeAdapterImpl caller, int before, int after) {
-        GEN_JNI.org_chromium_content_browser_input_ImeAdapterImpl_deleteSurroundingText(nativeImeAdapterAndroid, caller, before, after);
-    }
+  @Override
+  public void commitText(long nativeImeAdapterAndroid, ImeAdapterImpl caller, CharSequence text, String textStr, int newCursorPosition) {
+    GEN_JNI.org_chromium_content_browser_input_ImeAdapterImpl_commitText(nativeImeAdapterAndroid, caller, text, textStr, newCursorPosition);
+  }
 
-    @Override
-    public void deleteSurroundingTextInCodePoints(long nativeImeAdapterAndroid, ImeAdapterImpl caller, int before, int after) {
-        GEN_JNI.org_chromium_content_browser_input_ImeAdapterImpl_deleteSurroundingTextInCodePoints(nativeImeAdapterAndroid, caller, before, after);
-    }
+  @Override
+  public void deleteSurroundingText(long nativeImeAdapterAndroid, ImeAdapterImpl caller, int before, int after) {
+    GEN_JNI.org_chromium_content_browser_input_ImeAdapterImpl_deleteSurroundingText(nativeImeAdapterAndroid, caller, before, after);
+  }
 
-    @Override
-    public void finishComposingText(long nativeImeAdapterAndroid, ImeAdapterImpl caller) {
-        GEN_JNI.org_chromium_content_browser_input_ImeAdapterImpl_finishComposingText(nativeImeAdapterAndroid, caller);
-    }
+  @Override
+  public void deleteSurroundingTextInCodePoints(long nativeImeAdapterAndroid, ImeAdapterImpl caller, int before, int after) {
+    GEN_JNI.org_chromium_content_browser_input_ImeAdapterImpl_deleteSurroundingTextInCodePoints(nativeImeAdapterAndroid, caller, before, after);
+  }
 
-    @Override
-    public void handleStylusWritingGestureAction(long nativeImeAdapterAndroid, ImeAdapterImpl caller, int id, ByteBuffer gestureData) {
-        GEN_JNI.org_chromium_content_browser_input_ImeAdapterImpl_handleStylusWritingGestureAction(nativeImeAdapterAndroid, caller, id, gestureData);
-    }
+  @Override
+  public void finishComposingText(long nativeImeAdapterAndroid, ImeAdapterImpl caller) {
+    GEN_JNI.org_chromium_content_browser_input_ImeAdapterImpl_finishComposingText(nativeImeAdapterAndroid, caller);
+  }
 
-    @Override
-    public long init(ImeAdapterImpl caller, WebContents webContents) {
-        return (long) GEN_JNI.org_chromium_content_browser_input_ImeAdapterImpl_init(caller, webContents);
-    }
+  @Override
+  public void handleStylusWritingGestureAction(long nativeImeAdapterAndroid, ImeAdapterImpl caller, int id, ByteBuffer gestureData) {
+    GEN_JNI.org_chromium_content_browser_input_ImeAdapterImpl_handleStylusWritingGestureAction(nativeImeAdapterAndroid, caller, id, gestureData);
+  }
 
-    @Override
-    public void requestCursorUpdate(long nativeImeAdapterAndroid, ImeAdapterImpl caller, boolean immediateRequest, boolean monitorRequest) {
-        GEN_JNI.org_chromium_content_browser_input_ImeAdapterImpl_requestCursorUpdate(nativeImeAdapterAndroid, caller, immediateRequest, monitorRequest);
-    }
+  @Override
+  public long init(ImeAdapterImpl caller, WebContents webContents) {
+    return (long) GEN_JNI.org_chromium_content_browser_input_ImeAdapterImpl_init(caller, webContents);
+  }
 
-    @Override
-    public boolean requestTextInputStateUpdate(long nativeImeAdapterAndroid, ImeAdapterImpl caller) {
-        return (boolean) GEN_JNI.org_chromium_content_browser_input_ImeAdapterImpl_requestTextInputStateUpdate(nativeImeAdapterAndroid, caller);
-    }
+  @Override
+  public void requestCursorUpdate(long nativeImeAdapterAndroid, ImeAdapterImpl caller, boolean immediateRequest, boolean monitorRequest) {
+    GEN_JNI.org_chromium_content_browser_input_ImeAdapterImpl_requestCursorUpdate(nativeImeAdapterAndroid, caller, immediateRequest, monitorRequest);
+  }
 
-    @Override
-    public boolean sendKeyEvent(long nativeImeAdapterAndroid, ImeAdapterImpl caller, KeyEvent event, int type, int modifiers, long timestampMs, int keyCode, int scanCode, boolean isSystemKey, int unicodeChar) {
-        return (boolean) GEN_JNI.org_chromium_content_browser_input_ImeAdapterImpl_sendKeyEvent(nativeImeAdapterAndroid, caller, event, type, modifiers, timestampMs, keyCode, scanCode, isSystemKey, unicodeChar);
-    }
+  @Override
+  public boolean requestTextInputStateUpdate(long nativeImeAdapterAndroid, ImeAdapterImpl caller) {
+    return (boolean) GEN_JNI.org_chromium_content_browser_input_ImeAdapterImpl_requestTextInputStateUpdate(nativeImeAdapterAndroid, caller);
+  }
 
-    @Override
-    public void setComposingRegion(long nativeImeAdapterAndroid, ImeAdapterImpl caller, int start, int end) {
-        GEN_JNI.org_chromium_content_browser_input_ImeAdapterImpl_setComposingRegion(nativeImeAdapterAndroid, caller, start, end);
-    }
+  @Override
+  public boolean sendKeyEvent(long nativeImeAdapterAndroid, ImeAdapterImpl caller, KeyEvent event, int type, int modifiers, long timestampMs, int keyCode, int scanCode, boolean isSystemKey, int unicodeChar) {
+    return (boolean) GEN_JNI.org_chromium_content_browser_input_ImeAdapterImpl_sendKeyEvent(nativeImeAdapterAndroid, caller, event, type, modifiers, timestampMs, keyCode, scanCode, isSystemKey, unicodeChar);
+  }
 
-    @Override
-    public void setComposingText(long nativeImeAdapterAndroid, ImeAdapterImpl caller, CharSequence text, String textStr, int newCursorPosition) {
-        GEN_JNI.org_chromium_content_browser_input_ImeAdapterImpl_setComposingText(nativeImeAdapterAndroid, caller, text, textStr, newCursorPosition);
-    }
+  @Override
+  public void setComposingRegion(long nativeImeAdapterAndroid, ImeAdapterImpl caller, int start, int end) {
+    GEN_JNI.org_chromium_content_browser_input_ImeAdapterImpl_setComposingRegion(nativeImeAdapterAndroid, caller, start, end);
+  }
 
-    @Override
-    public void setEditableSelectionOffsets(long nativeImeAdapterAndroid, ImeAdapterImpl caller, int start, int end) {
-        GEN_JNI.org_chromium_content_browser_input_ImeAdapterImpl_setEditableSelectionOffsets(nativeImeAdapterAndroid, caller, start, end);
-    }
+  @Override
+  public void setComposingText(long nativeImeAdapterAndroid, ImeAdapterImpl caller, CharSequence text, String textStr, int newCursorPosition) {
+    GEN_JNI.org_chromium_content_browser_input_ImeAdapterImpl_setComposingText(nativeImeAdapterAndroid, caller, text, textStr, newCursorPosition);
+  }
 
-    public static ImeAdapterImpl.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of ImeAdapterImpl.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new ImeAdapterImplJni();
+  @Override
+  public void setEditableSelectionOffsets(long nativeImeAdapterAndroid, ImeAdapterImpl caller, int start, int end) {
+    GEN_JNI.org_chromium_content_browser_input_ImeAdapterImpl_setEditableSelectionOffsets(nativeImeAdapterAndroid, caller, start, end);
+  }
+
+  public static ImeAdapterImpl.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of ImeAdapterImpl.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new ImeAdapterImplJni();
+  }
 }

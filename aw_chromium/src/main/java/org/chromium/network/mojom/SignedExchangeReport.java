@@ -13,10 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class SignedExchangeReport extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 88;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(88, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(88, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public boolean success;
     public String type;
@@ -48,7 +51,8 @@ public final class SignedExchangeReport extends org.chromium.mojo.bindings.Struc
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static SignedExchangeReport deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -62,55 +66,55 @@ public final class SignedExchangeReport extends org.chromium.mojo.bindings.Struc
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new SignedExchangeReport(elementsOrVersion);
-            {
-
+                {
+                    
                 result.success = decoder0.readBoolean(8, 0);
-            }
-            {
-
+                }
+                {
+                    
                 result.statusCode = decoder0.readInt(12);
-            }
-            {
-
+                }
+                {
+                    
                 result.type = decoder0.readString(16, false);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, false);
                 result.outerUrl = org.chromium.url.mojom.Url.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(32, false);
                 result.innerUrl = org.chromium.url.mojom.Url.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(40, false);
                 result.certUrl = org.chromium.url.mojom.Url.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.referrer = decoder0.readString(48, false);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(56, false);
                 result.serverIpAddress = IpAddress.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.protocol = decoder0.readString(64, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.method = decoder0.readString(72, false);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(80, false);
                 result.elapsedTime = org.chromium.mojo_base.mojom.TimeDelta.decode(decoder1);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -122,27 +126,27 @@ public final class SignedExchangeReport extends org.chromium.mojo.bindings.Struc
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.success, 8, 0);
-
+        
         encoder0.encode(this.statusCode, 12);
-
+        
         encoder0.encode(this.type, 16, false);
-
+        
         encoder0.encode(this.outerUrl, 24, false);
-
+        
         encoder0.encode(this.innerUrl, 32, false);
-
+        
         encoder0.encode(this.certUrl, 40, false);
-
+        
         encoder0.encode(this.referrer, 48, false);
-
+        
         encoder0.encode(this.serverIpAddress, 56, false);
-
+        
         encoder0.encode(this.protocol, 64, false);
-
+        
         encoder0.encode(this.method, 72, false);
-
+        
         encoder0.encode(this.elapsedTime, 80, false);
     }
 }

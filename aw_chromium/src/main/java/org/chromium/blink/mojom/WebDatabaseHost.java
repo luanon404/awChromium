@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface WebDatabaseHost extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends WebDatabaseHost, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends WebDatabaseHost, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<WebDatabaseHost, WebDatabaseHost.Proxy> MANAGER = WebDatabaseHost_Internal.MANAGER;

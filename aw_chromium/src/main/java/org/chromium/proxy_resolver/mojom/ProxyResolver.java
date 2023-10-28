@@ -13,15 +13,20 @@
 
 package org.chromium.proxy_resolver.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface ProxyResolver extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends ProxyResolver, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends ProxyResolver, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<ProxyResolver, ProxyResolver.Proxy> MANAGER = ProxyResolver_Internal.MANAGER;
 
-    void getProxyForUrl(org.chromium.url.mojom.Url url, org.chromium.network.mojom.NetworkAnonymizationKey networkAnonymizationKey, ProxyResolverRequestClient client);
+    void getProxyForUrl(
+org.chromium.url.mojom.Url url, org.chromium.network.mojom.NetworkAnonymizationKey networkAnonymizationKey, ProxyResolverRequestClient client);
 
 
 }

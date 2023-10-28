@@ -13,12 +13,14 @@
 
 package org.chromium.mojo.bindings.interfacecontrol;
 
+import androidx.annotation.IntDef;
+
+
 public final class RunOutput extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
         public static final int QueryVersionResult = 0;
-    }
-
+    };
     private QueryVersionResult mQueryVersionResult;
 
     public void setQueryVersionResult(QueryVersionResult queryVersionResult) {
@@ -38,7 +40,7 @@ public final class RunOutput extends org.chromium.mojo.bindings.Union {
         encoder0.encode(this.mTag, offset + 4);
         switch (mTag) {
             case Tag.QueryVersionResult: {
-
+                
                 encoder0.encode(this.mQueryVersionResult, offset + 8, false);
                 break;
             }
@@ -60,7 +62,7 @@ public final class RunOutput extends org.chromium.mojo.bindings.Union {
         RunOutput result = new RunOutput();
         switch (dataHeader.elementsOrVersion) {
             case Tag.QueryVersionResult: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mQueryVersionResult = QueryVersionResult.decode(decoder1);
                 result.mTag = Tag.QueryVersionResult;

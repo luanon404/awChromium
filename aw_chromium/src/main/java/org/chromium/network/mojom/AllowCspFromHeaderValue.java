@@ -13,14 +13,16 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class AllowCspFromHeaderValue extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
         public static final int AllowStar = 0;
         public static final int Origin = 1;
         public static final int ErrorMessage = 2;
-    }
-
+    };
     private boolean mAllowStar;
     private org.chromium.url.internal.mojom.Origin mOrigin;
     private String mErrorMessage;
@@ -62,17 +64,17 @@ public final class AllowCspFromHeaderValue extends org.chromium.mojo.bindings.Un
         encoder0.encode(this.mTag, offset + 4);
         switch (mTag) {
             case Tag.AllowStar: {
-
+                
                 encoder0.encode(this.mAllowStar, offset + 8, 0);
                 break;
             }
             case Tag.Origin: {
-
+                
                 encoder0.encode(this.mOrigin, offset + 8, false);
                 break;
             }
             case Tag.ErrorMessage: {
-
+                
                 encoder0.encode(this.mErrorMessage, offset + 8, false);
                 break;
             }
@@ -94,20 +96,20 @@ public final class AllowCspFromHeaderValue extends org.chromium.mojo.bindings.Un
         AllowCspFromHeaderValue result = new AllowCspFromHeaderValue();
         switch (dataHeader.elementsOrVersion) {
             case Tag.AllowStar: {
-
+                
                 result.mAllowStar = decoder0.readBoolean(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, 0);
                 result.mTag = Tag.AllowStar;
                 break;
             }
             case Tag.Origin: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mOrigin = org.chromium.url.internal.mojom.Origin.decode(decoder1);
                 result.mTag = Tag.Origin;
                 break;
             }
             case Tag.ErrorMessage: {
-
+                
                 result.mErrorMessage = decoder0.readString(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mTag = Tag.ErrorMessage;
                 break;

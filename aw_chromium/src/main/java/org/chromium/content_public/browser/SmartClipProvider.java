@@ -10,7 +10,7 @@ import org.chromium.build.annotations.UsedByReflection;
 
 /**
  * An interface to provide smart clip data when requested.
- * <p>
+ *
  * NOTE: Some platforms may call these functions to extract smart clip data.
  * Please make sure implementation of them is somewhere in the view
  * hierarchy.

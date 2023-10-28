@@ -28,7 +28,8 @@ public class VariationsSeedServer extends Service {
 
     private final IVariationsSeedServer.Stub mBinder = new IVariationsSeedServer.Stub() {
         @Override
-        public void getSeed(ParcelFileDescriptor newSeedFile, long oldSeedDate, IVariationsSeedServerCallback callback) {
+        public void getSeed(ParcelFileDescriptor newSeedFile, long oldSeedDate,
+                IVariationsSeedServerCallback callback) {
             maybeReportMetrics(callback);
             VariationsSeedHolder.getInstance().writeSeedIfNewer(newSeedFile, oldSeedDate);
         }
@@ -41,7 +42,8 @@ public class VariationsSeedServer extends Service {
 
     private void maybeReportMetrics(IVariationsSeedServerCallback callback) {
         Context context = ContextUtils.getApplicationContext();
-        VariationsServiceMetricsHelper metrics = VariationsServiceMetricsHelper.fromVariationsSharedPreferences(context);
+        VariationsServiceMetricsHelper metrics =
+                VariationsServiceMetricsHelper.fromVariationsSharedPreferences(context);
         Bundle metricsBundle = metrics.toBundle();
         if (metricsBundle.isEmpty()) {
             return;

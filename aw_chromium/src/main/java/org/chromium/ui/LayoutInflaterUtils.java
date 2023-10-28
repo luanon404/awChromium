@@ -26,7 +26,8 @@ public class LayoutInflaterUtils {
         return inflate(context, resource, root, root != null);
     }
 
-    public static View inflate(Context context, int resource, @Nullable ViewGroup root, boolean attachToRoot) {
+    public static View inflate(
+            Context context, int resource, @Nullable ViewGroup root, boolean attachToRoot) {
         return inflateImpl(LayoutInflater.from(context), resource, root, attachToRoot);
     }
 
@@ -34,15 +35,18 @@ public class LayoutInflaterUtils {
         return inflate(window, resource, root, root != null);
     }
 
-    public static View inflate(Window window, int resource, @Nullable ViewGroup root, boolean attachToRoot) {
+    public static View inflate(
+            Window window, int resource, @Nullable ViewGroup root, boolean attachToRoot) {
         return inflateImpl(window.getLayoutInflater(), resource, root, attachToRoot);
     }
 
-    public static View inflate(LayoutInflater layoutInflater, int resource, @Nullable ViewGroup root) {
+    public static View inflate(
+            LayoutInflater layoutInflater, int resource, @Nullable ViewGroup root) {
         return inflateImpl(layoutInflater, resource, root, root != null);
     }
 
-    private static View inflateImpl(LayoutInflater inflater, int resource, ViewGroup root, boolean attachToRoot) {
+    private static View inflateImpl(
+            LayoutInflater inflater, int resource, ViewGroup root, boolean attachToRoot) {
         // LayoutInflater may trigger accessing disk.
         try (StrictModeContext ignored = StrictModeContext.allowDiskReads()) {
             return inflater.inflate(resource, root, attachToRoot);

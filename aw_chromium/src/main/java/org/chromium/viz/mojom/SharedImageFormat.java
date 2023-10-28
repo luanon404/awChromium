@@ -13,29 +13,51 @@
 
 package org.chromium.viz.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class SharedImageFormat extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
         public static final int SingleplanarFormat = 0;
         public static final int MultiplanarFormat = 1;
-    }
-
+    };
     private int mSingleplanarFormat;
     private MultiplanarFormat mMultiplanarFormat;
 
+    public void setSingleplanarFormat(int singleplanarFormat) {
+        this.mTag = Tag.SingleplanarFormat;
+        this.mSingleplanarFormat = singleplanarFormat;
+    }
+
+    public int getSingleplanarFormat() {
+        assert this.mTag == Tag.SingleplanarFormat;
+        return this.mSingleplanarFormat;
+    }
+
+    public void setMultiplanarFormat(MultiplanarFormat multiplanarFormat) {
+        this.mTag = Tag.MultiplanarFormat;
+        this.mMultiplanarFormat = multiplanarFormat;
+    }
+
+    public MultiplanarFormat getMultiplanarFormat() {
+        assert this.mTag == Tag.MultiplanarFormat;
+        return this.mMultiplanarFormat;
+    }
+
 
     @Override
-    protected void encode(org.chromium.mojo.bindings.Encoder encoder0, int offset) {
+    protected final void encode(org.chromium.mojo.bindings.Encoder encoder0, int offset) {
         encoder0.encode(org.chromium.mojo.bindings.BindingsHelper.UNION_SIZE, offset);
         encoder0.encode(this.mTag, offset + 4);
         switch (mTag) {
             case Tag.SingleplanarFormat: {
-
+                
                 encoder0.encode(this.mSingleplanarFormat, offset + 8);
                 break;
             }
             case Tag.MultiplanarFormat: {
-
+                
                 encoder0.encode(this.mMultiplanarFormat, offset + 8, false);
                 break;
             }
@@ -49,7 +71,7 @@ public final class SharedImageFormat extends org.chromium.mojo.bindings.Union {
         return decode(new org.chromium.mojo.bindings.Decoder(message).decoderForSerializedUnion(), 0);
     }
 
-    public static SharedImageFormat decode(org.chromium.mojo.bindings.Decoder decoder0, int offset) {
+    public static final SharedImageFormat decode(org.chromium.mojo.bindings.Decoder decoder0, int offset) {
         org.chromium.mojo.bindings.DataHeader dataHeader = decoder0.readDataHeaderForUnion(offset);
         if (dataHeader.size == 0) {
             return null;
@@ -57,14 +79,15 @@ public final class SharedImageFormat extends org.chromium.mojo.bindings.Union {
         SharedImageFormat result = new SharedImageFormat();
         switch (dataHeader.elementsOrVersion) {
             case Tag.SingleplanarFormat: {
-
+                
                 result.mSingleplanarFormat = decoder0.readInt(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE);
-                SingleplanarFormat.validate(result.mSingleplanarFormat);
+                    SingleplanarFormat.validate(result.mSingleplanarFormat);
+                    result.mSingleplanarFormat = SingleplanarFormat.toKnownValue(result.mSingleplanarFormat);
                 result.mTag = Tag.SingleplanarFormat;
                 break;
             }
             case Tag.MultiplanarFormat: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 result.mMultiplanarFormat = MultiplanarFormat.decode(decoder1);
                 result.mTag = Tag.MultiplanarFormat;

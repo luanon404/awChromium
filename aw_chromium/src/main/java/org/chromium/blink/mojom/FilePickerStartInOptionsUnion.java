@@ -13,14 +13,15 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public final class FilePickerStartInOptionsUnion extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
         public static final int WellKnownDirectory = 0;
         public static final int DirectoryToken = 1;
-    }
-
+    };
     private int mWellKnownDirectory;
     private FileSystemAccessTransferToken mDirectoryToken;
 

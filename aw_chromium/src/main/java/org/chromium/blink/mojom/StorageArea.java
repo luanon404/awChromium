@@ -13,22 +13,24 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface StorageArea extends org.chromium.mojo.bindings.Interface {
 
 
     
-    int PER_STORAGE_AREA_QUOTA = (int) 10485760;
+    public static final int PER_STORAGE_AREA_QUOTA = (int) 10485760;
 
 
 
     
-    int PER_STORAGE_AREA_OVER_QUOTA_ALLOWANCE = (int) 102400;
+    public static final int PER_STORAGE_AREA_OVER_QUOTA_ALLOWANCE = (int) 102400;
 
 
 
 
-    interface Proxy extends StorageArea, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends StorageArea, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<StorageArea, StorageArea.Proxy> MANAGER = StorageArea_Internal.MANAGER;

@@ -9,14 +9,15 @@ import android.os.Build;
 
 /**
  * Class for recording janky frame metrics for a specific Activity.
- * <p>
+ *
  * It should be constructed when the activity is created, recording starts and stops automatically
  * based on activity state. When the activity is being destroyed {@link #destroy()} should be called
  * to clear the activity state observer. All methods should be called from the UI thread.
  */
 public class JankTrackerImpl implements JankTracker {
     // We use the DEADLINE field in the Android FrameMetrics which was added in S.
-    private static final boolean IS_TRACKING_ENABLED = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S;
+    private static final boolean IS_TRACKING_ENABLED =
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.S;
 
     private JankTrackerStateController mController;
     private JankReportingScheduler mReportingScheduler;
@@ -29,7 +30,8 @@ public class JankTrackerImpl implements JankTracker {
         FrameMetricsStore metricsStore = new FrameMetricsStore();
         if (!constructInternalPreController(new JankReportingScheduler(metricsStore))) return;
 
-        constructInternalFinal(new JankActivityTracker(activity, new FrameMetricsListener(metricsStore), mReportingScheduler));
+        constructInternalFinal(new JankActivityTracker(
+                activity, new FrameMetricsListener(metricsStore), mReportingScheduler));
     }
 
     /**

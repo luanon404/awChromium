@@ -6,11 +6,12 @@ package org.chromium.android_webview;
 
 import android.content.Context;
 
-import org.chromium.android_webview.common.Lifetime;
-import org.chromium.content_public.browser.WebContents;
 import org.jni_zero.CalledByNative;
 import org.jni_zero.JNINamespace;
 import org.jni_zero.NativeMethods;
+
+import org.chromium.android_webview.common.Lifetime;
+import org.chromium.content_public.browser.WebContents;
 
 /**
  * The class to handle dark mode.
@@ -53,7 +54,8 @@ public class AwDarkMode {
 
     @CalledByNative
     private boolean isAppUsingDarkTheme() {
-        return DarkModeHelper.LightTheme.LIGHT_THEME_FALSE == DarkModeHelper.getLightTheme(mContext);
+        return DarkModeHelper.LightTheme.LIGHT_THEME_FALSE
+                == DarkModeHelper.getLightTheme(mContext);
     }
 
     @CalledByNative
@@ -64,9 +66,7 @@ public class AwDarkMode {
     @NativeMethods
     interface Natives {
         void enableSimplifiedDarkMode();
-
         long init(AwDarkMode caller, WebContents webContents);
-
         void detachFromJavaObject(long nativeAwDarkMode, AwDarkMode caller);
     }
 }

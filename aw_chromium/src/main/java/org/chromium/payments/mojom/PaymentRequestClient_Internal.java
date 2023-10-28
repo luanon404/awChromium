@@ -13,9 +13,13 @@
 
 package org.chromium.payments.mojom;
 
+import androidx.annotation.IntDef;
+
+
 class PaymentRequestClient_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<PaymentRequestClient, PaymentRequestClient.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<PaymentRequestClient, PaymentRequestClient.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<PaymentRequestClient, PaymentRequestClient.Proxy> MANAGER =
+            new org.chromium.mojo.bindings.Interface.Manager<PaymentRequestClient, PaymentRequestClient.Proxy>() {
 
         @Override
         public String getName() {
@@ -24,11 +28,12 @@ class PaymentRequestClient_Internal {
 
         @Override
         public int getVersion() {
-            return 0;
+          return 0;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -39,7 +44,7 @@ class PaymentRequestClient_Internal {
 
         @Override
         public PaymentRequestClient[] buildArray(int size) {
-            return new PaymentRequestClient[size];
+          return new PaymentRequestClient[size];
         }
     };
 
@@ -71,13 +76,15 @@ class PaymentRequestClient_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements PaymentRequestClient.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core,
+              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void onPaymentMethodChange(String methodName, String stringifiedDetails) {
+        public void onPaymentMethodChange(
+String methodName, String stringifiedDetails) {
 
             PaymentRequestClientOnPaymentMethodChangeParams _message = new PaymentRequestClientOnPaymentMethodChangeParams();
 
@@ -86,65 +93,85 @@ class PaymentRequestClient_Internal {
             _message.stringifiedDetails = stringifiedDetails;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_PAYMENT_METHOD_CHANGE_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_PAYMENT_METHOD_CHANGE_ORDINAL)));
 
         }
 
 
         @Override
-        public void onShippingAddressChange(PaymentAddress address) {
+        public void onShippingAddressChange(
+PaymentAddress address) {
 
             PaymentRequestClientOnShippingAddressChangeParams _message = new PaymentRequestClientOnShippingAddressChangeParams();
 
             _message.address = address;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_SHIPPING_ADDRESS_CHANGE_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_SHIPPING_ADDRESS_CHANGE_ORDINAL)));
 
         }
 
 
         @Override
-        public void onShippingOptionChange(String shippingOptionId) {
+        public void onShippingOptionChange(
+String shippingOptionId) {
 
             PaymentRequestClientOnShippingOptionChangeParams _message = new PaymentRequestClientOnShippingOptionChangeParams();
 
             _message.shippingOptionId = shippingOptionId;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_SHIPPING_OPTION_CHANGE_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_SHIPPING_OPTION_CHANGE_ORDINAL)));
 
         }
 
 
         @Override
-        public void onPayerDetailChange(PayerDetail detail) {
+        public void onPayerDetailChange(
+PayerDetail detail) {
 
             PaymentRequestClientOnPayerDetailChangeParams _message = new PaymentRequestClientOnPayerDetailChangeParams();
 
             _message.detail = detail;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_PAYER_DETAIL_CHANGE_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_PAYER_DETAIL_CHANGE_ORDINAL)));
 
         }
 
 
         @Override
-        public void onPaymentResponse(PaymentResponse response) {
+        public void onPaymentResponse(
+PaymentResponse response) {
 
             PaymentRequestClientOnPaymentResponseParams _message = new PaymentRequestClientOnPaymentResponseParams();
 
             _message.response = response;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_PAYMENT_RESPONSE_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_PAYMENT_RESPONSE_ORDINAL)));
 
         }
 
 
         @Override
-        public void onError(int error, String errorMessage) {
+        public void onError(
+int error, String errorMessage) {
 
             PaymentRequestClientOnErrorParams _message = new PaymentRequestClientOnErrorParams();
 
@@ -153,74 +180,99 @@ class PaymentRequestClient_Internal {
             _message.errorMessage = errorMessage;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_ERROR_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_ERROR_ORDINAL)));
 
         }
 
 
         @Override
-        public void onComplete() {
+        public void onComplete(
+) {
 
             PaymentRequestClientOnCompleteParams _message = new PaymentRequestClientOnCompleteParams();
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_COMPLETE_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_COMPLETE_ORDINAL)));
 
         }
 
 
         @Override
-        public void onAbort(boolean abortedSuccessfully) {
+        public void onAbort(
+boolean abortedSuccessfully) {
 
             PaymentRequestClientOnAbortParams _message = new PaymentRequestClientOnAbortParams();
 
             _message.abortedSuccessfully = abortedSuccessfully;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_ABORT_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_ABORT_ORDINAL)));
 
         }
 
 
         @Override
-        public void onCanMakePayment(int result) {
+        public void onCanMakePayment(
+int result) {
 
             PaymentRequestClientOnCanMakePaymentParams _message = new PaymentRequestClientOnCanMakePaymentParams();
 
             _message.result = result;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_CAN_MAKE_PAYMENT_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_CAN_MAKE_PAYMENT_ORDINAL)));
 
         }
 
 
         @Override
-        public void onHasEnrolledInstrument(int result) {
+        public void onHasEnrolledInstrument(
+int result) {
 
             PaymentRequestClientOnHasEnrolledInstrumentParams _message = new PaymentRequestClientOnHasEnrolledInstrumentParams();
 
             _message.result = result;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_HAS_ENROLLED_INSTRUMENT_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_HAS_ENROLLED_INSTRUMENT_ORDINAL)));
 
         }
 
 
         @Override
-        public void warnNoFavicon() {
+        public void warnNoFavicon(
+) {
 
             PaymentRequestClientWarnNoFaviconParams _message = new PaymentRequestClientWarnNoFaviconParams();
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(WARN_NO_FAVICON_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(WARN_NO_FAVICON_ORDINAL)));
 
         }
 
 
         @Override
-        public void allowConnectToSource(org.chromium.url.mojom.Url url, org.chromium.url.mojom.Url urlBeforeRedirects, boolean didFollowRedirect, AllowConnectToSource_Response callback) {
+        public void allowConnectToSource(
+org.chromium.url.mojom.Url url, org.chromium.url.mojom.Url urlBeforeRedirects, boolean didFollowRedirect, 
+AllowConnectToSource_Response callback) {
 
             PaymentRequestClientAllowConnectToSourceParams _message = new PaymentRequestClientAllowConnectToSourceParams();
 
@@ -231,7 +283,14 @@ class PaymentRequestClient_Internal {
             _message.didFollowRedirect = didFollowRedirect;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ALLOW_CONNECT_TO_SOURCE_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new PaymentRequestClientAllowConnectToSourceResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    ALLOW_CONNECT_TO_SOURCE_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new PaymentRequestClientAllowConnectToSourceResponseParamsForwardToCallback(callback));
 
         }
 
@@ -247,7 +306,8 @@ class PaymentRequestClient_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -256,64 +316,92 @@ class PaymentRequestClient_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(PaymentRequestClient_Internal.MANAGER, messageWithHeader);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
+                                PaymentRequestClient_Internal.MANAGER, messageWithHeader);
+
+
+
 
 
                     case ON_PAYMENT_METHOD_CHANGE_ORDINAL: {
 
-                        PaymentRequestClientOnPaymentMethodChangeParams data = PaymentRequestClientOnPaymentMethodChangeParams.deserialize(messageWithHeader.getPayload());
+                        PaymentRequestClientOnPaymentMethodChangeParams data =
+                                PaymentRequestClientOnPaymentMethodChangeParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onPaymentMethodChange(data.methodName, data.stringifiedDetails);
                         return true;
                     }
 
 
+
+
+
                     case ON_SHIPPING_ADDRESS_CHANGE_ORDINAL: {
 
-                        PaymentRequestClientOnShippingAddressChangeParams data = PaymentRequestClientOnShippingAddressChangeParams.deserialize(messageWithHeader.getPayload());
+                        PaymentRequestClientOnShippingAddressChangeParams data =
+                                PaymentRequestClientOnShippingAddressChangeParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onShippingAddressChange(data.address);
                         return true;
                     }
 
 
+
+
+
                     case ON_SHIPPING_OPTION_CHANGE_ORDINAL: {
 
-                        PaymentRequestClientOnShippingOptionChangeParams data = PaymentRequestClientOnShippingOptionChangeParams.deserialize(messageWithHeader.getPayload());
+                        PaymentRequestClientOnShippingOptionChangeParams data =
+                                PaymentRequestClientOnShippingOptionChangeParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onShippingOptionChange(data.shippingOptionId);
                         return true;
                     }
 
 
+
+
+
                     case ON_PAYER_DETAIL_CHANGE_ORDINAL: {
 
-                        PaymentRequestClientOnPayerDetailChangeParams data = PaymentRequestClientOnPayerDetailChangeParams.deserialize(messageWithHeader.getPayload());
+                        PaymentRequestClientOnPayerDetailChangeParams data =
+                                PaymentRequestClientOnPayerDetailChangeParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onPayerDetailChange(data.detail);
                         return true;
                     }
 
 
+
+
+
                     case ON_PAYMENT_RESPONSE_ORDINAL: {
 
-                        PaymentRequestClientOnPaymentResponseParams data = PaymentRequestClientOnPaymentResponseParams.deserialize(messageWithHeader.getPayload());
+                        PaymentRequestClientOnPaymentResponseParams data =
+                                PaymentRequestClientOnPaymentResponseParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onPaymentResponse(data.response);
                         return true;
                     }
 
 
+
+
+
                     case ON_ERROR_ORDINAL: {
 
-                        PaymentRequestClientOnErrorParams data = PaymentRequestClientOnErrorParams.deserialize(messageWithHeader.getPayload());
+                        PaymentRequestClientOnErrorParams data =
+                                PaymentRequestClientOnErrorParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onError(data.error, data.errorMessage);
                         return true;
                     }
+
+
+
 
 
                     case ON_COMPLETE_ORDINAL: {
@@ -325,31 +413,46 @@ class PaymentRequestClient_Internal {
                     }
 
 
+
+
+
                     case ON_ABORT_ORDINAL: {
 
-                        PaymentRequestClientOnAbortParams data = PaymentRequestClientOnAbortParams.deserialize(messageWithHeader.getPayload());
+                        PaymentRequestClientOnAbortParams data =
+                                PaymentRequestClientOnAbortParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onAbort(data.abortedSuccessfully);
                         return true;
                     }
 
 
+
+
+
                     case ON_CAN_MAKE_PAYMENT_ORDINAL: {
 
-                        PaymentRequestClientOnCanMakePaymentParams data = PaymentRequestClientOnCanMakePaymentParams.deserialize(messageWithHeader.getPayload());
+                        PaymentRequestClientOnCanMakePaymentParams data =
+                                PaymentRequestClientOnCanMakePaymentParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onCanMakePayment(data.result);
                         return true;
                     }
 
 
+
+
+
                     case ON_HAS_ENROLLED_INSTRUMENT_ORDINAL: {
 
-                        PaymentRequestClientOnHasEnrolledInstrumentParams data = PaymentRequestClientOnHasEnrolledInstrumentParams.deserialize(messageWithHeader.getPayload());
+                        PaymentRequestClientOnHasEnrolledInstrumentParams data =
+                                PaymentRequestClientOnHasEnrolledInstrumentParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onHasEnrolledInstrument(data.result);
                         return true;
                     }
+
+
+
 
 
                     case WARN_NO_FAVICON_ORDINAL: {
@@ -361,11 +464,13 @@ class PaymentRequestClient_Internal {
                     }
 
 
+
+
                     default:
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -373,7 +478,8 @@ class PaymentRequestClient_Internal {
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -382,15 +488,44 @@ class PaymentRequestClient_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), PaymentRequestClient_Internal.MANAGER, messageWithHeader, receiver);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
+                                getCore(), PaymentRequestClient_Internal.MANAGER, messageWithHeader, receiver);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
                     case ALLOW_CONNECT_TO_SOURCE_ORDINAL: {
 
-                        PaymentRequestClientAllowConnectToSourceParams data = PaymentRequestClientAllowConnectToSourceParams.deserialize(messageWithHeader.getPayload());
+                        PaymentRequestClientAllowConnectToSourceParams data =
+                                PaymentRequestClientAllowConnectToSourceParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().allowConnectToSource(data.url, data.urlBeforeRedirects, data.didFollowRedirect, new PaymentRequestClientAllowConnectToSourceResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
@@ -401,17 +536,18 @@ class PaymentRequestClient_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class PaymentRequestClientOnPaymentMethodChangeParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public String methodName;
         public String stringifiedDetails;
@@ -434,7 +570,8 @@ class PaymentRequestClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static PaymentRequestClientOnPaymentMethodChangeParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -448,14 +585,14 @@ class PaymentRequestClient_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new PaymentRequestClientOnPaymentMethodChangeParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.methodName = decoder0.readString(8, false);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.stringifiedDetails = decoder0.readString(16, false);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -467,18 +604,20 @@ class PaymentRequestClient_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.methodName, 8, false);
-
+            
             encoder0.encode(this.stringifiedDetails, 16, false);
         }
     }
 
 
+
+    
     static final class PaymentRequestClientOnShippingAddressChangeParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public PaymentAddress address;
 
@@ -500,7 +639,8 @@ class PaymentRequestClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static PaymentRequestClientOnShippingAddressChangeParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -514,11 +654,11 @@ class PaymentRequestClient_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new PaymentRequestClientOnShippingAddressChangeParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.address = PaymentAddress.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -530,16 +670,18 @@ class PaymentRequestClient_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.address, 8, false);
         }
     }
 
 
+
+    
     static final class PaymentRequestClientOnShippingOptionChangeParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public String shippingOptionId;
 
@@ -561,7 +703,8 @@ class PaymentRequestClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static PaymentRequestClientOnShippingOptionChangeParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -575,10 +718,10 @@ class PaymentRequestClient_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new PaymentRequestClientOnShippingOptionChangeParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.shippingOptionId = decoder0.readString(8, false);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -590,16 +733,18 @@ class PaymentRequestClient_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.shippingOptionId, 8, false);
         }
     }
 
 
+
+    
     static final class PaymentRequestClientOnPayerDetailChangeParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public PayerDetail detail;
 
@@ -621,7 +766,8 @@ class PaymentRequestClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static PaymentRequestClientOnPayerDetailChangeParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -635,11 +781,11 @@ class PaymentRequestClient_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new PaymentRequestClientOnPayerDetailChangeParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.detail = PayerDetail.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -651,16 +797,18 @@ class PaymentRequestClient_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.detail, 8, false);
         }
     }
 
 
+
+    
     static final class PaymentRequestClientOnPaymentResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public PaymentResponse response;
 
@@ -682,7 +830,8 @@ class PaymentRequestClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static PaymentRequestClientOnPaymentResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -696,11 +845,11 @@ class PaymentRequestClient_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new PaymentRequestClientOnPaymentResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.response = PaymentResponse.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -712,16 +861,18 @@ class PaymentRequestClient_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.response, 8, false);
         }
     }
 
 
+
+    
     static final class PaymentRequestClientOnErrorParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int error;
         public String errorMessage;
@@ -744,7 +895,8 @@ class PaymentRequestClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static PaymentRequestClientOnErrorParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -758,16 +910,16 @@ class PaymentRequestClient_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new PaymentRequestClientOnErrorParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.error = decoder0.readInt(8);
-                    PaymentErrorReason.validate(result.error);
-                    result.error = PaymentErrorReason.toKnownValue(result.error);
-                }
-                {
-
+                        PaymentErrorReason.validate(result.error);
+                        result.error = PaymentErrorReason.toKnownValue(result.error);
+                    }
+                    {
+                        
                     result.errorMessage = decoder0.readString(16, false);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -779,18 +931,20 @@ class PaymentRequestClient_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.error, 8);
-
+            
             encoder0.encode(this.errorMessage, 16, false);
         }
     }
 
 
+
+    
     static final class PaymentRequestClientOnCompleteParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 8;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(8, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(8, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
 
         private PaymentRequestClientOnCompleteParams(int version) {
@@ -811,7 +965,8 @@ class PaymentRequestClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static PaymentRequestClientOnCompleteParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -840,10 +995,12 @@ class PaymentRequestClient_Internal {
     }
 
 
+
+    
     static final class PaymentRequestClientOnAbortParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public boolean abortedSuccessfully;
 
@@ -865,7 +1022,8 @@ class PaymentRequestClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static PaymentRequestClientOnAbortParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -879,10 +1037,10 @@ class PaymentRequestClient_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new PaymentRequestClientOnAbortParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.abortedSuccessfully = decoder0.readBoolean(8, 0);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -894,16 +1052,18 @@ class PaymentRequestClient_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.abortedSuccessfully, 8, 0);
         }
     }
 
 
+
+    
     static final class PaymentRequestClientOnCanMakePaymentParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int result;
 
@@ -925,7 +1085,8 @@ class PaymentRequestClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static PaymentRequestClientOnCanMakePaymentParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -939,12 +1100,12 @@ class PaymentRequestClient_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new PaymentRequestClientOnCanMakePaymentParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.result = decoder0.readInt(8);
-                    CanMakePaymentQueryResult.validate(result.result);
-                    result.result = CanMakePaymentQueryResult.toKnownValue(result.result);
-                }
+                        CanMakePaymentQueryResult.validate(result.result);
+                        result.result = CanMakePaymentQueryResult.toKnownValue(result.result);
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -956,16 +1117,18 @@ class PaymentRequestClient_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.result, 8);
         }
     }
 
 
+
+    
     static final class PaymentRequestClientOnHasEnrolledInstrumentParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int result;
 
@@ -987,7 +1150,8 @@ class PaymentRequestClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static PaymentRequestClientOnHasEnrolledInstrumentParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1001,12 +1165,12 @@ class PaymentRequestClient_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new PaymentRequestClientOnHasEnrolledInstrumentParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.result = decoder0.readInt(8);
-                    HasEnrolledInstrumentQueryResult.validate(result.result);
-                    result.result = HasEnrolledInstrumentQueryResult.toKnownValue(result.result);
-                }
+                        HasEnrolledInstrumentQueryResult.validate(result.result);
+                        result.result = HasEnrolledInstrumentQueryResult.toKnownValue(result.result);
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1018,16 +1182,18 @@ class PaymentRequestClient_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.result, 8);
         }
     }
 
 
+
+    
     static final class PaymentRequestClientWarnNoFaviconParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 8;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(8, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(8, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
 
         private PaymentRequestClientWarnNoFaviconParams(int version) {
@@ -1048,7 +1214,8 @@ class PaymentRequestClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static PaymentRequestClientWarnNoFaviconParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1077,10 +1244,12 @@ class PaymentRequestClient_Internal {
     }
 
 
+
+    
     static final class PaymentRequestClientAllowConnectToSourceParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 32;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(32, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(32, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.url.mojom.Url url;
         public org.chromium.url.mojom.Url urlBeforeRedirects;
@@ -1104,7 +1273,8 @@ class PaymentRequestClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static PaymentRequestClientAllowConnectToSourceParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1118,20 +1288,20 @@ class PaymentRequestClient_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new PaymentRequestClientAllowConnectToSourceParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.url = org.chromium.url.mojom.Url.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                     result.urlBeforeRedirects = org.chromium.url.mojom.Url.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.didFollowRedirect = decoder0.readBoolean(24, 0);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1143,20 +1313,22 @@ class PaymentRequestClient_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.url, 8, false);
-
+            
             encoder0.encode(this.urlBeforeRedirects, 16, false);
-
+            
             encoder0.encode(this.didFollowRedirect, 24, 0);
         }
     }
 
 
+
+    
     static final class PaymentRequestClientAllowConnectToSourceResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public boolean allow;
 
@@ -1178,7 +1350,8 @@ class PaymentRequestClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static PaymentRequestClientAllowConnectToSourceResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1192,10 +1365,10 @@ class PaymentRequestClient_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new PaymentRequestClientAllowConnectToSourceResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.allow = decoder0.readBoolean(8, 0);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1207,12 +1380,13 @@ class PaymentRequestClient_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.allow, 8, 0);
         }
     }
 
-    static class PaymentRequestClientAllowConnectToSourceResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class PaymentRequestClientAllowConnectToSourceResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final PaymentRequestClient.AllowConnectToSource_Response mCallback;
 
         PaymentRequestClientAllowConnectToSourceResponseParamsForwardToCallback(PaymentRequestClient.AllowConnectToSource_Response callback) {
@@ -1222,9 +1396,11 @@ class PaymentRequestClient_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(ALLOW_CONNECT_TO_SOURCE_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(ALLOW_CONNECT_TO_SOURCE_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -1244,7 +1420,10 @@ class PaymentRequestClient_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        PaymentRequestClientAllowConnectToSourceResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        PaymentRequestClientAllowConnectToSourceResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -1256,10 +1435,17 @@ class PaymentRequestClient_Internal {
 
             _response.allow = allow;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(ALLOW_CONNECT_TO_SOURCE_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    ALLOW_CONNECT_TO_SOURCE_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
+
 
 
 }

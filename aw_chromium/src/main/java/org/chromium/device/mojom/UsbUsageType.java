@@ -17,10 +17,15 @@ import androidx.annotation.IntDef;
 
 public final class UsbUsageType {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({UsbUsageType.DATA, UsbUsageType.FEEDBACK, UsbUsageType.EXPLICIT_FEEDBACK, UsbUsageType.PERIODIC, UsbUsageType.NOTIFICATION, UsbUsageType.RESERVED})
-    public @interface EnumType {
-    }
+        UsbUsageType.DATA,
+        UsbUsageType.FEEDBACK,
+        UsbUsageType.EXPLICIT_FEEDBACK,
+        UsbUsageType.PERIODIC,
+        UsbUsageType.NOTIFICATION,
+        UsbUsageType.RESERVED})
+    public @interface EnumType {}
 
     public static final int DATA = 0;
     public static final int FEEDBACK = 1;
@@ -41,9 +46,8 @@ public final class UsbUsageType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private UsbUsageType() {
-    }
+    private UsbUsageType() {}
 }

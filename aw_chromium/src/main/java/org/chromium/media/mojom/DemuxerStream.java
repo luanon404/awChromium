@@ -19,12 +19,12 @@ import androidx.annotation.IntDef;
 public interface DemuxerStream extends org.chromium.mojo.bindings.Interface {
 
 
-    final class Type {
-        private static final boolean IS_EXTENSIBLE = false;
 
-        @IntDef({})
-        public @interface EnumType {
-        }
+    public static final class Type {
+        private static final boolean IS_EXTENSIBLE = false;
+        @IntDef({
+    })
+        public @interface EnumType {}
 
 
         public static boolean isKnownValue(int value) {
@@ -37,20 +37,18 @@ public interface DemuxerStream extends org.chromium.mojo.bindings.Interface {
         }
 
         public static int toKnownValue(int value) {
-            return value;
+          return value;
         }
 
-        private Type() {
-        }
+        private Type() {}
     }
 
 
-    final class Status {
+    public static final class Status {
         private static final boolean IS_EXTENSIBLE = false;
-
-        @IntDef({})
-        public @interface EnumType {
-        }
+        @IntDef({
+    })
+        public @interface EnumType {}
 
 
         public static boolean isKnownValue(int value) {
@@ -63,34 +61,34 @@ public interface DemuxerStream extends org.chromium.mojo.bindings.Interface {
         }
 
         public static int toKnownValue(int value) {
-            return value;
+          return value;
         }
 
-        private Status() {
-        }
+        private Status() {}
     }
 
 
-    interface Proxy extends DemuxerStream, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends DemuxerStream, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<DemuxerStream, DemuxerStream.Proxy> MANAGER = DemuxerStream_Internal.MANAGER;
 
     void initialize(
 
-            Initialize_Response callback);
+Initialize_Response callback);
 
-    interface Initialize_Response extends org.chromium.mojo.bindings.Callbacks.Callback4<Integer, org.chromium.mojo.system.DataPipe.ConsumerHandle, AudioDecoderConfig, VideoDecoderConfig> {
-    }
-
-
-    void read(int count, Read_Response callback);
-
-    interface Read_Response extends org.chromium.mojo.bindings.Callbacks.Callback4<Integer, DecoderBuffer[], AudioDecoderConfig, VideoDecoderConfig> {
-    }
+    interface Initialize_Response extends org.chromium.mojo.bindings.Callbacks.Callback4<Integer, org.chromium.mojo.system.DataPipe.ConsumerHandle, AudioDecoderConfig, VideoDecoderConfig> { }
 
 
-    void enableBitstreamConverter();
+    void read(
+int count, 
+Read_Response callback);
+
+    interface Read_Response extends org.chromium.mojo.bindings.Callbacks.Callback4<Integer, DecoderBuffer[], AudioDecoderConfig, VideoDecoderConfig> { }
+
+
+    void enableBitstreamConverter(
+);
 
 
 }

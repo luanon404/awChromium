@@ -13,9 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 class DevToolsObserver_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<DevToolsObserver, DevToolsObserver.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<DevToolsObserver, DevToolsObserver.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<DevToolsObserver, DevToolsObserver.Proxy> MANAGER =
+            new org.chromium.mojo.bindings.Interface.Manager<DevToolsObserver, DevToolsObserver.Proxy>() {
 
         @Override
         public String getName() {
@@ -24,11 +28,12 @@ class DevToolsObserver_Internal {
 
         @Override
         public int getVersion() {
-            return 0;
+          return 0;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -39,7 +44,7 @@ class DevToolsObserver_Internal {
 
         @Override
         public DevToolsObserver[] buildArray(int size) {
-            return new DevToolsObserver[size];
+          return new DevToolsObserver[size];
         }
     };
 
@@ -75,13 +80,15 @@ class DevToolsObserver_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements DevToolsObserver.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core,
+              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void onRawRequest(String devtoolRequestId, CookieWithAccessResult[] cookiesWithAccessResult, HttpRawHeaderPair[] headers, org.chromium.mojo_base.mojom.TimeTicks timestamp, ClientSecurityState clientSecurityState, OtherPartitionInfo otherPartitionInfo) {
+        public void onRawRequest(
+String devtoolRequestId, CookieWithAccessResult[] cookiesWithAccessResult, HttpRawHeaderPair[] headers, org.chromium.mojo_base.mojom.TimeTicks timestamp, ClientSecurityState clientSecurityState, OtherPartitionInfo otherPartitionInfo) {
 
             DevToolsObserverOnRawRequestParams _message = new DevToolsObserverOnRawRequestParams();
 
@@ -98,13 +105,17 @@ class DevToolsObserver_Internal {
             _message.otherPartitionInfo = otherPartitionInfo;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_RAW_REQUEST_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_RAW_REQUEST_ORDINAL)));
 
         }
 
 
         @Override
-        public void onRawResponse(String devtoolRequestId, CookieAndLineWithAccessResult[] cookiesWithAccessResult, HttpRawHeaderPair[] headers, String rawResponseHeaders, int resourceAddressSpace, int httpStatusCode, CookiePartitionKey cookiePartitionKey) {
+        public void onRawResponse(
+String devtoolRequestId, CookieAndLineWithAccessResult[] cookiesWithAccessResult, HttpRawHeaderPair[] headers, String rawResponseHeaders, int resourceAddressSpace, int httpStatusCode, CookiePartitionKey cookiePartitionKey) {
 
             DevToolsObserverOnRawResponseParams _message = new DevToolsObserverOnRawResponseParams();
 
@@ -123,13 +134,17 @@ class DevToolsObserver_Internal {
             _message.cookiePartitionKey = cookiePartitionKey;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_RAW_RESPONSE_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_RAW_RESPONSE_ORDINAL)));
 
         }
 
 
         @Override
-        public void onPrivateNetworkRequest(String devtoolRequestId, org.chromium.url.mojom.Url url, boolean isWarning, int resourceAddressSpace, ClientSecurityState clientSecurityState) {
+        public void onPrivateNetworkRequest(
+String devtoolRequestId, org.chromium.url.mojom.Url url, boolean isWarning, int resourceAddressSpace, ClientSecurityState clientSecurityState) {
 
             DevToolsObserverOnPrivateNetworkRequestParams _message = new DevToolsObserverOnPrivateNetworkRequestParams();
 
@@ -144,13 +159,17 @@ class DevToolsObserver_Internal {
             _message.clientSecurityState = clientSecurityState;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_PRIVATE_NETWORK_REQUEST_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_PRIVATE_NETWORK_REQUEST_ORDINAL)));
 
         }
 
 
         @Override
-        public void onCorsPreflightRequest(org.chromium.mojo_base.mojom.UnguessableToken devtoolRequestId, HttpRequestHeaders requestHeaders, UrlRequestDevToolsInfo requestInfo, org.chromium.url.mojom.Url initiatorUrl, String initiatorDevtoolRequestId) {
+        public void onCorsPreflightRequest(
+org.chromium.mojo_base.mojom.UnguessableToken devtoolRequestId, HttpRequestHeaders requestHeaders, UrlRequestDevToolsInfo requestInfo, org.chromium.url.mojom.Url initiatorUrl, String initiatorDevtoolRequestId) {
 
             DevToolsObserverOnCorsPreflightRequestParams _message = new DevToolsObserverOnCorsPreflightRequestParams();
 
@@ -165,13 +184,17 @@ class DevToolsObserver_Internal {
             _message.initiatorDevtoolRequestId = initiatorDevtoolRequestId;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_CORS_PREFLIGHT_REQUEST_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_CORS_PREFLIGHT_REQUEST_ORDINAL)));
 
         }
 
 
         @Override
-        public void onCorsPreflightResponse(org.chromium.mojo_base.mojom.UnguessableToken devtoolRequestId, org.chromium.url.mojom.Url url, UrlResponseHeadDevToolsInfo head) {
+        public void onCorsPreflightResponse(
+org.chromium.mojo_base.mojom.UnguessableToken devtoolRequestId, org.chromium.url.mojom.Url url, UrlResponseHeadDevToolsInfo head) {
 
             DevToolsObserverOnCorsPreflightResponseParams _message = new DevToolsObserverOnCorsPreflightResponseParams();
 
@@ -182,13 +205,17 @@ class DevToolsObserver_Internal {
             _message.head = head;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_CORS_PREFLIGHT_RESPONSE_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_CORS_PREFLIGHT_RESPONSE_ORDINAL)));
 
         }
 
 
         @Override
-        public void onCorsPreflightRequestCompleted(org.chromium.mojo_base.mojom.UnguessableToken devtoolRequestId, UrlLoaderCompletionStatus status) {
+        public void onCorsPreflightRequestCompleted(
+org.chromium.mojo_base.mojom.UnguessableToken devtoolRequestId, UrlLoaderCompletionStatus status) {
 
             DevToolsObserverOnCorsPreflightRequestCompletedParams _message = new DevToolsObserverOnCorsPreflightRequestCompletedParams();
 
@@ -197,13 +224,17 @@ class DevToolsObserver_Internal {
             _message.status = status;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_CORS_PREFLIGHT_REQUEST_COMPLETED_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_CORS_PREFLIGHT_REQUEST_COMPLETED_ORDINAL)));
 
         }
 
 
         @Override
-        public void onTrustTokenOperationDone(String devtoolRequestId, TrustTokenOperationResult result) {
+        public void onTrustTokenOperationDone(
+String devtoolRequestId, TrustTokenOperationResult result) {
 
             DevToolsObserverOnTrustTokenOperationDoneParams _message = new DevToolsObserverOnTrustTokenOperationDoneParams();
 
@@ -212,13 +243,17 @@ class DevToolsObserver_Internal {
             _message.result = result;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_TRUST_TOKEN_OPERATION_DONE_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_TRUST_TOKEN_OPERATION_DONE_ORDINAL)));
 
         }
 
 
         @Override
-        public void onCorsError(String devtoolRequestId, org.chromium.url.internal.mojom.Origin initiatorOrigin, ClientSecurityState clientSecurityState, org.chromium.url.mojom.Url url, CorsErrorStatus status, boolean isWarning) {
+        public void onCorsError(
+String devtoolRequestId, org.chromium.url.internal.mojom.Origin initiatorOrigin, ClientSecurityState clientSecurityState, org.chromium.url.mojom.Url url, CorsErrorStatus status, boolean isWarning) {
 
             DevToolsObserverOnCorsErrorParams _message = new DevToolsObserverOnCorsErrorParams();
 
@@ -235,13 +270,17 @@ class DevToolsObserver_Internal {
             _message.isWarning = isWarning;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_CORS_ERROR_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_CORS_ERROR_ORDINAL)));
 
         }
 
 
         @Override
-        public void onCorbError(String devtoolsRequestId, org.chromium.url.mojom.Url url) {
+        public void onCorbError(
+String devtoolsRequestId, org.chromium.url.mojom.Url url) {
 
             DevToolsObserverOnCorbErrorParams _message = new DevToolsObserverOnCorbErrorParams();
 
@@ -250,13 +289,17 @@ class DevToolsObserver_Internal {
             _message.url = url;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_CORB_ERROR_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_CORB_ERROR_ORDINAL)));
 
         }
 
 
         @Override
-        public void onSubresourceWebBundleMetadata(String devtoolRequestId, org.chromium.url.mojom.Url[] urls) {
+        public void onSubresourceWebBundleMetadata(
+String devtoolRequestId, org.chromium.url.mojom.Url[] urls) {
 
             DevToolsObserverOnSubresourceWebBundleMetadataParams _message = new DevToolsObserverOnSubresourceWebBundleMetadataParams();
 
@@ -265,13 +308,17 @@ class DevToolsObserver_Internal {
             _message.urls = urls;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_SUBRESOURCE_WEB_BUNDLE_METADATA_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_SUBRESOURCE_WEB_BUNDLE_METADATA_ORDINAL)));
 
         }
 
 
         @Override
-        public void onSubresourceWebBundleMetadataError(String devtoolRequestId, String errorMessage) {
+        public void onSubresourceWebBundleMetadataError(
+String devtoolRequestId, String errorMessage) {
 
             DevToolsObserverOnSubresourceWebBundleMetadataErrorParams _message = new DevToolsObserverOnSubresourceWebBundleMetadataErrorParams();
 
@@ -280,13 +327,17 @@ class DevToolsObserver_Internal {
             _message.errorMessage = errorMessage;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_SUBRESOURCE_WEB_BUNDLE_METADATA_ERROR_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_SUBRESOURCE_WEB_BUNDLE_METADATA_ERROR_ORDINAL)));
 
         }
 
 
         @Override
-        public void onSubresourceWebBundleInnerResponse(String innerRequestDevtoolsId, org.chromium.url.mojom.Url url, String bundleRequestDevtoolsId) {
+        public void onSubresourceWebBundleInnerResponse(
+String innerRequestDevtoolsId, org.chromium.url.mojom.Url url, String bundleRequestDevtoolsId) {
 
             DevToolsObserverOnSubresourceWebBundleInnerResponseParams _message = new DevToolsObserverOnSubresourceWebBundleInnerResponseParams();
 
@@ -297,13 +348,17 @@ class DevToolsObserver_Internal {
             _message.bundleRequestDevtoolsId = bundleRequestDevtoolsId;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_SUBRESOURCE_WEB_BUNDLE_INNER_RESPONSE_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_SUBRESOURCE_WEB_BUNDLE_INNER_RESPONSE_ORDINAL)));
 
         }
 
 
         @Override
-        public void onSubresourceWebBundleInnerResponseError(String innerRequestDevtoolsId, org.chromium.url.mojom.Url url, String errorMessage, String bundleRequestDevtoolsId) {
+        public void onSubresourceWebBundleInnerResponseError(
+String innerRequestDevtoolsId, org.chromium.url.mojom.Url url, String errorMessage, String bundleRequestDevtoolsId) {
 
             DevToolsObserverOnSubresourceWebBundleInnerResponseErrorParams _message = new DevToolsObserverOnSubresourceWebBundleInnerResponseErrorParams();
 
@@ -316,20 +371,27 @@ class DevToolsObserver_Internal {
             _message.bundleRequestDevtoolsId = bundleRequestDevtoolsId;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_SUBRESOURCE_WEB_BUNDLE_INNER_RESPONSE_ERROR_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_SUBRESOURCE_WEB_BUNDLE_INNER_RESPONSE_ERROR_ORDINAL)));
 
         }
 
 
         @Override
-        public void clone(org.chromium.mojo.bindings.InterfaceRequest<DevToolsObserver> listener) {
+        public void clone(
+org.chromium.mojo.bindings.InterfaceRequest<DevToolsObserver> listener) {
 
             DevToolsObserverCloneParams _message = new DevToolsObserverCloneParams();
 
             _message.listener = listener;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(CLONE_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(CLONE_ORDINAL)));
 
         }
 
@@ -345,7 +407,8 @@ class DevToolsObserver_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -354,132 +417,189 @@ class DevToolsObserver_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(DevToolsObserver_Internal.MANAGER, messageWithHeader);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
+                                DevToolsObserver_Internal.MANAGER, messageWithHeader);
+
+
+
 
 
                     case ON_RAW_REQUEST_ORDINAL: {
 
-                        DevToolsObserverOnRawRequestParams data = DevToolsObserverOnRawRequestParams.deserialize(messageWithHeader.getPayload());
+                        DevToolsObserverOnRawRequestParams data =
+                                DevToolsObserverOnRawRequestParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onRawRequest(data.devtoolRequestId, data.cookiesWithAccessResult, data.headers, data.timestamp, data.clientSecurityState, data.otherPartitionInfo);
                         return true;
                     }
 
 
+
+
+
                     case ON_RAW_RESPONSE_ORDINAL: {
 
-                        DevToolsObserverOnRawResponseParams data = DevToolsObserverOnRawResponseParams.deserialize(messageWithHeader.getPayload());
+                        DevToolsObserverOnRawResponseParams data =
+                                DevToolsObserverOnRawResponseParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onRawResponse(data.devtoolRequestId, data.cookiesWithAccessResult, data.headers, data.rawResponseHeaders, data.resourceAddressSpace, data.httpStatusCode, data.cookiePartitionKey);
                         return true;
                     }
 
 
+
+
+
                     case ON_PRIVATE_NETWORK_REQUEST_ORDINAL: {
 
-                        DevToolsObserverOnPrivateNetworkRequestParams data = DevToolsObserverOnPrivateNetworkRequestParams.deserialize(messageWithHeader.getPayload());
+                        DevToolsObserverOnPrivateNetworkRequestParams data =
+                                DevToolsObserverOnPrivateNetworkRequestParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onPrivateNetworkRequest(data.devtoolRequestId, data.url, data.isWarning, data.resourceAddressSpace, data.clientSecurityState);
                         return true;
                     }
 
 
+
+
+
                     case ON_CORS_PREFLIGHT_REQUEST_ORDINAL: {
 
-                        DevToolsObserverOnCorsPreflightRequestParams data = DevToolsObserverOnCorsPreflightRequestParams.deserialize(messageWithHeader.getPayload());
+                        DevToolsObserverOnCorsPreflightRequestParams data =
+                                DevToolsObserverOnCorsPreflightRequestParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onCorsPreflightRequest(data.devtoolRequestId, data.requestHeaders, data.requestInfo, data.initiatorUrl, data.initiatorDevtoolRequestId);
                         return true;
                     }
 
 
+
+
+
                     case ON_CORS_PREFLIGHT_RESPONSE_ORDINAL: {
 
-                        DevToolsObserverOnCorsPreflightResponseParams data = DevToolsObserverOnCorsPreflightResponseParams.deserialize(messageWithHeader.getPayload());
+                        DevToolsObserverOnCorsPreflightResponseParams data =
+                                DevToolsObserverOnCorsPreflightResponseParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onCorsPreflightResponse(data.devtoolRequestId, data.url, data.head);
                         return true;
                     }
 
 
+
+
+
                     case ON_CORS_PREFLIGHT_REQUEST_COMPLETED_ORDINAL: {
 
-                        DevToolsObserverOnCorsPreflightRequestCompletedParams data = DevToolsObserverOnCorsPreflightRequestCompletedParams.deserialize(messageWithHeader.getPayload());
+                        DevToolsObserverOnCorsPreflightRequestCompletedParams data =
+                                DevToolsObserverOnCorsPreflightRequestCompletedParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onCorsPreflightRequestCompleted(data.devtoolRequestId, data.status);
                         return true;
                     }
 
 
+
+
+
                     case ON_TRUST_TOKEN_OPERATION_DONE_ORDINAL: {
 
-                        DevToolsObserverOnTrustTokenOperationDoneParams data = DevToolsObserverOnTrustTokenOperationDoneParams.deserialize(messageWithHeader.getPayload());
+                        DevToolsObserverOnTrustTokenOperationDoneParams data =
+                                DevToolsObserverOnTrustTokenOperationDoneParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onTrustTokenOperationDone(data.devtoolRequestId, data.result);
                         return true;
                     }
 
 
+
+
+
                     case ON_CORS_ERROR_ORDINAL: {
 
-                        DevToolsObserverOnCorsErrorParams data = DevToolsObserverOnCorsErrorParams.deserialize(messageWithHeader.getPayload());
+                        DevToolsObserverOnCorsErrorParams data =
+                                DevToolsObserverOnCorsErrorParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onCorsError(data.devtoolRequestId, data.initiatorOrigin, data.clientSecurityState, data.url, data.status, data.isWarning);
                         return true;
                     }
 
 
+
+
+
                     case ON_CORB_ERROR_ORDINAL: {
 
-                        DevToolsObserverOnCorbErrorParams data = DevToolsObserverOnCorbErrorParams.deserialize(messageWithHeader.getPayload());
+                        DevToolsObserverOnCorbErrorParams data =
+                                DevToolsObserverOnCorbErrorParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onCorbError(data.devtoolsRequestId, data.url);
                         return true;
                     }
 
 
+
+
+
                     case ON_SUBRESOURCE_WEB_BUNDLE_METADATA_ORDINAL: {
 
-                        DevToolsObserverOnSubresourceWebBundleMetadataParams data = DevToolsObserverOnSubresourceWebBundleMetadataParams.deserialize(messageWithHeader.getPayload());
+                        DevToolsObserverOnSubresourceWebBundleMetadataParams data =
+                                DevToolsObserverOnSubresourceWebBundleMetadataParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onSubresourceWebBundleMetadata(data.devtoolRequestId, data.urls);
                         return true;
                     }
 
 
+
+
+
                     case ON_SUBRESOURCE_WEB_BUNDLE_METADATA_ERROR_ORDINAL: {
 
-                        DevToolsObserverOnSubresourceWebBundleMetadataErrorParams data = DevToolsObserverOnSubresourceWebBundleMetadataErrorParams.deserialize(messageWithHeader.getPayload());
+                        DevToolsObserverOnSubresourceWebBundleMetadataErrorParams data =
+                                DevToolsObserverOnSubresourceWebBundleMetadataErrorParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onSubresourceWebBundleMetadataError(data.devtoolRequestId, data.errorMessage);
                         return true;
                     }
 
 
+
+
+
                     case ON_SUBRESOURCE_WEB_BUNDLE_INNER_RESPONSE_ORDINAL: {
 
-                        DevToolsObserverOnSubresourceWebBundleInnerResponseParams data = DevToolsObserverOnSubresourceWebBundleInnerResponseParams.deserialize(messageWithHeader.getPayload());
+                        DevToolsObserverOnSubresourceWebBundleInnerResponseParams data =
+                                DevToolsObserverOnSubresourceWebBundleInnerResponseParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onSubresourceWebBundleInnerResponse(data.innerRequestDevtoolsId, data.url, data.bundleRequestDevtoolsId);
                         return true;
                     }
 
 
+
+
+
                     case ON_SUBRESOURCE_WEB_BUNDLE_INNER_RESPONSE_ERROR_ORDINAL: {
 
-                        DevToolsObserverOnSubresourceWebBundleInnerResponseErrorParams data = DevToolsObserverOnSubresourceWebBundleInnerResponseErrorParams.deserialize(messageWithHeader.getPayload());
+                        DevToolsObserverOnSubresourceWebBundleInnerResponseErrorParams data =
+                                DevToolsObserverOnSubresourceWebBundleInnerResponseErrorParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onSubresourceWebBundleInnerResponseError(data.innerRequestDevtoolsId, data.url, data.errorMessage, data.bundleRequestDevtoolsId);
                         return true;
                     }
 
 
+
+
+
                     case CLONE_ORDINAL: {
 
-                        DevToolsObserverCloneParams data = DevToolsObserverCloneParams.deserialize(messageWithHeader.getPayload());
+                        DevToolsObserverCloneParams data =
+                                DevToolsObserverCloneParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().clone(data.listener);
                         return true;
@@ -490,7 +610,7 @@ class DevToolsObserver_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -498,7 +618,8 @@ class DevToolsObserver_Internal {
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -507,27 +628,57 @@ class DevToolsObserver_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), DevToolsObserver_Internal.MANAGER, messageWithHeader, receiver);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
+                                getCore(), DevToolsObserver_Internal.MANAGER, messageWithHeader, receiver);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
                     default:
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class DevToolsObserverOnRawRequestParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 56;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(56, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(56, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public String devtoolRequestId;
         public CookieWithAccessResult[] cookiesWithAccessResult;
@@ -554,7 +705,8 @@ class DevToolsObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static DevToolsObserverOnRawRequestParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -568,51 +720,51 @@ class DevToolsObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new DevToolsObserverOnRawRequestParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.devtoolRequestId = decoder0.readString(8, false);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                     {
                         org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                         result.cookiesWithAccessResult = new CookieWithAccessResult[si1.elementsOrVersion];
                         for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                            
                             org.chromium.mojo.bindings.Decoder decoder2 = decoder1.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                             result.cookiesWithAccessResult[i1] = CookieWithAccessResult.decode(decoder2);
                         }
                     }
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, false);
                     {
                         org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                         result.headers = new HttpRawHeaderPair[si1.elementsOrVersion];
                         for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                            
                             org.chromium.mojo.bindings.Decoder decoder2 = decoder1.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                             result.headers[i1] = HttpRawHeaderPair.decode(decoder2);
                         }
                     }
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(32, false);
                     result.timestamp = org.chromium.mojo_base.mojom.TimeTicks.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(40, true);
                     result.clientSecurityState = ClientSecurityState.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(48, true);
                     result.otherPartitionInfo = OtherPartitionInfo.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -624,42 +776,44 @@ class DevToolsObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.devtoolRequestId, 8, false);
-
+            
             if (this.cookiesWithAccessResult == null) {
                 encoder0.encodeNullPointer(16, false);
             } else {
                 org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.cookiesWithAccessResult.length, 16, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                 for (int i0 = 0; i0 < this.cookiesWithAccessResult.length; ++i0) {
-
+                    
                     encoder1.encode(this.cookiesWithAccessResult[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
                 }
             }
-
+            
             if (this.headers == null) {
                 encoder0.encodeNullPointer(24, false);
             } else {
                 org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.headers.length, 24, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                 for (int i0 = 0; i0 < this.headers.length; ++i0) {
-
+                    
                     encoder1.encode(this.headers[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
                 }
             }
-
+            
             encoder0.encode(this.timestamp, 32, false);
-
+            
             encoder0.encode(this.clientSecurityState, 40, true);
-
+            
             encoder0.encode(this.otherPartitionInfo, 48, true);
         }
     }
 
 
+
+    
     static final class DevToolsObserverOnRawResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 56;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(56, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(56, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public String devtoolRequestId;
         public CookieAndLineWithAccessResult[] cookiesWithAccessResult;
@@ -687,7 +841,8 @@ class DevToolsObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static DevToolsObserverOnRawResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -701,55 +856,55 @@ class DevToolsObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new DevToolsObserverOnRawResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.devtoolRequestId = decoder0.readString(8, false);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                     {
                         org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                         result.cookiesWithAccessResult = new CookieAndLineWithAccessResult[si1.elementsOrVersion];
                         for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                            
                             org.chromium.mojo.bindings.Decoder decoder2 = decoder1.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                             result.cookiesWithAccessResult[i1] = CookieAndLineWithAccessResult.decode(decoder2);
                         }
                     }
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, false);
                     {
                         org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                         result.headers = new HttpRawHeaderPair[si1.elementsOrVersion];
                         for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                            
                             org.chromium.mojo.bindings.Decoder decoder2 = decoder1.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                             result.headers[i1] = HttpRawHeaderPair.decode(decoder2);
                         }
                     }
-                }
-                {
-
+                    }
+                    {
+                        
                     result.rawResponseHeaders = decoder0.readString(32, true);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.resourceAddressSpace = decoder0.readInt(40);
-                    IpAddressSpace.validate(result.resourceAddressSpace);
-                    result.resourceAddressSpace = IpAddressSpace.toKnownValue(result.resourceAddressSpace);
-                }
-                {
-
+                        IpAddressSpace.validate(result.resourceAddressSpace);
+                        result.resourceAddressSpace = IpAddressSpace.toKnownValue(result.resourceAddressSpace);
+                    }
+                    {
+                        
                     result.httpStatusCode = decoder0.readInt(44);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(48, true);
                     result.cookiePartitionKey = CookiePartitionKey.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -761,44 +916,46 @@ class DevToolsObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.devtoolRequestId, 8, false);
-
+            
             if (this.cookiesWithAccessResult == null) {
                 encoder0.encodeNullPointer(16, false);
             } else {
                 org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.cookiesWithAccessResult.length, 16, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                 for (int i0 = 0; i0 < this.cookiesWithAccessResult.length; ++i0) {
-
+                    
                     encoder1.encode(this.cookiesWithAccessResult[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
                 }
             }
-
+            
             if (this.headers == null) {
                 encoder0.encodeNullPointer(24, false);
             } else {
                 org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.headers.length, 24, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                 for (int i0 = 0; i0 < this.headers.length; ++i0) {
-
+                    
                     encoder1.encode(this.headers[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
                 }
             }
-
+            
             encoder0.encode(this.rawResponseHeaders, 32, true);
-
+            
             encoder0.encode(this.resourceAddressSpace, 40);
-
+            
             encoder0.encode(this.httpStatusCode, 44);
-
+            
             encoder0.encode(this.cookiePartitionKey, 48, true);
         }
     }
 
 
+
+    
     static final class DevToolsObserverOnPrivateNetworkRequestParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 40;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(40, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(40, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public String devtoolRequestId;
         public org.chromium.url.mojom.Url url;
@@ -824,7 +981,8 @@ class DevToolsObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static DevToolsObserverOnPrivateNetworkRequestParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -838,30 +996,30 @@ class DevToolsObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new DevToolsObserverOnPrivateNetworkRequestParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.devtoolRequestId = decoder0.readString(8, true);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                     result.url = org.chromium.url.mojom.Url.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.isWarning = decoder0.readBoolean(24, 0);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.resourceAddressSpace = decoder0.readInt(28);
-                    IpAddressSpace.validate(result.resourceAddressSpace);
-                    result.resourceAddressSpace = IpAddressSpace.toKnownValue(result.resourceAddressSpace);
-                }
-                {
-
+                        IpAddressSpace.validate(result.resourceAddressSpace);
+                        result.resourceAddressSpace = IpAddressSpace.toKnownValue(result.resourceAddressSpace);
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(32, false);
                     result.clientSecurityState = ClientSecurityState.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -873,24 +1031,26 @@ class DevToolsObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.devtoolRequestId, 8, true);
-
+            
             encoder0.encode(this.url, 16, false);
-
+            
             encoder0.encode(this.isWarning, 24, 0);
-
+            
             encoder0.encode(this.resourceAddressSpace, 28);
-
+            
             encoder0.encode(this.clientSecurityState, 32, false);
         }
     }
 
 
+
+    
     static final class DevToolsObserverOnCorsPreflightRequestParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 48;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(48, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(48, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.mojo_base.mojom.UnguessableToken devtoolRequestId;
         public HttpRequestHeaders requestHeaders;
@@ -916,7 +1076,8 @@ class DevToolsObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static DevToolsObserverOnCorsPreflightRequestParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -930,30 +1091,30 @@ class DevToolsObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new DevToolsObserverOnCorsPreflightRequestParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.devtoolRequestId = org.chromium.mojo_base.mojom.UnguessableToken.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                     result.requestHeaders = HttpRequestHeaders.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, false);
                     result.requestInfo = UrlRequestDevToolsInfo.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(32, false);
                     result.initiatorUrl = org.chromium.url.mojom.Url.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.initiatorDevtoolRequestId = decoder0.readString(40, false);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -965,24 +1126,26 @@ class DevToolsObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.devtoolRequestId, 8, false);
-
+            
             encoder0.encode(this.requestHeaders, 16, false);
-
+            
             encoder0.encode(this.requestInfo, 24, false);
-
+            
             encoder0.encode(this.initiatorUrl, 32, false);
-
+            
             encoder0.encode(this.initiatorDevtoolRequestId, 40, false);
         }
     }
 
 
+
+    
     static final class DevToolsObserverOnCorsPreflightResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 32;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(32, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(32, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.mojo_base.mojom.UnguessableToken devtoolRequestId;
         public org.chromium.url.mojom.Url url;
@@ -1006,7 +1169,8 @@ class DevToolsObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static DevToolsObserverOnCorsPreflightResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1020,21 +1184,21 @@ class DevToolsObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new DevToolsObserverOnCorsPreflightResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.devtoolRequestId = org.chromium.mojo_base.mojom.UnguessableToken.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                     result.url = org.chromium.url.mojom.Url.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, false);
                     result.head = UrlResponseHeadDevToolsInfo.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1046,20 +1210,22 @@ class DevToolsObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.devtoolRequestId, 8, false);
-
+            
             encoder0.encode(this.url, 16, false);
-
+            
             encoder0.encode(this.head, 24, false);
         }
     }
 
 
+
+    
     static final class DevToolsObserverOnCorsPreflightRequestCompletedParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.mojo_base.mojom.UnguessableToken devtoolRequestId;
         public UrlLoaderCompletionStatus status;
@@ -1082,7 +1248,8 @@ class DevToolsObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static DevToolsObserverOnCorsPreflightRequestCompletedParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1096,16 +1263,16 @@ class DevToolsObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new DevToolsObserverOnCorsPreflightRequestCompletedParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.devtoolRequestId = org.chromium.mojo_base.mojom.UnguessableToken.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                     result.status = UrlLoaderCompletionStatus.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1117,18 +1284,20 @@ class DevToolsObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.devtoolRequestId, 8, false);
-
+            
             encoder0.encode(this.status, 16, false);
         }
     }
 
 
+
+    
     static final class DevToolsObserverOnTrustTokenOperationDoneParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public String devtoolRequestId;
         public TrustTokenOperationResult result;
@@ -1151,7 +1320,8 @@ class DevToolsObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static DevToolsObserverOnTrustTokenOperationDoneParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1165,15 +1335,15 @@ class DevToolsObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new DevToolsObserverOnTrustTokenOperationDoneParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.devtoolRequestId = decoder0.readString(8, false);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                     result.result = TrustTokenOperationResult.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1185,18 +1355,20 @@ class DevToolsObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.devtoolRequestId, 8, false);
-
+            
             encoder0.encode(this.result, 16, false);
         }
     }
 
 
+
+    
     static final class DevToolsObserverOnCorsErrorParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 56;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(56, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(56, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public String devtoolRequestId;
         public org.chromium.url.internal.mojom.Origin initiatorOrigin;
@@ -1223,7 +1395,8 @@ class DevToolsObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static DevToolsObserverOnCorsErrorParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1237,34 +1410,34 @@ class DevToolsObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new DevToolsObserverOnCorsErrorParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.devtoolRequestId = decoder0.readString(8, true);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, true);
                     result.initiatorOrigin = org.chromium.url.internal.mojom.Origin.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, true);
                     result.clientSecurityState = ClientSecurityState.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(32, false);
                     result.url = org.chromium.url.mojom.Url.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(40, false);
                     result.status = CorsErrorStatus.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.isWarning = decoder0.readBoolean(48, 0);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1276,26 +1449,28 @@ class DevToolsObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.devtoolRequestId, 8, true);
-
+            
             encoder0.encode(this.initiatorOrigin, 16, true);
-
+            
             encoder0.encode(this.clientSecurityState, 24, true);
-
+            
             encoder0.encode(this.url, 32, false);
-
+            
             encoder0.encode(this.status, 40, false);
-
+            
             encoder0.encode(this.isWarning, 48, 0);
         }
     }
 
 
+
+    
     static final class DevToolsObserverOnCorbErrorParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public String devtoolsRequestId;
         public org.chromium.url.mojom.Url url;
@@ -1318,7 +1493,8 @@ class DevToolsObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static DevToolsObserverOnCorbErrorParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1332,15 +1508,15 @@ class DevToolsObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new DevToolsObserverOnCorbErrorParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.devtoolsRequestId = decoder0.readString(8, true);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                     result.url = org.chromium.url.mojom.Url.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1352,18 +1528,20 @@ class DevToolsObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.devtoolsRequestId, 8, true);
-
+            
             encoder0.encode(this.url, 16, false);
         }
     }
 
 
+
+    
     static final class DevToolsObserverOnSubresourceWebBundleMetadataParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public String devtoolRequestId;
         public org.chromium.url.mojom.Url[] urls;
@@ -1386,7 +1564,8 @@ class DevToolsObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static DevToolsObserverOnSubresourceWebBundleMetadataParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1400,23 +1579,23 @@ class DevToolsObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new DevToolsObserverOnSubresourceWebBundleMetadataParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.devtoolRequestId = decoder0.readString(8, false);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                     {
                         org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                         result.urls = new org.chromium.url.mojom.Url[si1.elementsOrVersion];
                         for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                            
                             org.chromium.mojo.bindings.Decoder decoder2 = decoder1.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                             result.urls[i1] = org.chromium.url.mojom.Url.decode(decoder2);
                         }
                     }
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1428,15 +1607,15 @@ class DevToolsObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.devtoolRequestId, 8, false);
-
+            
             if (this.urls == null) {
                 encoder0.encodeNullPointer(16, false);
             } else {
                 org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.urls.length, 16, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                 for (int i0 = 0; i0 < this.urls.length; ++i0) {
-
+                    
                     encoder1.encode(this.urls[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
                 }
             }
@@ -1444,10 +1623,12 @@ class DevToolsObserver_Internal {
     }
 
 
+
+    
     static final class DevToolsObserverOnSubresourceWebBundleMetadataErrorParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public String devtoolRequestId;
         public String errorMessage;
@@ -1470,7 +1651,8 @@ class DevToolsObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static DevToolsObserverOnSubresourceWebBundleMetadataErrorParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1484,14 +1666,14 @@ class DevToolsObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new DevToolsObserverOnSubresourceWebBundleMetadataErrorParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.devtoolRequestId = decoder0.readString(8, false);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.errorMessage = decoder0.readString(16, false);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1503,18 +1685,20 @@ class DevToolsObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.devtoolRequestId, 8, false);
-
+            
             encoder0.encode(this.errorMessage, 16, false);
         }
     }
 
 
+
+    
     static final class DevToolsObserverOnSubresourceWebBundleInnerResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 32;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(32, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(32, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public String innerRequestDevtoolsId;
         public org.chromium.url.mojom.Url url;
@@ -1538,7 +1722,8 @@ class DevToolsObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static DevToolsObserverOnSubresourceWebBundleInnerResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1552,19 +1737,19 @@ class DevToolsObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new DevToolsObserverOnSubresourceWebBundleInnerResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.innerRequestDevtoolsId = decoder0.readString(8, false);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                     result.url = org.chromium.url.mojom.Url.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.bundleRequestDevtoolsId = decoder0.readString(24, true);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1576,20 +1761,22 @@ class DevToolsObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.innerRequestDevtoolsId, 8, false);
-
+            
             encoder0.encode(this.url, 16, false);
-
+            
             encoder0.encode(this.bundleRequestDevtoolsId, 24, true);
         }
     }
 
 
+
+    
     static final class DevToolsObserverOnSubresourceWebBundleInnerResponseErrorParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 40;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(40, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(40, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public String innerRequestDevtoolsId;
         public org.chromium.url.mojom.Url url;
@@ -1614,7 +1801,8 @@ class DevToolsObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static DevToolsObserverOnSubresourceWebBundleInnerResponseErrorParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1628,23 +1816,23 @@ class DevToolsObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new DevToolsObserverOnSubresourceWebBundleInnerResponseErrorParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.innerRequestDevtoolsId = decoder0.readString(8, false);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                     result.url = org.chromium.url.mojom.Url.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.errorMessage = decoder0.readString(24, false);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.bundleRequestDevtoolsId = decoder0.readString(32, true);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1656,22 +1844,24 @@ class DevToolsObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.innerRequestDevtoolsId, 8, false);
-
+            
             encoder0.encode(this.url, 16, false);
-
+            
             encoder0.encode(this.errorMessage, 24, false);
-
+            
             encoder0.encode(this.bundleRequestDevtoolsId, 32, true);
         }
     }
 
 
+
+    
     static final class DevToolsObserverCloneParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.mojo.bindings.InterfaceRequest<DevToolsObserver> listener;
 
@@ -1693,7 +1883,8 @@ class DevToolsObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static DevToolsObserverCloneParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1707,10 +1898,10 @@ class DevToolsObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new DevToolsObserverCloneParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.listener = decoder0.readInterfaceRequest(8, false);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1722,10 +1913,11 @@ class DevToolsObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.listener, 8, false);
         }
     }
+
 
 
 }

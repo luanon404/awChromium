@@ -13,10 +13,13 @@
 
 package org.chromium.viz.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class TextureQuadState extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 96;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(96, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(96, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public ResourceId resourceId;
     public org.chromium.gfx.mojom.Size resourceSizeInPixels;
@@ -40,6 +43,10 @@ public final class TextureQuadState extends org.chromium.mojo.bindings.Struct {
         super(STRUCT_SIZE, version);
     }
 
+    public TextureQuadState() {
+        this(0);
+    }
+
     public static TextureQuadState deserialize(org.chromium.mojo.bindings.Message message) {
         return decode(new org.chromium.mojo.bindings.Decoder(message));
     }
@@ -50,9 +57,11 @@ public final class TextureQuadState extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static TextureQuadState deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
+    @SuppressWarnings("unchecked")
     public static TextureQuadState decode(org.chromium.mojo.bindings.Decoder decoder0) {
         if (decoder0 == null) {
             return null;
@@ -63,86 +72,86 @@ public final class TextureQuadState extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new TextureQuadState(elementsOrVersion);
-            {
-
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                 result.resourceId = ResourceId.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                 result.resourceSizeInPixels = org.chromium.gfx.mojom.Size.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.premultipliedAlpha = decoder0.readBoolean(24, 0);
-            }
-            {
-
+                }
+                {
+                    
                 result.yFlipped = decoder0.readBoolean(24, 1);
-            }
-            {
-
+                }
+                {
+                    
                 result.nearestNeighbor = decoder0.readBoolean(24, 2);
-            }
-            {
-
+                }
+                {
+                    
                 result.secureOutputOnly = decoder0.readBoolean(24, 3);
-            }
-            {
-
+                }
+                {
+                    
                 result.isStreamVideo = decoder0.readBoolean(24, 4);
-            }
-            {
-
+                }
+                {
+                    
                 result.isVideoFrame = decoder0.readBoolean(24, 5);
-            }
-            {
-
-                int protectedVideoType = decoder0.readInt(28);
-                ProtectedVideoState.validate(protectedVideoType);
-                result.protectedVideoType = ProtectedVideoState.toKnownValue(protectedVideoType);
-            }
-            {
-
+                }
+                {
+                    
+                result.protectedVideoType = decoder0.readInt(28);
+                    ProtectedVideoState.validate(result.protectedVideoType);
+                    result.protectedVideoType = ProtectedVideoState.toKnownValue(result.protectedVideoType);
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(32, false);
                 result.uvTopLeft = org.chromium.gfx.mojom.PointF.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(40, false);
                 result.uvBottomRight = org.chromium.gfx.mojom.PointF.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(48, false);
                 result.backgroundColor = org.chromium.skia.mojom.SkColor4f.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.vertexOpacity = decoder0.readFloats(56, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, 4);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(64, false);
                 result.hdrMetadata = org.chromium.gfx.mojom.HdrMetadata.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(72, true);
                 result.damageRect = org.chromium.gfx.mojom.Rect.decode(decoder1);
-            }
-            {
-
-                int overlayPriorityHint = decoder0.readInt(80);
-                OverlayPriority.validate(overlayPriorityHint);
-                result.overlayPriorityHint = OverlayPriority.toKnownValue(overlayPriorityHint);
-            }
-            {
-
+                }
+                {
+                    
+                result.overlayPriorityHint = decoder0.readInt(80);
+                    OverlayPriority.validate(result.overlayPriorityHint);
+                    result.overlayPriorityHint = OverlayPriority.toKnownValue(result.overlayPriorityHint);
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(88, false);
                 result.roundedDisplayMasksInfo = RoundedDisplayMasksInfo.decode(decoder1);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -150,42 +159,43 @@ public final class TextureQuadState extends org.chromium.mojo.bindings.Struct {
         return result;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
+    protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.resourceId, 8, false);
-
+        
         encoder0.encode(this.resourceSizeInPixels, 16, false);
-
+        
         encoder0.encode(this.premultipliedAlpha, 24, 0);
-
+        
         encoder0.encode(this.yFlipped, 24, 1);
-
+        
         encoder0.encode(this.nearestNeighbor, 24, 2);
-
+        
         encoder0.encode(this.secureOutputOnly, 24, 3);
-
+        
         encoder0.encode(this.isStreamVideo, 24, 4);
-
+        
         encoder0.encode(this.isVideoFrame, 24, 5);
-
+        
         encoder0.encode(this.protectedVideoType, 28);
-
+        
         encoder0.encode(this.uvTopLeft, 32, false);
-
+        
         encoder0.encode(this.uvBottomRight, 40, false);
-
+        
         encoder0.encode(this.backgroundColor, 48, false);
-
+        
         encoder0.encode(this.vertexOpacity, 56, org.chromium.mojo.bindings.BindingsHelper.NOTHING_NULLABLE, 4);
-
+        
         encoder0.encode(this.hdrMetadata, 64, false);
-
+        
         encoder0.encode(this.damageRect, 72, true);
-
+        
         encoder0.encode(this.overlayPriorityHint, 80);
-
+        
         encoder0.encode(this.roundedDisplayMasksInfo, 88, false);
     }
 }

@@ -17,10 +17,15 @@ import androidx.annotation.IntDef;
 
 public final class HttpCacheBackendOpenFileFlags {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({HttpCacheBackendOpenFileFlags.OPEN_AND_READ, HttpCacheBackendOpenFileFlags.CREATE_AND_WRITE, HttpCacheBackendOpenFileFlags.OPEN_READ_WRITE_WIN_SHARE_DELETE, HttpCacheBackendOpenFileFlags.CREATE_READ_WRITE_WIN_SHARE_DELETE, HttpCacheBackendOpenFileFlags.CREATE_ALWAYS_WRITE_WIN_SHARE_DELETE, HttpCacheBackendOpenFileFlags.OPEN_READ_WIN_SHARE_DELETE_WIN_SEQUENTIAL_SCAN})
-    public @interface EnumType {
-    }
+        HttpCacheBackendOpenFileFlags.OPEN_AND_READ,
+        HttpCacheBackendOpenFileFlags.CREATE_AND_WRITE,
+        HttpCacheBackendOpenFileFlags.OPEN_READ_WRITE_WIN_SHARE_DELETE,
+        HttpCacheBackendOpenFileFlags.CREATE_READ_WRITE_WIN_SHARE_DELETE,
+        HttpCacheBackendOpenFileFlags.CREATE_ALWAYS_WRITE_WIN_SHARE_DELETE,
+        HttpCacheBackendOpenFileFlags.OPEN_READ_WIN_SHARE_DELETE_WIN_SEQUENTIAL_SCAN})
+    public @interface EnumType {}
 
     public static final int OPEN_AND_READ = 33;
     public static final int CREATE_AND_WRITE = 66;
@@ -50,9 +55,8 @@ public final class HttpCacheBackendOpenFileFlags {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private HttpCacheBackendOpenFileFlags() {
-    }
+    private HttpCacheBackendOpenFileFlags() {}
 }

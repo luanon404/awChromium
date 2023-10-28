@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class CorsDomainMatchMode {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({CorsDomainMatchMode.ALLOW_SUBDOMAINS, CorsDomainMatchMode.ALLOW_REGISTRABLE_DOMAINS, CorsDomainMatchMode.DISALLOW_SUBDOMAINS})
-    public @interface EnumType {
-    }
+        CorsDomainMatchMode.ALLOW_SUBDOMAINS,
+        CorsDomainMatchMode.ALLOW_REGISTRABLE_DOMAINS,
+        CorsDomainMatchMode.DISALLOW_SUBDOMAINS})
+    public @interface EnumType {}
 
     public static final int ALLOW_SUBDOMAINS = 0;
     public static final int ALLOW_REGISTRABLE_DOMAINS = 1;
@@ -38,9 +40,8 @@ public final class CorsDomainMatchMode {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private CorsDomainMatchMode() {
-    }
+    private CorsDomainMatchMode() {}
 }

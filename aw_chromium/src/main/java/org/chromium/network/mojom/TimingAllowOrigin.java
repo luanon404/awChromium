@@ -13,13 +13,15 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class TimingAllowOrigin extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
         public static final int SerializedOrigins = 0;
         public static final int All = 1;
-    }
-
+    };
     private String[] mSerializedOrigins;
     private byte mAll;
 
@@ -50,20 +52,20 @@ public final class TimingAllowOrigin extends org.chromium.mojo.bindings.Union {
         encoder0.encode(this.mTag, offset + 4);
         switch (mTag) {
             case Tag.SerializedOrigins: {
-
+                
                 if (this.mSerializedOrigins == null) {
                     encoder0.encodeNullPointer(offset + 8, false);
                 } else {
                     org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.mSerializedOrigins.length, offset + 8, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                     for (int i0 = 0; i0 < this.mSerializedOrigins.length; ++i0) {
-
+                        
                         encoder1.encode(this.mSerializedOrigins[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
                     }
                 }
                 break;
             }
             case Tag.All: {
-
+                
                 encoder0.encode(this.mAll, offset + 8);
                 break;
             }
@@ -85,13 +87,13 @@ public final class TimingAllowOrigin extends org.chromium.mojo.bindings.Union {
         TimingAllowOrigin result = new TimingAllowOrigin();
         switch (dataHeader.elementsOrVersion) {
             case Tag.SerializedOrigins: {
-
+                
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE, false);
                 {
                     org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                     result.mSerializedOrigins = new String[si1.elementsOrVersion];
                     for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                        
                         result.mSerializedOrigins[i1] = decoder1.readString(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                     }
                 }
@@ -99,7 +101,7 @@ public final class TimingAllowOrigin extends org.chromium.mojo.bindings.Union {
                 break;
             }
             case Tag.All: {
-
+                
                 result.mAll = decoder0.readByte(offset + org.chromium.mojo.bindings.DataHeader.HEADER_SIZE);
                 result.mTag = Tag.All;
                 break;

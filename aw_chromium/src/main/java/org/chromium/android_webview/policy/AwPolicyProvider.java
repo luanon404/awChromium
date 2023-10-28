@@ -17,9 +17,7 @@ import org.chromium.components.policy.AppRestrictionsProvider;
  */
 @VisibleForTesting
 public class AwPolicyProvider extends AppRestrictionsProvider {
-    /**
-     * Policies targeted to WebView should be prefixed by this string.
-     */
+    /** Policies targeted to WebView should be prefixed by this string.*/
     public static final String POLICY_PREFIX = "com.android.browser:";
 
     public AwPolicyProvider(Context context) {
@@ -35,7 +33,8 @@ public class AwPolicyProvider extends AppRestrictionsProvider {
             for (String key : newAppRestrictions.keySet()) {
                 if (!key.startsWith(POLICY_PREFIX)) continue;
 
-                filteredRestrictions.putSerializable(key.substring(POLICY_PREFIX.length()), newAppRestrictions.getSerializable(key));
+                filteredRestrictions.putSerializable(key.substring(POLICY_PREFIX.length()),
+                        newAppRestrictions.getSerializable(key));
             }
         }
         super.notifySettingsAvailable(filteredRestrictions);

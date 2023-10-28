@@ -17,10 +17,11 @@ import androidx.annotation.IntDef;
 
 public final class SslVersion {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({SslVersion.TLS12, SslVersion.TLS13})
-    public @interface EnumType {
-    }
+        SslVersion.TLS12,
+        SslVersion.TLS13})
+    public @interface EnumType {}
 
     public static final int TLS12 = 0;
     public static final int TLS13 = 1;
@@ -37,9 +38,8 @@ public final class SslVersion {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private SslVersion() {
-    }
+    private SslVersion() {}
 }

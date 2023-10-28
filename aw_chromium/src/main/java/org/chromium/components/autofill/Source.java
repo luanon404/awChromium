@@ -1,3 +1,4 @@
+
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -14,18 +15,20 @@ import androidx.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@IntDef({Source.LOCAL_OR_SYNCABLE, Source.ACCOUNT, Source.MAX_VALUE})
+@IntDef({
+    Source.LOCAL_OR_SYNCABLE, Source.ACCOUNT, Source.MAX_VALUE
+})
 @Retention(RetentionPolicy.SOURCE)
 public @interface Source {
-    /**
-     * Not synced at all or synced through the `AutofillProfileSyncBridge`. This corresponds to
-     * profiles that local to Autofill only.
-     */
-    int LOCAL_OR_SYNCABLE = 0;
-    /**
-     * Synced through the `ContactInfoSyncBridge`. This corresponds to profiles that are shared beyond
-     * Autofill across different services.
-     */
-    int ACCOUNT = 1;
-    int MAX_VALUE = ACCOUNT;
+  /**
+   * Not synced at all or synced through the `AutofillProfileSyncBridge`. This corresponds to
+   * profiles that local to Autofill only.
+   */
+  int LOCAL_OR_SYNCABLE = 0;
+  /**
+   * Synced through the `ContactInfoSyncBridge`. This corresponds to profiles that are shared beyond
+   * Autofill across different services.
+   */
+  int ACCOUNT = 1;
+  int MAX_VALUE = ACCOUNT;
 }

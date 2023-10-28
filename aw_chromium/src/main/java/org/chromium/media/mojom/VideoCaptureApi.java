@@ -17,10 +17,22 @@ import androidx.annotation.IntDef;
 
 public final class VideoCaptureApi {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({VideoCaptureApi.LINUX_V4L2_SINGLE_PLANE, VideoCaptureApi.WIN_MEDIA_FOUNDATION, VideoCaptureApi.WIN_MEDIA_FOUNDATION_SENSOR, VideoCaptureApi.WIN_DIRECT_SHOW, VideoCaptureApi.MACOSX_AVFOUNDATION, VideoCaptureApi.MACOSX_DECKLINK, VideoCaptureApi.ANDROID_API1, VideoCaptureApi.ANDROID_API2_LEGACY, VideoCaptureApi.ANDROID_API2_FULL, VideoCaptureApi.ANDROID_API2_LIMITED, VideoCaptureApi.FUCHSIA_CAMERA3, VideoCaptureApi.VIRTUAL_DEVICE, VideoCaptureApi.UNKNOWN})
-    public @interface EnumType {
-    }
+        VideoCaptureApi.LINUX_V4L2_SINGLE_PLANE,
+        VideoCaptureApi.WIN_MEDIA_FOUNDATION,
+        VideoCaptureApi.WIN_MEDIA_FOUNDATION_SENSOR,
+        VideoCaptureApi.WIN_DIRECT_SHOW,
+        VideoCaptureApi.MACOSX_AVFOUNDATION,
+        VideoCaptureApi.MACOSX_DECKLINK,
+        VideoCaptureApi.ANDROID_API1,
+        VideoCaptureApi.ANDROID_API2_LEGACY,
+        VideoCaptureApi.ANDROID_API2_FULL,
+        VideoCaptureApi.ANDROID_API2_LIMITED,
+        VideoCaptureApi.FUCHSIA_CAMERA3,
+        VideoCaptureApi.VIRTUAL_DEVICE,
+        VideoCaptureApi.UNKNOWN})
+    public @interface EnumType {}
 
     public static final int LINUX_V4L2_SINGLE_PLANE = 0;
     public static final int WIN_MEDIA_FOUNDATION = 1;
@@ -48,9 +60,8 @@ public final class VideoCaptureApi {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private VideoCaptureApi() {
-    }
+    private VideoCaptureApi() {}
 }

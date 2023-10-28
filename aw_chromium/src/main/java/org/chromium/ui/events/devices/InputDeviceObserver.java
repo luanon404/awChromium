@@ -10,12 +10,13 @@ import android.hardware.input.InputManager.InputDeviceListener;
 import android.util.ArrayMap;
 import android.view.InputDevice;
 
-import org.chromium.base.ContextUtils;
-import org.chromium.base.ThreadUtils;
-import org.chromium.base.metrics.RecordHistogram;
 import org.jni_zero.CalledByNative;
 import org.jni_zero.JNINamespace;
 import org.jni_zero.NativeMethods;
+
+import org.chromium.base.ContextUtils;
+import org.chromium.base.ThreadUtils;
+import org.chromium.base.metrics.RecordHistogram;
 
 /**
  * A singleton that helps detecting changes in input devices through the interface
@@ -24,8 +25,10 @@ import org.jni_zero.NativeMethods;
 @JNINamespace("ui")
 public class InputDeviceObserver implements InputDeviceListener {
     private static final InputDeviceObserver INSTANCE = new InputDeviceObserver();
-    private static final String KEYBOARD_CONNECTION_HISTOGRAM_NAME = "Android.InputDevice.Keyboard.Active";
-    private static final String MOUSE_CONNECTION_HISTOGRAM_NAME = "Android.InputDevice.Mouse.Active";
+    private static final String KEYBOARD_CONNECTION_HISTOGRAM_NAME =
+            "Android.InputDevice.Keyboard.Active";
+    private static final String MOUSE_CONNECTION_HISTOGRAM_NAME =
+            "Android.InputDevice.Mouse.Active";
 
     // Map to store the <deviceId, InputDevice.SOURCE*> information for an active/connected device.
     private final ArrayMap<Integer, Integer> mActiveDeviceMap = new ArrayMap<>();

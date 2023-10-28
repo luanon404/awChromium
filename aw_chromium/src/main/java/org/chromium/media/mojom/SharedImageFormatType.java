@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class SharedImageFormatType {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({SharedImageFormatType.LEGACY, SharedImageFormatType.SHARED_IMAGE_FORMAT, SharedImageFormatType.SHARED_IMAGE_FORMAT_EXTERNAL_SAMPLER})
-    public @interface EnumType {
-    }
+        SharedImageFormatType.LEGACY,
+        SharedImageFormatType.SHARED_IMAGE_FORMAT,
+        SharedImageFormatType.SHARED_IMAGE_FORMAT_EXTERNAL_SAMPLER})
+    public @interface EnumType {}
 
     public static final int LEGACY = 0;
     public static final int SHARED_IMAGE_FORMAT = 1;
@@ -38,9 +40,8 @@ public final class SharedImageFormatType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private SharedImageFormatType() {
-    }
+    private SharedImageFormatType() {}
 }

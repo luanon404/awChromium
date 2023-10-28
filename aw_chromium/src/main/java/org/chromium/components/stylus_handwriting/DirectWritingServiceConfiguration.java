@@ -26,10 +26,14 @@ class DirectWritingServiceConfiguration {
     private int mHorizontalSlopPx = DEFAULT_HORIZONTAL_SLOP_PX;
 
     void update(Bundle bundle) {
-        mDefaultHideDwToolbarDelayMs = bundle.getLong(KEY_BUNDLE_CONFIG_HIDE_DELAY, DEFAULT_HIDE_DW_TOOLBAR_DELAY_MS);
-        mDefaultKeepWritingDelayMs = bundle.getLong(KEY_BUNDLE_CONFIG_KEEP_WRITING_DELAY, DEFAULT_KEEP_WRITING_DELAY_MS);
-        mVerticalSlopPx = bundle.getInt(KEY_BUNDLE_CONFIG_TRIGGER_VERTICAL_SPACE, DEFAULT_VERTICAL_SLOP_PX);
-        mHorizontalSlopPx = bundle.getInt(KEY_BUNDLE_CONFIG_TRIGGER_HORIZONTAL_SPACE_DEFAULT, DEFAULT_HORIZONTAL_SLOP_PX);
+        mDefaultHideDwToolbarDelayMs =
+                bundle.getLong(KEY_BUNDLE_CONFIG_HIDE_DELAY, DEFAULT_HIDE_DW_TOOLBAR_DELAY_MS);
+        mDefaultKeepWritingDelayMs =
+                bundle.getLong(KEY_BUNDLE_CONFIG_KEEP_WRITING_DELAY, DEFAULT_KEEP_WRITING_DELAY_MS);
+        mVerticalSlopPx =
+                bundle.getInt(KEY_BUNDLE_CONFIG_TRIGGER_VERTICAL_SPACE, DEFAULT_VERTICAL_SLOP_PX);
+        mHorizontalSlopPx = bundle.getInt(
+                KEY_BUNDLE_CONFIG_TRIGGER_HORIZONTAL_SPACE_DEFAULT, DEFAULT_HORIZONTAL_SLOP_PX);
     }
 
     long getHideDwToolbarDelayMs() {

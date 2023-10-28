@@ -23,23 +23,27 @@ public class DynamicResourceLoader extends ResourceLoader {
      */
     private static class DynamicResourceHolder {
         private final DynamicResource mDynamicResource;
+        private final Callback<Resource> mCallback;
 
         public DynamicResourceHolder(DynamicResource dynamicResource, Callback<Resource> callback) {
             mDynamicResource = dynamicResource;
-            mDynamicResource.addOnResourceReadyCallback(callback);
+            mCallback = callback;
+            mDynamicResource.addOnResourceReadyCallback(mCallback);
         }
 
         DynamicResource getDynamicResource() {
             return mDynamicResource;
         }
 
+        void destroy() {
+            mDynamicResource.removeOnResourceReadyCallback(mCallback);
+        }
     }
 
     private final SparseArray<DynamicResourceHolder> mDynamicResourceHolders = new SparseArray<>();
 
     /**
      * Builds a {@link DynamicResourceLoader} instance.
-     *
      * @param resourceType The resource type this loader is responsible for loading.
      * @param callback     A {@link ResourceLoaderCallback} to be notified when the dynamic resource
      *                     has changed.  The callback will only be notified if
@@ -50,9 +54,32 @@ public class DynamicResourceLoader extends ResourceLoader {
     }
 
     /**
+     * Registers a {@link DynamicResource} to be tracked and exposed by this class.
+     * @param resId The Android id to use.  This should be an actual Android id (R.id.some_id).
+     * @param asyncDynamicResource The {@link DynamicResource} to track and expose.
+     */
+    public void registerResource(int resId, DynamicResource asyncDynamicResource) {
+        assert mDynamicResourceHolders.get(resId) == null;
+        DynamicResourceHolder dynamicResourceHolder = new DynamicResourceHolder(
+                asyncDynamicResource, (resource) -> notifyLoadFinished(resId, resource));
+        mDynamicResourceHolders.put(resId, dynamicResourceHolder);
+    }
+
+    /**
+     * Unregisters a {@link DynamicResource} specified by {@code resId}.
+     * @param resId The Android id representing the {@link DynamicResource}.
+     */
+    public void unregisterResource(int resId) {
+        DynamicResourceHolder dynamicResourceHolder = mDynamicResourceHolders.get(resId);
+        if (dynamicResourceHolder == null) return;
+        mDynamicResourceHolders.remove(resId);
+        dynamicResourceHolder.destroy();
+        notifyResourceUnregistered(resId);
+    }
+
+    /**
      * Called when a {@link DynamicResource} was requested.  This will notify the
      * {@link ResourceLoaderCallback} if the resource has new contents.
-     *
      * @param resId The Android id representing the {@link DynamicResource}.
      */
     @Override

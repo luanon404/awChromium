@@ -17,22 +17,20 @@ public interface MessagePort {
     /**
      * The message callback for receiving messages.
      */
-    interface MessageCallback {
+    public interface MessageCallback {
         /**
          * Sent when the associated {@link MessagePort} gets a postMessage.
-         *
-         * @param messagePayload The message payload that was received.
-         * @param sentPorts      The {@link MessagePort}s that were sent if any.
+         * @param messagePayload   The message payload that was received.
+         * @param sentPorts The {@link MessagePort}s that were sent if any.
          */
         void onMessage(MessagePayload messagePayload, MessagePort[] sentPorts);
     }
 
     /**
      * Called to create an entangled pair of ports.
-     *
      * @return An array of a pair of{@link MessagePort} instances.
      */
-    static MessagePort[] createPair() {
+    public static MessagePort[] createPair() {
         return AppWebMessagePort.createPair();
     }
 
@@ -48,7 +46,7 @@ public interface MessagePort {
 
     /**
      * @return Whether the port has been transferred using
-     * {@link MessagePort#postMessage(MessagePayload, MessagePort[])} before.
+     *         {@link MessagePort#postMessage(MessagePayload, MessagePort[])} before.
      */
     boolean isTransferred();
 
@@ -61,16 +59,15 @@ public interface MessagePort {
      * Sets the handler and message callback to be used for the messages received. If the given
      * {@link Handler} is not null, then the callback is received on the handler thread, if not
      * it is on UI thread.
-     * <p>
+     *
      * See {@link MessagePort.MessageCallback}
      */
     void setMessageCallback(MessageCallback messageCallback, Handler handler);
 
     /**
      * Send a postMessage request through this port to its designated receiving end.
-     *
-     * @param messagePayload The message payload to be sent.
-     * @param sentPorts      The ports to be transferred.
+     * @param messagePayload   The message payload to be sent.
+     * @param sentPorts The ports to be transferred.
      */
     void postMessage(MessagePayload messagePayload, MessagePort[] sentPorts);
 }

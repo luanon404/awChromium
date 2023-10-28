@@ -3,61 +3,80 @@
 //
 package org.chromium.content.browser;
 
-import org.chromium.content_public.browser.WebContents;
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.os.SystemClock;
+import android.view.InputDevice;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
+import androidx.annotation.VisibleForTesting;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.UserData;
+import org.chromium.content.browser.input.ImeAdapterImpl;
+import org.chromium.content.browser.webcontents.WebContentsImpl;
+import org.chromium.content.browser.webcontents.WebContentsImpl.UserDataFactory;
+import org.chromium.content_public.browser.ViewEventSink.InternalAccessDelegate;
+import org.chromium.content_public.browser.WebContents;
+import org.chromium.ui.MotionEventUtils;
+import org.chromium.ui.base.EventForwarder;
 
 @CheckDiscard("crbug.com/993421")
 class ContentUiEventHandlerJni implements ContentUiEventHandler.Natives {
-    private static ContentUiEventHandler.Natives testInstance;
+  private static ContentUiEventHandler.Natives testInstance;
 
-    public static final JniStaticTestMocker<ContentUiEventHandler.Natives> TEST_HOOKS = new JniStaticTestMocker<ContentUiEventHandler.Natives>() {
-        @Override
-        public void setInstanceForTesting(ContentUiEventHandler.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<ContentUiEventHandler.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<ContentUiEventHandler.Natives>() {
     @Override
-    public void cancelFling(long nativeContentUiEventHandler, ContentUiEventHandler caller, long timeMs) {
-        GEN_JNI.org_chromium_content_browser_ContentUiEventHandler_cancelFling(nativeContentUiEventHandler, caller, timeMs);
+    public void setInstanceForTesting(ContentUiEventHandler.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public long init(ContentUiEventHandler caller, WebContents webContents) {
-        return GEN_JNI.org_chromium_content_browser_ContentUiEventHandler_init(caller, webContents);
-    }
+  @Override
+  public void cancelFling(long nativeContentUiEventHandler, ContentUiEventHandler caller, long timeMs) {
+    GEN_JNI.org_chromium_content_browser_ContentUiEventHandler_cancelFling(nativeContentUiEventHandler, caller, timeMs);
+  }
 
-    @Override
-    public void sendMouseEvent(long nativeContentUiEventHandler, ContentUiEventHandler caller, long timeNs, int action, float x, float y, int pointerId, float pressure, float orientation, float tilt, int changedButton, int buttonState, int metaState, int toolType) {
-        GEN_JNI.org_chromium_content_browser_ContentUiEventHandler_sendMouseEvent(nativeContentUiEventHandler, caller, timeNs, action, x, y, pointerId, pressure, orientation, tilt, changedButton, buttonState, metaState, toolType);
-    }
+  @Override
+  public long init(ContentUiEventHandler caller, WebContents webContents) {
+    return (long) GEN_JNI.org_chromium_content_browser_ContentUiEventHandler_init(caller, webContents);
+  }
 
-    @Override
-    public void sendMouseWheelEvent(long nativeContentUiEventHandler, ContentUiEventHandler caller, long timeNs, float x, float y, float ticksX, float ticksY) {
-        GEN_JNI.org_chromium_content_browser_ContentUiEventHandler_sendMouseWheelEvent(nativeContentUiEventHandler, caller, timeNs, x, y, ticksX, ticksY);
-    }
+  @Override
+  public void sendMouseEvent(long nativeContentUiEventHandler, ContentUiEventHandler caller, long timeNs, int action, float x, float y, int pointerId, float pressure, float orientation, float tilt, int changedButton, int buttonState, int metaState, int toolType) {
+    GEN_JNI.org_chromium_content_browser_ContentUiEventHandler_sendMouseEvent(nativeContentUiEventHandler, caller, timeNs, action, x, y, pointerId, pressure, orientation, tilt, changedButton, buttonState, metaState, toolType);
+  }
 
-    @Override
-    public void sendScrollEvent(long nativeContentUiEventHandler, ContentUiEventHandler caller, long timeMs, float deltaX, float deltaY) {
-        GEN_JNI.org_chromium_content_browser_ContentUiEventHandler_sendScrollEvent(nativeContentUiEventHandler, caller, timeMs, deltaX, deltaY);
-    }
+  @Override
+  public void sendMouseWheelEvent(long nativeContentUiEventHandler, ContentUiEventHandler caller, long timeNs, float x, float y, float ticksX, float ticksY) {
+    GEN_JNI.org_chromium_content_browser_ContentUiEventHandler_sendMouseWheelEvent(nativeContentUiEventHandler, caller, timeNs, x, y, ticksX, ticksY);
+  }
 
-    public static ContentUiEventHandler.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of ContentUiEventHandler.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new ContentUiEventHandlerJni();
+  @Override
+  public void sendScrollEvent(long nativeContentUiEventHandler, ContentUiEventHandler caller, long timeMs, float deltaX, float deltaY) {
+    GEN_JNI.org_chromium_content_browser_ContentUiEventHandler_sendScrollEvent(nativeContentUiEventHandler, caller, timeMs, deltaX, deltaY);
+  }
+
+  public static ContentUiEventHandler.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of ContentUiEventHandler.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new ContentUiEventHandlerJni();
+  }
 }

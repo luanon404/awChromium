@@ -18,8 +18,7 @@ public abstract class PolicyProvider {
     private CombinedPolicyProvider mCombinedPolicyProvider;
     private int mSource = -1;
 
-    protected PolicyProvider() {
-    }
+    protected PolicyProvider() {}
 
     public void notifySettingsAvailable(Bundle settings) {
         ThreadUtils.assertOnUiThread();
@@ -40,15 +39,14 @@ public abstract class PolicyProvider {
     /**
      * Register the PolicyProvider for receiving policy changes.
      */
-    protected void startListeningForPolicyChanges() {
-    }
+    protected void startListeningForPolicyChanges() {}
 
     /**
      * Called by the {@link CombinedPolicyProvider} to correctly hook it with the Policy system.
      *
      * @param combinedPolicyProvider reference to the CombinedPolicyProvider to be used like a
-     *                               delegate.
-     * @param source                 tags the PolicyProvider with a source.
+     *            delegate.
+     * @param source tags the PolicyProvider with a source.
      */
     final void setManagerAndSource(CombinedPolicyProvider combinedPolicyProvider, int source) {
         assert mSource < 0;
@@ -60,9 +58,6 @@ public abstract class PolicyProvider {
         Log.i(TAG, "#setManagerAndSource() " + mSource);
     }
 
-    /**
-     * Called when the provider is unregistered
-     */
-    public void destroy() {
-    }
+    /** Called when the provider is unregistered */
+    public void destroy() {}
 }

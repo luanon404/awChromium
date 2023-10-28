@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class CookieAccessSemantics {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({CookieAccessSemantics.UNKNOWN, CookieAccessSemantics.NONLEGACY, CookieAccessSemantics.LEGACY})
-    public @interface EnumType {
-    }
+        CookieAccessSemantics.UNKNOWN,
+        CookieAccessSemantics.NONLEGACY,
+        CookieAccessSemantics.LEGACY})
+    public @interface EnumType {}
 
     public static final int UNKNOWN = -1;
     public static final int NONLEGACY = 0;
@@ -38,9 +40,8 @@ public final class CookieAccessSemantics {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private CookieAccessSemantics() {
-    }
+    private CookieAccessSemantics() {}
 }

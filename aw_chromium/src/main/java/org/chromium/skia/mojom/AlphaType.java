@@ -17,10 +17,13 @@ import androidx.annotation.IntDef;
 
 public final class AlphaType {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({AlphaType.UNKNOWN, AlphaType.ALPHA_TYPE_OPAQUE, AlphaType.PREMUL, AlphaType.UNPREMUL})
-    public @interface EnumType {
-    }
+        AlphaType.UNKNOWN,
+        AlphaType.ALPHA_TYPE_OPAQUE,
+        AlphaType.PREMUL,
+        AlphaType.UNPREMUL})
+    public @interface EnumType {}
 
     public static final int UNKNOWN = 0;
     public static final int ALPHA_TYPE_OPAQUE = 1;
@@ -40,12 +43,11 @@ public final class AlphaType {
     }
 
     public static int toKnownValue(int value) {
-        if (isKnownValue(value)) {
-            return value;
-        }
-        return DEFAULT_VALUE;
+      if (isKnownValue(value)) {
+        return value;
+      }
+      return DEFAULT_VALUE;
     }
 
-    private AlphaType() {
-    }
+    private AlphaType() {}
 }

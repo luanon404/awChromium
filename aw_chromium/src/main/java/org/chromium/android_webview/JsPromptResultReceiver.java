@@ -12,7 +12,6 @@ package org.chromium.android_webview;
  * confirm() or cancel() to allow processing to continue.
  */
 public interface JsPromptResultReceiver {
-    void confirm(String result);
-
-    void cancel();
+    public void confirm(String result);
+    public void cancel();
 }

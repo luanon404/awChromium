@@ -1,3 +1,4 @@
+
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -14,13 +15,17 @@ import androidx.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@IntDef({AnrSkippedReason.FILESYSTEM_READ_FAILURE, AnrSkippedReason.FILESYSTEM_WRITE_FAILURE, AnrSkippedReason.MISSING_VERSION, AnrSkippedReason.ONLY_MISSING_NATIVE, AnrSkippedReason.NOT_SKIPPED, AnrSkippedReason.MAX_VALUE})
+@IntDef({
+    AnrSkippedReason.FILESYSTEM_READ_FAILURE, AnrSkippedReason.FILESYSTEM_WRITE_FAILURE,
+    AnrSkippedReason.MISSING_VERSION, AnrSkippedReason.ONLY_MISSING_NATIVE,
+    AnrSkippedReason.NOT_SKIPPED, AnrSkippedReason.MAX_VALUE
+})
 @Retention(RetentionPolicy.SOURCE)
 public @interface AnrSkippedReason {
-    int FILESYSTEM_READ_FAILURE = 0;
-    int FILESYSTEM_WRITE_FAILURE = 1;
-    int MISSING_VERSION = 2;
-    int ONLY_MISSING_NATIVE = 3;
-    int NOT_SKIPPED = 4;
-    int MAX_VALUE = NOT_SKIPPED;
+  int FILESYSTEM_READ_FAILURE = 0;
+  int FILESYSTEM_WRITE_FAILURE = 1;
+  int MISSING_VERSION = 2;
+  int ONLY_MISSING_NATIVE = 3;
+  int NOT_SKIPPED = 4;
+  int MAX_VALUE = NOT_SKIPPED;
 }

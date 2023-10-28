@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class OptionalBool {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({OptionalBool.UNSET, OptionalBool.FALSE, OptionalBool.TRUE})
-    public @interface EnumType {
-    }
+        OptionalBool.UNSET,
+        OptionalBool.FALSE,
+        OptionalBool.TRUE})
+    public @interface EnumType {}
 
     public static final int UNSET = 0;
     public static final int FALSE = 1;
@@ -38,9 +40,8 @@ public final class OptionalBool {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private OptionalBool() {
-    }
+    private OptionalBool() {}
 }

@@ -83,7 +83,8 @@ class AudioDeviceSelectorPostS extends AudioDeviceSelector {
     @Override
     public boolean isSpeakerphoneOn() {
         AudioDeviceInfo currentDevice = mAudioManager.getCommunicationDevice();
-        return currentDevice != null && currentDevice.getType() == AudioDeviceInfo.TYPE_BUILTIN_SPEAKER;
+        return currentDevice != null
+                && currentDevice.getType() == AudioDeviceInfo.TYPE_BUILTIN_SPEAKER;
     }
 
     @Override
@@ -103,7 +104,8 @@ class AudioDeviceSelectorPostS extends AudioDeviceSelector {
 
     @Override
     public boolean[] getAvailableDevices_Locked() {
-        List<AudioDeviceInfo> communicationDevices = mAudioManager.getAvailableCommunicationDevices();
+        List<AudioDeviceInfo> communicationDevices =
+                mAudioManager.getAvailableCommunicationDevices();
 
         boolean[] availableDevices = new boolean[Devices.DEVICE_COUNT];
 
@@ -151,7 +153,8 @@ class AudioDeviceSelectorPostS extends AudioDeviceSelector {
     protected void setAudioDevice(int deviceId) {
         if (!DeviceHelpers.isDeviceValid(deviceId)) return;
 
-        AudioDeviceInfo targetDevice = getMatchingCommunicationDevice(getTargetTypesFromId(deviceId));
+        AudioDeviceInfo targetDevice =
+                getMatchingCommunicationDevice(getTargetTypesFromId(deviceId));
 
         if (targetDevice != null) {
             boolean result = mAudioManager.setCommunicationDevice(targetDevice);

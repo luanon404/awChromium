@@ -13,15 +13,20 @@
 
 package org.chromium.viz.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface LayerContextClient extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends LayerContextClient, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends LayerContextClient, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<LayerContextClient, LayerContextClient.Proxy> MANAGER = LayerContextClient_Internal.MANAGER;
 
-    void onRequestCommitForFrame(BeginFrameArgs args);
+    void onRequestCommitForFrame(
+BeginFrameArgs args);
 
 
 }

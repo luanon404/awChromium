@@ -13,15 +13,22 @@
 
 package org.chromium.viz.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class ViewTransitionElementResourceId extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 16;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public int id;
 
     private ViewTransitionElementResourceId(int version) {
         super(STRUCT_SIZE, version);
+    }
+
+    public ViewTransitionElementResourceId() {
+        this(0);
     }
 
     public static ViewTransitionElementResourceId deserialize(org.chromium.mojo.bindings.Message message) {
@@ -34,9 +41,11 @@ public final class ViewTransitionElementResourceId extends org.chromium.mojo.bin
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static ViewTransitionElementResourceId deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
+    @SuppressWarnings("unchecked")
     public static ViewTransitionElementResourceId decode(org.chromium.mojo.bindings.Decoder decoder0) {
         if (decoder0 == null) {
             return null;
@@ -47,10 +56,10 @@ public final class ViewTransitionElementResourceId extends org.chromium.mojo.bin
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new ViewTransitionElementResourceId(elementsOrVersion);
-            {
-
+                {
+                    
                 result.id = decoder0.readInt(8);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -58,10 +67,11 @@ public final class ViewTransitionElementResourceId extends org.chromium.mojo.bin
         return result;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    protected void encode(org.chromium.mojo.bindings.Encoder encoder) {
+    protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.id, 8);
     }
 }

@@ -13,10 +13,13 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class AudioProcessingStats extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 32;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(32, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(32, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public boolean hasEchoReturnLoss;
     public double echoReturnLoss;
@@ -41,7 +44,8 @@ public final class AudioProcessingStats extends org.chromium.mojo.bindings.Struc
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static AudioProcessingStats deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -55,22 +59,22 @@ public final class AudioProcessingStats extends org.chromium.mojo.bindings.Struc
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new AudioProcessingStats(elementsOrVersion);
-            {
-
+                {
+                    
                 result.hasEchoReturnLoss = decoder0.readBoolean(8, 0);
-            }
-            {
-
+                }
+                {
+                    
                 result.hasEchoReturnLossEnhancement = decoder0.readBoolean(8, 1);
-            }
-            {
-
+                }
+                {
+                    
                 result.echoReturnLoss = decoder0.readDouble(16);
-            }
-            {
-
+                }
+                {
+                    
                 result.echoReturnLossEnhancement = decoder0.readDouble(24);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -82,13 +86,13 @@ public final class AudioProcessingStats extends org.chromium.mojo.bindings.Struc
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.hasEchoReturnLoss, 8, 0);
-
+        
         encoder0.encode(this.hasEchoReturnLossEnhancement, 8, 1);
-
+        
         encoder0.encode(this.echoReturnLoss, 16);
-
+        
         encoder0.encode(this.echoReturnLossEnhancement, 24);
     }
 }

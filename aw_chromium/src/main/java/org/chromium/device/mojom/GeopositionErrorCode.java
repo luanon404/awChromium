@@ -17,10 +17,11 @@ import androidx.annotation.IntDef;
 
 public final class GeopositionErrorCode {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({GeopositionErrorCode.PERMISSION_DENIED, GeopositionErrorCode.POSITION_UNAVAILABLE})
-    public @interface EnumType {
-    }
+        GeopositionErrorCode.PERMISSION_DENIED,
+        GeopositionErrorCode.POSITION_UNAVAILABLE})
+    public @interface EnumType {}
 
     public static final int PERMISSION_DENIED = 1;
     public static final int POSITION_UNAVAILABLE = 2;
@@ -37,9 +38,8 @@ public final class GeopositionErrorCode {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private GeopositionErrorCode() {
-    }
+    private GeopositionErrorCode() {}
 }

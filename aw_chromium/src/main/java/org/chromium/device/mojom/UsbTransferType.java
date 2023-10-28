@@ -17,10 +17,13 @@ import androidx.annotation.IntDef;
 
 public final class UsbTransferType {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({UsbTransferType.CONTROL, UsbTransferType.ISOCHRONOUS, UsbTransferType.BULK, UsbTransferType.INTERRUPT})
-    public @interface EnumType {
-    }
+        UsbTransferType.CONTROL,
+        UsbTransferType.ISOCHRONOUS,
+        UsbTransferType.BULK,
+        UsbTransferType.INTERRUPT})
+    public @interface EnumType {}
 
     public static final int CONTROL = 0;
     public static final int ISOCHRONOUS = 1;
@@ -39,9 +42,8 @@ public final class UsbTransferType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private UsbTransferType() {
-    }
+    private UsbTransferType() {}
 }

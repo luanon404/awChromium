@@ -13,51 +13,67 @@
 
 package org.chromium.viz.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface CompositorFrameSink extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends CompositorFrameSink, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends CompositorFrameSink, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<CompositorFrameSink, CompositorFrameSink.Proxy> MANAGER = CompositorFrameSink_Internal.MANAGER;
 
-    void setNeedsBeginFrame(boolean needsBeginFrame);
+    void setNeedsBeginFrame(
+boolean needsBeginFrame);
 
 
-    void setWantsAnimateOnlyBeginFrames();
+    void setWantsAnimateOnlyBeginFrames(
+);
 
 
-    void setWantsBeginFrameAcks();
+    void setWantsBeginFrameAcks(
+);
 
 
-    void setAutoNeedsBeginFrame();
+    void setAutoNeedsBeginFrame(
+);
 
 
-    void submitCompositorFrame(LocalSurfaceId localSurfaceId, CompositorFrame frame, HitTestRegionList hitTestRegionList, long submitTime);
+    void submitCompositorFrame(
+LocalSurfaceId localSurfaceId, CompositorFrame frame, HitTestRegionList hitTestRegionList, long submitTime);
 
 
-    void submitCompositorFrameSync(LocalSurfaceId localSurfaceId, CompositorFrame frame, HitTestRegionList hitTestRegionList, long submitTime, SubmitCompositorFrameSync_Response callback);
+    void submitCompositorFrameSync(
+LocalSurfaceId localSurfaceId, CompositorFrame frame, HitTestRegionList hitTestRegionList, long submitTime, 
+SubmitCompositorFrameSync_Response callback);
 
-    interface SubmitCompositorFrameSync_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<ReturnedResource[]> {
-    }
-
-
-    void didNotProduceFrame(BeginFrameAck ack);
+    interface SubmitCompositorFrameSync_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<ReturnedResource[]> { }
 
 
-    void didAllocateSharedBitmap(org.chromium.mojo_base.mojom.ReadOnlySharedMemoryRegion region, org.chromium.gpu.mojom.Mailbox id);
+    void didNotProduceFrame(
+BeginFrameAck ack);
 
 
-    void didDeleteSharedBitmap(org.chromium.gpu.mojom.Mailbox id);
+    void didAllocateSharedBitmap(
+org.chromium.mojo_base.mojom.ReadOnlySharedMemoryRegion region, org.chromium.gpu.mojom.Mailbox id);
 
 
-    void initializeCompositorFrameSinkType(int type);
+    void didDeleteSharedBitmap(
+org.chromium.gpu.mojom.Mailbox id);
 
 
-    void bindLayerContext(PendingLayerContext context);
+    void initializeCompositorFrameSinkType(
+int type);
 
 
-    void setThreadIds(int[] threadIds);
+    void bindLayerContext(
+PendingLayerContext context);
+
+
+    void setThreadIds(
+int[] threadIds);
 
 
 }

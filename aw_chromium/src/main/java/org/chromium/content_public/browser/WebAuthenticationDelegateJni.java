@@ -4,44 +4,54 @@
 package org.chromium.content_public.browser;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.util.Pair;
+import androidx.annotation.Nullable;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.Callback;
 
 @CheckDiscard("crbug.com/993421")
 class WebAuthenticationDelegateJni implements WebAuthenticationDelegate.Natives {
-    private static WebAuthenticationDelegate.Natives testInstance;
+  private static WebAuthenticationDelegate.Natives testInstance;
 
-    public static final JniStaticTestMocker<WebAuthenticationDelegate.Natives> TEST_HOOKS = new JniStaticTestMocker<WebAuthenticationDelegate.Natives>() {
-        @Override
-        public void setInstanceForTesting(WebAuthenticationDelegate.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<WebAuthenticationDelegate.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<WebAuthenticationDelegate.Natives>() {
     @Override
-    public WebAuthenticationDelegate.IntentSender getIntentSender(long delegatePtr, WebContents webContents) {
-        return (WebAuthenticationDelegate.IntentSender) GEN_JNI.org_chromium_content_1public_browser_WebAuthenticationDelegate_getIntentSender(delegatePtr, webContents);
+    public void setInstanceForTesting(WebAuthenticationDelegate.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public long getNativeDelegate() {
-        return (long) GEN_JNI.org_chromium_content_1public_browser_WebAuthenticationDelegate_getNativeDelegate();
-    }
+  @Override
+  public WebAuthenticationDelegate.IntentSender getIntentSender(long delegatePtr, WebContents webContents) {
+    return (WebAuthenticationDelegate.IntentSender) GEN_JNI.org_chromium_content_1public_browser_WebAuthenticationDelegate_getIntentSender(delegatePtr, webContents);
+  }
 
-    public static WebAuthenticationDelegate.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of WebAuthenticationDelegate.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new WebAuthenticationDelegateJni();
+  @Override
+  public long getNativeDelegate() {
+    return (long) GEN_JNI.org_chromium_content_1public_browser_WebAuthenticationDelegate_getNativeDelegate();
+  }
+
+  public static WebAuthenticationDelegate.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of WebAuthenticationDelegate.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new WebAuthenticationDelegateJni();
+  }
 }

@@ -14,7 +14,8 @@ import java.util.Locale;
 /**
  * Implementation of SystemCaptioningBridge that uses CaptioningManager.
  */
-public class CaptioningBridge extends CaptioningManager.CaptioningChangeListener implements SystemCaptioningBridge {
+public class CaptioningBridge
+        extends CaptioningManager.CaptioningChangeListener implements SystemCaptioningBridge {
     private final CaptioningChangeDelegate mCaptioningChangeDelegate;
     private final CaptioningManager mCaptioningManager;
     private static CaptioningBridge sInstance;
@@ -28,7 +29,9 @@ public class CaptioningBridge extends CaptioningManager.CaptioningChangeListener
 
     private CaptioningBridge() {
         mCaptioningChangeDelegate = new CaptioningChangeDelegate();
-        mCaptioningManager = (CaptioningManager) ContextUtils.getApplicationContext().getSystemService(Context.CAPTIONING_SERVICE);
+        mCaptioningManager =
+                (CaptioningManager) ContextUtils.getApplicationContext().getSystemService(
+                        Context.CAPTIONING_SERVICE);
     }
 
     @Override
@@ -59,7 +62,8 @@ public class CaptioningBridge extends CaptioningManager.CaptioningChangeListener
         mCaptioningChangeDelegate.onEnabledChanged(mCaptioningManager.isEnabled());
         mCaptioningChangeDelegate.onFontScaleChanged(mCaptioningManager.getFontScale());
         mCaptioningChangeDelegate.onLocaleChanged(mCaptioningManager.getLocale());
-        mCaptioningChangeDelegate.onUserStyleChanged(getCaptioningStyleFrom(mCaptioningManager.getUserStyle()));
+        mCaptioningChangeDelegate.onUserStyleChanged(
+                getCaptioningStyleFrom(mCaptioningManager.getUserStyle()));
     }
 
     @Override

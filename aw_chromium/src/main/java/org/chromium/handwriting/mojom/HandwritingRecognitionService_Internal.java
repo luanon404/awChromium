@@ -13,9 +13,13 @@
 
 package org.chromium.handwriting.mojom;
 
+import androidx.annotation.IntDef;
+
+
 class HandwritingRecognitionService_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<HandwritingRecognitionService, HandwritingRecognitionService.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<HandwritingRecognitionService, HandwritingRecognitionService.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<HandwritingRecognitionService, HandwritingRecognitionService.Proxy> MANAGER =
+            new org.chromium.mojo.bindings.Interface.Manager<HandwritingRecognitionService, HandwritingRecognitionService.Proxy>() {
 
         @Override
         public String getName() {
@@ -24,11 +28,12 @@ class HandwritingRecognitionService_Internal {
 
         @Override
         public int getVersion() {
-            return 0;
+          return 0;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -39,7 +44,7 @@ class HandwritingRecognitionService_Internal {
 
         @Override
         public HandwritingRecognitionService[] buildArray(int size) {
-            return new HandwritingRecognitionService[size];
+          return new HandwritingRecognitionService[size];
         }
     };
 
@@ -51,33 +56,52 @@ class HandwritingRecognitionService_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements HandwritingRecognitionService.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core,
+              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void createHandwritingRecognizer(HandwritingModelConstraint constraint, CreateHandwritingRecognizer_Response callback) {
+        public void createHandwritingRecognizer(
+HandwritingModelConstraint constraint, 
+CreateHandwritingRecognizer_Response callback) {
 
             HandwritingRecognitionServiceCreateHandwritingRecognizerParams _message = new HandwritingRecognitionServiceCreateHandwritingRecognizerParams();
 
             _message.constraint = constraint;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(CREATE_HANDWRITING_RECOGNIZER_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new HandwritingRecognitionServiceCreateHandwritingRecognizerResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    CREATE_HANDWRITING_RECOGNIZER_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new HandwritingRecognitionServiceCreateHandwritingRecognizerResponseParamsForwardToCallback(callback));
 
         }
 
 
         @Override
-        public void queryHandwritingRecognizer(HandwritingModelConstraint constraint, QueryHandwritingRecognizer_Response callback) {
+        public void queryHandwritingRecognizer(
+HandwritingModelConstraint constraint, 
+QueryHandwritingRecognizer_Response callback) {
 
             HandwritingRecognitionServiceQueryHandwritingRecognizerParams _message = new HandwritingRecognitionServiceQueryHandwritingRecognizerParams();
 
             _message.constraint = constraint;
 
 
-            getProxyHandler().getMessageReceiver().acceptWithResponder(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(QUERY_HANDWRITING_RECOGNIZER_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG, 0)), new HandwritingRecognitionServiceQueryHandwritingRecognizerResponseParamsForwardToCallback(callback));
+            getProxyHandler().getMessageReceiver().acceptWithResponder(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    QUERY_HANDWRITING_RECOGNIZER_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG,
+                                    0)),
+                    new HandwritingRecognitionServiceQueryHandwritingRecognizerResponseParamsForwardToCallback(callback));
 
         }
 
@@ -93,7 +117,8 @@ class HandwritingRecognitionService_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -102,17 +127,22 @@ class HandwritingRecognitionService_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(HandwritingRecognitionService_Internal.MANAGER, messageWithHeader);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
+                                HandwritingRecognitionService_Internal.MANAGER, messageWithHeader);
+
+
+
+
 
 
                     default:
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -120,7 +150,8 @@ class HandwritingRecognitionService_Internal {
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -129,24 +160,37 @@ class HandwritingRecognitionService_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), HandwritingRecognitionService_Internal.MANAGER, messageWithHeader, receiver);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
+                                getCore(), HandwritingRecognitionService_Internal.MANAGER, messageWithHeader, receiver);
+
+
+
+
+
 
 
                     case CREATE_HANDWRITING_RECOGNIZER_ORDINAL: {
 
-                        HandwritingRecognitionServiceCreateHandwritingRecognizerParams data = HandwritingRecognitionServiceCreateHandwritingRecognizerParams.deserialize(messageWithHeader.getPayload());
+                        HandwritingRecognitionServiceCreateHandwritingRecognizerParams data =
+                                HandwritingRecognitionServiceCreateHandwritingRecognizerParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().createHandwritingRecognizer(data.constraint, new HandwritingRecognitionServiceCreateHandwritingRecognizerResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
                     }
 
 
+
+
+
+
+
                     case QUERY_HANDWRITING_RECOGNIZER_ORDINAL: {
 
-                        HandwritingRecognitionServiceQueryHandwritingRecognizerParams data = HandwritingRecognitionServiceQueryHandwritingRecognizerParams.deserialize(messageWithHeader.getPayload());
+                        HandwritingRecognitionServiceQueryHandwritingRecognizerParams data =
+                                HandwritingRecognitionServiceQueryHandwritingRecognizerParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().queryHandwritingRecognizer(data.constraint, new HandwritingRecognitionServiceQueryHandwritingRecognizerResponseParamsProxyToResponder(getCore(), receiver, header.getRequestId()));
                         return true;
@@ -157,17 +201,18 @@ class HandwritingRecognitionService_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class HandwritingRecognitionServiceCreateHandwritingRecognizerParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public HandwritingModelConstraint constraint;
 
@@ -189,7 +234,8 @@ class HandwritingRecognitionService_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static HandwritingRecognitionServiceCreateHandwritingRecognizerParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -203,11 +249,11 @@ class HandwritingRecognitionService_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new HandwritingRecognitionServiceCreateHandwritingRecognizerParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.constraint = HandwritingModelConstraint.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -219,16 +265,18 @@ class HandwritingRecognitionService_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.constraint, 8, false);
         }
     }
 
 
+
+    
     static final class HandwritingRecognitionServiceCreateHandwritingRecognizerResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 24;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int result;
         public HandwritingRecognizer handwritingRecognizer;
@@ -251,7 +299,8 @@ class HandwritingRecognitionService_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static HandwritingRecognitionServiceCreateHandwritingRecognizerResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -265,16 +314,16 @@ class HandwritingRecognitionService_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new HandwritingRecognitionServiceCreateHandwritingRecognizerResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.result = decoder0.readInt(8);
-                    CreateHandwritingRecognizerResult.validate(result.result);
-                    result.result = CreateHandwritingRecognizerResult.toKnownValue(result.result);
-                }
-                {
-
+                        CreateHandwritingRecognizerResult.validate(result.result);
+                        result.result = CreateHandwritingRecognizerResult.toKnownValue(result.result);
+                    }
+                    {
+                        
                     result.handwritingRecognizer = decoder0.readServiceInterface(12, true, HandwritingRecognizer.MANAGER);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -286,14 +335,15 @@ class HandwritingRecognitionService_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.result, 8);
-
+            
             encoder0.encode(this.handwritingRecognizer, 12, true, HandwritingRecognizer.MANAGER);
         }
     }
 
-    static class HandwritingRecognitionServiceCreateHandwritingRecognizerResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class HandwritingRecognitionServiceCreateHandwritingRecognizerResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final HandwritingRecognitionService.CreateHandwritingRecognizer_Response mCallback;
 
         HandwritingRecognitionServiceCreateHandwritingRecognizerResponseParamsForwardToCallback(HandwritingRecognitionService.CreateHandwritingRecognizer_Response callback) {
@@ -303,9 +353,11 @@ class HandwritingRecognitionService_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(CREATE_HANDWRITING_RECOGNIZER_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(CREATE_HANDWRITING_RECOGNIZER_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -325,7 +377,10 @@ class HandwritingRecognitionService_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        HandwritingRecognitionServiceCreateHandwritingRecognizerResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        HandwritingRecognitionServiceCreateHandwritingRecognizerResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -339,16 +394,24 @@ class HandwritingRecognitionService_Internal {
 
             _response.handwritingRecognizer = handwritingRecognizer;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(CREATE_HANDWRITING_RECOGNIZER_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    CREATE_HANDWRITING_RECOGNIZER_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
 
 
+
+    
     static final class HandwritingRecognitionServiceQueryHandwritingRecognizerParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public HandwritingModelConstraint constraint;
 
@@ -370,7 +433,8 @@ class HandwritingRecognitionService_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static HandwritingRecognitionServiceQueryHandwritingRecognizerParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -384,11 +448,11 @@ class HandwritingRecognitionService_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new HandwritingRecognitionServiceQueryHandwritingRecognizerParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, true);
                     result.constraint = HandwritingModelConstraint.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -400,16 +464,18 @@ class HandwritingRecognitionService_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.constraint, 8, true);
         }
     }
 
 
+
+    
     static final class HandwritingRecognitionServiceQueryHandwritingRecognizerResponseParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public QueryHandwritingRecognizerResult result;
 
@@ -431,7 +497,8 @@ class HandwritingRecognitionService_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static HandwritingRecognitionServiceQueryHandwritingRecognizerResponseParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -445,11 +512,11 @@ class HandwritingRecognitionService_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new HandwritingRecognitionServiceQueryHandwritingRecognizerResponseParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, true);
                     result.result = QueryHandwritingRecognizerResult.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -461,12 +528,13 @@ class HandwritingRecognitionService_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.result, 8, true);
         }
     }
 
-    static class HandwritingRecognitionServiceQueryHandwritingRecognizerResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable implements org.chromium.mojo.bindings.MessageReceiver {
+    static class HandwritingRecognitionServiceQueryHandwritingRecognizerResponseParamsForwardToCallback extends org.chromium.mojo.bindings.SideEffectFreeCloseable
+            implements org.chromium.mojo.bindings.MessageReceiver {
         private final HandwritingRecognitionService.QueryHandwritingRecognizer_Response mCallback;
 
         HandwritingRecognitionServiceQueryHandwritingRecognizerResponseParamsForwardToCallback(HandwritingRecognitionService.QueryHandwritingRecognizer_Response callback) {
@@ -476,9 +544,11 @@ class HandwritingRecognitionService_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
-                if (!header.validateHeader(QUERY_HANDWRITING_RECOGNIZER_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
+                if (!header.validateHeader(QUERY_HANDWRITING_RECOGNIZER_ORDINAL,
+                                           org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG)) {
                     return false;
                 }
 
@@ -498,7 +568,10 @@ class HandwritingRecognitionService_Internal {
         private final org.chromium.mojo.bindings.MessageReceiver mMessageReceiver;
         private final long mRequestId;
 
-        HandwritingRecognitionServiceQueryHandwritingRecognizerResponseParamsProxyToResponder(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiver messageReceiver, long requestId) {
+        HandwritingRecognitionServiceQueryHandwritingRecognizerResponseParamsProxyToResponder(
+                org.chromium.mojo.system.Core core,
+                org.chromium.mojo.bindings.MessageReceiver messageReceiver,
+                long requestId) {
             mCore = core;
             mMessageReceiver = messageReceiver;
             mRequestId = requestId;
@@ -510,10 +583,17 @@ class HandwritingRecognitionService_Internal {
 
             _response.result = result;
 
-            org.chromium.mojo.bindings.ServiceMessage _message = _response.serializeWithHeader(mCore, new org.chromium.mojo.bindings.MessageHeader(QUERY_HANDWRITING_RECOGNIZER_ORDINAL, org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG, mRequestId));
+            org.chromium.mojo.bindings.ServiceMessage _message =
+                    _response.serializeWithHeader(
+                            mCore,
+                            new org.chromium.mojo.bindings.MessageHeader(
+                                    QUERY_HANDWRITING_RECOGNIZER_ORDINAL,
+                                    org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_RESPONSE_FLAG,
+                                    mRequestId));
             mMessageReceiver.accept(_message);
         }
     }
+
 
 
 }

@@ -13,21 +13,28 @@
 
 package org.chromium.viz.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface LayerContext extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends LayerContext, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends LayerContext, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<LayerContext, LayerContext.Proxy> MANAGER = LayerContext_Internal.MANAGER;
 
-    void setTargetLocalSurfaceId(LocalSurfaceId id);
+    void setTargetLocalSurfaceId(
+LocalSurfaceId id);
 
 
-    void setVisible(boolean visible);
+    void setVisible(
+boolean visible);
 
 
-    void commit(LayerTreeUpdate update);
+    void commit(
+LayerTreeUpdate update);
 
 
 }

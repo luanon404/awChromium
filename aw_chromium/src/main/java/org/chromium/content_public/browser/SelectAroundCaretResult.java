@@ -16,7 +16,7 @@ public class SelectAroundCaretResult {
 
     /**
      * @return The start offset difference between the extended selection and the initial selection
-     * (caret).
+     *         (caret).
      */
     public int getExtendedStartAdjust() {
         return mExtendedStartAdjust;
@@ -24,7 +24,7 @@ public class SelectAroundCaretResult {
 
     /**
      * @return The end offset difference between the extended selection and the initial selection
-     * (caret).
+     *         (caret).
      */
     public int getExtendedEndAdjust() {
         return mExtendedEndAdjust;
@@ -32,7 +32,7 @@ public class SelectAroundCaretResult {
 
     /**
      * @return The start offset difference between the word selection (regardless of the extended
-     * selection granularity) and the initial selection (caret).
+     *         selection granularity) and the initial selection (caret).
      */
     public int getWordStartAdjust() {
         return mWordStartAdjust;
@@ -40,7 +40,7 @@ public class SelectAroundCaretResult {
 
     /**
      * @return The end offset difference between the word selection (regardless of the extended
-     * selection granularity) and the initial selection (caret).
+     *         selection granularity) and the initial selection (caret).
      */
     public int getWordEndAdjust() {
         return mWordEndAdjust;
@@ -48,17 +48,17 @@ public class SelectAroundCaretResult {
 
     /**
      * Create {@link SelectAroundCaretResult} instance.
-     *
      * @param extendedStartAdjust The start offset difference between the extended selection and the
-     *                            initial selection (caret).
-     * @param extendedEndAdjust   The end offset difference between the extended selection and the
-     *                            initial selection (caret).
-     * @param wordStartAdjust     The start offset difference between the word selection (regardless of
-     *                            the extended selection granularity) and the initial selection (caret).
-     * @param wordEndAdjust       The end offset difference between the word selection (regardless of the
-     *                            extended selection granularity) and the initial selection (caret).
+     *         initial selection (caret).
+     * @param extendedEndAdjust The end offset difference between the extended selection and the
+     *         initial selection (caret).
+     * @param wordStartAdjust The start offset difference between the word selection (regardless of
+     *         the extended selection granularity) and the initial selection (caret).
+     * @param wordEndAdjust The end offset difference between the word selection (regardless of the
+     *         extended selection granularity) and the initial selection (caret).
      */
-    public SelectAroundCaretResult(int extendedStartAdjust, int extendedEndAdjust, int wordStartAdjust, int wordEndAdjust) {
+    public SelectAroundCaretResult(int extendedStartAdjust, int extendedEndAdjust,
+            int wordStartAdjust, int wordEndAdjust) {
         mExtendedStartAdjust = extendedStartAdjust;
         mExtendedEndAdjust = extendedEndAdjust;
         mWordStartAdjust = wordStartAdjust;

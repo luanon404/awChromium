@@ -13,6 +13,8 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 class RendererAudioInputStreamFactoryClient_Internal {
 
@@ -128,7 +130,7 @@ org.chromium.media.mojom.AudioInputStream stream, org.chromium.mojo.bindings.Int
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -159,7 +161,7 @@ org.chromium.media.mojom.AudioInputStream stream, org.chromium.mojo.bindings.Int
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }

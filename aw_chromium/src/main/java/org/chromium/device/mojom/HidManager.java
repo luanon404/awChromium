@@ -13,35 +13,41 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface HidManager extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends HidManager, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends HidManager, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<HidManager, HidManager.Proxy> MANAGER = HidManager_Internal.MANAGER;
 
-    void getDevicesAndSetClient(org.chromium.mojo.bindings.AssociatedInterfaceNotSupported client, GetDevicesAndSetClient_Response callback);
+    void getDevicesAndSetClient(
+org.chromium.mojo.bindings.AssociatedInterfaceNotSupported client, 
+GetDevicesAndSetClient_Response callback);
 
-    interface GetDevicesAndSetClient_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<HidDeviceInfo[]> {
-    }
+    interface GetDevicesAndSetClient_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<HidDeviceInfo[]> { }
 
 
     void getDevices(
 
-            GetDevices_Response callback);
+GetDevices_Response callback);
 
-    interface GetDevices_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<HidDeviceInfo[]> {
-    }
-
-
-    void connect(String deviceGuid, HidConnectionClient connectionClient, HidConnectionWatcher watcher, boolean allowProtectedReports, boolean allowFidoReports, Connect_Response callback);
-
-    interface Connect_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<HidConnection> {
-    }
+    interface GetDevices_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<HidDeviceInfo[]> { }
 
 
-    void addReceiver(org.chromium.mojo.bindings.InterfaceRequest<HidManager> receiver);
+    void connect(
+String deviceGuid, HidConnectionClient connectionClient, HidConnectionWatcher watcher, boolean allowProtectedReports, boolean allowFidoReports, 
+Connect_Response callback);
+
+    interface Connect_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<HidConnection> { }
+
+
+    void addReceiver(
+org.chromium.mojo.bindings.InterfaceRequest<HidManager> receiver);
 
 
 }

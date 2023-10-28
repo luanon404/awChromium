@@ -13,7 +13,10 @@ import org.jni_zero.NativeMethods;
 // This class implements all the listener interface for android mediaplayer.
 // Callbacks will be sent to the native class for processing.
 @JNINamespace("media")
-class MediaPlayerListener implements MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener, MediaPlayer.OnVideoSizeChangedListener, MediaPlayer.OnErrorListener {
+class MediaPlayerListener implements MediaPlayer.OnPreparedListener,
+        MediaPlayer.OnCompletionListener,
+        MediaPlayer.OnVideoSizeChangedListener,
+        MediaPlayer.OnErrorListener {
     // These values are mirrored as enums in media/base/android/media_player_android.h.
     // Please ensure they stay in sync.
     private static final int MEDIA_ERROR_FORMAT = 0;
@@ -64,27 +67,32 @@ class MediaPlayerListener implements MediaPlayer.OnPreparedListener, MediaPlayer
                 errorType = MEDIA_ERROR_INVALID_CODE;
                 break;
         }
-        MediaPlayerListenerJni.get().onMediaError(mNativeMediaPlayerListener, MediaPlayerListener.this, errorType);
+        MediaPlayerListenerJni.get().onMediaError(
+                mNativeMediaPlayerListener, MediaPlayerListener.this, errorType);
         return true;
     }
 
     @Override
     public void onVideoSizeChanged(MediaPlayer mp, int width, int height) {
-        MediaPlayerListenerJni.get().onVideoSizeChanged(mNativeMediaPlayerListener, MediaPlayerListener.this, width, height);
+        MediaPlayerListenerJni.get().onVideoSizeChanged(
+                mNativeMediaPlayerListener, MediaPlayerListener.this, width, height);
     }
 
     @Override
     public void onCompletion(MediaPlayer mp) {
-        MediaPlayerListenerJni.get().onPlaybackComplete(mNativeMediaPlayerListener, MediaPlayerListener.this);
+        MediaPlayerListenerJni.get().onPlaybackComplete(
+                mNativeMediaPlayerListener, MediaPlayerListener.this);
     }
 
     @Override
     public void onPrepared(MediaPlayer mp) {
-        MediaPlayerListenerJni.get().onMediaPrepared(mNativeMediaPlayerListener, MediaPlayerListener.this);
+        MediaPlayerListenerJni.get().onMediaPrepared(
+                mNativeMediaPlayerListener, MediaPlayerListener.this);
     }
 
     @CalledByNative
-    private static MediaPlayerListener create(long nativeMediaPlayerListener, MediaPlayerBridge mediaPlayerBridge) {
+    private static MediaPlayerListener create(
+            long nativeMediaPlayerListener, MediaPlayerBridge mediaPlayerBridge) {
         final MediaPlayerListener listener = new MediaPlayerListener(nativeMediaPlayerListener);
         if (mediaPlayerBridge != null) {
             mediaPlayerBridge.setOnCompletionListener(listener);
@@ -101,12 +109,11 @@ class MediaPlayerListener implements MediaPlayer.OnPreparedListener, MediaPlayer
 
     @NativeMethods
     interface Natives {
-        void onMediaError(long nativeMediaPlayerListener, MediaPlayerListener caller, int errorType);
-
-        void onVideoSizeChanged(long nativeMediaPlayerListener, MediaPlayerListener caller, int width, int height);
-
+        void onMediaError(
+                long nativeMediaPlayerListener, MediaPlayerListener caller, int errorType);
+        void onVideoSizeChanged(
+                long nativeMediaPlayerListener, MediaPlayerListener caller, int width, int height);
         void onMediaPrepared(long nativeMediaPlayerListener, MediaPlayerListener caller);
-
         void onPlaybackComplete(long nativeMediaPlayerListener, MediaPlayerListener caller);
     }
 }

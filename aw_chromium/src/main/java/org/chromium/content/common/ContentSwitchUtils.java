@@ -10,8 +10,7 @@ package org.chromium.content.common;
  */
 public final class ContentSwitchUtils {
     // Prevent instantiation.
-    private ContentSwitchUtils() {
-    }
+    private ContentSwitchUtils() {}
 
     public static String getSwitchValue(final String[] commandLine, String switchKey) {
         if (commandLine == null || switchKey == null) {

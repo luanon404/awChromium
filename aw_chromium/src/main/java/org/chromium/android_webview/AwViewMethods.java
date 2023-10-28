@@ -129,7 +129,8 @@ interface AwViewMethods {
     /**
      * @see android.view.View#onOverScrolled
      */
-    void onContainerViewOverScrolled(int scrollX, int scrollY, boolean clampedX, boolean clampedY);
+    void onContainerViewOverScrolled(
+            int scrollX, int scrollY, boolean clampedX, boolean clampedY);
 
     /**
      * @see android.view.View#computeHorizontalScrollRange
@@ -174,5 +175,5 @@ interface AwViewMethods {
     /**
      * @see android.view.View#performAccessibilityAction
      */
-    boolean performAccessibilityAction(final int action, final Bundle arguments);
+    public boolean performAccessibilityAction(final int action, final Bundle arguments);
 }

@@ -13,10 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class CookieManagerGetOptions extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 24;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public String name;
     public int matchType;
@@ -39,7 +42,8 @@ public final class CookieManagerGetOptions extends org.chromium.mojo.bindings.St
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static CookieManagerGetOptions deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -53,16 +57,16 @@ public final class CookieManagerGetOptions extends org.chromium.mojo.bindings.St
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new CookieManagerGetOptions(elementsOrVersion);
-            {
-
+                {
+                    
                 result.name = decoder0.readString(8, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.matchType = decoder0.readInt(16);
-                CookieMatchType.validate(result.matchType);
-                result.matchType = CookieMatchType.toKnownValue(result.matchType);
-            }
+                    CookieMatchType.validate(result.matchType);
+                    result.matchType = CookieMatchType.toKnownValue(result.matchType);
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -74,9 +78,9 @@ public final class CookieManagerGetOptions extends org.chromium.mojo.bindings.St
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.name, 8, false);
-
+        
         encoder0.encode(this.matchType, 16);
     }
 }

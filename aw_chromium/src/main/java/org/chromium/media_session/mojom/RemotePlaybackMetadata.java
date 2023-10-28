@@ -13,10 +13,13 @@
 
 package org.chromium.media_session.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class RemotePlaybackMetadata extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 40;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(32, 0), new org.chromium.mojo.bindings.DataHeader(40, 17), new org.chromium.mojo.bindings.DataHeader(40, 18)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(32, 0),new org.chromium.mojo.bindings.DataHeader(40, 17),new org.chromium.mojo.bindings.DataHeader(40, 18)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[2];
     public String videoCodec;
     public String audioCodec;
@@ -43,7 +46,8 @@ public final class RemotePlaybackMetadata extends org.chromium.mojo.bindings.Str
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static RemotePlaybackMetadata deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -57,34 +61,34 @@ public final class RemotePlaybackMetadata extends org.chromium.mojo.bindings.Str
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new RemotePlaybackMetadata(elementsOrVersion);
-            {
-
+                {
+                    
                 result.videoCodec = decoder0.readString(8, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.audioCodec = decoder0.readString(16, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.remotePlaybackDisabled = decoder0.readBoolean(24, 0);
-            }
+                }
             if (elementsOrVersion >= 17) {
                 {
-
-                    result.remotePlaybackStarted = decoder0.readBoolean(24, 1);
+                    
+                result.remotePlaybackStarted = decoder0.readBoolean(24, 1);
                 }
             }
             if (elementsOrVersion >= 18) {
                 {
-
-                    result.isEncryptedMedia = decoder0.readBoolean(24, 2);
+                    
+                result.isEncryptedMedia = decoder0.readBoolean(24, 2);
                 }
             }
             if (elementsOrVersion >= 17) {
                 {
-
-                    result.unusedField = decoder0.readString(32, true);
+                    
+                result.unusedField = decoder0.readString(32, true);
                 }
             }
 
@@ -98,17 +102,17 @@ public final class RemotePlaybackMetadata extends org.chromium.mojo.bindings.Str
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.videoCodec, 8, false);
-
+        
         encoder0.encode(this.audioCodec, 16, false);
-
+        
         encoder0.encode(this.remotePlaybackDisabled, 24, 0);
-
+        
         encoder0.encode(this.remotePlaybackStarted, 24, 1);
-
+        
         encoder0.encode(this.isEncryptedMedia, 24, 2);
-
+        
         encoder0.encode(this.unusedField, 32, true);
     }
 }

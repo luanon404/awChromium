@@ -13,36 +13,45 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface AudioStreamFactory extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends AudioStreamFactory, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends AudioStreamFactory, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<AudioStreamFactory, AudioStreamFactory.Proxy> MANAGER = AudioStreamFactory_Internal.MANAGER;
 
-    void createInputStream(org.chromium.mojo.bindings.InterfaceRequest<AudioInputStream> stream, AudioInputStreamClient client, AudioInputStreamObserver observer, AudioLog log, String deviceId, AudioParameters params, int sharedMemoryCount, boolean enableAgc, org.chromium.mojo_base.mojom.ReadOnlySharedMemoryRegion keyPressCountBuffer, AudioProcessingConfig processingConfig, CreateInputStream_Response callback);
+    void createInputStream(
+org.chromium.mojo.bindings.InterfaceRequest<AudioInputStream> stream, AudioInputStreamClient client, AudioInputStreamObserver observer, AudioLog log, String deviceId, AudioParameters params, int sharedMemoryCount, boolean enableAgc, org.chromium.mojo_base.mojom.ReadOnlySharedMemoryRegion keyPressCountBuffer, AudioProcessingConfig processingConfig, 
+CreateInputStream_Response callback);
 
-    interface CreateInputStream_Response extends org.chromium.mojo.bindings.Callbacks.Callback3<ReadOnlyAudioDataPipe, Boolean, org.chromium.mojo_base.mojom.UnguessableToken> {
-    }
-
-
-    void associateInputAndOutputForAec(org.chromium.mojo_base.mojom.UnguessableToken inputStreamId, String outputDeviceId);
+    interface CreateInputStream_Response extends org.chromium.mojo.bindings.Callbacks.Callback3<ReadOnlyAudioDataPipe, Boolean, org.chromium.mojo_base.mojom.UnguessableToken> { }
 
 
-    void createOutputStream(org.chromium.mojo.bindings.InterfaceRequest<AudioOutputStream> stream, org.chromium.mojo.bindings.AssociatedInterfaceNotSupported observer, AudioLog log, String deviceId, AudioParameters params, org.chromium.mojo_base.mojom.UnguessableToken groupId, CreateOutputStream_Response callback);
-
-    interface CreateOutputStream_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<ReadWriteAudioDataPipe> {
-    }
+    void associateInputAndOutputForAec(
+org.chromium.mojo_base.mojom.UnguessableToken inputStreamId, String outputDeviceId);
 
 
-    void bindMuter(org.chromium.mojo.bindings.AssociatedInterfaceRequestNotSupported receiver, org.chromium.mojo_base.mojom.UnguessableToken groupId);
+    void createOutputStream(
+org.chromium.mojo.bindings.InterfaceRequest<AudioOutputStream> stream, org.chromium.mojo.bindings.AssociatedInterfaceNotSupported observer, AudioLog log, String deviceId, AudioParameters params, org.chromium.mojo_base.mojom.UnguessableToken groupId, 
+CreateOutputStream_Response callback);
+
+    interface CreateOutputStream_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<ReadWriteAudioDataPipe> { }
 
 
-    void createLoopbackStream(org.chromium.mojo.bindings.InterfaceRequest<AudioInputStream> receiver, AudioInputStreamClient client, AudioInputStreamObserver observer, AudioParameters params, int sharedMemoryCount, org.chromium.mojo_base.mojom.UnguessableToken groupId, CreateLoopbackStream_Response callback);
+    void bindMuter(
+org.chromium.mojo.bindings.AssociatedInterfaceRequestNotSupported receiver, org.chromium.mojo_base.mojom.UnguessableToken groupId);
 
-    interface CreateLoopbackStream_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<ReadOnlyAudioDataPipe> {
-    }
+
+    void createLoopbackStream(
+org.chromium.mojo.bindings.InterfaceRequest<AudioInputStream> receiver, AudioInputStreamClient client, AudioInputStreamObserver observer, AudioParameters params, int sharedMemoryCount, org.chromium.mojo_base.mojom.UnguessableToken groupId, 
+CreateLoopbackStream_Response callback);
+
+    interface CreateLoopbackStream_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<ReadOnlyAudioDataPipe> { }
 
 
 }

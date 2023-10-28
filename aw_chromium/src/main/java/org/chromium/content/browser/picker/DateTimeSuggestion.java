@@ -17,10 +17,9 @@ public class DateTimeSuggestion {
 
     /**
      * Constructs a color suggestion container.
-     *
-     * @param value          The suggested date/time value.
+     * @param value The suggested date/time value.
      * @param localizedValue The suggested value localized.
-     * @param label          The label for the suggestion.
+     * @param label The label for the suggestion.
      */
     public DateTimeSuggestion(double value, String localizedValue, String label) {
         mValue = value;
@@ -46,7 +45,9 @@ public class DateTimeSuggestion {
             return false;
         }
         final DateTimeSuggestion other = (DateTimeSuggestion) object;
-        return mValue == other.mValue && TextUtils.equals(mLocalizedValue, other.mLocalizedValue) && TextUtils.equals(mLabel, other.mLabel);
+        return mValue == other.mValue
+                && TextUtils.equals(mLocalizedValue, other.mLocalizedValue)
+                && TextUtils.equals(mLabel, other.mLabel);
     }
 
     @Override

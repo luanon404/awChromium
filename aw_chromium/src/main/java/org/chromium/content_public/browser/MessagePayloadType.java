@@ -1,3 +1,4 @@
+
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -14,10 +15,12 @@ import androidx.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@IntDef({MessagePayloadType.INVALID, MessagePayloadType.STRING, MessagePayloadType.ARRAY_BUFFER})
+@IntDef({
+    MessagePayloadType.INVALID, MessagePayloadType.STRING, MessagePayloadType.ARRAY_BUFFER
+})
 @Retention(RetentionPolicy.SOURCE)
 public @interface MessagePayloadType {
-    int INVALID = -1;
-    int STRING = 0;
-    int ARRAY_BUFFER = 1;
+  int INVALID = -1;
+  int STRING = 0;
+  int ARRAY_BUFFER = 1;
 }

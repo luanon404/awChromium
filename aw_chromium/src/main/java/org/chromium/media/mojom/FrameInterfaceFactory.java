@@ -13,29 +13,35 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface FrameInterfaceFactory extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends FrameInterfaceFactory, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends FrameInterfaceFactory, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<FrameInterfaceFactory, FrameInterfaceFactory.Proxy> MANAGER = FrameInterfaceFactory_Internal.MANAGER;
 
-    void createProvisionFetcher(org.chromium.mojo.bindings.InterfaceRequest<ProvisionFetcher> provisionFetcher);
+    void createProvisionFetcher(
+org.chromium.mojo.bindings.InterfaceRequest<ProvisionFetcher> provisionFetcher);
 
 
-    void createCdmStorage(org.chromium.mojo.bindings.InterfaceRequest<CdmStorage> cdmStorage);
+    void createCdmStorage(
+org.chromium.mojo.bindings.InterfaceRequest<CdmStorage> cdmStorage);
 
 
     void getCdmOrigin(
 
-            GetCdmOrigin_Response callback);
+GetCdmOrigin_Response callback);
 
-    interface GetCdmOrigin_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<org.chromium.url.internal.mojom.Origin> {
-    }
+    interface GetCdmOrigin_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<org.chromium.url.internal.mojom.Origin> { }
 
 
-    void bindEmbedderReceiver(org.chromium.mojo_base.mojom.GenericPendingReceiver receiver);
+    void bindEmbedderReceiver(
+org.chromium.mojo_base.mojom.GenericPendingReceiver receiver);
 
 
 }

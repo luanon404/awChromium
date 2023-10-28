@@ -13,24 +13,30 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface SocketBroker extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends SocketBroker, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends SocketBroker, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<SocketBroker, SocketBroker.Proxy> MANAGER = SocketBroker_Internal.MANAGER;
 
-    void createTcpSocket(int addressFamily, CreateTcpSocket_Response callback);
+    void createTcpSocket(
+int addressFamily, 
+CreateTcpSocket_Response callback);
 
-    interface CreateTcpSocket_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<TransferableSocket, Integer> {
-    }
+    interface CreateTcpSocket_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<TransferableSocket, Integer> { }
 
 
-    void createUdpSocket(int addressFamily, CreateUdpSocket_Response callback);
+    void createUdpSocket(
+int addressFamily, 
+CreateUdpSocket_Response callback);
 
-    interface CreateUdpSocket_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<TransferableSocket, Integer> {
-    }
+    interface CreateUdpSocket_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<TransferableSocket, Integer> { }
 
 
 }

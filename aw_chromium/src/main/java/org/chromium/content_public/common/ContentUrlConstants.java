@@ -22,6 +22,5 @@ public final class ContentUrlConstants {
     public static final String HTTP_SCHEME = "http";
     public static final String HTTPS_SCHEME = "https";
 
-    private ContentUrlConstants() {
-    }
+    private ContentUrlConstants() {}
 }

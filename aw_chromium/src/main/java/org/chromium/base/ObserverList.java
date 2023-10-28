@@ -20,8 +20,8 @@ import javax.annotation.concurrent.NotThreadSafe;
  * <p/>
  * The implementation (and the interface) is heavily influenced by the C++ ObserverList.
  * Notable differences:
- * - The iterator implements NOTIFY_EXISTING_ONLY.
- * - The range-based for loop is left to the clients to implement in terms of iterator().
+ *   - The iterator implements NOTIFY_EXISTING_ONLY.
+ *   - The range-based for loop is left to the clients to implement in terms of iterator().
  * <p/>
  * This class is not threadsafe. Observers MUST be added, removed and will be notified on the same
  * thread this is created.
@@ -36,11 +36,11 @@ public class ObserverList<E> implements Iterable<E> {
     public interface RewindableIterator<E> extends Iterator<E> {
         /**
          * Rewind the iterator back to the beginning.
-         * <p>
+         *
          * If we need to iterate multiple times, we can avoid iterator object reallocation by using
          * this method.
          */
-        void rewind();
+        public void rewind();
     }
 
     public final List<E> mObservers = new ArrayList<E>();
@@ -242,7 +242,8 @@ public class ObserverList<E> implements Iterable<E> {
             if (mEnableThreadAsserts) mThreadChecker.assertOnValidThread();
 
             int lookupIndex = mIndex;
-            while (lookupIndex < mListEndMarker && ObserverList.this.getObserverAt(lookupIndex) == null) {
+            while (lookupIndex < mListEndMarker
+                    && ObserverList.this.getObserverAt(lookupIndex) == null) {
                 lookupIndex++;
             }
             if (lookupIndex < mListEndMarker) return true;

@@ -16,7 +16,7 @@ public class ProcessInitException extends RuntimeException {
     }
 
     /**
-     * @param errorCode    This will be one of the LoaderErrors error codes.
+     * @param errorCode This will be one of the LoaderErrors error codes.
      * @param failureCause The wrapped Throwable obj.
      */
     public ProcessInitException(@LoaderErrors int errorCode, Throwable failureCause) {

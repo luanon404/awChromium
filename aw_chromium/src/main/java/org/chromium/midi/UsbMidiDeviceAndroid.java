@@ -86,9 +86,8 @@ class UsbMidiDeviceAndroid {
 
     /**
      * Constructs a UsbMidiDeviceAndroid.
-     *
      * @param manager
-     * @param device  The USB device which this object is associated with.
+     * @param device The USB device which this object is associated with.
      */
     UsbMidiDeviceAndroid(UsbManager manager, UsbDevice device) {
         mConnection = manager.openDevice(device);
@@ -102,7 +101,8 @@ class UsbMidiDeviceAndroid {
 
         for (int i = 0; i < device.getInterfaceCount(); ++i) {
             UsbInterface iface = device.getInterface(i);
-            if (iface.getInterfaceClass() != UsbConstants.USB_CLASS_AUDIO || iface.getInterfaceSubclass() != MIDI_SUBCLASS) {
+            if (iface.getInterfaceClass() != UsbConstants.USB_CLASS_AUDIO
+                    || iface.getInterfaceSubclass() != MIDI_SUBCLASS) {
                 continue;
             }
             mConnection.claimInterface(iface, true);
@@ -125,11 +125,13 @@ class UsbMidiDeviceAndroid {
      * Starts listening for input endpoints.
      */
     private void startListen(final UsbDevice device) {
-        final Map<UsbEndpoint, ByteBuffer> bufferForEndpoints = new HashMap<UsbEndpoint, ByteBuffer>();
+        final Map<UsbEndpoint, ByteBuffer> bufferForEndpoints =
+                new HashMap<UsbEndpoint, ByteBuffer>();
 
         for (int i = 0; i < device.getInterfaceCount(); ++i) {
             UsbInterface iface = device.getInterface(i);
-            if (iface.getInterfaceClass() != UsbConstants.USB_CLASS_AUDIO || iface.getInterfaceSubclass() != MIDI_SUBCLASS) {
+            if (iface.getInterfaceClass() != UsbConstants.USB_CLASS_AUDIO
+                    || iface.getInterfaceSubclass() != MIDI_SUBCLASS) {
                 continue;
             }
             for (int j = 0; j < iface.getEndpointCount(); ++j) {
@@ -209,9 +211,8 @@ class UsbMidiDeviceAndroid {
 
     /**
      * Sends a USB-MIDI data to the device.
-     *
      * @param endpointNumber The endpoint number of the destination endpoint.
-     * @param bs             The data to be sent.
+     * @param bs The data to be sent.
      */
     @CalledByNative
     void send(int endpointNumber, byte[] bs) {
@@ -255,7 +256,6 @@ class UsbMidiDeviceAndroid {
 
     /**
      * Returns the descriptors bytes of this device.
-     *
      * @return The descriptors bytes of this device.
      */
     @CalledByNative
@@ -268,7 +268,6 @@ class UsbMidiDeviceAndroid {
 
     /**
      * Returns the string descriptor bytes for the given index
-     *
      * @param index index of the descriptor
      * @return the string descriptor bytes for the given index.
      */

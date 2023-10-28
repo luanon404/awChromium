@@ -17,10 +17,35 @@ import androidx.annotation.IntDef;
 
 public final class ColorSpaceTransferId {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({ColorSpaceTransferId.INVALID, ColorSpaceTransferId.BT709, ColorSpaceTransferId.BT709_APPLE, ColorSpaceTransferId.GAMMA18, ColorSpaceTransferId.GAMMA22, ColorSpaceTransferId.GAMMA24, ColorSpaceTransferId.GAMMA28, ColorSpaceTransferId.SMPTE170M, ColorSpaceTransferId.SMPTE240M, ColorSpaceTransferId.LINEAR, ColorSpaceTransferId.LOG, ColorSpaceTransferId.LOG_SQRT, ColorSpaceTransferId.IEC61966_2_4, ColorSpaceTransferId.BT1361_ECG, ColorSpaceTransferId.SRGB, ColorSpaceTransferId.BT2020_10, ColorSpaceTransferId.BT2020_12, ColorSpaceTransferId.PQ, ColorSpaceTransferId.SMPTEST428_1, ColorSpaceTransferId.HLG, ColorSpaceTransferId.SRGB_HDR, ColorSpaceTransferId.LINEAR_HDR, ColorSpaceTransferId.CUSTOM, ColorSpaceTransferId.CUSTOM_HDR, ColorSpaceTransferId.PIECEWISE_HDR, ColorSpaceTransferId.SCRGB_LINEAR_80_NITS})
-    public @interface EnumType {
-    }
+        ColorSpaceTransferId.INVALID,
+        ColorSpaceTransferId.BT709,
+        ColorSpaceTransferId.BT709_APPLE,
+        ColorSpaceTransferId.GAMMA18,
+        ColorSpaceTransferId.GAMMA22,
+        ColorSpaceTransferId.GAMMA24,
+        ColorSpaceTransferId.GAMMA28,
+        ColorSpaceTransferId.SMPTE170M,
+        ColorSpaceTransferId.SMPTE240M,
+        ColorSpaceTransferId.LINEAR,
+        ColorSpaceTransferId.LOG,
+        ColorSpaceTransferId.LOG_SQRT,
+        ColorSpaceTransferId.IEC61966_2_4,
+        ColorSpaceTransferId.BT1361_ECG,
+        ColorSpaceTransferId.SRGB,
+        ColorSpaceTransferId.BT2020_10,
+        ColorSpaceTransferId.BT2020_12,
+        ColorSpaceTransferId.PQ,
+        ColorSpaceTransferId.SMPTEST428_1,
+        ColorSpaceTransferId.HLG,
+        ColorSpaceTransferId.SRGB_HDR,
+        ColorSpaceTransferId.LINEAR_HDR,
+        ColorSpaceTransferId.CUSTOM,
+        ColorSpaceTransferId.CUSTOM_HDR,
+        ColorSpaceTransferId.PIECEWISE_HDR,
+        ColorSpaceTransferId.SCRGB_LINEAR_80_NITS})
+    public @interface EnumType {}
 
     public static final int INVALID = 0;
     public static final int BT709 = 1;
@@ -61,9 +86,8 @@ public final class ColorSpaceTransferId {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private ColorSpaceTransferId() {
-    }
+    private ColorSpaceTransferId() {}
 }

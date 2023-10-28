@@ -10,15 +10,16 @@ import android.os.RemoteException;
 
 import com.luanon.androidx.javascriptengine.common.Utils;
 
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+
 import org.chromium.android_webview.js_sandbox.common.IJsSandboxConsoleCallback;
 import org.chromium.android_webview.js_sandbox.common.IJsSandboxIsolate;
 import org.chromium.android_webview.js_sandbox.common.IJsSandboxIsolateCallback;
 import org.chromium.android_webview.js_sandbox.common.IJsSandboxIsolateClient;
 import org.chromium.android_webview.js_sandbox.common.IJsSandboxIsolateSyncCallback;
 import org.chromium.base.Log;
-import org.jni_zero.CalledByNative;
-import org.jni_zero.JNINamespace;
-import org.jni_zero.NativeMethods;
 
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicReference;
@@ -36,7 +37,8 @@ public class JsSandboxIsolate extends IJsSandboxIsolate.Stub {
     // code (on another thread) and then try to take mLock again and therefore deadlock.
     private final Object mLock = new Object();
     private final JsSandboxService mService;
-    private final AtomicReference<IJsSandboxConsoleCallback> mConsoleCallback = new AtomicReference<IJsSandboxConsoleCallback>();
+    private final AtomicReference<IJsSandboxConsoleCallback> mConsoleCallback =
+            new AtomicReference<IJsSandboxConsoleCallback>();
     @GuardedBy("mLock")
     private long mJsSandboxIsolate;
 
@@ -50,10 +52,12 @@ public class JsSandboxIsolate extends IJsSandboxIsolate.Stub {
         this(service, maxHeapSizeBytes, null);
     }
 
-    JsSandboxIsolate(JsSandboxService service, long maxHeapSizeBytes, IJsSandboxIsolateClient isolateClient) {
+    JsSandboxIsolate(JsSandboxService service, long maxHeapSizeBytes,
+            IJsSandboxIsolateClient isolateClient) {
         mService = service;
         mIsolateClient = isolateClient;
-        mJsSandboxIsolate = JsSandboxIsolateJni.get().createNativeJsSandboxIsolateWrapper(this, maxHeapSizeBytes);
+        mJsSandboxIsolate = JsSandboxIsolateJni.get().createNativeJsSandboxIsolateWrapper(
+                this, maxHeapSizeBytes);
     }
 
     @Override
@@ -62,12 +66,14 @@ public class JsSandboxIsolate extends IJsSandboxIsolate.Stub {
             if (mJsSandboxIsolate == 0) {
                 throw new IllegalStateException("evaluateJavascript() called after close()");
             }
-            JsSandboxIsolateJni.get().evaluateJavascript(mJsSandboxIsolate, this, code, new JsSandboxIsolateCallback(callback));
+            JsSandboxIsolateJni.get().evaluateJavascript(
+                    mJsSandboxIsolate, this, code, new JsSandboxIsolateCallback(callback));
         }
     }
 
     @Override
-    public void evaluateJavascriptWithFd(AssetFileDescriptor afd, IJsSandboxIsolateSyncCallback callback) {
+    public void evaluateJavascriptWithFd(
+            AssetFileDescriptor afd, IJsSandboxIsolateSyncCallback callback) {
         synchronized (mLock) {
             if (mJsSandboxIsolate == 0) {
                 throw new IllegalStateException("evaluateJavascript() called after close()");
@@ -75,9 +81,12 @@ public class JsSandboxIsolate extends IJsSandboxIsolate.Stub {
 
             Utils.checkAssetFileDescriptor(afd, /*allowUnknownLength=*/true);
             if (afd.getLength() > Integer.MAX_VALUE) {
-                throw new IllegalArgumentException("Evaluation code larger than " + Integer.MAX_VALUE + " bytes not supported");
+                throw new IllegalArgumentException("Evaluation code larger than "
+                        + Integer.MAX_VALUE + " bytes not supported");
             }
-            JsSandboxIsolateJni.get().evaluateJavascriptWithFd(mJsSandboxIsolate, this, afd.getParcelFileDescriptor().getFd(), afd.getLength(), afd.getStartOffset(), new JsSandboxIsolateFdCallback(callback), afd.getParcelFileDescriptor());
+            JsSandboxIsolateJni.get().evaluateJavascriptWithFd(mJsSandboxIsolate, this,
+                    afd.getParcelFileDescriptor().getFd(), afd.getLength(), afd.getStartOffset(),
+                    new JsSandboxIsolateFdCallback(callback), afd.getParcelFileDescriptor());
         }
     }
 
@@ -96,14 +105,17 @@ public class JsSandboxIsolate extends IJsSandboxIsolate.Stub {
     public boolean provideNamedData(String name, AssetFileDescriptor afd) {
         synchronized (mLock) {
             if (mJsSandboxIsolate == 0) {
-                throw new IllegalStateException("provideNamedData(String, AssetFileDescriptor) called after close()");
+                throw new IllegalStateException(
+                        "provideNamedData(String, AssetFileDescriptor) called after close()");
             }
 
             Utils.checkAssetFileDescriptor(afd, /*allowUnknownLength=*/false);
             if (afd.getLength() > Integer.MAX_VALUE) {
-                throw new IllegalArgumentException("Named data larger than " + Integer.MAX_VALUE + " bytes not supported");
+                throw new IllegalArgumentException(
+                        "Named data larger than " + Integer.MAX_VALUE + " bytes not supported");
             }
-            boolean nativeReturn = JsSandboxIsolateJni.get().provideNamedData(mJsSandboxIsolate, this, name, afd.getParcelFileDescriptor().detachFd(), (int) afd.getLength());
+            boolean nativeReturn = JsSandboxIsolateJni.get().provideNamedData(mJsSandboxIsolate,
+                    this, name, afd.getParcelFileDescriptor().detachFd(), (int) afd.getLength());
             return nativeReturn;
         }
     }
@@ -125,7 +137,8 @@ public class JsSandboxIsolate extends IJsSandboxIsolate.Stub {
 
     // Called by isolate thread
     @CalledByNative
-    public void consoleMessage(int contextGroupId, int level, String message, String source, int line, int column, String trace) {
+    public void consoleMessage(int contextGroupId, int level, String message, String source,
+            int line, int column, String trace) {
         final IJsSandboxConsoleCallback callback = mConsoleCallback.get();
         if (callback == null) {
             return;
@@ -223,19 +236,25 @@ public class JsSandboxIsolate extends IJsSandboxIsolate.Stub {
 
     @NativeMethods
     public interface Natives {
-        long createNativeJsSandboxIsolateWrapper(JsSandboxIsolate jsSandboxIsolate, long maxHeapSizeBytes);
+        long createNativeJsSandboxIsolateWrapper(
+                JsSandboxIsolate jsSandboxIsolate, long maxHeapSizeBytes);
 
         void initializeEnvironment();
 
         // The calling code must not call any methods after it called destroyNative().
         void destroyNative(long nativeJsSandboxIsolate, JsSandboxIsolate caller);
 
-        boolean evaluateJavascript(long nativeJsSandboxIsolate, JsSandboxIsolate caller, String script, JsSandboxIsolateCallback callback);
+        boolean evaluateJavascript(long nativeJsSandboxIsolate, JsSandboxIsolate caller,
+                String script, JsSandboxIsolateCallback callback);
 
-        boolean evaluateJavascriptWithFd(long nativeJsSandboxIsolate, JsSandboxIsolate caller, int fd, long length, long offset, JsSandboxIsolateFdCallback callback, ParcelFileDescriptor pfd);
+        boolean evaluateJavascriptWithFd(long nativeJsSandboxIsolate, JsSandboxIsolate caller,
+                int fd, long length, long offset, JsSandboxIsolateFdCallback callback,
+                ParcelFileDescriptor pfd);
 
-        boolean provideNamedData(long nativeJsSandboxIsolate, JsSandboxIsolate caller, String name, int fd, int length);
+        boolean provideNamedData(long nativeJsSandboxIsolate, JsSandboxIsolate caller, String name,
+                int fd, int length);
 
-        void setConsoleEnabled(long nativeJsSandboxIsolate, JsSandboxIsolate caller, boolean enable);
+        void setConsoleEnabled(
+                long nativeJsSandboxIsolate, JsSandboxIsolate caller, boolean enable);
     }
 }

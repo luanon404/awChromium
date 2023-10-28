@@ -13,10 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class ContentSecurityPolicyHeader extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 24;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public String headerValue;
     public int type;
@@ -42,7 +45,8 @@ public final class ContentSecurityPolicyHeader extends org.chromium.mojo.binding
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static ContentSecurityPolicyHeader deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -56,22 +60,22 @@ public final class ContentSecurityPolicyHeader extends org.chromium.mojo.binding
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new ContentSecurityPolicyHeader(elementsOrVersion);
-            {
-
+                {
+                    
                 result.headerValue = decoder0.readString(8, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.type = decoder0.readInt(16);
-                ContentSecurityPolicyType.validate(result.type);
-                result.type = ContentSecurityPolicyType.toKnownValue(result.type);
-            }
-            {
-
+                    ContentSecurityPolicyType.validate(result.type);
+                    result.type = ContentSecurityPolicyType.toKnownValue(result.type);
+                }
+                {
+                    
                 result.source = decoder0.readInt(20);
-                ContentSecurityPolicySource.validate(result.source);
-                result.source = ContentSecurityPolicySource.toKnownValue(result.source);
-            }
+                    ContentSecurityPolicySource.validate(result.source);
+                    result.source = ContentSecurityPolicySource.toKnownValue(result.source);
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -83,11 +87,11 @@ public final class ContentSecurityPolicyHeader extends org.chromium.mojo.binding
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.headerValue, 8, false);
-
+        
         encoder0.encode(this.type, 16);
-
+        
         encoder0.encode(this.source, 20);
     }
 }

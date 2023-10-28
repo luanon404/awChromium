@@ -17,10 +17,50 @@ import androidx.annotation.IntDef;
 
 public final class Action {
     private static final boolean IS_EXTENSIBLE = true;
+    @IntDef({
 
-    @IntDef({Action.NONE, Action.ANNOTATE_PAGE_IMAGES, Action.BLUR, Action.CLEAR_ACCESSIBILITY_FOCUS, Action.COLLAPSE, Action.CUSTOM_ACTION, Action.DECREMENT, Action.DO_DEFAULT, Action.EXPAND, Action.FOCUS, Action.GET_IMAGE_DATA, Action.GET_TEXT_LOCATION, Action.HIDE_TOOLTIP, Action.HIT_TEST, Action.INCREMENT, Action.INTERNAL_INVALIDATE_TREE, Action.LOAD_INLINE_TEXT_BOXES, Action.LONG_CLICK, Action.REPLACE_SELECTED_TEXT, Action.RESUME_MEDIA, Action.SCROLL_BACKWARD, Action.SCROLL_DOWN, Action.SCROLL_FORWARD, Action.SCROLL_LEFT, Action.SCROLL_RIGHT, Action.SCROLL_UP, Action.SCROLL_TO_MAKE_VISIBLE, Action.SCROLL_TO_POINT, Action.SCROLL_TO_POSITION_AT_ROW_COLUMN, Action.SET_ACCESSIBILITY_FOCUS, Action.SET_SCROLL_OFFSET, Action.SET_SELECTION, Action.SET_SEQUENTIAL_FOCUS_NAVIGATION_STARTING_POINT, Action.SET_VALUE, Action.SHOW_CONTEXT_MENU, Action.SIGNAL_END_OF_TEST, Action.SHOW_TOOLTIP, Action.STITCH_CHILD_TREE, Action.START_DUCKING_MEDIA, Action.STOP_DUCKING_MEDIA, Action.SUSPEND_MEDIA})
-    public @interface EnumType {
-    }
+        Action.NONE,
+        Action.ANNOTATE_PAGE_IMAGES,
+        Action.BLUR,
+        Action.CLEAR_ACCESSIBILITY_FOCUS,
+        Action.COLLAPSE,
+        Action.CUSTOM_ACTION,
+        Action.DECREMENT,
+        Action.DO_DEFAULT,
+        Action.EXPAND,
+        Action.FOCUS,
+        Action.GET_IMAGE_DATA,
+        Action.GET_TEXT_LOCATION,
+        Action.HIDE_TOOLTIP,
+        Action.HIT_TEST,
+        Action.INCREMENT,
+        Action.INTERNAL_INVALIDATE_TREE,
+        Action.LOAD_INLINE_TEXT_BOXES,
+        Action.LONG_CLICK,
+        Action.REPLACE_SELECTED_TEXT,
+        Action.RESUME_MEDIA,
+        Action.SCROLL_BACKWARD,
+        Action.SCROLL_DOWN,
+        Action.SCROLL_FORWARD,
+        Action.SCROLL_LEFT,
+        Action.SCROLL_RIGHT,
+        Action.SCROLL_UP,
+        Action.SCROLL_TO_MAKE_VISIBLE,
+        Action.SCROLL_TO_POINT,
+        Action.SCROLL_TO_POSITION_AT_ROW_COLUMN,
+        Action.SET_ACCESSIBILITY_FOCUS,
+        Action.SET_SCROLL_OFFSET,
+        Action.SET_SELECTION,
+        Action.SET_SEQUENTIAL_FOCUS_NAVIGATION_STARTING_POINT,
+        Action.SET_VALUE,
+        Action.SHOW_CONTEXT_MENU,
+        Action.SIGNAL_END_OF_TEST,
+        Action.SHOW_TOOLTIP,
+        Action.STITCH_CHILD_TREE,
+        Action.START_DUCKING_MEDIA,
+        Action.STOP_DUCKING_MEDIA,
+        Action.SUSPEND_MEDIA})
+    public @interface EnumType {}
 
     public static final int NONE = 0;
     public static final int ANNOTATE_PAGE_IMAGES = 1;
@@ -77,12 +117,11 @@ public final class Action {
     }
 
     public static int toKnownValue(int value) {
-        if (isKnownValue(value)) {
-            return value;
-        }
-        return DEFAULT_VALUE;
+      if (isKnownValue(value)) {
+        return value;
+      }
+      return DEFAULT_VALUE;
     }
 
-    private Action() {
-    }
+    private Action() {}
 }

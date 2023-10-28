@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface FetchLaterLoaderFactory extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends FetchLaterLoaderFactory, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends FetchLaterLoaderFactory, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<FetchLaterLoaderFactory, FetchLaterLoaderFactory.Proxy> MANAGER = FetchLaterLoaderFactory_Internal.MANAGER;

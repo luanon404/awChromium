@@ -13,18 +13,23 @@
 
 package org.chromium.payments.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface PaymentCredential extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends PaymentCredential, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends PaymentCredential, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<PaymentCredential, PaymentCredential.Proxy> MANAGER = PaymentCredential_Internal.MANAGER;
 
-    void storePaymentCredential(byte[] credentialId, String rpId, byte[] userId, StorePaymentCredential_Response callback);
+    void storePaymentCredential(
+byte[] credentialId, String rpId, byte[] userId, 
+StorePaymentCredential_Response callback);
 
-    interface StorePaymentCredential_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> {
-    }
+    interface StorePaymentCredential_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> { }
 
 
 }

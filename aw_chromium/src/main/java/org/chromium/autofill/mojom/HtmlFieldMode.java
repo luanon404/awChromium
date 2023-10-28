@@ -18,6 +18,7 @@ import androidx.annotation.IntDef;
 public final class HtmlFieldMode {
     private static final boolean IS_EXTENSIBLE = false;
     @IntDef({
+
         HtmlFieldMode.NONE,
         HtmlFieldMode.BILLING,
         HtmlFieldMode.SHIPPING})

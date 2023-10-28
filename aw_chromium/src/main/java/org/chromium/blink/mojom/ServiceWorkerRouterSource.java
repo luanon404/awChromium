@@ -13,6 +13,8 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public final class ServiceWorkerRouterSource extends org.chromium.mojo.bindings.Union {
 
@@ -21,8 +23,7 @@ public final class ServiceWorkerRouterSource extends org.chromium.mojo.bindings.
         public static final int RaceSource = 1;
         public static final int FetchEventSource = 2;
         public static final int CacheSource = 3;
-    }
-
+    };
     private ServiceWorkerRouterNetworkSource mNetworkSource;
     private ServiceWorkerRouterRaceSource mRaceSource;
     private ServiceWorkerRouterFetchEventSource mFetchEventSource;

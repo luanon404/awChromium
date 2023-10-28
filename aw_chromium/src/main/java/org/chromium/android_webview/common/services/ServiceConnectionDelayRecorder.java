@@ -19,7 +19,8 @@ import org.chromium.base.metrics.RecordHistogram;
  * A ServiceConnection that records a histogram for service connection delay.
  */
 public abstract class ServiceConnectionDelayRecorder implements ServiceConnection {
-    private static final String SERVICE_CONNECTION_DELAY_HISTOGRAM_PREFIX = "Android.WebView.Startup.NonblockingServiceConnectionDelay.";
+    private static final String SERVICE_CONNECTION_DELAY_HISTOGRAM_PREFIX =
+            "Android.WebView.Startup.NonblockingServiceConnectionDelay.";
 
     private static final Clock CLOCK = SystemClock::uptimeMillis;
 
@@ -53,7 +54,9 @@ public abstract class ServiceConnectionDelayRecorder implements ServiceConnectio
             String serviceName = className.getShortClassName();
             serviceName = serviceName.substring(serviceName.lastIndexOf(".") + 1);
 
-            RecordHistogram.recordTimesHistogram(SERVICE_CONNECTION_DELAY_HISTOGRAM_PREFIX + serviceName, connectionTime - mBindTime);
+            RecordHistogram.recordTimesHistogram(
+                    SERVICE_CONNECTION_DELAY_HISTOGRAM_PREFIX + serviceName,
+                    connectionTime - mBindTime);
             mRecorded = true;
         }
 

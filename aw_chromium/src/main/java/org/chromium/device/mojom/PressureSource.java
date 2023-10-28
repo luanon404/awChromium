@@ -17,10 +17,10 @@ import androidx.annotation.IntDef;
 
 public final class PressureSource {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({PressureSource.CPU})
-    public @interface EnumType {
-    }
+        PressureSource.CPU})
+    public @interface EnumType {}
 
     public static final int CPU = 0;
     public static final int MIN_VALUE = 0;
@@ -36,9 +36,8 @@ public final class PressureSource {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private PressureSource() {
-    }
+    private PressureSource() {}
 }

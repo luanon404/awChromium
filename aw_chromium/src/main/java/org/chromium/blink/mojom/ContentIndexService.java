@@ -13,17 +13,19 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface ContentIndexService extends org.chromium.mojo.bindings.Interface {
 
 
     
-    int MAX_ICON_RESOLUTION = (int) 65536;
+    public static final int MAX_ICON_RESOLUTION = (int) 65536;
 
 
 
 
-    interface Proxy extends ContentIndexService, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends ContentIndexService, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<ContentIndexService, ContentIndexService.Proxy> MANAGER = ContentIndexService_Internal.MANAGER;

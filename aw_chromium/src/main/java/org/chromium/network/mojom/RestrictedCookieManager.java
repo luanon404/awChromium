@@ -13,48 +13,58 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface RestrictedCookieManager extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends RestrictedCookieManager, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends RestrictedCookieManager, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<RestrictedCookieManager, RestrictedCookieManager.Proxy> MANAGER = RestrictedCookieManager_Internal.MANAGER;
 
-    void getAllForUrl(org.chromium.url.mojom.Url url, SiteForCookies siteForCookies, org.chromium.url.internal.mojom.Origin topFrameOrigin, boolean hasStorageAccess, CookieManagerGetOptions options, GetAllForUrl_Response callback);
+    void getAllForUrl(
+org.chromium.url.mojom.Url url, SiteForCookies siteForCookies, org.chromium.url.internal.mojom.Origin topFrameOrigin, boolean hasStorageAccess, CookieManagerGetOptions options, 
+GetAllForUrl_Response callback);
 
-    interface GetAllForUrl_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<CookieWithAccessResult[]> {
-    }
-
-
-    void setCanonicalCookie(CanonicalCookie cookie, org.chromium.url.mojom.Url url, SiteForCookies siteForCookies, org.chromium.url.internal.mojom.Origin topFrameOrigin, boolean hasStorageAccess, CookieInclusionStatus status, SetCanonicalCookie_Response callback);
-
-    interface SetCanonicalCookie_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> {
-    }
+    interface GetAllForUrl_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<CookieWithAccessResult[]> { }
 
 
-    void addChangeListener(org.chromium.url.mojom.Url url, SiteForCookies siteForCookies, org.chromium.url.internal.mojom.Origin topFrameOrigin, boolean hasStorageAccess, CookieChangeListener listener, AddChangeListener_Response callback);
+    void setCanonicalCookie(
+CanonicalCookie cookie, org.chromium.url.mojom.Url url, SiteForCookies siteForCookies, org.chromium.url.internal.mojom.Origin topFrameOrigin, boolean hasStorageAccess, CookieInclusionStatus status, 
+SetCanonicalCookie_Response callback);
 
-    interface AddChangeListener_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 {
-    }
-
-
-    void setCookieFromString(org.chromium.url.mojom.Url url, SiteForCookies siteForCookies, org.chromium.url.internal.mojom.Origin topFrameOrigin, boolean hasStorageAccess, String cookie, SetCookieFromString_Response callback);
-
-    interface SetCookieFromString_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 {
-    }
+    interface SetCanonicalCookie_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> { }
 
 
-    void getCookiesString(org.chromium.url.mojom.Url url, SiteForCookies siteForCookies, org.chromium.url.internal.mojom.Origin topFrameOrigin, boolean hasStorageAccess, boolean getVersionSharedMemory, GetCookiesString_Response callback);
+    void addChangeListener(
+org.chromium.url.mojom.Url url, SiteForCookies siteForCookies, org.chromium.url.internal.mojom.Origin topFrameOrigin, boolean hasStorageAccess, CookieChangeListener listener, 
+AddChangeListener_Response callback);
 
-    interface GetCookiesString_Response extends org.chromium.mojo.bindings.Callbacks.Callback3<Long, org.chromium.mojo_base.mojom.ReadOnlySharedMemoryRegion, String> {
-    }
+    interface AddChangeListener_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 { }
 
 
-    void cookiesEnabledFor(org.chromium.url.mojom.Url url, SiteForCookies siteForCookies, org.chromium.url.internal.mojom.Origin topFrameOrigin, boolean hasStorageAccess, CookiesEnabledFor_Response callback);
+    void setCookieFromString(
+org.chromium.url.mojom.Url url, SiteForCookies siteForCookies, org.chromium.url.internal.mojom.Origin topFrameOrigin, boolean hasStorageAccess, String cookie, 
+SetCookieFromString_Response callback);
 
-    interface CookiesEnabledFor_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> {
-    }
+    interface SetCookieFromString_Response extends org.chromium.mojo.bindings.Callbacks.Callback0 { }
+
+
+    void getCookiesString(
+org.chromium.url.mojom.Url url, SiteForCookies siteForCookies, org.chromium.url.internal.mojom.Origin topFrameOrigin, boolean hasStorageAccess, boolean getVersionSharedMemory, 
+GetCookiesString_Response callback);
+
+    interface GetCookiesString_Response extends org.chromium.mojo.bindings.Callbacks.Callback3<Long, org.chromium.mojo_base.mojom.ReadOnlySharedMemoryRegion, String> { }
+
+
+    void cookiesEnabledFor(
+org.chromium.url.mojom.Url url, SiteForCookies siteForCookies, org.chromium.url.internal.mojom.Origin topFrameOrigin, boolean hasStorageAccess, 
+CookiesEnabledFor_Response callback);
+
+    interface CookiesEnabledFor_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> { }
 
 
 }

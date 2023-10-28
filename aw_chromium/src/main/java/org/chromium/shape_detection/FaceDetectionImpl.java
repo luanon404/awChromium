@@ -36,7 +36,8 @@ public class FaceDetectionImpl implements FaceDetection {
     }
 
     @Override
-    public void detect(org.chromium.skia.mojom.BitmapN32 bitmapData, final Detect_Response callback) {
+    public void detect(
+            org.chromium.skia.mojom.BitmapN32 bitmapData, final Detect_Response callback) {
         Bitmap bitmap = BitmapUtils.convertToBitmap(bitmapData);
         if (bitmap == null) {
             Log.e(TAG, "Error converting Mojom Bitmap to Android Bitmap");
@@ -66,7 +67,8 @@ public class FaceDetectionImpl implements FaceDetection {
         // http://androidxref.com/7.0.0_r1/xref/frameworks/base/graphics/java/android/graphics/Bitmap.java#538
         int[] pixels = new int[width * height];
         bitmap.getPixels(pixels, 0, width, 0, 0, width, height);
-        final Bitmap unPremultipliedBitmap = Bitmap.createBitmap(pixels, width, height, Bitmap.Config.RGB_565);
+        final Bitmap unPremultipliedBitmap =
+                Bitmap.createBitmap(pixels, width, height, Bitmap.Config.RGB_565);
 
         // FaceDetector creation and findFaces() might take a long time and trigger a
         // "StrictMode policy violation": they should happen in a background thread.
@@ -101,8 +103,7 @@ public class FaceDetectionImpl implements FaceDetection {
     }
 
     @Override
-    public void close() {
-    }
+    public void close() {}
 
     @Override
     public void onConnectionError(MojoException e) {

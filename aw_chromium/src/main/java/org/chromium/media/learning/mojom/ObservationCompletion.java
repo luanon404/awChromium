@@ -13,10 +13,13 @@
 
 package org.chromium.media.learning.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class ObservationCompletion extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 24;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(24, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(24, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public TargetValue targetValue;
     public long weight;
@@ -40,7 +43,8 @@ public final class ObservationCompletion extends org.chromium.mojo.bindings.Stru
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static ObservationCompletion deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -54,15 +58,15 @@ public final class ObservationCompletion extends org.chromium.mojo.bindings.Stru
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new ObservationCompletion(elementsOrVersion);
-            {
-
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                 result.targetValue = TargetValue.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.weight = decoder0.readLong(16);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -74,9 +78,9 @@ public final class ObservationCompletion extends org.chromium.mojo.bindings.Stru
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.targetValue, 8, false);
-
+        
         encoder0.encode(this.weight, 16);
     }
 }

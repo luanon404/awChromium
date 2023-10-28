@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface PauseSubresourceLoadingHandle extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends PauseSubresourceLoadingHandle, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends PauseSubresourceLoadingHandle, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<PauseSubresourceLoadingHandle, PauseSubresourceLoadingHandle.Proxy> MANAGER = PauseSubresourceLoadingHandle_Internal.MANAGER;

@@ -13,42 +13,56 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface WatchTimeRecorder extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends WatchTimeRecorder, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends WatchTimeRecorder, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<WatchTimeRecorder, WatchTimeRecorder.Proxy> MANAGER = WatchTimeRecorder_Internal.MANAGER;
 
-    void recordWatchTime(int key, org.chromium.mojo_base.mojom.TimeDelta watchTime);
+    void recordWatchTime(
+int key, org.chromium.mojo_base.mojom.TimeDelta watchTime);
 
 
-    void finalizeWatchTime(int[] watchTimeKeys);
+    void finalizeWatchTime(
+int[] watchTimeKeys);
 
 
-    void onError(PipelineStatus status);
+    void onError(
+PipelineStatus status);
 
 
-    void updateSecondaryProperties(SecondaryPlaybackProperties secondaryProperties);
+    void updateSecondaryProperties(
+SecondaryPlaybackProperties secondaryProperties);
 
 
-    void setAutoplayInitiated(boolean value);
+    void setAutoplayInitiated(
+boolean value);
 
 
-    void onDurationChanged(org.chromium.mojo_base.mojom.TimeDelta duration);
+    void onDurationChanged(
+org.chromium.mojo_base.mojom.TimeDelta duration);
 
 
-    void updateVideoDecodeStats(int framesDecoded, int framesDropped);
+    void updateVideoDecodeStats(
+int framesDecoded, int framesDropped);
 
 
-    void updateUnderflowCount(int totalCount);
+    void updateUnderflowCount(
+int totalCount);
 
 
-    void updateUnderflowDuration(int totalCompletedCount, org.chromium.mojo_base.mojom.TimeDelta totalDuration);
+    void updateUnderflowDuration(
+int totalCompletedCount, org.chromium.mojo_base.mojom.TimeDelta totalDuration);
 
 
-    void onCurrentTimestampChanged(org.chromium.mojo_base.mojom.TimeDelta lastTimestamp);
+    void onCurrentTimestampChanged(
+org.chromium.mojo_base.mojom.TimeDelta lastTimestamp);
 
 
 }

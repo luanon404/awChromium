@@ -4,44 +4,55 @@
 package org.chromium.components.safe_browsing;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import androidx.annotation.GuardedBy;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.Log;
+import org.chromium.base.TraceEvent;
+import org.chromium.components.safe_browsing.SafeBrowsingApiHandler.LookupResult;
 
 @CheckDiscard("crbug.com/993421")
 class SafeBrowsingApiBridgeJni implements SafeBrowsingApiBridge.Natives {
-    private static SafeBrowsingApiBridge.Natives testInstance;
+  private static SafeBrowsingApiBridge.Natives testInstance;
 
-    public static final JniStaticTestMocker<SafeBrowsingApiBridge.Natives> TEST_HOOKS = new JniStaticTestMocker<SafeBrowsingApiBridge.Natives>() {
-        @Override
-        public void setInstanceForTesting(SafeBrowsingApiBridge.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<SafeBrowsingApiBridge.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<SafeBrowsingApiBridge.Natives>() {
     @Override
-    public void onUrlCheckDoneBySafeBrowsingApi(long callbackId, int lookupResult, int threatType, int[] threatAttributes, int responseStatus, long checkDelta) {
-        GEN_JNI.org_chromium_components_safe_1browsing_SafeBrowsingApiBridge_onUrlCheckDoneBySafeBrowsingApi(callbackId, lookupResult, threatType, threatAttributes, responseStatus, checkDelta);
+    public void setInstanceForTesting(SafeBrowsingApiBridge.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public void onUrlCheckDoneBySafetyNetApi(long callbackId, int resultStatus, String metadata, long checkDelta) {
-        GEN_JNI.org_chromium_components_safe_1browsing_SafeBrowsingApiBridge_onUrlCheckDoneBySafetyNetApi(callbackId, resultStatus, metadata, checkDelta);
-    }
+  @Override
+  public void onUrlCheckDoneBySafeBrowsingApi(long callbackId, int lookupResult, int threatType, int[] threatAttributes, int responseStatus, long checkDelta) {
+    GEN_JNI.org_chromium_components_safe_1browsing_SafeBrowsingApiBridge_onUrlCheckDoneBySafeBrowsingApi(callbackId, lookupResult, threatType, threatAttributes, responseStatus, checkDelta);
+  }
 
-    public static SafeBrowsingApiBridge.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of SafeBrowsingApiBridge.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new SafeBrowsingApiBridgeJni();
+  @Override
+  public void onUrlCheckDoneBySafetyNetApi(long callbackId, int resultStatus, String metadata, long checkDelta) {
+    GEN_JNI.org_chromium_components_safe_1browsing_SafeBrowsingApiBridge_onUrlCheckDoneBySafetyNetApi(callbackId, resultStatus, metadata, checkDelta);
+  }
+
+  public static SafeBrowsingApiBridge.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of SafeBrowsingApiBridge.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new SafeBrowsingApiBridgeJni();
+  }
 }

@@ -23,7 +23,7 @@ public interface ViewEventSink {
      * implementing container view.
      */
     @SuppressWarnings("javadoc")
-    interface InternalAccessDelegate {
+    public interface InternalAccessDelegate {
         /**
          * @see View#onKeyUp(keyCode, KeyEvent)
          */
@@ -48,7 +48,7 @@ public interface ViewEventSink {
     /**
      * @return {@link ViewEventSink} instance for a given {@link WebContents}.
      */
-    static ViewEventSink from(WebContents webContents) {
+    public static ViewEventSink from(WebContents webContents) {
         return ViewEventSinkImpl.from(webContents);
     }
 
@@ -69,14 +69,12 @@ public interface ViewEventSink {
 
     /**
      * Called when view-level focus for the container view has changed.
-     *
      * @param gainFocus {@code true} if the focus is gained, otherwise {@code false}.
      */
     void onViewFocusChanged(boolean gainFocus);
 
     /**
      * Sets whether the keyboard should be hidden when losing input focus.
-     *
      * @param hideKeyboardOnBlur {@code true} if we should hide soft keyboard when losing focus.
      */
     void setHideKeyboardOnBlur(boolean hideKeyboardOnBlur);
@@ -88,13 +86,11 @@ public interface ViewEventSink {
 
     /**
      * Set the Container view Internals.
-     *
      * @param internalDispatcher Handles dispatching all hidden or super methods to the
      *                           containerView.
      */
     void setAccessDelegate(InternalAccessDelegate internalDispatcher);
 
     void onPauseForTesting();
-
     void onResumeForTesting();
 }

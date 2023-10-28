@@ -3,46 +3,114 @@
 //
 package org.chromium.android_webview;
 
-import org.chromium.components.component_updater.ComponentLoaderPolicyBridge;
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
+import android.content.pm.ApplicationInfo;
+import android.os.Build;
+import android.os.IBinder;
+import android.os.ParcelFileDescriptor;
+import android.os.StrictMode;
+import androidx.annotation.IntDef;
+import androidx.annotation.Nullable;
+import com.google.protobuf.InvalidProtocolBufferException;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.android_webview.common.AwFeatures;
+import org.chromium.android_webview.common.AwSwitches;
+import org.chromium.android_webview.common.Lifetime;
+import org.chromium.android_webview.common.PlatformServiceBridge;
+import org.chromium.android_webview.common.services.ICrashReceiverService;
+import org.chromium.android_webview.common.services.IMetricsBridgeService;
+import org.chromium.android_webview.common.services.ServiceConnectionDelayRecorder;
+import org.chromium.android_webview.common.services.ServiceHelper;
+import org.chromium.android_webview.common.services.ServiceNames;
+import org.chromium.android_webview.metrics.AwMetricsLogUploader;
+import org.chromium.android_webview.metrics.AwMetricsServiceClient;
+import org.chromium.android_webview.metrics.AwNonembeddedUmaReplayer;
+import org.chromium.android_webview.metrics.MetricsFilteringDecorator;
+import org.chromium.android_webview.policy.AwPolicyProvider;
+import org.chromium.android_webview.proto.MetricsBridgeRecords.HistogramRecord;
+import org.chromium.android_webview.safe_browsing.AwSafeBrowsingConfigHelper;
+import org.chromium.base.BaseSwitches;
+import org.chromium.base.CommandLine;
+import org.chromium.base.ContextUtils;
+import org.chromium.base.Log;
+import org.chromium.base.PathUtils;
+import org.chromium.base.PowerMonitor;
+import org.chromium.base.StreamUtil;
+import org.chromium.base.ThreadUtils;
+import org.chromium.base.TimeUtils;
+import org.chromium.base.library_loader.LibraryLoader;
+import org.chromium.base.library_loader.LibraryProcessType;
+import org.chromium.base.metrics.RecordHistogram;
+import org.chromium.base.metrics.ScopedSysTraceEvent;
+import org.chromium.base.task.PostTask;
+import org.chromium.base.task.TaskRunner;
+import org.chromium.base.task.TaskTraits;
+import org.chromium.components.component_updater.ComponentLoaderPolicyBridge;
+import org.chromium.components.component_updater.EmbeddedComponentLoader;
+import org.chromium.components.metrics.AndroidMetricsFeatures;
+import org.chromium.components.metrics.AndroidMetricsLogConsumer;
+import org.chromium.components.metrics.AndroidMetricsLogUploader;
+import org.chromium.components.minidump_uploader.CrashFileManager;
+import org.chromium.components.policy.CombinedPolicyProvider;
+import org.chromium.content_public.browser.BrowserStartupController;
+import org.chromium.content_public.browser.ChildProcessCreationParams;
+import org.chromium.content_public.browser.ChildProcessLauncherHelper;
+import java.io.File;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @CheckDiscard("crbug.com/993421")
 class AwBrowserProcessJni implements AwBrowserProcess.Natives {
-    private static AwBrowserProcess.Natives testInstance;
+  private static AwBrowserProcess.Natives testInstance;
 
-    public static final JniStaticTestMocker<AwBrowserProcess.Natives> TEST_HOOKS = new JniStaticTestMocker<AwBrowserProcess.Natives>() {
-        @Override
-        public void setInstanceForTesting(AwBrowserProcess.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<AwBrowserProcess.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<AwBrowserProcess.Natives>() {
     @Override
-    public ComponentLoaderPolicyBridge[] getComponentLoaderPolicies() {
-        return (ComponentLoaderPolicyBridge[]) GEN_JNI.org_chromium_android_1webview_AwBrowserProcess_getComponentLoaderPolicies();
+    public void setInstanceForTesting(AwBrowserProcess.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public void setProcessNameCrashKey(String processName) {
-        GEN_JNI.org_chromium_android_1webview_AwBrowserProcess_setProcessNameCrashKey(processName);
-    }
+  @Override
+  public ComponentLoaderPolicyBridge[] getComponentLoaderPolicies() {
+    return (ComponentLoaderPolicyBridge[]) GEN_JNI.org_chromium_android_1webview_AwBrowserProcess_getComponentLoaderPolicies();
+  }
 
-    public static AwBrowserProcess.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of AwBrowserProcess.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new AwBrowserProcessJni();
+  @Override
+  public void setProcessNameCrashKey(String processName) {
+    GEN_JNI.org_chromium_android_1webview_AwBrowserProcess_setProcessNameCrashKey(processName);
+  }
+
+  public static AwBrowserProcess.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of AwBrowserProcess.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new AwBrowserProcessJni();
+  }
 }

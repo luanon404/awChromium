@@ -183,6 +183,5 @@ public final class SafeBrowsingFeatures {
     public static final String SAFE_BROWSING_DAILY_PHISHING_REPORTS_LIMIT = "SafeBrowsingDailyPhishingReportsLimit";
 
     // Prevents instantiation.
-    private SafeBrowsingFeatures() {
-    }
+    private SafeBrowsingFeatures() {}
 }

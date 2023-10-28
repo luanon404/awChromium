@@ -11,10 +11,11 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
 
-import org.chromium.base.ContextUtils;
-import org.chromium.device.mojom.SensorType;
 import org.jni_zero.CalledByNative;
 import org.jni_zero.JNINamespace;
+
+import org.chromium.base.ContextUtils;
+import org.chromium.device.mojom.SensorType;
 
 import java.util.HashSet;
 import java.util.List;
@@ -28,7 +29,6 @@ class PlatformSensorProvider {
     /**
      * SensorManager that is shared among PlatformSensor objects. It is used for Sensor object
      * creation and @see android.hardware.SensorEventListener registration.
-     *
      * @see android.hardware.SensorManager
      */
     private SensorManager mSensorManager;

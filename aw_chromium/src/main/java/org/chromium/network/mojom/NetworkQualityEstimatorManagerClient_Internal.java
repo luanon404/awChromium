@@ -13,9 +13,13 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 class NetworkQualityEstimatorManagerClient_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<NetworkQualityEstimatorManagerClient, NetworkQualityEstimatorManagerClient.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<NetworkQualityEstimatorManagerClient, NetworkQualityEstimatorManagerClient.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<NetworkQualityEstimatorManagerClient, NetworkQualityEstimatorManagerClient.Proxy> MANAGER =
+            new org.chromium.mojo.bindings.Interface.Manager<NetworkQualityEstimatorManagerClient, NetworkQualityEstimatorManagerClient.Proxy>() {
 
         @Override
         public String getName() {
@@ -24,11 +28,12 @@ class NetworkQualityEstimatorManagerClient_Internal {
 
         @Override
         public int getVersion() {
-            return 0;
+          return 0;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -39,7 +44,7 @@ class NetworkQualityEstimatorManagerClient_Internal {
 
         @Override
         public NetworkQualityEstimatorManagerClient[] buildArray(int size) {
-            return new NetworkQualityEstimatorManagerClient[size];
+          return new NetworkQualityEstimatorManagerClient[size];
         }
     };
 
@@ -49,13 +54,15 @@ class NetworkQualityEstimatorManagerClient_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements NetworkQualityEstimatorManagerClient.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core,
+              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void onNetworkQualityChanged(int type, org.chromium.mojo_base.mojom.TimeDelta httpRtt, org.chromium.mojo_base.mojom.TimeDelta transportRtt, int downlinkBandwidthKbps) {
+        public void onNetworkQualityChanged(
+int type, org.chromium.mojo_base.mojom.TimeDelta httpRtt, org.chromium.mojo_base.mojom.TimeDelta transportRtt, int downlinkBandwidthKbps) {
 
             NetworkQualityEstimatorManagerClientOnNetworkQualityChangedParams _message = new NetworkQualityEstimatorManagerClientOnNetworkQualityChangedParams();
 
@@ -68,7 +75,10 @@ class NetworkQualityEstimatorManagerClient_Internal {
             _message.downlinkBandwidthKbps = downlinkBandwidthKbps;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_NETWORK_QUALITY_CHANGED_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_NETWORK_QUALITY_CHANGED_ORDINAL)));
 
         }
 
@@ -84,7 +94,8 @@ class NetworkQualityEstimatorManagerClient_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -93,15 +104,20 @@ class NetworkQualityEstimatorManagerClient_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(NetworkQualityEstimatorManagerClient_Internal.MANAGER, messageWithHeader);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
+                                NetworkQualityEstimatorManagerClient_Internal.MANAGER, messageWithHeader);
+
+
+
 
 
                     case ON_NETWORK_QUALITY_CHANGED_ORDINAL: {
 
-                        NetworkQualityEstimatorManagerClientOnNetworkQualityChangedParams data = NetworkQualityEstimatorManagerClientOnNetworkQualityChangedParams.deserialize(messageWithHeader.getPayload());
+                        NetworkQualityEstimatorManagerClientOnNetworkQualityChangedParams data =
+                                NetworkQualityEstimatorManagerClientOnNetworkQualityChangedParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onNetworkQualityChanged(data.type, data.httpRtt, data.transportRtt, data.downlinkBandwidthKbps);
                         return true;
@@ -112,7 +128,7 @@ class NetworkQualityEstimatorManagerClient_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -120,7 +136,8 @@ class NetworkQualityEstimatorManagerClient_Internal {
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -129,27 +146,31 @@ class NetworkQualityEstimatorManagerClient_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), NetworkQualityEstimatorManagerClient_Internal.MANAGER, messageWithHeader, receiver);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
+                                getCore(), NetworkQualityEstimatorManagerClient_Internal.MANAGER, messageWithHeader, receiver);
+
+
 
 
                     default:
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class NetworkQualityEstimatorManagerClientOnNetworkQualityChangedParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 32;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(32, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(32, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int type;
         public org.chromium.mojo_base.mojom.TimeDelta httpRtt;
@@ -174,7 +195,8 @@ class NetworkQualityEstimatorManagerClient_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static NetworkQualityEstimatorManagerClientOnNetworkQualityChangedParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -188,26 +210,26 @@ class NetworkQualityEstimatorManagerClient_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new NetworkQualityEstimatorManagerClientOnNetworkQualityChangedParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.type = decoder0.readInt(8);
-                    EffectiveConnectionType.validate(result.type);
-                    result.type = EffectiveConnectionType.toKnownValue(result.type);
-                }
-                {
-
+                        EffectiveConnectionType.validate(result.type);
+                        result.type = EffectiveConnectionType.toKnownValue(result.type);
+                    }
+                    {
+                        
                     result.downlinkBandwidthKbps = decoder0.readInt(12);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                     result.httpRtt = org.chromium.mojo_base.mojom.TimeDelta.decode(decoder1);
-                }
-                {
-
+                    }
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, false);
                     result.transportRtt = org.chromium.mojo_base.mojom.TimeDelta.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -219,16 +241,17 @@ class NetworkQualityEstimatorManagerClient_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.type, 8);
-
+            
             encoder0.encode(this.downlinkBandwidthKbps, 12);
-
+            
             encoder0.encode(this.httpRtt, 16, false);
-
+            
             encoder0.encode(this.transportRtt, 24, false);
         }
     }
+
 
 
 }

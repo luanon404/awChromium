@@ -4,39 +4,63 @@
 package org.chromium.content.browser.input;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.content.Context;
+import android.view.View;
+import android.view.ViewGroup;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.UserData;
+import org.chromium.content.browser.PopupController;
+import org.chromium.content.browser.PopupController.HideablePopup;
+import org.chromium.content.browser.WindowEventObserver;
+import org.chromium.content.browser.WindowEventObserverManager;
+import org.chromium.content.browser.webcontents.WebContentsImpl;
+import org.chromium.content.browser.webcontents.WebContentsImpl.UserDataFactory;
+import org.chromium.content_public.browser.WebContents;
+import org.chromium.ui.accessibility.AccessibilityState;
+import org.chromium.ui.base.DeviceFormFactor;
+import org.chromium.ui.base.ViewAndroidDelegate;
+import org.chromium.ui.base.WindowAndroid;
+import java.util.ArrayList;
+import java.util.List;
 
 @CheckDiscard("crbug.com/993421")
 class SelectPopupJni implements SelectPopup.Natives {
-    private static SelectPopup.Natives testInstance;
+  private static SelectPopup.Natives testInstance;
 
-    public static final JniStaticTestMocker<SelectPopup.Natives> TEST_HOOKS = new JniStaticTestMocker<SelectPopup.Natives>() {
-        @Override
-        public void setInstanceForTesting(SelectPopup.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<SelectPopup.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<SelectPopup.Natives>() {
     @Override
-    public void selectMenuItems(long nativeSelectPopup, SelectPopup caller, long nativeSelectPopupSourceFrame, int[] indices) {
-        GEN_JNI.org_chromium_content_browser_input_SelectPopup_selectMenuItems(nativeSelectPopup, caller, nativeSelectPopupSourceFrame, indices);
+    public void setInstanceForTesting(SelectPopup.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    public static SelectPopup.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of SelectPopup.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new SelectPopupJni();
+  @Override
+  public void selectMenuItems(long nativeSelectPopup, SelectPopup caller, long nativeSelectPopupSourceFrame, int[] indices) {
+    GEN_JNI.org_chromium_content_browser_input_SelectPopup_selectMenuItems(nativeSelectPopup, caller, nativeSelectPopupSourceFrame, indices);
+  }
+
+  public static SelectPopup.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of SelectPopup.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new SelectPopupJni();
+  }
 }

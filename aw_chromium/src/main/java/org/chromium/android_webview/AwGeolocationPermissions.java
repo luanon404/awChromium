@@ -14,20 +14,19 @@ import java.util.Set;
 
 /**
  * This class is used to manage permissions for the WebView's Geolocation JavaScript API.
- * <p>
+ *
  * Callbacks are posted on the UI thread.
  */
 @Lifetime.Profile
 public final class AwGeolocationPermissions {
-    private static final String PREF_PREFIX = "AwGeolocationPermissions%";
+    private static final String PREF_PREFIX =
+            "AwGeolocationPermissions%";
     private final SharedPreferences mSharedPreferences;
 
-    /**
-     * See {@link android.webkit.GeolocationPermissions}.
-     */
+    /** See {@link android.webkit.GeolocationPermissions}. */
     public interface Callback {
         /* See {@link android.webkit.GeolocationPermissions}. */
-        void invoke(String origin, boolean allow, boolean retain);
+        public void invoke(String origin, boolean allow, boolean retain);
     }
 
     public AwGeolocationPermissions(SharedPreferences sharedPreferences) {
@@ -130,7 +129,8 @@ public final class AwGeolocationPermissions {
     }
 
     /* package */
-    static void migrateGeolocationPreferences(SharedPreferences oldPrefs, SharedPreferences newPrefs) {
+    static void migrateGeolocationPreferences(
+            SharedPreferences oldPrefs, SharedPreferences newPrefs) {
         SharedPreferences.Editor oldPrefsEditor = oldPrefs.edit();
 
         SharedPreferences.Editor newPrefsEditor = newPrefs.edit();

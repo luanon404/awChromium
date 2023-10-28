@@ -13,18 +13,23 @@
 
 package org.chromium.viz.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface InputTargetClient extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends InputTargetClient, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends InputTargetClient, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<InputTargetClient, InputTargetClient.Proxy> MANAGER = InputTargetClient_Internal.MANAGER;
 
-    void frameSinkIdAt(org.chromium.gfx.mojom.PointF point, long traceId, FrameSinkIdAt_Response callback);
+    void frameSinkIdAt(
+org.chromium.gfx.mojom.PointF point, long traceId, 
+FrameSinkIdAt_Response callback);
 
-    interface FrameSinkIdAt_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<FrameSinkId, org.chromium.gfx.mojom.PointF> {
-    }
+    interface FrameSinkIdAt_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<FrameSinkId, org.chromium.gfx.mojom.PointF> { }
 
 
 }

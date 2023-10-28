@@ -13,6 +13,8 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 class DomStorage_Internal {
 
@@ -196,7 +198,7 @@ StorageKey storageKey, LocalFrameToken localFrameToken, String namespaceId, org.
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -231,7 +233,7 @@ StorageKey storageKey, LocalFrameToken localFrameToken, String namespaceId, org.
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }

@@ -13,10 +13,13 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class SerialPortInfo extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 64;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(64, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(64, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public org.chromium.mojo_base.mojom.UnguessableToken token;
     public org.chromium.mojo_base.mojom.FilePath path;
@@ -50,7 +53,8 @@ public final class SerialPortInfo extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static SerialPortInfo deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -64,51 +68,51 @@ public final class SerialPortInfo extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new SerialPortInfo(elementsOrVersion);
-            {
-
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                 result.token = org.chromium.mojo_base.mojom.UnguessableToken.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                 result.path = org.chromium.mojo_base.mojom.FilePath.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.type = decoder0.readInt(24);
-                SerialPortType.validate(result.type);
-                result.type = SerialPortType.toKnownValue(result.type);
-            }
-            {
-
+                    SerialPortType.validate(result.type);
+                    result.type = SerialPortType.toKnownValue(result.type);
+                }
+                {
+                    
                 result.vendorId = decoder0.readShort(28);
-            }
-            {
-
+                }
+                {
+                    
                 result.hasVendorId = decoder0.readBoolean(30, 0);
-            }
-            {
-
+                }
+                {
+                    
                 result.hasProductId = decoder0.readBoolean(30, 1);
-            }
-            {
-
+                }
+                {
+                    
                 result.productId = decoder0.readShort(32);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(40, true);
                 result.bluetoothServiceClassId = org.chromium.bluetooth.mojom.Uuid.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.displayName = decoder0.readString(48, true);
-            }
-            {
-
+                }
+                {
+                    
                 result.serialNumber = decoder0.readString(56, true);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -120,25 +124,25 @@ public final class SerialPortInfo extends org.chromium.mojo.bindings.Struct {
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.token, 8, false);
-
+        
         encoder0.encode(this.path, 16, false);
-
+        
         encoder0.encode(this.type, 24);
-
+        
         encoder0.encode(this.vendorId, 28);
-
+        
         encoder0.encode(this.hasVendorId, 30, 0);
-
+        
         encoder0.encode(this.hasProductId, 30, 1);
-
+        
         encoder0.encode(this.productId, 32);
-
+        
         encoder0.encode(this.bluetoothServiceClassId, 40, true);
-
+        
         encoder0.encode(this.displayName, 48, true);
-
+        
         encoder0.encode(this.serialNumber, 56, true);
     }
 }

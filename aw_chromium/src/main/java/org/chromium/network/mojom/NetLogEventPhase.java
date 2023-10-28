@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class NetLogEventPhase {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({NetLogEventPhase.BEGIN, NetLogEventPhase.END, NetLogEventPhase.NONE})
-    public @interface EnumType {
-    }
+        NetLogEventPhase.BEGIN,
+        NetLogEventPhase.END,
+        NetLogEventPhase.NONE})
+    public @interface EnumType {}
 
     public static final int BEGIN = 0;
     public static final int END = 1;
@@ -38,9 +40,8 @@ public final class NetLogEventPhase {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private NetLogEventPhase() {
-    }
+    private NetLogEventPhase() {}
 }

@@ -13,6 +13,8 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public final class DataElement extends org.chromium.mojo.bindings.Union {
 
@@ -20,8 +22,7 @@ public final class DataElement extends org.chromium.mojo.bindings.Union {
         public static final int Bytes = 0;
         public static final int File = 1;
         public static final int Blob = 2;
-    }
-
+    };
     private DataElementBytes mBytes;
     private DataElementFile mFile;
     private DataElementBlob mBlob;

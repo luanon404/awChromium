@@ -20,7 +20,7 @@ import java.util.zip.GZIPOutputStream;
 
 /**
  * This class tries to upload a minidump to the crash server.
- * <p>
+ *
  * Minidumps are stored in multipart MIME format ready to form the body of a POST request. The MIME
  * boundary forms the first line of the file.
  */
@@ -34,7 +34,7 @@ public class MinidumpUploader {
 
     /**
      * The result of an upload attempt.
-     * <p>
+     *
      * An upload attempt may succeed, in which case the result message is the upload ID.
      * Alternatively it may fail either as a result of either a local or a remote error.
      */
@@ -47,23 +47,17 @@ public class MinidumpUploader {
             mResult = result;
         }
 
-        /**
-         * Returns true if this result represents a succesful upload.
-         */
+        /** Returns true if this result represents a succesful upload. */
         public boolean isSuccess() {
             return mErrorCode == 0;
         }
 
-        /**
-         * Returns true if this result represents a remote error.
-         */
+        /** Returns true if this result represents a remote error. */
         public boolean isUploadError() {
             return mErrorCode > 0;
         }
 
-        /**
-         * Returns true if this result represents a local error.
-         */
+        /** Returns true if this result represents a local error. */
         public boolean isFailure() {
             return mErrorCode < 0;
         }
@@ -113,7 +107,7 @@ public class MinidumpUploader {
 
     /**
      * Attempt to upload a single file to the crash server.
-     * <p>
+     *
      * The result of the upload attempt is either success (and an associated report ID), or failure.
      * Failure may occur locally (the file is invalid or the network connection could not be
      * created) or remotely (the crash server rejected the upload with a HTTP error).
@@ -126,13 +120,16 @@ public class MinidumpUploader {
             if (fileToUpload == null || !fileToUpload.exists()) {
                 return Result.failure("Crash report does not exist");
             }
-            HttpURLConnection connection = mHttpURLConnectionFactory.createHttpURLConnection(CRASH_URL_STRING);
+            HttpURLConnection connection =
+                    mHttpURLConnectionFactory.createHttpURLConnection(CRASH_URL_STRING);
             if (connection == null) {
                 return Result.failure("Failed to create connection");
             }
             configureConnectionForHttpPost(connection, readBoundary(fileToUpload));
 
-            try (InputStream minidumpInputStream = new FileInputStream(fileToUpload); OutputStream requestBodyStream = new GZIPOutputStream(connection.getOutputStream())) {
+            try (InputStream minidumpInputStream = new FileInputStream(fileToUpload);
+                    OutputStream requestBodyStream =
+                            new GZIPOutputStream(connection.getOutputStream())) {
                 streamCopy(minidumpInputStream, requestBodyStream);
                 int responseCode = connection.getResponseCode();
                 if (isSuccessful(responseCode)) {
@@ -154,11 +151,11 @@ public class MinidumpUploader {
 
     /**
      * Configures a HttpURLConnection to send a HTTP POST request for uploading the minidump.
-     * <p>
+     *
      * This also reads the content-type from the minidump file.
      *
      * @param connection the HttpURLConnection to configure
-     * @param boundary   the MIME boundary used in the request body
+     * @param boundary the MIME boundary used in the request body
      */
     private void configureConnectionForHttpPost(HttpURLConnection connection, String boundary) {
         connection.setDoOutput(true);
@@ -171,11 +168,12 @@ public class MinidumpUploader {
      * Get the MIME boundary from the file, for inclusion in Content-Type header.
      *
      * @return the MIME boundary used in the file.
-     * @throws IOException      if fileToUpload cannot be read
+     * @throws IOException if fileToUpload cannot be read
      * @throws RuntimeException if the MIME boundary is missing or malformed.
      */
     private String readBoundary(File fileToUpload) throws IOException {
-        try (FileReader fileReader = new FileReader(fileToUpload); BufferedReader reader = new BufferedReader(fileReader)) {
+        try (FileReader fileReader = new FileReader(fileToUpload);
+                BufferedReader reader = new BufferedReader(fileReader)) {
             String boundary = reader.readLine();
             if (boundary == null || boundary.trim().isEmpty()) {
                 throw new RuntimeException("File does not have a MIME boundary");
@@ -225,7 +223,7 @@ public class MinidumpUploader {
      * Copies all available data from |inStream| to |outStream|. Closes both
      * streams when done.
      *
-     * @param inStream  the stream to read
+     * @param inStream the stream to read
      * @param outStream the stream to write to
      * @throws IOException
      */

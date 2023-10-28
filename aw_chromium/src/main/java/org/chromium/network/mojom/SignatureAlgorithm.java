@@ -17,10 +17,13 @@ import androidx.annotation.IntDef;
 
 public final class SignatureAlgorithm {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({SignatureAlgorithm.SIG_ALGO_ANONYMOUS, SignatureAlgorithm.SIG_ALGO_RSA, SignatureAlgorithm.SIG_ALGO_DSA, SignatureAlgorithm.SIG_ALGO_ECDSA})
-    public @interface EnumType {
-    }
+        SignatureAlgorithm.SIG_ALGO_ANONYMOUS,
+        SignatureAlgorithm.SIG_ALGO_RSA,
+        SignatureAlgorithm.SIG_ALGO_DSA,
+        SignatureAlgorithm.SIG_ALGO_ECDSA})
+    public @interface EnumType {}
 
     public static final int SIG_ALGO_ANONYMOUS = 0;
     public static final int SIG_ALGO_RSA = 1;
@@ -39,9 +42,8 @@ public final class SignatureAlgorithm {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private SignatureAlgorithm() {
-    }
+    private SignatureAlgorithm() {}
 }

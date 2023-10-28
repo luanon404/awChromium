@@ -10,7 +10,9 @@ import org.chromium.base.ApplicationStatus;
 /**
  * Regsitration policy which depends on the ApplicationState.
  */
-public class RegistrationPolicyApplicationStatus extends NetworkChangeNotifierAutoDetect.RegistrationPolicy implements ApplicationStatus.ApplicationStateListener {
+public class RegistrationPolicyApplicationStatus
+        extends NetworkChangeNotifierAutoDetect.RegistrationPolicy
+        implements ApplicationStatus.ApplicationStateListener {
     private boolean mDestroyed;
 
     @Override

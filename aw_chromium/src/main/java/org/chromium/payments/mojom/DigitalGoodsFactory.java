@@ -13,18 +13,23 @@
 
 package org.chromium.payments.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface DigitalGoodsFactory extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends DigitalGoodsFactory, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends DigitalGoodsFactory, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<DigitalGoodsFactory, DigitalGoodsFactory.Proxy> MANAGER = DigitalGoodsFactory_Internal.MANAGER;
 
-    void createDigitalGoods(String paymentMethod, CreateDigitalGoods_Response callback);
+    void createDigitalGoods(
+String paymentMethod, 
+CreateDigitalGoods_Response callback);
 
-    interface CreateDigitalGoods_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<Integer, DigitalGoods> {
-    }
+    interface CreateDigitalGoods_Response extends org.chromium.mojo.bindings.Callbacks.Callback2<Integer, DigitalGoods> { }
 
 
 }

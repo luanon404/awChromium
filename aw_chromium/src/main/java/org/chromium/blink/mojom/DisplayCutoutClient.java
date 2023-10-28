@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface DisplayCutoutClient extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends DisplayCutoutClient, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends DisplayCutoutClient, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<DisplayCutoutClient, DisplayCutoutClient.Proxy> MANAGER = DisplayCutoutClient_Internal.MANAGER;

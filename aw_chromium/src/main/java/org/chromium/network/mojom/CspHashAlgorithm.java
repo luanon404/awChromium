@@ -17,10 +17,13 @@ import androidx.annotation.IntDef;
 
 public final class CspHashAlgorithm {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({CspHashAlgorithm.NONE, CspHashAlgorithm.SHA256, CspHashAlgorithm.SHA384, CspHashAlgorithm.SHA512})
-    public @interface EnumType {
-    }
+        CspHashAlgorithm.NONE,
+        CspHashAlgorithm.SHA256,
+        CspHashAlgorithm.SHA384,
+        CspHashAlgorithm.SHA512})
+    public @interface EnumType {}
 
     public static final int NONE = 0;
     public static final int SHA256 = 1;
@@ -46,9 +49,8 @@ public final class CspHashAlgorithm {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private CspHashAlgorithm() {
-    }
+    private CspHashAlgorithm() {}
 }

@@ -9,30 +9,24 @@ import java.lang.annotation.RetentionPolicy;
 
 /**
  * Annotations specifying the lifetimes of classes in embedded WebView code.
- * <p>
+ *
  * See: //android_webview/docs/lifetime-annotations.md.
  */
 public class Lifetime {
-    private Lifetime() {
-    }
+    private Lifetime() {}
 
     @Retention(RetentionPolicy.SOURCE)
-    public @interface Singleton {
-    }
+    public @interface Singleton {}
 
     @Retention(RetentionPolicy.SOURCE)
-    public @interface Profile {
-    }
+    public @interface Profile {}
 
     @Retention(RetentionPolicy.SOURCE)
-    public @interface WebView {
-    }
+    public @interface WebView {}
 
     @Retention(RetentionPolicy.SOURCE)
-    public @interface Temporary {
-    }
+    public @interface Temporary {}
 
     @Retention(RetentionPolicy.SOURCE)
-    public @interface Renderer {
-    }
+    public @interface Renderer {}
 }

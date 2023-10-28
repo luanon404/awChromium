@@ -40,8 +40,8 @@ class OverScrollGlow {
     /**
      * Pull leftover touch scroll distance into one of the edge glows as appropriate.
      *
-     * @param x    Current X scroll offset
-     * @param y    Current Y scroll offset
+     * @param x Current X scroll offset
+     * @param y Current Y scroll offset
      * @param oldX Old X scroll offset
      * @param oldY Old Y scroll offset
      * @param maxX Maximum range for horizontal scrolling
@@ -93,15 +93,16 @@ class OverScrollGlow {
     /**
      * Absorb leftover fling velocity into one of the edge glows as appropriate.
      *
-     * @param x                    Current X scroll offset
-     * @param y                    Current Y scroll offset
-     * @param oldX                 Old X scroll offset
-     * @param oldY                 Old Y scroll offset
-     * @param rangeX               Maximum range for horizontal scrolling
-     * @param rangeY               Maximum range for vertical scrolling
+     * @param x Current X scroll offset
+     * @param y Current Y scroll offset
+     * @param oldX Old X scroll offset
+     * @param oldY Old Y scroll offset
+     * @param rangeX Maximum range for horizontal scrolling
+     * @param rangeY Maximum range for vertical scrolling
      * @param currentFlingVelocity Current fling velocity
      */
-    public void absorbGlow(int x, int y, int oldX, int oldY, int rangeX, int rangeY, float currentFlingVelocity) {
+    public void absorbGlow(int x, int y, int oldX, int oldY, int rangeX, int rangeY,
+            float currentFlingVelocity) {
         if (mShouldPull) {
             // Not absorb the glow because the user is pulling the glow now.
             // TODO(hush): crbug.com/501556. Do not use "mShouldPull" to switch
@@ -151,7 +152,7 @@ class OverScrollGlow {
     /**
      * Draw the glow effect along the sides of the widget.
      *
-     * @param canvas     Canvas to draw into, transformed into view coordinates.
+     * @param canvas Canvas to draw into, transformed into view coordinates.
      * @param maxScrollX maximum horizontal scroll offset
      * @param maxScrollY maximum vertical scroll offset
      * @return true if glow effects are still animating and the view should invalidate again.
@@ -205,7 +206,8 @@ class OverScrollGlow {
      * @return True if any glow is still animating
      */
     public boolean isAnimating() {
-        return (!mEdgeGlowTop.isFinished() || !mEdgeGlowBottom.isFinished() || !mEdgeGlowLeft.isFinished() || !mEdgeGlowRight.isFinished());
+        return (!mEdgeGlowTop.isFinished() || !mEdgeGlowBottom.isFinished()
+                || !mEdgeGlowLeft.isFinished() || !mEdgeGlowRight.isFinished());
     }
 
     /**

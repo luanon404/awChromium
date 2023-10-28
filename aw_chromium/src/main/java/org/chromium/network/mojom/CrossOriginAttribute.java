@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class CrossOriginAttribute {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({CrossOriginAttribute.UNSPECIFIED, CrossOriginAttribute.ANONYMOUS, CrossOriginAttribute.USE_CREDENTIALS})
-    public @interface EnumType {
-    }
+        CrossOriginAttribute.UNSPECIFIED,
+        CrossOriginAttribute.ANONYMOUS,
+        CrossOriginAttribute.USE_CREDENTIALS})
+    public @interface EnumType {}
 
     public static final int UNSPECIFIED = 0;
     public static final int ANONYMOUS = 1;
@@ -38,9 +40,8 @@ public final class CrossOriginAttribute {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private CrossOriginAttribute() {
-    }
+    private CrossOriginAttribute() {}
 }

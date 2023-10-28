@@ -22,13 +22,14 @@ import java.util.Random;
 /**
  * This class takes advantage of shouldInterceptRequest(), returns the bitmap from
  * WebChromeClient.getDefaultVidoePoster() when the mDefaultVideoPosterURL is requested.
- * <p>
+ *
  * The shouldInterceptRequest is used to get the default video poster, if the url is
  * the mDefaultVideoPosterURL.
  */
 @Lifetime.WebView
 public class DefaultVideoPosterRequestHandler {
-    private static InputStream getInputStream(final AwContentsClient contentClient) throws IOException {
+    private static InputStream getInputStream(final AwContentsClient contentClient)
+            throws IOException {
         final PipedInputStream inputStream = new PipedInputStream();
         final PipedOutputStream outputStream = new PipedOutputStream(inputStream);
 
@@ -43,7 +44,8 @@ public class DefaultVideoPosterRequestHandler {
             }
             PostTask.postTask(TaskTraits.BEST_EFFORT_MAY_BLOCK, () -> {
                 try {
-                    defaultVideoPoster.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+                    defaultVideoPoster.compress(Bitmap.CompressFormat.PNG, 100,
+                            outputStream);
                     outputStream.flush();
                 } catch (IOException e) {
                     Log.e(TAG, null, e);

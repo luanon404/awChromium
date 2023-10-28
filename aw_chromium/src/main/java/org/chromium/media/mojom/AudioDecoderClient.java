@@ -13,18 +13,24 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface AudioDecoderClient extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends AudioDecoderClient, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends AudioDecoderClient, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<AudioDecoderClient, AudioDecoderClient.Proxy> MANAGER = AudioDecoderClient_Internal.MANAGER;
 
-    void onBufferDecoded(AudioBuffer buffer);
+    void onBufferDecoded(
+AudioBuffer buffer);
 
 
-    void onWaiting(int reason);
+    void onWaiting(
+int reason);
 
 
 }

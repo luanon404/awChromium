@@ -23,7 +23,10 @@ public class CrashInfo {
      * Crash file report/minidump upload status.
      */
     public static enum UploadState {
-        SKIPPED, PENDING, PENDING_USER_REQUESTED, UPLOADED,
+        SKIPPED,
+        PENDING,
+        PENDING_USER_REQUESTED,
+        UPLOADED,
     }
 
     /**
@@ -100,7 +103,8 @@ public class CrashInfo {
      * Both of the {@link CrashInfo} should have the same {@code localId}.
      */
     public CrashInfo(@NonNull CrashInfo a, @NonNull CrashInfo b) {
-        assert a.localId.equals(b.localId) : "CrashInfo objects should be only merged if they have the same localId";
+        assert a.localId.equals(b.localId)
+            : "CrashInfo objects should be only merged if they have the same localId";
         this.localId = a.localId;
 
         this.uploadId = a.uploadId != null ? a.uploadId : b.uploadId;
@@ -133,10 +137,11 @@ public class CrashInfo {
 
     /**
      * Create a {@link CrashInfo} object for testing.
-     * <p>
+     *
      * {@code appPackageName} is used as a representative of crash keys in tests.
      */
-    public static CrashInfo createCrashInfoForTesting(String localId, long captureTime, String uploadId, long uploadTime, String appPackageName, UploadState state) {
+    public static CrashInfo createCrashInfoForTesting(String localId, long captureTime,
+            String uploadId, long uploadTime, String appPackageName, UploadState state) {
         Map<String, String> crashKeys = new HashMap<>();
         if (appPackageName != null) {
             crashKeys.put("app-package-name", appPackageName);
@@ -162,7 +167,7 @@ public class CrashInfo {
 
     /**
      * Return the string value of the given crash key extracted from the crash minidump report.
-     * <p>
+     *
      * This is an accessory method similar to {@link Map#getOrDefault(Object, Object)} which is
      * only supported starting from API 24.
      *
@@ -176,7 +181,7 @@ public class CrashInfo {
 
     /**
      * Serialize {@code CrashInfo} object into a JSON object string.
-     * <p>
+     *
      * This doesn't serialize upload id, upload time or upload state.
      *
      * @return serialized string for the object.
@@ -207,13 +212,15 @@ public class CrashInfo {
      *
      * @param jsonString JSON string to load {@code CrashInfo} from.
      * @return {@code CrashInfo} loaded from the serialized JSON object string.
-     * @throws JSONException          if it's a malformatted JSON string.
+     * @throws JSONException if it's a malformatted JSON string.
      * @throws InvalidObjectException if the JSON Object doesn't have "crash-local-id" field.
      */
-    public static CrashInfo readFromJsonString(String jsonString) throws JSONException, InvalidObjectException {
+    public static CrashInfo readFromJsonString(String jsonString)
+            throws JSONException, InvalidObjectException {
         JSONObject jsonObj = new JSONObject(jsonString);
         if (!jsonObj.has(CRASH_LOCAL_ID_KEY)) {
-            throw new InvalidObjectException("JSON Object doesn't have the field " + CRASH_LOCAL_ID_KEY);
+            throw new InvalidObjectException(
+                    "JSON Object doesn't have the field " + CRASH_LOCAL_ID_KEY);
         }
         CrashInfo crashInfo = new CrashInfo(jsonObj.getString(CRASH_LOCAL_ID_KEY));
 

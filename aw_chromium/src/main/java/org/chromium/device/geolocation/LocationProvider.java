@@ -11,18 +11,17 @@ public interface LocationProvider {
     /**
      * Start listening for location updates. Calling several times before stop() is interpreted
      * as restart.
-     *
      * @param enableHighAccuracy Whether or not to enable high accuracy location.
      */
-    void start(boolean enableHighAccuracy);
+    public void start(boolean enableHighAccuracy);
 
     /**
      * Stop listening for location updates.
      */
-    void stop();
+    public void stop();
 
     /**
      * Returns true if we are currently listening for location updates, false if not.
      */
-    boolean isRunning();
+    public boolean isRunning();
 }

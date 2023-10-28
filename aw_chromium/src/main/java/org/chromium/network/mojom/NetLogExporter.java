@@ -13,27 +13,35 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface NetLogExporter extends org.chromium.mojo.bindings.Interface {
 
 
-    long UNLIMITED_FILE_SIZE = (long) -1;
+    
+    public static final long UNLIMITED_FILE_SIZE = (long) -1;
 
 
-    interface Proxy extends NetLogExporter, org.chromium.mojo.bindings.Interface.Proxy {
+
+
+    public interface Proxy extends NetLogExporter, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<NetLogExporter, NetLogExporter.Proxy> MANAGER = NetLogExporter_Internal.MANAGER;
 
-    void start(org.chromium.mojo_base.mojom.File destination, org.chromium.mojo_base.mojom.DictionaryValue extraConstants, int captureMode, long maxFileSize, Start_Response callback);
+    void start(
+org.chromium.mojo_base.mojom.File destination, org.chromium.mojo_base.mojom.DictionaryValue extraConstants, int captureMode, long maxFileSize, 
+Start_Response callback);
 
-    interface Start_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> {
-    }
+    interface Start_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> { }
 
 
-    void stop(org.chromium.mojo_base.mojom.DictionaryValue polledValues, Stop_Response callback);
+    void stop(
+org.chromium.mojo_base.mojom.DictionaryValue polledValues, 
+Stop_Response callback);
 
-    interface Stop_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> {
-    }
+    interface Stop_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Integer> { }
 
 
 }

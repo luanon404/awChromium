@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class RootScrollOffsetUpdateFrequency {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({RootScrollOffsetUpdateFrequency.NONE, RootScrollOffsetUpdateFrequency.ON_SCROLL_END, RootScrollOffsetUpdateFrequency.ALL_UPDATES})
-    public @interface EnumType {
-    }
+        RootScrollOffsetUpdateFrequency.NONE,
+        RootScrollOffsetUpdateFrequency.ON_SCROLL_END,
+        RootScrollOffsetUpdateFrequency.ALL_UPDATES})
+    public @interface EnumType {}
 
     public static final int NONE = 0;
     public static final int ON_SCROLL_END = 1;
@@ -38,9 +40,8 @@ public final class RootScrollOffsetUpdateFrequency {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private RootScrollOffsetUpdateFrequency() {
-    }
+    private RootScrollOffsetUpdateFrequency() {}
 }

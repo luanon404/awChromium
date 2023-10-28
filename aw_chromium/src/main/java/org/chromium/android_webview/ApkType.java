@@ -1,3 +1,4 @@
+
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -14,10 +15,12 @@ import androidx.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@IntDef({ApkType.STANDALONE, ApkType.MONOCHROME, ApkType.TRICHROME})
+@IntDef({
+    ApkType.STANDALONE, ApkType.MONOCHROME, ApkType.TRICHROME
+})
 @Retention(RetentionPolicy.SOURCE)
 public @interface ApkType {
-    int STANDALONE = 0;
-    int MONOCHROME = 1;
-    int TRICHROME = 2;
+  int STANDALONE = 0;
+  int MONOCHROME = 1;
+  int TRICHROME = 2;
 }

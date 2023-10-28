@@ -20,7 +20,7 @@ public interface StylusWritingImeCallback {
      * Send a request to set the selection to given range.
      *
      * @param start Selection start index.
-     * @param end   Selection end index.
+     * @param end Selection end index.
      * @return Whether the native counterpart of ImeAdapter received the call.
      */
     void setEditableSelectionOffsets(int start, int end);
@@ -28,9 +28,9 @@ public interface StylusWritingImeCallback {
     /**
      * Send a request to input text to the HTML input
      *
-     * @param text              the input text
+     * @param text the input text
      * @param newCursorPosition new cursor position
-     * @param isCommit          whether to commit and stop composing
+     * @param isCommit whether to commit and stop composing
      */
     void sendCompositionToNative(CharSequence text, int newCursorPosition, boolean isCommit);
 
@@ -67,10 +67,10 @@ public interface StylusWritingImeCallback {
     /**
      * Handle the action for gestures recognized by stylus writing service.
      *
-     * @param id          the unique id of this gesture. This is used by the gesture callback to inform
-     *                    Android of the gesture's result. For Android gestures, the gesture IDs are stored
-     *                    in {@link org.chromium.content.browser.input.ImeAdapterImpl#mOngoingGestures}. For
-     *                    DirectWriting, pass in -1 as no callback needs to be run.
+     * @param id the unique id of this gesture. This is used by the gesture callback to inform
+     *           Android of the gesture's result. For Android gestures, the gesture IDs are stored
+     *           in {@link org.chromium.content.browser.input.ImeAdapterImpl#mOngoingGestures}. For
+     *           DirectWriting, pass in -1 as no callback needs to be run.
      * @param gestureData the gesture data object that contains information regarding gesture type,
      *                    gesture coordinates, text to insert, alternative text to insert when the
      *                    gesture is invalid in current input, as applicable wrt gesture type.

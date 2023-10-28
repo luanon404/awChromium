@@ -41,7 +41,6 @@ public abstract class CpuFeatures {
     @NativeMethods
     interface Natives {
         int getCoreCount();
-
         long getCpuFeatures();
     }
 }

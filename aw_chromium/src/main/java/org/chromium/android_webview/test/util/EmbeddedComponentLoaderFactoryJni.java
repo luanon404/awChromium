@@ -3,41 +3,49 @@
 //
 package org.chromium.android_webview.test.util;
 
-import org.chromium.components.component_updater.ComponentLoaderPolicyBridge;
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.components.component_updater.ComponentLoaderPolicyBridge;
+import org.chromium.components.component_updater.EmbeddedComponentLoader;
+import java.util.Arrays;
 
 @CheckDiscard("crbug.com/993421")
 class EmbeddedComponentLoaderFactoryJni implements EmbeddedComponentLoaderFactory.Natives {
-    private static EmbeddedComponentLoaderFactory.Natives testInstance;
+  private static EmbeddedComponentLoaderFactory.Natives testInstance;
 
-    public static final JniStaticTestMocker<EmbeddedComponentLoaderFactory.Natives> TEST_HOOKS = new JniStaticTestMocker<EmbeddedComponentLoaderFactory.Natives>() {
-        @Override
-        public void setInstanceForTesting(EmbeddedComponentLoaderFactory.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<EmbeddedComponentLoaderFactory.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<EmbeddedComponentLoaderFactory.Natives>() {
     @Override
-    public ComponentLoaderPolicyBridge[] getComponentLoaderPolicies() {
-        return (ComponentLoaderPolicyBridge[]) GEN_JNI.org_chromium_android_1webview_test_util_EmbeddedComponentLoaderFactory_getComponentLoaderPolicies();
+    public void setInstanceForTesting(EmbeddedComponentLoaderFactory.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    public static EmbeddedComponentLoaderFactory.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of EmbeddedComponentLoaderFactory.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new EmbeddedComponentLoaderFactoryJni();
+  @Override
+  public ComponentLoaderPolicyBridge[] getComponentLoaderPolicies() {
+    return (ComponentLoaderPolicyBridge[]) GEN_JNI.org_chromium_android_1webview_test_util_EmbeddedComponentLoaderFactory_getComponentLoaderPolicies();
+  }
+
+  public static EmbeddedComponentLoaderFactory.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of EmbeddedComponentLoaderFactory.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new EmbeddedComponentLoaderFactoryJni();
+  }
 }

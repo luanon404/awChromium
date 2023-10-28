@@ -1,3 +1,4 @@
+
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -14,20 +15,22 @@ import androidx.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@IntDef({UserAgentOverrideOption.INHERIT, UserAgentOverrideOption.FALSE, UserAgentOverrideOption.TRUE})
+@IntDef({
+    UserAgentOverrideOption.INHERIT, UserAgentOverrideOption.FALSE, UserAgentOverrideOption.TRUE
+})
 @Retention(RetentionPolicy.SOURCE)
 public @interface UserAgentOverrideOption {
-    /**
-     * Use the override value from the previous NavigationEntry in the NavigationController.
-     */
-    int INHERIT = 0;
-    /**
-     * Use the default user agent.
-     */
-    int FALSE = 1;
-    /**
-     * Use the user agent override, if it's available. Adding new UserAgentOverrideOption? Also update
-     * LoadUrlParams.java static constants.
-     */
-    int TRUE = 2;
+  /**
+   * Use the override value from the previous NavigationEntry in the NavigationController.
+   */
+  int INHERIT = 0;
+  /**
+   * Use the default user agent.
+   */
+  int FALSE = 1;
+  /**
+   * Use the user agent override, if it's available. Adding new UserAgentOverrideOption? Also update
+   * LoadUrlParams.java static constants.
+   */
+  int TRUE = 2;
 }

@@ -17,10 +17,10 @@ import androidx.annotation.IntDef;
 
 public final class HandwritingRecognitionType {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({HandwritingRecognitionType.TEXT})
-    public @interface EnumType {
-    }
+        HandwritingRecognitionType.TEXT})
+    public @interface EnumType {}
 
     public static final int TEXT = 0;
     public static final int MIN_VALUE = 0;
@@ -36,9 +36,8 @@ public final class HandwritingRecognitionType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private HandwritingRecognitionType() {
-    }
+    private HandwritingRecognitionType() {}
 }

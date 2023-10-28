@@ -4,39 +4,50 @@
 package org.chromium.components.embedder_support.delegate;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.content.Context;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.ContextUtils;
+import org.chromium.base.StrictModeContext;
+import org.chromium.ui.base.WindowAndroid;
 
 @CheckDiscard("crbug.com/993421")
 class ColorChooserAndroidJni implements ColorChooserAndroid.Natives {
-    private static ColorChooserAndroid.Natives testInstance;
+  private static ColorChooserAndroid.Natives testInstance;
 
-    public static final JniStaticTestMocker<ColorChooserAndroid.Natives> TEST_HOOKS = new JniStaticTestMocker<ColorChooserAndroid.Natives>() {
-        @Override
-        public void setInstanceForTesting(ColorChooserAndroid.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<ColorChooserAndroid.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<ColorChooserAndroid.Natives>() {
     @Override
-    public void onColorChosen(long nativeColorChooserAndroid, ColorChooserAndroid caller, int color) {
-        GEN_JNI.org_chromium_components_embedder_1support_delegate_ColorChooserAndroid_onColorChosen(nativeColorChooserAndroid, caller, color);
+    public void setInstanceForTesting(ColorChooserAndroid.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    public static ColorChooserAndroid.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of ColorChooserAndroid.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new ColorChooserAndroidJni();
+  @Override
+  public void onColorChosen(long nativeColorChooserAndroid, ColorChooserAndroid caller, int color) {
+    GEN_JNI.org_chromium_components_embedder_1support_delegate_ColorChooserAndroid_onColorChosen(nativeColorChooserAndroid, caller, color);
+  }
+
+  public static ColorChooserAndroid.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of ColorChooserAndroid.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new ColorChooserAndroidJni();
+  }
 }

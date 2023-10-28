@@ -4,39 +4,45 @@
 package org.chromium.base;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
 
 @CheckDiscard("crbug.com/993421")
 class ImportantFileWriterAndroidJni implements ImportantFileWriterAndroid.Natives {
-    private static ImportantFileWriterAndroid.Natives testInstance;
+  private static ImportantFileWriterAndroid.Natives testInstance;
 
-    public static final JniStaticTestMocker<ImportantFileWriterAndroid.Natives> TEST_HOOKS = new JniStaticTestMocker<ImportantFileWriterAndroid.Natives>() {
-        @Override
-        public void setInstanceForTesting(ImportantFileWriterAndroid.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<ImportantFileWriterAndroid.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<ImportantFileWriterAndroid.Natives>() {
     @Override
-    public boolean writeFileAtomically(String fileName, byte[] data) {
-        return (boolean) GEN_JNI.org_chromium_base_ImportantFileWriterAndroid_writeFileAtomically(fileName, data);
+    public void setInstanceForTesting(ImportantFileWriterAndroid.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    public static ImportantFileWriterAndroid.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of ImportantFileWriterAndroid.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new ImportantFileWriterAndroidJni();
+  @Override
+  public boolean writeFileAtomically(String fileName, byte[] data) {
+    return (boolean) GEN_JNI.org_chromium_base_ImportantFileWriterAndroid_writeFileAtomically(fileName, data);
+  }
+
+  public static ImportantFileWriterAndroid.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of ImportantFileWriterAndroid.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new ImportantFileWriterAndroidJni();
+  }
 }

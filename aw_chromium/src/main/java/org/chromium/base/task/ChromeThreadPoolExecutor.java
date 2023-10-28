@@ -33,24 +33,26 @@ class ChromeThreadPoolExecutor extends ThreadPoolExecutor {
 
     private static final ThreadFactory sThreadFactory = new ThreadFactory() {
         private final AtomicInteger mCount = new AtomicInteger(1);
-
         @Override
         public Thread newThread(Runnable r) {
             return new Thread(r, "CrAsyncTask #" + mCount.getAndIncrement());
         }
     };
 
-    private static final BlockingQueue<Runnable> sPoolWorkQueue = new ArrayBlockingQueue<Runnable>(128);
+    private static final BlockingQueue<Runnable> sPoolWorkQueue =
+            new ArrayBlockingQueue<Runnable>(128);
 
     // May have to be lowered if we are not capturing any Runnable sources.
     private static final int RUNNABLE_WARNING_COUNT = 32;
 
     ChromeThreadPoolExecutor() {
-        this(CORE_POOL_SIZE, MAXIMUM_POOL_SIZE, KEEP_ALIVE_SECONDS, SECONDS, sPoolWorkQueue, sThreadFactory);
+        this(CORE_POOL_SIZE, MAXIMUM_POOL_SIZE, KEEP_ALIVE_SECONDS, SECONDS, sPoolWorkQueue,
+                sThreadFactory);
     }
 
     @VisibleForTesting
-    ChromeThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue<Runnable> workQueue, ThreadFactory threadFactory) {
+    ChromeThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime,
+            TimeUnit unit, BlockingQueue<Runnable> workQueue, ThreadFactory threadFactory) {
         super(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue, threadFactory);
         allowCoreThreadTimeOut(true);
     }
@@ -114,7 +116,9 @@ class ChromeThreadPoolExecutor extends ThreadPoolExecutor {
         } catch (RejectedExecutionException e) {
             Map<String, Integer> counts = getNumberOfClassNameOccurrencesInQueue();
 
-            throw new RejectedExecutionException("Prominent classes in AsyncTask: " + findClassNamesWithTooManyRunnables(counts), e);
+            throw new RejectedExecutionException(
+                    "Prominent classes in AsyncTask: " + findClassNamesWithTooManyRunnables(counts),
+                    e);
         }
     }
 }

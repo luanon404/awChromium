@@ -13,10 +13,13 @@
 
 package org.chromium.skia.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class SkColorSpacePrimaries extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 40;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(40, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(40, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public float rX;
     public float rY;
@@ -45,7 +48,8 @@ public final class SkColorSpacePrimaries extends org.chromium.mojo.bindings.Stru
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static SkColorSpacePrimaries deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -59,38 +63,38 @@ public final class SkColorSpacePrimaries extends org.chromium.mojo.bindings.Stru
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new SkColorSpacePrimaries(elementsOrVersion);
-            {
-
+                {
+                    
                 result.rX = decoder0.readFloat(8);
-            }
-            {
-
+                }
+                {
+                    
                 result.rY = decoder0.readFloat(12);
-            }
-            {
-
+                }
+                {
+                    
                 result.gX = decoder0.readFloat(16);
-            }
-            {
-
+                }
+                {
+                    
                 result.gY = decoder0.readFloat(20);
-            }
-            {
-
+                }
+                {
+                    
                 result.bX = decoder0.readFloat(24);
-            }
-            {
-
+                }
+                {
+                    
                 result.bY = decoder0.readFloat(28);
-            }
-            {
-
+                }
+                {
+                    
                 result.wX = decoder0.readFloat(32);
-            }
-            {
-
+                }
+                {
+                    
                 result.wY = decoder0.readFloat(36);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -102,21 +106,21 @@ public final class SkColorSpacePrimaries extends org.chromium.mojo.bindings.Stru
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.rX, 8);
-
+        
         encoder0.encode(this.rY, 12);
-
+        
         encoder0.encode(this.gX, 16);
-
+        
         encoder0.encode(this.gY, 20);
-
+        
         encoder0.encode(this.bX, 24);
-
+        
         encoder0.encode(this.bY, 28);
-
+        
         encoder0.encode(this.wX, 32);
-
+        
         encoder0.encode(this.wY, 36);
     }
 }

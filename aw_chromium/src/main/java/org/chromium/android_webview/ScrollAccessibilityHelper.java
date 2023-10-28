@@ -11,7 +11,7 @@ import android.view.accessibility.AccessibilityEvent;
 
 /**
  * Helper used to post the VIEW_SCROLLED accessibility event.
- * <p>
+ *
  * TODO(mkosiba): Investigate whether this is behavior we want to share with the chrome/ layer.
  * TODO(mkosiba): We currently don't handle JS-initiated scrolling for layers other than the root
  * layer.
@@ -31,13 +31,14 @@ class ScrollAccessibilityHelper {
 
         @Override
         public boolean handleMessage(Message msg) {
-            switch (msg.what) {
+            switch(msg.what) {
                 case MSG_VIEW_SCROLLED:
                     mMsgViewScrolledQueued = false;
                     mEventSender.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_SCROLLED);
                     break;
                 default:
-                    throw new IllegalStateException("AccessibilityInjector: unhandled message: " + msg.what);
+                    throw new IllegalStateException(
+                            "AccessibilityInjector: unhandled message: " + msg.what);
             }
             return true;
         }

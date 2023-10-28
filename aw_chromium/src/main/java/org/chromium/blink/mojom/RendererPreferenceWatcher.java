@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface RendererPreferenceWatcher extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends RendererPreferenceWatcher, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends RendererPreferenceWatcher, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<RendererPreferenceWatcher, RendererPreferenceWatcher.Proxy> MANAGER = RendererPreferenceWatcher_Internal.MANAGER;

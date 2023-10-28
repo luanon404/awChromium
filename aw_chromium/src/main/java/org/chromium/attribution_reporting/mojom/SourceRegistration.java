@@ -13,10 +13,13 @@
 
 package org.chromium.attribution_reporting.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class SourceRegistration extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 88;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(88, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(88, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public DestinationSet destinations;
     public long sourceEventId;
@@ -51,7 +54,8 @@ public final class SourceRegistration extends org.chromium.mojo.bindings.Struct 
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static SourceRegistration deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -65,57 +69,57 @@ public final class SourceRegistration extends org.chromium.mojo.bindings.Struct 
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new SourceRegistration(elementsOrVersion);
-            {
-
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                 result.destinations = DestinationSet.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.sourceEventId = decoder0.readLong(16);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, false);
                 result.expiry = org.chromium.mojo_base.mojom.TimeDelta.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(32, false);
                 result.eventReportWindows = EventReportWindows.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(40, false);
                 result.aggregatableReportWindow = org.chromium.mojo_base.mojom.TimeDelta.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.maxEventLevelReports = decoder0.readInt(48);
-            }
-            {
-
+                }
+                {
+                    
                 result.debugReporting = decoder0.readBoolean(52, 0);
-            }
-            {
-
+                }
+                {
+                    
                 result.priority = decoder0.readLong(56);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(64, true);
                 result.debugKey = DebugKey.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(72, false);
                 result.filterData = FilterData.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(80, false);
                 result.aggregationKeys = AggregationKeys.decode(decoder1);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -127,27 +131,27 @@ public final class SourceRegistration extends org.chromium.mojo.bindings.Struct 
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.destinations, 8, false);
-
+        
         encoder0.encode(this.sourceEventId, 16);
-
+        
         encoder0.encode(this.expiry, 24, false);
-
+        
         encoder0.encode(this.eventReportWindows, 32, false);
-
+        
         encoder0.encode(this.aggregatableReportWindow, 40, false);
-
+        
         encoder0.encode(this.maxEventLevelReports, 48);
-
+        
         encoder0.encode(this.debugReporting, 52, 0);
-
+        
         encoder0.encode(this.priority, 56);
-
+        
         encoder0.encode(this.debugKey, 64, true);
-
+        
         encoder0.encode(this.filterData, 72, false);
-
+        
         encoder0.encode(this.aggregationKeys, 80, false);
     }
 }

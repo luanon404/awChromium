@@ -17,10 +17,10 @@ import androidx.annotation.IntDef;
 
 public final class GetVirtualSensorInformationError {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({GetVirtualSensorInformationError.SENSOR_TYPE_NOT_OVERRIDDEN})
-    public @interface EnumType {
-    }
+        GetVirtualSensorInformationError.SENSOR_TYPE_NOT_OVERRIDDEN})
+    public @interface EnumType {}
 
     public static final int SENSOR_TYPE_NOT_OVERRIDDEN = 0;
     public static final int MIN_VALUE = 0;
@@ -36,9 +36,8 @@ public final class GetVirtualSensorInformationError {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private GetVirtualSensorInformationError() {
-    }
+    private GetVirtualSensorInformationError() {}
 }

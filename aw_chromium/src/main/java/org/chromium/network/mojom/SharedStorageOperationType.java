@@ -17,10 +17,13 @@ import androidx.annotation.IntDef;
 
 public final class SharedStorageOperationType {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({SharedStorageOperationType.SET, SharedStorageOperationType.APPEND, SharedStorageOperationType.DELETE, SharedStorageOperationType.CLEAR})
-    public @interface EnumType {
-    }
+        SharedStorageOperationType.SET,
+        SharedStorageOperationType.APPEND,
+        SharedStorageOperationType.DELETE,
+        SharedStorageOperationType.CLEAR})
+    public @interface EnumType {}
 
     public static final int SET = 0;
     public static final int APPEND = 1;
@@ -39,9 +42,8 @@ public final class SharedStorageOperationType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private SharedStorageOperationType() {
-    }
+    private SharedStorageOperationType() {}
 }

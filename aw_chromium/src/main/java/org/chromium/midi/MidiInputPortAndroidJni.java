@@ -4,39 +4,50 @@
 package org.chromium.midi;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.media.midi.MidiDevice;
+import android.media.midi.MidiOutputPort;
+import android.media.midi.MidiReceiver;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import java.io.IOException;
 
 @CheckDiscard("crbug.com/993421")
 class MidiInputPortAndroidJni implements MidiInputPortAndroid.Natives {
-    private static MidiInputPortAndroid.Natives testInstance;
+  private static MidiInputPortAndroid.Natives testInstance;
 
-    public static final JniStaticTestMocker<MidiInputPortAndroid.Natives> TEST_HOOKS = new JniStaticTestMocker<MidiInputPortAndroid.Natives>() {
-        @Override
-        public void setInstanceForTesting(MidiInputPortAndroid.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<MidiInputPortAndroid.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<MidiInputPortAndroid.Natives>() {
     @Override
-    public void onData(long nativeMidiInputPortAndroid, byte[] bs, int offset, int count, long timestamp) {
-        GEN_JNI.org_chromium_midi_MidiInputPortAndroid_onData(nativeMidiInputPortAndroid, bs, offset, count, timestamp);
+    public void setInstanceForTesting(MidiInputPortAndroid.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    public static MidiInputPortAndroid.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of MidiInputPortAndroid.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new MidiInputPortAndroidJni();
+  @Override
+  public void onData(long nativeMidiInputPortAndroid, byte[] bs, int offset, int count, long timestamp) {
+    GEN_JNI.org_chromium_midi_MidiInputPortAndroid_onData(nativeMidiInputPortAndroid, bs, offset, count, timestamp);
+  }
+
+  public static MidiInputPortAndroid.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of MidiInputPortAndroid.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new MidiInputPortAndroidJni();
+  }
 }

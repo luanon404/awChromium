@@ -13,15 +13,20 @@
 
 package org.chromium.service_manager.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface InterfaceProvider extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends InterfaceProvider, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends InterfaceProvider, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<InterfaceProvider, InterfaceProvider.Proxy> MANAGER = InterfaceProvider_Internal.MANAGER;
 
-    void getInterface(String interfaceName, org.chromium.mojo.system.MessagePipeHandle pipe);
+    void getInterface(
+String interfaceName, org.chromium.mojo.system.MessagePipeHandle pipe);
 
 
 }

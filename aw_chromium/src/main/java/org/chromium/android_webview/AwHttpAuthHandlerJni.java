@@ -4,44 +4,52 @@
 package org.chromium.android_webview;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.ThreadUtils;
 
 @CheckDiscard("crbug.com/993421")
 class AwHttpAuthHandlerJni implements AwHttpAuthHandler.Natives {
-    private static AwHttpAuthHandler.Natives testInstance;
+  private static AwHttpAuthHandler.Natives testInstance;
 
-    public static final JniStaticTestMocker<AwHttpAuthHandler.Natives> TEST_HOOKS = new JniStaticTestMocker<AwHttpAuthHandler.Natives>() {
-        @Override
-        public void setInstanceForTesting(AwHttpAuthHandler.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<AwHttpAuthHandler.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<AwHttpAuthHandler.Natives>() {
     @Override
-    public void cancel(long nativeAwHttpAuthHandler, AwHttpAuthHandler caller) {
-        GEN_JNI.org_chromium_android_1webview_AwHttpAuthHandler_cancel(nativeAwHttpAuthHandler, caller);
+    public void setInstanceForTesting(AwHttpAuthHandler.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public void proceed(long nativeAwHttpAuthHandler, AwHttpAuthHandler caller, String username, String password) {
-        GEN_JNI.org_chromium_android_1webview_AwHttpAuthHandler_proceed(nativeAwHttpAuthHandler, caller, username, password);
-    }
+  @Override
+  public void cancel(long nativeAwHttpAuthHandler, AwHttpAuthHandler caller) {
+    GEN_JNI.org_chromium_android_1webview_AwHttpAuthHandler_cancel(nativeAwHttpAuthHandler, caller);
+  }
 
-    public static AwHttpAuthHandler.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of AwHttpAuthHandler.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new AwHttpAuthHandlerJni();
+  @Override
+  public void proceed(long nativeAwHttpAuthHandler, AwHttpAuthHandler caller, String username, String password) {
+    GEN_JNI.org_chromium_android_1webview_AwHttpAuthHandler_proceed(nativeAwHttpAuthHandler, caller, username, password);
+  }
+
+  public static AwHttpAuthHandler.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of AwHttpAuthHandler.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new AwHttpAuthHandlerJni();
+  }
 }

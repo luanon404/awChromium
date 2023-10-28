@@ -7,13 +7,14 @@ package org.chromium.content_public.browser;
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+
 import org.chromium.base.UserDataHost;
 import org.chromium.net.NetError;
 import org.chromium.ui.base.PageTransition;
 import org.chromium.url.GURL;
 import org.chromium.url.Origin;
-import org.jni_zero.CalledByNative;
-import org.jni_zero.JNINamespace;
 
 /**
  * JNI bridge with content::NavigationHandle
@@ -45,22 +46,33 @@ public class NavigationHandle {
     private boolean mIsReload;
     private UserDataHost mUserDataHost;
 
-    public static NavigationHandle createForTesting(@NonNull GURL url, boolean isRendererInitiated, @PageTransition int transition, boolean hasUserGesture) {
-        return createForTesting(url, true /* isInPrimaryMainFrame */, false /* isSameDocument */, isRendererInitiated, transition, hasUserGesture, false /* isReload */);
+    public static NavigationHandle createForTesting(@NonNull GURL url, boolean isRendererInitiated,
+            @PageTransition int transition, boolean hasUserGesture) {
+        return createForTesting(url, true /* isInPrimaryMainFrame */, false /* isSameDocument */,
+                isRendererInitiated, transition, hasUserGesture, false /* isReload */);
     }
 
-    public static NavigationHandle createForTesting(@NonNull GURL url, boolean isInPrimaryMainFrame, boolean isSameDocument, boolean isRendererInitiated, @PageTransition int transition, boolean hasUserGesture, boolean isReload) {
+    public static NavigationHandle createForTesting(@NonNull GURL url, boolean isInPrimaryMainFrame,
+            boolean isSameDocument, boolean isRendererInitiated, @PageTransition int transition,
+            boolean hasUserGesture, boolean isReload) {
         NavigationHandle handle = new NavigationHandle();
-        handle.initialize(0, url, GURL.emptyGURL(), GURL.emptyGURL(), isInPrimaryMainFrame, isSameDocument, isRendererInitiated, null, transition, false /* isPost */, hasUserGesture, false /* isRedirect*/, false /* isExternalProtocol */, 0 /* navigationId */, false /* isPageActivation */, isReload);
+        handle.initialize(0, url, GURL.emptyGURL(), GURL.emptyGURL(), isInPrimaryMainFrame,
+                isSameDocument, isRendererInitiated, null, transition, false /* isPost */,
+                hasUserGesture, false /* isRedirect*/, false /* isExternalProtocol */,
+                0 /* navigationId */, false /* isPageActivation */, isReload);
         return handle;
     }
 
     @CalledByNative
-    private NavigationHandle() {
-    }
+    private NavigationHandle() {}
 
     @CalledByNative
-    private void initialize(long nativeNavigationHandleProxy, @NonNull GURL url, @NonNull GURL referrerUrl, @NonNull GURL baseUrlForDataUrl, boolean isInPrimaryMainFrame, boolean isSameDocument, boolean isRendererInitiated, Origin initiatorOrigin, @PageTransition int transition, boolean isPost, boolean hasUserGesture, boolean isRedirect, boolean isExternalProtocol, long navigationId, boolean isPageActivation, boolean isReload) {
+    private void initialize(long nativeNavigationHandleProxy, @NonNull GURL url,
+            @NonNull GURL referrerUrl, @NonNull GURL baseUrlForDataUrl,
+            boolean isInPrimaryMainFrame, boolean isSameDocument, boolean isRendererInitiated,
+            Origin initiatorOrigin, @PageTransition int transition, boolean isPost,
+            boolean hasUserGesture, boolean isRedirect, boolean isExternalProtocol,
+            long navigationId, boolean isPageActivation, boolean isReload) {
         mNativeNavigationHandleProxy = nativeNavigationHandleProxy;
         mUrl = url;
         mReferrerUrl = referrerUrl;
@@ -81,7 +93,6 @@ public class NavigationHandle {
 
     /**
      * The navigation received a redirect. Called once per redirect.
-     *
      * @param url The new URL.
      */
     @CalledByNative
@@ -97,7 +108,10 @@ public class NavigationHandle {
      */
     @CalledByNative
     @VisibleForTesting
-    public void didFinish(@NonNull GURL url, boolean isErrorPage, boolean hasCommitted, boolean isPrimaryMainFrameFragmentNavigation, boolean isDownload, boolean isValidSearchFormUrl, @PageTransition int transition, @NetError int errorCode, int httpStatuscode, boolean isExternalProtocol) {
+    public void didFinish(@NonNull GURL url, boolean isErrorPage, boolean hasCommitted,
+            boolean isPrimaryMainFrameFragmentNavigation, boolean isDownload,
+            boolean isValidSearchFormUrl, @PageTransition int transition, @NetError int errorCode,
+            int httpStatuscode, boolean isExternalProtocol) {
         mUrl = url;
         mIsErrorPage = isErrorPage;
         mHasCommitted = hasCommitted;
@@ -131,9 +145,7 @@ public class NavigationHandle {
         return mUrl;
     }
 
-    /**
-     * The referrer URL for the navigation.
-     */
+    /** The referrer URL for the navigation. */
     @NonNull
     public GURL getReferrerUrl() {
         return mReferrerUrl;
@@ -161,17 +173,17 @@ public class NavigationHandle {
     /**
      * Whether the navigation was initiated by the renderer process. Examples of renderer-initiated
      * navigations include:
-     * - <a> link click
-     * - changing window.location.href
-     * - redirect via the <meta http-equiv="refresh"> tag
-     * - using window.history.pushState
-     * <p>
+     *  - <a> link click
+     *  - changing window.location.href
+     *  - redirect via the <meta http-equiv="refresh"> tag
+     *  - using window.history.pushState
+     *
      * This method returns false for browser-initiated navigations, including:
-     * - any navigation initiated from the omnibox
-     * - navigations via suggestions in browser UI
-     * - navigations via browser UI: Ctrl-R, refresh/forward/back/home buttons
-     * - using window.history.forward() or window.history.back()
-     * - any other "explicit" URL navigations, e.g. bookmarks
+     *  - any navigation initiated from the omnibox
+     *  - navigations via suggestions in browser UI
+     *  - navigations via browser UI: Ctrl-R, refresh/forward/back/home buttons
+     *  - using window.history.forward() or window.history.back()
+     *  - any other "explicit" URL navigations, e.g. bookmarks
      */
     public boolean isRendererInitiated() {
         return mIsRendererInitiated;
@@ -264,30 +276,22 @@ public class NavigationHandle {
         return mInitiatorOrigin;
     }
 
-    /**
-     * True if the the navigation method is "POST".
-     */
+    /** True if the the navigation method is "POST". */
     public boolean isPost() {
         return mIsPost;
     }
 
-    /**
-     * True if the navigation was initiated by the user.
-     */
+    /** True if the navigation was initiated by the user. */
     public boolean hasUserGesture() {
         return mHasUserGesture;
     }
 
-    /**
-     * Is the navigation a redirect (in which case URL is the "target" address).
-     */
+    /** Is the navigation a redirect (in which case URL is the "target" address). */
     public boolean isRedirect() {
         return mIsRedirect;
     }
 
-    /**
-     * True if the target URL can't be handled by Chrome's internal protocol handlers.
-     */
+    /** True if the target URL can't be handled by Chrome's internal protocol handlers. */
     public boolean isExternalProtocol() {
         return mIsExternalProtocol;
     }

@@ -13,18 +13,24 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface CrossOriginEmbedderPolicyReporter extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends CrossOriginEmbedderPolicyReporter, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends CrossOriginEmbedderPolicyReporter, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<CrossOriginEmbedderPolicyReporter, CrossOriginEmbedderPolicyReporter.Proxy> MANAGER = CrossOriginEmbedderPolicyReporter_Internal.MANAGER;
 
-    void queueCorpViolationReport(org.chromium.url.mojom.Url blockedUrl, int destination, boolean reportOnly);
+    void queueCorpViolationReport(
+org.chromium.url.mojom.Url blockedUrl, int destination, boolean reportOnly);
 
 
-    void clone(org.chromium.mojo.bindings.InterfaceRequest<CrossOriginEmbedderPolicyReporter> receiver);
+    void clone(
+org.chromium.mojo.bindings.InterfaceRequest<CrossOriginEmbedderPolicyReporter> receiver);
 
 
 }

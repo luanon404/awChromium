@@ -7,5 +7,4 @@ package org.chromium.content_public.browser;
 /**
  * Interface for selection event logging.
  */
-public interface SelectionEventProcessor {
-}
+public interface SelectionEventProcessor {}

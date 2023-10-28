@@ -4,54 +4,65 @@
 package org.chromium.mojo.system.impl;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.mojo.system.Core;
+import org.chromium.mojo.system.Handle;
+import org.chromium.mojo.system.MojoResult;
+import org.chromium.mojo.system.Watcher;
 
 @CheckDiscard("crbug.com/993421")
 class WatcherImplJni implements WatcherImpl.Natives {
-    private static WatcherImpl.Natives testInstance;
+  private static WatcherImpl.Natives testInstance;
 
-    public static final JniStaticTestMocker<WatcherImpl.Natives> TEST_HOOKS = new JniStaticTestMocker<WatcherImpl.Natives>() {
-        @Override
-        public void setInstanceForTesting(WatcherImpl.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<WatcherImpl.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<WatcherImpl.Natives>() {
     @Override
-    public void cancel(WatcherImpl caller, long implPtr) {
-        GEN_JNI.org_chromium_mojo_system_impl_WatcherImpl_cancel(caller, implPtr);
+    public void setInstanceForTesting(WatcherImpl.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public long createWatcher(WatcherImpl caller) {
-        return (long) GEN_JNI.org_chromium_mojo_system_impl_WatcherImpl_createWatcher(caller);
-    }
+  @Override
+  public void cancel(WatcherImpl caller, long implPtr) {
+    GEN_JNI.org_chromium_mojo_system_impl_WatcherImpl_cancel(caller, implPtr);
+  }
 
-    @Override
-    public void delete(WatcherImpl caller, long implPtr) {
-        GEN_JNI.org_chromium_mojo_system_impl_WatcherImpl_delete(caller, implPtr);
-    }
+  @Override
+  public long createWatcher(WatcherImpl caller) {
+    return (long) GEN_JNI.org_chromium_mojo_system_impl_WatcherImpl_createWatcher(caller);
+  }
 
-    @Override
-    public int start(WatcherImpl caller, long implPtr, long mojoHandle, int flags) {
-        return (int) GEN_JNI.org_chromium_mojo_system_impl_WatcherImpl_start(caller, implPtr, mojoHandle, flags);
-    }
+  @Override
+  public void delete(WatcherImpl caller, long implPtr) {
+    GEN_JNI.org_chromium_mojo_system_impl_WatcherImpl_delete(caller, implPtr);
+  }
 
-    public static WatcherImpl.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of WatcherImpl.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new WatcherImplJni();
+  @Override
+  public int start(WatcherImpl caller, long implPtr, long mojoHandle, int flags) {
+    return (int) GEN_JNI.org_chromium_mojo_system_impl_WatcherImpl_start(caller, implPtr, mojoHandle, flags);
+  }
+
+  public static WatcherImpl.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of WatcherImpl.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new WatcherImplJni();
+  }
 }

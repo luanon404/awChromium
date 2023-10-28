@@ -17,10 +17,15 @@ import androidx.annotation.IntDef;
 
 public final class RRectFType {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({RRectFType.EMPTY, RRectFType.RECT, RRectFType.SINGLE, RRectFType.SIMPLE, RRectFType.OVAL, RRectFType.COMPLEX})
-    public @interface EnumType {
-    }
+        RRectFType.EMPTY,
+        RRectFType.RECT,
+        RRectFType.SINGLE,
+        RRectFType.SIMPLE,
+        RRectFType.OVAL,
+        RRectFType.COMPLEX})
+    public @interface EnumType {}
 
     public static final int EMPTY = 0;
     public static final int RECT = 1;
@@ -41,9 +46,8 @@ public final class RRectFType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private RRectFType() {
-    }
+    private RRectFType() {}
 }

@@ -13,15 +13,20 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface AuthChallengeResponder extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends AuthChallengeResponder, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends AuthChallengeResponder, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<AuthChallengeResponder, AuthChallengeResponder.Proxy> MANAGER = AuthChallengeResponder_Internal.MANAGER;
 
-    void onAuthCredentials(AuthCredentials credentials);
+    void onAuthCredentials(
+AuthCredentials credentials);
 
 
 }

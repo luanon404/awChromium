@@ -1,3 +1,4 @@
+
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -14,14 +15,16 @@ import androidx.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@IntDef({Event.ALLOW, Event.BLOCK, Event.CANCELED})
+@IntDef({
+    Event.ALLOW, Event.BLOCK, Event.CANCELED
+})
 @Retention(RetentionPolicy.SOURCE)
 public @interface Event {
-    int ALLOW = 0;
-    int BLOCK = 1;
-    /**
-     * This can happen when multiple request scanning functions are called, and in this case, the
-     * previous prompts will be closed.
-     */
-    int CANCELED = 2;
+  int ALLOW = 0;
+  int BLOCK = 1;
+  /**
+   * This can happen when multiple request scanning functions are called, and in this case, the
+   * previous prompts will be closed.
+   */
+  int CANCELED = 2;
 }

@@ -13,18 +13,24 @@
 
 package org.chromium.network.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface NetworkChangeManagerClient extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends NetworkChangeManagerClient, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends NetworkChangeManagerClient, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<NetworkChangeManagerClient, NetworkChangeManagerClient.Proxy> MANAGER = NetworkChangeManagerClient_Internal.MANAGER;
 
-    void onInitialConnectionType(int type);
+    void onInitialConnectionType(
+int type);
 
 
-    void onNetworkChanged(int type);
+    void onNetworkChanged(
+int type);
 
 
 }

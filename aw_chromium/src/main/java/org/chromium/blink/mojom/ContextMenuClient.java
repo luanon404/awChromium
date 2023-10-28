@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface ContextMenuClient extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends ContextMenuClient, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends ContextMenuClient, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<ContextMenuClient, ContextMenuClient.Proxy> MANAGER = ContextMenuClient_Internal.MANAGER;

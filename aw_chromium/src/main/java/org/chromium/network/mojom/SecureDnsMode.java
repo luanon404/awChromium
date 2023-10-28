@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class SecureDnsMode {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({SecureDnsMode.OFF, SecureDnsMode.AUTOMATIC, SecureDnsMode.SECURE})
-    public @interface EnumType {
-    }
+        SecureDnsMode.OFF,
+        SecureDnsMode.AUTOMATIC,
+        SecureDnsMode.SECURE})
+    public @interface EnumType {}
 
     public static final int OFF = 0;
     public static final int AUTOMATIC = 1;
@@ -38,9 +40,8 @@ public final class SecureDnsMode {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private SecureDnsMode() {
-    }
+    private SecureDnsMode() {}
 }

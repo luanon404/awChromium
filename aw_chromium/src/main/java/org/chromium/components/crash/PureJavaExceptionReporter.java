@@ -28,10 +28,11 @@ import java.util.concurrent.atomic.AtomicReferenceArray;
 
 /**
  * Creates a crash report and uploads it to crash server if there is a Java exception.
- * <p>
+ *
  * This class is written in pure Java, so it can handle exception happens before native is loaded.
  */
-public abstract class PureJavaExceptionReporter implements PureJavaExceptionHandler.JavaExceptionReporter {
+public abstract class PureJavaExceptionReporter
+        implements PureJavaExceptionHandler.JavaExceptionReporter {
     // report fields, please keep the name sync with MIME blocks in breakpad_linux.cc
     public static final String CHANNEL = "channel";
     public static final String VERSION = "ver";
@@ -126,9 +127,12 @@ public abstract class PureJavaExceptionReporter implements PureJavaExceptionHand
         mReportContent.put(GMS_CORE_VERSION, buildInfo.gmsVersionCode);
         mReportContent.put(INSTALLER_PACKAGE_NAME, buildInfo.installerPackageName);
         mReportContent.put(ABI_NAME, buildInfo.abiString);
-        mReportContent.put(EXCEPTION_INFO, PiiElider.sanitizeStacktrace(Log.getStackTraceString(javaException)));
+        mReportContent.put(EXCEPTION_INFO,
+                PiiElider.sanitizeStacktrace(Log.getStackTraceString(javaException)));
         mReportContent.put(EARLY_JAVA_EXCEPTION, "true");
-        mReportContent.put(PACKAGE, String.format("%s v%s (%s)", buildInfo.packageName, buildInfo.versionCode, buildInfo.versionName));
+        mReportContent.put(PACKAGE,
+                String.format("%s v%s (%s)", buildInfo.packageName, buildInfo.versionCode,
+                        buildInfo.versionName));
         mReportContent.put(CUSTOM_THEMES, buildInfo.customThemes);
         mReportContent.put(RESOURCES_VERSION, buildInfo.resourcesVersion);
 
@@ -146,7 +150,8 @@ public abstract class PureJavaExceptionReporter implements PureJavaExceptionHand
             // Tests disable minidump uploading by not creating the minidump directory.
             mUpload = minidumpDir.exists();
             if (CommandLine.isInitialized()) {
-                String overrideMinidumpDirPath = CommandLine.getInstance().getSwitchValue(DUMP_LOCATION_SWITCH);
+                String overrideMinidumpDirPath =
+                        CommandLine.getInstance().getSwitchValue(DUMP_LOCATION_SWITCH);
                 if (overrideMinidumpDirPath != null) {
                     minidumpDir = new File(overrideMinidumpDirPath);
                     minidumpDir.mkdirs();
@@ -200,7 +205,8 @@ public abstract class PureJavaExceptionReporter implements PureJavaExceptionHand
         if (mMinidumpFile == null || !mUpload) return;
         if (mAttachLogcat) {
             LogcatCrashExtractor logcatExtractor = new LogcatCrashExtractor();
-            mMinidumpFile = logcatExtractor.attachLogcatToMinidump(mMinidumpFile, new CrashFileManager(getCrashFilesDirectory()));
+            mMinidumpFile = logcatExtractor.attachLogcatToMinidump(
+                    mMinidumpFile, new CrashFileManager(getCrashFilesDirectory()));
         }
         uploadMinidump(mMinidumpFile);
     }

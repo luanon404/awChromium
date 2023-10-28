@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class SerialDataBits {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({SerialDataBits.NONE, SerialDataBits.SEVEN, SerialDataBits.EIGHT})
-    public @interface EnumType {
-    }
+        SerialDataBits.NONE,
+        SerialDataBits.SEVEN,
+        SerialDataBits.EIGHT})
+    public @interface EnumType {}
 
     public static final int NONE = 0;
     public static final int SEVEN = 1;
@@ -38,9 +40,8 @@ public final class SerialDataBits {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private SerialDataBits() {
-    }
+    private SerialDataBits() {}
 }

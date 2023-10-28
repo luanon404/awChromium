@@ -13,14 +13,15 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public final class FrameToken extends org.chromium.mojo.bindings.Union {
 
     public static final class Tag {
         public static final int LocalFrameToken = 0;
         public static final int RemoteFrameToken = 1;
-    }
-
+    };
     private LocalFrameToken mLocalFrameToken;
     private RemoteFrameToken mRemoteFrameToken;
 

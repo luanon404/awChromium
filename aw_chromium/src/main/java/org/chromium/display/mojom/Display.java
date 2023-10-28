@@ -13,10 +13,13 @@
 
 package org.chromium.display.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class Display extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 104;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(104, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(104, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public long id;
     public org.chromium.gfx.mojom.Rect bounds;
@@ -53,7 +56,8 @@ public final class Display extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static Display deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -67,82 +71,82 @@ public final class Display extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new Display(elementsOrVersion);
-            {
-
+                {
+                    
                 result.id = decoder0.readLong(8);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                 result.bounds = org.chromium.gfx.mojom.Rect.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, false);
                 result.sizeInPixels = org.chromium.gfx.mojom.Size.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(32, false);
                 result.nativeOrigin = org.chromium.gfx.mojom.Point.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(40, false);
                 result.workArea = org.chromium.gfx.mojom.Rect.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.deviceScaleFactor = decoder0.readFloat(48);
-            }
-            {
-
+                }
+                {
+                    
                 result.rotation = decoder0.readInt(52);
-                Rotation.validate(result.rotation);
-                result.rotation = Rotation.toKnownValue(result.rotation);
-            }
-            {
-
+                    Rotation.validate(result.rotation);
+                    result.rotation = Rotation.toKnownValue(result.rotation);
+                }
+                {
+                    
                 result.touchSupport = decoder0.readInt(56);
-                TouchSupport.validate(result.touchSupport);
-                result.touchSupport = TouchSupport.toKnownValue(result.touchSupport);
-            }
-            {
-
+                    TouchSupport.validate(result.touchSupport);
+                    result.touchSupport = TouchSupport.toKnownValue(result.touchSupport);
+                }
+                {
+                    
                 result.accelerometerSupport = decoder0.readInt(60);
-                AccelerometerSupport.validate(result.accelerometerSupport);
-                result.accelerometerSupport = AccelerometerSupport.toKnownValue(result.accelerometerSupport);
-            }
-            {
-
+                    AccelerometerSupport.validate(result.accelerometerSupport);
+                    result.accelerometerSupport = AccelerometerSupport.toKnownValue(result.accelerometerSupport);
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(64, false);
                 result.maximumCursorSize = org.chromium.gfx.mojom.Size.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(72, false);
                 result.colorSpaces = org.chromium.gfx.mojom.DisplayColorSpaces.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 result.colorDepth = decoder0.readInt(80);
-            }
-            {
-
+                }
+                {
+                    
                 result.depthPerComponent = decoder0.readInt(84);
-            }
-            {
-
+                }
+                {
+                    
                 result.isMonochrome = decoder0.readBoolean(88, 0);
-            }
-            {
-
+                }
+                {
+                    
                 result.displayFrequency = decoder0.readFloat(92);
-            }
-            {
-
+                }
+                {
+                    
                 result.label = decoder0.readString(96, false);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -154,37 +158,37 @@ public final class Display extends org.chromium.mojo.bindings.Struct {
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.id, 8);
-
+        
         encoder0.encode(this.bounds, 16, false);
-
+        
         encoder0.encode(this.sizeInPixels, 24, false);
-
+        
         encoder0.encode(this.nativeOrigin, 32, false);
-
+        
         encoder0.encode(this.workArea, 40, false);
-
+        
         encoder0.encode(this.deviceScaleFactor, 48);
-
+        
         encoder0.encode(this.rotation, 52);
-
+        
         encoder0.encode(this.touchSupport, 56);
-
+        
         encoder0.encode(this.accelerometerSupport, 60);
-
+        
         encoder0.encode(this.maximumCursorSize, 64, false);
-
+        
         encoder0.encode(this.colorSpaces, 72, false);
-
+        
         encoder0.encode(this.colorDepth, 80);
-
+        
         encoder0.encode(this.depthPerComponent, 84);
-
+        
         encoder0.encode(this.isMonochrome, 88, 0);
-
+        
         encoder0.encode(this.displayFrequency, 92);
-
+        
         encoder0.encode(this.label, 96, false);
     }
 }

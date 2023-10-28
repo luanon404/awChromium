@@ -15,8 +15,7 @@ import java.util.Arrays;
  * Contains Metrics related utility functions.
  */
 public final class AwMetricsUtils {
-    private AwMetricsUtils() {
-    }
+    private AwMetricsUtils() {}
 
     /**
      * Replicates the algorithm used to hash histogram names to avoid the complexity of JNI.

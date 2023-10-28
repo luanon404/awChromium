@@ -13,15 +13,20 @@
 
 package org.chromium.service_manager.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface ServiceManager extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends ServiceManager, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends ServiceManager, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<ServiceManager, ServiceManager.Proxy> MANAGER = ServiceManager_Internal.MANAGER;
 
-    void addListener(ServiceManagerListener listener);
+    void addListener(
+ServiceManagerListener listener);
 
 
 }

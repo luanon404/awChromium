@@ -1,3 +1,4 @@
+
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -14,10 +15,13 @@ import androidx.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@IntDef({ClientDataRequestType.WEB_AUTHN_CREATE, ClientDataRequestType.WEB_AUTHN_GET, ClientDataRequestType.PAYMENT_GET})
+@IntDef({
+    ClientDataRequestType.WEB_AUTHN_CREATE, ClientDataRequestType.WEB_AUTHN_GET,
+    ClientDataRequestType.PAYMENT_GET
+})
 @Retention(RetentionPolicy.SOURCE)
 public @interface ClientDataRequestType {
-    int WEB_AUTHN_CREATE = 0;
-    int WEB_AUTHN_GET = 1;
-    int PAYMENT_GET = 2;
+  int WEB_AUTHN_CREATE = 0;
+  int WEB_AUTHN_GET = 1;
+  int PAYMENT_GET = 2;
 }

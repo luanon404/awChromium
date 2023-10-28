@@ -116,10 +116,13 @@ abstract class AudioDeviceSelector {
         // TODO(henrika): add support for proper detection of device names and
         // localize the name strings by using resource strings.
         // See http://crbug.com/333208 for details.
-        public static final String[] DEVICE_NAMES = new String[]{"Speakerphone", "Wired headset", // With or without microphone.
+        public static final String[] DEVICE_NAMES = new String[] {
+                "Speakerphone",
+                "Wired headset", // With or without microphone.
                 "Headset earpiece", // Only available on mobile phones.
                 "Bluetooth headset", // Requires BLUETOOTH permission.
-                "USB audio",};
+                "USB audio",
+        };
 
         private static final int ID_VALID_LOWER_BOUND = Devices.ID_SPEAKERPHONE;
         private static final int ID_VALID_UPPER_BOUND = Devices.ID_USB_AUDIO;
@@ -195,7 +198,7 @@ abstract class AudioDeviceSelector {
          * Sets the whether a device exists.
          *
          * @param deviceId The ID of the device.
-         * @param exists   Whether or not the device exists.
+         * @param exists Whether or not the device exists.
          */
         public void setDeviceExistence(int deviceId, boolean exists) {
             if (!DeviceHelpers.isDeviceValid(deviceId)) return;
@@ -219,7 +222,7 @@ abstract class AudioDeviceSelector {
          *
          * @param deviceId The requested device ID (including the DEVICE_DEFAULT ID).
          * @return The ID of the audio device which should be selected, or DEVICE_INVALID if the
-         * requested ID is unavailable.
+         *         requested ID is unavailable.
          */
         public int setRequestedDeviceIdAndGetNextId(int deviceId) {
             if (!DeviceHelpers.isDeviceValidOrDefault(deviceId)) return Devices.ID_INVALID;
@@ -248,7 +251,8 @@ abstract class AudioDeviceSelector {
 
                 boolean[] availableDevices = getAvailableDevices_Locked();
 
-                if (mRequestedAudioDevice == ID_DEFAULT || !availableDevices[mRequestedAudioDevice]) {
+                if (mRequestedAudioDevice == ID_DEFAULT
+                        || !availableDevices[mRequestedAudioDevice]) {
                     return DeviceHelpers.selectDefaultDevice(availableDevices);
                 }
 
@@ -268,12 +272,14 @@ abstract class AudioDeviceSelector {
 
             int activeDeviceCount = DeviceHelpers.getActiveDeviceCount(devices);
 
-            AudioManagerAndroid.AudioDeviceName[] array = new AudioManagerAndroid.AudioDeviceName[activeDeviceCount];
+            AudioManagerAndroid.AudioDeviceName[] array =
+                    new AudioManagerAndroid.AudioDeviceName[activeDeviceCount];
 
             int i = 0;
             for (int id = 0; id < devices.length; ++id) {
                 if (devices[id]) {
-                    array[i] = new AudioManagerAndroid.AudioDeviceName(id, DeviceHelpers.DEVICE_NAMES[id]);
+                    array[i] = new AudioManagerAndroid.AudioDeviceName(
+                            id, DeviceHelpers.DEVICE_NAMES[id]);
                     list.add(DeviceHelpers.DEVICE_NAMES[id]);
                     i++;
                 }
@@ -290,16 +296,12 @@ abstract class AudioDeviceSelector {
         }
     }
 
-    /**
-     * Trivial helper method for debug logging
-     */
+    /** Trivial helper method for debug logging */
     protected static void logd(String msg) {
         Log.d(TAG, msg);
     }
 
-    /**
-     * Trivial helper method for error logging
-     */
+    /** Trivial helper method for error logging */
     protected static void loge(String msg) {
         Log.e(TAG, msg);
     }

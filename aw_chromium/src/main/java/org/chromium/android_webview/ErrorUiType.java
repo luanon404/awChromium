@@ -1,3 +1,4 @@
+
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -14,11 +15,13 @@ import androidx.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@IntDef({ErrorUiType.LOUD, ErrorUiType.QUIET_SMALL, ErrorUiType.QUIET_GIANT, ErrorUiType.COUNT})
+@IntDef({
+    ErrorUiType.LOUD, ErrorUiType.QUIET_SMALL, ErrorUiType.QUIET_GIANT, ErrorUiType.COUNT
+})
 @Retention(RetentionPolicy.SOURCE)
 public @interface ErrorUiType {
-    int LOUD = 0;
-    int QUIET_SMALL = 1;
-    int QUIET_GIANT = 2;
-    int COUNT = 3;
+  int LOUD = 0;
+  int QUIET_SMALL = 1;
+  int QUIET_GIANT = 2;
+  int COUNT = 3;
 }

@@ -4,64 +4,72 @@
 package org.chromium.mojo.system.impl;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.mojo.system.RunLoop;
 
 @CheckDiscard("crbug.com/993421")
 class BaseRunLoopJni implements BaseRunLoop.Natives {
-    private static BaseRunLoop.Natives testInstance;
+  private static BaseRunLoop.Natives testInstance;
 
-    public static final JniStaticTestMocker<BaseRunLoop.Natives> TEST_HOOKS = new JniStaticTestMocker<BaseRunLoop.Natives>() {
-        @Override
-        public void setInstanceForTesting(BaseRunLoop.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<BaseRunLoop.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<BaseRunLoop.Natives>() {
     @Override
-    public long createBaseRunLoop(BaseRunLoop caller) {
-        return (long) GEN_JNI.org_chromium_mojo_system_impl_BaseRunLoop_createBaseRunLoop(caller);
+    public void setInstanceForTesting(BaseRunLoop.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public void deleteMessageLoop(BaseRunLoop caller, long runLoopID) {
-        GEN_JNI.org_chromium_mojo_system_impl_BaseRunLoop_deleteMessageLoop(caller, runLoopID);
-    }
+  @Override
+  public long createBaseRunLoop(BaseRunLoop caller) {
+    return (long) GEN_JNI.org_chromium_mojo_system_impl_BaseRunLoop_createBaseRunLoop(caller);
+  }
 
-    @Override
-    public void postDelayedTask(BaseRunLoop caller, long runLoopID, Runnable runnable, long delay) {
-        GEN_JNI.org_chromium_mojo_system_impl_BaseRunLoop_postDelayedTask(caller, runLoopID, runnable, delay);
-    }
+  @Override
+  public void deleteMessageLoop(BaseRunLoop caller, long runLoopID) {
+    GEN_JNI.org_chromium_mojo_system_impl_BaseRunLoop_deleteMessageLoop(caller, runLoopID);
+  }
 
-    @Override
-    public void quit(BaseRunLoop caller) {
-        GEN_JNI.org_chromium_mojo_system_impl_BaseRunLoop_quit(caller);
-    }
+  @Override
+  public void postDelayedTask(BaseRunLoop caller, long runLoopID, Runnable runnable, long delay) {
+    GEN_JNI.org_chromium_mojo_system_impl_BaseRunLoop_postDelayedTask(caller, runLoopID, runnable, delay);
+  }
 
-    @Override
-    public void run(BaseRunLoop caller) {
-        GEN_JNI.org_chromium_mojo_system_impl_BaseRunLoop_run(caller);
-    }
+  @Override
+  public void quit(BaseRunLoop caller) {
+    GEN_JNI.org_chromium_mojo_system_impl_BaseRunLoop_quit(caller);
+  }
 
-    @Override
-    public void runUntilIdle(BaseRunLoop caller) {
-        GEN_JNI.org_chromium_mojo_system_impl_BaseRunLoop_runUntilIdle(caller);
-    }
+  @Override
+  public void run(BaseRunLoop caller) {
+    GEN_JNI.org_chromium_mojo_system_impl_BaseRunLoop_run(caller);
+  }
 
-    public static BaseRunLoop.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of BaseRunLoop.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new BaseRunLoopJni();
+  @Override
+  public void runUntilIdle(BaseRunLoop caller) {
+    GEN_JNI.org_chromium_mojo_system_impl_BaseRunLoop_runUntilIdle(caller);
+  }
+
+  public static BaseRunLoop.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of BaseRunLoop.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new BaseRunLoopJni();
+  }
 }

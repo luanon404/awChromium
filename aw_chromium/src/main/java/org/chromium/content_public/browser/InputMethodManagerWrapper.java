@@ -15,13 +15,9 @@ import org.chromium.ui.base.WindowAndroid;
  * Wrapper around Android's InputMethodManager so that the implementation can be swapped out.
  */
 public interface InputMethodManagerWrapper {
-    /**
-     * An embedder may implement this for multi-display support.
-     */
-    interface Delegate {
-        /**
-         * Whether the delegate has established an input connection.
-         */
+    /** An embedder may implement this for multi-display support. */
+    public interface Delegate {
+        /** Whether the delegate has established an input connection. */
         boolean hasInputConnection();
     }
 
@@ -49,7 +45,8 @@ public interface InputMethodManagerWrapper {
     /**
      * @see android.view.inputmethod.InputMethodManager#updateSelection(View, int, int, int, int)
      */
-    void updateSelection(View view, int selStart, int selEnd, int candidatesStart, int candidatesEnd);
+    void updateSelection(
+            View view, int selStart, int selEnd, int candidatesStart, int candidatesEnd);
 
     /**
      * @see android.view.inputmethod.InputMethodManager#updateCursorAnchorInfo(View,
@@ -65,7 +62,6 @@ public interface InputMethodManagerWrapper {
 
     /**
      * Call this when WindowAndroid object has changed.
-     *
      * @param newWindowAndroid The new WindowAndroid object.
      */
     void onWindowAndroidChanged(WindowAndroid newWindowAndroid);

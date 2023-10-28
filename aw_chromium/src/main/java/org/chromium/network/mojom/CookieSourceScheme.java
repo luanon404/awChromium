@@ -17,10 +17,12 @@ import androidx.annotation.IntDef;
 
 public final class CookieSourceScheme {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({CookieSourceScheme.UNSET, CookieSourceScheme.NON_SECURE, CookieSourceScheme.SECURE})
-    public @interface EnumType {
-    }
+        CookieSourceScheme.UNSET,
+        CookieSourceScheme.NON_SECURE,
+        CookieSourceScheme.SECURE})
+    public @interface EnumType {}
 
     public static final int UNSET = 0;
     public static final int NON_SECURE = 1;
@@ -38,9 +40,8 @@ public final class CookieSourceScheme {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private CookieSourceScheme() {
-    }
+    private CookieSourceScheme() {}
 }

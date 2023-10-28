@@ -49,7 +49,8 @@ import javax.annotation.concurrent.GuardedBy;
 public class ChildProcessConnection {
     private static final String TAG = "ChildProcessConn";
     private static final int FALLBACK_TIMEOUT_IN_SECONDS = 10;
-    private static final boolean SUPPORT_NOT_PERCEPTIBLE_BINDING = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q;
+    private static final boolean SUPPORT_NOT_PERCEPTIBLE_BINDING =
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q;
 
     /**
      * Used to notify the consumer about the process start. These callbacks will be invoked before
@@ -83,7 +84,6 @@ public class ChildProcessConnection {
     public interface ConnectionCallback {
         /**
          * Called when the connection to the service is established.
-         *
          * @param connection the connection object to the child process
          */
         void onConnected(ChildProcessConnection connection);
@@ -97,9 +97,8 @@ public class ChildProcessConnection {
         /**
          * Called after the connection has been established, only once per process being connected
          * to.
-         *
-         * @param connection  the connection object to the child process. Must hold the zygote PID
-         *                    that the child process was spawned from
+         * @param connection the connection object to the child process. Must hold the zygote PID
+         *                   that the child process was spawned from
          * @param relroBundle the bundle potentially containing the information making it possible
          *                    to replace the current RELRO address range to memory shared with the
          *                    zpp zygote. Needs to be passed to the library loader in order to take
@@ -285,12 +284,18 @@ public class ChildProcessConnection {
     @GuardedBy("mBindingStateLock")
     private boolean mCleanExit;
 
-    public ChildProcessConnection(Context context, ComponentName serviceName, ComponentName fallbackServiceName, boolean bindToCaller, boolean bindAsExternalService, Bundle serviceBundle, String instanceName) {
-        this(context, serviceName, fallbackServiceName, bindToCaller, bindAsExternalService, serviceBundle, null /* connectionFactory */, instanceName);
+    public ChildProcessConnection(Context context, ComponentName serviceName,
+            ComponentName fallbackServiceName, boolean bindToCaller, boolean bindAsExternalService,
+            Bundle serviceBundle, String instanceName) {
+        this(context, serviceName, fallbackServiceName, bindToCaller, bindAsExternalService,
+                serviceBundle, null /* connectionFactory */, instanceName);
     }
 
     @VisibleForTesting
-    public ChildProcessConnection(final Context context, ComponentName serviceName, ComponentName fallbackServiceName, boolean bindToCaller, boolean bindAsExternalService, Bundle serviceBundle, ChildServiceConnectionFactory connectionFactory, String instanceName) {
+    public ChildProcessConnection(final Context context, ComponentName serviceName,
+            ComponentName fallbackServiceName, boolean bindToCaller, boolean bindAsExternalService,
+            Bundle serviceBundle, ChildServiceConnectionFactory connectionFactory,
+            String instanceName) {
         mLauncherHandler = new Handler();
         mLauncherExecutor = (Runnable runnable) -> {
             mLauncherHandler.post(runnable);
@@ -300,7 +305,8 @@ public class ChildProcessConnection {
         mFallbackServiceName = fallbackServiceName;
         mServiceBundle = serviceBundle != null ? serviceBundle : new Bundle();
         mServiceBundle.putBoolean(ChildProcessConstants.EXTRA_BIND_TO_CALLER, bindToCaller);
-        mServiceBundle.putString(ChildProcessConstants.EXTRA_BROWSER_PACKAGE_NAME, BuildInfo.getInstance().packageName);
+        mServiceBundle.putString(ChildProcessConstants.EXTRA_BROWSER_PACKAGE_NAME,
+                BuildInfo.getInstance().packageName);
         mBindToCaller = bindToCaller;
         mInstanceName = instanceName;
         // Incremental install does not work with isolatedProcess, and externalService requires
@@ -309,8 +315,10 @@ public class ChildProcessConnection {
         if (connectionFactory == null) {
             mConnectionFactory = new ChildServiceConnectionFactory() {
                 @Override
-                public ChildServiceConnection createConnection(Intent bindIntent, int bindFlags, ChildServiceConnectionDelegate delegate, String instanceName) {
-                    return new ChildServiceConnectionImpl(context, bindIntent, bindFlags, mLauncherHandler, mLauncherExecutor, delegate, instanceName);
+                public ChildServiceConnection createConnection(Intent bindIntent, int bindFlags,
+                        ChildServiceConnectionDelegate delegate, String instanceName) {
+                    return new ChildServiceConnectionImpl(context, bindIntent, bindFlags,
+                            mLauncherHandler, mLauncherExecutor, delegate, instanceName);
                 }
             };
         } else {
@@ -339,7 +347,8 @@ public class ChildProcessConnection {
             }
         };
 
-        createBindings(sAlwaysFallback && mFallbackServiceName != null ? mFallbackServiceName : mServiceName);
+        createBindings(sAlwaysFallback && mFallbackServiceName != null ? mFallbackServiceName
+                                                                       : mServiceName);
     }
 
     private void createBindings(ComponentName serviceName) {
@@ -349,15 +358,21 @@ public class ChildProcessConnection {
             intent.putExtras(mServiceBundle);
         }
 
-        int defaultFlags = Context.BIND_AUTO_CREATE | (mBindAsExternalService ? Context.BIND_EXTERNAL_SERVICE : 0);
+        int defaultFlags = Context.BIND_AUTO_CREATE
+                | (mBindAsExternalService ? Context.BIND_EXTERNAL_SERVICE : 0);
 
-        mVisibleBinding = mConnectionFactory.createConnection(intent, defaultFlags, mConnectionDelegate, mInstanceName);
+        mVisibleBinding = mConnectionFactory.createConnection(
+                intent, defaultFlags, mConnectionDelegate, mInstanceName);
         if (supportNotPerceptibleBinding()) {
-            mNotPerceptibleBinding = mConnectionFactory.createConnection(intent, defaultFlags | Context.BIND_NOT_PERCEPTIBLE, mConnectionDelegate, mInstanceName);
+            mNotPerceptibleBinding = mConnectionFactory.createConnection(intent,
+                    defaultFlags | Context.BIND_NOT_PERCEPTIBLE, mConnectionDelegate,
+                    mInstanceName);
         }
 
-        mStrongBinding = mConnectionFactory.createConnection(intent, defaultFlags | Context.BIND_IMPORTANT, mConnectionDelegate, mInstanceName);
-        mWaivedBinding = mConnectionFactory.createConnection(intent, defaultFlags | Context.BIND_WAIVE_PRIORITY, mConnectionDelegate, mInstanceName);
+        mStrongBinding = mConnectionFactory.createConnection(
+                intent, defaultFlags | Context.BIND_IMPORTANT, mConnectionDelegate, mInstanceName);
+        mWaivedBinding = mConnectionFactory.createConnection(intent,
+                defaultFlags | Context.BIND_WAIVE_PRIORITY, mConnectionDelegate, mInstanceName);
     }
 
     public final IChildProcessService getService() {
@@ -395,17 +410,17 @@ public class ChildProcessConnection {
      * setupConnection() to setup the connection parameters. start() and setupConnection() are
      * separate to allow to pass whatever parameters are available in start(), and complete the
      * remainder addStrongBinding while reducing the connection setup latency.
-     *
      * @param useStrongBinding whether a strong binding should be bound by default. If false, an
-     *                         initial moderate binding is used.
-     * @param serviceCallback  (optional) callbacks invoked when the child process starts or fails to
-     *                         start and when the service stops.
+     * initial moderate binding is used.
+     * @param serviceCallback (optional) callbacks invoked when the child process starts or fails to
+     * start and when the service stops.
      */
     public void start(boolean useStrongBinding, ServiceCallback serviceCallback) {
         try {
             TraceEvent.begin("ChildProcessConnection.start");
             assert isRunningOnLauncherThread();
-            assert mConnectionParams == null : "setupConnection() called before start() in ChildProcessConnection.";
+            assert mConnectionParams
+                    == null : "setupConnection() called before start() in ChildProcessConnection.";
 
             mServiceCallback = serviceCallback;
 
@@ -428,7 +443,8 @@ public class ChildProcessConnection {
         try {
             TraceEvent.begin("ChildProcessConnection.tryStart");
             assert isRunningOnLauncherThread();
-            assert mConnectionParams == null : "setupConnection() called before start() in ChildProcessConnection.";
+            assert mConnectionParams
+                    == null : "setupConnection() called before start() in ChildProcessConnection.";
 
             if (!bind(useStrongBinding)) {
                 return false;
@@ -453,16 +469,16 @@ public class ChildProcessConnection {
 
     /**
      * Sets-up the connection after it was started with start().
-     *
-     * @param connectionBundle   a bundle passed to the service that can be used to pass various
-     *                           parameters to the service
-     * @param clientInterfaces   optional client specified interfaces that the child can use to
-     *                           communicate with the parent process
+     * @param connectionBundle a bundle passed to the service that can be used to pass various
+     *         parameters to the service
+     * @param clientInterfaces optional client specified interfaces that the child can use to
+     *         communicate with the parent process
      * @param connectionCallback will be called exactly once after the connection is set up or the
      *                           setup fails
      * @param zygoteInfoCallback will be called exactly once after the connection is set up
      */
-    public void setupConnection(Bundle connectionBundle, @Nullable List<IBinder> clientInterfaces, ConnectionCallback connectionCallback, ZygoteInfoCallback zygoteInfoCallback) {
+    public void setupConnection(Bundle connectionBundle, @Nullable List<IBinder> clientInterfaces,
+            ConnectionCallback connectionCallback, ZygoteInfoCallback zygoteInfoCallback) {
         assert isRunningOnLauncherThread();
         assert mConnectionParams == null;
         if (mServiceDisconnected) {
@@ -524,7 +540,9 @@ public class ChildProcessConnection {
      * UMA histogram values for child app info mismatches.
      * Note: this should stay in sync with ChildAppInfoError in enums.xml.
      */
-    @IntDef({ChildAppInfoError.SUCCESS, ChildAppInfoError.SOURCE_DIR_MISMATCH, ChildAppInfoError.SHARED_LIB_MISMATCH, ChildAppInfoError.REMOTE_EXCEPTION, ChildAppInfoError.MAX_VALUE})
+    @IntDef({ChildAppInfoError.SUCCESS, ChildAppInfoError.SOURCE_DIR_MISMATCH,
+            ChildAppInfoError.SHARED_LIB_MISMATCH, ChildAppInfoError.REMOTE_EXCEPTION,
+            ChildAppInfoError.MAX_VALUE})
     @Retention(RetentionPolicy.SOURCE)
     public @interface ChildAppInfoError {
         int SUCCESS = 0;
@@ -536,7 +554,8 @@ public class ChildProcessConnection {
     }
 
     private void recordChildAppInfoError(@ChildAppInfoError int error) {
-        RecordHistogram.recordEnumeratedHistogram("Android.ChildMismatch.AppInfoError2", error, ChildAppInfoError.MAX_VALUE);
+        RecordHistogram.recordEnumeratedHistogram(
+                "Android.ChildMismatch.AppInfoError2", error, ChildAppInfoError.MAX_VALUE);
     }
 
     @VisibleForTesting
@@ -577,10 +596,13 @@ public class ChildProcessConnection {
 
                 if (!Objects.equals(parent.sourceDir, child.sourceDir)) {
                     recordChildAppInfoError(ChildAppInfoError.SOURCE_DIR_MISMATCH);
-                    childMismatchError = "sourceDir mismatch; parent=" + parent.sourceDir + " child=" + child.sourceDir;
+                    childMismatchError = "sourceDir mismatch; parent=" + parent.sourceDir
+                            + " child=" + child.sourceDir;
                 } else if (!Arrays.equals(parent.sharedLibraryFiles, child.sharedLibraryFiles)) {
                     recordChildAppInfoError(ChildAppInfoError.SHARED_LIB_MISMATCH);
-                    childMismatchError = "sharedLibraryFiles mismatch; parent=" + Arrays.toString(parent.sharedLibraryFiles) + " child=" + Arrays.toString(child.sharedLibraryFiles);
+                    childMismatchError = "sharedLibraryFiles mismatch; parent="
+                            + Arrays.toString(parent.sharedLibraryFiles)
+                            + " child=" + Arrays.toString(child.sharedLibraryFiles);
                 }
                 // Don't compare splitSourceDirs as isolatedSplits/dynamic feature modules/etc make
                 // this potentially complicated.
@@ -595,11 +617,14 @@ public class ChildProcessConnection {
                 long latestVersionCode = BuildInfo.packageVersionCode(latestPackage);
                 long loadedVersionCode = BuildInfo.getInstance().versionCode;
                 boolean versionHasChanged = latestVersionCode != loadedVersionCode;
-                RecordHistogram.recordBooleanHistogram("Android.ChildMismatch.BrowserVersionChanged2", versionHasChanged);
+                RecordHistogram.recordBooleanHistogram(
+                        "Android.ChildMismatch.BrowserVersionChanged2", versionHasChanged);
                 childMismatchError += "; browser version has changed: " + versionHasChanged;
                 Log.e(TAG, "Child process code mismatch: %s", childMismatchError);
-                boolean crashIfBrowserChanged = BaseFeatureMap.isEnabled(BaseFeatures.CRASH_BROWSER_ON_CHILD_MISMATCH_IF_BROWSER_CHANGED);
-                if (BaseFeatureMap.isEnabled(BaseFeatures.CRASH_BROWSER_ON_ANY_CHILD_MISMATCH) || (versionHasChanged && crashIfBrowserChanged)) {
+                boolean crashIfBrowserChanged = BaseFeatureMap.isEnabled(
+                        BaseFeatures.CRASH_BROWSER_ON_CHILD_MISMATCH_IF_BROWSER_CHANGED);
+                if (BaseFeatureMap.isEnabled(BaseFeatures.CRASH_BROWSER_ON_ANY_CHILD_MISMATCH)
+                        || (versionHasChanged && crashIfBrowserChanged)) {
                     throw new ChildProcessMismatchException(childMismatchError);
                 }
             } else {
@@ -613,7 +638,7 @@ public class ChildProcessConnection {
             mServiceConnectComplete = true;
 
             if (mMemoryPressureCallback == null) {
-                final MemoryPressureCallback callback = this::onMemoryPressure;
+                final MemoryPressureCallback callback = this ::onMemoryPressure;
                 ThreadUtils.postOnUiThread(() -> MemoryPressureListener.addCallback(callback));
                 mMemoryPressureCallback = callback;
             }
@@ -637,7 +662,8 @@ public class ChildProcessConnection {
             return;
         }
         mServiceDisconnected = true;
-        Log.w(TAG, "onServiceDisconnected (crash or killed by oom): pid=%d %s", mPid, buildDebugStateString());
+        Log.w(TAG, "onServiceDisconnected (crash or killed by oom): pid=%d %s", mPid,
+                buildDebugStateString());
         stop(); // We don't want to auto-restart on crash. Let the browser do that.
 
         // If we have a pending connection callback, we need to communicate the failure to
@@ -658,7 +684,8 @@ public class ChildProcessConnection {
         return s.toString();
     }
 
-    private void onSetupConnectionResultOnLauncherThread(int pid, int zygotePid, long zygoteStartupTimeMillis, Bundle relroBundle) {
+    private void onSetupConnectionResultOnLauncherThread(
+            int pid, int zygotePid, long zygoteStartupTimeMillis, Bundle relroBundle) {
         assert isRunningOnLauncherThread();
 
         // The RELRO bundle should be accepted only when establishing the connection. This is to
@@ -687,7 +714,8 @@ public class ChildProcessConnection {
         // much we can do about that, and it shouldn't be a major issue.
         if (sLastRecordedZygotePid != mZygotePid && hasUsableZygoteInfo()) {
             sLastRecordedZygotePid = mZygotePid;
-            RecordHistogram.recordMediumTimesHistogram("Android.ChildProcessStartTimeV2.Zygote", zygoteStartupTimeMillis);
+            RecordHistogram.recordMediumTimesHistogram(
+                    "Android.ChildProcessStartTimeV2.Zygote", zygoteStartupTimeMillis);
         }
 
         if (mConnectionCallback != null) {
@@ -721,9 +749,11 @@ public class ChildProcessConnection {
 
             IParentProcess parentProcess = new IParentProcess.Stub() {
                 @Override
-                public void finishSetupConnection(int pid, int zygotePid, long zygoteStartupTimeMillis, Bundle relroBundle) {
+                public void finishSetupConnection(
+                        int pid, int zygotePid, long zygoteStartupTimeMillis, Bundle relroBundle) {
                     mLauncherHandler.post(() -> {
-                        onSetupConnectionResultOnLauncherThread(pid, zygotePid, zygoteStartupTimeMillis, relroBundle);
+                        onSetupConnectionResultOnLauncherThread(
+                                pid, zygotePid, zygoteStartupTimeMillis, relroBundle);
                     });
                 }
 
@@ -753,7 +783,8 @@ public class ChildProcessConnection {
                 }
             };
             try {
-                mService.setupConnection(mConnectionParams.mConnectionBundle, parentProcess, mConnectionParams.mClientInterfaces);
+                mService.setupConnection(mConnectionParams.mConnectionBundle, parentProcess,
+                        mConnectionParams.mClientInterfaces);
             } catch (RemoteException re) {
                 Log.e(TAG, "Failed to setup connection.", re);
             }
@@ -780,7 +811,8 @@ public class ChildProcessConnection {
         }
 
         if (success && !usedFallback && canFallback) {
-            mLauncherHandler.postDelayed(this::checkBindTimeOut, FALLBACK_TIMEOUT_IN_SECONDS * 1000);
+            mLauncherHandler.postDelayed(
+                    this::checkBindTimeOut, FALLBACK_TIMEOUT_IN_SECONDS * 1000);
         }
 
         return success;
@@ -828,7 +860,8 @@ public class ChildProcessConnection {
         assert mFallbackServiceName != null;
         boolean isStrongBindingBound = mStrongBinding.isBound();
         boolean isVisibleBindingBound = mVisibleBinding.isBound();
-        boolean isNotPerceptibleBindingBound = supportNotPerceptibleBinding() && mNotPerceptibleBinding.isBound();
+        boolean isNotPerceptibleBindingBound =
+                supportNotPerceptibleBinding() && mNotPerceptibleBinding.isBound();
         boolean isWaivedBindingBound = mWaivedBinding.isBound();
         retireAndCreateFallbackBindings();
         // Expect all bindings to succeed or fail together. So early out as soon as
@@ -1064,7 +1097,7 @@ public class ChildProcessConnection {
 
     /**
      * @return the exception string if service threw an exception during init.
-     * null otherwise.
+     *         null otherwise.
      */
     public @Nullable String getExceptionDuringInit() {
         synchronized (mBindingStateLock) {

@@ -9,8 +9,7 @@ package org.chromium.android_webview;
  * //android_webview/BUILD.gn for more details.
  */
 public final class AwLocaleConfig {
-    private AwLocaleConfig() {
-    }
+    private AwLocaleConfig() {}
 
     public static String[] getWebViewSupportedPakLocales() {
         return ProductConfig.LOCALES;

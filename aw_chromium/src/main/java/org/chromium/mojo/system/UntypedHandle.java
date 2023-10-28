@@ -18,28 +18,28 @@ public interface UntypedHandle extends Handle {
      * @see org.chromium.mojo.system.Handle#pass()
      */
     @Override
-    UntypedHandle pass();
+    public UntypedHandle pass();
 
     /**
      * Returns the underlying handle, as a {@link MessagePipeHandle}, invalidating this
      * representation.
      */
-    MessagePipeHandle toMessagePipeHandle();
+    public MessagePipeHandle toMessagePipeHandle();
 
     /**
      * Returns the underlying handle, as a {@link ConsumerHandle}, invalidating this representation.
      */
-    ConsumerHandle toDataPipeConsumerHandle();
+    public ConsumerHandle toDataPipeConsumerHandle();
 
     /**
      * Returns the underlying handle, as a {@link ProducerHandle}, invalidating this representation.
      */
-    ProducerHandle toDataPipeProducerHandle();
+    public ProducerHandle toDataPipeProducerHandle();
 
     /**
      * Returns the underlying handle, as a {@link SharedBufferHandle}, invalidating this
      * representation.
      */
-    SharedBufferHandle toSharedBufferHandle();
+    public SharedBufferHandle toSharedBufferHandle();
 
 }

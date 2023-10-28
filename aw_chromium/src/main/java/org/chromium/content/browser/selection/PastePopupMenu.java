@@ -13,7 +13,7 @@ public interface PastePopupMenu {
     /**
      * Provider of paste functionality for the given popup.
      */
-    interface PastePopupMenuDelegate {
+    public interface PastePopupMenuDelegate {
         /**
          * Called to initiate a paste after the paste option has been tapped.
          */
@@ -48,10 +48,10 @@ public interface PastePopupMenu {
     /**
      * Shows the paste popup at an appropriate location relative to the specified selection.
      */
-    void show(Rect selectionRect);
+    public void show(Rect selectionRect);
 
     /**
      * Hides the paste popup.
      */
-    void hide();
+    public void hide();
 }

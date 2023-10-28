@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface FileSystemAccessTransferToken extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends FileSystemAccessTransferToken, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends FileSystemAccessTransferToken, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<FileSystemAccessTransferToken, FileSystemAccessTransferToken.Proxy> MANAGER = FileSystemAccessTransferToken_Internal.MANAGER;

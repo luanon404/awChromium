@@ -13,15 +13,20 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface VideoFrameHandleReleaser extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends VideoFrameHandleReleaser, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends VideoFrameHandleReleaser, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<VideoFrameHandleReleaser, VideoFrameHandleReleaser.Proxy> MANAGER = VideoFrameHandleReleaser_Internal.MANAGER;
 
-    void releaseVideoFrame(org.chromium.mojo_base.mojom.UnguessableToken releaseToken, org.chromium.gpu.mojom.SyncToken releaseSyncToken);
+    void releaseVideoFrame(
+org.chromium.mojo_base.mojom.UnguessableToken releaseToken, org.chromium.gpu.mojom.SyncToken releaseSyncToken);
 
 
 }

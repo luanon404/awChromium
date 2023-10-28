@@ -23,7 +23,8 @@ public class CrashLoggingUtils {
      * Writes info about crash in a separate log file for each crash as a JSON Object.
      * Used for both embedded and non-embedded crashes.
      */
-    public static boolean writeCrashInfoToLogFile(File logFile, File crashFile, Map<String, String> crashInfoMap) {
+    public static boolean writeCrashInfoToLogFile(
+            File logFile, File crashFile, Map<String, String> crashInfoMap) {
         try {
             String localId = CrashFileManager.getCrashLocalIdFromFileName(crashFile.getName());
             if (localId == null || crashInfoMap == null) return false;

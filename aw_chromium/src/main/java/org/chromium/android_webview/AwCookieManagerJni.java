@@ -4,119 +4,134 @@
 package org.chromium.android_webview;
 
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.os.Handler;
+import android.os.Looper;
+import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
+import org.jni_zero.CalledByNative;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.Callback;
+import org.chromium.base.library_loader.LibraryLoader;
+import java.util.Arrays;
+import java.util.List;
 
 @CheckDiscard("crbug.com/993421")
 class AwCookieManagerJni implements AwCookieManager.Natives {
-    private static AwCookieManager.Natives testInstance;
+  private static AwCookieManager.Natives testInstance;
 
-    public static final JniStaticTestMocker<AwCookieManager.Natives> TEST_HOOKS = new JniStaticTestMocker<AwCookieManager.Natives>() {
-        @Override
-        public void setInstanceForTesting(AwCookieManager.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<AwCookieManager.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<AwCookieManager.Natives>() {
     @Override
-    public void flushCookieStore(long nativeCookieManager, AwCookieManager caller) {
-        GEN_JNI.org_chromium_android_1webview_AwCookieManager_flushCookieStore(nativeCookieManager, caller);
+    public void setInstanceForTesting(AwCookieManager.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public boolean getAllowFileSchemeCookies(long nativeCookieManager, AwCookieManager caller) {
-        return (boolean) GEN_JNI.org_chromium_android_1webview_AwCookieManager_getAllowFileSchemeCookies(nativeCookieManager, caller);
-    }
+  @Override
+  public void flushCookieStore(long nativeCookieManager, AwCookieManager caller) {
+    GEN_JNI.org_chromium_android_1webview_AwCookieManager_flushCookieStore(nativeCookieManager, caller);
+  }
 
-    @Override
-    public String getCookie(long nativeCookieManager, AwCookieManager caller, String url) {
-        return (String) GEN_JNI.org_chromium_android_1webview_AwCookieManager_getCookie(nativeCookieManager, caller, url);
-    }
+  @Override
+  public boolean getAllowFileSchemeCookies(long nativeCookieManager, AwCookieManager caller) {
+    return (boolean) GEN_JNI.org_chromium_android_1webview_AwCookieManager_getAllowFileSchemeCookies(nativeCookieManager, caller);
+  }
 
-    @Override
-    public String[] getCookieInfo(long nativeCookieManager, AwCookieManager caller, String url) {
-        return (String[]) GEN_JNI.org_chromium_android_1webview_AwCookieManager_getCookieInfo(nativeCookieManager, caller, url);
-    }
+  @Override
+  public String getCookie(long nativeCookieManager, AwCookieManager caller, String url) {
+    return (String) GEN_JNI.org_chromium_android_1webview_AwCookieManager_getCookie(nativeCookieManager, caller, url);
+  }
 
-    @Override
-    public long getDefaultCookieManager() {
-        return (long) GEN_JNI.org_chromium_android_1webview_AwCookieManager_getDefaultCookieManager();
-    }
+  @Override
+  public String[] getCookieInfo(long nativeCookieManager, AwCookieManager caller, String url) {
+    return (String[]) GEN_JNI.org_chromium_android_1webview_AwCookieManager_getCookieInfo(nativeCookieManager, caller, url);
+  }
 
-    @Override
-    public boolean getShouldAcceptCookies(long nativeCookieManager, AwCookieManager caller) {
-        return (boolean) GEN_JNI.org_chromium_android_1webview_AwCookieManager_getShouldAcceptCookies(nativeCookieManager, caller);
-    }
+  @Override
+  public long getDefaultCookieManager() {
+    return (long) GEN_JNI.org_chromium_android_1webview_AwCookieManager_getDefaultCookieManager();
+  }
 
-    @Override
-    public boolean hasCookies(long nativeCookieManager, AwCookieManager caller) {
-        return (boolean) GEN_JNI.org_chromium_android_1webview_AwCookieManager_hasCookies(nativeCookieManager, caller);
-    }
+  @Override
+  public boolean getShouldAcceptCookies(long nativeCookieManager, AwCookieManager caller) {
+    return (boolean) GEN_JNI.org_chromium_android_1webview_AwCookieManager_getShouldAcceptCookies(nativeCookieManager, caller);
+  }
 
-    @Override
-    public void removeAllCookies(long nativeCookieManager, AwCookieManager caller, AwCookieManager.CookieCallback callback) {
-        GEN_JNI.org_chromium_android_1webview_AwCookieManager_removeAllCookies(nativeCookieManager, caller, callback);
-    }
+  @Override
+  public boolean hasCookies(long nativeCookieManager, AwCookieManager caller) {
+    return (boolean) GEN_JNI.org_chromium_android_1webview_AwCookieManager_hasCookies(nativeCookieManager, caller);
+  }
 
-    @Override
-    public void removeAllCookiesSync(long nativeCookieManager, AwCookieManager caller) {
-        GEN_JNI.org_chromium_android_1webview_AwCookieManager_removeAllCookiesSync(nativeCookieManager, caller);
-    }
+  @Override
+  public void removeAllCookies(long nativeCookieManager, AwCookieManager caller, AwCookieManager.CookieCallback callback) {
+    GEN_JNI.org_chromium_android_1webview_AwCookieManager_removeAllCookies(nativeCookieManager, caller, callback);
+  }
 
-    @Override
-    public void removeExpiredCookies(long nativeCookieManager, AwCookieManager caller) {
-        GEN_JNI.org_chromium_android_1webview_AwCookieManager_removeExpiredCookies(nativeCookieManager, caller);
-    }
+  @Override
+  public void removeAllCookiesSync(long nativeCookieManager, AwCookieManager caller) {
+    GEN_JNI.org_chromium_android_1webview_AwCookieManager_removeAllCookiesSync(nativeCookieManager, caller);
+  }
 
-    @Override
-    public void removeSessionCookies(long nativeCookieManager, AwCookieManager caller, AwCookieManager.CookieCallback callback) {
-        GEN_JNI.org_chromium_android_1webview_AwCookieManager_removeSessionCookies(nativeCookieManager, caller, callback);
-    }
+  @Override
+  public void removeExpiredCookies(long nativeCookieManager, AwCookieManager caller) {
+    GEN_JNI.org_chromium_android_1webview_AwCookieManager_removeExpiredCookies(nativeCookieManager, caller);
+  }
 
-    @Override
-    public void removeSessionCookiesSync(long nativeCookieManager, AwCookieManager caller) {
-        GEN_JNI.org_chromium_android_1webview_AwCookieManager_removeSessionCookiesSync(nativeCookieManager, caller);
-    }
+  @Override
+  public void removeSessionCookies(long nativeCookieManager, AwCookieManager caller, AwCookieManager.CookieCallback callback) {
+    GEN_JNI.org_chromium_android_1webview_AwCookieManager_removeSessionCookies(nativeCookieManager, caller, callback);
+  }
 
-    @Override
-    public void setAllowFileSchemeCookies(long nativeCookieManager, AwCookieManager caller, boolean allow) {
-        GEN_JNI.org_chromium_android_1webview_AwCookieManager_setAllowFileSchemeCookies(nativeCookieManager, caller, allow);
-    }
+  @Override
+  public void removeSessionCookiesSync(long nativeCookieManager, AwCookieManager caller) {
+    GEN_JNI.org_chromium_android_1webview_AwCookieManager_removeSessionCookiesSync(nativeCookieManager, caller);
+  }
 
-    @Override
-    public void setCookie(long nativeCookieManager, AwCookieManager caller, String url, String value, AwCookieManager.CookieCallback callback) {
-        GEN_JNI.org_chromium_android_1webview_AwCookieManager_setCookie(nativeCookieManager, caller, url, value, callback);
-    }
+  @Override
+  public void setAllowFileSchemeCookies(long nativeCookieManager, AwCookieManager caller, boolean allow) {
+    GEN_JNI.org_chromium_android_1webview_AwCookieManager_setAllowFileSchemeCookies(nativeCookieManager, caller, allow);
+  }
 
-    @Override
-    public void setCookieSync(long nativeCookieManager, AwCookieManager caller, String url, String value) {
-        GEN_JNI.org_chromium_android_1webview_AwCookieManager_setCookieSync(nativeCookieManager, caller, url, value);
-    }
+  @Override
+  public void setCookie(long nativeCookieManager, AwCookieManager caller, String url, String value, AwCookieManager.CookieCallback callback) {
+    GEN_JNI.org_chromium_android_1webview_AwCookieManager_setCookie(nativeCookieManager, caller, url, value, callback);
+  }
 
-    @Override
-    public void setShouldAcceptCookies(long nativeCookieManager, AwCookieManager caller, boolean accept) {
-        GEN_JNI.org_chromium_android_1webview_AwCookieManager_setShouldAcceptCookies(nativeCookieManager, caller, accept);
-    }
+  @Override
+  public void setCookieSync(long nativeCookieManager, AwCookieManager caller, String url, String value) {
+    GEN_JNI.org_chromium_android_1webview_AwCookieManager_setCookieSync(nativeCookieManager, caller, url, value);
+  }
 
-    @Override
-    public void setWorkaroundHttpSecureCookiesForTesting(long nativeCookieManager, AwCookieManager caller, boolean allow) {
-        GEN_JNI.org_chromium_android_1webview_AwCookieManager_setWorkaroundHttpSecureCookiesForTesting(nativeCookieManager, caller, allow);
-    }
+  @Override
+  public void setShouldAcceptCookies(long nativeCookieManager, AwCookieManager caller, boolean accept) {
+    GEN_JNI.org_chromium_android_1webview_AwCookieManager_setShouldAcceptCookies(nativeCookieManager, caller, accept);
+  }
 
-    public static AwCookieManager.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of AwCookieManager.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new AwCookieManagerJni();
+  @Override
+  public void setWorkaroundHttpSecureCookiesForTesting(long nativeCookieManager, AwCookieManager caller, boolean allow) {
+    GEN_JNI.org_chromium_android_1webview_AwCookieManager_setWorkaroundHttpSecureCookiesForTesting(nativeCookieManager, caller, allow);
+  }
+
+  public static AwCookieManager.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of AwCookieManager.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new AwCookieManagerJni();
+  }
 }

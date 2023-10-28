@@ -3,49 +3,55 @@
 //
 package org.chromium.content.browser;
 
-import android.view.Surface;
-
-import org.chromium.base.UnguessableToken;
-import org.chromium.content.common.SurfaceWrapper;
 import org.jni_zero.CheckDiscard;
-import org.jni_zero.GEN_JNI;
 import org.jni_zero.JniStaticTestMocker;
 import org.jni_zero.NativeLibraryLoadedStatus;
+import org.jni_zero.GEN_JNI;
+import android.view.Surface;
+import org.jni_zero.JNINamespace;
+import org.jni_zero.NativeMethods;
+import org.chromium.base.UnguessableToken;
+import org.chromium.content.common.IGpuProcessCallback;
+import org.chromium.content.common.SurfaceWrapper;
 
 @CheckDiscard("crbug.com/993421")
 class GpuProcessCallbackJni implements GpuProcessCallback.Natives {
-    private static GpuProcessCallback.Natives testInstance;
+  private static GpuProcessCallback.Natives testInstance;
 
-    public static final JniStaticTestMocker<GpuProcessCallback.Natives> TEST_HOOKS = new JniStaticTestMocker<GpuProcessCallback.Natives>() {
-        @Override
-        public void setInstanceForTesting(GpuProcessCallback.Natives instance) {
-            if (!GEN_JNI.TESTING_ENABLED) {
-                throw new RuntimeException("Tried to set a JNI mock when mocks aren't enabled!");
-            }
-            testInstance = instance;
-        }
-    };
-
+  public static final JniStaticTestMocker<GpuProcessCallback.Natives> TEST_HOOKS =
+      new JniStaticTestMocker<GpuProcessCallback.Natives>() {
     @Override
-    public void completeScopedSurfaceRequest(UnguessableToken requestToken, Surface surface) {
-        GEN_JNI.org_chromium_content_browser_GpuProcessCallback_completeScopedSurfaceRequest(requestToken, surface);
+    public void setInstanceForTesting(GpuProcessCallback.Natives instance) {
+      if (!GEN_JNI.TESTING_ENABLED) {
+        throw new RuntimeException(
+            "Tried to set a JNI mock when mocks aren't enabled!");
+      }
+      testInstance = instance;
     }
+  };
 
-    @Override
-    public SurfaceWrapper getViewSurface(int surfaceId) {
-        return (SurfaceWrapper) GEN_JNI.org_chromium_content_browser_GpuProcessCallback_getViewSurface(surfaceId);
-    }
+  @Override
+  public void completeScopedSurfaceRequest(UnguessableToken requestToken, Surface surface) {
+    GEN_JNI.org_chromium_content_browser_GpuProcessCallback_completeScopedSurfaceRequest(requestToken, surface);
+  }
 
-    public static GpuProcessCallback.Natives get() {
-        if (GEN_JNI.TESTING_ENABLED) {
-            if (testInstance != null) {
-                return testInstance;
-            }
-            if (GEN_JNI.REQUIRE_MOCK) {
-                throw new UnsupportedOperationException("No mock found for the native implementation of GpuProcessCallback.Natives. " + "The current configuration requires implementations be mocked.");
-            }
-        }
-        NativeLibraryLoadedStatus.checkLoaded();
-        return new GpuProcessCallbackJni();
+  @Override
+  public SurfaceWrapper getViewSurface(int surfaceId) {
+    return (SurfaceWrapper) GEN_JNI.org_chromium_content_browser_GpuProcessCallback_getViewSurface(surfaceId);
+  }
+
+  public static GpuProcessCallback.Natives get() {
+    if (GEN_JNI.TESTING_ENABLED) {
+      if (testInstance != null) {
+        return testInstance;
+      }
+      if (GEN_JNI.REQUIRE_MOCK) {
+        throw new UnsupportedOperationException(
+            "No mock found for the native implementation of GpuProcessCallback.Natives. "
+            + "The current configuration requires implementations be mocked.");
+      }
     }
+    NativeLibraryLoadedStatus.checkLoaded();
+    return new GpuProcessCallbackJni();
+  }
 }

@@ -26,7 +26,8 @@ class Gamepad implements WindowEventObserver, UserData {
     }
 
     public static Gamepad from(WebContents webContents) {
-        return ((WebContentsImpl) webContents).getOrSetUserData(Gamepad.class, UserDataFactoryLazyHolder.INSTANCE);
+        return ((WebContentsImpl) webContents)
+                .getOrSetUserData(Gamepad.class, UserDataFactoryLazyHolder.INSTANCE);
     }
 
     public Gamepad(WebContents webContents) {

@@ -188,6 +188,5 @@ public final class GpuFeatures {
     public static final String CMD_DECODER_SKIP_GL_RED_MESA_WORKAROUND_ON_ANDROID = "CmdDecoderSkipGLRedMesaWorkaroundOnAndroid";
 
     // Prevent instantiation.
-    private GpuFeatures() {
-    }
+    private GpuFeatures() {}
 }

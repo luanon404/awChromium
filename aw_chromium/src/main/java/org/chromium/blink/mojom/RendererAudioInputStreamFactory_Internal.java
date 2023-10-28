@@ -13,6 +13,8 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 class RendererAudioInputStreamFactory_Internal {
 
@@ -164,7 +166,7 @@ org.chromium.mojo_base.mojom.UnguessableToken inputStreamId, String outputDevice
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -197,7 +199,7 @@ org.chromium.mojo_base.mojom.UnguessableToken inputStreamId, String outputDevice
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }

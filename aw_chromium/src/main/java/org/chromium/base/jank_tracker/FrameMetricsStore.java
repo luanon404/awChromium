@@ -90,7 +90,8 @@ public class FrameMetricsStore {
 
     @SuppressWarnings("NoDynamicStringsInTraceEventCheck")
     void startTrackingScenario(@JankScenario int scenario) {
-        try (TraceEvent e = TraceEvent.scoped("startTrackingScenario: " + scenarioToString(scenario))) {
+        try (TraceEvent e =
+                        TraceEvent.scoped("startTrackingScenario: " + scenarioToString(scenario))) {
             mThreadChecker.assertOnValidThread();
             // Ignore multiple calls to startTrackingScenario without corresponding
             // stopTrackingScenario calls.
@@ -98,7 +99,8 @@ public class FrameMetricsStore {
                 return;
             }
             // Make a unique ID for each scenario for tracing.
-            TraceEvent.startAsync("JankCUJ:" + scenarioToString(scenario), TRACE_EVENT_TRACK_ID + scenario);
+            TraceEvent.startAsync(
+                    "JankCUJ:" + scenarioToString(scenario), TRACE_EVENT_TRACK_ID + scenario);
 
             // Scenarios are tracked based on the latest stored timestamp to allow fast lookups
             // (find index of [timestamp] vs find first index that's >= [timestamp]). In case there
@@ -126,9 +128,12 @@ public class FrameMetricsStore {
     // The string added is a static string.
     @SuppressWarnings("NoDynamicStringsInTraceEventCheck")
     JankMetrics stopTrackingScenario(@JankScenario int scenario, long endScenarioTimeNs) {
-        try (TraceEvent e = TraceEvent.scoped("finishTrackingScenario: " + scenarioToString(scenario), Long.toString(endScenarioTimeNs))) {
+        try (TraceEvent e =
+                        TraceEvent.scoped("finishTrackingScenario: " + scenarioToString(scenario),
+                                Long.toString(endScenarioTimeNs))) {
             mThreadChecker.assertOnValidThread();
-            TraceEvent.finishAsync("JankCUJ:" + scenarioToString(scenario), TRACE_EVENT_TRACK_ID + scenario);
+            TraceEvent.finishAsync(
+                    "JankCUJ:" + scenarioToString(scenario), TRACE_EVENT_TRACK_ID + scenario);
             // Get the timestamp of the latest frame before startTrackingScenario was called. This
             // can be null if tracking never started for scenario, or 0L if tracking started when no
             // frames were stored.
@@ -178,7 +183,10 @@ public class FrameMetricsStore {
                 }
             }
 
-            JankMetrics jankMetrics = convertArraysToJankMetrics(mTimestampsNs.subList(startingIndex, endingIndex), mTotalDurationsNs.subList(startingIndex, endingIndex), mIsJanky.subList(startingIndex, endingIndex));
+            JankMetrics jankMetrics =
+                    convertArraysToJankMetrics(mTimestampsNs.subList(startingIndex, endingIndex),
+                            mTotalDurationsNs.subList(startingIndex, endingIndex),
+                            mIsJanky.subList(startingIndex, endingIndex));
             removeUnusedFrames();
 
             return jankMetrics;
@@ -227,7 +235,8 @@ public class FrameMetricsStore {
         return firstTimestamp;
     }
 
-    private JankMetrics convertArraysToJankMetrics(List<Long> longTimestampsNs, List<Long> longDurations, List<Boolean> booleanIsJanky) {
+    private JankMetrics convertArraysToJankMetrics(
+            List<Long> longTimestampsNs, List<Long> longDurations, List<Boolean> booleanIsJanky) {
         long[] timestamps = new long[longTimestampsNs.size()];
         for (int i = 0; i < longTimestampsNs.size(); i++) {
             timestamps[i] = longTimestampsNs.get(i).longValue();

@@ -17,10 +17,11 @@ import androidx.annotation.IntDef;
 
 public final class NavigationDeliveryType {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({NavigationDeliveryType.DEFAULT, NavigationDeliveryType.NAVIGATIONAL_PREFETCH})
-    public @interface EnumType {
-    }
+        NavigationDeliveryType.DEFAULT,
+        NavigationDeliveryType.NAVIGATIONAL_PREFETCH})
+    public @interface EnumType {}
 
     public static final int DEFAULT = 0;
     public static final int NAVIGATIONAL_PREFETCH = 1;
@@ -37,9 +38,8 @@ public final class NavigationDeliveryType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private NavigationDeliveryType() {
-    }
+    private NavigationDeliveryType() {}
 }

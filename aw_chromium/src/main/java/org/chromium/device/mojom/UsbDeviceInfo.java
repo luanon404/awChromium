@@ -13,10 +13,13 @@
 
 package org.chromium.device.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class UsbDeviceInfo extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 80;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(80, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(80, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public String guid;
     public byte usbVersionMajor;
@@ -57,7 +60,8 @@ public final class UsbDeviceInfo extends org.chromium.mojo.bindings.Struct {
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static UsbDeviceInfo deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -71,99 +75,99 @@ public final class UsbDeviceInfo extends org.chromium.mojo.bindings.Struct {
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new UsbDeviceInfo(elementsOrVersion);
-            {
-
+                {
+                    
                 result.guid = decoder0.readString(8, false);
-            }
-            {
-
+                }
+                {
+                    
                 result.usbVersionMajor = decoder0.readByte(16);
-            }
-            {
-
+                }
+                {
+                    
                 result.usbVersionMinor = decoder0.readByte(17);
-            }
-            {
-
+                }
+                {
+                    
                 result.usbVersionSubminor = decoder0.readByte(18);
-            }
-            {
-
+                }
+                {
+                    
                 result.classCode = decoder0.readByte(19);
-            }
-            {
-
+                }
+                {
+                    
                 result.subclassCode = decoder0.readByte(20);
-            }
-            {
-
+                }
+                {
+                    
                 result.protocolCode = decoder0.readByte(21);
-            }
-            {
-
+                }
+                {
+                    
                 result.vendorId = decoder0.readShort(22);
-            }
-            {
-
+                }
+                {
+                    
                 result.busNumber = decoder0.readInt(24);
-            }
-            {
-
+                }
+                {
+                    
                 result.portNumber = decoder0.readInt(28);
-            }
-            {
-
+                }
+                {
+                    
                 result.productId = decoder0.readShort(32);
-            }
-            {
-
+                }
+                {
+                    
                 result.deviceVersionMajor = decoder0.readByte(34);
-            }
-            {
-
+                }
+                {
+                    
                 result.deviceVersionMinor = decoder0.readByte(35);
-            }
-            {
-
+                }
+                {
+                    
                 result.deviceVersionSubminor = decoder0.readByte(36);
-            }
-            {
-
+                }
+                {
+                    
                 result.activeConfiguration = decoder0.readByte(37);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(40, true);
                 result.manufacturerName = org.chromium.mojo_base.mojom.String16.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(48, true);
                 result.productName = org.chromium.mojo_base.mojom.String16.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(56, true);
                 result.serialNumber = org.chromium.mojo_base.mojom.String16.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(64, true);
                 result.webusbLandingPage = org.chromium.url.mojom.Url.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(72, false);
                 {
                     org.chromium.mojo.bindings.DataHeader si1 = decoder1.readDataHeaderForPointerArray(org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
                     result.configurations = new UsbConfigurationInfo[si1.elementsOrVersion];
                     for (int i1 = 0; i1 < si1.elementsOrVersion; ++i1) {
-
+                        
                         org.chromium.mojo.bindings.Decoder decoder2 = decoder1.readPointer(org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i1, false);
                         result.configurations[i1] = UsbConfigurationInfo.decode(decoder2);
                     }
                 }
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -175,51 +179,51 @@ public final class UsbDeviceInfo extends org.chromium.mojo.bindings.Struct {
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.guid, 8, false);
-
+        
         encoder0.encode(this.usbVersionMajor, 16);
-
+        
         encoder0.encode(this.usbVersionMinor, 17);
-
+        
         encoder0.encode(this.usbVersionSubminor, 18);
-
+        
         encoder0.encode(this.classCode, 19);
-
+        
         encoder0.encode(this.subclassCode, 20);
-
+        
         encoder0.encode(this.protocolCode, 21);
-
+        
         encoder0.encode(this.vendorId, 22);
-
+        
         encoder0.encode(this.busNumber, 24);
-
+        
         encoder0.encode(this.portNumber, 28);
-
+        
         encoder0.encode(this.productId, 32);
-
+        
         encoder0.encode(this.deviceVersionMajor, 34);
-
+        
         encoder0.encode(this.deviceVersionMinor, 35);
-
+        
         encoder0.encode(this.deviceVersionSubminor, 36);
-
+        
         encoder0.encode(this.activeConfiguration, 37);
-
+        
         encoder0.encode(this.manufacturerName, 40, true);
-
+        
         encoder0.encode(this.productName, 48, true);
-
+        
         encoder0.encode(this.serialNumber, 56, true);
-
+        
         encoder0.encode(this.webusbLandingPage, 64, true);
-
+        
         if (this.configurations == null) {
             encoder0.encodeNullPointer(72, false);
         } else {
             org.chromium.mojo.bindings.Encoder encoder1 = encoder0.encodePointerArray(this.configurations.length, 72, org.chromium.mojo.bindings.BindingsHelper.UNSPECIFIED_ARRAY_LENGTH);
             for (int i0 = 0; i0 < this.configurations.length; ++i0) {
-
+                
                 encoder1.encode(this.configurations[i0], org.chromium.mojo.bindings.DataHeader.HEADER_SIZE + org.chromium.mojo.bindings.BindingsHelper.POINTER_SIZE * i0, false);
             }
         }

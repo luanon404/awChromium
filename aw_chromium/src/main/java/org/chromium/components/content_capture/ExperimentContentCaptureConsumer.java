@@ -14,11 +14,11 @@ public class ExperimentContentCaptureConsumer implements ContentCaptureConsumer 
     private static final String TAG = "ContentCapture";
     private static boolean sDump;
 
-    public ExperimentContentCaptureConsumer() {
-    }
+    public ExperimentContentCaptureConsumer() {}
 
     @Override
-    public void onContentCaptured(FrameSession parentFrame, ContentCaptureFrame contentCaptureFrame) {
+    public void onContentCaptured(
+            FrameSession parentFrame, ContentCaptureFrame contentCaptureFrame) {
         if (sDump) Log.d(TAG, "onContentCaptured " + contentCaptureFrame.toString());
     }
 
@@ -33,7 +33,8 @@ public class ExperimentContentCaptureConsumer implements ContentCaptureConsumer 
     }
 
     @Override
-    public void onContentUpdated(FrameSession parentFrame, ContentCaptureFrame contentCaptureFrame) {
+    public void onContentUpdated(
+            FrameSession parentFrame, ContentCaptureFrame contentCaptureFrame) {
         if (sDump) Log.d(TAG, "onContentUpdated");
     }
 

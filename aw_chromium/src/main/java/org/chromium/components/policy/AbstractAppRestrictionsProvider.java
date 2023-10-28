@@ -20,15 +20,13 @@ import org.chromium.base.ThreadUtils;
 
 /**
  * Retrieves app restrictions and provides them to the parent class as Bundles.
- * <p>
+ *
  * Needs to be subclassed to specify how to retrieve the restrictions.
  */
 public abstract class AbstractAppRestrictionsProvider extends PolicyProvider {
     private static final String TAG = "policy";
 
-    /**
-     * {@link Bundle} holding the restrictions to be used during tests.
-     */
+    /** {@link Bundle} holding the restrictions to be used during tests. */
     private static Bundle sTestRestrictions;
 
     private final Context mContext;
@@ -67,7 +65,8 @@ public abstract class AbstractAppRestrictionsProvider extends PolicyProvider {
         String changeIntentAction = getRestrictionChangeIntentAction();
         if (changeIntentAction == null) return;
 
-        ContextUtils.registerProtectedBroadcastReceiver(mContext, mAppRestrictionsChangedReceiver, new IntentFilter(changeIntentAction), new Handler(ThreadUtils.getUiThreadLooper()));
+        ContextUtils.registerProtectedBroadcastReceiver(mContext, mAppRestrictionsChangedReceiver,
+                new IntentFilter(changeIntentAction), new Handler(ThreadUtils.getUiThreadLooper()));
     }
 
     /**
@@ -111,20 +110,19 @@ public abstract class AbstractAppRestrictionsProvider extends PolicyProvider {
     /**
      * Restrictions to be used during tests. Subsequent attempts to retrieve the restrictions will
      * return the provided bundle instead.
-     * <p>
+     *
      * Chrome and WebView tests are set up to use annotations for policy testing and reset the
      * restrictions to an empty bundle if nothing is specified. To stop using a test bundle,
      * provide {@code null} as value instead.
      */
     @VisibleForTesting
     public static void setTestRestrictions(Bundle policies) {
-        Log.d(TAG, "Test Restrictions: %s", (policies == null ? null : policies.keySet().toArray()));
+        Log.d(TAG, "Test Restrictions: %s",
+                (policies == null ? null : policies.keySet().toArray()));
         sTestRestrictions = policies;
     }
 
-    /**
-     * Returns whether any restrictions were set using {@link #setTestRestrictions}.
-     */
+    /** Returns whether any restrictions were set using {@link #setTestRestrictions}. */
     public static boolean hasTestRestrictions() {
         return sTestRestrictions != null;
     }

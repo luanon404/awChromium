@@ -13,10 +13,13 @@
 
 package org.chromium.gpu.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public final class VideoDecodeAcceleratorSupportedProfile extends org.chromium.mojo.bindings.Struct {
 
     private static final int STRUCT_SIZE = 32;
-    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(32, 0)};
+    private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(32, 0)};
     private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
     public int profile;
     public org.chromium.gfx.mojom.Size maxResolution;
@@ -41,7 +44,8 @@ public final class VideoDecodeAcceleratorSupportedProfile extends org.chromium.m
      * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
      */
     public static VideoDecodeAcceleratorSupportedProfile deserialize(java.nio.ByteBuffer data) {
-        return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+        return deserialize(new org.chromium.mojo.bindings.Message(
+                data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
     }
 
     @SuppressWarnings("unchecked")
@@ -55,26 +59,26 @@ public final class VideoDecodeAcceleratorSupportedProfile extends org.chromium.m
             org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
             final int elementsOrVersion = mainDataHeader.elementsOrVersion;
             result = new VideoDecodeAcceleratorSupportedProfile(elementsOrVersion);
-            {
-
+                {
+                    
                 result.profile = decoder0.readInt(8);
-                VideoCodecProfile.validate(result.profile);
-                result.profile = VideoCodecProfile.toKnownValue(result.profile);
-            }
-            {
-
+                    VideoCodecProfile.validate(result.profile);
+                    result.profile = VideoCodecProfile.toKnownValue(result.profile);
+                }
+                {
+                    
                 result.encryptedOnly = decoder0.readBoolean(12, 0);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(16, false);
                 result.maxResolution = org.chromium.gfx.mojom.Size.decode(decoder1);
-            }
-            {
-
+                }
+                {
+                    
                 org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(24, false);
                 result.minResolution = org.chromium.gfx.mojom.Size.decode(decoder1);
-            }
+                }
 
         } finally {
             decoder0.decreaseStackDepth();
@@ -86,13 +90,13 @@ public final class VideoDecodeAcceleratorSupportedProfile extends org.chromium.m
     @Override
     protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
         org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+        
         encoder0.encode(this.profile, 8);
-
+        
         encoder0.encode(this.encryptedOnly, 12, 0);
-
+        
         encoder0.encode(this.maxResolution, 16, false);
-
+        
         encoder0.encode(this.minResolution, 24, false);
     }
 }

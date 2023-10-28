@@ -22,8 +22,7 @@ public class DisabledStylusWritingHandler implements StylusApiOption {
     }
 
     @Override
-    public void onWindowFocusChanged(Context context, boolean hasFocus) {
-    }
+    public void onWindowFocusChanged(Context context, boolean hasFocus) {}
 
     @Override
     public int getStylusPointerIcon() {

@@ -19,7 +19,8 @@ import java.util.List;
  * The android version of the C++ AutofillSaveCardUiInfo providing text and icons.
  *
  * Fields not needed by the save card bottom sheet UI on Android are not present.
- */ public class AutofillSaveCardUiInfo {
+ */
+public class AutofillSaveCardUiInfo {
     private final boolean mIsForUpload;
     private final @DrawableRes int mLogoIcon;
     private final @DrawableRes int mIssuerIcon;
@@ -42,23 +43,17 @@ import java.util.List;
         return mLogoIcon;
     }
 
-    /**
-     * @return an immutable list of legal message lines.
-     */
+    /** @return an immutable list of legal message lines. */
     public ImmutableList<LegalMessageLine> getLegalMessageLines() {
         return ImmutableList.copyOf(mLegalMessageLines);
     }
 
-    /**
-     * @return a CardDetail of the issuer icon, label, and sub label.
-     */
+    /** @return a CardDetail of the issuer icon, label, and sub label. */
     public CardDetail getCardDetail() {
         return new CardDetail(mIssuerIcon, mCardLabel, mCardSubLabel);
     }
 
-    /**
-     * @return an accessibility description of the card.
-     */
+    /** @return an accessibility description of the card. */
     public String getCardDescription() {
         return mCardDescription;
     }
@@ -87,7 +82,10 @@ import java.util.List;
     @CalledByNative
     @VisibleForTesting
     /** Construct the delegate given all the members. */
-    /*package*/ AutofillSaveCardUiInfo(boolean isForUpload, @DrawableRes int logoIcon, @DrawableRes int issuerIcon, List<LegalMessageLine> legalMessageLines, String cardLabel, String cardSubLabel, String cardDescription, String titleText, String confirmText, String cancelText, boolean isGooglePayBrandingEnabled, String descriptionText) {
+    /*package*/ AutofillSaveCardUiInfo(boolean isForUpload, @DrawableRes int logoIcon,
+            @DrawableRes int issuerIcon, List<LegalMessageLine> legalMessageLines, String cardLabel,
+            String cardSubLabel, String cardDescription, String titleText, String confirmText,
+            String cancelText, boolean isGooglePayBrandingEnabled, String descriptionText) {
         mIsForUpload = isForUpload;
         mLogoIcon = logoIcon;
         mIssuerIcon = issuerIcon;
@@ -106,9 +104,7 @@ import java.util.List;
     }
     // LINT.ThenChange(//chrome/browser/ui/android/autofill/autofill_save_card_bottom_sheet_bridge.cc)
 
-    /**
-     * Builder for {@link AutofillSaveCardUiInfo}
-     */
+    /** Builder for {@link AutofillSaveCardUiInfo} */
     @VisibleForTesting
     public static class Builder {
         private boolean mIsForUpload;
@@ -177,7 +173,10 @@ import java.util.List;
          * Create the {@link AutofillSaveCardUiInfo} object.
          */
         public AutofillSaveCardUiInfo build() {
-            return new AutofillSaveCardUiInfo(mIsForUpload, mLogoIcon, mCardDetail.issuerIconDrawableId, mLegalMessageLines, mCardDetail.label, mCardDetail.subLabel, mCardDescription, mTitleText, mConfirmText, mCancelText, mIsGooglePayBrandingEnabled, mDescriptionText);
+            return new AutofillSaveCardUiInfo(mIsForUpload, mLogoIcon,
+                    mCardDetail.issuerIconDrawableId, mLegalMessageLines, mCardDetail.label,
+                    mCardDetail.subLabel, mCardDescription, mTitleText, mConfirmText, mCancelText,
+                    mIsGooglePayBrandingEnabled, mDescriptionText);
         }
     }
 }

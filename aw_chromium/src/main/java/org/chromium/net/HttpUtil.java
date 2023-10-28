@@ -9,7 +9,7 @@ import org.jni_zero.NativeMethods;
 
 /**
  * Class to access HttpUtil library from Java.
- * <p>
+ *
  * The corresponding native code is in net/android/android_http_util.cc.
  */
 @JNINamespace("net")

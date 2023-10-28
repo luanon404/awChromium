@@ -17,22 +17,27 @@ import androidx.annotation.IntDef;
 
 public final class SelectionBoundType {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({SelectionBoundType.LEFT, SelectionBoundType.RIGHT, SelectionBoundType.CENTER, SelectionBoundType.HIDDEN, SelectionBoundType.EMPTY, SelectionBoundType.LAST})
-    public @interface EnumType {
-    }
+        SelectionBoundType.LEFT,
+        SelectionBoundType.RIGHT,
+        SelectionBoundType.CENTER,
+        SelectionBoundType.HIDDEN,
+        SelectionBoundType.EMPTY,
+        SelectionBoundType.LAST})
+    public @interface EnumType {}
 
     public static final int LEFT = 0;
     public static final int RIGHT = 1;
     public static final int CENTER = 2;
     public static final int HIDDEN = 3;
     public static final int EMPTY = 4;
-    public static final int LAST = 5;
+    public static final int LAST = 4;
     public static final int MIN_VALUE = 0;
-    public static final int MAX_VALUE = 5;
+    public static final int MAX_VALUE = 4;
 
     public static boolean isKnownValue(int value) {
-        return value >= 0 && value <= 5;
+        return value >= 0 && value <= 4;
     }
 
     public static void validate(int value) {
@@ -41,9 +46,8 @@ public final class SelectionBoundType {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private SelectionBoundType() {
-    }
+    private SelectionBoundType() {}
 }

@@ -35,13 +35,9 @@ final class CursorAnchorInfoController {
      */
     public interface ComposingTextDelegate {
         CharSequence getText();
-
         int getSelectionStart();
-
         int getSelectionEnd();
-
         int getComposingTextStart();
-
         int getComposingTextEnd();
     }
 
@@ -78,7 +74,8 @@ final class CursorAnchorInfoController {
     @NonNull
     private final int[] mViewOrigin = new int[2];
     @NonNull
-    private final CursorAnchorInfo.Builder mCursorAnchorInfoBuilder = new CursorAnchorInfo.Builder();
+    private final CursorAnchorInfo.Builder mCursorAnchorInfoBuilder =
+            new CursorAnchorInfo.Builder();
 
     @Nullable
     private InputMethodManagerWrapper mInputMethodManagerWrapper;
@@ -87,27 +84,35 @@ final class CursorAnchorInfoController {
     @NonNull
     private final ViewDelegate mViewDelegate;
 
-    private CursorAnchorInfoController(InputMethodManagerWrapper inputMethodManagerWrapper, ComposingTextDelegate composingTextDelegate, ViewDelegate viewDelegate) {
+    private CursorAnchorInfoController(InputMethodManagerWrapper inputMethodManagerWrapper,
+            ComposingTextDelegate composingTextDelegate, ViewDelegate viewDelegate) {
         mInputMethodManagerWrapper = inputMethodManagerWrapper;
         mComposingTextDelegate = composingTextDelegate;
         mViewDelegate = viewDelegate;
     }
 
-    public static CursorAnchorInfoController create(InputMethodManagerWrapper inputMethodManagerWrapper, ComposingTextDelegate composingTextDelegate) {
-        return new CursorAnchorInfoController(inputMethodManagerWrapper, composingTextDelegate, new ViewDelegate() {
-            @Override
-            public void getLocationOnScreen(View view, int[] location) {
-                view.getLocationOnScreen(location);
-            }
-        });
+    public static CursorAnchorInfoController create(
+            InputMethodManagerWrapper inputMethodManagerWrapper,
+            ComposingTextDelegate composingTextDelegate) {
+        return new CursorAnchorInfoController(inputMethodManagerWrapper,
+                composingTextDelegate, new ViewDelegate() {
+                    @Override
+                    public void getLocationOnScreen(View view, int[] location) {
+                        view.getLocationOnScreen(location);
+                    }
+                });
     }
 
     public void setInputMethodManagerWrapper(InputMethodManagerWrapper inputMethodManagerWrapper) {
         mInputMethodManagerWrapper = inputMethodManagerWrapper;
     }
 
-    public static CursorAnchorInfoController createForTest(InputMethodManagerWrapper inputMethodManagerWrapper, ComposingTextDelegate composingTextDelegate, ViewDelegate viewDelegate) {
-        return new CursorAnchorInfoController(inputMethodManagerWrapper, composingTextDelegate, viewDelegate);
+    public static CursorAnchorInfoController createForTest(
+            InputMethodManagerWrapper inputMethodManagerWrapper,
+            ComposingTextDelegate composingTextDelegate,
+            ViewDelegate viewDelegate) {
+        return new CursorAnchorInfoController(inputMethodManagerWrapper, composingTextDelegate,
+                viewDelegate);
     }
 
     /**
@@ -122,16 +127,17 @@ final class CursorAnchorInfoController {
     /**
      * Sets positional information of composing text as an array of character bounds or line
      * bounding boxes as an array of line bounds (or both).
-     *
      * @param characterBounds Array of character bounds in local coordinates.
-     * @param lineBounds      Array of line bounds in local coordinates.
-     * @param view            The attached view.
+     * @param lineBounds Array of line bounds in local coordinates.
+     * @param view The attached view.
      */
-    public void setBounds(@Nullable float[] characterBounds, @Nullable float[] lineBounds, View view) {
+    public void setBounds(
+            @Nullable float[] characterBounds, @Nullable float[] lineBounds, View view) {
         if (!mIsEditable) return;
         boolean shouldUpdate = false;
 
-        if (characterBounds != null && !Arrays.equals(characterBounds, mCompositionCharacterBounds)) {
+        if (characterBounds != null
+                && !Arrays.equals(characterBounds, mCompositionCharacterBounds)) {
             shouldUpdate = true;
             mCompositionCharacterBounds = characterBounds;
         }
@@ -151,10 +157,9 @@ final class CursorAnchorInfoController {
      * Sends one CursorAnchorInfo object with the EditorBoundsInfo field set. All subsequent
      * CursorAnchorInfo updates will not have this field set unless they are sent through this
      * method.
-     *
      * @param editorBoundsInfo The EditorBoundsInfo sent with the CursorAnchorInfo. This is not
-     *                         cached.
-     * @param view             The attached view.
+     *         cached.
+     * @param view The attached view.
      */
     public void updateWithEditorBoundsInfo(EditorBoundsInfo editorBoundsInfo, View view) {
         if (!mIsEditable) return;
@@ -166,17 +171,18 @@ final class CursorAnchorInfoController {
 
     /**
      * Sets coordinates system parameters and selection marker information.
-     *
-     * @param scale                     device scale factor.
-     * @param contentOffsetYPix         Y offset below the browser controls.
-     * @param hasInsertionMarker        {@code true} if the insertion marker exists.
-     * @param isInsertionMarkerVisible  {@code true} if the insertion insertion marker is visible.
+     * @param scale device scale factor.
+     * @param contentOffsetYPix Y offset below the browser controls.
+     * @param hasInsertionMarker {@code true} if the insertion marker exists.
+     * @param isInsertionMarkerVisible {@code true} if the insertion insertion marker is visible.
      * @param insertionMarkerHorizontal X coordinate of the top of the first selection marker.
-     * @param insertionMarkerTop        Y coordinate of the top of the first selection marker.
-     * @param insertionMarkerBottom     Y coordinate of the bottom of the first selection marker.
-     * @param view                      The attached view.
+     * @param insertionMarkerTop Y coordinate of the top of the first selection marker.
+     * @param insertionMarkerBottom Y coordinate of the bottom of the first selection marker.
+     * @param view The attached view.
      */
-    public void onUpdateFrameInfo(float scale, float contentOffsetYPix, boolean hasInsertionMarker, boolean isInsertionMarkerVisible, float insertionMarkerHorizontal, float insertionMarkerTop, float insertionMarkerBottom, @NonNull View view) {
+    public void onUpdateFrameInfo(float scale, float contentOffsetYPix, boolean hasInsertionMarker,
+            boolean isInsertionMarkerVisible, float insertionMarkerHorizontal,
+            float insertionMarkerTop, float insertionMarkerBottom, @NonNull View view) {
         if (!mIsEditable) return;
 
         // Reuse {@param #mViewOrigin} to avoid object creation, as this method is supposed to be
@@ -191,7 +197,15 @@ final class CursorAnchorInfoController {
         // screen coordinate. Hence the following values are derived.
         float translationX = mViewOrigin[0];
         float translationY = mViewOrigin[1] + contentOffsetYPix;
-        if (!mHasCoordinateInfo || scale != mScale || translationX != mTranslationX || translationY != mTranslationY || hasInsertionMarker != mHasInsertionMarker || isInsertionMarkerVisible != mIsInsertionMarkerVisible || insertionMarkerHorizontal != mInsertionMarkerHorizontal || insertionMarkerTop != mInsertionMarkerTop || insertionMarkerBottom != mInsertionMarkerBottom) {
+        if (!mHasCoordinateInfo
+                || scale != mScale
+                || translationX != mTranslationX
+                || translationY != mTranslationY
+                || hasInsertionMarker != mHasInsertionMarker
+                || isInsertionMarkerVisible != mIsInsertionMarkerVisible
+                || insertionMarkerHorizontal != mInsertionMarkerHorizontal
+                || insertionMarkerTop != mInsertionMarkerTop
+                || insertionMarkerBottom != mInsertionMarkerBottom) {
             mLastCursorAnchorInfo = null;
             mHasCoordinateInfo = true;
             mScale = scale;
@@ -206,7 +220,8 @@ final class CursorAnchorInfoController {
 
         // Notify to IME if there is a pending request, or if it is in monitor mode and we have
         // some change in the state.
-        if (mHasPendingImmediateRequest || (mMonitorModeEnabled && mLastCursorAnchorInfo == null)) {
+        if (mHasPendingImmediateRequest
+                || (mMonitorModeEnabled && mLastCursorAnchorInfo == null)) {
             updateCursorAnchorInfo(view);
         }
     }
@@ -219,7 +234,8 @@ final class CursorAnchorInfoController {
         mLastCursorAnchorInfo = null;
     }
 
-    public boolean onRequestCursorUpdates(boolean immediateRequest, boolean monitorRequest, View view) {
+    public boolean onRequestCursorUpdates(boolean immediateRequest, boolean monitorRequest,
+            View view) {
         if (!mIsEditable) return false;
 
         if (mMonitorModeEnabled && !monitorRequest) {
@@ -252,7 +268,8 @@ final class CursorAnchorInfoController {
             int composingTextStart = mComposingTextDelegate.getComposingTextStart();
             int composingTextEnd = mComposingTextDelegate.getComposingTextEnd();
             if (text != null && 0 <= composingTextStart && composingTextEnd <= text.length()) {
-                mCursorAnchorInfoBuilder.setComposingText(composingTextStart, text.subSequence(composingTextStart, composingTextEnd));
+                mCursorAnchorInfoBuilder.setComposingText(composingTextStart,
+                        text.subSequence(composingTextStart, composingTextEnd));
                 float[] compositionCharacterBounds = mCompositionCharacterBounds;
                 if (compositionCharacterBounds != null) {
                     int numCharacter = compositionCharacterBounds.length / 4;
@@ -262,7 +279,8 @@ final class CursorAnchorInfoController {
                         float right = compositionCharacterBounds[i * 4 + 2];
                         float bottom = compositionCharacterBounds[i * 4 + 3];
                         int charIndex = composingTextStart + i;
-                        mCursorAnchorInfoBuilder.addCharacterBounds(charIndex, left, top, right, bottom, CursorAnchorInfo.FLAG_HAS_VISIBLE_REGION);
+                        mCursorAnchorInfoBuilder.addCharacterBounds(charIndex, left, top, right,
+                                bottom, CursorAnchorInfo.FLAG_HAS_VISIBLE_REGION);
                     }
                 }
             }
@@ -275,7 +293,13 @@ final class CursorAnchorInfoController {
                 mCursorAnchorInfoBuilder.setEditorBoundsInfo(mEditorBoundsInfo);
             }
             if (mHasInsertionMarker) {
-                mCursorAnchorInfoBuilder.setInsertionMarkerLocation(mInsertionMarkerHorizontal, mInsertionMarkerTop, mInsertionMarkerBottom, mInsertionMarkerBottom, mIsInsertionMarkerVisible ? CursorAnchorInfo.FLAG_HAS_VISIBLE_REGION : CursorAnchorInfo.FLAG_HAS_INVISIBLE_REGION);
+                mCursorAnchorInfoBuilder.setInsertionMarkerLocation(
+                        mInsertionMarkerHorizontal,
+                        mInsertionMarkerTop,
+                        mInsertionMarkerBottom,
+                        mInsertionMarkerBottom,
+                        mIsInsertionMarkerVisible ? CursorAnchorInfo.FLAG_HAS_VISIBLE_REGION :
+                                CursorAnchorInfo.FLAG_HAS_INVISIBLE_REGION);
             }
             mLastCursorAnchorInfo = mCursorAnchorInfoBuilder.build();
         }
@@ -287,7 +311,8 @@ final class CursorAnchorInfoController {
     }
 
     private void addVisibleLineBoundsToCursorAnchorInfo() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.UPSIDE_DOWN_CAKE || mVisibleLineBounds == null) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.UPSIDE_DOWN_CAKE
+                || mVisibleLineBounds == null) {
             return;
         }
         float[] visibleLineBounds = mVisibleLineBounds;

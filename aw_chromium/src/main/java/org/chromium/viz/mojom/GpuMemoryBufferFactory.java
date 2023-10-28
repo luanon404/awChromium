@@ -13,27 +13,34 @@
 
 package org.chromium.viz.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface GpuMemoryBufferFactory extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends GpuMemoryBufferFactory, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends GpuMemoryBufferFactory, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<GpuMemoryBufferFactory, GpuMemoryBufferFactory.Proxy> MANAGER = GpuMemoryBufferFactory_Internal.MANAGER;
 
-    void createGpuMemoryBuffer(org.chromium.gfx.mojom.GpuMemoryBufferId id, org.chromium.gfx.mojom.Size size, int format, int usage, CreateGpuMemoryBuffer_Response callback);
+    void createGpuMemoryBuffer(
+org.chromium.gfx.mojom.GpuMemoryBufferId id, org.chromium.gfx.mojom.Size size, int format, int usage, 
+CreateGpuMemoryBuffer_Response callback);
 
-    interface CreateGpuMemoryBuffer_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<org.chromium.gfx.mojom.GpuMemoryBufferHandle> {
-    }
-
-
-    void destroyGpuMemoryBuffer(org.chromium.gfx.mojom.GpuMemoryBufferId id);
+    interface CreateGpuMemoryBuffer_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<org.chromium.gfx.mojom.GpuMemoryBufferHandle> { }
 
 
-    void copyGpuMemoryBuffer(org.chromium.gfx.mojom.GpuMemoryBufferHandle bufferHandle, org.chromium.mojo_base.mojom.UnsafeSharedMemoryRegion sharedMemory, CopyGpuMemoryBuffer_Response callback);
+    void destroyGpuMemoryBuffer(
+org.chromium.gfx.mojom.GpuMemoryBufferId id);
 
-    interface CopyGpuMemoryBuffer_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> {
-    }
+
+    void copyGpuMemoryBuffer(
+org.chromium.gfx.mojom.GpuMemoryBufferHandle bufferHandle, org.chromium.mojo_base.mojom.UnsafeSharedMemoryRegion sharedMemory, 
+CopyGpuMemoryBuffer_Response callback);
+
+    interface CopyGpuMemoryBuffer_Response extends org.chromium.mojo.bindings.Callbacks.Callback1<Boolean> { }
 
 
 }

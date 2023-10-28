@@ -17,10 +17,9 @@ import org.chromium.base.compat.ApiHelperForQ;
 
 import java.util.concurrent.Executor;
 
-/**
- * Implementation of ChildServiceConnection that does connect to a service.
- */
-/* package */ class ChildServiceConnectionImpl implements ChildServiceConnection, ServiceConnection {
+/** Implementation of ChildServiceConnection that does connect to a service. */
+/* package */ class ChildServiceConnectionImpl
+        implements ChildServiceConnection, ServiceConnection {
     private static final String TAG = "ChildServiceConn";
 
     private final Context mContext;
@@ -32,7 +31,9 @@ import java.util.concurrent.Executor;
     private final String mInstanceName;
     private boolean mBound;
 
-    /* package */ ChildServiceConnectionImpl(Context context, Intent bindIntent, int bindFlags, Handler handler, Executor executor, ChildServiceConnectionDelegate delegate, String instanceName) {
+    /* package */ ChildServiceConnectionImpl(Context context, Intent bindIntent, int bindFlags,
+            Handler handler, Executor executor, ChildServiceConnectionDelegate delegate,
+            String instanceName) {
         mContext = context;
         mBindIntent = bindIntent;
         mBindFlags = bindFlags;
@@ -46,7 +47,8 @@ import java.util.concurrent.Executor;
     public boolean bindServiceConnection() {
         try {
             TraceEvent.begin("ChildServiceConnectionImpl.bindServiceConnection");
-            mBound = BindService.doBindService(mContext, mBindIntent, this, mBindFlags, mHandler, mExecutor, mInstanceName);
+            mBound = BindService.doBindService(
+                    mContext, mBindIntent, this, mBindFlags, mHandler, mExecutor, mInstanceName);
         } finally {
             TraceEvent.end("ChildServiceConnectionImpl.bindServiceConnection");
         }
@@ -86,7 +88,8 @@ import java.util.concurrent.Executor;
                 // Ignore these. See crbug.com/1026626 and crbug.com/1026626 for context.
                 return;
             }
-            BindService.doBindService(mContext, mBindIntent, this, mBindFlags, mHandler, mExecutor, mInstanceName);
+            BindService.doBindService(
+                    mContext, mBindIntent, this, mBindFlags, mHandler, mExecutor, mInstanceName);
         }
     }
 

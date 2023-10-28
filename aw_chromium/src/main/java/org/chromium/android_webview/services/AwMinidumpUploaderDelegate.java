@@ -42,15 +42,16 @@ public class AwMinidumpUploaderDelegate implements MinidumpUploaderDelegate {
      * This is to allow injecting delegates for testing.
      */
     @VisibleForTesting
-    public interface SamplingDelegate {
-        int getChannel();
-
-        int getRandomSample();
+    public static interface SamplingDelegate {
+        public int getChannel();
+        public int getRandomSample();
     }
 
     @VisibleForTesting
     public AwMinidumpUploaderDelegate(SamplingDelegate samplingDelegate) {
-        mConnectivityManager = (ConnectivityManager) ContextUtils.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        mConnectivityManager =
+                (ConnectivityManager) ContextUtils.getApplicationContext().getSystemService(
+                        Context.CONNECTIVITY_SERVICE);
 
         mSamplingDelegate = samplingDelegate;
     }
@@ -82,7 +83,8 @@ public class AwMinidumpUploaderDelegate implements MinidumpUploaderDelegate {
             @Override
             public boolean isClientInMetricsSample() {
                 // Downsample unknown channel as a precaution in case it ends up being shipped.
-                if (mSamplingDelegate.getChannel() == Channel.STABLE || mSamplingDelegate.getChannel() == Channel.DEFAULT) {
+                if (mSamplingDelegate.getChannel() == Channel.STABLE
+                        || mSamplingDelegate.getChannel() == Channel.DEFAULT) {
                     return mSamplingDelegate.getRandomSample() < CRASH_DUMP_PERCENTAGE_FOR_STABLE;
                 }
 
@@ -96,25 +98,23 @@ public class AwMinidumpUploaderDelegate implements MinidumpUploaderDelegate {
                 // our network requirements no longer hold.
                 return NetworkPermissionUtil.isNetworkUnmetered(mConnectivityManager);
             }
-
             @Override
             public boolean isUsageAndCrashReportingPermittedByPolicy() {
                 // Metrics reporting can only be disabled by the user and the app.
                 // Return true since Chrome policy doesn't apply to WebView.
                 return true;
             }
-
             @Override
             public boolean isUsageAndCrashReportingPermittedByUser() {
                 return mPermittedByUser;
             }
-
             @Override
             public boolean isUploadEnabledForTests() {
                 // Note that CommandLine/CommandLineUtil are not thread safe. They are initialized
                 // on the main thread, but before the current worker thread started - so this thread
                 // will have seen the initialization of the CommandLine.
-                return CommandLine.getInstance().hasSwitch(BaseSwitches.ENABLE_CRASH_REPORTER_FOR_TESTING);
+                return CommandLine.getInstance().hasSwitch(
+                        BaseSwitches.ENABLE_CRASH_REPORTER_FOR_TESTING);
             }
         };
     }
@@ -129,10 +129,8 @@ public class AwMinidumpUploaderDelegate implements MinidumpUploaderDelegate {
     }
 
     @Override
-    public void recordUploadSuccess(File minidump) {
-    }
+    public void recordUploadSuccess(File minidump) {}
 
     @Override
-    public void recordUploadFailure(File minidump) {
-    }
+    public void recordUploadFailure(File minidump) {}
 }

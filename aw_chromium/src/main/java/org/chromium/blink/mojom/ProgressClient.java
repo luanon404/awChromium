@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface ProgressClient extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends ProgressClient, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends ProgressClient, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<ProgressClient, ProgressClient.Proxy> MANAGER = ProgressClient_Internal.MANAGER;

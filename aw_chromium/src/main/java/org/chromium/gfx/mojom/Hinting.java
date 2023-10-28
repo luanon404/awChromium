@@ -17,10 +17,13 @@ import androidx.annotation.IntDef;
 
 public final class Hinting {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({Hinting.NONE, Hinting.SLIGHT, Hinting.MEDIUM, Hinting.FULL})
-    public @interface EnumType {
-    }
+        Hinting.NONE,
+        Hinting.SLIGHT,
+        Hinting.MEDIUM,
+        Hinting.FULL})
+    public @interface EnumType {}
 
     public static final int NONE = 0;
     public static final int SLIGHT = 1;
@@ -39,9 +42,8 @@ public final class Hinting {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private Hinting() {
-    }
+    private Hinting() {}
 }

@@ -17,10 +17,17 @@ import androidx.annotation.IntDef;
 
 public final class UrlRequestReferrerPolicy {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({UrlRequestReferrerPolicy.CLEAR_REFERRER_ON_TRANSITION_FROM_SECURE_TO_INSECURE, UrlRequestReferrerPolicy.REDUCE_REFERRER_GRANULARITY_ON_TRANSITION_CROSS_ORIGIN, UrlRequestReferrerPolicy.ORIGIN_ONLY_ON_TRANSITION_CROSS_ORIGIN, UrlRequestReferrerPolicy.NEVER_CLEAR_REFERRER, UrlRequestReferrerPolicy.ORIGIN, UrlRequestReferrerPolicy.CLEAR_REFERRER_ON_TRANSITION_CROSS_ORIGIN, UrlRequestReferrerPolicy.ORIGIN_CLEAR_ON_TRANSITION_FROM_SECURE_TO_INSECURE, UrlRequestReferrerPolicy.NO_REFERRER})
-    public @interface EnumType {
-    }
+        UrlRequestReferrerPolicy.CLEAR_REFERRER_ON_TRANSITION_FROM_SECURE_TO_INSECURE,
+        UrlRequestReferrerPolicy.REDUCE_REFERRER_GRANULARITY_ON_TRANSITION_CROSS_ORIGIN,
+        UrlRequestReferrerPolicy.ORIGIN_ONLY_ON_TRANSITION_CROSS_ORIGIN,
+        UrlRequestReferrerPolicy.NEVER_CLEAR_REFERRER,
+        UrlRequestReferrerPolicy.ORIGIN,
+        UrlRequestReferrerPolicy.CLEAR_REFERRER_ON_TRANSITION_CROSS_ORIGIN,
+        UrlRequestReferrerPolicy.ORIGIN_CLEAR_ON_TRANSITION_FROM_SECURE_TO_INSECURE,
+        UrlRequestReferrerPolicy.NO_REFERRER})
+    public @interface EnumType {}
 
     public static final int CLEAR_REFERRER_ON_TRANSITION_FROM_SECURE_TO_INSECURE = 0;
     public static final int REDUCE_REFERRER_GRANULARITY_ON_TRANSITION_CROSS_ORIGIN = 1;
@@ -43,9 +50,8 @@ public final class UrlRequestReferrerPolicy {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private UrlRequestReferrerPolicy() {
-    }
+    private UrlRequestReferrerPolicy() {}
 }

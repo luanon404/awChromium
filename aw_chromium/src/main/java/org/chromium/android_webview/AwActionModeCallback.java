@@ -38,13 +38,16 @@ public class AwActionModeCallback extends ActionModeCallback {
     public AwActionModeCallback(Context context, AwContents awContents, WebContents webContents) {
         mContext = context;
         mAwContents = awContents;
-        mHelper = SelectionPopupController.fromWebContents(webContents).getActionModeCallbackHelper();
+        mHelper =
+                SelectionPopupController.fromWebContents(webContents).getActionModeCallbackHelper();
         mHelper.setAllowedMenuItems(0); // No item is allowed by default for WebView.
     }
 
     @Override
     public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-        int allowedItems = (getAllowedMenu(ActionModeCallbackHelper.MENU_ITEM_SHARE) | getAllowedMenu(ActionModeCallbackHelper.MENU_ITEM_WEB_SEARCH) | getAllowedMenu(ActionModeCallbackHelper.MENU_ITEM_PROCESS_TEXT));
+        int allowedItems = (getAllowedMenu(ActionModeCallbackHelper.MENU_ITEM_SHARE)
+                | getAllowedMenu(ActionModeCallbackHelper.MENU_ITEM_WEB_SEARCH)
+                | getAllowedMenu(ActionModeCallbackHelper.MENU_ITEM_PROCESS_TEXT));
         if (allowedItems != mAllowedMenuItems) {
             mHelper.setAllowedMenuItems(allowedItems);
             mAllowedMenuItems = allowedItems;
@@ -64,7 +67,8 @@ public class AwActionModeCallback extends ActionModeCallback {
     private boolean isWebSearchAvailable() {
         Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
         intent.putExtra(SearchManager.EXTRA_NEW_SEARCH, true);
-        return !PackageManagerUtils.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY).isEmpty();
+        return !PackageManagerUtils.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
+                        .isEmpty();
     }
 
     @Override
@@ -87,7 +91,8 @@ public class AwActionModeCallback extends ActionModeCallback {
     }
 
     @Override
-    public boolean onDropdownItemClicked(int groupId, int id, @Nullable Intent intent, @Nullable View.OnClickListener clickListener) {
+    public boolean onDropdownItemClicked(int groupId, int id, @Nullable Intent intent,
+            @Nullable View.OnClickListener clickListener) {
         if (isProcessTextMenuItem(groupId)) {
             assert intent != null : "Text processing item must have an intent associated with it";
             processText(intent);
@@ -112,7 +117,8 @@ public class AwActionModeCallback extends ActionModeCallback {
 
     private void processText(Intent intent) {
         RecordUserAction.record("MobileActionMode.ProcessTextIntent");
-        String query = ActionModeCallbackHelper.sanitizeQuery(mHelper.getSelectedText(), ActionModeCallbackHelper.MAX_SEARCH_QUERY_LENGTH);
+        String query = ActionModeCallbackHelper.sanitizeQuery(
+                mHelper.getSelectedText(), ActionModeCallbackHelper.MAX_SEARCH_QUERY_LENGTH);
         if (TextUtils.isEmpty(query)) return;
 
         intent.putExtra(Intent.EXTRA_PROCESS_TEXT, query);

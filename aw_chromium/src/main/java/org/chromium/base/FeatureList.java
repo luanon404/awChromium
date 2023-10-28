@@ -10,9 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 
-import org.chromium.base.library_loader.LibraryLoader;
 import org.jni_zero.JNINamespace;
 import org.jni_zero.NativeMethods;
+
+import org.chromium.base.library_loader.LibraryLoader;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,8 +33,7 @@ public class FeatureList {
         /**
          * Constructor.
          */
-        public TestValues() {
-        }
+        public TestValues() {}
 
         /**
          * Set overrides for feature flags.
@@ -52,7 +52,8 @@ public class FeatureList {
         /**
          * Add an override for a field trial parameter.
          */
-        public void addFieldTrialParamOverride(String featureName, String paramName, String testValue) {
+        public void addFieldTrialParamOverride(
+                String featureName, String paramName, String testValue) {
             Map<String, String> featureParams = mFieldTrialParams.get(featureName);
             if (featureParams == null) {
                 featureParams = new ArrayMap<>();
@@ -76,23 +77,18 @@ public class FeatureList {
         }
     }
 
-    /**
-     * Map that stores substitution feature flags for tests.
-     */
+    /** Map that stores substitution feature flags for tests. */
     private static @Nullable TestValues sTestFeatures;
 
-    /**
-     * Access to default values of the native feature flag.
-     */
+    /** Access to default values of the native feature flag. */
     private static boolean sTestCanUseDefaults;
 
-    private FeatureList() {
-    }
+    private FeatureList() {}
 
     /**
      * @return Whether the native FeatureList has been initialized. If this method returns false,
-     * none of the methods in this class that require native access should be called (except
-     * in tests if test features have been set).
+     *         none of the methods in this class that require native access should be called (except
+     *         in tests if test features have been set).
      */
     public static boolean isInitialized() {
         return hasTestFeatures() || isNativeInitialized();
@@ -160,7 +156,7 @@ public class FeatureList {
      * Adds overrides to feature flags and field trial parameters in addition to existing ones.
      *
      * @param testValuesToMerge the TestValues to merge into existing ones
-     * @param replace           if true, replaces existing values (e.g. from @EnableFeatures annotations)
+     * @param replace if true, replaces existing values (e.g. from @EnableFeatures annotations)
      */
     public static void mergeTestValues(@NonNull TestValues testValuesToMerge, boolean replace) {
         TestValues newTestValues;
@@ -178,7 +174,8 @@ public class FeatureList {
             }
         }
 
-        for (Map.Entry<String, Map<String, String>> e : testValuesToMerge.mFieldTrialParams.entrySet()) {
+        for (Map.Entry<String, Map<String, String>> e :
+                testValuesToMerge.mFieldTrialParams.entrySet()) {
             String featureName = e.getKey();
             var fieldTrialParamsForFeature = newTestValues.mFieldTrialParams.get(featureName);
             if (fieldTrialParamsForFeature == null) {
@@ -227,7 +224,10 @@ public class FeatureList {
                 return override;
             }
             if (!sTestCanUseDefaults) {
-                throw new IllegalArgumentException("No test value configured for " + featureName + " and native is not available to provide a default value. Use" + " @EnableFeatures or @DisableFeatures to provide test values for the" + " flag.");
+                throw new IllegalArgumentException("No test value configured for " + featureName
+                        + " and native is not available to provide a default value. Use"
+                        + " @EnableFeatures or @DisableFeatures to provide test values for the"
+                        + " flag.");
             }
         }
         return null;
@@ -237,7 +237,7 @@ public class FeatureList {
      * Returns the test value of the field trial parameter.
      *
      * @param featureName The name of the feature to query.
-     * @param paramName   The name of the field trial parameter to query.
+     * @param paramName The name of the field trial parameter to query.
      * @return The test value set for the parameter, or null if no test value has been set.
      */
     public static String getTestValueForFieldTrialParam(String featureName, String paramName) {
@@ -252,9 +252,10 @@ public class FeatureList {
      *
      * @param featureName The name of the feature to query all parameters.
      * @return The test values set for the parameter, or null if no test values have been set (if
-     * test values were set for other features, an empty Map will be returned, not null).
+     *      test values were set for other features, an empty Map will be returned, not null).
      */
-    public static Map<String, String> getTestValuesForAllFieldTrialParamsForFeature(String featureName) {
+    public static Map<String, String> getTestValuesForAllFieldTrialParamsForFeature(
+            String featureName) {
         if (hasTestFeatures()) {
             return sTestFeatures.getAllFieldTrialParamOverridesForFeature(featureName);
         }

@@ -21,13 +21,13 @@ public class AppRestrictionsProvider extends AbstractAppRestrictionsProvider {
     /**
      * Get the app restriction information from provided user manager, and record some timing
      * metrics on its runtime.
-     *
      * @param userManager UserManager service from Android System service
      * @param packageName package name for target application.
      * @return The restrictions for the provided package name, an empty bundle if they are not
-     * available.
+     *         available.
      */
-    public static Bundle getApplicationRestrictionsFromUserManager(UserManager userManager, String packageName) {
+    public static Bundle getApplicationRestrictionsFromUserManager(
+            UserManager userManager, String packageName) {
         try {
             Bundle bundle = userManager.getApplicationRestrictions(packageName);
             Log.i(TAG, "#getApplicationRestrictionsFromUserManager() " + bundle);

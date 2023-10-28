@@ -17,10 +17,19 @@ import androidx.annotation.IntDef;
 
 public final class SvcScalabilityMode {
     private static final boolean IS_EXTENSIBLE = false;
+    @IntDef({
 
-    @IntDef({SvcScalabilityMode.UNSUPPORTED_MODE, SvcScalabilityMode.L1T1, SvcScalabilityMode.L1T2, SvcScalabilityMode.L1T3, SvcScalabilityMode.L2T1_KEY, SvcScalabilityMode.L2T2_KEY, SvcScalabilityMode.L2T3_KEY, SvcScalabilityMode.L3T1_KEY, SvcScalabilityMode.L3T2_KEY, SvcScalabilityMode.L3T3_KEY})
-    public @interface EnumType {
-    }
+        SvcScalabilityMode.UNSUPPORTED_MODE,
+        SvcScalabilityMode.L1T1,
+        SvcScalabilityMode.L1T2,
+        SvcScalabilityMode.L1T3,
+        SvcScalabilityMode.L2T1_KEY,
+        SvcScalabilityMode.L2T2_KEY,
+        SvcScalabilityMode.L2T3_KEY,
+        SvcScalabilityMode.L3T1_KEY,
+        SvcScalabilityMode.L3T2_KEY,
+        SvcScalabilityMode.L3T3_KEY})
+    public @interface EnumType {}
 
     public static final int UNSUPPORTED_MODE = 0;
     public static final int L1T1 = 1;
@@ -45,9 +54,8 @@ public final class SvcScalabilityMode {
     }
 
     public static int toKnownValue(int value) {
-        return value;
+      return value;
     }
 
-    private SvcScalabilityMode() {
-    }
+    private SvcScalabilityMode() {}
 }

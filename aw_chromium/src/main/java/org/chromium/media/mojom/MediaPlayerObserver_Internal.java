@@ -13,9 +13,13 @@
 
 package org.chromium.media.mojom;
 
+import androidx.annotation.IntDef;
+
+
 class MediaPlayerObserver_Internal {
 
-    public static final org.chromium.mojo.bindings.Interface.Manager<MediaPlayerObserver, MediaPlayerObserver.Proxy> MANAGER = new org.chromium.mojo.bindings.Interface.Manager<MediaPlayerObserver, MediaPlayerObserver.Proxy>() {
+    public static final org.chromium.mojo.bindings.Interface.Manager<MediaPlayerObserver, MediaPlayerObserver.Proxy> MANAGER =
+            new org.chromium.mojo.bindings.Interface.Manager<MediaPlayerObserver, MediaPlayerObserver.Proxy>() {
 
         @Override
         public String getName() {
@@ -24,11 +28,12 @@ class MediaPlayerObserver_Internal {
 
         @Override
         public int getVersion() {
-            return 0;
+          return 0;
         }
 
         @Override
-        public Proxy buildProxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        public Proxy buildProxy(org.chromium.mojo.system.Core core,
+                                org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             return new Proxy(core, messageReceiver);
         }
 
@@ -39,7 +44,7 @@ class MediaPlayerObserver_Internal {
 
         @Override
         public MediaPlayerObserver[] buildArray(int size) {
-            return new MediaPlayerObserver[size];
+          return new MediaPlayerObserver[size];
         }
     };
 
@@ -71,50 +76,64 @@ class MediaPlayerObserver_Internal {
 
     static final class Proxy extends org.chromium.mojo.bindings.Interface.AbstractProxy implements MediaPlayerObserver.Proxy {
 
-        Proxy(org.chromium.mojo.system.Core core, org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
+        Proxy(org.chromium.mojo.system.Core core,
+              org.chromium.mojo.bindings.MessageReceiverWithResponder messageReceiver) {
             super(core, messageReceiver);
         }
 
 
         @Override
-        public void onMediaPlaying() {
+        public void onMediaPlaying(
+) {
 
             MediaPlayerObserverOnMediaPlayingParams _message = new MediaPlayerObserverOnMediaPlayingParams();
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_MEDIA_PLAYING_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_MEDIA_PLAYING_ORDINAL)));
 
         }
 
 
         @Override
-        public void onMediaPaused(boolean streamEnded) {
+        public void onMediaPaused(
+boolean streamEnded) {
 
             MediaPlayerObserverOnMediaPausedParams _message = new MediaPlayerObserverOnMediaPausedParams();
 
             _message.streamEnded = streamEnded;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_MEDIA_PAUSED_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_MEDIA_PAUSED_ORDINAL)));
 
         }
 
 
         @Override
-        public void onMutedStatusChanged(boolean muted) {
+        public void onMutedStatusChanged(
+boolean muted) {
 
             MediaPlayerObserverOnMutedStatusChangedParams _message = new MediaPlayerObserverOnMutedStatusChangedParams();
 
             _message.muted = muted;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_MUTED_STATUS_CHANGED_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_MUTED_STATUS_CHANGED_ORDINAL)));
 
         }
 
 
         @Override
-        public void onMediaMetadataChanged(boolean hasAudio, boolean hasVideo, int contentType) {
+        public void onMediaMetadataChanged(
+boolean hasAudio, boolean hasVideo, int contentType) {
 
             MediaPlayerObserverOnMediaMetadataChangedParams _message = new MediaPlayerObserverOnMediaMetadataChangedParams();
 
@@ -125,109 +144,144 @@ class MediaPlayerObserver_Internal {
             _message.contentType = contentType;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_MEDIA_METADATA_CHANGED_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_MEDIA_METADATA_CHANGED_ORDINAL)));
 
         }
 
 
         @Override
-        public void onMediaPositionStateChanged(org.chromium.media_session.mojom.MediaPosition mediaPosition) {
+        public void onMediaPositionStateChanged(
+org.chromium.media_session.mojom.MediaPosition mediaPosition) {
 
             MediaPlayerObserverOnMediaPositionStateChangedParams _message = new MediaPlayerObserverOnMediaPositionStateChangedParams();
 
             _message.mediaPosition = mediaPosition;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_MEDIA_POSITION_STATE_CHANGED_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_MEDIA_POSITION_STATE_CHANGED_ORDINAL)));
 
         }
 
 
         @Override
-        public void onMediaEffectivelyFullscreenChanged(int status) {
+        public void onMediaEffectivelyFullscreenChanged(
+int status) {
 
             MediaPlayerObserverOnMediaEffectivelyFullscreenChangedParams _message = new MediaPlayerObserverOnMediaEffectivelyFullscreenChangedParams();
 
             _message.status = status;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_MEDIA_EFFECTIVELY_FULLSCREEN_CHANGED_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_MEDIA_EFFECTIVELY_FULLSCREEN_CHANGED_ORDINAL)));
 
         }
 
 
         @Override
-        public void onMediaSizeChanged(org.chromium.gfx.mojom.Size size) {
+        public void onMediaSizeChanged(
+org.chromium.gfx.mojom.Size size) {
 
             MediaPlayerObserverOnMediaSizeChangedParams _message = new MediaPlayerObserverOnMediaSizeChangedParams();
 
             _message.size = size;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_MEDIA_SIZE_CHANGED_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_MEDIA_SIZE_CHANGED_ORDINAL)));
 
         }
 
 
         @Override
-        public void onPictureInPictureAvailabilityChanged(boolean available) {
+        public void onPictureInPictureAvailabilityChanged(
+boolean available) {
 
             MediaPlayerObserverOnPictureInPictureAvailabilityChangedParams _message = new MediaPlayerObserverOnPictureInPictureAvailabilityChangedParams();
 
             _message.available = available;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_PICTURE_IN_PICTURE_AVAILABILITY_CHANGED_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_PICTURE_IN_PICTURE_AVAILABILITY_CHANGED_ORDINAL)));
 
         }
 
 
         @Override
-        public void onAudioOutputSinkChanged(String hashedDeviceId) {
+        public void onAudioOutputSinkChanged(
+String hashedDeviceId) {
 
             MediaPlayerObserverOnAudioOutputSinkChangedParams _message = new MediaPlayerObserverOnAudioOutputSinkChangedParams();
 
             _message.hashedDeviceId = hashedDeviceId;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_AUDIO_OUTPUT_SINK_CHANGED_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_AUDIO_OUTPUT_SINK_CHANGED_ORDINAL)));
 
         }
 
 
         @Override
-        public void onUseAudioServiceChanged(boolean usesAudioService) {
+        public void onUseAudioServiceChanged(
+boolean usesAudioService) {
 
             MediaPlayerObserverOnUseAudioServiceChangedParams _message = new MediaPlayerObserverOnUseAudioServiceChangedParams();
 
             _message.usesAudioService = usesAudioService;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_USE_AUDIO_SERVICE_CHANGED_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_USE_AUDIO_SERVICE_CHANGED_ORDINAL)));
 
         }
 
 
         @Override
-        public void onAudioOutputSinkChangingDisabled() {
+        public void onAudioOutputSinkChangingDisabled(
+) {
 
             MediaPlayerObserverOnAudioOutputSinkChangingDisabledParams _message = new MediaPlayerObserverOnAudioOutputSinkChangingDisabledParams();
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_AUDIO_OUTPUT_SINK_CHANGING_DISABLED_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_AUDIO_OUTPUT_SINK_CHANGING_DISABLED_ORDINAL)));
 
         }
 
 
         @Override
-        public void onRemotePlaybackMetadataChange(org.chromium.media_session.mojom.RemotePlaybackMetadata remotePlaybackMetadata) {
+        public void onRemotePlaybackMetadataChange(
+org.chromium.media_session.mojom.RemotePlaybackMetadata remotePlaybackMetadata) {
 
             MediaPlayerObserverOnRemotePlaybackMetadataChangeParams _message = new MediaPlayerObserverOnRemotePlaybackMetadataChangeParams();
 
             _message.remotePlaybackMetadata = remotePlaybackMetadata;
 
 
-            getProxyHandler().getMessageReceiver().accept(_message.serializeWithHeader(getProxyHandler().getCore(), new org.chromium.mojo.bindings.MessageHeader(ON_REMOTE_PLAYBACK_METADATA_CHANGE_ORDINAL)));
+            getProxyHandler().getMessageReceiver().accept(
+                    _message.serializeWithHeader(
+                            getProxyHandler().getCore(),
+                            new org.chromium.mojo.bindings.MessageHeader(ON_REMOTE_PLAYBACK_METADATA_CHANGE_ORDINAL)));
 
         }
 
@@ -243,7 +297,8 @@ class MediaPlayerObserver_Internal {
         @Override
         public boolean accept(org.chromium.mojo.bindings.Message message) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.NO_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -252,10 +307,14 @@ class MediaPlayerObserver_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_OR_CLOSE_PIPE_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(MediaPlayerObserver_Internal.MANAGER, messageWithHeader);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRunOrClosePipe(
+                                MediaPlayerObserver_Internal.MANAGER, messageWithHeader);
+
+
+
 
 
                     case ON_MEDIA_PLAYING_ORDINAL: {
@@ -267,85 +326,124 @@ class MediaPlayerObserver_Internal {
                     }
 
 
+
+
+
                     case ON_MEDIA_PAUSED_ORDINAL: {
 
-                        MediaPlayerObserverOnMediaPausedParams data = MediaPlayerObserverOnMediaPausedParams.deserialize(messageWithHeader.getPayload());
+                        MediaPlayerObserverOnMediaPausedParams data =
+                                MediaPlayerObserverOnMediaPausedParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onMediaPaused(data.streamEnded);
                         return true;
                     }
 
 
+
+
+
                     case ON_MUTED_STATUS_CHANGED_ORDINAL: {
 
-                        MediaPlayerObserverOnMutedStatusChangedParams data = MediaPlayerObserverOnMutedStatusChangedParams.deserialize(messageWithHeader.getPayload());
+                        MediaPlayerObserverOnMutedStatusChangedParams data =
+                                MediaPlayerObserverOnMutedStatusChangedParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onMutedStatusChanged(data.muted);
                         return true;
                     }
 
 
+
+
+
                     case ON_MEDIA_METADATA_CHANGED_ORDINAL: {
 
-                        MediaPlayerObserverOnMediaMetadataChangedParams data = MediaPlayerObserverOnMediaMetadataChangedParams.deserialize(messageWithHeader.getPayload());
+                        MediaPlayerObserverOnMediaMetadataChangedParams data =
+                                MediaPlayerObserverOnMediaMetadataChangedParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onMediaMetadataChanged(data.hasAudio, data.hasVideo, data.contentType);
                         return true;
                     }
 
 
+
+
+
                     case ON_MEDIA_POSITION_STATE_CHANGED_ORDINAL: {
 
-                        MediaPlayerObserverOnMediaPositionStateChangedParams data = MediaPlayerObserverOnMediaPositionStateChangedParams.deserialize(messageWithHeader.getPayload());
+                        MediaPlayerObserverOnMediaPositionStateChangedParams data =
+                                MediaPlayerObserverOnMediaPositionStateChangedParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onMediaPositionStateChanged(data.mediaPosition);
                         return true;
                     }
 
 
+
+
+
                     case ON_MEDIA_EFFECTIVELY_FULLSCREEN_CHANGED_ORDINAL: {
 
-                        MediaPlayerObserverOnMediaEffectivelyFullscreenChangedParams data = MediaPlayerObserverOnMediaEffectivelyFullscreenChangedParams.deserialize(messageWithHeader.getPayload());
+                        MediaPlayerObserverOnMediaEffectivelyFullscreenChangedParams data =
+                                MediaPlayerObserverOnMediaEffectivelyFullscreenChangedParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onMediaEffectivelyFullscreenChanged(data.status);
                         return true;
                     }
 
 
+
+
+
                     case ON_MEDIA_SIZE_CHANGED_ORDINAL: {
 
-                        MediaPlayerObserverOnMediaSizeChangedParams data = MediaPlayerObserverOnMediaSizeChangedParams.deserialize(messageWithHeader.getPayload());
+                        MediaPlayerObserverOnMediaSizeChangedParams data =
+                                MediaPlayerObserverOnMediaSizeChangedParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onMediaSizeChanged(data.size);
                         return true;
                     }
 
 
+
+
+
                     case ON_PICTURE_IN_PICTURE_AVAILABILITY_CHANGED_ORDINAL: {
 
-                        MediaPlayerObserverOnPictureInPictureAvailabilityChangedParams data = MediaPlayerObserverOnPictureInPictureAvailabilityChangedParams.deserialize(messageWithHeader.getPayload());
+                        MediaPlayerObserverOnPictureInPictureAvailabilityChangedParams data =
+                                MediaPlayerObserverOnPictureInPictureAvailabilityChangedParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onPictureInPictureAvailabilityChanged(data.available);
                         return true;
                     }
 
 
+
+
+
                     case ON_AUDIO_OUTPUT_SINK_CHANGED_ORDINAL: {
 
-                        MediaPlayerObserverOnAudioOutputSinkChangedParams data = MediaPlayerObserverOnAudioOutputSinkChangedParams.deserialize(messageWithHeader.getPayload());
+                        MediaPlayerObserverOnAudioOutputSinkChangedParams data =
+                                MediaPlayerObserverOnAudioOutputSinkChangedParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onAudioOutputSinkChanged(data.hashedDeviceId);
                         return true;
                     }
 
 
+
+
+
                     case ON_USE_AUDIO_SERVICE_CHANGED_ORDINAL: {
 
-                        MediaPlayerObserverOnUseAudioServiceChangedParams data = MediaPlayerObserverOnUseAudioServiceChangedParams.deserialize(messageWithHeader.getPayload());
+                        MediaPlayerObserverOnUseAudioServiceChangedParams data =
+                                MediaPlayerObserverOnUseAudioServiceChangedParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onUseAudioServiceChanged(data.usesAudioService);
                         return true;
                     }
+
+
+
 
 
                     case ON_AUDIO_OUTPUT_SINK_CHANGING_DISABLED_ORDINAL: {
@@ -357,9 +455,13 @@ class MediaPlayerObserver_Internal {
                     }
 
 
+
+
+
                     case ON_REMOTE_PLAYBACK_METADATA_CHANGE_ORDINAL: {
 
-                        MediaPlayerObserverOnRemotePlaybackMetadataChangeParams data = MediaPlayerObserverOnRemotePlaybackMetadataChangeParams.deserialize(messageWithHeader.getPayload());
+                        MediaPlayerObserverOnRemotePlaybackMetadataChangeParams data =
+                                MediaPlayerObserverOnRemotePlaybackMetadataChangeParams.deserialize(messageWithHeader.getPayload());
 
                         getImpl().onRemotePlaybackMetadataChange(data.remotePlaybackMetadata);
                         return true;
@@ -370,7 +472,7 @@ class MediaPlayerObserver_Internal {
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
@@ -378,7 +480,8 @@ class MediaPlayerObserver_Internal {
         @Override
         public boolean acceptWithResponder(org.chromium.mojo.bindings.Message message, org.chromium.mojo.bindings.MessageReceiver receiver) {
             try {
-                org.chromium.mojo.bindings.ServiceMessage messageWithHeader = message.asServiceMessage();
+                org.chromium.mojo.bindings.ServiceMessage messageWithHeader =
+                        message.asServiceMessage();
                 org.chromium.mojo.bindings.MessageHeader header = messageWithHeader.getHeader();
                 int flags = org.chromium.mojo.bindings.MessageHeader.MESSAGE_EXPECTS_RESPONSE_FLAG;
                 if (header.hasFlag(org.chromium.mojo.bindings.MessageHeader.MESSAGE_IS_SYNC_FLAG)) {
@@ -387,27 +490,53 @@ class MediaPlayerObserver_Internal {
                 if (!header.validateHeader(flags)) {
                     return false;
                 }
-                switch (header.getType()) {
+                switch(header.getType()) {
 
                     case org.chromium.mojo.bindings.interfacecontrol.InterfaceControlMessagesConstants.RUN_MESSAGE_ID:
-                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(getCore(), MediaPlayerObserver_Internal.MANAGER, messageWithHeader, receiver);
+                        return org.chromium.mojo.bindings.InterfaceControlMessagesHelper.handleRun(
+                                getCore(), MediaPlayerObserver_Internal.MANAGER, messageWithHeader, receiver);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
                     default:
                         return false;
                 }
             } catch (org.chromium.mojo.bindings.DeserializationException e) {
-                System.err.println(e);
+                System.err.println(e.toString());
                 return false;
             }
         }
     }
 
 
+    
     static final class MediaPlayerObserverOnMediaPlayingParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 8;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(8, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(8, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
 
         private MediaPlayerObserverOnMediaPlayingParams(int version) {
@@ -428,7 +557,8 @@ class MediaPlayerObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static MediaPlayerObserverOnMediaPlayingParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -457,10 +587,12 @@ class MediaPlayerObserver_Internal {
     }
 
 
+
+    
     static final class MediaPlayerObserverOnMediaPausedParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public boolean streamEnded;
 
@@ -482,7 +614,8 @@ class MediaPlayerObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static MediaPlayerObserverOnMediaPausedParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -496,10 +629,10 @@ class MediaPlayerObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new MediaPlayerObserverOnMediaPausedParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.streamEnded = decoder0.readBoolean(8, 0);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -511,16 +644,18 @@ class MediaPlayerObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.streamEnded, 8, 0);
         }
     }
 
 
+
+    
     static final class MediaPlayerObserverOnMutedStatusChangedParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public boolean muted;
 
@@ -542,7 +677,8 @@ class MediaPlayerObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static MediaPlayerObserverOnMutedStatusChangedParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -556,10 +692,10 @@ class MediaPlayerObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new MediaPlayerObserverOnMutedStatusChangedParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.muted = decoder0.readBoolean(8, 0);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -571,16 +707,18 @@ class MediaPlayerObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.muted, 8, 0);
         }
     }
 
 
+
+    
     static final class MediaPlayerObserverOnMediaMetadataChangedParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public boolean hasAudio;
         public boolean hasVideo;
@@ -604,7 +742,8 @@ class MediaPlayerObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static MediaPlayerObserverOnMediaMetadataChangedParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -618,20 +757,20 @@ class MediaPlayerObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new MediaPlayerObserverOnMediaMetadataChangedParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.hasAudio = decoder0.readBoolean(8, 0);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.hasVideo = decoder0.readBoolean(8, 1);
-                }
-                {
-
+                    }
+                    {
+                        
                     result.contentType = decoder0.readInt(12);
-                    MediaContentType.validate(result.contentType);
-                    result.contentType = MediaContentType.toKnownValue(result.contentType);
-                }
+                        MediaContentType.validate(result.contentType);
+                        result.contentType = MediaContentType.toKnownValue(result.contentType);
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -643,20 +782,22 @@ class MediaPlayerObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.hasAudio, 8, 0);
-
+            
             encoder0.encode(this.hasVideo, 8, 1);
-
+            
             encoder0.encode(this.contentType, 12);
         }
     }
 
 
+
+    
     static final class MediaPlayerObserverOnMediaPositionStateChangedParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.media_session.mojom.MediaPosition mediaPosition;
 
@@ -678,7 +819,8 @@ class MediaPlayerObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static MediaPlayerObserverOnMediaPositionStateChangedParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -692,11 +834,11 @@ class MediaPlayerObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new MediaPlayerObserverOnMediaPositionStateChangedParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.mediaPosition = org.chromium.media_session.mojom.MediaPosition.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -708,16 +850,18 @@ class MediaPlayerObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.mediaPosition, 8, false);
         }
     }
 
 
+
+    
     static final class MediaPlayerObserverOnMediaEffectivelyFullscreenChangedParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public int status;
 
@@ -739,7 +883,8 @@ class MediaPlayerObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static MediaPlayerObserverOnMediaEffectivelyFullscreenChangedParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -753,12 +898,12 @@ class MediaPlayerObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new MediaPlayerObserverOnMediaEffectivelyFullscreenChangedParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.status = decoder0.readInt(8);
-                    FullscreenVideoStatus.validate(result.status);
-                    result.status = FullscreenVideoStatus.toKnownValue(result.status);
-                }
+                        FullscreenVideoStatus.validate(result.status);
+                        result.status = FullscreenVideoStatus.toKnownValue(result.status);
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -770,16 +915,18 @@ class MediaPlayerObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.status, 8);
         }
     }
 
 
+
+    
     static final class MediaPlayerObserverOnMediaSizeChangedParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.gfx.mojom.Size size;
 
@@ -801,7 +948,8 @@ class MediaPlayerObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static MediaPlayerObserverOnMediaSizeChangedParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -815,11 +963,11 @@ class MediaPlayerObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new MediaPlayerObserverOnMediaSizeChangedParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.size = org.chromium.gfx.mojom.Size.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -831,16 +979,18 @@ class MediaPlayerObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.size, 8, false);
         }
     }
 
 
+
+    
     static final class MediaPlayerObserverOnPictureInPictureAvailabilityChangedParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public boolean available;
 
@@ -862,7 +1012,8 @@ class MediaPlayerObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static MediaPlayerObserverOnPictureInPictureAvailabilityChangedParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -876,10 +1027,10 @@ class MediaPlayerObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new MediaPlayerObserverOnPictureInPictureAvailabilityChangedParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.available = decoder0.readBoolean(8, 0);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -891,16 +1042,18 @@ class MediaPlayerObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.available, 8, 0);
         }
     }
 
 
+
+    
     static final class MediaPlayerObserverOnAudioOutputSinkChangedParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public String hashedDeviceId;
 
@@ -922,7 +1075,8 @@ class MediaPlayerObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static MediaPlayerObserverOnAudioOutputSinkChangedParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -936,10 +1090,10 @@ class MediaPlayerObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new MediaPlayerObserverOnAudioOutputSinkChangedParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.hashedDeviceId = decoder0.readString(8, false);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -951,16 +1105,18 @@ class MediaPlayerObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.hashedDeviceId, 8, false);
         }
     }
 
 
+
+    
     static final class MediaPlayerObserverOnUseAudioServiceChangedParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public boolean usesAudioService;
 
@@ -982,7 +1138,8 @@ class MediaPlayerObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static MediaPlayerObserverOnUseAudioServiceChangedParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -996,10 +1153,10 @@ class MediaPlayerObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new MediaPlayerObserverOnUseAudioServiceChangedParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     result.usesAudioService = decoder0.readBoolean(8, 0);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1011,16 +1168,18 @@ class MediaPlayerObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.usesAudioService, 8, 0);
         }
     }
 
 
+
+    
     static final class MediaPlayerObserverOnAudioOutputSinkChangingDisabledParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 8;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(8, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(8, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
 
         private MediaPlayerObserverOnAudioOutputSinkChangingDisabledParams(int version) {
@@ -1041,7 +1200,8 @@ class MediaPlayerObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static MediaPlayerObserverOnAudioOutputSinkChangingDisabledParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1070,10 +1230,12 @@ class MediaPlayerObserver_Internal {
     }
 
 
+
+    
     static final class MediaPlayerObserverOnRemotePlaybackMetadataChangeParams extends org.chromium.mojo.bindings.Struct {
 
         private static final int STRUCT_SIZE = 16;
-        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[]{new org.chromium.mojo.bindings.DataHeader(16, 0)};
+        private static final org.chromium.mojo.bindings.DataHeader[] VERSION_ARRAY = new org.chromium.mojo.bindings.DataHeader[] {new org.chromium.mojo.bindings.DataHeader(16, 0)};
         private static final org.chromium.mojo.bindings.DataHeader DEFAULT_STRUCT_INFO = VERSION_ARRAY[0];
         public org.chromium.media_session.mojom.RemotePlaybackMetadata remotePlaybackMetadata;
 
@@ -1095,7 +1257,8 @@ class MediaPlayerObserver_Internal {
          * @throws org.chromium.mojo.bindings.DeserializationException on deserialization failure.
          */
         public static MediaPlayerObserverOnRemotePlaybackMetadataChangeParams deserialize(java.nio.ByteBuffer data) {
-            return deserialize(new org.chromium.mojo.bindings.Message(data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
+            return deserialize(new org.chromium.mojo.bindings.Message(
+                    data, new java.util.ArrayList<org.chromium.mojo.system.Handle>()));
         }
 
         @SuppressWarnings("unchecked")
@@ -1109,11 +1272,11 @@ class MediaPlayerObserver_Internal {
                 org.chromium.mojo.bindings.DataHeader mainDataHeader = decoder0.readAndValidateDataHeader(VERSION_ARRAY);
                 final int elementsOrVersion = mainDataHeader.elementsOrVersion;
                 result = new MediaPlayerObserverOnRemotePlaybackMetadataChangeParams(elementsOrVersion);
-                {
-
+                    {
+                        
                     org.chromium.mojo.bindings.Decoder decoder1 = decoder0.readPointer(8, false);
                     result.remotePlaybackMetadata = org.chromium.media_session.mojom.RemotePlaybackMetadata.decode(decoder1);
-                }
+                    }
 
             } finally {
                 decoder0.decreaseStackDepth();
@@ -1125,10 +1288,11 @@ class MediaPlayerObserver_Internal {
         @Override
         protected final void encode(org.chromium.mojo.bindings.Encoder encoder) {
             org.chromium.mojo.bindings.Encoder encoder0 = encoder.getEncoderAtDataOffset(DEFAULT_STRUCT_INFO);
-
+            
             encoder0.encode(this.remotePlaybackMetadata, 8, false);
         }
     }
+
 
 
 }

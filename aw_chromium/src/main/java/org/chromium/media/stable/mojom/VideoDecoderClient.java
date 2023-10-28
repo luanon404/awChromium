@@ -13,18 +13,24 @@
 
 package org.chromium.media.stable.mojom;
 
+import androidx.annotation.IntDef;
+
+
 public interface VideoDecoderClient extends org.chromium.mojo.bindings.Interface {
 
 
-    interface Proxy extends VideoDecoderClient, org.chromium.mojo.bindings.Interface.Proxy {
+
+    public interface Proxy extends VideoDecoderClient, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<VideoDecoderClient, VideoDecoderClient.Proxy> MANAGER = VideoDecoderClient_Internal.MANAGER;
 
-    void onVideoFrameDecoded(VideoFrame frame, boolean canReadWithoutStalling, org.chromium.mojo_base.mojom.UnguessableToken releaseToken);
+    void onVideoFrameDecoded(
+VideoFrame frame, boolean canReadWithoutStalling, org.chromium.mojo_base.mojom.UnguessableToken releaseToken);
 
 
-    void onWaiting(int reason);
+    void onWaiting(
+int reason);
 
 
 }

@@ -13,12 +13,14 @@
 
 package org.chromium.blink.mojom;
 
+import androidx.annotation.IntDef;
+
 
 public interface PictureInPictureService extends org.chromium.mojo.bindings.Interface {
 
 
 
-    interface Proxy extends PictureInPictureService, org.chromium.mojo.bindings.Interface.Proxy {
+    public interface Proxy extends PictureInPictureService, org.chromium.mojo.bindings.Interface.Proxy {
     }
 
     Manager<PictureInPictureService, PictureInPictureService.Proxy> MANAGER = PictureInPictureService_Internal.MANAGER;
