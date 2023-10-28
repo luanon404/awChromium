@@ -1524,6 +1524,13 @@
                         ],
                         "times": 1
                     },
+                    "AwShellSwitches.java": {
+                        "dest": "org/chromium/android_webview/shell",
+                        "target": [
+                            "/home/luanon404/chromium/src/android_webview/test/shell/src/org/chromium/android_webview/shell/AwShellSwitches.java"
+                        ],
+                        "times": 1
+                    },
                     "ContextManager.java": {
                         "dest": "org/chromium/android_webview/shell",
                         "target": [
@@ -12517,7 +12524,6 @@
                         ],
                         "times": 1
                     },
-                    "mojom": {},
                     "payments": {
                         "AutofillSaveCardUiInfo.java": {
                             "dest": "org/chromium/components/autofill/payments",
@@ -28645,6 +28651,13 @@
                         "dest": "org/chromium/url/mojom",
                         "target": [
                             "/home/luanon404/chromium/src/out/arm64/gen/url/mojom/url_mojom_gurl_java/generated_java/input_srcjars/org/chromium/url/mojom/Url.java"
+                        ],
+                        "times": 1
+                    },
+                    "UrlConstants.java": {
+                        "dest": "org/chromium/url/mojom",
+                        "target": [
+                            "/home/luanon404/chromium/src/out/arm64/gen/url/mojom/url_mojom_gurl_java/generated_java/input_srcjars/org/chromium/url/mojom/UrlConstants.java"
                         ],
                         "times": 1
                     }
