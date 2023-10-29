@@ -1,6 +1,5 @@
 package com.luanon.awchromium
 
-import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -9,11 +8,6 @@ import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.luanon.webview.AwChromium
 import com.luanon.webview.AwChromiumClient
-import org.chromium.android_webview.JsPromptResultReceiver
-import org.chromium.android_webview.JsResultReceiver
-import org.chromium.android_webview.permission.AwPermissionRequest
-import java.net.MalformedURLException
-import java.net.URL
 
 class MainActivity : AppCompatActivity() {
     private lateinit var urlBar1: EditText
@@ -24,10 +18,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var awChromium2: AwChromium
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         AwChromium.initialize(
             this, arrayOf("--disable-site-isolation-trials", "--disable-web-security")
         )
+        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         urlBar1 = findViewById(R.id.url_bar_1)
@@ -39,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         awChromium1.awSettings.apply {
             javaScriptEnabled = false
         }
-        awChromium1.awChromiumClient = object : AwChromiumClient() {
+        awChromium1.awChromiumClient = object : AwChromiumClient(this) {
             override fun shouldOverrideUrlLoading(request: AwWebResourceRequest?): Boolean {
                 Log.i(Utils.TAG, "WV1-Redirect: " + request!!.url)
                 awChromium1.loadUrl(request.url!!)
@@ -51,11 +45,7 @@ class MainActivity : AppCompatActivity() {
                 urlBar1.setText(url)
             }
         }
-        awContainerView1.addView(
-            awChromium1, FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT
-            )
-        )
+        awContainerView1.addView(awChromium1)
 
         val refreshButton1 = findViewById<Button>(R.id.refresh_button_1)
         val backButton1 = findViewById<Button>(R.id.back_button_1)
@@ -81,7 +71,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         awChromium2 = AwChromium(this)
-        awChromium2.awChromiumClient = object : AwChromiumClient() {
+        awChromium2.awChromiumClient = object : AwChromiumClient(this) {
             override fun shouldOverrideUrlLoading(request: AwWebResourceRequest?): Boolean {
                 Log.i(Utils.TAG, "WV2-Redirect: " + request!!.url)
                 awChromium2.loadUrl(request.url!!)
@@ -93,62 +83,8 @@ class MainActivity : AppCompatActivity() {
                 urlBar2.setText(url)
                 awChromium2.evaluateJavascript("javascript:(function () { var script = document.createElement('script'); script.src=\"https://cdn.jsdelivr.net/npm/eruda\"; document.body.append(script); script.onload = function () { eruda.init(); } })();")
             }
-
-            override fun onPermissionRequest(awPermissionRequest: AwPermissionRequest?) {
-                awPermissionRequest!!.grant()
-            }
-
-            override fun handleJsAlert(
-                url: String?, message: String?, receiver: JsResultReceiver?
-            ) {
-                receiver!!.confirm()
-            }
-
-            override fun handleJsBeforeUnload(
-                url: String?, message: String?, receiver: JsResultReceiver?
-            ) {
-                receiver!!.confirm()
-            }
-
-            override fun handleJsConfirm(
-                url: String?, message: String?, receiver: JsResultReceiver
-            ) {
-                var title = "From "
-                try {
-                    val javaUrl = URL(url)
-                    title += javaUrl.protocol + "://" + javaUrl.host
-                    if (javaUrl.port != -1) {
-                        title += ":" + javaUrl.port
-                    }
-                } catch (e: MalformedURLException) {
-                    title += url
-                }
-                AlertDialog.Builder(applicationContext).setTitle(title).setMessage(message)
-                    .setPositiveButton(
-                        "OK"
-                    ) { _, _ -> receiver.confirm() }.setNegativeButton(
-                        "Cancel"
-                    ) { _, _ -> receiver.cancel() }.create().show()
-            }
-
-            override fun handleJsPrompt(
-                url: String?,
-                message: String?,
-                defaultValue: String?,
-                receiver: JsPromptResultReceiver?
-            ) {
-                receiver!!.confirm(Utils.TAG)
-            }
-
-            override fun onCreateWindow(isDialog: Boolean, isUserGesture: Boolean): Boolean {
-                return true
-            }
         }
-        awContainerView2.addView(
-            awChromium2, FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT
-            )
-        )
+        awContainerView2.addView(awChromium2)
 
         val refreshButton2 = findViewById<Button>(R.id.refresh_button_2)
         val backButton2 = findViewById<Button>(R.id.back_button_2)

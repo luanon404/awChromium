@@ -1,9 +1,9 @@
 package com.luanon.webview
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.os.Build
-import android.widget.FrameLayout
 import androidx.annotation.Keep
 import org.chromium.android_webview.AwBrowserContext
 import org.chromium.android_webview.AwBrowserProcess
@@ -21,10 +21,8 @@ import org.chromium.ui.base.ResourceBundle
 
 @SuppressLint("SetJavaScriptEnabled")
 @Suppress("ViewConstructor")
-class AwChromium(context: Context) : FrameLayout(context) {
-    private val awContainerView = AwTestContainerView(context, true)
-    private val awBrowserContext: AwBrowserContext =
-        AwBrowserContext(AwBrowserContext.getDefault().nativeBrowserContextPointer)
+class AwChromium(context: Activity, allowHardwareAcceleration: Boolean = true) : AwTestContainerView(context, allowHardwareAcceleration) {
+    private val awBrowserContext: AwBrowserContext = AwBrowserContext(AwBrowserContext.getDefault().nativeBrowserContextPointer)
     private var awContents: AwContents
     private var awPrivateSettings: AwSettings
     private var awPrivateChromiumClient: AwChromiumClient
@@ -48,7 +46,7 @@ class AwChromium(context: Context) : FrameLayout(context) {
         }
 
     init {
-        awPrivateChromiumClient = AwChromiumClient()
+        awPrivateChromiumClient = AwChromiumClient(context)
         awPrivateSettings = AwSettings(
             context, true, false, false, false, false
         ).apply {
@@ -65,6 +63,11 @@ class AwChromium(context: Context) : FrameLayout(context) {
             allowFileAccess = true
             databaseEnabled = true
             setGeolocationEnabled(true)
+            mediaPlaybackRequiresUserGesture = false
+            builtInZoomControls = true
+            displayZoomControls = false
+            useWideViewPort = true
+            loadWithOverviewMode = true
             javaScriptCanOpenWindowsAutomatically = true
             allowFileAccessFromFileURLs = false
             allowUniversalAccessFromFileURLs = false
@@ -74,10 +77,10 @@ class AwChromium(context: Context) : FrameLayout(context) {
         }
         awContents = AwContents(
             awBrowserContext,
-            awContainerView,
-            awContainerView.context,
-            awContainerView.internalAccessDelegate,
-            awContainerView.nativeDrawFunctorFactory,
+            this,
+            this.context,
+            this.internalAccessDelegate,
+            this.nativeDrawFunctorFactory,
             awChromiumClient,
             awSettings
         ).apply {
@@ -86,19 +89,19 @@ class AwChromium(context: Context) : FrameLayout(context) {
             isScrollbarFadingEnabled = true
             setNetworkAvailable(true)
         }
-        awContainerView.initialize(awContents)
-        awContainerView.layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, 1)
-        awContainerView.requestFocus()
+        this.initialize(awContents)
+        this.layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, 1)
+        this.requestFocus()
     }
 
     @Keep
     private fun privateReInit() {
         awContents = AwContents(
             awBrowserContext,
-            awContainerView,
-            awContainerView.context,
-            awContainerView.internalAccessDelegate,
-            awContainerView.nativeDrawFunctorFactory,
+            this,
+            this.context,
+            this.internalAccessDelegate,
+            this.nativeDrawFunctorFactory,
             awChromiumClient,
             awSettings
         ).apply {
@@ -107,7 +110,7 @@ class AwChromium(context: Context) : FrameLayout(context) {
             isScrollbarFadingEnabled = true
             setNetworkAvailable(true)
         }
-        awContainerView.initialize(awContents)
+        this.initialize(awContents)
     }
 
     @Keep
@@ -185,7 +188,8 @@ class AwChromium(context: Context) : FrameLayout(context) {
     }
 
     @Keep
-    fun destroy() {
+    override fun destroy() {
+        super.destroy()
         awContents.destroy()
     }
 
@@ -202,8 +206,7 @@ class AwChromium(context: Context) : FrameLayout(context) {
             /** Initialize draw function */
             val supportedModels: Array<String?> = arrayOf("Pixel 6", "Pixel 6 Pro")
             val useVulkan = supportedModels.contains(Build.MODEL)
-            AwTestContainerView.installDrawFnFunctionTable(useVulkan)
-            AwTestContainerView(context, true)
+            installDrawFnFunctionTable(useVulkan)
         }
 
         fun initializeBase(context: Context?) {
