@@ -41,6 +41,8 @@
 
 # For developer
 
+- If you are using Intel Core then you can use Ubuntu (because no wifi 😐).
+- Else if you are using Ryzen Core then you can use Debian.
 - You can follow [this docs](https://chromium.googlesource.com/chromium/src/+/HEAD/docs/android_build_instructions.md).
 - After running `gclient sync`, you can set chromium version.
 
