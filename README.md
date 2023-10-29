@@ -10,6 +10,10 @@
     “Đừng hỏi tôi sao lại đặt là <strong>🐾Moe Moe🐾</strong>”
 </div>
 
+# I'm not Vietnamese?
+
+- [![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/luanon404/Moe-Moe/blob/main/README.en.md)
+
 # Lưu ý nè
 
 - > **_Chưa sài được_** <= Đọc cái này đi
