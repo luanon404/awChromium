@@ -13,8 +13,7 @@
 # Note
 
 - > **_Under development_** <= READ THIS PLEASE
-- Current WebView
-  version: [120.0.6076.4](https://chromium.googlesource.com/chromium/src.git/+/refs/tags/120.0.6076.4).
+- Current WebView version: [120.0.6076.4](https://chromium.googlesource.com/chromium/src.git/+/refs/tags/120.0.6076.4).
 - Do not modify classes or functions with the `@JNINamespace` or `@CalledByNative` annotations.
 
 # Goal
@@ -35,9 +34,9 @@
     |   TR    |     Yes     |      Yes       |     Yes     |
 
 - Note
-    - CP: Copy and paste the new source into the old source.
-    - 3R: Review, reformat, and remove unused resources.
-    - TR: Testing and release.
+  - CP: Copy and paste the new source into the old source.
+  - 3R: Review, reformat, and remove unused resources.
+  - TR: Testing and release.
 
 # For developer
 
@@ -87,8 +86,8 @@
 - You can find the available `target_cpu` information in [this link](https://chromium.googlesource.com/chromium/src/+/HEAD/docs/android_build_instructions.md#figuring-out-target_cpu).
 - Then open terminal and `cd chromium/src` then run `autoninja -C out/$abi -j11 webview_instrumentation_apk`
 - Note
-    - `$abi` can be any name you prefer when running `gn gen out/$abi`, it's just the folder name.
-    - The option `-j11` means that only use 11 / 12 threads because nobody wants their PC running at 100% CPU usage, yet?
-    - Also, you'll need approximately `30GB` of RAM for a successful build if you want to avoid it being terminated due to running out of RAM.
+  - `$abi` can be any name you prefer when running `gn gen out/$abi`, it's just the folder name.
+  - The option `-j11` means that only use 11 / 12 threads because nobody wants their PC running at 100% CPU usage, yet?
+  - Also, you'll need approximately `30GB` of RAM for a successful build if you want to avoid it being terminated due to running out of RAM.
 - After build successfully, you can run `tools/blind_copy.py` to copy resources like shared object or layout, style, image, ...
 - And `tools/path2java.py` for good Java files (only necessary files).
