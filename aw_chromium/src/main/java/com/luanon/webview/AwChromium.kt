@@ -50,6 +50,7 @@ class AwChromium(context: Activity, allowHardwareAcceleration: Boolean = true) :
         awPrivateSettings = AwSettings(
             context, true, false, false, false, false
         ).apply {
+            cacheMode = WebSettings.LOAD_CACHE_ELSE_NETWORK
     javaScriptEnabled = true
     domStorageEnabled = true
     useWideViewPort = true
