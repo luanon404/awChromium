@@ -5,7 +5,7 @@
     <br>
     <strong>Android WebDriver</strong> dựa trên <strong>Chromium</strong>
     <br>
-    <strong>🐾Moe Moe🐾</strong> <em>- Bản nâng cấp của <a href="https://github.com/luanon404/Seledroid">Seledroid</a></em>
+    <strong>🐾Moe Moe🐾</strong> <em>- Thế hệ tiếp theo của <a href="https://github.com/luanon404/Seledroid">Seledroid</a></em>
     <br>
     “Đừng hỏi tại sao lại đặt tên là <strong>🐾Moe Moe🐾</strong>”
 </div>
@@ -47,7 +47,7 @@
 - Sài Intel Core thì sài Ubuntu.
 - Còn Ryzen Core thì sài Debian (vì Ryzen méo có wifi 😐).
 - Đọc và làm theo [cái này](https://chromium.googlesource.com/chromium/src/+/HEAD/docs/android_build_instructions.md) trước.
-- Tới bước `gclient sync`, nếu thích đổi phiên bản thì (không cũng được).
+- Tới bước `gclient sync`, nếu thích đổi phiên bản thì đổi (không cũng được).
 
     ```
     git checkout tags/120.0.6076.4
