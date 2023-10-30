@@ -7,7 +7,7 @@
     <br>
     <strong>🐾Moe Moe🐾</strong> <em>- Bản nâng cấp của <a href="https://github.com/luanon404/Seledroid">Seledroid</a></em>
     <br>
-    “Đừng hỏi tôi sao lại đặt là <strong>🐾Moe Moe🐾</strong>”
+    “Đừng hỏi tại sao lại đặt tên là <strong>🐾Moe Moe🐾</strong>”
 </div>
 
 # I'm not Vietnamese?
@@ -46,7 +46,7 @@
 
 - Sài Intel Core thì sài Ubuntu.
 - Còn Ryzen Core thì sài Debian (vì Ryzen méo có wifi 😐).
-- Đọc và làm theo cái này trước [this docs](https://chromium.googlesource.com/chromium/src/+/HEAD/docs/android_build_instructions.md).
+- Đọc và làm theo [cái này](https://chromium.googlesource.com/chromium/src/+/HEAD/docs/android_build_instructions.md) trước.
 - Tới bước `gclient sync`, nếu thích đổi phiên bản thì (không cũng được).
 
     ```
