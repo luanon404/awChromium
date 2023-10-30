@@ -61,7 +61,7 @@ class AwChromium(context: Activity, allowHardwareAcceleration: Boolean = true) :
     allowContentAccess = true
     allowFileAccess = true
     databaseEnabled = true
-    setGeolocationEnabled(true)
+    setGeolocationEnabled(false)
     mediaPlaybackRequiresUserGesture = false
     javaScriptCanOpenWindowsAutomatically = true
     allowFileAccessFromFileURLs = false
@@ -69,7 +69,6 @@ class AwChromium(context: Activity, allowHardwareAcceleration: Boolean = true) :
     saveFormData = true
     layoutAlgorithm = AwSettings.LAYOUT_ALGORITHM_TEXT_AUTOSIZING
 }
-
         awContents = AwContents(
             awBrowserContext,
             this,
