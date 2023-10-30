@@ -50,31 +50,26 @@ class AwChromium(context: Activity, allowHardwareAcceleration: Boolean = true) :
         awPrivateSettings = AwSettings(
             context, true, false, false, false, false
         ).apply {
-            javaScriptEnabled = true
-            domStorageEnabled = true
-            useWideViewPort = true
-            builtInZoomControls = true
-            setSupportMultipleWindows(true)
-            loadWithOverviewMode = true
-            useWideViewPort = true
-            setSupportZoom(true)
-            displayZoomControls = false
-            allowContentAccess = true
-            allowFileAccess = true
-            databaseEnabled = true
-            setGeolocationEnabled(true)
-            mediaPlaybackRequiresUserGesture = false
-            builtInZoomControls = true
-            displayZoomControls = false
-            useWideViewPort = true
-            loadWithOverviewMode = true
-            javaScriptCanOpenWindowsAutomatically = true
-            allowFileAccessFromFileURLs = false
-            allowUniversalAccessFromFileURLs = false
-            saveFormData = true
-            databaseEnabled = true
-            layoutAlgorithm = AwSettings.LAYOUT_ALGORITHM_TEXT_AUTOSIZING
-        }
+    javaScriptEnabled = true
+    domStorageEnabled = true
+    useWideViewPort = true
+    builtInZoomControls = true
+    setSupportMultipleWindows(true)
+    loadWithOverviewMode = true
+    setSupportZoom(true)
+    displayZoomControls = false
+    allowContentAccess = true
+    allowFileAccess = true
+    databaseEnabled = true
+    setGeolocationEnabled(true)
+    mediaPlaybackRequiresUserGesture = false
+    javaScriptCanOpenWindowsAutomatically = true
+    allowFileAccessFromFileURLs = false
+    allowUniversalAccessFromFileURLs = false
+    saveFormData = true
+    layoutAlgorithm = AwSettings.LAYOUT_ALGORITHM_TEXT_AUTOSIZING
+}
+
         awContents = AwContents(
             awBrowserContext,
             this,
