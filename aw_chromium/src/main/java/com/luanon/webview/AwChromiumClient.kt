@@ -89,7 +89,6 @@ open class AwChromiumClient(private val context: Activity) : NullContentsClient(
     }
 
     override fun onShowCustomView(view: View, callback: CustomViewCallback) {
-        TODO("Fix black screen and full screen")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             context.window.insetsController!!.hide(android.R.style.Theme_NoTitleBar_Fullscreen)
         } else {
@@ -109,7 +108,6 @@ open class AwChromiumClient(private val context: Activity) : NullContentsClient(
     }
 
     override fun onHideCustomView() {
-        TODO("Fix black screen and full screen")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             context.window.insetsController!!.show(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
         } else {

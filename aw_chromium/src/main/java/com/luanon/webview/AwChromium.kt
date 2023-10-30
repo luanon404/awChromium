@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.os.Build
+import android.webkit.WebSettings
 import androidx.annotation.Keep
 import org.chromium.android_webview.AwBrowserContext
 import org.chromium.android_webview.AwBrowserProcess
@@ -21,8 +22,10 @@ import org.chromium.ui.base.ResourceBundle
 
 @SuppressLint("SetJavaScriptEnabled")
 @Suppress("ViewConstructor")
-class AwChromium(context: Activity, allowHardwareAcceleration: Boolean = true) : AwTestContainerView(context, allowHardwareAcceleration) {
-    private val awBrowserContext: AwBrowserContext = AwBrowserContext(AwBrowserContext.getDefault().nativeBrowserContextPointer)
+class AwChromium(context: Activity, allowHardwareAcceleration: Boolean = true) :
+    AwTestContainerView(context, allowHardwareAcceleration) {
+    private val awBrowserContext: AwBrowserContext =
+        AwBrowserContext(AwBrowserContext.getDefault().nativeBrowserContextPointer)
     private var awContents: AwContents
     private var awPrivateSettings: AwSettings
     private var awPrivateChromiumClient: AwChromiumClient
@@ -50,26 +53,26 @@ class AwChromium(context: Activity, allowHardwareAcceleration: Boolean = true) :
         awPrivateSettings = AwSettings(
             context, true, false, false, false, false
         ).apply {
+            allowContentAccess = true
+            allowFileAccess = true
+            allowFileAccessFromFileURLs = false
+            allowUniversalAccessFromFileURLs = false
+            builtInZoomControls = true
             cacheMode = WebSettings.LOAD_CACHE_ELSE_NETWORK
-    javaScriptEnabled = true
-    domStorageEnabled = true
-    useWideViewPort = true
-    builtInZoomControls = true
-    setSupportMultipleWindows(true)
-    loadWithOverviewMode = true
-    setSupportZoom(true)
-    displayZoomControls = false
-    allowContentAccess = true
-    allowFileAccess = true
-    databaseEnabled = true
-    setGeolocationEnabled(false)
-    mediaPlaybackRequiresUserGesture = false
-    javaScriptCanOpenWindowsAutomatically = true
-    allowFileAccessFromFileURLs = false
-    allowUniversalAccessFromFileURLs = false
-    saveFormData = true
-    layoutAlgorithm = AwSettings.LAYOUT_ALGORITHM_TEXT_AUTOSIZING
-}
+            databaseEnabled = true
+            displayZoomControls = false
+            domStorageEnabled = true
+            javaScriptCanOpenWindowsAutomatically = true
+            javaScriptEnabled = true
+            layoutAlgorithm = AwSettings.LAYOUT_ALGORITHM_TEXT_AUTOSIZING
+            loadWithOverviewMode = true
+            mediaPlaybackRequiresUserGesture = false
+            saveFormData = true
+            setGeolocationEnabled(false)
+            setSupportMultipleWindows(true)
+            setSupportZoom(true)
+            useWideViewPort = true
+        }
         awContents = AwContents(
             awBrowserContext,
             this,
