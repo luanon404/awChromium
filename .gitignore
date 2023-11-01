@@ -4,6 +4,7 @@
 .cxx
 local.properties
 .gradle
+gradle
 .idea
 build
 captures
