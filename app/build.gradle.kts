@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.luanon.awchromium"
+    namespace = "com.luanon.webdriver"
     compileSdk = 34
     buildToolsVersion = "34.0.0"
 
@@ -12,8 +12,8 @@ android {
         applicationId = "com.luanon.webdriver"
         minSdk = 24
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0.0-alpha01"
+        versionCode = 120
+        versionName = "120.0.6076.4"
         multiDexEnabled = false
     }
 
