@@ -12093,59 +12093,6 @@
                     }
                 }
             },
-            "build": {
-                "BuildConfig.java": {
-                    "dest": "org/chromium/build",
-                    "target": [
-                        "/home/luanon404/chromium/src/out/arm64/gen/android_webview/test/webview_instrumentation_apk/generated_java/input_srcjars/org/chromium/build/BuildConfig.java"
-                    ],
-                    "times": 1
-                },
-                "NativeLibraries.java": {
-                    "dest": "org/chromium/build",
-                    "target": [
-                        "/home/luanon404/chromium/src/out/arm64/gen/android_webview/test/webview_instrumentation_apk/generated_java/input_srcjars/org/chromium/build/NativeLibraries.java"
-                    ],
-                    "times": 1
-                },
-                "annotations": {
-                    "AlwaysInline.java": {
-                        "dest": "org/chromium/build/annotations",
-                        "target": [
-                            "/home/luanon404/chromium/src/build/android/java/src/org/chromium/build/annotations/AlwaysInline.java"
-                        ],
-                        "times": 1
-                    },
-                    "CheckDiscard.java": {
-                        "dest": "org/chromium/build/annotations",
-                        "target": [
-                            "/home/luanon404/chromium/src/build/android/java/src/org/chromium/build/annotations/CheckDiscard.java"
-                        ],
-                        "times": 1
-                    },
-                    "DoNotInline.java": {
-                        "dest": "org/chromium/build/annotations",
-                        "target": [
-                            "/home/luanon404/chromium/src/build/android/java/src/org/chromium/build/annotations/DoNotInline.java"
-                        ],
-                        "times": 1
-                    },
-                    "DoNotStripLogs.java": {
-                        "dest": "org/chromium/build/annotations",
-                        "target": [
-                            "/home/luanon404/chromium/src/build/android/java/src/org/chromium/build/annotations/DoNotStripLogs.java"
-                        ],
-                        "times": 1
-                    },
-                    "UsedByReflection.java": {
-                        "dest": "org/chromium/build/annotations",
-                        "target": [
-                            "/home/luanon404/chromium/src/build/android/java/src/org/chromium/build/annotations/UsedByReflection.java"
-                        ],
-                        "times": 1
-                    }
-                }
-            },
             "cc": {
                 "base": {
                     "CcFeatures.java": {
