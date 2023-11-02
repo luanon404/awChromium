@@ -47,21 +47,6 @@ class AwChromium(awContext: Activity, allowHardwareAcceleration: Boolean = true)
             context, true, false, false, false, false
         )
 
-//        AwShellResourceProvider.registerResources(this);
-//        AwBrowserProcess.loadLibrary(null);
-//
-//        setContentView(R.layout.testshell_activity);
-//
-//
-//        final String[] supportedModels = {"Pixel 6", "Pixel 6 Pro",};
-//        boolean useVulkan = Arrays.asList(supportedModels).contains(Build.MODEL);
-//        AwTestContainerView.installDrawFnFunctionTable(useVulkan);
-//        AwBrowserProcess.start();
-//        AwTestContainerView testContainerView = new AwTestContainerView(this, true);
-//        AwContentsClient awContentsClient = new AwChromiumClient(this);
-
-//        AwBrowserContext mBrowserContext = new AwBrowserContext(AwBrowserContext.getDefault().getNativeBrowserContextPointer());
-//        final AwSettings awSettings = new AwSettings(this /* context */, true /* isAccessFromFileURLsGrantedByDefault */, false /* supportsLegacyQuirks */, false /* allowEmptyDocumentPersistence */, false /* allowGeolocationOnInsecureOrigins */, false /* doNotUpdateSelectionOnMutatingSelectionRange */);
         // Required for WebGL conformance tests.
         awPrivateSettings.allowContentAccess = true
         awPrivateSettings.allowFileAccess = true
