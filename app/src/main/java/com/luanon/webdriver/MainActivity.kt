@@ -31,17 +31,16 @@ class MainActivity : AppCompatActivity() {
         urlBar1 = findViewById(R.id.url_bar_1)
         urlBar2 = findViewById(R.id.url_bar_2)
         awContainerView1 = findViewById(R.id.webview_container_1)
-        awContainerView2 = findViewById(R.id.webview_container_2);
+        awContainerView2 = findViewById(R.id.webview_container_2)
 
-                {
-                    TODO(
-                        "This cause content not draw\n" +
-                                "Create this 2 times can broken webview\n" +
-                                "Maybe try to create just 1 then clone it or something?"
-                    )
-                    AwTestContainerView(this, true)
-                }
-
+        TODO(
+            "This cause content not draw\n" +
+                    "Create this 2 times can broken webview\n" +
+                    "Maybe try to create just 1 then clone it or something?" +
+                    "Or maybe try to create 2 times but with different context?" +
+                    "Or maybe service?"
+        )
+        AwTestContainerView(this, true)
 
 //        awChromium1 = AwChromium(this)
 //        awChromium1.awContents.settings.apply {
