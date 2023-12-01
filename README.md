@@ -1,24 +1,11 @@
-<div align="center">
-    <kbd><img src="./assets/logo.png" width="256" height="256"></kbd>
-    <br>
-    “Logo tạo bằng <a href="https://www.bing.com/create">Dall·E-3</a>”
-    <br>
-    <strong>Android WebDriver</strong> dựa trên <strong>Chromium</strong>
-    <br>
-    <strong>🐾Moe Moe🐾</strong> <em>- Thế hệ tiếp theo của <a href="https://github.com/luanon404/Seledroid">Seledroid</a></em>
-    <br>
-    “Đừng hỏi tại sao lại đặt tên là <strong>🐾Moe Moe🐾</strong>”
-</div>
-
----
-
 # I'm not Vietnamese?
 
-- [![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/luanon404/Moe-Moe/blob/main/README.en.md)
+- [![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/luanon404/awChromium/blob/main/README.en.md)
 
 # Lưu ý nè
 
-- > **_Chưa sài được_** <= Đọc cái này đi
+- **Siêu Lag**.
+- **Không thể đa luồng**.
 - Phiên bản WebView hiện tại: [120.0.6076.4](https://chromium.googlesource.com/chromium/src.git/+/refs/tags/120.0.6076.4).
 - Đừng có đụng class hay function có `@JNINamespace` hoặc `@CalledByNative` phỏng tay đó.
 
@@ -28,21 +15,6 @@
 - Vẫn đang cố xóa những file không cần thiết.
 - Càng ít file càng đỡ fix bug🫣.
 - “~~Nếu không fix được thì xóa cmnr nó, khỏi fix chi cho mệt~~”
-
-# Bản phát hành
-
-- Phiên bản nào cũng có 3 bản như này.
-
-    | Release | JniLibs.zip | AwChromium.aar | Moe-Moe.apk |
-    |:-------:|:-----------:|:--------------:|:-----------:|
-    |   CP    |     Có      |     Không      |    Không    |
-    |   3R    |     Có      |     Không      |    Không    |
-    |   TR    |     Có      |       Có       |     Có      |
-
-- Lưu ý (CP, 3R, TR dịch từ bên english)
-    - CP: Copy và paste code mới vô code cũ.
-    - 3R: Xem xét, làm đẹp và xóa mấy cái không cần.
-    - TR: Thử nghiệm và xuất bản.
 
 # Cho ai muốn build (cực lắm)
 
@@ -96,7 +68,7 @@
     - Còn `-j11` là chạy 11 / 12 threads vì chả ai muốn PC chạy cháy máy, chuẩn không?
     - Với cần cỡ `30GB` RAM để build nếu không muốn đang build thì bị kill vì tràn RAM.
 - Build xong thì chạy `tools/blind_copy.py` để copy shared object or layout, style, image, ...
-- Xong chạy `tools/path2java.py` để lấy file Java (chỉ file cần thui).
+- Xong chạy `tools/path2java.py` để lấy chỉ những file Java cần thiết.
 
 # Tham khảo
 

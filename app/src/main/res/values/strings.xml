@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">Moe Moe</string>
+    <string name="app_name">awChromium</string>
+    <string name="enter_url">Enter URL</string>
+    <string name="forward">Forward</string>
+    <string name="back">Back</string>
+    <string name="refresh">Refresh</string>
 </resources>

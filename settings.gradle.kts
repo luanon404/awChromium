@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Moe-Moe"
+rootProject.name = "awChromium"
 include(":app")
 include(":aw_chromium")

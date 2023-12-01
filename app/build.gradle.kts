@@ -4,12 +4,12 @@ plugins {
 }
 
 android {
-    namespace = "com.luanon.webdriver"
+    namespace = "aw.chromium.demo"
     compileSdk = 34
     buildToolsVersion = "34.0.0"
 
     defaultConfig {
-        applicationId = "com.luanon.webdriver"
+        applicationId = "aw.chromium.demo"
         minSdk = 24
         targetSdk = 34
         versionCode = 120
