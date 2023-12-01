@@ -2,7 +2,7 @@
 
 - **Lag**.
 - **Cant MultiThread**.
-- Example code: [demo](https://github.com/luanon404/awChromium/tree/120.0.6076.4/app/src/main/java/aw/chromium/demo).
+- Example code: [demo](https://github.com/luanon404/awChromium/tree/main/app/src/main/java/aw/chromium/demo).
 - Current WebView version: [120.0.6076.4](https://chromium.googlesource.com/chromium/src.git/+/refs/tags/120.0.6076.4).
 - Do not modify classes or functions with the `@JNINamespace` or `@CalledByNative` annotations.
 
