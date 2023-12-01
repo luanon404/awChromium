@@ -6,6 +6,7 @@
 
 - **Siêu Lag**.
 - **Không thể đa luồng**.
+- Code ví dụ: [demo](https://github.com/luanon404/awChromium/tree/120.0.6076.4/app/src/main/java/aw/chromium/demo).
 - Phiên bản WebView hiện tại: [120.0.6076.4](https://chromium.googlesource.com/chromium/src.git/+/refs/tags/120.0.6076.4).
 - Đừng có đụng class hay function có `@JNINamespace` hoặc `@CalledByNative` phỏng tay đó.
 
