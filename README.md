@@ -6,6 +6,8 @@
 
 - **Siêu Lag**.
 - **Không thể đa luồng**.
+- Phiên bản Android Studio: `Iguana | 2023.2.1 Canary 16 for Windows`.
+- Link tải: [Android Studio](https://developer.android.com/studio/preview).
 - Code ví dụ: [demo](https://github.com/luanon404/awChromium/tree/main/app/src/main/java/aw/chromium/demo).
 - Phiên bản WebView hiện tại: [120.0.6076.4](https://chromium.googlesource.com/chromium/src.git/+/refs/tags/120.0.6076.4).
 - Đừng có đụng class hay function có `@JNINamespace` hoặc `@CalledByNative` phỏng tay đó.
@@ -64,7 +66,7 @@
 
 - Thắc mắc về `target_cpu` thì bấm vô [link này](https://chromium.googlesource.com/chromium/src/+/HEAD/docs/android_build_instructions.md#figuring-out-target_cpu).
 - Sau đó mở terminal, nhập `cd chromium/src` rồi chạy `autoninja -C out/$abi -j11 webview_instrumentation_apk` để bắt đầu build.
-- Lưu ý
+- Lưu ý:
     - `$abi` đặt là gì cũng được, chạy lệnh này `gn gen out/$abi` thì nó là tên folder thui.
     - Còn `-j11` là chạy 11 / 12 threads vì chả ai muốn PC chạy cháy máy, chuẩn không?
     - Với cần cỡ `30GB` RAM để build nếu không muốn đang build thì bị kill vì tràn RAM.

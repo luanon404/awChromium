@@ -2,6 +2,8 @@
 
 - **Lag**.
 - **Cant MultiThread**.
+- Android Studio version: `Iguana | 2023.2.1 Canary 16 for Windows`.
+- Download link: [Android Studio](https://developer.android.com/studio/preview).
 - Example code: [demo](https://github.com/luanon404/awChromium/tree/main/app/src/main/java/aw/chromium/demo).
 - Current WebView version: [120.0.6076.4](https://chromium.googlesource.com/chromium/src.git/+/refs/tags/120.0.6076.4).
 - Do not modify classes or functions with the `@JNINamespace` or `@CalledByNative` annotations.
@@ -60,7 +62,7 @@
 
 - You can find the available `target_cpu` information in [this link](https://chromium.googlesource.com/chromium/src/+/HEAD/docs/android_build_instructions.md#figuring-out-target_cpu).
 - Then open terminal and `cd chromium/src` then run `autoninja -C out/$abi -j11 webview_instrumentation_apk` to start build.
-- Note
+- Note:
     - `$abi` can be any name you prefer when running `gn gen out/$abi`, it's just the folder name.
     - The option `-j11` means that only use 11 / 12 threads because nobody wants their PC running at 100% CPU usage, yet?
     - Also, you'll need approximately `30GB` of RAM for a successful build if you want to avoid it being terminated due to running out of RAM.
