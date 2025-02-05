@@ -30,38 +30,11 @@
 - And config `out/$abi/args.gn` like this:
 
     ```
-    # Set build arguments here. See gn help buildargs.
-    
-    target_os = "android"
-    target_cpu = "arm64"
-    
-    symbol_level = 0
-    blink_symbol_level = 0
-    v8_symbol_level = 0
-    
-    is_debug = false
-    is_java_debug = false
-    is_clang = true
-    fatal_linker_warnings = false
-    treat_warnings_as_errors = false
-    
-    clang_use_chrome_plugins = false
-    
-    enable_nacl = false
-    enable_iterator_debugging = false
-    enable_remoting = false
-    
-    use_thin_lto = true
-    use_debug_fission = false
-    
-    dcheck_always_on = false
-    update_android_aar_prebuilts = true
-    proprietary_codecs = true
-    ffmpeg_branding = "Chrome"
+    Take from README.md
     ```
 
 - You can find the available `target_cpu` information in [this link](https://chromium.googlesource.com/chromium/src/+/HEAD/docs/android_build_instructions.md#figuring-out-target_cpu).
-- Then open terminal and `cd chromium/src` then run `autoninja -C out/$abi -j11 webview_instrumentation_apk` to start build.
+- Then open terminal and `cd chromium/src` then run `autoninja -C out/$abi -j11 system_webview_apk` to start build.
 - Note:
     - `$abi` can be any name you prefer when running `gn gen out/$abi`, it's just the folder name.
     - The option `-j11` means that only use 11 / 12 threads because nobody wants their PC running at 100% CPU usage, yet?
