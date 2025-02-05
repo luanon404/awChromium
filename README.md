@@ -1,3 +1,12 @@
+# ⚠️ WARNING! READ THIS BEFORE BUILDING! ⚠️  
+
+# If you are planning to rebuild this,  
+# MAKE SURE to build `system_webview_apk`, NOT `webview_instrumentation_apk`!  
+
+# 🚨 `webview_instrumentation_apk` is for DEBUG/TESTING ONLY—**NOT** FOR PRODUCTION! 🚨  
+
+# ❌ DO NOT use it, it’s a BAD practice! ❌  
+
 # I'm not Vietnamese?
 
 - [![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/luanon404/awChromium/blob/main/README.en.md)
@@ -34,38 +43,43 @@
 - Paste cái này vô `out/$abi/args.gn`:
 
     ```
-    # Set build arguments here. See gn help buildargs.
-    
+    # ========== Core ==========
     target_os = "android"
     target_cpu = "arm64"
+    is_official_build = true
+    is_debug = false
     
+    # ========== Symbols ==========
     symbol_level = 0
     blink_symbol_level = 0
     v8_symbol_level = 0
     
-    is_debug = false
-    is_java_debug = false
-    is_clang = true
-    fatal_linker_warnings = false
-    treat_warnings_as_errors = false
-    
-    clang_use_chrome_plugins = false
-    
-    enable_nacl = false
-    enable_iterator_debugging = false
-    enable_remoting = false
-    
+    # ========== Optimization ==========
     use_thin_lto = true
-    use_debug_fission = false
+    optimize_for_size = false
+    chrome_pgo_phase = 0
+    use_partition_alloc = true
+    use_partition_alloc_as_malloc = true
     
-    dcheck_always_on = false
+    # ========== Feature Removal ==========
+    enable_ipc_logging = false
+    
+    # ========== Android Specifics ==========
     update_android_aar_prebuilts = true
-    proprietary_codecs = true
-    ffmpeg_branding = "Chrome"
+    enable_android_site_isolation = false
+    
+    # ========== Security/Stability ==========
+    treat_warnings_as_errors = false
+    fatal_linker_warnings = false
+    dcheck_always_on = false
+    v8_dcheck_always_on = false
+    devtools_dcheck_always_on = false
+    backup_ref_ptr_extra_oob_checks = true
+    enable_backup_ref_ptr_support = true
     ```
 
 - Thắc mắc về `target_cpu` thì bấm vô [link này](https://chromium.googlesource.com/chromium/src/+/HEAD/docs/android_build_instructions.md#figuring-out-target_cpu).
-- Sau đó mở terminal, nhập `cd chromium/src` rồi chạy `autoninja -C out/$abi -j11 webview_instrumentation_apk` để bắt đầu build.
+- Sau đó mở terminal, nhập `cd chromium/src` rồi chạy `autoninja -C out/$abi -j11 system_webview_apk` để bắt đầu build.
 - Lưu ý:
     - `$abi` đặt là gì cũng được, chạy lệnh này `gn gen out/$abi` thì nó là tên folder thui.
     - Còn `-j11` là chạy 11 / 12 threads vì chả ai muốn PC chạy cháy máy, chuẩn không?
